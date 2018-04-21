@@ -44,7 +44,8 @@
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label" for="mujer" style="padding-right: 5px">Mujer</label>
-                            <input class="form-check-input" type="radio" name="sexo" id="mujer" value="mujer">                    </div>
+                            <input class="form-check-input" type="radio" name="sexo" id="mujer" value="mujer">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group col-md-3">
@@ -80,22 +81,23 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                        <label for="sexo">Sexo</label>
-                        <div class="form-check" style="padding: 0">
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label" for="hombre" style="padding-right: 5px">Hombre</label>
-                                <input class="form-check-input" type="radio" name="sexo" id="hombre" value="hombre">
-                            </div>
+                    <label for="esEmpresa">Es Empresa</label>
+                    <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
-                            <label class="form-check-label" for="mujer" style="padding-right: 5px">Mujer</label>
-                            <input class="form-check-input" type="radio" name="sexo" id="mujer" value="mujer">                    </div>
+                          <label class="form-check-label" for="si" style="padding-right: 5px">Si</label>
+                            <input class="form-check-input" type="radio" name="esEmpresa" id="si" value="si">
                         </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="no" style="padding-right: 5px">No</label>
+                        <input class="form-check-input" type="radio" name="esEmpresa" id="no" value="no">
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
-    </div>       
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -107,7 +109,7 @@
 $('.nacionalidad').select2({
     placeholder:'Selecciona tu nacionalidad',
   ajax: {
-    url: 'http://localhost/nacionalidad',
+    url: 'http://localhost/componentes/nacionalidad',
     dataType: 'json',
     type:'post'
   }
@@ -115,7 +117,7 @@ $('.nacionalidad').select2({
 $('.municipioOrigen').select2({
     placeholder:'Selecciona tu municipio de origen',
   ajax: {
-    url: 'http://localhost/municipios',
+    url: 'http://localhost/componentes/municipios',
     dataType: 'json',
     type:'post'
   }
@@ -123,7 +125,7 @@ $('.municipioOrigen').select2({
 $('.etnia').select2({
     placeholder:'Selecciona tu etnia',
   ajax: {
-    url: 'http://localhost/etnias',
+    url: 'http://localhost/componentes/etnias',
     dataType: 'json',
     type:'post'
   }
@@ -131,7 +133,7 @@ $('.etnia').select2({
 $('.lengua').select2({
     placeholder:'Selecciona tu lengua',
   ajax: {
-    url: 'http://localhost/lengua',
+    url: 'http://localhost/lengua/componentes',
     dataType: 'json',
     type:'post'
   }
