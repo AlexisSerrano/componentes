@@ -5,6 +5,10 @@ Route::get('/', function () {
     return view('prueba');
 });
 
+Route::get('/prueba2', function () {
+    return view('prueba2');
+});
+
 Route::post('persona','PersonaController@guardarPersona');
 
 Route::post('personamini','PersonaController@_guardar');
