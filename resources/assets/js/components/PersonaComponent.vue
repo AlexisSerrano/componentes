@@ -21,8 +21,6 @@
             </div>
             </div>
 
-
-            
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="sexo">Sexo</label>
@@ -53,7 +51,6 @@
                     </select>
                 </div>
             </div>
-
 
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -98,6 +95,7 @@
 </template>
 
 <script>
+import swal from 'sweetalert2'
     export default {
        data(){
            return{
@@ -175,9 +173,19 @@
                     lengua: lenguaS,
                     esEmpresa: this.esEmpresa
                 }).then(response => {
-                    console.log(response);
+                    swal({
+                        title: 'Guardado Correctamente!',
+                        text: 'Esta persona fue guardada exitosamente',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    })
                 }).catch(error => {
-                    console.log(error);
+                     swal({
+                        title: 'Guardado Incorrecto!',
+                        text: 'Esta persona no fue posible guardarla',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    })
                 })
             }
        }
