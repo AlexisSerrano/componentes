@@ -17,6 +17,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('persona', require('./components/PersonaComponent.vue'));
+Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
 
 const app = new Vue({
     el: '#app'
