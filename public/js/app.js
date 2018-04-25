@@ -53082,7 +53082,7 @@ exports = module.exports = __webpack_require__(43)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -53643,6 +53643,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53711,6 +53720,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get(urlLenguas).then(function (response) {
                 _this4.lenguas = response.data;
             });
+        },
+        uppercase: function uppercase() {
+            this.nombres = nombres.toUpperCase();
         },
         crearPersona: function crearPersona() {
             var urlLenguas = 'addPersona';
@@ -54900,6 +54912,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container mt-3" }, [
+    _vm._v("\n        @if($errors->any())\n            "),
+    _c("div", { staticClass: "alert alert-danger" }, [
+      _c("ul", [
+        _vm._v(
+          "\n                    @foreach ($errors->all() as $error)\n                        "
+        ),
+        _c("li", [_vm._v(_vm._s(_vm.$error))]),
+        _vm._v("\n                    @endforeach\n                ")
+      ])
+    ]),
+    _vm._v("\n        @endif\n    "),
     _c(
       "form",
       {
@@ -54932,6 +54955,7 @@ var render = function() {
               },
               domProps: { value: _vm.nombres },
               on: {
+                keypress: _vm.uppercase,
                 input: function($event) {
                   if ($event.target.composing) {
                     return

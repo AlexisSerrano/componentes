@@ -5,7 +5,7 @@
             <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="nombres">Nombre</label>
-                <input type="text" class="form-control" id="nombres" v-model="nombres" placeholder="Ingrese el nombre">
+                <input type="text" class="form-control" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" @keypress="uppercase">
             </div>
             <div class="form-group col-md-3">
                 <label for="primerAp">Primer Apellido</label>
@@ -152,6 +152,9 @@ import swal from 'sweetalert2'
                 axios.get(urlLenguas).then(response => {
                     this.lenguas = response.data
                 });
+            },
+            uppercase: function(){
+                this.nombres = nombres.toUpperCase();
             },
             crearPersona: function(){
                 var urlLenguas = 'addPersona';

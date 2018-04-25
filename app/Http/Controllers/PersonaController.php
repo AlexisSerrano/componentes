@@ -13,6 +13,7 @@ use App\Http\Models\OcupacionModel;
 use App\Http\Models\EstadoCivilModel;
 use App\Http\Models\EscolaridadModel;
 use App\Http\Models\ReligionModel;
+use App\Http\Requests\PersonaRequest;
 
 class PersonaController extends Controller{
 	public function index(){
@@ -27,7 +28,7 @@ class PersonaController extends Controller{
 		return view("prueba",compact("nacionalidades","municipios","etnias","lenguas"));
 	}
  
-	public function addPersona(Request $request){
+	public function addPersona(PersonaRequest $request){
 		$persona=new PersonaModel();		
 		$persona->nombres=$request->input('nombres');		
 		$persona->primerAp=$request->input('primerAp');
