@@ -18,6 +18,7 @@ window.Vue = require('vue');
 
 Vue.component('persona', require('./components/PersonaComponent.vue'));
 Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
+Vue.component('select2', require('./components/SelectComponent.vue'));
 
 const app = new Vue({
     el: '#app'
