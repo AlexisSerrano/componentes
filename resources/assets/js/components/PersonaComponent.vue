@@ -3,22 +3,22 @@
         <form v-on:submit.prevent="crearPersona">
             
             <div class="form-row">
-            <div class="form-group col-md-3">
-                <label for="nombres">Nombre</label>
-                <input type="text" class="form-control" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" @keypress="uppercase">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="primerAp">Primer Apellido</label>
-                <input type="text" class="form-control" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="segundoAp">Segundo Apellido</label>
-                <input type="text" class="form-control" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                <input type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento">
-            </div>
+                <div class="form-group col-md-3">
+                    <label for="nombres">Nombre</label>
+                    <input type="text" class="form-control" id="nombres" :value="nombres | uppercase" @input="nombres = $event.target.value" placeholder="Ingrese el nombre">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="primerAp">Primer Apellido</label>
+                    <input type="text" class="form-control" id="primerAp" :value="primerAp | uppercase" @input="primerAp = $event.target.value" placeholder="Ingrese el primer apellido">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="segundoAp">Segundo Apellido</label>
+                    <input type="text" class="form-control" id="segundoAp" :value="segundoAp | uppercase" @input="segundoAp = $event.target.value" placeholder="Ingrese el segundo apellido">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento">
+                </div>
             </div>
 
             <div class="form-row">
@@ -27,26 +27,26 @@
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label" for="hombre" style="padding-right: 5px">Hombre</label>
-                            <input class="form-check-input" type="radio" v-model="sexo" id="hombre" value="hombre">
+                            <input class="form-check-input" type="radio" v-model="sexo" id="hombre" value="HOMBRE">
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label" for="mujer" style="padding-right: 5px">Mujer</label>
-                            <input class="form-check-input" type="radio" v-model="sexo" id="mujer" value="mujer">
+                            <input class="form-check-input" type="radio" v-model="sexo" id="mujer" value="MUJER">
                         </div>
                     </div>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="rfc">R.F.C</label>
-                    <input type="text" class="form-control" id="rfc" v-model="rfc" placeholder="R.F.C">
+                    <input type="text" class="form-control" id="rfc" :value="rfc | uppercase" @input="rfc = $event.target.value" placeholder="R.F.C">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="rfc">Curp</label>
-                    <input type="text" class="form-control" id="curp" v-model="curp" placeholder="Curp">
+                    <input type="text" class="form-control" id="curp" :value="curp | uppercase" @input="curp = $event.target.value" placeholder="Curp">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="nacionalidad">Nacionalidad</label>    
                     <select class="nacionalidad" id="nacionalidad" style="width: 100%">
-                        <option>Seleccione nacionalidad</option>
+                        <option value="0">Seleccione nacionalidad</option>
                         <option v-for="nacionalidad in nacionalidades" :value="nacionalidad.id" :key="nacionalidad.id">{{nacionalidad.nombre}}</option>
                     </select>
                 </div>
@@ -56,21 +56,21 @@
                 <div class="form-group col-md-3">
                     <label for="municipio">Municipio de Origen</label>    
                     <select class="municipio" id="municipio" style="width: 100%">
-                        <option>Seleccione municipio</option>
+                        <option value="0">Seleccione municipio</option>
                         <option v-for="municipio in municipios" :value="municipio.id" :key="municipio.id">{{municipio.nombre}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="etnia">Etnia</label>    
                     <select class="etnia" id="etnia" style="width: 100%">
-                        <option>Seleccione etnia</option>
+                        <option value="0">Seleccione etnia</option>
                         <option v-for="etnia in etnias" :value="etnia.id" :key="etnia.id">{{etnia.nombre}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="lengua">Lengua</label>    
                     <select class="lengua" id="lengua" style="width: 100%">
-                        <option>Seleccione lengua</option>
+                        <option value="0">Seleccione lengua</option>
                         <option v-for="lengua in lenguas" :value="lengua.id" :key="lengua.id">{{lengua.nombre}}</option>
                     </select>
                 </div>
@@ -125,9 +125,15 @@ import swal from 'sweetalert2'
        },
         mounted() {
             $("select").select2({
-                placeholder:"Seleccione"
+                placeholder:"Seleccione una opción"
             });
         },
+        filters:{
+            uppercase: function (str) {
+            return str.toUpperCase()
+            }
+        }
+        ,
         methods:{
             getNacionalidades: function(){
                 var urlNacionalidades = 'getNacionalidades';
@@ -153,16 +159,13 @@ import swal from 'sweetalert2'
                     this.lenguas = response.data
                 });
             },
-            uppercase: function(){
-                this.nombres = nombres.toUpperCase();
-            },
             crearPersona: function(){
-                var urlLenguas = 'addPersona';
+                var urlPersona = 'addPersona';
                 var nacionalidadS = $("#nacionalidad").select2('data')[0].id;
                 var municipioS = $("#municipio").select2('data')[0].id;
                 var etniaS = $("#etnia").select2('data')[0].id;
                 var lenguaS = $("#lengua").select2('data')[0].id;
-                axios.post(urlLenguas,{
+                axios.post(urlPersona,{
                     nombres: this.nombres,
                     primerAp: this.primerAp,
                     segundoAp: this.segundoAp,
@@ -176,6 +179,15 @@ import swal from 'sweetalert2'
                     lengua: lenguaS,
                     esEmpresa: this.esEmpresa
                 }).then(response => {
+                    $('select').val(0).trigger('change');
+                    this.nombres='',
+                    this.primerAp='',
+                    this.segundoAp='',
+                    this.fechaNacimiento='',
+                    this.sexo='',
+                    this.rfc='',
+                    this.curp='',
+                    this.esEmpresa=''
                     swal({
                         title: 'Guardado Correctamente!',
                         text: 'Esta persona fue guardada exitosamente',

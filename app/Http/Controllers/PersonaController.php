@@ -9,11 +9,6 @@ use App\Http\Models\NacionalidadesModel;
 use App\Http\Models\EtniaModel;
 use App\Http\Models\LenguasModel;
 use App\Http\Models\CatMunicipio;
-use App\Http\Models\OcupacionModel;
-use App\Http\Models\EstadoCivilModel;
-use App\Http\Models\EscolaridadModel;
-use App\Http\Models\ReligionModel;
-use App\Http\Requests\PersonaRequest;
 
 class PersonaController extends Controller{
 	public function index(){
@@ -25,10 +20,10 @@ class PersonaController extends Controller{
 		->select('nombre','id')->get();
 		$lenguas=LenguasModel::orderBy('nombre','ASC')
 		->select('nombre','id')->get();
-		return view("prueba",compact("nacionalidades","municipios","etnias","lenguas"));
+		return view("persona",compact("nacionalidades","municipios","etnias","lenguas"));
 	}
  
-	public function addPersona(PersonaRequest $request){
+	public function addPersona(Request $request){
 		$persona=new PersonaModel();		
 		$persona->nombres=$request->input('nombres');		
 		$persona->primerAp=$request->input('primerAp');
@@ -52,7 +47,7 @@ class PersonaController extends Controller{
 		return $nacionalidades;
 	}
 	public function getMunicipios(){
-		$municipios=catMunicipio::orderBy('nombre','ASC')
+		$municipios=CatMunicipio::orderBy('nombre','ASC')
 		->select('nombre','id')->get();
 		return $municipios;
 	}

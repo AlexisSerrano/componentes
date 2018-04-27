@@ -13,52 +13,21 @@ use App\Http\Models\Domicilio;
 
 class DomicilioController extends Controller
 {
-       public function mostrarEstados(Request $request){
-        $nombre=$request->input('q');
-        $formatted['results']=[];
-        foreach(CatEstado::where('nombre','LIKE','%'.$nombre.'%')->get() as $estado){
-            $formatted['results'][] = ['id' => $estado->id, 'text' => $estado->nombre];
-        }
-        return \Response::json($formatted);
-    }
-    public function mostrarMunicipios(Request $request){
-        $id=$request->input('q');
-        $nombre=$request->input('q2');
-        $formatted['results']=[];
-        foreach(CatMunicipio::where('idEstado',$id)->where('nombre','like','%'.$nombre.'%')->get() as $municipio){
-            $formatted['results'][] = ['id' => $municipio->id, 'text' => $municipio->nombre];
-        }
-        return \Response::json($formatted);
-    }
-        public function mostrarLocalidades(Request $request){
-        $id=$request->input('q');
-        $nombre=$request->input('q2');
-        $formatted['results']=[];
-        foreach(CatLocalidad::where('idMunicipio',$id)->where('nombre','like','%'.$nombre.'%')->get() as $localidad){
-            $formatted['results'][] = ['id' => $localidad->id, 'text' => $localidad->nombre];
-        }
-        return \Response::json($formatted);
-    }
-        public function mostrarCodigoPostal(Request $request){
-            $id=$request->input('q');
-            $nombre=$request->input('q2');
-            $formatted['results']=[];
-            foreach (CatColonia::where('idMunicipio',$id)->where('codigoPostal','like','%'.$nombre.'%')->get() as $cpostal){
-                $formatted['results'][] = ['id' => $cpostal->codigoPostal, 'text' => $cpostal->codigoPostal];
-            }
-            return \Response::json($formatted);
-        }
-        
-        public function mostrarColonias(Request $request){
-        $id=$request->input('q');
-        $nombre=$request->input('q2');
-        $formatted['results']=[];
-        foreach(CatColonia::where('codigoPostal',$id)->where('nombre','like','%'.$nombre.'%')->get() as $colonia){
-            $formatted['results'][] = ['id' => $colonia->id, 'text' => $colonia->nombre];
-        }
-        return \Response::json($formatted);
-    }
-     public function guardarDomicilio(Request $request){
+	public function index(){
+		$estados=catEstado::orderBy('nombre', 'ASC')
+		->select('nombre','id')->get();
+		$municipios=catMunicipio::orderBy('nombre','ASC')
+		->select('nombre','id')->get();
+		$localidades=catLocalidad::orderBy('nombre','ASC')
+		->select('nombre','id')->get();
+		$colonias=catColonia::orderBy('nombre','ASC')
+        ->select('nombre','id')->get();
+        $codigosPostales=catColonia::orderBy('nombre','ASC')
+		->select('codigoPostal','id')->get();
+		return view("domicilio",compact("estados","municipios","localidades","colonias","codigosPostales"));
+	}
+
+     public function addDomicilio(Request $request){
         $domicilio=new Domicilio();
         $domicilio->idMunicipio=$request->input('municipio');
         $domicilio->idLocalidad=$request->input('localidad');
@@ -71,4 +40,30 @@ class DomicilioController extends Controller
         $domicilio->save();
         return $domicilio;
     }
+
+    public function getEstados(){
+		$estados=CatEstado::orderBy('nombre', 'ASC')
+		->select('nombre','id')->get();
+		return $estados;
+	}
+	public function getMunicipios(){
+		$municipios=CatMunicipio::orderBy('nombre','ASC')
+		->select('nombre','id')->get();
+		return $municipios;
+	}
+	public function getLocalidades(){
+		$localidades=CatLocalidad::orderBy('nombre','ASC')
+		->select('nombre','id')->get();
+		return $localidades;
+	}
+	public function getColonias(){
+		$colonias=CatColonia::orderBy('nombre','ASC')
+		->select('nombre','id')->get();
+		return $colonias;
+    }
+    public function getCodigosPostales(){
+		$codigosPostales=CatColonia::orderBy('nombre','ASC')
+		->select('codigoPostal','id')->get();
+		return $codigosPostales;
+	}
 }
