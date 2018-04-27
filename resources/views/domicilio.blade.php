@@ -13,9 +13,9 @@
     
   </head>
   <body>
-    <div id="app">
-        <domicilio></domicilio>
-    </div>
+	    <div id="app">
+            <domicilio></domicilio>
+	    </div>
   </body> 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -5,31 +5,25 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="estado">Entidad Federativa</label>    
-                    <select class="estado" id="estado" style="width: 100%">
-                        <option value="0">Seleccione su entidad federativa</option>
-                        <option v-for="estado in estados" :value="estado.id" :key="estado.id">{{estado.nombre}}</option>
-                    </select>
+                    <select2 :options="estados" v-model="estado" @input="getMunicipios" id="estado"></select2>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="municipio">Municipios</label>    
-                    <select class="municipio" id="municipio" style="width: 100%">
-                        <option value="0">Seleccione su municipio</option>
-                        <option v-for="municipio in municipios" :value="municipio.id" :key="municipio.id">{{municipio.nombre}}</option>
-                    </select>
+                    <label for="municipio">Municipios</label>  
+                    <select2 :options="municipios" v-model="municipio" @input="getLocalidades">
+                        <option value="0">Seleccione Municipio</option>
+                    </select2>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="localidad">Localidades</label>    
-                    <select class="localidad" id="localidad" style="width: 100%">
-                        <option value="0">Seleccione su localidad</option>
-                        <option v-for="localidad in localidades" :value="localidad.id" :key="localidad.id">{{localidad.nombre}}</option>
-                    </select>
+                    <select2 :options="localidades" v-model="localidad" @input="getCodigosPostales">
+                        <option value="0">Seleccione Localidad</option>
+                    </select2>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="codigoPostal">Codigo Postal</label>    
-                    <select class="codigoPostal" id="codigoPostal" style="width: 100%">
-                        <option value="0">Seleccione su codigo postal</option>
-                        <option v-for="codigoPostal in codigosPostales" :value="codigoPostal.id" :key="codigoPostal.id">{{codigoPostal.nombre}}</option>
-                    </select>
+                    <select2 :options="codigosPostales" v-model="codigoPostal" @input="getColonias">
+                        <option value="0">Seleccione Codigo Postal</option>
+                    </select2>
                 </div>
             </div>
 
@@ -37,10 +31,9 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="colonia">Colonias</label>    
-                    <select class="colonia" id="colonia" style="width: 100%">
-                        <option value="0">Seleccione su colonia</option>
-                        <option v-for="colonia in colonias" :value="colonia.id" :key="colonia.id">{{colonia.nombre}}</option>
-                    </select>
+                    <select2 :options="colonias" v-model="colonia">
+                        <option value="0">Seleccione colonia</option>
+                    </select2>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="calle">Calle</label>
@@ -64,74 +57,81 @@
 <script>
 import swal from 'sweetalert2'
     export default {
-       data(){
-           return{
-               estados: [],
-               municipios: [],
-               localidades: [],
-               codigosPostales: [],
-               colonias: [],
-               calle: '',
-               numExterno: '',
-               numInterno: ''
-           }
-       },
-       created: function(){
-           this.getEstados();
-           this.getMunicipios();
-           this.getLocalidades();
-           this.getCodigosPostales();
-           this.getColonias();
-       },
-        mounted() {
-            $("select").select2({
-                placeholder:"Seleccione una opción"
-            });
+        data(){
+            return{
+                estado:'',
+                municipio:'0',
+                localidad:'0',
+                codigoPostal:'0',
+                colonia:'0',
+                estados: [],
+                municipios: [],
+                localidades: [],
+                codigosPostales: [],
+                colonias: [],
+                calle: '',
+                numExterno: '',
+                numInterno: ''
+            }
+        },
+        mounted: function () {
+            this.getEstados()
         },
         methods:{
+            alerta: function(){
+                swal({
+                    title: 'Metodo Funcionando!',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                })
+            },
             getEstados: function(){
-                var urlEstados = 'getEstados';
+                var urlEstados = 'getEstados2';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
                 });
             },
             getMunicipios: function(){
-                var urlMunicipios = 'getMunicipios';
-                axios.get(urlMunicipios).then(response => {
-                    this.municipios = response.data
-                });
+                if(this.estado!=''){
+                    var urlMunicipios = 'getMunicipios2/'+this.estado;
+                    axios.get(urlMunicipios).then(response => {
+                        this.municipios = response.data
+                    });
+                }
+                
             },
             getLocalidades: function(){
-                var urlLocalidades = 'getLocalidades';
-                axios.get(urlLocalidades).then(response => {
-                    this.localidades = response.data
-                });
+                if(this.municipio!=''){
+                    var urlLocalidades = 'getLocalidades2/'+this.municipio;
+                    axios.get(urlLocalidades).then(response => {
+                        this.localidades = response.data
+                    });
+                }
+            },
+            getCodigosPostales: function(){
+                if(this.municipio!=''){
+                    var urlCodigosPostales = 'getCodigosPostales2/'+this.municipio;
+                    axios.get(urlCodigosPostales).then(response => {
+                        this.codigosPostales = response.data
+                    });
+                }
             },
             getColonias: function(){
-                var urlColonias = 'getColonias';
-                axios.get(urlColonias).then(response => {
-                    this.colonias = response.data
-                });
-            },
-          getCodigosPostales: function(){
-                var urlCodigosPostales = 'getCodigosPostales';
-                axios.get(urlCodigosPostales).then(response => {
-                    this.codigosPostales = response.data
-                });
+                if(this.codigoPostal!=''){
+                    var urlColonias = 'getColonias2/'+this.codigoPostal;
+                    axios.get(urlColonias).then(response => {
+                        this.colonias = response.data
+                    });
+                }
             },
             crearDomicilio: function(){
                 var urlDomicilio = 'addDomicilio';
-                var estadoS = $("#estado").select2('data')[0].id;
-                var municipioS = $("#municipio").select2('data')[0].id;
-                var localidadS = $("#localidad").select2('data')[0].id;
-                var coloniaS = $("#colonia").select2('data')[0].id;
-                var codigoPostalS = $("#codigoPostal").select2('data')[0].id;
                 axios.post(urlDomicilio,{
-                    estado: estadoS,
-                    municipio: municipioS,
-                    localidad: localidadS,
-                    colonia: coloniaS,
-                    codigoPostal: codigoPostalS,
+                    estado: this.estado,
+                    municipio: this.municipio,
+                    localidad: this.localidad,
+                    colonia: this.colonia,
+                    codigoPostal: this.codigoPostal,
                     calle: this.calle,
                     numExterno: this.numExterno,
                     numInterno: this.numInterno,
@@ -139,7 +139,6 @@ import swal from 'sweetalert2'
                     $('select').val(0).trigger('change');
                     this.calle='',
                     this.numExterno='',
-                    this.segundoAp='',
                     this.numInterno='',
                     swal({
                         title: 'Guardado Correctamente!',
