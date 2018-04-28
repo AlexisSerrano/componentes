@@ -113,6 +113,7 @@ import swal from 'sweetalert2'
                     var urlCodigosPostales = 'getCodigosPostales2/'+this.municipio;
                     axios.get(urlCodigosPostales).then(response => {
                         this.codigosPostales = response.data
+                        console.log(response.data);
                     });
                 }
             },

@@ -93,7 +93,11 @@ class DomicilioController extends Controller
     }
     public function getCodigosPostales($id)
     {
-        $codigosPostales = CatColonia::where('idMunicipio',$id)->get();
+        $codigosPostales = CatColonia::where('idMunicipio',$id)
+        ->where('codigoPostal','!=',0)
+        // ->orderBy('codigoPostal','asc')
+        // ->groupBy('codigoPostal')
+        ->get();
         $data = [];
         $data[0] = [
             'id'   => 0,
