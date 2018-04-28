@@ -54,6 +54,13 @@
 
             <div class="form-row">
                 <div class="form-group col-md-3">
+                    <label for="estado">Estados</label>    
+                    <select class="estado" id="estado" style="width: 100%">
+                        <option value="0">Seleccione estado</option>
+                        <option v-for="estado in estados" :value="estado.id" :key="estado.id">{{estado.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
                     <label for="municipio">Municipio de Origen</label>    
                     <select class="municipio" id="municipio" style="width: 100%">
                         <option value="0">Seleccione municipio</option>
@@ -74,6 +81,9 @@
                         <option v-for="lengua in lenguas" :value="lengua.id" :key="lengua.id">{{lengua.nombre}}</option>
                     </select>
                 </div>
+            </div>
+
+            <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="esEmpresa">Es Empresa</label>
                     <div class="form-check" style="padding: 0">
@@ -100,6 +110,7 @@ import swal from 'sweetalert2'
        data(){
            return{
                nacionalidades: [],
+               estados: [],
                municipios: [],
                etnias: [],
                lenguas: [],
@@ -111,6 +122,7 @@ import swal from 'sweetalert2'
                rfc:'',
                curp: '',
                nacionalidad: '',
+               estado: '',
                municipio: '',
                etnia: '',
                lengua: '',
@@ -122,6 +134,7 @@ import swal from 'sweetalert2'
            this.getMunicipios();
            this.getEtnias();
            this.getLenguas();
+           this.getEstados();
        },
         mounted() {
             $("select").select2({
@@ -130,15 +143,20 @@ import swal from 'sweetalert2'
         },
         filters:{
             uppercase: function (str) {
-            return str.toUpperCase()
+                return str.toUpperCase()
             }
-        }
-        ,
+        },
         methods:{
             getNacionalidades: function(){
                 var urlNacionalidades = 'getNacionalidades';
                 axios.get(urlNacionalidades).then(response => {
                     this.nacionalidades = response.data
+                });
+            },
+            getEstados: function(){
+                var urlEstados = 'getEstados';
+                axios.get(urlEstados).then(response => {
+                    this.estados = response.data
                 });
             },
             getMunicipios: function(){

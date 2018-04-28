@@ -41,7 +41,7 @@ class DomicilioController extends Controller
         $domicilio->save();
         return $domicilio;
     }
-	
+
     public function getEstados()
     {
         $estados = CatEstado::all();
