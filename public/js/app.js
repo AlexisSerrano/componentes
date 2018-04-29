@@ -55464,7 +55464,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -55538,11 +55538,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            estado: '',
-            municipio: '0',
-            localidad: '0',
-            codigoPostal: '0',
-            colonia: '0',
+            estado: null,
+            municipio: null,
+            localidad: null,
+            codigoPostal: null,
+            colonia: null,
             estados: [],
             municipios: [],
             localidades: [],
@@ -55576,6 +55576,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var urlEstados = 'getEstados2';
             axios.get(urlEstados).then(function (response) {
                 _this.estados = response.data;
+                console.log(response.data);
             });
         },
         getMunicipios: function getMunicipios() {
@@ -55605,6 +55606,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var urlCodigosPostales = 'getCodigosPostales2/' + this.municipio;
                 axios.get(urlCodigosPostales).then(function (response) {
                     _this4.codigosPostales = response.data;
+                    console.log(response.data);
                 });
             }
         },
@@ -56192,12 +56194,12 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             estado: null,
             municipio: null,
             localidad: null,
-            codigoPostal: null,
+            codigo_postal: null,
             colonia: null,
             estados: [],
             municipios: [],
             localidades: [],
-            codigosPostales: [],
+            cp: [],
             colonias: [],
             calle: '',
             numExterno: '',
@@ -56214,14 +56216,6 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
         }
     },
     methods: {
-        alerta: function alerta() {
-            __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                title: 'Metodo Funcionando!',
-                type: 'success',
-                confirmButtonText: 'Ok'
-            });
-            // console.log(this.estado);
-        },
         getEstados: function getEstados() {
             var _this = this;
 
@@ -56233,42 +56227,34 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
         getMunicipios: function getMunicipios() {
             var _this2 = this;
 
-            // if(this.estado!=''){
-            var urlMunicipios = 'getMunicipios2/' + this.estado;
+            var urlMunicipios = 'getMunicipios2/' + this.estado.id;
             axios.get(urlMunicipios).then(function (response) {
                 _this2.municipios = response.data;
             });
-            // }
         },
         getLocalidades: function getLocalidades() {
             var _this3 = this;
 
-            // if(this.municipio!=''){
-            var urlLocalidades = 'getLocalidades2/' + this.municipio;
+            var urlLocalidades = 'getLocalidades2/' + this.municipio.id;
             axios.get(urlLocalidades).then(function (response) {
                 _this3.localidades = response.data;
             });
-            // }
         },
         getCodigosPostales: function getCodigosPostales() {
             var _this4 = this;
 
-            // if(this.municipio!=''){
-            var urlCodigosPostales = 'getCodigosPostales2/' + this.municipio;
+            var urlCodigosPostales = 'getCodigosPostales2/' + this.municipio.id;
             axios.get(urlCodigosPostales).then(function (response) {
-                _this4.codigosPostales = response.data;
+                _this4.cp = response.data;
             });
-            // }
         },
         getColonias: function getColonias() {
             var _this5 = this;
 
-            // if(this.codigoPostal!=''){
-            var urlColonias = 'getColonias2/' + this.codigoPostal;
+            var urlColonias = 'getColonias2/' + this.codigo_postal.id;
             axios.get(urlColonias).then(function (response) {
                 _this5.colonias = response.data;
             });
-            // }
         },
         crearDomicilio: function crearDomicilio() {
             var _this6 = this;
@@ -56279,7 +56265,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
                 municipio: this.municipio,
                 localidad: this.localidad,
                 colonia: this.colonia,
-                codigoPostal: this.codigoPostal,
+                codigo_postal: this.codigo_postal,
                 calle: this.calle,
                 numExterno: this.numExterno,
                 numInterno: this.numInterno
@@ -56341,13 +56327,14 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("v-select", {
+                key: _vm.estado != null ? _vm.estado.id : 0,
                 staticClass: "select",
                 attrs: {
                   options: _vm.estados,
-                  label: "text",
+                  label: "nombre",
                   placeholder: "Seleccione un estado"
                 },
-                on: { input: _vm.alerta },
+                on: { input: _vm.getMunicipios },
                 model: {
                   value: _vm.estado,
                   callback: function($$v) {
@@ -56369,12 +56356,14 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("v-select", {
+                key: _vm.municipio != null ? _vm.municipio.id : 0,
                 staticClass: "select",
                 attrs: {
                   options: _vm.municipios,
-                  label: "text",
+                  label: "nombre",
                   placeholder: "Seleccione un municipio"
                 },
+                on: { input: _vm.getLocalidades },
                 model: {
                   value: _vm.municipio,
                   callback: function($$v) {
@@ -56396,12 +56385,14 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("v-select", {
+                key: _vm.localidad != null ? _vm.localidad.id : 0,
                 staticClass: "select",
                 attrs: {
                   options: _vm.localidades,
-                  label: "text",
+                  label: "nombre",
                   placeholder: "Seleccione una localidad"
                 },
+                on: { input: _vm.getCodigosPostales },
                 model: {
                   value: _vm.localidad,
                   callback: function($$v) {
@@ -56418,23 +56409,23 @@ var render = function() {
             "div",
             { staticClass: "form-group col-md-3" },
             [
-              _c("label", { attrs: { for: "codigoPostal" } }, [
-                _vm._v("Codigo Postal")
-              ]),
+              _c("label", { attrs: { for: "cp" } }, [_vm._v("Codigo Postal")]),
               _vm._v(" "),
               _c("v-select", {
+                key: _vm.codigo_postal != null ? _vm.codigo_postal.id : 0,
                 staticClass: "select",
                 attrs: {
-                  options: _vm.codigosPostales,
-                  label: "text",
+                  options: _vm.cp,
+                  label: "codigoPostal",
                   placeholder: "Seleccione un codigo postal"
                 },
+                on: { input: _vm.getColonias },
                 model: {
-                  value: _vm.codigoPostal,
+                  value: _vm.codigo_postal,
                   callback: function($$v) {
-                    _vm.codigoPostal = $$v
+                    _vm.codigo_postal = $$v
                   },
-                  expression: "codigoPostal"
+                  expression: "codigo_postal"
                 }
               })
             ],
@@ -56450,13 +56441,14 @@ var render = function() {
               _c("label", { attrs: { for: "colonia" } }, [_vm._v("Colonias")]),
               _vm._v(" "),
               _c("v-select", {
+                key: _vm.colonia != null ? _vm.colonia.id : 0,
                 staticClass: "select",
                 attrs: {
                   options: _vm.colonias,
-                  label: "text",
+                  label: "nombre",
                   placeholder: "Seleccione una colonia"
                 },
-                on: { input: _vm.alerta },
+                on: { input: _vm.getCodigosPostales },
                 model: {
                   value: _vm.colonia,
                   callback: function($$v) {
@@ -56552,8 +56544,6 @@ var render = function() {
             })
           ])
         ]),
-        _vm._v(" "),
-        _c("h1", [_vm._v(_vm._s(_vm.estado))]),
         _vm._v(" "),
         _c(
           "button",

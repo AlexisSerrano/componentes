@@ -5,19 +5,19 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="estado">Entidad Federativa</label>    
-                    <v-select :options="estados" label="text" v-model="estado" placeholder="Seleccione un estado" @input="alerta" class="select"></v-select>
+                    <v-select :options="estados" label="nombre" :key="(estado!=null)?estado.id:0" v-model="estado" placeholder="Seleccione un estado" @input="getMunicipios" class="select"></v-select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="municipio">Municipios</label>  
-                    <v-select :options="municipios" label="text" v-model="municipio" placeholder="Seleccione un municipio" class="select"></v-select>
+                    <v-select :options="municipios" label="nombre" :key="(municipio!=null)?municipio.id:0" v-model="municipio" placeholder="Seleccione un municipio" @input="getLocalidades" class="select"></v-select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="localidad">Localidades</label>    
-                    <v-select :options="localidades" label="text" v-model="localidad" placeholder="Seleccione una localidad" class="select"></v-select>
+                    <v-select :options="localidades" label="nombre" :key="(localidad!=null)?localidad.id:0" v-model="localidad" placeholder="Seleccione una localidad" @input="getCodigosPostales" class="select"></v-select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="codigoPostal">Codigo Postal</label>    
-                    <v-select :options="codigosPostales" label="text" v-model="codigoPostal" placeholder="Seleccione un codigo postal" class="select"></v-select>
+                    <label for="cp">Codigo Postal</label>    
+                    <v-select :options="cp" label="codigoPostal" :key="(codigo_postal!=null)?codigo_postal.id:0" v-model="codigo_postal" placeholder="Seleccione un codigo postal" @input="getColonias" class="select"></v-select>
                 </div>
             </div>
 
@@ -25,7 +25,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="colonia">Colonias</label>    
-                    <v-select :options="colonias" label="text" v-model="colonia" placeholder="Seleccione una colonia" @input="alerta" class="select"></v-select>
+                    <v-select :options="colonias" label="nombre" :key="(colonia!=null)?colonia.id:0" v-model="colonia" placeholder="Seleccione una colonia" @input="getCodigosPostales" class="select"></v-select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="calle">Calle</label>
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <h1>{{estado}}</h1>
+            <!-- <h1>{{(estado!=null)?estado.id:estado}}</h1> -->
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
     </div>
@@ -57,12 +57,12 @@ import swal from 'sweetalert2'
                 estado:null,
                 municipio:null,
                 localidad:null,
-                codigoPostal:null,
+                codigo_postal:null,
                 colonia:null,
                 estados: [],
                 municipios: [],
                 localidades: [],
-                codigosPostales: [],
+                cp: [],
                 colonias: [],
                 calle: '',
                 numExterno: '',
@@ -78,52 +78,36 @@ import swal from 'sweetalert2'
             }
         },
         methods:{
-            alerta: function(){
-                swal({
-                    title: 'Metodo Funcionando!',
-                    type: 'success',
-                    confirmButtonText: 'Ok'
-                })
-                // console.log(this.estado);
-            },
             getEstados: function(){
                 var urlEstados = 'getEstados2';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
+                  
                 });
             },
             getMunicipios: function(){
-                // if(this.estado!=''){
-                    var urlMunicipios = 'getMunicipios2/'+this.estado;
-                    axios.get(urlMunicipios).then(response => {
-                        this.municipios = response.data
-                    });
-                // }
-                
+                var urlMunicipios = 'getMunicipios2/'+this.estado.id;
+                axios.get(urlMunicipios).then(response => {
+                    this.municipios = response.data
+                });
             },
             getLocalidades: function(){
-                // if(this.municipio!=''){
-                    var urlLocalidades = 'getLocalidades2/'+this.municipio;
-                    axios.get(urlLocalidades).then(response => {
-                        this.localidades = response.data
-                    });
-                // }
+                var urlLocalidades = 'getLocalidades2/'+this.municipio.id;
+                axios.get(urlLocalidades).then(response => {
+                    this.localidades = response.data
+                });
             },
             getCodigosPostales: function(){
-                // if(this.municipio!=''){
-                    var urlCodigosPostales = 'getCodigosPostales2/'+this.municipio;
-                    axios.get(urlCodigosPostales).then(response => {
-                        this.codigosPostales = response.data
-                    });
-                // }
+                var urlCodigosPostales = 'getCodigosPostales2/'+this.municipio.id;
+                axios.get(urlCodigosPostales).then(response => {
+                    this.cp = response.data
+                });
             },
             getColonias: function(){
-                // if(this.codigoPostal!=''){
-                    var urlColonias = 'getColonias2/'+this.codigoPostal;
-                    axios.get(urlColonias).then(response => {
-                        this.colonias = response.data
-                    });
-                // }
+                var urlColonias = 'getColonias2/'+this.codigo_postal.id;
+                axios.get(urlColonias).then(response => {
+                    this.colonias = response.data
+                });
             },
             crearDomicilio: function(){
                 var urlDomicilio = 'addDomicilio';
@@ -132,7 +116,7 @@ import swal from 'sweetalert2'
                     municipio: this.municipio,
                     localidad: this.localidad,
                     colonia: this.colonia,
-                    codigoPostal: this.codigoPostal,
+                    codigo_postal: this.codigo_postal,
                     calle: this.calle,
                     numExterno: this.numExterno,
                     numInterno: this.numInterno,

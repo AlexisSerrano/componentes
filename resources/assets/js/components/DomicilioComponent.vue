@@ -59,11 +59,11 @@ import swal from 'sweetalert2'
     export default {
         data(){
             return{
-                estado:'',
-                municipio:'0',
-                localidad:'0',
-                codigoPostal:'0',
-                colonia:'0',
+                estado:null,
+                municipio:null,
+                localidad:null,
+                codigoPostal:null,
+                colonia:null,
                 estados: [],
                 municipios: [],
                 localidades: [],
@@ -94,6 +94,7 @@ import swal from 'sweetalert2'
                 var urlEstados = 'getEstados2';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
+                    console.log(response.data);
                 });
             },
             getMunicipios: function(){

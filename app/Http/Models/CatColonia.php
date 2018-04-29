@@ -13,6 +13,10 @@ class CatColonia extends Model
         'id', 'idMunicipio', 'nombre','codigoPostal',
     ];
 
+    protected $casts = [
+        'codigoPostal' => 'string',
+    ];
+
     public function domicilios()
     {
         return $this->hasMany('App\Models\Domicilio');
