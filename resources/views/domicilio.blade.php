@@ -11,7 +11,7 @@
   </head>
   <body>
 	    <div id="app">
-            <domicilioPrueba></domicilioPrueba>
+            <domicilio></domicilio>
 	    </div>
   </body> 
 

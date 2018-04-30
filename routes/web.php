@@ -11,7 +11,7 @@ Route::post('addDomicilio','DomicilioController@addDomicilio')->name('addDomicil
 
 /*URLS PARA SELECTS PERSONAS */
 Route::get('getNacionalidades','PersonaController@getNacionalidades');
-Route::get('getMunicipios','PersonaController@getMunicipios');
+Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
 Route::get('getEtnias','PersonaController@getEtnias');
 Route::get('getLenguas','PersonaController@getLenguas');
 Route::get('getEstados','PersonaController@getEstados');

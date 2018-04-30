@@ -6,8 +6,6 @@
  */
 
 require('./bootstrap');
-require('select2');
-
 window.Vue = require('vue');
 
 /**
@@ -18,8 +16,6 @@ window.Vue = require('vue');
 
 Vue.component('persona', require('./components/PersonaComponent.vue'));
 Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
-Vue.component('select2', require('./components/SelectComponent.vue'));
-Vue.component('domicilioprueba', require('./components/DomicilioPrueba.vue'));
 
 const app = new Vue({
     el: '#app'

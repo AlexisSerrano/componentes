@@ -44,29 +44,30 @@ class PersonaController extends Controller{
 		return $persona;
 	}
 
-	public function getNacionalidades(){
-		$nacionalidades=NacionalidadesModel::orderBy('nombre', 'ASC')
-		->select('nombre','id')->get();
-		return $nacionalidades;
-	}
-	public function getMunicipios(){
-		$municipios=CatMunicipio::orderBy('nombre','ASC')
-		->select('nombre','id')->get();
-		return $municipios;
-	}
-	public function getEtnias(){
-		$etnias=EtniaModel::orderBy('nombre','ASC')
-		->select('nombre','id')->get();
-		return $etnias;
-	}
-	public function getLenguas(){
-		$lenguas=LenguasModel::orderBy('nombre','ASC')
-		->select('nombre','id')->get();
-		return $lenguas;
+    public function getNacionalidades(){
+        $nacionalidades=NacionalidadesModel::orderBy('nombre', 'ASC')
+	    ->select('nombre','id')->get();
+        return response()->json($nacionalidades);
 	}
 	public function getEstados(){
-		$estados=CatEstado::orderBy('nombre','ASC')
+        $estados=CatEstado::orderBy('nombre', 'ASC')
+	    ->select('nombre','id')->get();
+        return response()->json($estados);
+    }
+	public function getMunicipios($id){
+		$municipios=CatMunicipio::orderBy('nombre','ASC')
+		->where('idEstado',$id)
 		->select('nombre','id')->get();
-		return $estados;
-	}	
+		return response()->json($municipios);
+	}
+    public function getEtnias(){
+        $etnias=EtniaModel::orderBy('nombre', 'ASC')
+	    ->select('nombre','id')->get();
+        return response()->json($etnias);
+    }
+    public function getLenguas(){
+        $lenguas=LenguasModel::orderBy('nombre', 'ASC')
+	    ->select('nombre','id')->get();
+        return response()->json($lenguas);
+    }
 }

@@ -45,41 +45,26 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="nacionalidad">Nacionalidad</label>    
-                    <select class="nacionalidad" id="nacionalidad" style="width: 100%">
-                        <option value="0">Seleccione nacionalidad</option>
-                        <option v-for="nacionalidad in nacionalidades" :value="nacionalidad.id" :key="nacionalidad.id">{{nacionalidad.nombre}}</option>
-                    </select>
+                    <v-select label="nombre" :options="nacionalidades" v-model="nacionalidad" placeholder="Seleccione una nacionalidad" class="select">                    </v-select>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="estado">Estados</label>    
-                    <select class="estado" id="estado" style="width: 100%">
-                        <option value="0">Seleccione estado</option>
-                        <option v-for="estado in estados" :value="estado.id" :key="estado.id">{{estado.nombre}}</option>
-                    </select>
+                    <v-select label="nombre" :options="estados" v-model="estado" @input="getMunicipios" placeholder="Seleccione un estado" class="select"></v-select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="municipio">Municipio de Origen</label>    
-                    <select class="municipio" id="municipio" style="width: 100%">
-                        <option value="0">Seleccione municipio</option>
-                        <option v-for="municipio in municipios" :value="municipio.id" :key="municipio.id">{{municipio.nombre}}</option>
-                    </select>
+                    <v-select label="nombre" :options="municipios" v-model="municipio" placeholder="Seleccione un municipio" class="select"></v-select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="etnia">Etnia</label>    
-                    <select class="etnia" id="etnia" style="width: 100%">
-                        <option value="0">Seleccione etnia</option>
-                        <option v-for="etnia in etnias" :value="etnia.id" :key="etnia.id">{{etnia.nombre}}</option>
-                    </select>
+                    <v-select label="nombre" :options="etnias" v-model="etnia" placeholder="Seleccione una etnia" class="select"></v-select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="lengua">Lengua</label>    
-                    <select class="lengua" id="lengua" style="width: 100%">
-                        <option value="0">Seleccione lengua</option>
-                        <option v-for="lengua in lenguas" :value="lengua.id" :key="lengua.id">{{lengua.nombre}}</option>
-                    </select>
+                    <v-select label="nombre" :options="lenguas" v-model="lengua" placeholder="Seleccione una lengua" class="select"></v-select>
                 </div>
             </div>
 
@@ -105,6 +90,8 @@
 </template>
 
 <script>
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
 import swal from 'sweetalert2'
     export default {
        data(){
@@ -121,26 +108,20 @@ import swal from 'sweetalert2'
                sexo: '',
                rfc:'',
                curp: '',
-               nacionalidad: '',
-               estado: '',
-               municipio: '',
-               etnia: '',
-               lengua: '',
+               nacionalidad:null,
+               estado:null,
+               municipio:null,
+               etnia:null,
+               lengua:null,
                esEmpresa: ''
            }
        },
-       created: function(){
+       mounted: function(){
            this.getNacionalidades();
-           this.getMunicipios();
+           this.getEstados();
            this.getEtnias();
            this.getLenguas();
-           this.getEstados();
        },
-        mounted() {
-            $("select").select2({
-                placeholder:"Seleccione una opción"
-            });
-        },
         filters:{
             uppercase: function (str) {
                 return str.toUpperCase()
@@ -160,7 +141,8 @@ import swal from 'sweetalert2'
                 });
             },
             getMunicipios: function(){
-                var urlMunicipios = 'getMunicipios';
+                this.municipio=null
+                var urlMunicipios = 'getMunicipios/'+this.estado.id;
                 axios.get(urlMunicipios).then(response => {
                     this.municipios = response.data
                 });
@@ -179,10 +161,6 @@ import swal from 'sweetalert2'
             },
             crearPersona: function(){
                 var urlPersona = 'addPersona';
-                var nacionalidadS = $("#nacionalidad").select2('data')[0].id;
-                var municipioS = $("#municipio").select2('data')[0].id;
-                var etniaS = $("#etnia").select2('data')[0].id;
-                var lenguaS = $("#lengua").select2('data')[0].id;
                 axios.post(urlPersona,{
                     nombres: this.nombres,
                     primerAp: this.primerAp,
@@ -191,13 +169,17 @@ import swal from 'sweetalert2'
                     sexo: this.sexo,
                     rfc:this.rfc,
                     curp: this.curp,
-                    nacionalidad: nacionalidadS,
-                    municipio: municipioS,
-                    etnia: etniaS,
-                    lengua: lenguaS,
+                    nacionalidad: this.nacionalidad.id,
+                    municipio: this.municipio.id,
+                    etnia: this.etnia.id,
+                    lengua: this.lengua.id,
                     esEmpresa: this.esEmpresa
                 }).then(response => {
-                    $('select').val(0).trigger('change');
+                    this.nacionalidad=null,
+                    this.estado=null,
+                    this.municipio=null,
+                    this.etnia=null,
+                    this.lengua=null,
                     this.nombres='',
                     this.primerAp='',
                     this.segundoAp='',
@@ -225,5 +207,7 @@ import swal from 'sweetalert2'
     }
 </script>
 <style>
-
+.select{
+    font-family: inherit
+}
 </style>
