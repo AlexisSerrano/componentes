@@ -48793,7 +48793,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\r\n", ""]);
+exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\r\n", ""]);
 
 // exports
 
@@ -48932,6 +48932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
@@ -48951,11 +48952,11 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             sexo: '',
             rfc: '',
             curp: '',
-            nacionalidad: null,
-            estado: null,
+            nacionalidad: { "nombre": "MEXICANA", "id": 1 },
+            estado: { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
             municipio: null,
-            etnia: null,
-            lengua: null,
+            etnia: { "nombre": "SIN INFORMACIÓN", "id": 13 },
+            lengua: { "nombre": "SIN INFORMACIÓN", "id": 69 },
             esEmpresa: ''
         };
     },
@@ -49473,11 +49474,9 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Guardar")]
-        )
+        _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
+          _vm._v("Guardar")
+        ])
       ]
     )
   ])
@@ -49578,7 +49577,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\r\n", ""]);
+exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\r\n", ""]);
 
 // exports
 
@@ -49649,7 +49648,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            estado: null,
+            estado: { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
             municipio: null,
             localidad: null,
             codigo_postal: null,
@@ -49999,11 +49998,9 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Guardar")]
-        )
+        _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
+          _vm._v("Guardar")
+        ])
       ]
     )
   ])

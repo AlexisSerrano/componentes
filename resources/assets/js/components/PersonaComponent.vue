@@ -84,7 +84,8 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn">Guardar</button>
+            <!-- <h1>{{(etnia!=null)?etnia.id:etnia}}</h1> -->
         </form>
     </div>
 </template>
@@ -108,11 +109,11 @@ import swal from 'sweetalert2'
                sexo: '',
                rfc:'',
                curp: '',
-               nacionalidad:null,
-               estado:null,
+               nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
+               estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
                municipio:null,
-               etnia:null,
-               lengua:null,
+               etnia:{ "nombre": "SIN INFORMACIÓN", "id": 13 },
+               lengua:{ "nombre": "SIN INFORMACIÓN", "id": 69 },
                esEmpresa: ''
            }
        },
@@ -209,5 +210,17 @@ import swal from 'sweetalert2'
 <style>
 .select{
     font-family: inherit
+}
+.form-control:focus {
+  color: #6d6d6d;
+  background-color: #fff;
+  border-color: #828282;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);
+}
+button{
+    background-color: #424242;
+    border-color: #424242;
+    color: white;
 }
 </style>

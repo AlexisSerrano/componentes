@@ -42,7 +42,7 @@
             </div>
 
             <!-- <h1>{{(estado!=null)?estado.id:estado}}</h1> -->
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn">Guardar</button>
         </form>
     </div>
 </template>
@@ -54,7 +54,7 @@ import swal from 'sweetalert2'
     export default {
         data(){
             return{
-                estado:null,
+                estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
                 municipio:null,
                 localidad:null,
                 codigo_postal:null,
@@ -159,5 +159,17 @@ import swal from 'sweetalert2'
 <style>
 .select{
     font-family: inherit
+}
+.form-control:focus {
+  color: #6d6d6d;
+  background-color: #fff;
+  border-color: #828282;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);
+}
+button{
+    background-color: #424242;
+    border-color: #424242;
+    color: white;
 }
 </style>
