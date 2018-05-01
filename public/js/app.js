@@ -48933,6 +48933,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
@@ -48945,6 +48952,8 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             municipios: [],
             etnias: [],
             lenguas: [],
+            personas: [],
+            persona: '',
             nombres: '',
             primerAp: '',
             segundoAp: '',
@@ -48966,9 +48975,10 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
         this.getEstados();
         this.getEtnias();
         this.getLenguas();
+        this.getPersonas();
     },
     filters: {
-        uppercase: function uppercase(str) {
+        upperCase: function upperCase(str) {
             return str.toUpperCase();
         }
     },
@@ -49014,8 +49024,33 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
                 _this5.lenguas = response.data;
             });
         },
-        crearPersona: function crearPersona() {
+        getPersonas: function getPersonas() {
             var _this6 = this;
+
+            var urlPersonas = 'getPersonas';
+            axios.get(urlPersonas).then(function (response) {
+                _this6.personas = response.data;
+            });
+        },
+        fillForm: function fillForm() {
+            this.nombres = '';
+            this.primerAp = '';
+            this.segundoAp = '';
+            this.fechaNacimiento = '';
+            this.sexo = '';
+            this.rfc = '';
+            this.curp = '';
+
+            this.nombres = this.persona.nombres;
+            this.primerAp = this.persona.primerAp;
+            this.segundoAp = this.persona.segundoAp;
+            this.fechaNacimiento = this.persona.fechaNacimiento;
+            this.sexo = this.persona.sexo;
+            this.rfc = this.persona.rfc;
+            this.curp = this.persona.curp;
+        },
+        crearPersona: function crearPersona() {
+            var _this7 = this;
 
             var urlPersona = 'addPersona';
             axios.post(urlPersona, {
@@ -49032,7 +49067,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
                 lengua: this.lengua.id,
                 esEmpresa: this.esEmpresa
             }).then(function (response) {
-                _this6.nacionalidad = null, _this6.estado = null, _this6.municipio = null, _this6.etnia = null, _this6.lengua = null, _this6.nombres = '', _this6.primerAp = '', _this6.segundoAp = '', _this6.fechaNacimiento = '', _this6.sexo = '', _this6.rfc = '', _this6.curp = '', _this6.esEmpresa = '';
+                _this7.nacionalidad = null, _this7.estado = null, _this7.municipio = null, _this7.etnia = null, _this7.lengua = null, _this7.nombres = '', _this7.primerAp = '', _this7.segundoAp = '', _this7.fechaNacimiento = '', _this7.sexo = '', _this7.rfc = '', _this7.curp = '', _this7.esEmpresa = '';
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                     title: 'Guardado Correctamente!',
                     text: 'Esta persona fue guardada exitosamente',
@@ -49072,6 +49107,34 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "form-row" }, [
+          _c(
+            "div",
+            { staticClass: "form-group col-md-6" },
+            [
+              _c("label", { attrs: { for: "persona" } }, [_vm._v("Personas")]),
+              _vm._v(" "),
+              _c("v-select", {
+                staticClass: "select",
+                attrs: {
+                  label: "nombres",
+                  options: _vm.personas,
+                  placeholder: "Personas ya registradas"
+                },
+                on: { input: _vm.fillForm },
+                model: {
+                  value: _vm.persona,
+                  callback: function($$v) {
+                    _vm.persona = $$v
+                  },
+                  expression: "persona"
+                }
+              })
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
           _c("div", { staticClass: "form-group col-md-3" }, [
             _c("label", { attrs: { for: "nombres" } }, [_vm._v("Nombre")]),
             _vm._v(" "),
@@ -49082,7 +49145,7 @@ var render = function() {
                 id: "nombres",
                 placeholder: "Ingrese el nombre"
               },
-              domProps: { value: _vm._f("uppercase")(_vm.nombres) },
+              domProps: { value: _vm.nombres },
               on: {
                 input: function($event) {
                   _vm.nombres = $event.target.value
@@ -49103,7 +49166,7 @@ var render = function() {
                 id: "primerAp",
                 placeholder: "Ingrese el primer apellido"
               },
-              domProps: { value: _vm._f("uppercase")(_vm.primerAp) },
+              domProps: { value: _vm.primerAp },
               on: {
                 input: function($event) {
                   _vm.primerAp = $event.target.value
@@ -49124,7 +49187,7 @@ var render = function() {
                 id: "segundoAp",
                 placeholder: "Ingrese el segundo apellido"
               },
-              domProps: { value: _vm._f("uppercase")(_vm.segundoAp) },
+              domProps: { value: _vm.segundoAp },
               on: {
                 input: function($event) {
                   _vm.segundoAp = $event.target.value
@@ -49241,7 +49304,7 @@ var render = function() {
             _c("input", {
               staticClass: "form-control",
               attrs: { type: "text", id: "rfc", placeholder: "R.F.C" },
-              domProps: { value: _vm._f("uppercase")(_vm.rfc) },
+              domProps: { value: _vm.rfc },
               on: {
                 input: function($event) {
                   _vm.rfc = $event.target.value
@@ -49251,12 +49314,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-3" }, [
-            _c("label", { attrs: { for: "rfc" } }, [_vm._v("Curp")]),
+            _c("label", { attrs: { for: "curp" } }, [_vm._v("Curp")]),
             _vm._v(" "),
             _c("input", {
               staticClass: "form-control",
               attrs: { type: "text", id: "curp", placeholder: "Curp" },
-              domProps: { value: _vm._f("uppercase")(_vm.curp) },
+              domProps: { value: _vm.curp },
               on: {
                 input: function($event) {
                   _vm.curp = $event.target.value

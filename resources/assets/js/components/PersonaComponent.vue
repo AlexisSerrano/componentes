@@ -1,19 +1,26 @@
 <template>
     <div class="container mt-3">
         <form v-on:submit.prevent="crearPersona">
-            
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="persona">Personas</label>
+                    <v-select label="nombres" :options="personas" v-model="persona" placeholder="Personas ya registradas" class="select" @input="fillForm"></v-select>
+                </div>
+            </div>
+
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="nombres">Nombre</label>
-                    <input type="text" class="form-control" id="nombres" :value="nombres | uppercase" @input="nombres = $event.target.value" placeholder="Ingrese el nombre">
+                    <input type="text" class="form-control" id="nombres" :value="nombres" @input="nombres = $event.target.value" placeholder="Ingrese el nombre">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="primerAp">Primer Apellido</label>
-                    <input type="text" class="form-control" id="primerAp" :value="primerAp | uppercase" @input="primerAp = $event.target.value" placeholder="Ingrese el primer apellido">
+                    <input type="text" class="form-control" id="primerAp" :value="primerAp" @input="primerAp = $event.target.value" placeholder="Ingrese el primer apellido">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="segundoAp">Segundo Apellido</label>
-                    <input type="text" class="form-control" id="segundoAp" :value="segundoAp | uppercase" @input="segundoAp = $event.target.value" placeholder="Ingrese el segundo apellido">
+                    <input type="text" class="form-control" id="segundoAp" :value="segundoAp" @input="segundoAp = $event.target.value" placeholder="Ingrese el segundo apellido">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="fechaNacimiento">Fecha de Nacimiento</label>
@@ -37,11 +44,11 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="rfc">R.F.C</label>
-                    <input type="text" class="form-control" id="rfc" :value="rfc | uppercase" @input="rfc = $event.target.value" placeholder="R.F.C">
+                    <input type="text" class="form-control" id="rfc" :value="rfc" @input="rfc = $event.target.value" placeholder="R.F.C">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="rfc">Curp</label>
-                    <input type="text" class="form-control" id="curp" :value="curp | uppercase" @input="curp = $event.target.value" placeholder="Curp">
+                    <label for="curp">Curp</label>
+                    <input type="text" class="form-control" id="curp" :value="curp" @input="curp = $event.target.value" placeholder="Curp">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="nacionalidad">Nacionalidad</label>    
@@ -102,6 +109,8 @@ import swal from 'sweetalert2'
                municipios: [],
                etnias: [],
                lenguas: [],
+               personas: [],
+               persona: '',
                nombres: '',
                primerAp: '',
                segundoAp: '',
@@ -122,9 +131,10 @@ import swal from 'sweetalert2'
            this.getEstados();
            this.getEtnias();
            this.getLenguas();
+           this.getPersonas();
        },
         filters:{
-            uppercase: function (str) {
+        upperCase: function (str) {
                 return str.toUpperCase()
             }
         },
@@ -159,6 +169,29 @@ import swal from 'sweetalert2'
                 axios.get(urlLenguas).then(response => {
                     this.lenguas = response.data
                 });
+            },
+            getPersonas: function(){
+                var urlPersonas = 'getPersonas';
+                axios.get(urlPersonas).then(response => {
+                    this.personas = response.data
+                });
+            },
+            fillForm: function(){
+                this.nombres='';
+                this.primerAp='';
+                this.segundoAp='';
+                this.fechaNacimiento='';
+                this.sexo='';
+                this.rfc='';
+                this.curp='';
+
+                this.nombres=this.persona.nombres;
+                this.primerAp=this.persona.primerAp;
+                this.segundoAp=this.persona.segundoAp;
+                this.fechaNacimiento=this.persona.fechaNacimiento;
+                this.sexo=this.persona.sexo;
+                this.rfc=this.persona.rfc;
+                this.curp=this.persona.curp;
             },
             crearPersona: function(){
                 var urlPersona = 'addPersona';

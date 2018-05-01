@@ -69,5 +69,10 @@ class PersonaController extends Controller{
         $lenguas=LenguasModel::orderBy('nombre', 'ASC')
 	    ->select('nombre','id')->get();
         return response()->json($lenguas);
+	}
+	public function getPersonas(){
+        $personas=PersonaModel::orderBy('nombres', 'ASC')
+	    ->select('nombres','id','primerAp','segundoAp','fechaNacimiento','rfc','curp','sexo','idNacionalidad','idEtnia','idLengua','idMunicipioOrigen','esEmpresa')->get();
+        return response()->json($personas);
     }
 }
