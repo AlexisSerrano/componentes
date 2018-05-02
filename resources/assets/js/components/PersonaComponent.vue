@@ -1,15 +1,18 @@
 <template>
     <div class="container mt-3">
+        <div class="form-row align-items-end">
+            <div class="form-group col-md-3">
+                <label for="persona">Buscar Persona</label>
+                <input type="text" class="form-control" id="persona" :value="persona | uppercase" @input="persona = $event.target.value" placeholder="Ingrese el R.F.C o Curp">
+            </div>
+            <div class="form-group col-md-3">
+                <button v-on:click="searchPersona" type="submit" class="btn">Enviar</button>
+            </div>
+        </div>
+
         <form v-on:submit.prevent="crearPersona">
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="persona">Personas</label>
-                    <v-select label="nombres" :options="personas" v-model="persona" placeholder="Personas ya registradas" class="select" @input="fillForm"></v-select>
-                </div>
-            </div>
-
-            <div class="form-row">
+            <div v-if="mostrarForm" class="form-row">
                 <div class="form-group col-md-3">
                     <label for="nombres">Nombre</label>
                     <input type="text" class="form-control" id="nombres" :value="nombres" @input="nombres = $event.target.value" placeholder="Ingrese el nombre">
@@ -28,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div v-if="mostrarForm" class="form-row">
                 <div class="form-group col-md-3">
                     <label for="sexo">Sexo</label>
                     <div class="form-check" style="padding: 0">
@@ -56,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div v-if="mostrarForm" class="form-row">
                 <div class="form-group col-md-3">
                     <label for="estado">Estados</label>    
                     <v-select label="nombre" :options="estados" v-model="estado" @input="getMunicipios" placeholder="Seleccione un estado" class="select"></v-select>
@@ -75,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div v-if="mostrarForm" class="form-row">
                 <div class="form-group col-md-3">
                     <label for="esEmpresa">Es Empresa</label>
                     <div class="form-check" style="padding: 0">
@@ -91,8 +94,9 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn">Guardar</button>
+            <button v-if="mostrarForm" type="submit" class="btn">Guardar</button>
             <!-- <h1>{{(etnia!=null)?etnia.id:etnia}}</h1> -->
+            <h1>{{personaExiste}}</h1>
         </form>
     </div>
 </template>
@@ -109,15 +113,17 @@ import swal from 'sweetalert2'
                municipios: [],
                etnias: [],
                lenguas: [],
-               personas: [],
-               persona: '',
+               persona:'',
+               personaExiste:'',
                nombres: '',
                primerAp: '',
                segundoAp: '',
                fechaNacimiento: '',
+               prueba:'',
                sexo: '',
                rfc:'',
                curp: '',
+               mostrarForm: false,
                nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
                estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
                municipio:null,
@@ -139,6 +145,42 @@ import swal from 'sweetalert2'
             }
         },
         methods:{
+            searchPersona: function(){
+                if(this.persona!=''){
+                    var urlBuscarPersona = 'searchPersona/'+this.persona;
+                    axios.get(urlBuscarPersona,{
+                        persona: this.persona
+                    }).then(response => {
+                        this.personaExiste=response.data;
+                        // console.log(this.personaExiste[0].id);
+                        if(Object.keys(this.personaExiste).length === 1){
+                            swal({
+                                title: 'Persona Encontrada!',
+                                text: 'Esta persona ya fue registrada anteriormente',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                        else{
+                            swal({
+                                title: 'Persona No Encontrada!',
+                                text: 'Esta persona no a sido registrada',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                            this.mostrarForm=true;
+                        }
+                    })
+                }
+                else{
+                    swal({
+                        title: 'No ha ingresado información!',
+                        text: 'Ingrese un R.F.C o Curp',
+                        type: 'warning',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            },
             getNacionalidades: function(){
                 var urlNacionalidades = 'getNacionalidades';
                 axios.get(urlNacionalidades).then(response => {
@@ -194,8 +236,8 @@ import swal from 'sweetalert2'
                 this.curp=this.persona.curp;
             },
             crearPersona: function(){
-                var urlPersona = 'addPersona';
-                axios.post(urlPersona,{
+                var urlCrearPersona = 'addPersona';
+                axios.post(urlCrearPersona,{
                     nombres: this.nombres,
                     primerAp: this.primerAp,
                     segundoAp: this.segundoAp,

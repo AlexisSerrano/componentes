@@ -44,6 +44,14 @@ class PersonaController extends Controller{
 		return $persona;
 	}
 
+	public function searchPersona($persona){
+        $personaExiste=PersonaModel::orderBy('rfc', 'ASC')
+		->where('rfc',$persona)
+		->orwhere('curp',$persona)
+		->select('nombres','id')->get();
+		return response()->json($personaExiste);
+	}
+
     public function getNacionalidades(){
         $nacionalidades=NacionalidadesModel::orderBy('nombre', 'ASC')
 	    ->select('nombre','id')->get();
