@@ -1,12 +1,16 @@
 <template>
     <div class="container mt-3">
-        <div class="form-row align-items-end">
+        <div v-if="mostrarSearch" class="form-row align-items-end">
             <div class="form-group col-md-3">
                 <label for="persona">Buscar Persona</label>
-                <input type="text" class="form-control" id="persona" :value="persona | uppercase" @input="persona = $event.target.value" placeholder="Ingrese el R.F.C o Curp">
+                <input type="text" class="form-control" id="persona" :value="persona" @input="persona = $event.target.value" placeholder="Ingrese el R.F.C o Curp">
             </div>
-            <div class="form-group col-md-3">
-                <button v-on:click="searchPersona" type="submit" class="btn">Enviar</button>
+            <div class="form-group col-md-4">
+                <button v-on:click="searchPersona" type="submit" class="btn mr-1">Buscar</button>
+                <button v-on:click="mostrarForm=true,mostrarSearch=false" class="btn">Registrar Persona</button> 
+            </div>
+            <div class="form-group col-md-4">
+            <h5>{{(Object.keys(this.personaExiste).length === 1)?personaExiste:''}}</h5>
             </div>
         </div>
 
@@ -94,9 +98,14 @@
                 </div>
             </div>
 
-            <button v-if="mostrarForm" type="submit" class="btn">Guardar</button>
-            <!-- <h1>{{(etnia!=null)?etnia.id:etnia}}</h1> -->
-            <h1>{{personaExiste}}</h1>
+            <div v-if="mostrarForm" class="form-row">
+                <div v-if="mostrarForm" class="form-group col-md-5">
+                    <button type="submit" class="btn mr-1">Guardar</button>
+                    <button v-on:click="mostrarForm=false,mostrarSearch=true" class="btn">Regresar a buscar</button> 
+                </div>
+            </div>
+            <!-- <button v-if="mostrarForm" type="submit" class="btn">Guardar</button> -->
+            <!-- <h1>{{(Object.keys(this.personaExiste).length === 1)?personaExiste:''}}</h1> -->
         </form>
     </div>
 </template>
@@ -123,27 +132,30 @@ import swal from 'sweetalert2'
                sexo: '',
                rfc:'',
                curp: '',
-               mostrarForm: false,
+               mostrarSearch:true,
+               mostrarForm:false,
                nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
                estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
-               municipio:null,
+               municipio:'',
                etnia:{ "nombre": "SIN INFORMACIÓN", "id": 13 },
                lengua:{ "nombre": "SIN INFORMACIÓN", "id": 69 },
                esEmpresa: ''
            }
        },
+
+    //    PROBANDO PROPS
+    //    props:{
+    //        mostrarForm: {
+    //            default:false
+    //        }
+    //    },
+    
        mounted: function(){
            this.getNacionalidades();
            this.getEstados();
            this.getEtnias();
            this.getLenguas();
-           this.getPersonas();
        },
-        filters:{
-        upperCase: function (str) {
-                return str.toUpperCase()
-            }
-        },
         methods:{
             searchPersona: function(){
                 if(this.persona!=''){
@@ -152,7 +164,6 @@ import swal from 'sweetalert2'
                         persona: this.persona
                     }).then(response => {
                         this.personaExiste=response.data;
-                        // console.log(this.personaExiste[0].id);
                         if(Object.keys(this.personaExiste).length === 1){
                             swal({
                                 title: 'Persona Encontrada!',
@@ -160,15 +171,15 @@ import swal from 'sweetalert2'
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })
+                            this.mostrarForm=false;
                         }
                         else{
                             swal({
                                 title: 'Persona No Encontrada!',
-                                text: 'Esta persona no a sido registrada',
+                                text: 'Esta persona no a sido registrada, favor de intentar de nuevo o registrarla',
                                 type: 'error',
                                 confirmButtonText: 'Ok'
                             })
-                            this.mostrarForm=true;
                         }
                     })
                 }
@@ -180,6 +191,7 @@ import swal from 'sweetalert2'
                         confirmButtonText: 'Ok'
                     })
                 }
+                this.persona=''
             },
             getNacionalidades: function(){
                 var urlNacionalidades = 'getNacionalidades';
@@ -194,11 +206,17 @@ import swal from 'sweetalert2'
                 });
             },
             getMunicipios: function(){
-                this.municipio=null
-                var urlMunicipios = 'getMunicipios/'+this.estado.id;
-                axios.get(urlMunicipios).then(response => {
-                    this.municipios = response.data
-                });
+                if(this.estado!=null){
+                    this.municipio=null
+                    var urlMunicipios = 'getMunicipios/'+this.estado.id;
+                    axios.get(urlMunicipios).then(response => {
+                        this.municipios = response.data
+                    });
+                }
+                else{
+                    this.municipio=null,
+                    this.municipios=[]
+                }
             },
             getEtnias: function(){
                 var urlEtnias = 'getEtnias';
@@ -217,23 +235,6 @@ import swal from 'sweetalert2'
                 axios.get(urlPersonas).then(response => {
                     this.personas = response.data
                 });
-            },
-            fillForm: function(){
-                this.nombres='';
-                this.primerAp='';
-                this.segundoAp='';
-                this.fechaNacimiento='';
-                this.sexo='';
-                this.rfc='';
-                this.curp='';
-
-                this.nombres=this.persona.nombres;
-                this.primerAp=this.persona.primerAp;
-                this.segundoAp=this.persona.segundoAp;
-                this.fechaNacimiento=this.persona.fechaNacimiento;
-                this.sexo=this.persona.sexo;
-                this.rfc=this.persona.rfc;
-                this.curp=this.persona.curp;
             },
             crearPersona: function(){
                 var urlCrearPersona = 'addPersona';
@@ -297,5 +298,8 @@ button{
     background-color: #424242;
     border-color: #424242;
     color: white;
+}
+h5{
+    color: #138c13
 }
 </style>

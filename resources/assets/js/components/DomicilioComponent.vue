@@ -85,38 +85,74 @@ import swal from 'sweetalert2'
                 });
             },
             getMunicipios: function(){
-                this.municipio=null,
-                this.localidad=null,
-                this.codigo_postal=null,
-                this.colonia=null
-                var urlMunicipios = 'getMunicipios2/'+this.estado.id;
-                axios.get(urlMunicipios).then(response => {
-                    this.municipios = response.data
-                });
+                if(this.estado!=null){
+                    this.municipio=null,
+                    this.localidad=null,
+                    this.codigo_postal=null,
+                    this.colonia=null
+                    var urlMunicipios = 'getMunicipios2/'+this.estado.id;
+                    axios.get(urlMunicipios).then(response => {
+                        this.municipios = response.data
+                    });
+                }
+                else{
+                    this.municipio=null,
+                    this.localidad=null,
+                    this.codigo_postal=null,
+                    this.colonia=null,
+                    this.municipios=[],
+                    this.localidades=[],
+                    this.cp=[],
+                    this.colonias=[]
+                }
             },
             getLocalidades: function(){
-                this.localidad=null,
-                this.codigo_postal=null,
-                this.colonia=null
-                var urlLocalidades = 'getLocalidades2/'+this.municipio.id;
-                axios.get(urlLocalidades).then(response => {
-                    this.localidades = response.data
-                });
+                if(this.municipio!=null){
+                    this.localidad=null,
+                    this.codigo_postal=null,
+                    this.colonia=null
+                    var urlLocalidades = 'getLocalidades2/'+this.municipio.id;
+                    axios.get(urlLocalidades).then(response => {
+                        this.localidades = response.data
+                    });
+                }
+                else{
+                    this.localidad=null,
+                    this.codigo_postal=null,
+                    this.colonia=null,
+                    this.localidades=[],
+                    this.cp=[],
+                    this.colonias=[]
+                }
             },
             getCodigosPostales: function(){
+                if(this.municipio!=null){
                     this.codigo_postal=null
                     this.colonia=null
-                var urlCodigosPostales = 'getCodigosPostales2/'+this.municipio.id;
-                axios.get(urlCodigosPostales).then(response => {
-                    this.cp = response.data
-                });
+                    var urlCodigosPostales = 'getCodigosPostales2/'+this.municipio.id;
+                    axios.get(urlCodigosPostales).then(response => {
+                        this.cp = response.data
+                    });
+                }
+                else{
+                    this.codigo_postal=null,
+                    this.colonia=null
+                    this.cp=[],
+                    this.colonias=[]
+                }
             },
             getColonias: function(){
-                this.colonia=null
-                var urlColonias = 'getColonias2/'+this.codigo_postal.id;
-                axios.get(urlColonias).then(response => {
-                    this.colonias = response.data
-                });
+                if(this.codigo_postal!=null){
+                    this.colonia=null
+                    var urlColonias = 'getColonias2/'+this.codigo_postal.id;
+                    axios.get(urlColonias).then(response => {
+                        this.colonias = response.data
+                    });
+                }
+                else{
+                    this.colonia=null,
+                    this.colonias=[]
+                }
             },
             crearDomicilio: function(){
                 var urlDomicilio = 'addDomicilio';
