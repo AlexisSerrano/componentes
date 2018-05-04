@@ -15435,7 +15435,7 @@ e.target.composing||(t.search=e.target.value)}}}),t._v(" "),n("button",{directiv
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(17);
-module.exports = __webpack_require__(55);
+module.exports = __webpack_require__(57);
 
 
 /***/ }),
@@ -15459,7 +15459,7 @@ window.Vue = __webpack_require__(41);
  */
 
 Vue.component('persona', __webpack_require__(44));
-Vue.component('domicilio', __webpack_require__(50));
+Vue.component('domicilio', __webpack_require__(52));
 
 var app = new Vue({
   el: '#app'
@@ -48793,7 +48793,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\nh5{\r\n    color: #138c13\n}\r\n", ""]);
+exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\nh5{\r\n    color: #138c13;\n}\n.icons{\r\n    height: 1rem;\r\n    margin-bottom: 3px;\n}\r\n", ""]);
 
 // exports
 
@@ -48841,6 +48841,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_select__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
+//
+//
+//
+//
 //
 //
 //
@@ -49138,7 +49142,7 @@ var render = function() {
   return _c("div", { staticClass: "container mt-3" }, [
     _vm.mostrarSearch
       ? _c("div", { staticClass: "form-row align-items-end" }, [
-          _c("div", { staticClass: "form-group col-md-3" }, [
+          _c("div", { staticClass: "form-group col-md-4" }, [
             _c("label", { attrs: { for: "persona" } }, [
               _vm._v("Buscar Persona")
             ]),
@@ -49159,7 +49163,7 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-5" }, [
             _c(
               "button",
               {
@@ -49176,11 +49180,20 @@ var render = function() {
                 staticClass: "btn",
                 on: {
                   click: function($event) {
-                    ;(_vm.mostrarForm = true), (_vm.mostrarSearch = false)
+                    ;(_vm.mostrarForm = true),
+                      (_vm.mostrarSearch = false),
+                      (_vm.persona = ""),
+                      (_vm.personaExiste = [])
                   }
                 }
               },
-              [_vm._v("Registrar Persona")]
+              [
+                _c("img", {
+                  staticClass: "icons",
+                  attrs: { src: __webpack_require__(50) }
+                }),
+                _vm._v(" Registrar Persona")
+              ]
             )
           ]),
           _vm._v(" "),
@@ -49189,7 +49202,11 @@ var render = function() {
               _vm._v(
                 _vm._s(
                   Object.keys(this.personaExiste).length === 1
-                    ? _vm.personaExiste
+                    ? _vm.personaExiste[0].nombres +
+                      " " +
+                      _vm.personaExiste[0].primerAp +
+                      " " +
+                      _vm.personaExiste[0].segundoAp
                     : ""
                 )
               )
@@ -49211,7 +49228,7 @@ var render = function() {
       [
         _vm.mostrarForm
           ? _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-3" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
                 _c("label", { attrs: { for: "nombres" } }, [_vm._v("Nombre")]),
                 _vm._v(" "),
                 _c("input", {
@@ -49230,7 +49247,7 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-3" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
                 _c("label", { attrs: { for: "primerAp" } }, [
                   _vm._v("Primer Apellido")
                 ]),
@@ -49251,7 +49268,7 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-3" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
                 _c("label", { attrs: { for: "segundoAp" } }, [
                   _vm._v("Segundo Apellido")
                 ]),
@@ -49270,9 +49287,13 @@ var render = function() {
                     }
                   }
                 })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-3" }, [
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.mostrarForm
+          ? _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
                 _c("label", { attrs: { for: "fechaNacimiento" } }, [
                   _vm._v("Fecha de Nacimiento")
                 ]),
@@ -49298,13 +49319,9 @@ var render = function() {
                     }
                   }
                 })
-              ])
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.mostrarForm
-          ? _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-3" }, [
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-4" }, [
                 _c("label", { attrs: { for: "sexo" } }, [_vm._v("Sexo")]),
                 _vm._v(" "),
                 _c(
@@ -49376,7 +49393,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-3" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
                 _c("label", { attrs: { for: "rfc" } }, [_vm._v("R.F.C")]),
                 _vm._v(" "),
                 _c("input", {
@@ -49389,9 +49406,13 @@ var render = function() {
                     }
                   }
                 })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-3" }, [
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.mostrarForm
+          ? _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
                 _c("label", { attrs: { for: "curp" } }, [_vm._v("Curp")]),
                 _vm._v(" "),
                 _c("input", {
@@ -49408,7 +49429,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "form-group col-md-3" },
+                { staticClass: "form-group col-md-4" },
                 [
                   _c("label", { attrs: { for: "nacionalidad" } }, [
                     _vm._v("Nacionalidad")
@@ -49431,15 +49452,11 @@ var render = function() {
                   })
                 ],
                 1
-              )
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.mostrarForm
-          ? _c("div", { staticClass: "form-row" }, [
+              ),
+              _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "form-group col-md-3" },
+                { staticClass: "form-group col-md-4" },
                 [
                   _c("label", { attrs: { for: "estado" } }, [
                     _vm._v("Estados")
@@ -49463,11 +49480,15 @@ var render = function() {
                   })
                 ],
                 1
-              ),
-              _vm._v(" "),
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.mostrarForm
+          ? _c("div", { staticClass: "form-row" }, [
               _c(
                 "div",
-                { staticClass: "form-group col-md-3" },
+                { staticClass: "form-group col-md-4" },
                 [
                   _c("label", { attrs: { for: "municipio" } }, [
                     _vm._v("Municipio de Origen")
@@ -49494,7 +49515,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "form-group col-md-3" },
+                { staticClass: "form-group col-md-4" },
                 [
                   _c("label", { attrs: { for: "etnia" } }, [_vm._v("Etnia")]),
                   _vm._v(" "),
@@ -49519,7 +49540,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "form-group col-md-3" },
+                { staticClass: "form-group col-md-4" },
                 [
                   _c("label", { attrs: { for: "lengua" } }, [_vm._v("Lengua")]),
                   _vm._v(" "),
@@ -49546,7 +49567,7 @@ var render = function() {
         _vm._v(" "),
         _vm.mostrarForm
           ? _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-3" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
                 _c("label", { attrs: { for: "esEmpresa" } }, [
                   _vm._v("Es Empresa")
                 ]),
@@ -49643,7 +49664,13 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Regresar a buscar")]
+                      [
+                        _c("img", {
+                          staticClass: "icons",
+                          attrs: { src: __webpack_require__(51) }
+                        }),
+                        _vm._v(" Regresar a buscar")
+                      ]
                     )
                   ])
                 : _vm._e()
@@ -49665,18 +49692,30 @@ if (false) {
 
 /***/ }),
 /* 50 */
+/***/ (function(module, exports) {
+
+module.exports = "/images/registro.svg?ed66b4dbc9c89549def37136db094b15";
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
+
+module.exports = "/images/flecha.svg?c6c4e45c5f6871f328f86aed72911fb1";
+
+/***/ }),
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(51)
+  __webpack_require__(53)
 }
 var normalizeComponent = __webpack_require__(13)
 /* script */
-var __vue_script__ = __webpack_require__(53)
+var __vue_script__ = __webpack_require__(55)
 /* template */
-var __vue_template__ = __webpack_require__(54)
+var __vue_template__ = __webpack_require__(56)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -49715,13 +49754,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(52);
+var content = __webpack_require__(54);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -49741,7 +49780,7 @@ if(false) {
 }
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(11)(false);
@@ -49755,7 +49794,7 @@ exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-contro
 
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49764,6 +49803,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_select__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
+//
+//
 //
 //
 //
@@ -49941,7 +49982,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
 });
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -49963,7 +50004,7 @@ var render = function() {
         _c("div", { staticClass: "form-row" }, [
           _c(
             "div",
-            { staticClass: "form-group col-md-3" },
+            { staticClass: "form-group col-md-4" },
             [
               _c("label", { attrs: { for: "estado" } }, [
                 _vm._v("Entidad Federativa")
@@ -49992,7 +50033,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "form-group col-md-3" },
+            { staticClass: "form-group col-md-4" },
             [
               _c("label", { attrs: { for: "municipio" } }, [
                 _vm._v("Municipios")
@@ -50021,7 +50062,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "form-group col-md-3" },
+            { staticClass: "form-group col-md-4" },
             [
               _c("label", { attrs: { for: "localidad" } }, [
                 _vm._v("Localidades")
@@ -50046,11 +50087,13 @@ var render = function() {
               })
             ],
             1
-          ),
-          _vm._v(" "),
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
           _c(
             "div",
-            { staticClass: "form-group col-md-3" },
+            { staticClass: "form-group col-md-4" },
             [
               _c("label", { attrs: { for: "cp" } }, [_vm._v("Codigo Postal")]),
               _vm._v(" "),
@@ -50073,13 +50116,11 @@ var render = function() {
               })
             ],
             1
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
+          ),
+          _vm._v(" "),
           _c(
             "div",
-            { staticClass: "form-group col-md-3" },
+            { staticClass: "form-group col-md-4" },
             [
               _c("label", { attrs: { for: "colonia" } }, [_vm._v("Colonias")]),
               _vm._v(" "),
@@ -50103,7 +50144,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-3" }, [
+          _c("div", { staticClass: "form-group col-md-4" }, [
             _c("label", { attrs: { for: "calle" } }, [_vm._v("Calle")]),
             _vm._v(" "),
             _c("input", {
@@ -50120,9 +50161,11 @@ var render = function() {
                 }
               }
             })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-3" }, [
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
+          _c("div", { staticClass: "form-group col-md-4" }, [
             _c("label", { attrs: { for: "numExterno" } }, [
               _vm._v("Número Externo")
             ]),
@@ -50154,7 +50197,7 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-3" }, [
+          _c("div", { staticClass: "form-group col-md-4" }, [
             _c("label", { attrs: { for: "numInterno" } }, [
               _vm._v("Número Interno")
             ]),
@@ -50205,7 +50248,7 @@ if (false) {
 }
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

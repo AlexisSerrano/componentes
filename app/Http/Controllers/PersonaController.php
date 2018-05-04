@@ -48,7 +48,7 @@ class PersonaController extends Controller{
         $personaExiste=PersonaModel::orderBy('rfc', 'ASC')
 		->where('rfc',$persona)
 		->orwhere('curp',$persona)
-		->select('nombres','id')->get();
+		->select('nombres','primerAp','segundoAp','id')->get();
 		return response()->json($personaExiste);
 	}
 

@@ -3,44 +3,46 @@
         <form v-on:submit.prevent="crearDomicilio">
 
             <div class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="estado">Entidad Federativa</label>    
                     <v-select :options="estados" label="nombre" :key="(estado!=null)?estado.id:0" v-model="estado" placeholder="Seleccione un estado" @input="getMunicipios" class="select"></v-select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="municipio">Municipios</label>  
                     <v-select :options="municipios" label="nombre" :key="(municipio!=null)?municipio.id:0" v-model="municipio" placeholder="Seleccione un municipio" @input="getLocalidades" class="select"></v-select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="localidad">Localidades</label>    
                     <v-select :options="localidades" label="nombre" :key="(localidad!=null)?localidad.id:0" v-model="localidad" placeholder="Seleccione una localidad" @input="getCodigosPostales" class="select"></v-select>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="cp">Codigo Postal</label>    
-                    <v-select :options="cp" label="codigoPostal" :key="(codigo_postal!=null)?codigo_postal.id:0" v-model="codigo_postal" placeholder="Seleccione un codigo postal" @input="getColonias" class="select"></v-select>
                 </div>
             </div>
 
 
             <div class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
+                    <label for="cp">Codigo Postal</label>    
+                    <v-select :options="cp" label="codigoPostal" :key="(codigo_postal!=null)?codigo_postal.id:0" v-model="codigo_postal" placeholder="Seleccione un codigo postal" @input="getColonias" class="select"></v-select>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="colonia">Colonias</label>    
                     <v-select :options="colonias" label="nombre" :key="(colonia!=null)?colonia.id:0" v-model="colonia" placeholder="Seleccione una colonia" class="select"></v-select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="calle">Calle</label>
                     <input type="text" class="form-control" id="calle" :value="calle | uppercase" @input="calle = $event.target.value" placeholder="Ingrese la calle">
                 </div>
-                <div class="form-group col-md-3">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
                     <label for="numExterno">Número Externo</label>
                     <input type="text" class="form-control" id="numExterno" v-model="numExterno" placeholder="Ingrese el número externo">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="numInterno">Número Interno</label>
                     <input type="text" class="form-control" id="numInterno" v-model="numInterno" placeholder="Ingrese el número interno">
                 </div>
             </div>
-
             <!-- <h1>{{(estado!=null)?estado.id:estado}}</h1> -->
             <button type="submit" class="btn">Guardar</button>
         </form>

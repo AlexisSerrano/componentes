@@ -1,42 +1,43 @@
 <template>
     <div class="container mt-3">
         <div v-if="mostrarSearch" class="form-row align-items-end">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label for="persona">Buscar Persona</label>
                 <input type="text" class="form-control" id="persona" :value="persona" @input="persona = $event.target.value" placeholder="Ingrese el R.F.C o Curp">
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-5">
                 <button v-on:click="searchPersona" type="submit" class="btn mr-1">Buscar</button>
-                <button v-on:click="mostrarForm=true,mostrarSearch=false" class="btn">Registrar Persona</button> 
+                <button v-on:click="mostrarForm=true,mostrarSearch=false, persona='',personaExiste=[]" class="btn">
+                <img src="../../images/registro.svg" class="icons"> Registrar Persona</button> 
             </div>
             <div class="form-group col-md-4">
-            <h5>{{(Object.keys(this.personaExiste).length === 1)?personaExiste:''}}</h5>
+                <h5>{{(Object.keys(this.personaExiste).length === 1)?personaExiste[0].nombres+" "+personaExiste[0].primerAp+" "+personaExiste[0].segundoAp:''}}</h5>
             </div>
         </div>
 
         <form v-on:submit.prevent="crearPersona">
 
             <div v-if="mostrarForm" class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="nombres">Nombre</label>
                     <input type="text" class="form-control" id="nombres" :value="nombres" @input="nombres = $event.target.value" placeholder="Ingrese el nombre">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="primerAp">Primer Apellido</label>
                     <input type="text" class="form-control" id="primerAp" :value="primerAp" @input="primerAp = $event.target.value" placeholder="Ingrese el primer apellido">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="segundoAp">Segundo Apellido</label>
                     <input type="text" class="form-control" id="segundoAp" :value="segundoAp" @input="segundoAp = $event.target.value" placeholder="Ingrese el segundo apellido">
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                    <input type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento">
                 </div>
             </div>
 
             <div v-if="mostrarForm" class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
+                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento">
+                </div>
+                <div class="form-group col-md-4">
                     <label for="sexo">Sexo</label>
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
@@ -49,41 +50,44 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="rfc">R.F.C</label>
                     <input type="text" class="form-control" id="rfc" :value="rfc" @input="rfc = $event.target.value" placeholder="R.F.C">
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="curp">Curp</label>
-                    <input type="text" class="form-control" id="curp" :value="curp" @input="curp = $event.target.value" placeholder="Curp">
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="nacionalidad">Nacionalidad</label>    
-                    <v-select label="nombre" :options="nacionalidades" v-model="nacionalidad" placeholder="Seleccione una nacionalidad" class="select">                    </v-select>
                 </div>
             </div>
 
             <div v-if="mostrarForm" class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
+                    <label for="curp">Curp</label>
+                    <input type="text" class="form-control" id="curp" :value="curp" @input="curp = $event.target.value" placeholder="Curp">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="nacionalidad">Nacionalidad</label>    
+                    <v-select label="nombre" :options="nacionalidades" v-model="nacionalidad" placeholder="Seleccione una nacionalidad" class="select">                    </v-select>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="estado">Estados</label>    
                     <v-select label="nombre" :options="estados" v-model="estado" @input="getMunicipios" placeholder="Seleccione un estado" class="select"></v-select>
                 </div>
-                <div class="form-group col-md-3">
+            </div>
+
+            <div v-if="mostrarForm" class="form-row">
+                <div class="form-group col-md-4">
                     <label for="municipio">Municipio de Origen</label>    
                     <v-select label="nombre" :options="municipios" v-model="municipio" placeholder="Seleccione un municipio" class="select"></v-select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="etnia">Etnia</label>    
                     <v-select label="nombre" :options="etnias" v-model="etnia" placeholder="Seleccione una etnia" class="select"></v-select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="lengua">Lengua</label>    
                     <v-select label="nombre" :options="lenguas" v-model="lengua" placeholder="Seleccione una lengua" class="select"></v-select>
                 </div>
             </div>
 
             <div v-if="mostrarForm" class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="esEmpresa">Es Empresa</label>
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
@@ -97,11 +101,11 @@
                     </div>
                 </div>
             </div>
-
             <div v-if="mostrarForm" class="form-row">
                 <div v-if="mostrarForm" class="form-group col-md-5">
                     <button type="submit" class="btn mr-1">Guardar</button>
-                    <button v-on:click="mostrarForm=false,mostrarSearch=true" class="btn">Regresar a buscar</button> 
+                    <button v-on:click="mostrarForm=false,mostrarSearch=true" class="btn">
+                    <img src="../../images/flecha.svg" class="icons"> Regresar a buscar</button> 
                 </div>
             </div>
             <!-- <button v-if="mostrarForm" type="submit" class="btn">Guardar</button> -->
@@ -300,6 +304,10 @@ button{
     color: white;
 }
 h5{
-    color: #138c13
+    color: #138c13;
+}
+.icons{
+    height: 1rem;
+    margin-bottom: 3px;
 }
 </style>
