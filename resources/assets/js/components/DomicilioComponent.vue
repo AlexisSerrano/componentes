@@ -1,43 +1,50 @@
 <template>
     <div class="container mt-3">
         <form v-on:submit.prevent="crearDomicilio">
-
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="estado">Entidad Federativa</label>    
-                    <v-select :options="estados" label="nombre" :key="(estado!=null)?estado.id:0" v-model="estado" placeholder="Seleccione un estado" @input="getMunicipios" class="select"></v-select>
+                    <v-select :options="estados" label="nombre" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('estado') }"></v-select>
+                    <span v-show="errors.has('estado')" class="text-danger">{{ errors.first('estado') }}</span>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="municipio">Municipios</label>  
-                    <v-select :options="municipios" label="nombre" :key="(municipio!=null)?municipio.id:0" v-model="municipio" placeholder="Seleccione un municipio" @input="getLocalidades" class="select"></v-select>
+                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') }"></v-select>
+                    <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio') }}</span>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="localidad">Localidades</label>    
-                    <v-select :options="localidades" label="nombre" :key="(localidad!=null)?localidad.id:0" v-model="localidad" placeholder="Seleccione una localidad" @input="getCodigosPostales" class="select"></v-select>
-                </div>
+                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') }"></v-select>
+                    <span v-show="errors.has('localidad')" class="text-danger">{{ errors.first('localidad') }}</span>
+                    </div>
                 <div class="form-group col-md-3">
                     <label for="cp">Codigo Postal</label>    
-                    <v-select :options="cp" label="codigoPostal" :key="(codigo_postal!=null)?codigo_postal.id:0" v-model="codigo_postal" placeholder="Seleccione un codigo postal" @input="getColonias" class="select"></v-select>
-                </div>
+                    <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias" v-validate="'required'" :class="{ 'border border-danger': errors.has('codigo_postal') }"></v-select>
+                    <span v-show="errors.has('codigo_postal')" class="text-danger">{{ errors.first('codigo_postal') }}</span>                </div>
             </div>
 
 
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="colonia">Colonias</label>    
-                    <v-select :options="colonias" label="nombre" :key="(colonia!=null)?colonia.id:0" v-model="colonia" placeholder="Seleccione una colonia" class="select"></v-select>
+                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia" v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') }"></v-select>
+                    <span v-show="errors.has('colonia')" class="text-danger">{{ errors.first('colonia') }}</span>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="calle">Calle</label>
-                    <input type="text" class="form-control" id="calle" :value="calle | uppercase" @input="calle = $event.target.value" placeholder="Ingrese la calle">
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('calle') }" id="calle" name="calle" v-model="calle" placeholder="Ingrese la calle" v-validate="'required'">
+                    <span v-if="errors.has('calle')" class="text-danger">{{ errors.first('calle') }}</span>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="numExterno">Número Externo</label>
-                    <input type="text" class="form-control" id="numExterno" v-model="numExterno" placeholder="Ingrese el número externo">
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('numExterno') }" id="numExterno" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'">
+                    <span v-if="errors.has('numExterno')" class="text-danger">{{ errors.first('numExterno') }}</span>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="numInterno">Número Interno</label>
-                    <input type="text" class="form-control" id="numInterno" v-model="numInterno" placeholder="Ingrese el número interno">
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Interno') }" id="numInterno" data-vv-name="Numero Interno" name="numInterno" v-model="numInterno" placeholder="Ingrese el número interno" v-validate="'required'">
+                    <span v-if="errors.has('Numero Interno')" class="text-danger">{{ errors.first('Numero Interno') }}</span>
+                    <span v-if="errornumInterno!=''" class="text-danger">{{ errornumInterno }}</span>
                 </div>
             </div>
 
@@ -66,20 +73,16 @@ import swal from 'sweetalert2'
                 colonias: [],
                 calle: '',
                 numExterno: '',
-                numInterno: ''
+                numInterno: '',
+                errornumInterno: '',
             }
         },
         mounted: function () {
             this.getEstados()
         },
-        filters:{
-            uppercase: function (str) {
-                return str.toUpperCase()
-            }
-        },
         methods:{
             getEstados: function(){
-                var urlEstados = 'getEstados2';
+                var urlEstados = 'http://localhost/componentes/public/getEstados2';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
                 });
@@ -90,7 +93,7 @@ import swal from 'sweetalert2'
                     this.localidad=null,
                     this.codigo_postal=null,
                     this.colonia=null
-                    var urlMunicipios = 'getMunicipios2/'+this.estado.id;
+                    var urlMunicipios = 'http://localhost/componentes/public/getMunicipios2/'+this.estado.id;
                     axios.get(urlMunicipios).then(response => {
                         this.municipios = response.data
                     });
@@ -111,7 +114,7 @@ import swal from 'sweetalert2'
                     this.localidad=null,
                     this.codigo_postal=null,
                     this.colonia=null
-                    var urlLocalidades = 'getLocalidades2/'+this.municipio.id;
+                    var urlLocalidades = 'http://localhost/componentes/public/getLocalidades2/'+this.municipio.id;
                     axios.get(urlLocalidades).then(response => {
                         this.localidades = response.data
                     });
@@ -129,7 +132,7 @@ import swal from 'sweetalert2'
                 if(this.municipio!=null){
                     this.codigo_postal=null
                     this.colonia=null
-                    var urlCodigosPostales = 'getCodigosPostales2/'+this.municipio.id;
+                    var urlCodigosPostales = 'http://localhost/componentes/public/getCodigosPostales2/'+this.municipio.id;
                     axios.get(urlCodigosPostales).then(response => {
                         this.cp = response.data
                     });
@@ -144,7 +147,7 @@ import swal from 'sweetalert2'
             getColonias: function(){
                 if(this.codigo_postal!=null){
                     this.colonia=null
-                    var urlColonias = 'getColonias2/'+this.codigo_postal.id;
+                    var urlColonias = 'http://localhost/componentes/public/getColonias2/'+this.codigo_postal.id;
                     axios.get(urlColonias).then(response => {
                         this.colonias = response.data
                     });
@@ -155,7 +158,7 @@ import swal from 'sweetalert2'
                 }
             },
             crearDomicilio: function(){
-                var urlDomicilio = 'addDomicilio';
+                var urlDomicilio = 'http://localhost/componentes/public/addDomicilio';
                 axios.post(urlDomicilio,{
                     estado: this.estado.id,
                     municipio: this.municipio.id,
@@ -181,6 +184,7 @@ import swal from 'sweetalert2'
                         confirmButtonText: 'Ok'
                     })
                 }).catch(error => {
+                    this.errornumInterno = error.response.data.errors.numInterno;
                      swal({
                         title: 'Guardado Incorrecto!',
                         text: 'Este domicilio no fue posible guardarse',

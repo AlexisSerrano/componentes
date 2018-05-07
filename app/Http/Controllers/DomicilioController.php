@@ -10,6 +10,7 @@ use App\Http\Models\CatMunicipio;
 use App\Http\Models\CatLocalidad;
 use App\Http\Models\CatColonia;
 use App\Http\Models\Domicilio;
+use App\Http\Requests\DomicilioRequest;
 
 class DomicilioController extends Controller
 {
@@ -28,7 +29,7 @@ class DomicilioController extends Controller
 		return view("domicilio");
 	}
 
-     public function addDomicilio(Request $request){
+     public function addDomicilio(DomicilioRequest $request){
         $domicilio=new Domicilio();
         $domicilio->idMunicipio=$request->input('municipio');
         $domicilio->idLocalidad=$request->input('localidad');
