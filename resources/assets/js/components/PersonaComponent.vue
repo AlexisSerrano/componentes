@@ -19,16 +19,19 @@
 
             <div v-if="mostrarForm" class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="nombres">Nombre</label>
-                    <input type="text" class="form-control" id="nombres" :value="nombres" @input="nombres = $event.target.value" placeholder="Ingrese el nombre">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'">
+                    <span v-if="errors.has('nombres')" class="text-danger">{{ errors.first('nombres') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="primerAp">Primer Apellido</label>
-                    <input type="text" class="form-control" id="primerAp" :value="primerAp" @input="primerAp = $event.target.value" placeholder="Ingrese el primer apellido">
+                    <input type="text" name="primerAp" data-vv-name="Primer Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Primer Apellido') }" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="'required'">
+                    <span v-if="errors.has('Primer Apellido')" class="text-danger">{{ errors.first('Primer Apellido') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="segundoAp">Segundo Apellido</label>
-                    <input type="text" class="form-control" id="segundoAp" :value="segundoAp" @input="segundoAp = $event.target.value" placeholder="Ingrese el segundo apellido">
+                    <input type="text" name="segundoAp" data-vv-name="Segundo Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Segundo Apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="'required'">
+                    <span v-if="errors.has('Segundo Apellido')" class="text-danger">{{ errors.first('Segundo Apellido') }}</span>
                 </div>
             </div>
 
@@ -38,43 +41,41 @@
                     <input type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="sexo">Sexo</label>
-                    <div class="form-check" style="padding: 0">
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label" for="hombre" style="padding-right: 5px">Hombre</label>
-                            <input class="form-check-input" type="radio" v-model="sexo" id="hombre" value="HOMBRE">
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label" for="mujer" style="padding-right: 5px">Mujer</label>
-                            <input class="form-check-input" type="radio" v-model="sexo" id="mujer" value="MUJER">
-                        </div>
-                    </div>
+                    <label for="sexos">Sexo</label>    
+                    <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="'required'" :class="{ 'border border-danger': errors.has('sexo') }" placeholder="Seleccione un sexo"></v-select>
+                    <span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="rfc">R.F.C</label>
-                    <input type="text" class="form-control" id="rfc" :value="rfc" @input="rfc = $event.target.value" placeholder="R.F.C">
+                    <!-- <input type="text" class="form-control" id="rfc" :value="rfc" @input="rfc = $event.target.value" placeholder="R.F.C"> -->
+                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'">
+                    <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
                 </div>
             </div>
 
             <div v-if="mostrarForm" class="form-row">
                 <div class="form-group col-md-4">
                     <label for="curp">Curp</label>
-                    <input type="text" class="form-control" id="curp" :value="curp" @input="curp = $event.target.value" placeholder="Curp">
+                    <input type="text" name="curp" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('curp') }" id="curp" v-model="curp" placeholder="Ingrese el curp" v-validate="'required'">
+                    <span v-if="errors.has('curp')" class="text-danger">{{ errors.first('curp') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nacionalidad">Nacionalidad</label>    
-                    <v-select label="nombre" :options="nacionalidades" v-model="nacionalidad" placeholder="Seleccione una nacionalidad" class="select">                    </v-select>
+                    <v-select :options="nacionalidades" label="nombre" v-model="nacionalidad" name="nacionalidad" v-validate="'required'" :class="{ 'border border-danger': errors.has('nacionalidad') }" placeholder="Seleccione una nacionalidad"></v-select>
+                    <span v-show="errors.has('nacionalidad')" class="text-danger">{{ errors.first('nacionalidad') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="estado">Estados</label>    
-                    <v-select label="nombre" :options="estados" v-model="estado" @input="getMunicipios" placeholder="Seleccione un estado" class="select"></v-select>
+                    <label for="estado">Entidad Federativa</label>    
+                    <v-select :options="estados" label="nombre" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('estado') }" placeholder="Seleccione una entidad federativa"></v-select>
+                    <span v-show="errors.has('estado')" class="text-danger">{{ errors.first('estado') }}</span>
                 </div>
             </div>
 
             <div v-if="mostrarForm" class="form-row">
                 <div class="form-group col-md-4">
                     <label for="municipio">Municipio de Origen</label>    
-                    <v-select label="nombre" :options="municipios" v-model="municipio" placeholder="Seleccione un municipio" class="select"></v-select>
+                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') }" placeholder="Seleccione un municipio"></v-select>
+                    <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="etnia">Etnia</label>    
@@ -115,8 +116,6 @@
 </template>
 
 <script>
-import vSelect from 'vue-select'
-Vue.component('v-select', vSelect)
 import swal from 'sweetalert2'
     export default {
        data(){
@@ -126,6 +125,7 @@ import swal from 'sweetalert2'
                municipios: [],
                etnias: [],
                lenguas: [],
+               sexos: [],
                persona:'',
                personaExiste:'',
                nombres: '',
@@ -133,14 +133,14 @@ import swal from 'sweetalert2'
                segundoAp: '',
                fechaNacimiento: '',
                prueba:'',
-               sexo: '',
+               sexo:null,
                rfc:'',
                curp: '',
                mostrarSearch:true,
                mostrarForm:false,
                nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
                estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
-               municipio:'',
+               municipio:null,
                etnia:{ "nombre": "SIN INFORMACIÓN", "id": 13 },
                lengua:{ "nombre": "SIN INFORMACIÓN", "id": 69 },
                esEmpresa: ''
@@ -159,6 +159,7 @@ import swal from 'sweetalert2'
            this.getEstados();
            this.getEtnias();
            this.getLenguas();
+           this.getSexos();
        },
         methods:{
             searchPersona: function(){
@@ -234,6 +235,12 @@ import swal from 'sweetalert2'
                     this.lenguas = response.data
                 });
             },
+            getSexos: function(){
+                var urlSexos = 'getSexos';
+                axios.get(urlSexos).then(response => {
+                    this.sexos = response.data
+                });
+            },
             getPersonas: function(){
                 var urlPersonas = 'getPersonas';
                 axios.get(urlPersonas).then(response => {
@@ -247,7 +254,7 @@ import swal from 'sweetalert2'
                     primerAp: this.primerAp,
                     segundoAp: this.segundoAp,
                     fechaNacimiento: this.fechaNacimiento,
-                    sexo: this.sexo,
+                    sexo: this.sexo.id,
                     rfc:this.rfc,
                     curp: this.curp,
                     nacionalidad: this.nacionalidad.id,

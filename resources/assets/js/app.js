@@ -6,9 +6,11 @@
  */
 
 require('./bootstrap');
-import VeeValidate from 'vee-validate'
+import VeeValidate from 'vee-validate';
+import vSelect from 'vue-select';
 window.Vue = require('vue');
 Vue.use(VeeValidate);
+Vue.component('v-select', vSelect);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

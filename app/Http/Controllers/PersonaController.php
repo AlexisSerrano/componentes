@@ -82,5 +82,10 @@ class PersonaController extends Controller{
         $personas=PersonaModel::orderBy('nombres', 'ASC')
 	    ->select('nombres','id','primerAp','segundoAp','fechaNacimiento','rfc','curp','sexo','idNacionalidad','idEtnia','idLengua','idMunicipioOrigen','esEmpresa')->get();
         return response()->json($personas);
-    }
+	}
+    public function getSexos(){
+        $sexos=SexoModel::orderBy('nombre', 'ASC')
+	    ->select('nombre','id')->get();
+        return response()->json($sexos);
+	}
 }

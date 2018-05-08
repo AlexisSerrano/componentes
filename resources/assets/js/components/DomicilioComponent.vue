@@ -2,52 +2,55 @@
     <div class="container mt-3">
         <form v-on:submit.prevent="crearDomicilio">
             <div class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="estado">Entidad Federativa</label>    
-                    <v-select :options="estados" label="nombre" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('estado') }"></v-select>
+                    <v-select :options="estados" label="nombre" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('estado') }" placeholder="Seleccione una entidad federativa"></v-select>
                     <span v-show="errors.has('estado')" class="text-danger">{{ errors.first('estado') }}</span>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="municipio">Municipios</label>  
-                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') }"></v-select>
+                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') }" placeholder="Seleccione un municipio"></v-select>
                     <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio') }}</span>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="localidad">Localidades</label>    
-                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') }"></v-select>
+                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') }" placeholder="Seleccione una localidad"></v-select>
                     <span v-show="errors.has('localidad')" class="text-danger">{{ errors.first('localidad') }}</span>
-                    </div>
-                <div class="form-group col-md-3">
-                    <label for="cp">Codigo Postal</label>    
-                    <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias" v-validate="'required'" :class="{ 'border border-danger': errors.has('codigo_postal') }"></v-select>
-                    <span v-show="errors.has('codigo_postal')" class="text-danger">{{ errors.first('codigo_postal') }}</span>                </div>
+                </div>
             </div>
 
 
             <div class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
+                    <label for="cp">Codigo Postal</label>    
+                    <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias" v-validate="'required'" :class="{ 'border border-danger': errors.has('codigo_postal') }" placeholder="Seleccione un codigo postal"></v-select>
+                    <span v-show="errors.has('codigo_postal')" class="text-danger">{{ errors.first('codigo_postal') }}</span>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="colonia">Colonias</label>    
-                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia" v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') }"></v-select>
+                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia" v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') }" placeholder="Seleccione una colonia"></v-select>
                     <span v-show="errors.has('colonia')" class="text-danger">{{ errors.first('colonia') }}</span>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="calle">Calle</label>
                     <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('calle') }" id="calle" name="calle" v-model="calle" placeholder="Ingrese la calle" v-validate="'required'">
                     <span v-if="errors.has('calle')" class="text-danger">{{ errors.first('calle') }}</span>
                 </div>
-                <div class="form-group col-md-3">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
                     <label for="numExterno">Número Externo</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('numExterno') }" id="numExterno" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'">
-                    <span v-if="errors.has('numExterno')" class="text-danger">{{ errors.first('numExterno') }}</span>
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') }" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'">
+                    <span v-if="errors.has('Numero Externo')" class="text-danger">{{ errors.first('Numero Externo') }}</span>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="numInterno">Número Interno</label>
                     <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Interno') }" id="numInterno" data-vv-name="Numero Interno" name="numInterno" v-model="numInterno" placeholder="Ingrese el número interno" v-validate="'required'">
                     <span v-if="errors.has('Numero Interno')" class="text-danger">{{ errors.first('Numero Interno') }}</span>
                     <span v-if="errornumInterno!=''" class="text-danger">{{ errornumInterno }}</span>
                 </div>
             </div>
-
             <!-- <h1>{{(estado!=null)?estado.id:estado}}</h1> -->
             <button type="submit" class="btn">Guardar</button>
         </form>
@@ -55,8 +58,6 @@
 </template>
 
 <script>
-import vSelect from 'vue-select'
-Vue.component('v-select', vSelect)
 import swal from 'sweetalert2'
     export default {
         data(){
@@ -82,7 +83,7 @@ import swal from 'sweetalert2'
         },
         methods:{
             getEstados: function(){
-                var urlEstados = 'http://localhost/componentes/public/getEstados2';
+                var urlEstados = 'getEstados2';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
                 });
@@ -93,7 +94,7 @@ import swal from 'sweetalert2'
                     this.localidad=null,
                     this.codigo_postal=null,
                     this.colonia=null
-                    var urlMunicipios = 'http://localhost/componentes/public/getMunicipios2/'+this.estado.id;
+                    var urlMunicipios = 'getMunicipios2/'+this.estado.id;
                     axios.get(urlMunicipios).then(response => {
                         this.municipios = response.data
                     });
@@ -114,7 +115,7 @@ import swal from 'sweetalert2'
                     this.localidad=null,
                     this.codigo_postal=null,
                     this.colonia=null
-                    var urlLocalidades = 'http://localhost/componentes/public/getLocalidades2/'+this.municipio.id;
+                    var urlLocalidades = 'getLocalidades2/'+this.municipio.id;
                     axios.get(urlLocalidades).then(response => {
                         this.localidades = response.data
                     });
@@ -132,7 +133,7 @@ import swal from 'sweetalert2'
                 if(this.municipio!=null){
                     this.codigo_postal=null
                     this.colonia=null
-                    var urlCodigosPostales = 'http://localhost/componentes/public/getCodigosPostales2/'+this.municipio.id;
+                    var urlCodigosPostales = 'getCodigosPostales2/'+this.municipio.id;
                     axios.get(urlCodigosPostales).then(response => {
                         this.cp = response.data
                     });
@@ -147,7 +148,7 @@ import swal from 'sweetalert2'
             getColonias: function(){
                 if(this.codigo_postal!=null){
                     this.colonia=null
-                    var urlColonias = 'http://localhost/componentes/public/getColonias2/'+this.codigo_postal.id;
+                    var urlColonias = 'getColonias2/'+this.codigo_postal.id;
                     axios.get(urlColonias).then(response => {
                         this.colonias = response.data
                     });
@@ -158,7 +159,7 @@ import swal from 'sweetalert2'
                 }
             },
             crearDomicilio: function(){
-                var urlDomicilio = 'http://localhost/componentes/public/addDomicilio';
+                var urlDomicilio = 'addDomicilio';
                 axios.post(urlDomicilio,{
                     estado: this.estado.id,
                     municipio: this.municipio.id,

@@ -10,7 +10,7 @@
 
   </head>
     <div id="app">
-        <persona></persona>
+        <persona :mostrarEtnia="false"></persona>
     </div>
   </body> 
 
