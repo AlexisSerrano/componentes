@@ -15436,9 +15436,11 @@ module.exports = __webpack_require__(58);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vee_validate__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_select__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_select__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_select__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_select__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vee_validate_dist_locale_es__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vee_validate_dist_locale_es___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vee_validate_dist_locale_es__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vee_validate__ = __webpack_require__(40);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -15447,11 +15449,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  */
 
 __webpack_require__(17);
-
-
 window.Vue = __webpack_require__(42);
-Vue.use(__WEBPACK_IMPORTED_MODULE_0_vee_validate__["a" /* default */]);
-Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_1_vue_select___default.a);
+
+/*Vue-Select*/
+
+Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
+/*Vue-Select*/
+
+/*Vee-Validate*/
+
+
+__WEBPACK_IMPORTED_MODULE_2_vee_validate__["a" /* Validator */].localize('es', __WEBPACK_IMPORTED_MODULE_1_vee_validate_dist_locale_es___default.a);
+Vue.use(__WEBPACK_IMPORTED_MODULE_2_vee_validate__["b" /* default */]);
+/*Vee-Validate*/
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -37488,7 +37498,7 @@ module.exports = function spread(callback) {
 /* unused harmony export directive */
 /* unused harmony export mixin */
 /* unused harmony export mapFields */
-/* unused harmony export Validator */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Validator; });
 /* unused harmony export ErrorBag */
 /* unused harmony export Rules */
 /* unused harmony export ErrorComponent */
@@ -42581,7 +42591,7 @@ var index_esm = {
     version: version
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (index_esm);
+/* harmony default export */ __webpack_exports__["b"] = (index_esm);
 
 
 
@@ -54071,6 +54081,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -54104,6 +54115,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
+    // props: ['mostrarForm'],
     //    PROBANDO PROPS
     //    props:{
     //        mostrarForm: {
@@ -54513,10 +54525,26 @@ var render = function() {
                       rawName: "v-model",
                       value: _vm.fechaNacimiento,
                       expression: "fechaNacimiento"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required",
+                      expression: "'required'"
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "date", id: "fechaNacimiento" },
+                  class: {
+                    "border border-danger": _vm.errors.has(
+                      "Fecha de Nacimiento"
+                    )
+                  },
+                  attrs: {
+                    type: "date",
+                    id: "fechaNacimiento",
+                    name: "fechaNacimiento",
+                    "data-vv-name": "Fecha de Nacimiento"
+                  },
                   domProps: { value: _vm.fechaNacimiento },
                   on: {
                     input: function($event) {
@@ -54526,7 +54554,23 @@ var render = function() {
                       _vm.fechaNacimiento = $event.target.value
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("Fecha de Nacimiento"),
+                        expression: "errors.has('Fecha de Nacimiento')"
+                      }
+                    ],
+                    staticClass: "text-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("Fecha de Nacimiento")))]
+                )
               ]),
               _vm._v(" "),
               _c(
@@ -54748,10 +54792,15 @@ var render = function() {
                         expression: "'required'"
                       }
                     ],
-                    class: { "border border-danger": _vm.errors.has("estado") },
+                    class: {
+                      "border border-danger": _vm.errors.has(
+                        "Entidad Federativa"
+                      )
+                    },
                     attrs: {
                       options: _vm.estados,
                       label: "nombre",
+                      "data-vv-name": "Entidad Federativa",
                       name: "estado",
                       placeholder: "Seleccione una entidad federativa"
                     },
@@ -54772,13 +54821,13 @@ var render = function() {
                         {
                           name: "show",
                           rawName: "v-show",
-                          value: _vm.errors.has("estado"),
-                          expression: "errors.has('estado')"
+                          value: _vm.errors.has("Entidad Federativa"),
+                          expression: "errors.has('Entidad Federativa')"
                         }
                       ],
                       staticClass: "text-danger"
                     },
-                    [_vm._v(_vm._s(_vm.errors.first("estado")))]
+                    [_vm._v(_vm._s(_vm.errors.first("Entidad Federativa")))]
                   )
                 ],
                 1
@@ -55349,10 +55398,13 @@ var render = function() {
                     expression: "'required'"
                   }
                 ],
-                class: { "border border-danger": _vm.errors.has("estado") },
+                class: {
+                  "border border-danger": _vm.errors.has("Entidad Federativa")
+                },
                 attrs: {
                   options: _vm.estados,
                   label: "nombre",
+                  "data-vv-name": "Entidad Federativa",
                   name: "estado",
                   placeholder: "Seleccione una entidad federativa"
                 },
@@ -55373,13 +55425,13 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("estado"),
-                      expression: "errors.has('estado')"
+                      value: _vm.errors.has("Entidad Federativa"),
+                      expression: "errors.has('Entidad Federativa')"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("estado")))]
+                [_vm._v(_vm._s(_vm.errors.first("Entidad Federativa")))]
               )
             ],
             1
@@ -55661,8 +55713,8 @@ var render = function() {
                 {
                   name: "validate",
                   rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
+                  value: "required|numeric",
+                  expression: "'required|numeric'"
                 }
               ],
               class: {
@@ -55774,6 +55826,18 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,n){ true?module.exports=n():"function"==typeof define&&define.amd?define(n):(e.__vee_validate_locale__es=e.__vee_validate_locale__es||{},e.__vee_validate_locale__es.js=n())}(this,function(){"use strict";var e,n={name:"es",messages:{_default:function(e){return"El campo "+e+" no es válido."},after:function(e,n){var o=n[0];return"El campo "+e+" debe ser posterior "+(n[1]?"o igual ":"")+"a "+o+"."},alpha_dash:function(e){return"El campo "+e+" solo debe contener letras, números y guiones."},alpha_num:function(e){return"El campo "+e+" solo debe contener letras y números."},alpha_spaces:function(e){return"El campo "+e+" solo debe contener letras y espacios."},alpha:function(e){return"El campo "+e+" solo debe contener letras."},before:function(e,n){var o=n[0];return"El campo "+e+" debe ser anterior "+(n[1]?"o igual ":"")+"a "+o+"."},between:function(e,n){return"El campo "+e+" debe estar entre "+n[0]+" y "+n[1]+"."},confirmed:function(e){return"El campo "+e+" no coincide."},credit_card:function(e){return"El campo "+e+" es inválido."},date_between:function(e,n){return"El campo "+e+" debe estar entre "+n[0]+" y "+n[1]+"."},date_format:function(e,n){return"El campo "+e+" debe tener formato formato "+n[0]+"."},decimal:function(e,n){void 0===n&&(n=[]);var o=n[0];return void 0===o&&(o="*"),"El campo "+e+" debe ser númerico y contener "+("*"===o?"":o)+" puntos decimales."},digits:function(e,n){return"El campo "+e+" debe ser númerico y contener exactamente "+n[0]+" dígitos."},dimensions:function(e,n){return"El campo "+e+" debe ser de "+n[0]+" pixeles por "+n[1]+" pixeles."},email:function(e){return"El campo "+e+" debe ser un correo electrónico válido."},ext:function(e){return"El campo "+e+" debe ser un archivo válido."},image:function(e){return"El campo "+e+" debe ser una imagen."},in:function(e){return"El campo "+e+" debe ser un valor válido."},integer:function(e){return"El campo "+e+" debe ser un entero."},ip:function(e){return"El campo "+e+" debe ser una dirección ip válida."},length:function(e,n){var o=n[0],r=n[1];return r?"El largo del campo "+e+" debe estar entre "+o+" y "+r+".":"El largo del campo "+e+" debe ser "+o+"."},max:function(e,n){return"El campo "+e+" no debe ser mayor a "+n[0]+" caracteres."},max_value:function(e,n){return"El campo "+e+" debe de ser "+n[0]+" o menor."},mimes:function(e){return"El campo "+e+" debe ser un tipo de archivo válido."},min:function(e,n){return"El campo "+e+" debe tener al menos "+n[0]+" caracteres."},min_value:function(e,n){return"El campo "+e+" debe ser "+n[0]+" o superior."},not_in:function(e){return"El campo "+e+" debe ser un valor válido."},numeric:function(e){return"El campo "+e+" debe contener solo caracteres númericos."},regex:function(e){return"El formato del campo "+e+" no es válido."},required:function(e){return"El campo "+e+" es obligatorio."},size:function(e,n){var o,r,t,a=n[0];return"El campo "+e+" debe ser menor a "+(o=a,r=1024,t=0==(o=Number(o)*r)?0:Math.floor(Math.log(o)/Math.log(r)),1*(o/Math.pow(r,t)).toFixed(2)+" "+["Byte","KB","MB","GB","TB","PB","EB","ZB","YB"][t])+"."},url:function(e){return"El campo "+e+" no es una URL válida."}},attributes:{}};return"undefined"!=typeof VeeValidate&&VeeValidate.Validator.localize(((e={})[n.name]=n,e)),n});
 
 /***/ })
 /******/ ]);

@@ -38,7 +38,8 @@
             <div v-if="mostrarForm" class="form-row">
                 <div class="form-group col-md-4">
                     <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                    <input type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento">
+                    <input type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento') }">
+                    <span v-show="errors.has('Fecha de Nacimiento')" class="text-danger">{{ errors.first('Fecha de Nacimiento') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="sexos">Sexo</label>    
@@ -66,8 +67,8 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="estado">Entidad Federativa</label>    
-                    <v-select :options="estados" label="nombre" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('estado') }" placeholder="Seleccione una entidad federativa"></v-select>
-                    <span v-show="errors.has('estado')" class="text-danger">{{ errors.first('estado') }}</span>
+                    <v-select :options="estados" label="nombre" data-vv-name="Entidad Federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('Entidad Federativa') }" placeholder="Seleccione una entidad federativa"></v-select>
+                    <span v-show="errors.has('Entidad Federativa')" class="text-danger">{{ errors.first('Entidad Federativa') }}</span>
                 </div>
             </div>
 
@@ -147,13 +148,14 @@ import swal from 'sweetalert2'
            }
        },
 
+    // props: ['mostrarForm'],
     //    PROBANDO PROPS
     //    props:{
     //        mostrarForm: {
     //            default:false
     //        }
     //    },
-    
+
        mounted: function(){
            this.getNacionalidades();
            this.getEstados();

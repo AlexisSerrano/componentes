@@ -4,8 +4,8 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="estado">Entidad Federativa</label>    
-                    <v-select :options="estados" label="nombre" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('estado') }" placeholder="Seleccione una entidad federativa"></v-select>
-                    <span v-show="errors.has('estado')" class="text-danger">{{ errors.first('estado') }}</span>
+                    <v-select :options="estados" label="nombre" data-vv-name="Entidad Federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('Entidad Federativa') }" placeholder="Seleccione una entidad federativa"></v-select>
+                    <span v-show="errors.has('Entidad Federativa')" class="text-danger">{{ errors.first('Entidad Federativa') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="municipio">Municipios</label>  
@@ -41,7 +41,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="numExterno">Número Externo</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') }" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'">
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') }" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required|numeric'">
                     <span v-if="errors.has('Numero Externo')" class="text-danger">{{ errors.first('Numero Externo') }}</span>
                 </div>
                 <div class="form-group col-md-4">
