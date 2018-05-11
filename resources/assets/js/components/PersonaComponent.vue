@@ -1,11 +1,11 @@
 <template>
     <div class="container mt-3">
         <div v-if="mostrarSearch" class="form-row align-items-end">
-            <div class="form-group col-md-4">
+            <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                 <label for="persona">Buscar Persona</label>
                 <input type="text" class="form-control" id="persona" :value="persona" @input="persona = $event.target.value" placeholder="Ingrese el R.F.C o Curp">
             </div>
-            <div class="form-group col-md-5">
+            <div v-if="qrr==0 && conocido==0" class="form-group col-md-5">
                 <button v-on:click="searchPersona" type="submit" class="btn mr-1">Buscar</button>
                 <button v-on:click="mostrarForm=true,mostrarSearch=false, persona='',personaExiste=[]" class="btn">
                 <img src="../../images/registro.svg" class="icons"> Registrar Persona</button> 
@@ -15,81 +15,94 @@
             </div>
         </div>
 
-        <form v-on:submit.prevent="crearPersona">
+        <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm || qrr==true || conocido==true">
 
-            <div v-if="mostrarForm" class="form-row">
-                <div class="form-group col-md-4">
+            <div class="form-row">
+                <div v-if="qrr==0" class="form-group col-md-4">
                     <label for="nombres">Nombres</label>
-                    <input type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'">
+                    <input v-if="nombresV" type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'">
+                    <input v-else type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre">
                     <span v-if="errors.has('nombres')" class="text-danger">{{ errors.first('nombres') }}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="qrr==0" class="form-group col-md-4">
                     <label for="primerAp">Primer Apellido</label>
-                    <input type="text" name="primerAp" data-vv-name="Primer Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Primer Apellido') }" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="'required'">
+                    <input v-if="primerApV" type="text" name="primerAp" data-vv-name="Primer Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Primer Apellido') }" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="'required'">
+                    <input v-else type="text" name="primerAp" data-vv-name="Primer Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Primer Apellido') }" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido">
                     <span v-if="errors.has('Primer Apellido')" class="text-danger">{{ errors.first('Primer Apellido') }}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="segundoAp">Segundo Apellido</label>
-                    <input type="text" name="segundoAp" data-vv-name="Segundo Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Segundo Apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="'required'">
+                    <input v-if="segundoApV" type="text" name="segundoAp" data-vv-name="Segundo Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Segundo Apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="'required'">
+                    <input v-else type="text" name="segundoAp" data-vv-name="Segundo Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Segundo Apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido">
                     <span v-if="errors.has('Segundo Apellido')" class="text-danger">{{ errors.first('Segundo Apellido') }}</span>
                 </div>
             </div>
 
-            <div v-if="mostrarForm" class="form-row">
-                <div class="form-group col-md-4">
+            <div class="form-row">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                    <input type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento') }">
+                    <input v-if="fechaNacimientoV" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento') }">
+                    <input v-else type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento') }">
                     <span v-show="errors.has('Fecha de Nacimiento')" class="text-danger">{{ errors.first('Fecha de Nacimiento') }}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="sexos">Sexo</label>    
-                    <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="'required'" :class="{ 'border border-danger': errors.has('sexo') }" placeholder="Seleccione un sexo"></v-select>
+                    <v-select v-if="sexoV" :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="'required'" :class="{ 'border border-danger': errors.has('sexo') }" placeholder="Seleccione un sexo"></v-select>
+                    <v-select v-else :options="sexos" label="nombre" v-model="sexo" name="sexo" :class="{ 'border border-danger': errors.has('sexo') }" placeholder="Seleccione un sexo"></v-select>
                     <span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo') }}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="rfc">R.F.C</label>
-                    <!-- <input type="text" class="form-control" id="rfc" :value="rfc" @input="rfc = $event.target.value" placeholder="R.F.C"> -->
-                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'">
+                    <input v-if="rfcV" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'">
+                    <input v-else type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc">
                     <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
                 </div>
             </div>
 
-            <div v-if="mostrarForm" class="form-row">
-                <div class="form-group col-md-4">
+            <div class="form-row">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="curp">Curp</label>
-                    <input type="text" name="curp" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('curp') }" id="curp" v-model="curp" placeholder="Ingrese el curp" v-validate="'required'">
+                    <input v-if="curpV" type="text" name="curp" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('curp') }" id="curp" v-model="curp" placeholder="Ingrese el curp" v-validate="'required'">
+                    <input v-else type="text" name="curp" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('curp') }" id="curp" v-model="curp" placeholder="Ingrese el curp">
                     <span v-if="errors.has('curp')" class="text-danger">{{ errors.first('curp') }}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="nacionalidad">Nacionalidad</label>    
-                    <v-select :options="nacionalidades" label="nombre" v-model="nacionalidad" name="nacionalidad" v-validate="'required'" :class="{ 'border border-danger': errors.has('nacionalidad') }" placeholder="Seleccione una nacionalidad"></v-select>
+                    <v-select v-if="nacionalidadV" :options="nacionalidades" label="nombre" v-model="nacionalidad" name="nacionalidad" v-validate="'required'" :class="{ 'border border-danger': errors.has('nacionalidad') }" placeholder="Seleccione una nacionalidad"></v-select>
+                    <v-select v-else :options="nacionalidades" label="nombre" v-model="nacionalidad" name="nacionalidad" :class="{ 'border border-danger': errors.has('nacionalidad') }" placeholder="Seleccione una nacionalidad"></v-select>
                     <span v-show="errors.has('nacionalidad')" class="text-danger">{{ errors.first('nacionalidad') }}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="estado">Entidad Federativa</label>    
-                    <v-select :options="estados" label="nombre" data-vv-name="Entidad Federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('Entidad Federativa') }" placeholder="Seleccione una entidad federativa"></v-select>
+                    <v-select v-if="estadoV" :options="estados" label="nombre" data-vv-name="Entidad Federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('Entidad Federativa') }" placeholder="Seleccione una entidad federativa"></v-select>
+                    <v-select v-else :options="estados" label="nombre" data-vv-name="Entidad Federativa" v-model="estado" name="estado" @input="getMunicipios" :class="{ 'border border-danger': errors.has('Entidad Federativa') }" placeholder="Seleccione una entidad federativa"></v-select>
                     <span v-show="errors.has('Entidad Federativa')" class="text-danger">{{ errors.first('Entidad Federativa') }}</span>
                 </div>
             </div>
 
-            <div v-if="mostrarForm" class="form-row">
-                <div class="form-group col-md-4">
+            <div class="form-row">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="municipio">Municipio de Origen</label>    
-                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') }" placeholder="Seleccione un municipio"></v-select>
+                    <v-select v-if="municipioV" :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') }" placeholder="Seleccione un municipio"></v-select>
+                    <v-select v-else :options="municipios" label="nombre" v-model="municipio" name="municipio" :class="{ 'border border-danger': errors.has('municipio') }" placeholder="Seleccione un municipio"></v-select>
                     <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio') }}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="etnia">Etnia</label>    
-                    <v-select label="nombre" :options="etnias" v-model="etnia" placeholder="Seleccione una etnia" class="select"></v-select>
+                    <v-select v-if="etniaV" label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="'required'" :class="{ 'border border-danger': errors.has('etnia') }" placeholder="Seleccione una etnia" class="select"></v-select>
+                    <v-select v-else label="nombre" :options="etnias" v-model="etnia" name="etnia" :class="{ 'border border-danger': errors.has('etnia') }" placeholder="Seleccione una etnia" class="select"></v-select>
+                    <span v-show="errors.has('etnia')" class="text-danger">{{ errors.first('etnia') }}</span> 
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="lengua">Lengua</label>    
-                    <v-select label="nombre" :options="lenguas" v-model="lengua" placeholder="Seleccione una lengua" class="select"></v-select>
+                    <v-select v-if="lenguaV" label="nombre" :options="lenguas" v-model="lengua" name="lengua" v-validate="'required'" :class="{ 'border border-danger': errors.has('lengua') }" placeholder="Seleccione una lengua" class="select"></v-select>
+                    <v-select v-else label="nombre" :options="lenguas" v-model="lengua" name="lengua" :class="{ 'border border-danger': errors.has('lengua') }" placeholder="Seleccione una lengua" class="select"></v-select>
+                    <span v-show="errors.has('lengua')" class="text-danger">{{ errors.first('lengua') }}</span> 
                 </div>
             </div>
 
-            <div v-if="mostrarForm" class="form-row">
-                <div class="form-group col-md-4">
+            <div class="form-row">
+                <div v-if="qrr==0 && conocido==0" class="form-group col-md-4">
                     <label for="esEmpresa">Es Empresa</label>
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
@@ -103,66 +116,90 @@
                     </div>
                 </div>
             </div>
-            <div v-if="mostrarForm" class="form-row">
-                <div v-if="mostrarForm" class="form-group col-md-5">
+            <div class="form-row">
+                <div class="form-group col-md-5">
                     <button type="submit" class="btn mr-1">Guardar</button>
-                    <button v-on:click="mostrarForm=false,mostrarSearch=true" class="btn">
+                    <button v-if="qrr==0 && conocido==0" type="button" v-on:click="mostrarForm=false,mostrarSearch=true" class="btn">
                     <img src="../../images/flecha.svg" class="icons"> Regresar a buscar</button> 
                 </div>
             </div>
             <!-- <button v-if="mostrarForm" type="submit" class="btn">Guardar</button> -->
             <!-- <h1>{{(Object.keys(this.personaExiste).length === 1)?personaExiste:''}}</h1> -->
         </form>
+        
     </div>
 </template>
 
 <script>
 import swal from 'sweetalert2'
     export default {
-       data(){
-           return{
-               nacionalidades: [],
-               estados: [],
-               municipios: [],
-               etnias: [],
-               lenguas: [],
-               sexos: [],
-               persona:'',
-               personaExiste:'',
-               nombres: '',
-               primerAp: '',
-               segundoAp: '',
-               fechaNacimiento: '',
-               prueba:'',
-               sexo:null,
-               rfc:'',
-               curp: '',
-               mostrarSearch:true,
-               mostrarForm:false,
-               nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
-               estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
-               municipio:null,
-               etnia:{ "nombre": "SIN INFORMACIÓN", "id": 13 },
-               lengua:{ "nombre": "SIN INFORMACIÓN", "id": 69 },
-               esEmpresa: ''
-           }
-       },
+        data(){
+             return{
+                nacionalidades: [],
+                estados: [],
+                municipios: [],
+                etnias: [],
+                lenguas: [],
+                sexos: [],
+                persona:'',
+                personaExiste:'',
+                nombres: '',
+                primerAp: '',
+                segundoAp: '',
+                fechaNacimiento: '',
+                prueba:'',
+                sexo:null,
+                rfc:'',
+                curp: '',
+                mostrarSearch:true,
+                mostrarForm:false,
+                nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
+                estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+                municipio:null,
+                etnia:{ "nombre": "SIN INFORMACIÓN", "id": 13 },
+                lengua:{ "nombre": "SIN INFORMACIÓN", "id": 69 },
+                esEmpresa: '',
+                nombresV:false,
+                primerApV:false,
+                segundoApV:false,
+                fechaNacimientoV:false,
+                sexoV:false,
+                rfcV:false,
+                curpV:false,
+                nacionalidadV:false,
+                estadoV:false,
+                municipioV:false,
+                etniaV:false,
+                lenguaV:false,
+                esEmpresaV:false,
+                validaciones:[],
+            }
+        },
 
-    // props: ['mostrarForm'],
-    //    PROBANDO PROPS
-    //    props:{
-    //        mostrarForm: {
-    //            default:false
-    //        }
-    //    },
+        // props: ['sistema','tipo'],
+        props:{
+            sistema: {
+                default:5
+            },
+            tipo: {
+                default:5
+            },
+            qrr: {
+                default:false
+            },
+            conocido: {
+                default:false
+            }
+        },
 
-       mounted: function(){
+        mounted: function(){
            this.getNacionalidades();
            this.getEstados();
            this.getEtnias();
            this.getLenguas();
            this.getSexos();
-       },
+           this.getValidaciones();
+        },
         methods:{
             searchPersona: function(){
                 if(this.persona!=''){
@@ -243,55 +280,111 @@ import swal from 'sweetalert2'
                     this.sexos = response.data
                 });
             },
-            getPersonas: function(){
-                var urlPersonas = 'getPersonas';
-                axios.get(urlPersonas).then(response => {
-                    this.personas = response.data
+            getSexos: function(){
+                var urlSexos = 'getSexos';
+                axios.get(urlSexos).then(response => {
+                    this.sexos = response.data
                 });
             },
-            crearPersona: function(){
-                var urlCrearPersona = 'addPersona';
-                axios.post(urlCrearPersona,{
-                    nombres: this.nombres,
-                    primerAp: this.primerAp,
-                    segundoAp: this.segundoAp,
-                    fechaNacimiento: this.fechaNacimiento,
-                    sexo: this.sexo.id,
-                    rfc:this.rfc,
-                    curp: this.curp,
-                    nacionalidad: this.nacionalidad.id,
-                    municipio: this.municipio.id,
-                    etnia: this.etnia.id,
-                    lengua: this.lengua.id,
-                    esEmpresa: this.esEmpresa
-                }).then(response => {
-                    this.nacionalidad=null,
-                    this.estado=null,
-                    this.municipio=null,
-                    this.etnia=null,
-                    this.lengua=null,
-                    this.nombres='',
-                    this.primerAp='',
-                    this.segundoAp='',
-                    this.fechaNacimiento='',
-                    this.sexo='',
-                    this.rfc='',
-                    this.curp='',
-                    this.esEmpresa=''
+            getValidaciones: function(){
+                var urlValidaciones = 'getValidaciones/'+this.sistema+'/'+this.tipo;
+                axios.get(urlValidaciones).then(response => {
+                    // this.validaciones = response.data,
+                    // this.nombresV=this.validaciones.nombresV,
+                    // this.primerApV=this.validaciones.primerApV,
+                    // this.segundoApV=this.validaciones.segundoApV,
+                    // this.fechaNacimientoV=this.validaciones.fechaNacimientoV,
+                    // this.sexoV=this.validaciones.sexoV,
+                    // this.rfcV=this.validaciones.sexoV,
+                    // this.curpV=this.validaciones.curpV,
+                    // this.nacionalidadV=this.validaciones.nacionalidadV,
+                    // this.estadoV=this.validaciones.estadoV,
+                    // this.municipioV=this.validaciones.municipioV,
+                    // this.etniaV=this.validaciones.etniaV,
+                    // this.lenguaV=this.validaciones.lenguaV,
+                    // this.esEmpresaV=this.validaciones.esEmpresaV
+                    this.validaciones = response.data,
+                    this.nombresV=this.validaciones,
+                    this.primerApV=this.validaciones,
+                    this.segundoApV=this.validaciones,
+                    this.fechaNacimientoV=this.validaciones,
+                    this.sexoV=this.validaciones,
+                    this.rfcV=this.validaciones,
+                    this.curpV=this.validaciones,
+                    this.nacionalidadV=this.validaciones,
+                    this.estadoV=this.validaciones,
+                    this.municipioV=this.validaciones,
+                    this.etniaV=this.validaciones,
+                    this.lenguaV=this.validaciones,
+                    this.esEmpresaV=this.validaciones
+                });
+            },
+            validateBeforeSubmit() {
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        this.crearPersona();
+                        this.CleanFields();
+                        swal({
+                            title: 'Guardado Correctamente!',
+                            text: 'Esta persona fue guardada exitosamente',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        })
+                        return;
+                    }
                     swal({
-                        title: 'Guardado Correctamente!',
-                        text: 'Esta persona fue guardada exitosamente',
-                        type: 'success',
-                        confirmButtonText: 'Ok'
-                    })
-                }).catch(error => {
-                     swal({
                         title: 'Guardado Incorrecto!',
                         text: 'Esta persona no fue posible guardarla',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     })
-                })
+                });
+            },
+            CleanFields() {
+                this.nacionalidad={ "nombre": "MEXICANA", "id": 1 },
+                this.estado={ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+                this.municipio=null,
+                this.etnia={ "nombre": "SIN INFORMACIÓN", "id": 13 },
+                this.lengua={ "nombre": "SIN INFORMACIÓN", "id": 69 },
+                this.nombres='',
+                this.primerAp='',
+                this.segundoAp='',
+                this.fechaNacimiento='',
+                this.sexo=null,
+                this.rfc='',
+                this.curp='',
+                this.esEmpresa=''
+                this.$validator.reset();
+            },
+            crearPersona: function(){
+                var urlCrearPersona = 'addPersona';
+                if(this.qrr==false && this.conocido==false){
+                    axios.post(urlCrearPersona,{
+                        nombres: this.nombres,
+                        primerAp: this.primerAp,
+                        segundoAp: this.segundoAp,
+                        fechaNacimiento: this.fechaNacimiento,
+                        sexo: this.sexo.id,
+                        rfc:this.rfc,
+                        curp: this.curp,
+                        nacionalidad: this.nacionalidad.id,
+                        municipio: this.municipio.id,
+                        etnia: this.etnia.id,
+                        lengua: this.lengua.id,
+                        esEmpresa: this.esEmpresa
+                    })
+                }
+                else if(this.qrr==false && this.conocido==true){
+                    axios.post(urlCrearPersona,{
+                        nombres: this.nombres,
+                        primerAp: this.primerAp
+                    })   
+                }
+                else if(this.qrr==1){
+                    axios.post(urlCrearPersona,{
+                        qrr: this.qrr
+                    }) 
+                }
             }
        }
     }

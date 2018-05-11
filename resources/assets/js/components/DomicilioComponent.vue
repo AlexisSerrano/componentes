@@ -41,7 +41,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="numExterno">Número Externo</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') }" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required|numeric'">
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') }" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'">
                     <span v-if="errors.has('Numero Externo')" class="text-danger">{{ errors.first('Numero Externo') }}</span>
                 </div>
                 <div class="form-group col-md-4">
@@ -212,5 +212,11 @@ button{
     background-color: #424242;
     border-color: #424242;
     color: white;
+}
+input{
+    text-transform: uppercase
+}
+::placeholder{
+    text-transform: none
 }
 </style>
