@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-3">
-        <form v-on:submit.prevent="crearDomicilio">
+        <form v-on:submit.prevent="validateBeforeSubmit">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="estado">Entidad Federativa</label>    
@@ -158,6 +158,38 @@ import swal from 'sweetalert2'
                     this.colonias=[]
                 }
             },
+            CleanFields() {
+                this.calle='',
+                this.numExterno='',
+                this.numInterno='',
+                this.estado={ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+                this.municipio=null,
+                this.localidad=null,
+                this.codigo_postal=null,
+                this.colonia=null
+                this.$validator.reset();
+            },
+            validateBeforeSubmit() {
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        this.crearDomicilio();
+                        this.CleanFields();
+                        swal({
+                            title: 'Guardado Correctamente!',
+                            text: 'Este domicilio fue guardado exitosamente',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        })
+                        return;
+                    }
+                    swal({
+                        title: 'Guardado Incorrecto!',
+                        text: 'Este domicilio no fue posible guardarse',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    })
+                });
+            },
             crearDomicilio: function(){
                 var urlDomicilio = 'addDomicilio';
                 axios.post(urlDomicilio,{
@@ -166,32 +198,9 @@ import swal from 'sweetalert2'
                     localidad: this.localidad.id,
                     colonia: this.colonia.id,
                     codigo_postal: this.codigo_postal.id,
-                    calle: this.calle,
-                    numExterno: this.numExterno,
-                    numInterno: this.numInterno,
-                }).then(response => {
-                    this.calle='',
-                    this.numExterno='',
-                    this.numInterno='',
-                    this.estado=null,
-                    this.municipio=null,
-                    this.localidad=null,
-                    this.codigo_postal=null,
-                    this.colonia=null
-                    swal({
-                        title: 'Guardado Correctamente!',
-                        text: 'Este domicilio fue guardado exitosamente',
-                        type: 'success',
-                        confirmButtonText: 'Ok'
-                    })
-                }).catch(error => {
-                    this.errornumInterno = error.response.data.errors.numInterno;
-                     swal({
-                        title: 'Guardado Incorrecto!',
-                        text: 'Este domicilio no fue posible guardarse',
-                        type: 'error',
-                        confirmButtonText: 'Ok'
-                    })
+                    calle: this.calle.toUpperCase(),
+                    numExterno: this.numExterno.toUpperCase(),
+                    numInterno: this.numInterno.toUpperCase(),
                 })
             }
        }

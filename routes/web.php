@@ -17,6 +17,7 @@ Route::get('getLenguas','PersonaController@getLenguas');
 Route::get('getEstados','PersonaController@getEstados');
 Route::get('getSexos','PersonaController@getSexos');
 Route::get('searchPersona/{id}','PersonaController@searchPersona');
+Route::get('getValidaciones/{sistema}/{tipo}','PersonaController@getValidaciones');
 
 /*URLS PARA SELECTS DOMICILIO */
 Route::get('getEstados2','DomicilioController@getEstados');

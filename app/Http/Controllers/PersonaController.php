@@ -88,4 +88,7 @@ class PersonaController extends Controller{
 	    ->select('nombre','id')->get();
         return response()->json($sexos);
 	}
+	public function getValidaciones(){
+        return 1;
+	}
 }

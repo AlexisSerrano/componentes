@@ -11,8 +11,14 @@
   </head>
     <div id="app">
         <persona></persona>
+        <!-- <button id="btn2">click</button> -->
     </div>
   </body> 
 
     <script src="{{asset('js/app.js')}}"></script>
+    <!-- <script>
+      $( "#btn2" ).click(function() {
+        console.log($("#pruebavue").text());
+      });
+    </script> -->
 </html>
