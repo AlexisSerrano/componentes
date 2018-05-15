@@ -19,8 +19,8 @@ class CreateAparicionesTable extends Migration
             $table->integer('id_carpeta')->unsigned();
             $table->integer('id_sistema')->unsigned();
             $table->integer('id_involucrado')->unsigned();
-            $table->dateTime('fecha')->unsigned();
-            $table->integer('nuc');
+            $table->dateTime('fecha');
+            $table->integer('nuc')->unsigned();
 
             $table->foreign('idvar_persona')->references('id')->on('variables_persona')->onDelete('cascade');
             //$table->foreign('id_carpeta')->references('id')->on('carpeta')->onDelete('cascade');
