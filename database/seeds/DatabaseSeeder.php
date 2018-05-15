@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EstadoCivilSeeder::class); 
         $this->call(EscolaridadSeeder::class); 
         $this->call(ReligionSeeder::class); 
-
+        
+        $this->call(IdentificacionSeeder::class);
     }
 }

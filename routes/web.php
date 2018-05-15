@@ -16,6 +16,11 @@ Route::get('getEtnias','PersonaController@getEtnias');
 Route::get('getLenguas','PersonaController@getLenguas');
 Route::get('getEstados','PersonaController@getEstados');
 Route::get('getSexos','PersonaController@getSexos');
+Route::get('getOcupaciones','PersonaController@getOcupaciones');
+Route::get('getEstadosCiviles','PersonaController@getEstadosCiviles');
+Route::get('getEscolaridades','PersonaController@getEscolaridades');
+Route::get('getReligiones','PersonaController@getReligiones');
+Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
 Route::get('searchPersona/{id}','PersonaController@searchPersona');
 Route::get('getValidaciones/{sistema}/{tipo}','PersonaController@getValidaciones');
 

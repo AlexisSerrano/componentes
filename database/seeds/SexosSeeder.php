@@ -13,8 +13,9 @@ class SexosSeeder extends Seeder
     {
         //
         DB::table('sexos')->insert([
-	        [ 'id' => 1, 'nombre' => 'Hombre'],
-	        [ 'id' => 2, 'nombre' => 'Mujer']
+	        [ 'id' => 1, 'nombre' => 'HOMBRE'],
+            [ 'id' => 2, 'nombre' => 'MUJER'],
+            [ 'id' => 3, 'nombre' => 'SIN INFORMACION']
 	    ]);
     }
 }

@@ -17,15 +17,15 @@
 
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm">
             <div class="form-row" v-if="tipo =='denunciado'">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <!-- <label for="denunciado">Denunciado</label> -->
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
-                            <label class="form-check-label" for="presencia" style="padding-right: 5px">presencia</label>
-                            <input class="form-check-input" type="radio" v-model="denunciado" id="presencia" value="1">
+                            <label class="form-check-label" for="comparecencia" style="padding-right: 5px">Comparecencia</label>
+                            <input class="form-check-input" type="radio" v-model="denunciado" id="comparecencia" value="1">
                         </div>
                         <div class="form-check form-check-inline">
-                            <label class="form-check-label" for="conocido" style="padding-right: 5px">conocido</label>
+                            <label class="form-check-label" for="conocido" style="padding-right: 5px">Conocido</label>
                             <input class="form-check-input" type="radio" v-model="denunciado" id="conocido" value="2">
                         </div>
                         <div class="form-check form-check-inline">
@@ -62,22 +62,28 @@
 
             <div class="form-row" v-if="(denunciado==1) || tipo!='denunciado'">
                 <div class="form-group col-md-4">
+                    <label for="rfc">R.F.C</label>
+                    <input v-if="rfcV" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'">
+                    <input v-else type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc">
+                    <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="fechaNacimiento">Fecha de Nacimiento</label>
                     <input v-if="fechaNacimientoV" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento') }">
                     <input v-else type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento') }">
                     <span v-show="errors.has('Fecha de Nacimiento')" class="text-danger">{{ errors.first('Fecha de Nacimiento') }}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-2">
+                    <label for="edad">Edad</label>
+                    <input v-if="edadV" type="number" min="0" max="150" name="edad" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('edad') }" id="edad" v-model="edad" placeholder="Ingrese la edad" v-validate="'required'">
+                    <input v-else type="number"  min="0" max="150" name="edad" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('edad') }" id="edad" v-model="edad" placeholder="Ingrese la edad">
+                    <span v-if="errors.has('edad')" class="text-danger">{{ errors.first('edad') }}</span>
+                </div>
+                <div class="form-group col-md-2">
                     <label for="sexos">Sexo</label>    
                     <v-select v-if="sexoV" :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="'required'" :class="{ 'border border-danger': errors.has('sexo') }" placeholder="Seleccione un sexo"></v-select>
                     <v-select v-else :options="sexos" label="nombre" v-model="sexo" name="sexo" :class="{ 'border border-danger': errors.has('sexo') }" placeholder="Seleccione un sexo"></v-select>
                     <span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo') }}</span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="rfc">R.F.C</label>
-                    <input v-if="rfcV" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'">
-                    <input v-else type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc">
-                    <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
                 </div>
             </div>
 
@@ -122,6 +128,80 @@
                     <span v-show="errors.has('lengua')" class="text-danger">{{ errors.first('lengua') }}</span> 
                 </div>
             </div>
+            <div class="form-row" v-if="(denunciado==1) || tipo!='denunciado'">
+                <div class="form-group col-md-4">
+                    <label for="interprete">Intérprete</label>    
+                    <v-select v-if="interpreteV" :options="interpretes" label="nombre" v-model="interprete" name="interprete" v-validate="'required'" :class="{ 'border border-danger': errors.has('interprete') }" placeholder="Seleccione un interprete"></v-select>
+                    <v-select v-else :options="interpretes" label="nombre" v-model="interprete" name="interprete" :class="{ 'border border-danger': errors.has('interprete') }" placeholder="Seleccione un interprete"></v-select>
+                    <span v-show="errors.has('interprete')" class="text-danger">{{ errors.first('interprete') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="telefono">Teléfono</label>
+                    <input v-if="telefonoV" type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('telefono') }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'required|numeric'">
+                    <input v-else type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('telefono') }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'numeric'">
+                    <span v-if="errors.has('telefono')" class="text-danger">{{ errors.first('telefono') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="motivoEstancia">Motivo Estancia</label>
+                    <input v-if="motivoEstanciaV" type="text" name="motivoEstancia" data-vv-name="Motivo de estancia" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Motivo de estancia') }" id="motivoEstancia" v-model="motivoEstancia" placeholder="Ingrese el motivo de estancia" v-validate="'required'">
+                    <input v-else type="text" name="motivoEstancia" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Motivo de estancia') }" id="motivoEstancia" v-model="motivoEstancia" placeholder="Ingrese el motivo de estancia">
+                    <span v-if="errors.has('Motivo de estancia')" class="text-danger">{{ errors.first('Motivo de estancia') }}</span>
+                </div>
+            </div>
+            <div class="form-row" v-if="(denunciado==1) || tipo!='denunciado'">
+                <div class="form-group col-md-4">
+                    <label for="ocupacion">Ocupación</label>    
+                    <v-select v-if="ocupacionV" :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupacion" v-validate="'required'" :class="{ 'border border-danger': errors.has('ocupacion') }" placeholder="Seleccione una ocupación"></v-select>
+                    <v-select v-else :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupacion" :class="{ 'border border-danger': errors.has('ocupacion') }" placeholder="Seleccione una ocupación"></v-select>
+                    <span v-show="errors.has('ocupacion')" class="text-danger">{{ errors.first('ocupacion') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="estadoCivil">Estado Civil</label>    
+                    <v-select v-if="estadoCivilV" :options="estadosCiviles" label="nombre" v-model="estadoCivil" name="estadoCivil" data-vv-name="Estado Civil" v-validate="'required'" :class="{ 'border border-danger': errors.has('Estado Civil') }" placeholder="Seleccione un estado civil"></v-select>
+                    <v-select v-else :options="estadosCiviles" label="nombre" v-model="estadoCivil" name="estadoCivil" :class="{ 'border border-danger': errors.has('Estado Civil') }" placeholder="Seleccione un estado civil"></v-select>
+                    <span v-show="errors.has('Estado Civil')" class="text-danger">{{ errors.first('Estado Civil') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="escolaridad">Escolaridad</label>    
+                    <v-select v-if="escolaridadV" :options="escolaridades" label="nombre" v-model="escolaridad" name="escolaridad" v-validate="'required'" :class="{ 'border border-danger': errors.has('escolaridad') }" placeholder="Seleccione una escolaridad"></v-select>
+                    <v-select v-else :options="escolaridades" label="nombre" v-model="escolaridad" name="escolaridad" :class="{ 'border border-danger': errors.has('escolaridad') }" placeholder="Seleccione una escolaridad"></v-select>
+                    <span v-show="errors.has('escolaridad')" class="text-danger">{{ errors.first('escolaridad') }}</span>
+                </div>
+            </div>
+            <div class="form-row" v-if="(denunciado==1) || tipo!='denunciado'">
+                <div class="form-group col-md-4">
+                    <label for="religion">Religion</label>    
+                    <v-select v-if="religionV" :options="religiones" label="nombre" v-model="religion" name="religion" v-validate="'required'" :class="{ 'border border-danger': errors.has('religion') }" placeholder="Seleccione una religión"></v-select>
+                    <v-select v-else :options="religiones" label="nombre" v-model="religion" name="religion" :class="{ 'border border-danger': errors.has('religion') }" placeholder="Seleccione una religión"></v-select>
+                    <span v-show="errors.has('religion')" class="text-danger">{{ errors.first('religion') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="identificacion">Identificación</label>    
+                    <v-select v-if="identificacionV" :options="identificaciones" label="documento" v-model="identificacion" name="identificacion" v-validate="'required'" :class="{ 'border border-danger': errors.has('identificacion') }" placeholder="Seleccione una identificación"></v-select>
+                    <v-select v-else :options="identificaciones" label="documento" v-model="identificacion" name="identificacion" :class="{ 'border border-danger': errors.has('identificacion') }" placeholder="Seleccione una identificación"></v-select>
+                    <span v-show="errors.has('identificacion')" class="text-danger">{{ errors.first('identificacion') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="numIdentificacion">Número de Identifación</label>
+                    <input v-if="numIdentificacionV" type="text" name="numIdentificacion" data-vv-name="Numero de identificacion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero de identificacion') }" id="numIdentificacion" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" v-validate="'required'">
+                    <input v-else type="text" name="numIdentificacion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero de identificacion') }" id="numIdentificacion" v-model="numIdentificacion" placeholder="Ingrese el número de identificación">
+                    <span v-if="errors.has('Numero de identificacion')" class="text-danger">{{ errors.first('Numero de identificacion') }}</span>
+                </div>
+            </div>
+            <div class="form-row" v-if="(denunciado==1) || tipo!='denunciado'">
+                <div class="form-group col-md-4">
+                    <label for="lugarTrabajo">Lugar de Trabajo</label>
+                    <input v-if="lugarTrabajoV" type="text" name="lugarTrabajo" data-vv-name="Lugar de Trabajo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Lugar de Trabajo') }" id="lugarTrabajo" v-model="lugarTrabajo" placeholder="Ingrese el lugar de trabajo" v-validate="'required'">
+                    <input v-else type="text" name="lugarTrabajo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Lugar de Trabajo') }" id="lugarTrabajo" v-model="lugarTrabajo" placeholder="Ingrese el lugar de trabajo">
+                    <span v-if="errors.has('Lugar de Trabajo')" class="text-danger">{{ errors.first('Lugar de Trabajo') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="telefonoTrabajo">Teléfono de Trabajo</label>
+                    <input v-if="telefonoTrabajoV" type="text" name="telefonoTrabajo" data-vv-name="Telefono de Trabajo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Telefono de Trabajo') }" id="telefonoTrabajo" v-model="telefonoTrabajo" placeholder="Ingrese el teléfono de trabajo" v-validate="'required|numeric'">
+                    <input v-else type="text" name="telefonoTrabajo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Telefono de Trabajo') }" id="telefonoTrabajo" v-model="telefonoTrabajo" placeholder="Ingrese el teléfono de trabajo" v-validate="'numeric'">
+                    <span v-if="errors.has('Telefono de Trabajo')" class="text-danger">{{ errors.first('Telefono de Trabajo') }}</span>
+                </div>
+            </div>
             <div class="form-row mt-3">
                 <div class="form-group col-md-5">
                     <button v-if="(denunciado!=false) || tipo!='denunciado'" type="submit" class="btn mr-1">Guardar</button>
@@ -144,13 +224,20 @@ import swal from 'sweetalert2'
                 municipios: [],
                 etnias: [],
                 lenguas: [],
+                interpretes: [],
                 sexos: [],
+                ocupaciones: [],
+                estadosCiviles: [],
+                escolaridades: [],
+                religiones: [],
+                identificaciones: [],
                 persona:'',
                 personaExiste:'',
                 nombres: '',
                 primerAp: '',
                 segundoAp: '',
                 fechaNacimiento: '',
+                edad: '',
                 prueba:'',
                 sexo:null,
                 rfc:'',
@@ -162,11 +249,22 @@ import swal from 'sweetalert2'
                 municipio:null,
                 etnia:{ "nombre": "SIN INFORMACIÓN", "id": 13 },
                 lengua:{ "nombre": "SIN INFORMACIÓN", "id": 69 },
-                esEmpresa: '',
+                interprete:{ "nombre": "SIN INFORMACIÓN", "id": 1 },
+                telefono:'',
+                motivoEstancia:'',
+                ocupacion:'',
+                estadoCivil:'',
+                escolaridad:'',
+                religion:'',
+                identificacion:'',
+                numIdentificacion:'',
+                lugarTrabajo:'',
+                telefonoTrabajo:'',
                 nombresV:false,
                 primerApV:false,
                 segundoApV:false,
                 fechaNacimientoV:false,
+                edadV:false,
                 sexoV:false,
                 rfcV:false,
                 curpV:false,
@@ -175,7 +273,17 @@ import swal from 'sweetalert2'
                 municipioV:false,
                 etniaV:false,
                 lenguaV:false,
-                esEmpresaV:false,
+                interpreteV:false,
+                telefonoV:false,
+                motivoEstanciaV:false,
+                ocupacionV:false,
+                estadoCivilV:false,
+                escolaridadV:false,
+                religionV:false,
+                identificacionV:false,
+                numIdentificacionV:false,
+                lugarTrabajoV:false,
+                telefonoTrabajoV:false,
                 validaciones:[],
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE"
@@ -198,6 +306,12 @@ import swal from 'sweetalert2'
            this.getEtnias();
            this.getLenguas();
            this.getSexos();
+           this.getOcupaciones();
+           this.getEstadosCiviles();
+           this.getEscolaridades();
+           this.getReligiones();
+           this.getIdentificaciones();
+        //    this.getInterpretes();
            this.getValidaciones();
         },
         methods:{
@@ -274,40 +388,57 @@ import swal from 'sweetalert2'
                     this.lenguas = response.data
                 });
             },
+            // getInterprete: function(){
+            //     var urlInterpretes = 'getInterpretes';
+            //     axios.get(urlInterpretes).then(response => {
+            //         this.interpretes = response.data
+            //     });
+            // },
             getSexos: function(){
                 var urlSexos = 'getSexos';
                 axios.get(urlSexos).then(response => {
                     this.sexos = response.data
                 });
             },
-            getSexos: function(){
-                var urlSexos = 'getSexos';
-                axios.get(urlSexos).then(response => {
-                    this.sexos = response.data
+            getOcupaciones: function(){
+                var urlOcupaciones = 'getOcupaciones';
+                axios.get(urlOcupaciones).then(response => {
+                    this.ocupaciones = response.data
+                });
+            },
+            getEstadosCiviles: function(){
+                var urlEstadosCiviles = 'getEstadosCiviles';
+                axios.get(urlEstadosCiviles).then(response => {
+                    this.estadosCiviles = response.data
+                });
+            },
+            getEscolaridades: function(){
+                var urlEscolaridades = 'getEscolaridades';
+                axios.get(urlEscolaridades).then(response => {
+                    this.escolaridades = response.data
+                });
+            },
+            getReligiones: function(){
+                var urlReligiones = 'getReligiones';
+                axios.get(urlReligiones).then(response => {
+                    this.religiones = response.data
+                });
+            },
+            getIdentificaciones: function(){
+                var urlIdentificaciones = 'getIdentificaciones';
+                axios.get(urlIdentificaciones).then(response => {
+                    this.identificaciones = response.data
                 });
             },
             getValidaciones: function(){
                 var urlValidaciones = 'getValidaciones/'+this.sistema+'/'+this.tipo;
                 axios.get(urlValidaciones).then(response => {
-                    // this.validaciones = response.data,
-                    // this.nombresV=this.validaciones.nombresV,
-                    // this.primerApV=this.validaciones.primerApV,
-                    // this.segundoApV=this.validaciones.segundoApV,
-                    // this.fechaNacimientoV=this.validaciones.fechaNacimientoV,
-                    // this.sexoV=this.validaciones.sexoV,
-                    // this.rfcV=this.validaciones.sexoV,
-                    // this.curpV=this.validaciones.curpV,
-                    // this.nacionalidadV=this.validaciones.nacionalidadV,
-                    // this.estadoV=this.validaciones.estadoV,
-                    // this.municipioV=this.validaciones.municipioV,
-                    // this.etniaV=this.validaciones.etniaV,
-                    // this.lenguaV=this.validaciones.lenguaV,
-                    // this.esEmpresaV=this.validaciones.esEmpresaV
                     this.validaciones = response.data,
                     this.nombresV=this.validaciones,
                     this.primerApV=this.validaciones,
                     this.segundoApV=this.validaciones,
                     this.fechaNacimientoV=this.validaciones,
+                    this.edadV=this.validaciones,
                     this.sexoV=this.validaciones,
                     this.rfcV=this.validaciones,
                     this.curpV=this.validaciones,
@@ -316,7 +447,17 @@ import swal from 'sweetalert2'
                     this.municipioV=this.validaciones,
                     this.etniaV=this.validaciones,
                     this.lenguaV=this.validaciones,
-                    this.esEmpresaV=this.validaciones
+                    this.interpreteV=this.validaciones,
+                    this.telefonoV=this.validaciones,
+                    this.motivoEstanciaV=this.validaciones,
+                    this.ocupacionV=this.validaciones,
+                    this.estadoCivilV=this.validaciones,
+                    this.escolaridadV=this.validaciones,
+                    this.religionV=this.validaciones,
+                    this.identificacionV=this.validaciones,
+                    this.numIdentificacionV=this.validaciones,
+                    this.lugarTrabajoV=this.validaciones,
+                    this.telefonoTrabajoV=this.validaciones
                 });
             },
             validateBeforeSubmit() {
@@ -346,14 +487,25 @@ import swal from 'sweetalert2'
                 this.municipio=null,
                 this.etnia={ "nombre": "SIN INFORMACIÓN", "id": 13 },
                 this.lengua={ "nombre": "SIN INFORMACIÓN", "id": 69 },
+                this.interprete={ "nombre": "SIN INFORMACIÓN", "id": 1 },
                 this.nombres='',
                 this.primerAp='',
                 this.segundoAp='',
                 this.fechaNacimiento='',
+                this.edad='',
                 this.sexo=null,
                 this.rfc='',
                 this.curp='',
-                this.esEmpresa=''
+                this.telefono='',
+                this.motivoEstancia='',
+                this.ocupacion='',
+                this.estadoCivil='',
+                this.escolaridad='',
+                this.religion='',
+                this.identificacion='',
+                this.numIdentificacion='',
+                this.lugarTrabajo='',
+                this.telefonoTrabajo='',
                 this.$validator.reset();
             },
             crearPersona: function(){
@@ -364,6 +516,7 @@ import swal from 'sweetalert2'
                         primerAp: this.primerAp.toUpperCase(),
                         segundoAp: this.segundoAp.toUpperCase(),
                         fechaNacimiento: this.fechaNacimiento,
+                        edad: this.edad,
                         sexo: this.sexo.id,
                         rfc:this.rfc.toUpperCase(),
                         curp: this.curp.toUpperCase(),
@@ -371,7 +524,17 @@ import swal from 'sweetalert2'
                         municipio: this.municipio.id,
                         etnia: this.etnia.id,
                         lengua: this.lengua.id,
-                        esEmpresa: 0
+                        interprete: this.interprete.id,
+                        telefono: this.telefono,
+                        motivoEstancia: this.motivoEstancia.toUpperCase(),
+                        ocupacion: this.ocupacion.id,
+                        estadoCivil: this.estadoCivil.id,
+                        escolaridad: this.escolaridad.id,
+                        religion: this.religion.id,
+                        identificacion: this.identificacion.id,
+                        numIdentificacion: this.numIdentificacion.toUpperCase(),
+                        lugarTrabajo: this.lugarTrabajo.toUpperCase(),
+                        telefonoTrabajo: this.telefonoTrabajo
                     })
                 }
                 else if(this.denunciado==2){
@@ -381,9 +544,10 @@ import swal from 'sweetalert2'
                     })   
                 }
                 else if(this.denunciado==3){
-                    axios.post(urlCrearPersona,{
-                        nombres: this.qrr
-                    }) 
+                    console.log(1);
+                    // axios.post(urlCrearPersona,{
+                        // nombres: this.qrr
+                    // }) 
                 }
             }
        }

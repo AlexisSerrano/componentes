@@ -10,6 +10,11 @@ use App\Http\Models\EtniaModel;
 use App\Http\Models\LenguasModel;
 use App\Http\Models\CatMunicipio;
 use App\Http\Models\CatEstado;
+use App\Http\Models\CatOcupacion;
+use App\Http\Models\CatEstadoCivil;
+use App\Http\Models\CatEscolaridad;
+use App\Http\Models\CatReligion;
+use App\Http\Models\CatIdentificacion;
 
 class PersonaController extends Controller{
 	public function index(){
@@ -88,7 +93,31 @@ class PersonaController extends Controller{
 	    ->select('nombre','id')->get();
         return response()->json($sexos);
 	}
+    public function getOcupaciones(){
+        $ocupaciones=CatOcupacion::orderBy('nombre', 'ASC')
+	    ->select('nombre','id')->get();
+        return response()->json($ocupaciones);
+	}
+    public function getEstadosCiviles(){
+        $estadosCiviles=CatEstadoCivil::orderBy('nombre', 'ASC')
+	    ->select('nombre','id')->get();
+        return response()->json($estadosCiviles);
+	}
+    public function getEscolaridades(){
+        $escolaridades=CatEscolaridad::orderBy('nombre', 'ASC')
+	    ->select('nombre','id')->get();
+        return response()->json($escolaridades);
+	}
+    public function getReligiones(){
+        $religiones=CatReligion::orderBy('nombre', 'ASC')
+	    ->select('nombre','id')->get();
+        return response()->json($religiones);
+	}
+	public function getIdentificaciones(){
+        $identificaciones=CatIdentificacion::orderBy('documento', 'ASC')
+	    ->select('documento','id')->get();
+        return response()->json($identificaciones);
+	}
 	public function getValidaciones(){
-        return 1;
 	}
 }
