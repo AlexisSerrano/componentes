@@ -49,20 +49,21 @@ class HelpController{
 		return \Response::json($json);
 	}
 	public static function SearchFilter($tablename,$filters,$limit,$skip){
+		
 		try{
 			$obj=[];
-			if(count($filters)>0){
+			if($filters!=null&&count($filters)>0){
 				foreach($filters as $key=>$filter){
 					$obj[]=[$key,'like','%'.$filter.'%'];
 				} 
 			}
 			//$limit=$request->input('limit');
 			//$skip=$request->input('skip');			
-			$limited=$limit??-1;
+			$limited=isset($limit)&&$limit>0?$limit:DB::table($tablename)->where($obj)->count();
 			$skiped=$skip??0;
 			$formatted=array(
-				'count'=>DB::table($tablename)::where($obj)->count(), 
-				'src'=>DB::table($tablename)::where($obj)->skip($skiped)->take($limited==-1?$formatted->count:$limited)->get()
+				'count'=>DB::table($tablename)->where($obj)->count(), 
+				'src'=>DB::table($tablename)->where($obj)->skip($skiped)->take($limited)->get()
 			); 
 		}catch(Exception $e){
 			return \Response::json($e);
