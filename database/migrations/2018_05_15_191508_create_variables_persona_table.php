@@ -31,6 +31,9 @@ class CreateVariablesPersonaTable extends Migration
             $table->integer('idDomicilioTrabajo')->unsigned()->default(1);
             $table->string('telefonoTrabajo',15)->default("SIN INFORMACION");
             $table->string('representanteLegal',100)->default("SIN INFORMACION");
+            $table->string('alias',100)->default("SIN INFORMACION");
+            $table->boolean('esEmpresa')->default(false);
+
             $table->timestamps();
             $table->softDeletes();
             
