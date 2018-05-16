@@ -50,5 +50,11 @@ class DatabaseSeeder extends Seeder
         $this->call(ReligionSeeder::class); 
         
         $this->call(IdentificacionSeeder::class);
+        
+        $this->call(componentesSeeder::class);
+        $this->call(involucradosSeeder::class);
+        $this->call(sistemasSeeder::class);
+        $this->call(ligadosSeeder::class);
+
     }
 }

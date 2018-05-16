@@ -13,7 +13,7 @@ class CreateVariablesPersonaTable extends Migration
      */
     public function up()
     {
-       /* Schema::create('variables_persona', function (Blueprint $table) {
+        Schema::create('variables_persona', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idCarpeta')->unsigned()->nullable();
             $table->integer('idPersona')->unsigned();
@@ -40,9 +40,9 @@ class CreateVariablesPersonaTable extends Migration
             $table->foreign('idEstadoCivil')->references('id')->on('cat_estado_civil')->onDelete('cascade');
             $table->foreign('idEscolaridad')->references('id')->on('cat_escolaridad')->onDelete('cascade');
             $table->foreign('idReligion')->references('id')->on('cat_religion')->onDelete('cascade');
-            $table->foreign('idDomicilio')->references('id')->on('domicilio')->onDelete('cascade');
-            $table->foreign('idDomicilioTrabajo')->references('id')->on('domicilio')->onDelete('cascade');
-        });*/
+            $table->foreign('idDomicilio')->references('id')->on('domicilios')->onDelete('cascade');
+            $table->foreign('idDomicilioTrabajo')->references('id')->on('domicilios')->onDelete('cascade');
+        });
     }
 
     /**
