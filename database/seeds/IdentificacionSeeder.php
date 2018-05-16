@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class IdentificacionSeeder extends Seeder
 {
@@ -26,7 +27,7 @@ class IdentificacionSeeder extends Seeder
             ['id' => 12,'documento' => 'CURP'],
             ['id' => 13,'documento' => 'CONSTANCIA DE RESIDENCIA'],
             ['id' => 14,'documento' => 'NO PRESENTO'],
-            ['id' => 15,'documento' => 'CREDENCIAL DE TRABAJO'],
+            ['id' => 15,'documento' => 'CREDENCIAL DE TRABAJO']
             ]);
     }
 }
