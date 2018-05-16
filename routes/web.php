@@ -22,7 +22,7 @@ Route::get('getEscolaridades','PersonaController@getEscolaridades');
 Route::get('getReligiones','PersonaController@getReligiones');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
 Route::get('searchPersona/{id}','PersonaController@searchPersona');
-Route::get('getValidaciones/{sistema}/{tipo}','PersonaController@getValidaciones');
+//Route::post('getValidaciones','PersonaController@getValidaciones');
 
 /*URLS PARA SELECTS DOMICILIO */
 Route::get('getEstados2','DomicilioController@getEstados');

@@ -1,9 +1,7 @@
 <?php
-
-namespace fge\apis\help;
-
+namespace App\Http\Controllers;
 use  Illuminate\Support\Facades\DB;
-class Models
+class HelpModels
 {
     public static function GetJSONDB($id1,$id2,$id3){
         $jsons=DB::table('ligados')
@@ -81,13 +79,13 @@ class Models
                     case "date":
                         if(isset($element)){
                             if($val){
-                                if(\fge\apis\help\Models::validateDate($element, 'Y-m-d')){
+                                if(HelpModels::validateDate($element, 'Y-m-d')){
                                     $fields--;
                                 }else{
                                     $errors=$errors."<li>".$name." debe ser tipo fecha.</li>";
                                 }
                             }else{
-                                if(!(\fge\apis\help\Models::validateDate($element, 'Y-m-d'))){
+                                if(!(HelpModels::validateDate($element, 'Y-m-d'))){
                                     $fields--;
                                 }else{
                                     $errors=$errors."<li>".$name." no debe ser tipo fecha.</li>";
