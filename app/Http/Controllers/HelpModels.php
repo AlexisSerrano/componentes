@@ -95,7 +95,7 @@ class HelpModels
                             $fields--;
                         }
                     break;
-                    case "CURP":
+                    case "curp":
                         if(isset($element)){
                             if($val){
                                 if(preg_match("/^[A-Z][A,E,I,O,U,X][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][M,H][AZ]{2}[B,C,D,F,G,H,J,K,L,M,N,Ñ,P,Q,R,S,T,V,W,X,Y,Z]{3}[0-9,AZ][0-9]?$/",trim($element))>0){
@@ -114,7 +114,7 @@ class HelpModels
                             $fields--;
                         }
                     break;
-                    case "RFC":
+                    case "rfc":
                         if(isset($element)){
                             if($val){
                                 if(preg_match("/^[A-Z]{4}([0-9]{2})(1[0-2]|0[1-9])([0-3][0-9])([ -]?)([A-Z0-9]{3,4})$/",trim($element))){
@@ -134,7 +134,8 @@ class HelpModels
                         }
                     break;
                      default:
-                     //RULE NAME ERROR, CHECK JSON
+                        //RULE NAME ERROR, CHECK JSON
+                        $errors=$errors."<li>".$name."-".$rul." declaracion en JSON incorrecta.</li>";
                         $fields++;
                      break;
                  }

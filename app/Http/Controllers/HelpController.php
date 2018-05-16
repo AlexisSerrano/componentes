@@ -30,15 +30,15 @@ class HelpController{
 		if($objs==null){
 			return \Response::json("error get from JSON to object");
 		}
-		$json=[];
+		$json="";
 		try{
 			foreach($objs as $name=>$obj){
 				foreach($obj['rules'] as $rul=>$rules){
 					if($rul=="required"){
 						if($rules){
-							$json[]=[$name=>1];
+							$json=$json.'"'.$name.'":"1",';
 						}else{
-							$json[]=[$name=>0];
+							$json=$json.'"'.$name.'":"0",';
 						}
 					}
 				}
@@ -46,23 +46,24 @@ class HelpController{
 		}catch(Exception $e){
 			return \Response::json("error generic into JSON object");
 		}
-		return \Response::json($json);
+		return json_decode("{".substr($json,0,strlen($json)-1)."}",true);
 	}
 	public static function SearchFilter($tablename,$filters,$limit,$skip){
+		
 		try{
 			$obj=[];
-			if(count($filters)>0){
+			if($filters!=null&&count($filters)>0){
 				foreach($filters as $key=>$filter){
 					$obj[]=[$key,'like','%'.$filter.'%'];
 				} 
 			}
 			//$limit=$request->input('limit');
 			//$skip=$request->input('skip');			
-			$limited=$limit??-1;
+			$limited=isset($limit)&&$limit>0?$limit:DB::table($tablename)->where($obj)->count();
 			$skiped=$skip??0;
 			$formatted=array(
-				'count'=>DB::table($tablename)::where($obj)->count(), 
-				'src'=>DB::table($tablename)::where($obj)->skip($skiped)->take($limited==-1?$formatted->count:$limited)->get()
+				'count'=>DB::table($tablename)->where($obj)->count(), 
+				'src'=>DB::table($tablename)->where($obj)->skip($skiped)->take($limited)->get()
 			); 
 		}catch(Exception $e){
 			return \Response::json($e);

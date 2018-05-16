@@ -11,7 +11,7 @@ class GenericController extends Controller
 	}
 	// url:"/api/test/SearchUndefined",method:"POST",filters:[ _name:"bysearch"_ ],skip: [0-9]*,limit: [0-9]*
 	public function SearchUndefined(Request $request){
-		$tablename="persona";
+		$tablename="cat_estado";
 		return HelpController::SearchFilter($tablename,$request->input('filters'),$request->input('skip'),$request->input('limit'));
 	}
 	// url:"/api/test/ValidacionJSONDB",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente",objSON
