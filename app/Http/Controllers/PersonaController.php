@@ -120,10 +120,10 @@ class PersonaController extends Controller{
 	}
 	// url:"/api/getValidaciones",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente"
 	public function getValidaciones(Request $request){
-		return HelpController::GetJSONValidation($request->input('id1'),$request->input('id2'),$request->input('id3'));
+		return HelpController::GetJSONDBValidation($request->input('id1'),$request->input('id2'),$request->input('id3'));
 	}
 	/* GET METHOD
 	public function getValidaciones($id1,$id2,$id3){
-		return HelpController::GetJSONValidation($id1,$id2,$id3);
+		return HelpController::GetJSONDBValidation($id1,$id2,$id3);
 	}*/
 }

@@ -11,9 +11,14 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+*/
 Route::post('getValidaciones','PersonaController@getValidaciones');
+
+Route::group(['prefix' => 'test'], function () {
+    Route::post('ValidacionDBJSON','GenericController@ValidacionDBJSON');
+    Route::post('SearchUndefined','GenericController@SearchUndefined');
+    Route::post('ValidacionJSONDB','GenericController@ValidacionJSONDB');
+});
