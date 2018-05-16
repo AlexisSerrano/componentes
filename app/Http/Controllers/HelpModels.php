@@ -98,16 +98,16 @@ class HelpModels
                     case "curp":
                         if(isset($element)){
                             if($val){
-                                if(preg_match("/^[A-Z][A,E,I,O,U,X][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][M,H][AZ]{2}[B,C,D,F,G,H,J,K,L,M,N,Ñ,P,Q,R,S,T,V,W,X,Y,Z]{3}[0-9,AZ][0-9]?$/",trim($element))>0){
+                                if(HelpModels::validarCURP($element)){
                                     $fields--;
                                 }else{
-                                    $errors=$errors."<li>".$name." debe ser tipo fecha.</li>";
+                                    $errors=$errors."<li>".$name." debe ser formato CURP.</li>";
                                 }
                             }else{
-                                if(preg_match("/^[A-Z][A,E,I,O,U,X][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][M,H][AZ]{2}[B,C,D,F,G,H,J,K,L,M,N,Ñ,P,Q,R,S,T,V,W,X,Y,Z]{3}[0-9,AZ][0-9]?$/",trim($element))>0){
+                                if(HelpModels::validarCURP($element)){
                                     $fields--;
                                 }else{
-                                    $errors=$errors."<li>".$name." no debe ser tipo fecha.</li>";
+                                    $errors=$errors."<li>".$name." no debe ser formato CURP.</li>";
                                 }
                             }
                         }else{
@@ -117,13 +117,13 @@ class HelpModels
                     case "rfc":
                         if(isset($element)){
                             if($val){
-                                if(preg_match("/^[A-Z]{4}([0-9]{2})(1[0-2]|0[1-9])([0-3][0-9])([ -]?)([A-Z0-9]{3,4})$/",trim($element))){
+                                if(HelpModels::validarRFC($element)){
                                     $fields--;
                                 }else{
-                                    $errors=$errors."<li>".$name." no debe ser tipo fecha.</li>";;
+                                    $errors=$errors."<li>".$name." debe ser formato RFC.</li>";;
                                 }
                             }else{
-                                if(preg_match("/^[A-Z]{4}([0-9]{2})(1[0-2]|0[1-9])([0-3][0-9])([ -]?)([A-Z0-9]{3,4})$/",trim($element))){
+                                if(HelpModels::validarRFC($element)){
                                     $fields--;
                                 }else{
                                     $errors=$errors."<li>".$name." no debe ser tipo fecha.</li>";
@@ -156,5 +156,9 @@ class HelpModels
     static function validarRFC($rfc){
 	    $regex = '/^[A-Z]{4}([0-9]{2})(1[0-2]|0[1-9])([0-3][0-9])([ -]?)([A-Z0-9]{3,4})$/';
 	    return preg_match($regex, $rfc);
+    }
+    static function validarCURP($curp){
+	    $regex = '/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/';
+	    return preg_match($regex, $curp);
     }  
 }
