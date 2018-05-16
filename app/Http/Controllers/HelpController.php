@@ -30,15 +30,15 @@ class HelpController{
 		if($objs==null){
 			return \Response::json("error get from JSON to object");
 		}
-		$json=[];
+		$json="";
 		try{
 			foreach($objs as $name=>$obj){
 				foreach($obj['rules'] as $rul=>$rules){
 					if($rul=="required"){
 						if($rules){
-							$json[]=[$name=>1];
+							$json=$json.'"'.$name.'":"1",';
 						}else{
-							$json[]=[$name=>0];
+							$json=$json.'"'.$name.'":"0",';
 						}
 					}
 				}
@@ -46,7 +46,7 @@ class HelpController{
 		}catch(Exception $e){
 			return \Response::json("error generic into JSON object");
 		}
-		return \Response::json($json);
+		return json_decode("{".substr($json,0,strlen($json)-1)."}",true);
 	}
 	public static function SearchFilter($tablename,$filters,$limit,$skip){
 		
