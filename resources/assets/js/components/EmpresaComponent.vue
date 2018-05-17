@@ -93,9 +93,9 @@ import swal from 'sweetalert2'
                     axios.post(urlCrearEmpresa,{
                         nombre: this.nombre.toUpperCase(),
                         fechaConstitucion: this.fechaConstitucion,
-                        rfc:this.rfc.toUpperCase()
-                        // telefono: this.telefono,
-                        // representanteLegal: this.representanteLegal.toUpperCase()
+                        rfc:this.rfc.toUpperCase(),
+                        telefono: this.telefono,
+                        representanteLegal: this.representanteLegal.toUpperCase()
                     })
             }
        }

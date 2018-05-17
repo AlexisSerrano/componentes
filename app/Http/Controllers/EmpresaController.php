@@ -12,15 +12,15 @@ class EmpresaController extends Controller{
 	}
  
 	public function addEmpresa(Request $request){
-		$empresa=new EmpresaModel();		
-		$empresa->nombre=$request->input('nombres');		
+		$empresa=new EmpresaModel();
+		$empresa->nombre=$request->input('nombre');		
 		$empresa->fechaCreacion=$request->input('fechaConstitucion');
 		$empresa->rfc=$request->input('rfc');
 		$empresa->save();
-		// $variablesEmpresa=new VariablesPersona();
-		// $variablesEmpresa->telefono=$request->input('telefono');
-		// $variablesEmpresa->representanteLegal=$request->input('representanteLegal');
-		// $variablesEmpresa->save();
+		$variablesEmpresa=new VariablesPersona();
+		$variablesEmpresa->telefono=$request->input('telefono');
+		$variablesEmpresa->representanteLegal=$request->input('representanteLegal');
+		$variablesEmpresa->save();
 		return $empresa;
 	}
 }
