@@ -11,7 +11,7 @@ class HelpModels
         ->first();        
         return $jsons;
     }
-    public static function ModelvsJSON($model,$rules)
+    public static function ModelvsJSON(&$model,$rules,&$errors)
     {
         //MODEL TO ARRAY (ENLY THE ELEMENTS INNER MODEL, NOT update_at OR insert_at)
         $elements=$model->toArray();
@@ -19,8 +19,6 @@ class HelpModels
         //COUNT FROM ENTITIES (NAME,BIRTHDAY,ETC.)
         $fields=count($elements);
         ### OLD CODE*/
-        //ERROR LOG
-        $errors="";
         $fields=0;
         //GET ELEMENT BY ELEMENT FROM MODEL FOR CHECK WHIT JSON
          foreach($elements as $name=>$element){
@@ -144,9 +142,10 @@ class HelpModels
         //INSERT IF VALIDATED
         if($fields==0){
             //$model->save();
-            return \Response::json($model);
+            return true;//\Response::json($model);
         }else{
-            return \Response::json("<ul>".$errors."</ul>");
+            $error="<ul>".$errors."</ul>";
+            return false;//\Response::json("<ul>".$errors."</ul>");
         }
     }
     static function validateDate($date, $format = 'Y-m-d H:i:s'){

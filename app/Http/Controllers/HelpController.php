@@ -2,23 +2,27 @@
 namespace App\Http\Controllers;
 use  Illuminate\Support\Facades\DB;
 class HelpController{
-	public static function JSONDBValidation($model,$id1,$id2,$id3){
+	public static function JSONDBValidation(&$model,$id1,$id2,$id3,&$errors){
 		//GET JSON FROM DB
 		$jsons=HelpModels::GetJSONDB($id1,$id2,$id3);					
 		if($jsons==null){
-			return \Response::json("error get from JSON in the database (combination id incorrect)");
+			$errors="error get from JSON in the database (combination id incorrect)";
+			return false;
+			//return \Response::json("error get from JSON in the database (combination id incorrect)");
 		}
 		//DECODE JSON OBJECT FROM DB TO PHP
 		$objs=json_decode($jsons->config,true);
 		if($objs==null){
-			return \Response::json("error get from JSON to object");
+			$errors="error get from JSON to object";
+			return false;
+			//return \Response::json("error get from JSON to object");
 		}		
 		//EXECUTE VAKIDATION FROM JSON DB VS MODEL
-		return HelpController	::JSONValidation($model,$objs);
+		return HelpController::JSONValidation($model,$objs,$errors);
 	}
-	public static function JSONValidation($model,$json){
+	public static function JSONValidation(&$model,$json,&$errors){
 		//EXECUTE VAKIDATION JSON VS MODEL
-		return HelpModels::ModelvsJSON($model,$json);
+		return HelpModels::ModelvsJSON($model,$json,$errors);
 	}
     public static function GetJSONDBValidation($id1,$id2,$id3){
         //$jsons=HelpModels::GetJSONDB($request->input('id1'),$request->input('id2'),$request->input('id3'));
