@@ -33,9 +33,10 @@ class ligadosSeeder extends Seeder
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
-                '}},'.
+                '},"default":"1990-01-01"},'.
                 '"edad":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"number":true'.
                 '}},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
@@ -56,7 +57,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefono":{"rules":{'.
-                    '"required":true'.
+                    '"required":true,'.
+                    '"phone":true'.
                 '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
@@ -89,7 +91,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"phone":true'.
                 '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>2,"config"=>

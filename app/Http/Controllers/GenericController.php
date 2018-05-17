@@ -24,6 +24,7 @@ class GenericController extends Controller
 		$PM->fechaNacimiento=$request->input('fechaNacimiento');
 		$PM->curp=$request->input('curp');
 		$PM->rfc=$request->input('rfc');
+		$PM->telefono=$request->input('telefono');
 		if(HelpController::JSONDBValidation($PM,$request->input('id1'),$request->input('id2'),$request->input('id3'),$errors)){
 			return $PM;
 		}else{

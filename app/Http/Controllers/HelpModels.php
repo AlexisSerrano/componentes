@@ -11,7 +11,7 @@ class HelpModels
         ->first();        
         return $jsons;
     }
-    public static function ModelvsJSON(&$model,$rules,&$errors)
+    public static function ModelvsJSON(&$model,$jsonobj,&$errors)
     {
         //MODEL TO ARRAY (ENLY THE ELEMENTS INNER MODEL, NOT update_at OR insert_at)
         $elements=$model->toArray();
@@ -23,18 +23,21 @@ class HelpModels
         //GET ELEMENT BY ELEMENT FROM MODEL FOR CHECK WHIT JSON
          foreach($elements as $name=>$element){
              //CHECK IF EXITS
-             if(!isset($rules[$name])){
+             if(!isset($jsonobj[$name])){
                 $errors=$errors."<li>".$name." no se encuentra registrado correctamente.</li>";
                 $fields=100;
                 break;
+             }
+             if($element==null&&isset($jsonobj[$name]['default'])){
+                 $model[$name]=$jsonobj[$name]['default'];                                  
              }
              /*### FAST VALIDATION, ONLY DETECT 1 ERROR
              if($fields>0){
                  break;
              }*/
              //COUNT RULES FOR THE FIELD
-             $fields+=count($rules[$name]["rules"]);
-             foreach($rules[$name]["rules"] as $rul=>$val){
+             $fields+=count($jsonobj[$name]["rules"]);
+             foreach($jsonobj[$name]["rules"] as $rul=>$val){
                  //WHAT RULE IS?
                  switch($rul){
                      //THE RULE REQUIRED IS SAME NO EMPTY
@@ -131,6 +134,27 @@ class HelpModels
                             $fields--;
                         }
                     break;
+                    case "phone":
+                        if(isset($element)){
+                            if($val){
+                                if(HelpModels::PhoneValidation($element)){
+                                    $fields--;
+                                }else{
+                                    $errors=$errors."<li>".$name.
+                                    ' Teléfono no válido<br>EJEMPLOS:<br>(123) 456 7899<br>(123).456.7899<br>(123)-456-7899<br>123-456-7899<br>123 456 7899<br>1234567899'
+                                    ."</li>";;
+                                }
+                            }else{
+                                if(HelpModels::PhoneValidation($element)){
+                                    $fields--;
+                                }else{
+                                    $errors=$errors."<li>".$name." no debe tener un formato de telefono.</li>";
+                                }
+                            }
+                        }else{
+                            $fields--;
+                        }
+                    break;
                      default:
                         //RULE NAME ERROR, CHECK JSON
                         $errors=$errors."<li>".$name."-".$rul." declaracion en JSON incorrecta.</li>";
@@ -154,10 +178,14 @@ class HelpModels
     }  
     static function validarRFC($rfc){
 	    $regex = '/^[A-Z]{4}([0-9]{2})(1[0-2]|0[1-9])([0-3][0-9])([ -]?)([A-Z0-9]{3,4})$/';
-	    return preg_match($regex, $rfc);
+	    return preg_match($regex, trim($rfc));
     }
     static function validarCURP($curp){
 	    $regex = '/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/';
-	    return preg_match($regex, $curp);
+	    return preg_match($regex, trim($curp));
+    }  
+    static function PhoneValidation($phone){
+	    $regex = '/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/';
+	    return preg_match($regex, trim($phone));
     }  
 }
