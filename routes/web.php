@@ -9,6 +9,10 @@ Route::post('addPersona','PersonaController@addPersona')->name('addPersona');
 Route::get('/domicilio','DomicilioController@index');
 Route::post('addDomicilio','DomicilioController@addDomicilio')->name('addDomicilio');
 
+/*URLS PARA EMPRESAS*/
+Route::get('/empresa','EmpresaController@index');
+Route::post('addEmpresa','EmpresaController@addEmpresa')->name('addEmpresa');
+
 /*URLS PARA SELECTS PERSONAS */
 Route::get('getNacionalidades','PersonaController@getNacionalidades');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
@@ -22,7 +26,7 @@ Route::get('getEscolaridades','PersonaController@getEscolaridades');
 Route::get('getReligiones','PersonaController@getReligiones');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
 Route::get('searchPersona/{id}','PersonaController@searchPersona');
-//Route::post('getValidaciones','PersonaController@getValidaciones');
+Route::post('getValidaciones','PersonaController@getValidaciones');
 
 /*URLS PARA SELECTS DOMICILIO */
 Route::get('getEstados2','DomicilioController@getEstados');

@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="calle">Calle</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('calle') }" id="calle" name="calle" v-model="calle" placeholder="Ingrese la calle" v-validate="'required'">
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('calle') }" id="calle" name="calle" v-model="calle" placeholder="Ingrese la calle" v-validate="'required'" autocomplete="off">
                     <span v-if="errors.has('calle')" class="text-danger">{{ errors.first('calle') }}</span>
                 </div>
             </div>
@@ -41,12 +41,12 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="numExterno">Número Externo</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') }" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'">
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') }" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'" autocomplete="off">
                     <span v-if="errors.has('Numero Externo')" class="text-danger">{{ errors.first('Numero Externo') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="numInterno">Número Interno</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Interno') }" id="numInterno" data-vv-name="Numero Interno" name="numInterno" v-model="numInterno" placeholder="Ingrese el número interno" v-validate="'required'">
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Interno') }" id="numInterno" data-vv-name="Numero Interno" name="numInterno" v-model="numInterno" placeholder="Ingrese el número interno" v-validate="'required'" autocomplete="off">
                     <span v-if="errors.has('Numero Interno')" class="text-danger">{{ errors.first('Numero Interno') }}</span>
                     <span v-if="errornumInterno!=''" class="text-danger">{{ errornumInterno }}</span>
                 </div>
