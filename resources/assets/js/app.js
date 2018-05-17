@@ -28,7 +28,7 @@ Vue.use(VeeValidate);
  */
 Vue.component('persona', require('./components/PersonaComponent.vue'));
 Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
-
+Vue.component('empresa', require('./components/EmpresaComponent.vue'));
 
 const app = new Vue({
     el: '#app'
