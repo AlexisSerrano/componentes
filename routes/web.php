@@ -34,3 +34,8 @@ Route::get('getMunicipios2/{id}','DomicilioController@getMunicipios');
 Route::get('getLocalidades2/{id}','DomicilioController@getLocalidades');
 Route::get('getColonias2/{id}','DomicilioController@getColonias');
 Route::get('getCodigosPostales2/{id}','DomicilioController@getCodigosPostales');
+
+
+Route::get('dt', function () {
+    return view('DT');
+});

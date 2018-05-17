@@ -30,6 +30,8 @@ Vue.component('persona', require('./components/PersonaComponent.vue'));
 Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
 Vue.component('empresa', require('./components/EmpresaComponent.vue'));
 
+Vue.component('render-datatable', require('./components/DataTable.vue'));
+
 const app = new Vue({
     el: '#app'
 });
