@@ -10,7 +10,7 @@
 
   </head>
     <div id="app">
-        <empresa></empresa>
+        <personamoral></personamoral>
         <!-- <button id="btn2">click</button> -->
     </div>
   </body> 

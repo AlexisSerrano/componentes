@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Models\EmpresaModel;
-// use App\Http\Models\VariablesPersona;
+use App\Http\Models\VariablesPersona;
 
 class EmpresaController extends Controller{
 	public function index(){
@@ -17,10 +17,11 @@ class EmpresaController extends Controller{
 		$empresa->fechaCreacion=$request->input('fechaConstitucion');
 		$empresa->rfc=$request->input('rfc');
 		$empresa->save();
+		$idEmpresa = $empresa->id;
 		$variablesEmpresa=new VariablesPersona();
+		$variablesEmpresa->idPersona = $idEmpresa;
 		$variablesEmpresa->telefono=$request->input('telefono');
 		$variablesEmpresa->representanteLegal=$request->input('representanteLegal');
 		$variablesEmpresa->save();
-		return $empresa;
 	}
 }
