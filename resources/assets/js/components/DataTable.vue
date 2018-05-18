@@ -3,10 +3,10 @@
     <div v-if="!DataTable.charging">    
         <table class="table">
             <tr >
-                <td v-for="cols in DataTable.params.columns":key="cols.name" v-if="cols.show"><b>{{cols.replace==undefined?cols.name:cols.replace}}</b></td>
+                <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show"><b>{{cols.replace==undefined?cols.name:cols.replace}}</b></td>
             </tr>
-            <tr v-for="fields in DataTable.data.src":key="fields.id">
-                <td v-for="cols in DataTable.params.columns":key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
+            <tr v-for="fields in DataTable.data.src" :key="fields.id">
+                <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
             </tr>
         </table>
         <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
