@@ -52,13 +52,23 @@ class HelpController{
 		}
 		return json_decode("{".substr($json,0,strlen($json)-1)."}",true);
 	}
-	public static function SearchFilter($tablename,$filters,$limit,$skip){
-		
+	public static function SearchFilter($tablename,$filters,$limit,$skip,$nfilters,$columns){
 		try{
 			$obj=[];
-			if($filters!=null&&count($filters)>0){
+			if(isset($filters)&&$filters!=null&&count($filters)>0){
 				foreach($filters as $key=>$filter){
 					$obj[]=[$key,'like','%'.$filter.'%'];
+				} 
+			}
+			if(isset($nfilters)&&$nfilters!=null&&count($nfilters)>0){
+				foreach($nfilters as $nkey=>$nfilter){
+					$obj[]=[$nkey,'not like','%'.$nfilter.'%'];
+				} 
+			}
+			$cols=[];
+			if(isset($columns)&&$columns!=null&&count($columns)>0){
+				foreach($columns as $key=>$columns){
+					$cols[]=$columns['name'];
 				} 
 			}
 			//$limit=$request->input('limit');
@@ -67,7 +77,7 @@ class HelpController{
 			$skiped=$skip??0;
 			$formatted=array(
 				'count'=>DB::table($tablename)->where($obj)->count(), 
-				'src'=>DB::table($tablename)->where($obj)->skip($skiped)->take($limited)->get()
+				'src'=>DB::table($tablename)->where($obj)->skip($skiped)->take($limited)->get($cols)
 			); 
 		}catch(Exception $e){
 			return \Response::json($e);

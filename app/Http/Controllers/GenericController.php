@@ -12,7 +12,10 @@ class GenericController extends Controller
 	// url:"/api/test/SearchUndefined",method:"POST",filters:[ _name:"bysearch"_ ],skip: [0-9]*,limit: [0-9]*
 	public function SearchUndefined(Request $request){
 		$tablename="cat_estado";
-		return HelpController::SearchFilter($tablename,$request->input('filters'),$request->input('skip'),$request->input('limit'));
+		if($request->input('tablename')!==null){
+			$tablename=$request->input('tablename');
+		}
+		return HelpController::SearchFilter($tablename,$request->input('filters'),$request->input('limit'),$request->input('skip'),$request->input('nfilters'),$request->input('columns'));
 	}
 	// url:"/api/test/ValidacionJSONDB",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente",objSON
 	public function ValidacionJSONDB(Request $request){

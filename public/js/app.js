@@ -58418,31 +58418,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    beforeMount: function beforeMount() {
-        //this.GetData(0,0);
+    data: function data() {
+        return {
+            DataTable: {
+                data: {
+                    src: [],
+                    count: 0
+                },
+                url: "/api/test/SearchUndefined",
+                params: { columns: [//select columns in table (correct name col)
+                    { name: "id", show: false }, { name: "nombre", show: true, replace: "Nombre del sistema" }, { name: "descripcion", show: true, replace: "Descripcion del sistema"
+                        //name:colname,show:showInTable,replace:NweNameInTable
+                    }],
+                    skip: 0, //skip
+                    limit: 5, //limit
+                    filters: {}, //search where like (correct name col)
+                    nfilters: {}, //search where no like (correct name col)
+                    //tablename:"cat_municipio"
+                    //tablename:"cat_estado"
+                    tablename: "sistemas"
+                },
+                current: 0,
+                maxpage: 0,
+                charging: false,
+                message: "Cargando..."
+            }
+        };
+    },
+    mounted: function mounted() {
+        //INIT METHOD
+        //if(this.DataTable.data.src==[]){
+        this.DTGetData(0);
+        //}
     },
 
     methods: {
-        GetData: function GetData(s, l, f) {
-            var datarequest;
-            axios.post("/api/test/SearchUndefined", {
-                "skip": s == undefined ? 0 : s,
-                "limit": l == undefined ? 0 : l,
-                "filters": f == undefined ? [] : f
-            }).then(function (response) {
-                datarequest = response.data.src;
+        DTEnabled: function DTEnabled(s) {
+            return !(s >= 0 && s < this.DataTable.maxpage);
+        },
+        DTGetData: function DTGetData(s) {
+            var _this = this;
+
+            this.DataTable.charging = true;
+            this.DataTable.current = s;
+            this.DataTable.params.skip = this.DataTable.params.limit * s;
+            var DT;
+            axios.post(this.DataTable.url, this.DataTable.params).then(function (response) {
+                DT = response.data;
             }).finally(function () {
-                dtp = datarequest;
-                console.log(datarequest);
+                if (DT != undefined) {
+                    _this.DataTable.data = DT;
+                    _this.DataTable.maxpage = parseInt(_this.DataTable.data.count / _this.DataTable.params.limit);
+                    _this.DataTable.maxpage += _this.DataTable.data.count % _this.DataTable.params.limit == 0 ? 0 : 1;
+                    _this.DataTable.charging = false;
+                } else {
+                    _this.DataTable.message = "error al cargar la informacion";
+                }
             });
+        },
+        DTNextData: function DTNextData() {
+            this.DTGetData(this.DataTable.current + 1);
+        },
+        DTBackData: function DTBackData() {
+            this.DTGetData(this.DataTable.current - 1);
         }
-    },
-    data: function data() {
-        return {
-            dtp: [{ nombre: "primero", id: 1 }, { nombre: "segundo", id: 2 }]
-        };
     }
 });
 
@@ -58455,43 +58505,114 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c(
-      "table",
-      { staticClass: "table" },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._l(_vm.dtp, function(item) {
-          return _c("tr", { key: item.id }, [
-            _c("td", [_vm._v(_vm._s(item.nombre))])
-          ])
-        })
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _c(
-      "span",
-      {
-        staticClass: "btn btn-primary",
-        on: {
-          click: function($event) {
-            _vm.GetData()
-          }
-        }
-      },
-      [_vm._v("buscar")]
-    )
+    !_vm.DataTable.charging
+      ? _c("div", [
+          _c(
+            "table",
+            { staticClass: "table" },
+            [
+              _c(
+                "tr",
+                _vm._l(_vm.DataTable.params.columns, function(cols) {
+                  return cols.show
+                    ? _c("td", { key: cols.name }, [
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(
+                              cols.replace == undefined
+                                ? cols.name
+                                : cols.replace
+                            )
+                          )
+                        ])
+                      ])
+                    : _vm._e()
+                })
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.DataTable.data.src, function(fields) {
+                return _c(
+                  "tr",
+                  { key: fields.id },
+                  _vm._l(_vm.DataTable.params.columns, function(cols) {
+                    return cols.show
+                      ? _c("td", { key: cols.name }, [
+                          _vm._v(_vm._s(fields[cols.name]))
+                        ])
+                      : _vm._e()
+                  })
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default",
+              attrs: { disabled: _vm.DTEnabled(_vm.DataTable.current - 1) },
+              on: {
+                click: function($event) {
+                  _vm.DTBackData()
+                }
+              }
+            },
+            [_vm._v("←")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { disabled: "true" } },
+            [_vm._v(_vm._s(_vm.DataTable.current + 1))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default",
+              attrs: { disabled: _vm.DTEnabled(_vm.DataTable.current + 1) },
+              on: {
+                click: function($event) {
+                  _vm.DTGetData(_vm.DataTable.current + 1)
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.DataTable.current + 2))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default",
+              attrs: { disabled: _vm.DTEnabled(_vm.DataTable.current + 2) },
+              on: {
+                click: function($event) {
+                  _vm.DTGetData(_vm.DataTable.current + 2)
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.DataTable.current + 3))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default",
+              attrs: { disabled: _vm.DTEnabled(_vm.DataTable.current + 1) },
+              on: {
+                click: function($event) {
+                  _vm.DTNextData()
+                }
+              }
+            },
+            [_vm._v("→")]
+          )
+        ])
+      : _c("div", [_c("span", [_vm._v(_vm._s(_vm.DataTable.message))])])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("td", [_vm._v("Nombre")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
