@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App;
 
 class VariablesPersona extends Model
 {
@@ -31,7 +32,7 @@ class VariablesPersona extends Model
         'lugarTrabajo',
         'idDomicilioTrabajo',
         'telefonoTrabajo',
-        'representanteLegal',
+        'representanteLegal'
     ];
 
     public function carpeta()

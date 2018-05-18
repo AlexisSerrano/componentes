@@ -95,168 +95,6 @@ class ligadosSeeder extends Seeder
                     '"phone":true'.
                 '}}'.
             '}'],
-            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>2,"config"=>
-            '{'.
-                '"nombres":{"rules":{'.
-                    '"required":true'.
-                '}},'.
-                '"primerAp":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"segundoAp":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"rfc":{"rules":{'.
-                    '"required":false,'.
-                    '"rfc":false'.
-                '}},'.
-                '"curp":{"rules":{'.
-                    '"required":false,'.
-                    '"curp":false'.
-                '}},'.
-                '"fechaNacimiento":{"rules":{'.
-                    '"required":false,'.
-                    '"date":false'.
-                '}},'.
-                '"edad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idNacionalidad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEdoOrigen":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idMunicipioOrigen":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"sexo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEtnia":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idLengua":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"motivoEstancia":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idOcupacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEstadoCivil":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idReligion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEscolaridad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"docIdentificacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"numDocIdentificacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idInterprete":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"alias":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}}'.
-            '}'],        
-            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>3,"config"=>
-            '{'.
-                '"nombres":{"rules":{'.
-                    '"required":true'.
-                '}},'.
-                '"primerAp":{"rules":{'.
-                    '"required":true'.
-                '}},'.
-                '"segundoAp":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"rfc":{"rules":{'.
-                    '"required":false,'.
-                    '"rfc":false'.
-                '}},'.
-                '"curp":{"rules":{'.
-                    '"required":false,'.
-                    '"curp":false'.
-                '}},'.
-                '"fechaNacimiento":{"rules":{'.
-                    '"required":false,'.
-                    '"date":false'.
-                '}},'.
-                '"edad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idNacionalidad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEdoOrigen":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idMunicipioOrigen":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"sexo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEtnia":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idLengua":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"motivoEstancia":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idOcupacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEstadoCivil":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idReligion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEscolaridad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"docIdentificacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"numDocIdentificacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idInterprete":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"alias":{"rules":{'.
-                    '"required":true'.
-                '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}}'.
-            '}'],
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>4,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
@@ -279,9 +117,10 @@ class ligadosSeeder extends Seeder
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
-                '}},'.
+                '},"default":"1990-01-01"},'.
                 '"edad":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"number":true'.
                 '}},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
@@ -302,7 +141,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefono":{"rules":{'.
-                    '"required":true'.
+                    '"required":true,'.
+                    '"phone":true'.
                 '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
@@ -335,7 +175,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"phone":true'.
                 '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>5,"config"=>
@@ -360,12 +201,9 @@ class ligadosSeeder extends Seeder
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
-                '}},'.
+                '},"default":"1990-01-01"},'.
                 '"sexo":{"rules":{'.
-                    '"required":true,'.
-                '}},'.
-                '"edad":{"rules":{'.
-                    '"required":false'.
+                    '"required":true'.
                 '}},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
@@ -383,7 +221,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefono":{"rules":{'.
-                    '"required":true'.
+                    '"required":true,'.
+                    '"phone":true'.
                 '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
@@ -409,6 +248,10 @@ class ligadosSeeder extends Seeder
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
                 '}},'.
+                '"edad":{"rules":{'.
+                    '"required":false,'.
+                    '"number":true'.
+                '}},'.
                 '"alias":{"rules":{'.
                     '"required":true'.
                 '}},'.
@@ -416,7 +259,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"phone":true'.
                 '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>6,"config"=>
@@ -441,9 +285,10 @@ class ligadosSeeder extends Seeder
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
-                '}},'.
+                '},"default":"1990-01-01"},'.
                 '"edad":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"number":true'.
                 '}},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
@@ -464,7 +309,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefono":{"rules":{'.
-                    '"required":true'.
+                    '"required":true,'.
+                    '"phone":true'.
                 '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
@@ -497,7 +343,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"phone":true'.
                 '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>7,"config"=>
@@ -522,7 +369,7 @@ class ligadosSeeder extends Seeder
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
-                '}},'.
+                '},"default":"1990-01-01"},'.
                 '"idEdoOrigen":{"rules":{'.
                     '"required":false'.
                 '}},'.
@@ -533,13 +380,15 @@ class ligadosSeeder extends Seeder
                     '"required":true'.
                 '}},'.
                 '"telefono":{"rules":{'.
-                    '"required":true'.
+                    '"required":true,'.
+                    '"phone":true'.
                 '}},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":true'.
                 '}},'.
                 '"edad":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"number":true'.
                 '}},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
@@ -578,7 +427,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"phone":true'.
                 '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>8,"config"=>
@@ -603,9 +453,10 @@ class ligadosSeeder extends Seeder
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
-                '}},'.
+                '},"default":"1990-01-01"},'.
                 '"edad":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"number":true'.
                 '}},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
@@ -626,7 +477,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefono":{"rules":{'.
-                    '"required":true'.
+                    '"required":true,'.
+                    '"phone":true'.
                 '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
@@ -659,7 +511,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"phone":true'.
                 '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>9,"config"=>
@@ -684,9 +537,10 @@ class ligadosSeeder extends Seeder
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
-                '}},'.
+                '},"default":"1990-01-01"},'.
                 '"edad":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"number":true'.
                 '}},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
@@ -707,7 +561,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefono":{"rules":{'.
-                    '"required":true'.
+                    '"required":true,'.
+                    '"phone":true'.
                 '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
@@ -740,169 +595,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}}'.
-            '}'],
-            ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>10,"config"=>
-            '{'.
-                '"nombres":{"rules":{'.
-                    '"required":true'.
-                '}},'.
-                '"primerAp":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"segundoAp":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"rfc":{"rules":{'.
                     '"required":false,'.
-                    '"rfc":false'.
-                '}},'.
-                '"curp":{"rules":{'.
-                    '"required":false,'.
-                    '"curp":false'.
-                '}},'.
-                '"fechaNacimiento":{"rules":{'.
-                    '"required":false,'.
-                    '"date":false'.
-                '}},'.
-                '"edad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idNacionalidad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEdoOrigen":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idMunicipioOrigen":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"sexo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEtnia":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idLengua":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"motivoEstancia":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idOcupacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEstadoCivil":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idReligion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEscolaridad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"docIdentificacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"numDocIdentificacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idInterprete":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"alias":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}}'.
-            '}'],
-            ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>11,"config"=>
-            '{'.
-                '"nombres":{"rules":{'.
-                    '"required":true'.
-                '}},'.
-                '"primerAp":{"rules":{'.
-                    '"required":true'.
-                '}},'.
-                '"segundoAp":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"rfc":{"rules":{'.
-                    '"required":false,'.
-                    '"rfc":false'.
-                '}},'.
-                '"curp":{"rules":{'.
-                    '"required":false,'.
-                    '"curp":false'.
-                '}},'.
-                '"fechaNacimiento":{"rules":{'.
-                    '"required":false,'.
-                    '"date":false'.
-                '}},'.
-                '"edad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idNacionalidad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEdoOrigen":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idMunicipioOrigen":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"sexo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEtnia":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idLengua":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"motivoEstancia":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idOcupacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEstadoCivil":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idReligion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idEscolaridad":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"docIdentificacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"numDocIdentificacion":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"idInterprete":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"alias":{"rules":{'.
-                    '"required":true'.
-                '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
+                    '"phone":true'.
                 '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>12,"config"=>
@@ -927,9 +621,10 @@ class ligadosSeeder extends Seeder
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
-                '}},'.
+                '},"default":"1990-01-01"},'.
                 '"edad":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"number":true'.
                 '}},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
@@ -950,7 +645,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefono":{"rules":{'.
-                    '"required":true'.
+                    '"required":true,'.
+                    '"phone":true'.
                 '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
@@ -983,7 +679,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"phone":true'.
                 '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>7,"config"=>
@@ -1008,9 +705,10 @@ class ligadosSeeder extends Seeder
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
-                '}},'.
+                '},"default":"1990-01-01"},'.
                 '"edad":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"number":true'.
                 '}},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
@@ -1031,7 +729,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefono":{"rules":{'.
-                    '"required":true'.
+                    '"required":true,'.
+                    '"phone":true'.
                 '}},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":false'.
@@ -1064,7 +763,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"phone":true'.
                 '}}'.
             '}'
             ],
@@ -1090,9 +790,9 @@ class ligadosSeeder extends Seeder
                 '"fechaNacimiento":{"rules":{'.
                     '"required":false,'.
                     '"date":true'.
-                '}},'.
+                '},"default":"1990-01-01"},'.
                 '"sexo":{"rules":{'.
-                    '"required":true,'.
+                    '"required":true'.
                 '}},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
@@ -1110,7 +810,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefono":{"rules":{'.
-                    '"required":true'.
+                    '"required":true,'.
+                    '"phone":true'.
                 '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":false'.
@@ -1137,7 +838,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"edad":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"number":true'.
                 '}},'.
                 '"alias":{"rules":{'.
                     '"required":false'.
@@ -1146,7 +848,8 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"telefonoTrabajo":{"rules":{'.
-                    '"required":false'.
+                    '"required":false,'.
+                    '"phone":true'.
                 '}}'.
             '}'],
         ]);

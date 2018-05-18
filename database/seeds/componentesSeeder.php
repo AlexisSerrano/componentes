@@ -16,6 +16,7 @@ class componentesSeeder extends Seeder
             ['id'=>3,'nombre'=>'Codigo QR','descripcion'=>'Componente utilizado para generar códigos QR'],
             ['id'=>4,'nombre'=>'DataTable','descripcion'=>'Componente que recupera datos de una DB para posteriormente presentarlos en una tabla'],
             ['id'=>5,'nombre'=>'OpenStreetMap','descripcion'=>'Componente para mostrar mapas interactivos mediante un OpenLayer'],
+            ['id'=>6,'nombre'=>'Persona Moral','descripcion'=>'Componente que registra los datos generales de una persona moral o empresa'],
         ]);
     }
 }

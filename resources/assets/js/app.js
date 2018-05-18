@@ -26,10 +26,10 @@ Vue.use(VeeValidate);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.component('persona', require('./components/PersonaComponent.vue'));
+Vue.component('personafisica', require('./components/PersonaFisicaComponent.vue'));
+Vue.component('personamoral', require('./components/PersonaMoralComponent.vue'));
+Vue.component('persona', require('./components/personaComponent.vue'));
 Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
-Vue.component('empresa', require('./components/EmpresaComponent.vue'));
-
 Vue.component('render-datatable', require('./components/DataTable.vue'));
 
 const app = new Vue({

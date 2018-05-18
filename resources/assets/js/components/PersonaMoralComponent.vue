@@ -38,7 +38,6 @@
                 </div>
             </div>
         </form>
-
     </div>
 </template>
 
@@ -97,6 +96,9 @@ import swal from 'sweetalert2'
                         telefono: this.telefono,
                         representanteLegal: this.representanteLegal.toUpperCase()
                     })
+                    .then (response =>{
+                        console.log(response.data)
+                });
             }
        }
     }
