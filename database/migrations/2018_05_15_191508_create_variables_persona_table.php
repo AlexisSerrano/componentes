@@ -15,7 +15,6 @@ class CreateVariablesPersonaTable extends Migration
     {
         Schema::create('variables_persona', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idCarpeta')->unsigned()->nullable();
             $table->integer('idPersona')->unsigned();
             $table->integer('edad')->nullable();
             $table->string('telefono',15)->nullable()->default("SIN INFORMACION");
@@ -24,8 +23,9 @@ class CreateVariablesPersonaTable extends Migration
             $table->integer('idEstadoCivil')->nullable()->unsigned()->default(7);
             $table->integer('idEscolaridad')->nullable()->unsigned()->default(14);
             $table->integer('idReligion')->nullable()->unsigned()->default(29);
-            $table->integer('idDomicilio')->nullable()->unsigned()->default(1);
+            $table->integer('idDomicilio')->nullable()->unsigned()->default(0);
             $table->string('docIdentificacion',50)->nullable()->default("SIN INFORMACION");
+            $table->integer('idInterprete')->nullable()->unsigned()->default(0);
             $table->string('numDocIdentificacion',50)->nullable()->default("SIN INFORMACION");
             $table->string('lugarTrabajo',50)->nullable()->default("SIN INFORMACION");
             $table->integer('idDomicilioTrabajo')->nullable()->unsigned()->default(1);
@@ -37,7 +37,6 @@ class CreateVariablesPersonaTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            //$table->foreign('idCarpeta')->references('id')->on('carpeta')->onDelete('cascade');
             $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
             $table->foreign('idOcupacion')->references('id')->on('cat_ocupacion')->onDelete('cascade');
             $table->foreign('idEstadoCivil')->references('id')->on('cat_estado_civil')->onDelete('cascade');
