@@ -10,7 +10,7 @@ class PersonaModel extends Model
     //
     protected $table='personas';
 
-    protected $fillable=['nombres','primerAp','segundoAp','fechaNacimiento','rfc','curp','sexo','idNacionalidad','idEtnia','idLengua','idMunicipioOrigen','esEmpresa'];
+    //protected $fillable=['nombres','primerAp','segundoAp','fechaNacimiento','rfc','curp','sexo','idNacionalidad','idEtnia','idLengua','idMunicipioOrigen','esEmpresa'];
     
     
 }

@@ -14,7 +14,10 @@ class HelpModels
     public static function ModelvsJSON(&$model,$jsonobj,&$errors)
     {
         //MODEL TO ARRAY (ENLY THE ELEMENTS INNER MODEL, NOT update_at OR insert_at)
-        $elements=$model->toArray();
+        $elements=$model;
+        if(!is_array($model)){
+            $elements=$model->toArray();
+        }
         /*### OLD CODE
         //COUNT FROM ENTITIES (NAME,BIRTHDAY,ETC.)
         $fields=count($elements);
