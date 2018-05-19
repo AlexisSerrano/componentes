@@ -1,20 +1,10 @@
 <template>
-    <div class="container mt-3">
-        <div v-if="mostrarSearch" class="form-row align-items-end">
-            <div class="form-group col-md-4">
-                <label for="persona">Buscar Persona</label>
-                <input type="text" class="form-control" id="persona" :value="persona" @input="persona = $event.target.value" placeholder="Ingrese el R.F.C o Curp">
-            </div>
-            <div class="form-group col-md-5">
-                <button v-on:click="searchPersona" type="submit" class="btn mr-1">Buscar</button>
-                <button v-on:click="mostrarForm=true,mostrarSearch=false, persona='',personaExiste=[]" class="btn">
-                <img src="../../images/registro.svg" class="icons"> Registrar Persona</button> 
-            </div>
+    <div class="container">
+        <div class="form-row align-items-end" v-if="!mostrarForm">
             <div class="form-group col-md-4">
                 <h5 id="pruebavue">{{(Object.keys(this.personaExiste).length === 1)?personaExiste[0].nombres+" "+personaExiste[0].primerAp+" "+personaExiste[0].segundoAp:''}}</h5>
             </div>
         </div>
-
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm">
             <div class="form-row" v-if="tipo ==2 || tipo==3 || tipo==4 || tipo==10 || tipo==11 || tipo==12">
                 <div class="form-group col-md-6">
@@ -68,8 +58,8 @@
             <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
                 <div class="form-group col-md-4">
                     <label for="rfc">R.F.C</label>
-                    <input v-if="rfcV == 1" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off">
-                    <input v-else type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" autocomplete="off">
+                    <input v-if="rfcV == 1" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <input v-else type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" autocomplete="off" @blur="searchPersona">
                     <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
                 </div>
                 <div class="form-group col-md-4">
@@ -216,8 +206,6 @@
             <div class="form-row mt-3">
                 <div class="form-group col-md-5">
                     <button v-if="(denunciado!=false) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" type="submit" class="btn mr-1">Guardar</button>
-                    <button v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" type="button" v-on:click="mostrarForm=false,mostrarSearch=true" class="btn">
-                    <img src="../../images/flecha.svg" class="icons"> Regresar a buscar</button> 
                 </div>
             </div>
         </form>
@@ -252,8 +240,8 @@ import swal from 'sweetalert2'
                 sexo:null,
                 rfc:'',
                 curp: '',
-                mostrarSearch:true,
-                mostrarForm:false,
+                // mostrarSearch:true,
+                mostrarForm:true,
                 nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
                 estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
                 municipio:null,
@@ -328,10 +316,10 @@ import swal from 'sweetalert2'
         },
         methods:{
             searchPersona: function(){
-                if(this.persona!=''){
-                    var urlBuscarPersona = 'searchPersona/'+this.persona;
+                if(this.rfc!=''){
+                    var urlBuscarPersona = 'searchPersona/'+this.rfc;
                     axios.get(urlBuscarPersona,{
-                        persona: this.persona
+                        persona: this.rfc
                     }).then(response => {
                         this.personaExiste=response.data;
                         if(Object.keys(this.personaExiste).length === 1){
