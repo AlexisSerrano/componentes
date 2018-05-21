@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Models\EmpresaModel;
 use App\Http\Models\VariablesPersona;
+use DB;
 
 class EmpresaController extends Controller{
 	public function index(){
@@ -12,7 +13,7 @@ class EmpresaController extends Controller{
 	}
  
 	public function addEmpresa(Request $request){
-		// $this->beginTransaction();
+		// DB::beginTransaction();
 		// try{
 			$empresa=new EmpresaModel();
 			$empresa->nombre=$request->input('nombre');		
@@ -25,10 +26,10 @@ class EmpresaController extends Controller{
 			$variablesEmpresa->telefono=$request->input('telefono');
 			$variablesEmpresa->representanteLegal=$request->input('representanteLegal');
 			$variablesEmpresa->save();
-		// 	$this->commit();
+		// 	DB::commit();
 		// }
 		// catch (\PDOException $e){
-		// 	$this->rollBack();
+		// 	DB::rollBack();
 		// 	throw $e;
         //     return back()->withInput();
 		// }
