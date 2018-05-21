@@ -77,7 +77,7 @@ class HelpController{
 			$skiped=$skip??0;
 			$formatted=array(
 				'count'=>DB::table($tablename)->where($obj)->count(), 
-				'src'=>DB::table($tablename)->where($obj)->skip($skiped)->take($limited)->get($cols)
+				'src'=>DB::table($tablename)->where($obj)->skip($skiped)->take($limited)->get(count($cols)>0?$cols:['*'])
 			); 
 		}catch(Exception $e){
 			return \Response::json($e);

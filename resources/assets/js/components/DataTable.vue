@@ -3,10 +3,14 @@
     <div v-if="!DataTable.charging">    
         <table class="table">
             <tr >
-                <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show"><b>{{cols.replace==undefined?cols.name:cols.replace}}</b></td>
+                <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
+                <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
             </tr>
             <tr v-for="fields in DataTable.data.src" :key="fields.id">
                 <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
+                <td v-if="DataTable.options!=undefined" v-for="opt in DataTable.options.links" :key="opt.text">
+                    <a href="#" v-on:click="opt.func(fields)">{{opt.text}}</a>
+                </td>
             </tr>
         </table>
         <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
@@ -31,7 +35,8 @@
                         count:0
                     },
                     url:"/api/test/SearchUndefined",
-                    params:{columns:[//select columns in table (correct name col)
+                    params:{/*
+                            columns:[//select columns in table (correct name col)
                                 {name:"id",show:false},
                                 {name:"nombre",show:true,replace:"Nombre del sistema"},
                                 {name:"descripcion",show:true,replace:"Descripcion del sistema"}
@@ -43,13 +48,27 @@
                             nfilters:{},//search where no like (correct name col)
                             //tablename:"cat_municipio"
                             //tablename:"cat_estado"
-                            tablename:"sistemas"
+                            tablename:"sistemas"*/
                             },
                     current:0,
                     maxpage:0,
                     charging:false,
-                    message:"Cargando..."              
+                    message:"Cargando...",
+                    options:{title:"opciones",links:[
+                    {func:function(obj){
+                        alert(obj.id);
+                        },
+                    text:"alert" }]}
                 }
+            }
+        },
+        props:{
+            dt:function(value){
+                this.DataTable.url=this.isexits(value.url,this.DataTable.url);
+                //this.DataTable.u.data=this.isexits(value.data,this.DataTable.data);
+                this.DataTable.params=this.isexits(value.params,this.DataTable.params);
+                this.DataTable.options=this.isexits(value.options,this.DataTable.options);
+                return null;
             }
         },
         mounted(){
@@ -58,7 +77,17 @@
                 this.DTGetData(0);
             //}
         },
-        methods:{            
+        methods:{        
+            DTallcols:function(){
+                var cols=[];
+                Object.keys(this.DataTable.data.src[0]).forEach(function(dt){
+                    cols.push({name:dt,show:true});
+                })  
+                this.DataTable.params.columns=cols;             
+            },
+            isexits:function(value,defaultv){
+                return value==undefined?defaultv:value;
+            },    
             DTEnabled:function(s){
                 return !(s>=0&&s<this.DataTable.maxpage)
             },
@@ -72,9 +101,12 @@
                 }).finally(()=>{
                     if(DT!=undefined){
                         this.DataTable.data=DT;
+                        if(this.DataTable.columns==undefined){
+                            this.DTallcols();
+                        }
                         this.DataTable.maxpage=parseInt(this.DataTable.data.count/this.DataTable.params.limit);
                         this.DataTable.maxpage+=this.DataTable.data.count%this.DataTable.params.limit==0?0:1;                    
-                        this.DataTable.charging=false;
+                        this.DataTable.charging=false;                        
                     }else{
                         this.DataTable.message="error al cargar la informacion";
                     }                    
