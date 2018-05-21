@@ -10,9 +10,8 @@
 
   </head>
     <div id="app">
-        <render-datatable></render-datatable>
+        <formex></formex>
     </div>
   </body> 
-
     <script src="{{asset('js/app.js')}}"></script>
 </html>

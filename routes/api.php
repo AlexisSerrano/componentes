@@ -16,9 +16,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 Route::post('getValidaciones','PersonaController@getValidaciones');
+Route::post('PersonaFisica','GenericController@ValidacionJSONDBPF');
+Route::post('PersonaMoral','GenericController@ValidacionJSONDBPM');
 
 Route::group(['prefix' => 'test'], function () {
     Route::post('ValidacionDBJSON','GenericController@ValidacionDBJSON');
     Route::post('SearchUndefined','GenericController@SearchUndefined');
-    Route::post('ValidacionJSONDB','GenericController@ValidacionJSONDB');
+    Route::post('ValidacionJSONDBPF','GenericController@ValidacionJSONDBPF');
+    Route::post('ValidacionJSONDBPM','GenericController@ValidacionJSONDBPM');
 });
