@@ -323,7 +323,7 @@ import swal from 'sweetalert2'
                         fechaNacimiento: this.fechaNacimiento
                     }).then(response =>{
                         this.rfc = response.data.res
-                        var urlBuscarPersona = 'searchPersona';
+                        var urlBuscarPersona = 'searchPersonaFisica';
                         axios.post(urlBuscarPersona,{
                             rfc: this.rfc
                         }).then(response => {
@@ -502,12 +502,17 @@ import swal from 'sweetalert2'
                 this.numIdentificacion='',
                 this.lugarTrabajo='',
                 this.telefonoTrabajo='',
+                this.alias='',
                 this.$validator.reset();
             },
             crearPersona: function(){
                 var urlCrearPersona = 'addPersona';
                 if(this.denunciado==1){
                     axios.post(urlCrearPersona,{
+                        id1: this.sistema,
+                        id2: this.tipo,
+                        id3: 1,
+                        carpeta: 1,
                         nombres: this.nombres.toUpperCase(),
                         primerAp: this.primerAp.toUpperCase(),
                         segundoAp: this.segundoAp.toUpperCase(),
@@ -530,13 +535,15 @@ import swal from 'sweetalert2'
                         identificacion: this.identificacion.id,
                         numIdentificacion: this.numIdentificacion.toUpperCase(),
                         lugarTrabajo: this.lugarTrabajo.toUpperCase(),
-                        telefonoTrabajo: this.telefonoTrabajo
+                        telefonoTrabajo: this.telefonoTrabajo,
+                        alias: this.alias.toUpperCase()
                     })
                 }
                 else if(this.denunciado==2){
                     axios.post(urlCrearPersona,{
                         nombres: this.nombres,
-                        primerAp: this.primerAp
+                        primerAp: this.primerAp,
+                        alias: this.alias.toUpperCase()
                     })   
                 }
                 else if(this.denunciado==3){

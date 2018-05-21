@@ -5,18 +5,18 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') }" id="nombre" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off">
+                    <input type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') }" id="nombre" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona">
                     <span v-if="errors.has('nombre')" class="text-danger">{{ errors.first('nombre') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="rfc">R.F.C</label>
-                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off">
-                    <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
+                    <label for="fechaConstitucion">Fecha de Constitución</label>
+                    <input type="date" class="form-control" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="Fecha de Constitucion" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Constitucion') }" @blur="searchPersona">
+                    <span v-show="errors.has('Fecha de Constitucion')" class="text-danger">{{ errors.first('Fecha de Constitucion') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="fechaConstitucion">Fecha de Constitución</label>
-                    <input type="date" class="form-control" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="Fecha de Constitucion" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Constitucion') }">
-                    <span v-show="errors.has('Fecha de Constitucion')" class="text-danger">{{ errors.first('Fecha de Constitucion') }}</span>
+                    <label for="rfc">R.F.C</label>
+                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
                 </div>
             </div>
 
@@ -50,7 +50,8 @@ import swal from 'sweetalert2'
                 fechaConstitucion: '',
                 rfc:'',
                 telefono:'',
-                representanteLegal:''
+                representanteLegal:'',
+                personaExiste:''
             }
         },
 
@@ -58,6 +59,32 @@ import swal from 'sweetalert2'
         //    this.getNacionalidades();
         },
         methods:{
+            searchPersona: function(){
+                if(this.nombre!='' && this.fechaConstitucion!=''){
+                    var urlRfcMoral = 'rfcMoral';
+                    axios.post(urlRfcMoral,{
+                        nombre: this.nombre,
+                        fechaConstitucion: this.fechaConstitucion
+                    }).then(response =>{
+                        this.rfc = response.data.res
+                        var urlBuscarPersona = 'searchPersonaMoral';
+                        axios.post(urlBuscarPersona,{
+                            rfc: this.rfc
+                        }).then(response => {
+                            this.personaExiste=response.data
+                            if(Object.keys(this.personaExiste).length === 1){
+                                swal({
+                                    title: 'Persona Moral Encontrada!',
+                                    text: 'Esta persona moral ya fue registrada anteriormente',
+                                    type: 'success',
+                                    confirmButtonText: 'Ok'
+                                })
+                                this.mostrarForm=false;
+                            }
+                        })
+                    });
+                }
+            },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {

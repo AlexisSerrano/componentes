@@ -128,23 +128,11 @@ class PersonaController extends Controller{
 	public function getValidaciones($id1,$id2,$id3){
 		return HelpController::GetJSONDBValidation($id1,$id2,$id3);
 	}*/
-	public function rfcMoral(Request $request){
-		$nombre = $request->nombre;
-		$dia    = $request->dia;
-		$mes    = $request->mes;
-		$ano    = $request->ano;
-		$builder = new RfcBuilder();
-		$rfc = $builder->legalName($nombre)
-			->creationDate($dia, $mes, $ano)
-			->build()
-			->toString();
-		return ['res' => $rfc];
-	}
 	public function rfcFisico(Request $request){
 		$fecha = $request->fechaNacimiento;
 		$partes = explode("-",$fecha);
 		$builder = new RfcBuilder();
-		$rfc     = $builder->name($request->nombres)
+		$rfc = $builder->name($request->nombres)
 			->firstLastName($request->primerAp)
 			->secondLastName($request->segundoAp)
 			->birthday($partes[2], $partes[1], $partes[0])
