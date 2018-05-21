@@ -37,13 +37,13 @@ class CreateVariablesPersonaTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
+            // $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
             $table->foreign('idOcupacion')->references('id')->on('cat_ocupacion')->onDelete('cascade');
             $table->foreign('idEstadoCivil')->references('id')->on('cat_estado_civil')->onDelete('cascade');
             $table->foreign('idEscolaridad')->references('id')->on('cat_escolaridad')->onDelete('cascade');
             $table->foreign('idReligion')->references('id')->on('cat_religion')->onDelete('cascade');
-            $table->foreign('idDomicilio')->references('id')->on('domicilios')->onDelete('cascade');
-            $table->foreign('idDomicilioTrabajo')->references('id')->on('domicilios')->onDelete('cascade');
+            // $table->foreign('idDomicilio')->references('id')->on('domicilios')->onDelete('cascade');
+            // $table->foreign('idDomicilioTrabajo')->references('id')->on('domicilios')->onDelete('cascade');
         });
     }
 

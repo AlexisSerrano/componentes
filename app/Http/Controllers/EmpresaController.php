@@ -13,8 +13,8 @@ class EmpresaController extends Controller{
 	}
  
 	public function addEmpresa(Request $request){
-		// DB::beginTransaction();
-		// try{
+		DB::beginTransaction();
+		try{
 			$empresa=new EmpresaModel();
 			$empresa->nombre=$request->input('nombre');		
 			$empresa->fechaCreacion=$request->input('fechaConstitucion');
@@ -26,12 +26,12 @@ class EmpresaController extends Controller{
 			$variablesEmpresa->telefono=$request->input('telefono');
 			$variablesEmpresa->representanteLegal=$request->input('representanteLegal');
 			$variablesEmpresa->save();
-		// 	DB::commit();
-		// }
-		// catch (\PDOException $e){
-		// 	DB::rollBack();
-		// 	throw $e;
-        //     return back()->withInput();
-		// }
+			DB::commit();
+		}
+		catch (\PDOException $e){
+			DB::rollBack();
+			throw $e;
+            return back()->withInput();
+		}
 	}
 }
