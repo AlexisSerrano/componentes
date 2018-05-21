@@ -15,6 +15,7 @@ use App\Http\Models\CatEstadoCivil;
 use App\Http\Models\CatEscolaridad;
 use App\Http\Models\CatReligion;
 use App\Http\Models\CatIdentificacion;
+use RFC\RfcBuilder;
 
 class PersonaController extends Controller{
 	public function index(){
@@ -49,7 +50,8 @@ class PersonaController extends Controller{
 		return $persona;
 	}
 
-	public function searchPersona($persona){
+	public function searchPersona(Request $request){
+		$persona = $request->rfc;
         $personaExiste=PersonaModel::orderBy('rfc', 'ASC')
 		->where('rfc',$persona)
 		->orwhere('curp',$persona)
@@ -126,4 +128,29 @@ class PersonaController extends Controller{
 	public function getValidaciones($id1,$id2,$id3){
 		return HelpController::GetJSONDBValidation($id1,$id2,$id3);
 	}*/
+	public function rfcMoral(Request $request){
+		$nombre = $request->nombre;
+		$dia    = $request->dia;
+		$mes    = $request->mes;
+		$ano    = $request->ano;
+		$builder = new RfcBuilder();
+		$rfc = $builder->legalName($nombre)
+			->creationDate($dia, $mes, $ano)
+			->build()
+			->toString();
+		return ['res' => $rfc];
+	}
+	public function rfcFisico(Request $request){
+		$fecha = $request->fechaNacimiento;
+		$partes = explode("-",$fecha);
+		$builder = new RfcBuilder();
+		$rfc     = $builder->name($request->nombres)
+			->firstLastName($request->primerAp)
+			->secondLastName($request->segundoAp)
+			->birthday($partes[2], $partes[1], $partes[0])
+			// ->birthday(3, 9, 1984)
+			->build()
+			->toString();
+		return ['res' => $rfc];
+	}
 }

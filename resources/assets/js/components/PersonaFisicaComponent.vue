@@ -1,20 +1,10 @@
 <template>
-    <div class="container mt-3">
-        <div v-if="mostrarSearch" class="form-row align-items-end">
-            <div class="form-group col-md-4">
-                <label for="persona">Buscar Persona</label>
-                <input type="text" class="form-control" id="persona" :value="persona" @input="persona = $event.target.value" placeholder="Ingrese el R.F.C o Curp">
-            </div>
-            <div class="form-group col-md-5">
-                <button v-on:click="searchPersona" type="submit" class="btn mr-1">Buscar</button>
-                <button v-on:click="mostrarForm=true,mostrarSearch=false, persona='',personaExiste=[]" class="btn">
-                <img src="../../images/registro.svg" class="icons"> Registrar Persona</button> 
-            </div>
+    <div class="container">
+        <div class="form-row align-items-end" v-if="!mostrarForm">
             <div class="form-group col-md-4">
                 <h5 id="pruebavue">{{(Object.keys(this.personaExiste).length === 1)?personaExiste[0].nombres+" "+personaExiste[0].primerAp+" "+personaExiste[0].segundoAp:''}}</h5>
             </div>
         </div>
-
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm">
             <div class="form-row" v-if="tipo ==2 || tipo==3 || tipo==4 || tipo==10 || tipo==11 || tipo==12">
                 <div class="form-group col-md-6">
@@ -37,8 +27,8 @@
             <div class="form-row">
                 <div v-if="(denunciado==1 || denunciado==2) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" class="form-group col-md-4">
                     <label for="nombres">Nombres</label>
-                    <input v-if="nombresV == 1" type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off">
-                    <input v-else type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" autocomplete="off">
+                    <input v-if="nombresV == 1" type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <input v-else type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" autocomplete="off" @blur="searchPersona">
                     <span v-if="errors.has('nombres')" class="text-danger">{{ errors.first('nombres') }}</span>
                 </div>
                 <div v-if="denunciado==3" class="form-group col-md-4">
@@ -47,14 +37,14 @@
                 </div>
                 <div v-if="(denunciado==1 || denunciado==2) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" class="form-group col-md-4">
                     <label for="primerAp">Primer Apellido</label>
-                    <input v-if="primerApV == 1" type="text" name="primerAp" data-vv-name="Primer Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Primer Apellido') }" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="'required'" autocomplete="off">
-                    <input v-else type="text" name="primerAp" data-vv-name="Primer Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Primer Apellido') }" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido" autocomplete="off">
+                    <input v-if="primerApV == 1" type="text" name="primerAp" data-vv-name="Primer Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Primer Apellido') }" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <input v-else type="text" name="primerAp" data-vv-name="Primer Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Primer Apellido') }" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido" autocomplete="off" @blur="searchPersona">
                     <span v-if="errors.has('Primer Apellido')" class="text-danger">{{ errors.first('Primer Apellido') }}</span>
                 </div>
                 <div v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" class="form-group col-md-4">
                     <label for="segundoAp">Segundo Apellido</label>
-                    <input v-if="segundoApV == 1" type="text" name="segundoAp" data-vv-name="Segundo Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Segundo Apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="'required'" autocomplete="off">
-                    <input v-else type="text" name="segundoAp" data-vv-name="Segundo Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Segundo Apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido" autocomplete="off">
+                    <input v-if="segundoApV == 1" type="text" name="segundoAp" data-vv-name="Segundo Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Segundo Apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <input v-else type="text" name="segundoAp" data-vv-name="Segundo Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Segundo Apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido" autocomplete="off" @blur="searchPersona">
                     <span v-if="errors.has('Segundo Apellido')" class="text-danger">{{ errors.first('Segundo Apellido') }}</span>
                 </div>
                 <div v-if="(denunciado==2) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
@@ -67,16 +57,16 @@
 
             <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
                 <div class="form-group col-md-4">
-                    <label for="rfc">R.F.C</label>
-                    <input v-if="rfcV == 1" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off">
-                    <input v-else type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" autocomplete="off">
-                    <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
+                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                    <input v-if="fechaNacimientoV == 1" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona">
+                    <input v-else type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona">
+                    <span v-show="errors.has('Fecha de Nacimiento')" class="text-danger">{{ errors.first('Fecha de Nacimiento') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                    <input v-if="fechaNacimientoV == 1" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento') }">
-                    <input v-else type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento') }">
-                    <span v-show="errors.has('Fecha de Nacimiento')" class="text-danger">{{ errors.first('Fecha de Nacimiento') }}</span>
+                    <label for="rfc">R.F.C</label>
+                    <input v-if="rfcV == 1" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <input v-else type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" autocomplete="off" @blur="searchPersona">
+                    <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="edad">Edad</label>
@@ -216,12 +206,10 @@
             <div class="form-row mt-3">
                 <div class="form-group col-md-5">
                     <button v-if="(denunciado!=false) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" type="submit" class="btn mr-1">Guardar</button>
-                    <button v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" type="button" v-on:click="mostrarForm=false,mostrarSearch=true" class="btn">
-                    <img src="../../images/flecha.svg" class="icons"> Regresar a buscar</button> 
                 </div>
             </div>
         </form>
-<!-- <h1>{{validaciones}}</h1> -->
+<!-- <h1>{{fechaNacimiento}}</h1> -->
     </div>
 </template>
 
@@ -242,7 +230,6 @@ import swal from 'sweetalert2'
                 escolaridades: [],
                 religiones: [],
                 identificaciones: [],
-                persona:'',
                 personaExiste:'',
                 nombres: '',
                 primerAp: '',
@@ -252,8 +239,8 @@ import swal from 'sweetalert2'
                 sexo:null,
                 rfc:'',
                 curp: '',
-                mostrarSearch:true,
-                mostrarForm:false,
+                // mostrarSearch:true,
+                mostrarForm:true,
                 nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
                 estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
                 municipio:null,
@@ -311,7 +298,6 @@ import swal from 'sweetalert2'
                 default:false
             }
         },
-
         mounted: function(){
            this.getNacionalidades();
            this.getEstados();
@@ -328,40 +314,32 @@ import swal from 'sweetalert2'
         },
         methods:{
             searchPersona: function(){
-                if(this.persona!=''){
-                    var urlBuscarPersona = 'searchPersona/'+this.persona;
-                    axios.get(urlBuscarPersona,{
-                        persona: this.persona
-                    }).then(response => {
-                        this.personaExiste=response.data;
-                        if(Object.keys(this.personaExiste).length === 1){
-                            swal({
-                                title: 'Persona Encontrada!',
-                                text: 'Esta persona ya fue registrada anteriormente',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            })
-                            this.mostrarForm=false;
-                        }
-                        else{
-                            swal({
-                                title: 'Persona No Encontrada!',
-                                text: 'Esta persona no a sido registrada, favor de intentar de nuevo o registrarla',
-                                type: 'error',
-                                confirmButtonText: 'Ok'
-                            })
-                        }
-                    })
+                if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!=''){
+                    var urlRfcFisico = 'rfcFisico';
+                    axios.post(urlRfcFisico,{
+                        nombres: this.nombres,
+                        primerAp: this.primerAp,
+                        segundoAp: this.segundoAp,
+                        fechaNacimiento: this.fechaNacimiento
+                    }).then(response =>{
+                        this.rfc = response.data.res
+                        var urlBuscarPersona = 'searchPersona';
+                        axios.post(urlBuscarPersona,{
+                            rfc: this.rfc
+                        }).then(response => {
+                            this.personaExiste=response.data
+                            if(Object.keys(this.personaExiste).length === 1){
+                                swal({
+                                    title: 'Persona Encontrada!',
+                                    text: 'Esta persona ya fue registrada anteriormente',
+                                    type: 'success',
+                                    confirmButtonText: 'Ok'
+                                })
+                                this.mostrarForm=false;
+                            }
+                        })
+                    });
                 }
-                else{
-                    swal({
-                        title: 'No ha ingresado información!',
-                        text: 'Ingrese un R.F.C o Curp',
-                        type: 'warning',
-                        confirmButtonText: 'Ok'
-                    })
-                }
-                this.persona=''
             },
             getNacionalidades: function(){
                 var urlNacionalidades = 'getNacionalidades';
