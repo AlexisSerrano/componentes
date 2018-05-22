@@ -63,21 +63,23 @@
             }
         },
         props:{
-            dt:function(value){
-                this.DataTable.url=this.isexits(value.url,this.DataTable.url);
-                //this.DataTable.u.data=this.isexits(value.data,this.DataTable.data);
-                this.DataTable.params=this.isexits(value.params,this.DataTable.params);
-                this.DataTable.options=this.isexits(value.options,this.DataTable.options);
-                return null;
+            dts:{}
+        },
+        mounted:function(){
+            //this.$emit('dt',this.dt);
+            if(this.dts!=undefined){
+                this.DataTable.url=this.isexits(this.dts.url,this.DataTable.url);
+                this.DataTable.params=this.isexits(this.dts.params,this.DataTable.params);
+                this.DataTable.options=this.isexits(this.dts.options,this.DataTable.options);
+                this.DataTable.message=this.isexits(this.dts.message,this.DataTable.message);
             }
+            this.DTGetData(0);
         },
-        mounted(){
-            //INIT METHOD
-            //if(this.DataTable.data.src==[]){
-                this.DTGetData(0);
-            //}
-        },
-        methods:{        
+        methods:{   
+            DTSetdt:function(){
+                this.$emit('dt',this.dts);
+                console.log(this.dts)
+            },
             DTallcols:function(){
                 var cols=[];
                 Object.keys(this.DataTable.data.src[0]).forEach(function(dt){
