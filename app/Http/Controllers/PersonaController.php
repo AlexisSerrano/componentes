@@ -15,6 +15,7 @@ use App\Http\Models\CatEstadoCivil;
 use App\Http\Models\CatEscolaridad;
 use App\Http\Models\CatReligion;
 use App\Http\Models\CatIdentificacion;
+use App\Http\Models\VariablesPersona;
 use RFC\RfcBuilder;
 
 class PersonaController extends Controller{
@@ -55,8 +56,41 @@ class PersonaController extends Controller{
         $personaExiste=PersonaModel::orderBy('rfc', 'ASC')
 		->where('rfc',$persona)
 		->orwhere('curp',$persona)
-		->select('nombres','primerAp','segundoAp','id')->get();
-		return response()->json($personaExiste);
+		->select('nombres','primerAp','segundoAp','id','fechaNacimiento','rfc','curp','sexo','idNacionalidad','idEtnia','idLengua','idMunicipioOrigen')->first();
+		$personaExiste2=VariablesPersona::orderBy('id','DESC')
+		->where('idPersona',$personaExiste->id)
+		->select('edad','telefono','motivoEstancia','idOcupacion','idEstadoCivil','idEscolaridad','idReligion','idDomicilio','docIdentificacion','idInterprete','numDocIdentificacion','lugarTrabajo','idDomicilioTrabajo','telefonoTrabajo','representanteLegal','alias','esEmpresa')->first();
+		$data = array(
+			'nombres'=>$personaExiste->nombres,
+			'primerAp'=>$personaExiste->primerAp,
+			'segundoAp'=>$personaExiste->segundoAp,
+			'id'=>$personaExiste->id,
+			'fechaNacimiento'=>$personaExiste->fechaNacimiento,
+			'rfc'=>$personaExiste->rfc,
+			'curp'=>$personaExiste->curp,
+			'sexo'=>$personaExiste->sexo,
+			'idNacionalidad'=>$personaExiste->idNacionalidad,
+			'idEtnia'=>$personaExiste->idEtnia,
+			'idLengua'=>$personaExiste->idLengua,
+			'idMunicipioOrigen'=>$personaExiste->idMunicipioOrigen,
+			'edad'=>$personaExiste2->edad,
+			'telefono'=>$personaExiste2->telefono,
+			'motivoEstancia'=>$personaExiste2->motivoEstancia,
+			'idOcupacion'=>$personaExiste2->idOcupacion,
+			'idEstadoCivil'=>$personaExiste2->idEstadoCivil,
+			'idEscolaridad'=>$personaExiste2->idEscolaridad,
+			'idReligion'=>$personaExiste2->idReligion,
+			'idDomicilio'=>$personaExiste2->idDomicilio,
+			'docIdentificacion'=>$personaExiste2->docIdentificacion,
+			'idInterprete'=>$personaExiste2->idInterprete,
+			'numDocIdentificacion'=>$personaExiste2->numDocIdentificacion,
+			'lugarTrabajo'=>$personaExiste2->lugarTrabajo,
+			'idDomicilioTrabajo'=>$personaExiste2->idDomicilioTrabajo,
+			'telefonoTrabajo'=>$personaExiste2->telefonoTrabajo,
+			'alias'=>$personaExiste2->alias,
+			'esEmpresa'=>$personaExiste2->esEmpresa
+		);
+		return response()->json($data);
 	}
 
     public function getNacionalidades(){

@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="rfc">R.F.C</label>
-                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off">
                     <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
                 </div>
             </div>
@@ -37,6 +37,7 @@
                     <button type="submit" class="btn mr-1">Guardar</button>
                 </div>
             </div>
+            <!-- <h1>{{personaExiste}}</h1> -->
         </form>
     </div>
 </template>
@@ -72,14 +73,15 @@ import swal from 'sweetalert2'
                             rfc: this.rfc
                         }).then(response => {
                             this.personaExiste=response.data
-                            if(Object.keys(this.personaExiste).length === 1){
+                            if(this.personaExiste!=''){
                                 swal({
                                     title: 'Persona Moral Encontrada!',
                                     text: 'Esta persona moral ya fue registrada anteriormente',
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
-                                this.mostrarForm=false;
+                                this.telefono = this.personaExiste.telefono
+                                this.representanteLegal = this.personaExiste.representanteLegal
                             }
                         })
                     });
@@ -121,7 +123,8 @@ import swal from 'sweetalert2'
                         fechaConstitucion: this.fechaConstitucion,
                         rfc:this.rfc.toUpperCase(),
                         telefono: this.telefono,
-                        representanteLegal: this.representanteLegal.toUpperCase()
+                        representanteLegal: this.representanteLegal.toUpperCase(),
+                        esEmpresa: 1
                     })
                     .then (response =>{
                         console.log(response.data)

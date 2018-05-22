@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-        <div class="form-row align-items-end" v-if="!mostrarForm">
+        <!-- <div class="form-row align-items-end" v-if="mostrarForm">
             <div class="form-group col-md-4">
-                <h5 id="pruebavue">{{(Object.keys(this.personaExiste).length === 1)?personaExiste[0].nombres+" "+personaExiste[0].primerAp+" "+personaExiste[0].segundoAp:''}}</h5>
+                <h5 id="pruebavue">{{personaExiste!=''?personaExiste.nombres+" "+personaExiste.primerAp+" "+personaExiste.segundoAp:''}}</h5>
             </div>
-        </div>
+        </div> -->
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm">
             <div class="form-row" v-if="tipo ==2 || tipo==3 || tipo==4 || tipo==10 || tipo==11 || tipo==12">
                 <div class="form-group col-md-6">
@@ -64,8 +64,8 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="rfc">R.F.C</label>
-                    <input v-if="rfcV == 1" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off" @blur="searchPersona">
-                    <input v-else type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" autocomplete="off" @blur="searchPersona">
+                    <input v-if="rfcV == 1" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off">
+                    <input v-else type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" autocomplete="off">
                     <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
                 </div>
                 <div class="form-group col-md-2">
@@ -210,6 +210,7 @@
             </div>
         </form>
 <!-- <h1>{{fechaNacimiento}}</h1> -->
+<!-- <h1>{{personaExiste}}</h1> -->
     </div>
 </template>
 
@@ -328,14 +329,37 @@ import swal from 'sweetalert2'
                             rfc: this.rfc
                         }).then(response => {
                             this.personaExiste=response.data
-                            if(Object.keys(this.personaExiste).length === 1){
+                            if(this.personaExiste!=''){
                                 swal({
                                     title: 'Persona Encontrada!',
                                     text: 'Esta persona ya fue registrada anteriormente',
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
-                                this.mostrarForm=false;
+                                this.nombres= this.personaExiste.nombres,
+                                this.primerAp=this.personaExiste.primerAp,
+                                this.segundoAp=this.personaExiste.segundoAp,
+                                // this.fechaNacimiento=this.personaExiste.fechaNacimiento,
+                                this.edad=this.personaExiste.edad,
+                                this.sexo=this.personaExiste.sexo,
+                                this.rfc=this.personaExiste.rfc,
+                                this.curp=this.personaExiste.curp,
+                                this.nacionalidad=this.personaExiste.idNacionalidad,
+                                this.municipio=this.personaExiste.idMunicipioOrigen,
+                                this.etnia=this.personaExiste.idEtnia,
+                                this.lengua=this.personaExiste.idLengua,
+                                this.interprete=this.personaExiste.idInterprete,
+                                this.telefono=this.personaExiste.telefono,
+                                this.motivoEstancia=this.personaExiste.motivoEstancia,
+                                this.ocupacion=this.personaExiste.idOcupacion,
+                                this.estadoCivil=this.personaExiste.idEstadoCivil,
+                                this.escolaridad=this.personaExiste.idEscolaridad,
+                                this.religion=this.personaExiste.idReligion,
+                                this.identificacion=this.personaExiste.docIdentificacion,
+                                this.numIdentificacion=this.personaExiste.numDocIdentificacion
+                                this.lugarTrabajo=this.personaExiste.lugarTrabajo,
+                                this.telefonoTrabajo=this.personaExiste.telefonoTrabajo,
+                                this.alias=this.personaExiste.alias
                             }
                         })
                     });
@@ -536,14 +560,16 @@ import swal from 'sweetalert2'
                         numIdentificacion: this.numIdentificacion.toUpperCase(),
                         lugarTrabajo: this.lugarTrabajo.toUpperCase(),
                         telefonoTrabajo: this.telefonoTrabajo,
-                        alias: this.alias.toUpperCase()
+                        alias: this.alias.toUpperCase(),
+                        esEmpresa:0
                     })
                 }
                 else if(this.denunciado==2){
                     axios.post(urlCrearPersona,{
                         nombres: this.nombres,
                         primerAp: this.primerAp,
-                        alias: this.alias.toUpperCase()
+                        alias: this.alias.toUpperCase(),
+                        esEmpresa:0
                     })   
                 }
                 else if(this.denunciado==3){

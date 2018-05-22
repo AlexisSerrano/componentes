@@ -54188,6 +54188,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -54306,14 +54307,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         rfc: _this.rfc
                     }).then(function (response) {
                         _this.personaExiste = response.data;
-                        if (Object.keys(_this.personaExiste).length === 1) {
+                        if (_this.personaExiste != '') {
                             __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                                 title: 'Persona Encontrada!',
                                 text: 'Esta persona ya fue registrada anteriormente',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
-                            _this.mostrarForm = false;
+                            _this.nombres = _this.personaExiste.nombres, _this.primerAp = _this.personaExiste.primerAp, _this.segundoAp = _this.personaExiste.segundoAp,
+                            // this.fechaNacimiento=this.personaExiste.fechaNacimiento,
+                            _this.edad = _this.personaExiste.edad, _this.sexo = _this.personaExiste.sexo, _this.rfc = _this.personaExiste.rfc, _this.curp = _this.personaExiste.curp, _this.nacionalidad = _this.personaExiste.idNacionalidad, _this.municipio = _this.personaExiste.idMunicipioOrigen, _this.etnia = _this.personaExiste.idEtnia, _this.lengua = _this.personaExiste.idLengua, _this.interprete = _this.personaExiste.idInterprete, _this.telefono = _this.personaExiste.telefono, _this.motivoEstancia = _this.personaExiste.motivoEstancia, _this.ocupacion = _this.personaExiste.idOcupacion, _this.estadoCivil = _this.personaExiste.idEstadoCivil, _this.escolaridad = _this.personaExiste.idEscolaridad, _this.religion = _this.personaExiste.idReligion, _this.identificacion = _this.personaExiste.docIdentificacion, _this.numIdentificacion = _this.personaExiste.numDocIdentificacion;
+                            _this.lugarTrabajo = _this.personaExiste.lugarTrabajo, _this.telefonoTrabajo = _this.personaExiste.telefonoTrabajo, _this.alias = _this.personaExiste.alias;
                         }
                     });
                 });
@@ -54490,13 +54494,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     numIdentificacion: this.numIdentificacion.toUpperCase(),
                     lugarTrabajo: this.lugarTrabajo.toUpperCase(),
                     telefonoTrabajo: this.telefonoTrabajo,
-                    alias: this.alias.toUpperCase()
+                    alias: this.alias.toUpperCase(),
+                    esEmpresa: 0
                 });
             } else if (this.denunciado == 2) {
                 axios.post(urlCrearPersona, {
                     nombres: this.nombres,
                     primerAp: this.primerAp,
-                    alias: this.alias.toUpperCase()
+                    alias: this.alias.toUpperCase(),
+                    esEmpresa: 0
                 });
             } else if (this.denunciado == 3) {
                 console.log(1);
@@ -54517,26 +54523,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    !_vm.mostrarForm
-      ? _c("div", { staticClass: "form-row align-items-end" }, [
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("h5", { attrs: { id: "pruebavue" } }, [
-              _vm._v(
-                _vm._s(
-                  Object.keys(this.personaExiste).length === 1
-                    ? _vm.personaExiste[0].nombres +
-                      " " +
-                      _vm.personaExiste[0].primerAp +
-                      " " +
-                      _vm.personaExiste[0].segundoAp
-                    : ""
-                )
-              )
-            ])
-          ])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
     _vm.mostrarForm
       ? _c(
           "form",
@@ -55233,7 +55219,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.rfc },
                           on: {
-                            blur: _vm.searchPersona,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55265,7 +55250,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.rfc },
                           on: {
-                            blur: _vm.searchPersona,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -57133,6 +57117,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -57167,14 +57152,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         rfc: _this.rfc
                     }).then(function (response) {
                         _this.personaExiste = response.data;
-                        if (Object.keys(_this.personaExiste).length === 1) {
+                        if (_this.personaExiste != '') {
                             __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                                 title: 'Persona Moral Encontrada!',
                                 text: 'Esta persona moral ya fue registrada anteriormente',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
-                            _this.mostrarForm = false;
+                            _this.telefono = _this.personaExiste.telefono;
+                            _this.representanteLegal = _this.personaExiste.representanteLegal;
                         }
                     });
                 });
@@ -57214,7 +57200,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 fechaConstitucion: this.fechaConstitucion,
                 rfc: this.rfc.toUpperCase(),
                 telefono: this.telefono,
-                representanteLegal: this.representanteLegal.toUpperCase()
+                representanteLegal: this.representanteLegal.toUpperCase(),
+                esEmpresa: 1
             }).then(function (response) {
                 console.log(response.data);
             });
@@ -57383,7 +57370,6 @@ var render = function() {
               },
               domProps: { value: _vm.rfc },
               on: {
-                blur: _vm.searchPersona,
                 input: function($event) {
                   if ($event.target.composing) {
                     return
