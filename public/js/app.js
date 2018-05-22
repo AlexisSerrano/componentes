@@ -58844,6 +58844,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         SetDTs: function SetDTs() {
             this.dts.params = { tablename: 'sistemas' };
             this.dts.url = "new url";
+            alert("exe");
         }
     }
 });
@@ -58859,19 +58860,9 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "button",
-        {
-          on: {
-            click: function($event) {
-              _vm.SetDTs()
-            }
-          }
-        },
-        [_vm._v("cargar")]
-      ),
+      _c("button", { on: { dt: _vm.SetDTs } }, [_vm._v("cargar")]),
       _vm._v(" "),
-      _c("render-datatable", { attrs: { dts: _vm.dts }, on: { dt: _vm.dts } })
+      _c("render-datatable", { attrs: { dts: _vm.dts } })
     ],
     1
   )

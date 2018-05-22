@@ -1,7 +1,7 @@
 <template>
 <div>
-    <button v-on:click="SetDTs()">cargar</button>
-    <render-datatable :dts="dts" v-on:dt="dts" ></render-datatable>
+    <button v-on:dt="SetDTs">cargar</button>
+    <render-datatable :dts="dts"  ></render-datatable>
 </div>
 </template>
 <script>
@@ -14,7 +14,8 @@
         methods:{
             SetDTs:function(){
                 this.dts.params={tablename:'sistemas'};
-                this.dts.url="new url";
+                this.dts.url="new url";               
+                alert("exe") 
             }
         }
     }
