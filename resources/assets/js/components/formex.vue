@@ -1,12 +1,22 @@
 <template>
 <div>
-    <render-datatable></render-datatable>
+    <button v-on:dt="SetDTs">cargar</button>
+    <render-datatable :dts="dts"  ></render-datatable>
 </div>
 </template>
 <script>
     export default {        
         data(){
-            return{}
+            return{
+                dts:{}
+            }
+        },
+        methods:{
+            SetDTs:function(){
+                this.dts.params={tablename:'sistemas'};
+                this.dts.url="new url";               
+                alert("exe") 
+            }
         }
     }
 </script>

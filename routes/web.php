@@ -25,11 +25,9 @@ Route::get('getEstadosCiviles','PersonaController@getEstadosCiviles');
 Route::get('getEscolaridades','PersonaController@getEscolaridades');
 Route::get('getReligiones','PersonaController@getReligiones');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
-Route::post('searchPersonaFisica','PersonaController@searchPersona');
-Route::post('searchPersonaMoral','EmpresaController@searchPersona');
+Route::post('searchPersona','PersonaController@searchPersona');
 Route::post('getValidaciones','PersonaController@getValidaciones');
 Route::post('rfcFisico','PersonaController@rfcFisico');
-Route::post('rfcMoral','EmpresaController@rfcMoral');
 
 /*URLS PARA SELECTS DOMICILIO */
 Route::get('getEstados2','DomicilioController@getEstados');
