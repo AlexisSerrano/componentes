@@ -377,6 +377,33 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports) {
 
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
 /* globals __VUE_SSR_CONTEXT__ */
 
 // IMPORTANT: Do NOT use ES2015 features in this file.
@@ -480,33 +507,6 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
 
 
 /***/ }),
@@ -4591,7 +4591,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 8 */
@@ -15427,7 +15427,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(71);
+module.exports = __webpack_require__(68);
 
 
 /***/ }),
@@ -15473,7 +15473,7 @@ Vue.component('personamoral', __webpack_require__(52));
 Vue.component('persona', __webpack_require__(57));
 Vue.component('domicilio', __webpack_require__(60));
 Vue.component('render-datatable', __webpack_require__(65));
-Vue.component('formex', __webpack_require__(68));
+Vue.component('formex', __webpack_require__(72));
 var app = new Vue({
   el: '#app'
 });
@@ -32642,7 +32642,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(19)(module)))
 
 /***/ }),
 /* 19 */
@@ -48455,7 +48455,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(41).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(41).setImmediate))
 
 /***/ }),
 /* 41 */
@@ -48525,7 +48525,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 42 */
@@ -48718,7 +48718,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(10)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(10)))
 
 /***/ }),
 /* 43 */
@@ -53850,7 +53850,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(47)
 }
-var normalizeComponent = __webpack_require__(1)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(50)
 /* template */
@@ -54460,16 +54460,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         crearPersona: function crearPersona() {
-            var urlCrearPersona = 'http://localhost/api/PersonaFisica';
+            var urlCrearPersona = 'addPersona';
             if (this.denunciado == 1) {
                 axios.post(urlCrearPersona, {
 <<<<<<< HEAD
                     id1: this.sistema,
                     id2: this.tipo,
                     id3: 1,
+<<<<<<< HEAD
                     idCarpeta: 1,
 =======
 >>>>>>> dda89c5a54ccd4be423681f6d1e599fa873ec702
+=======
+                    carpeta: 1,
+>>>>>>> parent of b3236b0... Trabajando en guardado persona fisica
                     nombres: this.nombres.toUpperCase(),
                     primerAp: this.primerAp.toUpperCase(),
                     segundoAp: this.segundoAp.toUpperCase(),
@@ -54478,20 +54482,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     sexo: this.sexo.id,
                     rfc: this.rfc.toUpperCase(),
                     curp: this.curp.toUpperCase(),
-                    idNacionalidad: this.nacionalidad.id,
-                    idMunicipioOrigen: this.municipio.id,
-                    idEtnia: this.etnia.id,
-                    idLengua: this.lengua.id,
-                    // idInterprete: this.interprete.id,
-                    idInterprete: 1,
+                    nacionalidad: this.nacionalidad.id,
+                    municipio: this.municipio.id,
+                    etnia: this.etnia.id,
+                    lengua: this.lengua.id,
+                    interprete: this.interprete.id,
                     telefono: this.telefono,
                     motivoEstancia: this.motivoEstancia.toUpperCase(),
-                    idOcupacion: this.ocupacion.id,
-                    idEstadoCivil: this.estadoCivil.id,
-                    idEscolaridad: this.escolaridad.id,
-                    idReligion: this.religion.id,
-                    docIdentificacion: this.identificacion.id,
-                    numDocIdentificacion: this.numIdentificacion.toUpperCase(),
+                    ocupacion: this.ocupacion.id,
+                    estadoCivil: this.estadoCivil.id,
+                    escolaridad: this.escolaridad.id,
+                    religion: this.religion.id,
+                    identificacion: this.identificacion.id,
+                    numIdentificacion: this.numIdentificacion.toUpperCase(),
                     lugarTrabajo: this.lugarTrabajo.toUpperCase(),
                     telefonoTrabajo: this.telefonoTrabajo
                 });
@@ -57002,7 +57005,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(53)
 }
-var normalizeComponent = __webpack_require__(1)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(55)
 /* template */
@@ -57505,7 +57508,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(1)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(58)
 /* template */
@@ -57709,7 +57712,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(61)
 }
-var normalizeComponent = __webpack_require__(1)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(63)
 /* template */
@@ -58459,7 +58462,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(1)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(66)
 /* template */
@@ -58783,14 +58786,23 @@ if (false) {
 
 /***/ }),
 /* 68 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(1)
+var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(69)
+var __vue_script__ = __webpack_require__(73)
 /* template */
-var __vue_template__ = __webpack_require__(70)
+var __vue_template__ = __webpack_require__(74)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -58829,7 +58841,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 69 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58858,7 +58870,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 70 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -58884,12 +58896,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-49689b0e", module.exports)
   }
 }
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

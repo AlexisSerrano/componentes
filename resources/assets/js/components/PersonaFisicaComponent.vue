@@ -508,13 +508,10 @@ import swal from 'sweetalert2'
                 var urlCrearPersona = 'http://localhost/api/PersonaFisica';
                 if(this.denunciado==1){
                     axios.post(urlCrearPersona,{
-<<<<<<< HEAD
                         id1: this.sistema,
                         id2: this.tipo,
                         id3: 1,
                         idCarpeta: 1,
-=======
->>>>>>> dda89c5a54ccd4be423681f6d1e599fa873ec702
                         nombres: this.nombres.toUpperCase(),
                         primerAp: this.primerAp.toUpperCase(),
                         segundoAp: this.segundoAp.toUpperCase(),
