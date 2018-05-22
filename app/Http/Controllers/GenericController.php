@@ -19,26 +19,28 @@ class GenericController extends Controller
 	}
 	// url:"/api/test/SetConfirm",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idvar_persona",id_carpeta:"id_carpeta",nuc,"nuc"
 	public function SetConfirm(Request $request){
-		$am=new \App\Http\Models\aparicionesModel();
 		DB::beginTransaction();
 		try{
-			$amc=$am::where('id_involucrado',$request->input('id2'))
+			$amc=\App\Http\Models\aparicionesModel::where('id_involucrado',$request->input('id2'))
 				->where('id_sistema',$request->input('id1'))
-				->where('idvar_persona',$request->input('id3'));			
+				->where('idvar_persona',$request->input('id3'))
+				->first();			
 			if($amc!=null){
-				$amc->id_carpeta=$request->input('id_carpeta');
-				$amc->nuc=$request->input('nuc');
-				$amc->confirmado=true;
-				$amc->save();
+			//BUG LARAVEL
+				$ma=\App\Http\Models\aparicionesModel::find($amc->id);
+				$ma->id_carpeta=$request->input('id_carpeta');
+				$ma->nuc=$request->input('nuc');
+				$ma->confirmado=true;
+				$ma->save();
 				DB::commit();
+				return $ma;
 			}else{
 				DB::rollBack();
+				return "error no exits";
 			}			
 		}catch(Exception $e){
 			DB::rollBack();
-			$am=null;
-		}finally{
-			return $am;
+			return "error ".$e;
 		}
 	}
 	// url:"/api/test/ValidacionJSONDBPF",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente",objSON
