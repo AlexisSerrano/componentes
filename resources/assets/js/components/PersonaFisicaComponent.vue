@@ -211,6 +211,7 @@
         </form>
 <!-- <h1>{{fechaNacimiento}}</h1> -->
 <!-- <h1>{{personaExiste}}</h1> -->
+<!-- cambios -->
     </div>
 </template>
 
