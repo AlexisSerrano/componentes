@@ -15,12 +15,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 */
-Route::post('getValidaciones','PersonaController@getValidaciones');
+Route::post('getValidaciones','GenericController@ValidacionDBJSON');
 Route::post('PersonaFisica','GenericController@ValidacionJSONDBPF');
 Route::post('PersonaMoral','GenericController@ValidacionJSONDBPM');
+Route::post('SearchUndefined','GenericController@SearchUndefined');
+Route::post('SetConfirm','GenericController@SetConfirm');
 
 Route::group(['prefix' => 'test'], function () {
-    Route::post('ValidacionDBJSON','GenericController@ValidacionDBJSON');
+    Route::post('SetConfirm','GenericController@SetConfirm');
+    Route::post('getValidaciones','GenericController@ValidacionDBJSON');
     Route::post('SearchUndefined','GenericController@SearchUndefined');
     Route::post('ValidacionJSONDBPF','GenericController@ValidacionJSONDBPF');
     Route::post('ValidacionJSONDBPM','GenericController@ValidacionJSONDBPM');
