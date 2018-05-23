@@ -480,33 +480,23 @@ import swal from 'sweetalert2'
             },
             generarEdad: function() {
                 var hoy = new Date();
-                var hoyR = hoy.split('/');
 
-                var fecha = this.fechaNacimiento;
-                var fechaR = fecha.split('-');
-                var anio = ( hoy.getFullYear() - arr[0] );
+                var fecha = new Date(this.fechaNacimiento);
+                //var fechaR = fecha.split('-');
+                var anio = ( hoy.getFullYear() - fecha.getFullYear() );
                 if(isNaN( anio )){
                     this.edad='';
                 }else{
-                    if( (fechaR[2] > hoyR[2] ) && (arr[1] >= hoyR[1] ) ){
+                    if( (fecha.getDate() > hoy.getDate() ) && (fecha.getMonth() >= hoy.getMonth() ) ){
                         anio--;
                         this.edad=anio;
+                        this.nombres=fecha;
                         console.log("Primer IF")
                     }else{
-                        if( (fechaR[2] <= hoy.getDate()) && (arr[1] <= hoy.getMonth()) ){
+                        if( (fecha.getDate() <= hoy.getDate()) && (fecha.getMonth() <= hoy.getMonth()) ){
                             this.edad=anio;
+                            this.nombres=fecha;
                             console.log("Segundo IF")
-                        }else{
-                            if( (fechaR[2] >= hoy.getDate()) && (arr[1] <= hoy.getMonth()) ){
-                                this.edad=anio;
-                                console.log("Tercer IF")
-                            }else{
-                                if( (fechaR[2] <= hoy.getDate()) && (arr[1] >= hoy.getMonth()) ){
-                                    
-                                    this.edad=anio;
-                                    console.log("Cuarto IF")
-                                }
-                            }
                         }
                     }
                 }
