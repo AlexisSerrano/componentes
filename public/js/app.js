@@ -377,33 +377,6 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
 /* globals __VUE_SSR_CONTEXT__ */
 
 // IMPORTANT: Do NOT use ES2015 features in this file.
@@ -507,6 +480,33 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
@@ -4591,7 +4591,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
 /* 8 */
@@ -15427,7 +15427,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(70);
+module.exports = __webpack_require__(71);
 
 
 /***/ }),
@@ -15469,11 +15469,11 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vee_validate__["b" /* default */]);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 Vue.component('personafisica', __webpack_require__(46));
-Vue.component('personamoral', __webpack_require__(54));
-Vue.component('persona', __webpack_require__(59));
-Vue.component('domicilio', __webpack_require__(62));
-Vue.component('render-datatable', __webpack_require__(67));
-
+Vue.component('personamoral', __webpack_require__(52));
+Vue.component('persona', __webpack_require__(57));
+Vue.component('domicilio', __webpack_require__(60));
+Vue.component('render-datatable', __webpack_require__(65));
+Vue.component('formex', __webpack_require__(68));
 var app = new Vue({
   el: '#app'
 });
@@ -32642,7 +32642,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(19)(module)))
 
 /***/ }),
 /* 19 */
@@ -48455,7 +48455,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(41).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(41).setImmediate))
 
 /***/ }),
 /* 41 */
@@ -48525,7 +48525,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 42 */
@@ -48718,7 +48718,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(10)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(10)))
 
 /***/ }),
 /* 43 */
@@ -53850,7 +53850,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(47)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(50)
 /* template */
@@ -54190,16 +54190,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -54217,7 +54207,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             escolaridades: [],
             religiones: [],
             identificaciones: [],
-            persona: '',
             personaExiste: '',
             nombres: '',
             primerAp: '',
@@ -54227,8 +54216,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             sexo: null,
             rfc: '',
             curp: '',
-            mostrarSearch: true,
-            mostrarForm: false,
+            // mostrarSearch:true,
+            mostrarForm: true,
             nacionalidad: { "nombre": "MEXICANA", "id": 1 },
             estado: { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
             municipio: null,
@@ -54287,7 +54276,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             default: false
         }
     },
-
     mounted: function mounted() {
         this.getNacionalidades();
         this.getEstados();
@@ -54306,38 +54294,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         searchPersona: function searchPersona() {
             var _this = this;
 
-            if (this.persona != '') {
-                var urlBuscarPersona = 'searchPersona/' + this.persona;
-                axios.get(urlBuscarPersona, {
-                    persona: this.persona
+            if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '') {
+                var urlRfcFisico = 'rfcFisico';
+                axios.post(urlRfcFisico, {
+                    nombres: this.nombres,
+                    primerAp: this.primerAp,
+                    segundoAp: this.segundoAp,
+                    fechaNacimiento: this.fechaNacimiento
                 }).then(function (response) {
-                    _this.personaExiste = response.data;
-                    if (Object.keys(_this.personaExiste).length === 1) {
-                        __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                            title: 'Persona Encontrada!',
-                            text: 'Esta persona ya fue registrada anteriormente',
-                            type: 'success',
-                            confirmButtonText: 'Ok'
-                        });
-                        _this.mostrarForm = false;
-                    } else {
-                        __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                            title: 'Persona No Encontrada!',
-                            text: 'Esta persona no a sido registrada, favor de intentar de nuevo o registrarla',
-                            type: 'error',
-                            confirmButtonText: 'Ok'
-                        });
-                    }
-                });
-            } else {
-                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'No ha ingresado información!',
-                    text: 'Ingrese un R.F.C o Curp',
-                    type: 'warning',
-                    confirmButtonText: 'Ok'
+                    _this.rfc = response.data.res;
+                    var urlBuscarPersona = 'searchPersonaFisica';
+                    axios.post(urlBuscarPersona, {
+                        rfc: _this.rfc
+                    }).then(function (response) {
+                        _this.personaExiste = response.data;
+                        if (_this.personaExiste != '') {
+                            __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                                title: 'Persona Encontrada!',
+                                text: 'Esta persona ya fue registrada anteriormente',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            });
+                            _this.nombres = _this.personaExiste.nombres, _this.primerAp = _this.personaExiste.primerAp, _this.segundoAp = _this.personaExiste.segundoAp,
+                            // this.fechaNacimiento=this.personaExiste.fechaNacimiento,
+                            _this.edad = _this.personaExiste.edad, _this.sexo = _this.personaExiste.sexo, _this.rfc = _this.personaExiste.rfc, _this.curp = _this.personaExiste.curp, _this.nacionalidad = _this.personaExiste.idNacionalidad, _this.municipio = _this.personaExiste.idMunicipioOrigen, _this.etnia = _this.personaExiste.idEtnia, _this.lengua = _this.personaExiste.idLengua, _this.interprete = _this.personaExiste.idInterprete, _this.telefono = _this.personaExiste.telefono, _this.motivoEstancia = _this.personaExiste.motivoEstancia, _this.ocupacion = _this.personaExiste.idOcupacion, _this.estadoCivil = _this.personaExiste.idEstadoCivil, _this.escolaridad = _this.personaExiste.idEscolaridad, _this.religion = _this.personaExiste.idReligion, _this.identificacion = _this.personaExiste.docIdentificacion, _this.numIdentificacion = _this.personaExiste.numDocIdentificacion;
+                            _this.lugarTrabajo = _this.personaExiste.lugarTrabajo, _this.telefonoTrabajo = _this.personaExiste.telefonoTrabajo, _this.alias = _this.personaExiste.alias;
+                        }
+                    });
                 });
             }
-            this.persona = '';
         },
         getNacionalidades: function getNacionalidades() {
             var _this2 = this;
@@ -54476,13 +54461,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         CleanFields: function CleanFields() {
-            this.nacionalidad = { "nombre": "MEXICANA", "id": 1 }, this.estado = { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 }, this.municipio = null, this.etnia = { "nombre": "SIN INFORMACIÓN", "id": 13 }, this.lengua = { "nombre": "SIN INFORMACIÓN", "id": 69 }, this.interprete = { "nombre": "SIN INFORMACIÓN", "id": 1 }, this.nombres = '', this.primerAp = '', this.segundoAp = '', this.fechaNacimiento = '', this.edad = '', this.sexo = null, this.rfc = '', this.curp = '', this.telefono = '', this.motivoEstancia = '', this.ocupacion = '', this.estadoCivil = '', this.escolaridad = '', this.religion = '', this.identificacion = '', this.numIdentificacion = '', this.lugarTrabajo = '', this.telefonoTrabajo = '', this.$validator.reset();
+            this.nacionalidad = { "nombre": "MEXICANA", "id": 1 }, this.estado = { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 }, this.municipio = null, this.etnia = { "nombre": "SIN INFORMACIÓN", "id": 13 }, this.lengua = { "nombre": "SIN INFORMACIÓN", "id": 69 }, this.interprete = { "nombre": "SIN INFORMACIÓN", "id": 1 }, this.nombres = '', this.primerAp = '', this.segundoAp = '', this.fechaNacimiento = '', this.edad = '', this.sexo = null, this.rfc = '', this.curp = '', this.telefono = '', this.motivoEstancia = '', this.ocupacion = '', this.estadoCivil = '', this.escolaridad = '', this.religion = '', this.identificacion = '', this.numIdentificacion = '', this.lugarTrabajo = '', this.telefonoTrabajo = '', this.alias = '', this.$validator.reset();
         },
 
         crearPersona: function crearPersona() {
-            var urlCrearPersona = 'addPersona';
+            var urlCrearPersona = 'http://localhost/api/PersonaFisica';
             if (this.denunciado == 1) {
                 axios.post(urlCrearPersona, {
+                    id1: this.sistema,
+                    id2: this.tipo,
+                    id3: 1,
+                    idCarpeta: 1,
                     nombres: this.nombres.toUpperCase(),
                     primerAp: this.primerAp.toUpperCase(),
                     segundoAp: this.segundoAp.toUpperCase(),
@@ -54491,26 +54480,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     sexo: this.sexo.id,
                     rfc: this.rfc.toUpperCase(),
                     curp: this.curp.toUpperCase(),
-                    nacionalidad: this.nacionalidad.id,
-                    municipio: this.municipio.id,
-                    etnia: this.etnia.id,
-                    lengua: this.lengua.id,
-                    interprete: this.interprete.id,
+                    idNacionalidad: this.nacionalidad.id,
+                    idMunicipioOrigen: this.municipio.id,
+                    idEtnia: this.etnia.id,
+                    idLengua: this.lengua.id,
+                    // idInterprete: this.interprete.id,
+                    idInterprete: 1,
                     telefono: this.telefono,
                     motivoEstancia: this.motivoEstancia.toUpperCase(),
-                    ocupacion: this.ocupacion.id,
-                    estadoCivil: this.estadoCivil.id,
-                    escolaridad: this.escolaridad.id,
-                    religion: this.religion.id,
-                    identificacion: this.identificacion.id,
-                    numIdentificacion: this.numIdentificacion.toUpperCase(),
+                    idOcupacion: this.ocupacion.id,
+                    idEstadoCivil: this.estadoCivil.id,
+                    idEscolaridad: this.escolaridad.id,
+                    idReligion: this.religion.id,
+                    docIdentificacion: this.identificacion.id,
+                    numDocIdentificacion: this.numIdentificacion.toUpperCase(),
                     lugarTrabajo: this.lugarTrabajo.toUpperCase(),
-                    telefonoTrabajo: this.telefonoTrabajo
+                    telefonoTrabajo: this.telefonoTrabajo,
+                    alias: this.alias.toUpperCase(),
+                    esEmpresa: 0
                 });
             } else if (this.denunciado == 2) {
                 axios.post(urlCrearPersona, {
                     nombres: this.nombres,
-                    primerAp: this.primerAp
+                    primerAp: this.primerAp,
+                    alias: this.alias.toUpperCase(),
+                    esEmpresa: 0
                 });
             } else if (this.denunciado == 3) {
                 console.log(1);
@@ -54530,82 +54524,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mt-3" }, [
-    _vm.mostrarSearch
-      ? _c("div", { staticClass: "form-row align-items-end" }, [
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "persona" } }, [
-              _vm._v("Buscar Persona")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "persona",
-                placeholder: "Ingrese el R.F.C o Curp"
-              },
-              domProps: { value: _vm.persona },
-              on: {
-                input: function($event) {
-                  _vm.persona = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-5" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn mr-1",
-                attrs: { type: "submit" },
-                on: { click: _vm.searchPersona }
-              },
-              [_vm._v("Buscar")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn",
-                on: {
-                  click: function($event) {
-                    ;(_vm.mostrarForm = true),
-                      (_vm.mostrarSearch = false),
-                      (_vm.persona = ""),
-                      (_vm.personaExiste = [])
-                  }
-                }
-              },
-              [
-                _c("img", {
-                  staticClass: "icons",
-                  attrs: { src: __webpack_require__(52) }
-                }),
-                _vm._v(" Registrar Persona")
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("h5", { attrs: { id: "pruebavue" } }, [
-              _vm._v(
-                _vm._s(
-                  Object.keys(this.personaExiste).length === 1
-                    ? _vm.personaExiste[0].nombres +
-                      " " +
-                      _vm.personaExiste[0].primerAp +
-                      " " +
-                      _vm.personaExiste[0].segundoAp
-                    : ""
-                )
-              )
-            ])
-          ])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
+  return _c("div", { staticClass: "container" }, [
     _vm.mostrarForm
       ? _c(
           "form",
@@ -54801,6 +54720,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.nombres },
                           on: {
+                            blur: _vm.searchPersona,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -54832,6 +54752,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.nombres },
                           on: {
+                            blur: _vm.searchPersona,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -54925,6 +54846,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.primerAp },
                           on: {
+                            blur: _vm.searchPersona,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -54959,6 +54881,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.primerAp },
                           on: {
+                            blur: _vm.searchPersona,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55021,6 +54944,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.segundoAp },
                           on: {
+                            blur: _vm.searchPersona,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55055,6 +54979,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.segundoAp },
                           on: {
+                            blur: _vm.searchPersona,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55170,6 +55095,100 @@ var render = function() {
               _vm.tipo != 12)
               ? _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "fechaNacimiento" } }, [
+                      _vm._v("Fecha de Nacimiento")
+                    ]),
+                    _vm._v(" "),
+                    _vm.fechaNacimientoV == 1
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fechaNacimiento,
+                              expression: "fechaNacimiento"
+                            },
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "border border-danger": _vm.errors.has(
+                              "Fecha de Nacimiento"
+                            )
+                          },
+                          attrs: {
+                            type: "date",
+                            id: "fechaNacimiento",
+                            name: "fechaNacimiento",
+                            "data-vv-name": "Fecha de Nacimiento"
+                          },
+                          domProps: { value: _vm.fechaNacimiento },
+                          on: {
+                            blur: _vm.searchPersona,
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.fechaNacimiento = $event.target.value
+                            }
+                          }
+                        })
+                      : _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fechaNacimiento,
+                              expression: "fechaNacimiento"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "border border-danger": _vm.errors.has(
+                              "Fecha de Nacimiento"
+                            )
+                          },
+                          attrs: {
+                            type: "date",
+                            id: "fechaNacimiento",
+                            name: "fechaNacimiento",
+                            "data-vv-name": "Fecha de Nacimiento"
+                          },
+                          domProps: { value: _vm.fechaNacimiento },
+                          on: {
+                            blur: _vm.searchPersona,
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.fechaNacimiento = $event.target.value
+                            }
+                          }
+                        }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("Fecha de Nacimiento"),
+                            expression: "errors.has('Fecha de Nacimiento')"
+                          }
+                        ],
+                        staticClass: "text-danger"
+                      },
+                      [_vm._v(_vm._s(_vm.errors.first("Fecha de Nacimiento")))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
                     _c("label", { attrs: { for: "rfc" } }, [_vm._v("R.F.C")]),
                     _vm._v(" "),
                     _vm.rfcV == 1
@@ -55247,98 +55266,6 @@ var render = function() {
                           _vm._v(_vm._s(_vm.errors.first("rfc")))
                         ])
                       : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "fechaNacimiento" } }, [
-                      _vm._v("Fecha de Nacimiento")
-                    ]),
-                    _vm._v(" "),
-                    _vm.fechaNacimientoV == 1
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.fechaNacimiento,
-                              expression: "fechaNacimiento"
-                            },
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required",
-                              expression: "'required'"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "border border-danger": _vm.errors.has(
-                              "Fecha de Nacimiento"
-                            )
-                          },
-                          attrs: {
-                            type: "date",
-                            id: "fechaNacimiento",
-                            name: "fechaNacimiento",
-                            "data-vv-name": "Fecha de Nacimiento"
-                          },
-                          domProps: { value: _vm.fechaNacimiento },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.fechaNacimiento = $event.target.value
-                            }
-                          }
-                        })
-                      : _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.fechaNacimiento,
-                              expression: "fechaNacimiento"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "border border-danger": _vm.errors.has(
-                              "Fecha de Nacimiento"
-                            )
-                          },
-                          attrs: {
-                            type: "date",
-                            id: "fechaNacimiento",
-                            name: "fechaNacimiento",
-                            "data-vv-name": "Fecha de Nacimiento"
-                          },
-                          domProps: { value: _vm.fechaNacimiento },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.fechaNacimiento = $event.target.value
-                            }
-                          }
-                        }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("Fecha de Nacimiento"),
-                            expression: "errors.has('Fecha de Nacimiento')"
-                          }
-                        ],
-                        staticClass: "text-danger"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("Fecha de Nacimiento")))]
-                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-2" }, [
@@ -57032,35 +56959,6 @@ var render = function() {
                       { staticClass: "btn mr-1", attrs: { type: "submit" } },
                       [_vm._v("Guardar")]
                     )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.denunciado == 1 ||
-                (_vm.tipo != 2 &&
-                  _vm.tipo != 3 &&
-                  _vm.tipo != 4 &&
-                  _vm.tipo != 10 &&
-                  _vm.tipo != 11 &&
-                  _vm.tipo != 12)
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            ;(_vm.mostrarForm = false),
-                              (_vm.mostrarSearch = true)
-                          }
-                        }
-                      },
-                      [
-                        _c("img", {
-                          staticClass: "icons",
-                          attrs: { src: __webpack_require__(53) }
-                        }),
-                        _vm._v(" Regresar a buscar")
-                      ]
-                    )
                   : _vm._e()
               ])
             ])
@@ -57081,30 +56979,18 @@ if (false) {
 
 /***/ }),
 /* 52 */
-/***/ (function(module, exports) {
-
-module.exports = "/images/registro.svg?ed66b4dbc9c89549def37136db094b15";
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports) {
-
-module.exports = "/images/flecha.svg?c6c4e45c5f6871f328f86aed72911fb1";
-
-/***/ }),
-/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(55)
+  __webpack_require__(53)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(57)
+var __vue_script__ = __webpack_require__(55)
 /* template */
-var __vue_template__ = __webpack_require__(58)
+var __vue_template__ = __webpack_require__(56)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -57143,13 +57029,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 55 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(56);
+var content = __webpack_require__(54);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -57169,7 +57055,7 @@ if(false) {
 }
 
 /***/ }),
-/* 56 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -57183,13 +57069,14 @@ exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-contro
 
 
 /***/ }),
-/* 57 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
+//
 //
 //
 //
@@ -57242,7 +57129,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             fechaConstitucion: '',
             rfc: '',
             telefono: '',
-            representanteLegal: ''
+            representanteLegal: '',
+            personaExiste: ''
         };
     },
 
@@ -57251,13 +57139,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //    this.getNacionalidades();
     },
     methods: {
-        validateBeforeSubmit: function validateBeforeSubmit() {
+        searchPersona: function searchPersona() {
             var _this = this;
+
+            if (this.nombre != '' && this.fechaConstitucion != '') {
+                var urlRfcMoral = 'rfcMoral';
+                axios.post(urlRfcMoral, {
+                    nombre: this.nombre,
+                    fechaConstitucion: this.fechaConstitucion
+                }).then(function (response) {
+                    _this.rfc = response.data.res;
+                    var urlBuscarPersona = 'searchPersonaMoral';
+                    axios.post(urlBuscarPersona, {
+                        rfc: _this.rfc
+                    }).then(function (response) {
+                        _this.personaExiste = response.data;
+                        if (_this.personaExiste != '') {
+                            __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                                title: 'Persona Moral Encontrada!',
+                                text: 'Esta persona moral ya fue registrada anteriormente',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            });
+                            _this.telefono = _this.personaExiste.telefono;
+                            _this.representanteLegal = _this.personaExiste.representanteLegal;
+                        }
+                    });
+                });
+            }
+        },
+        validateBeforeSubmit: function validateBeforeSubmit() {
+            var _this2 = this;
 
             this.$validator.validateAll().then(function (result) {
                 if (result) {
-                    _this.CrearEmpresa();
-                    _this.CleanFields();
+                    _this2.CrearEmpresa();
+                    _this2.CleanFields();
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: 'Guardado Correctamente!',
                         text: 'Esta empresa fue guardada exitosamente',
@@ -57285,7 +57202,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 fechaConstitucion: this.fechaConstitucion,
                 rfc: this.rfc.toUpperCase(),
                 telefono: this.telefono,
-                representanteLegal: this.representanteLegal.toUpperCase()
+                representanteLegal: this.representanteLegal.toUpperCase(),
+                esEmpresa: 1
             }).then(function (response) {
                 console.log(response.data);
             });
@@ -57294,7 +57212,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 58 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -57346,6 +57264,7 @@ var render = function() {
               },
               domProps: { value: _vm.nombre },
               on: {
+                blur: _vm.searchPersona,
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -57360,6 +57279,65 @@ var render = function() {
                   _vm._v(_vm._s(_vm.errors.first("nombre")))
                 ])
               : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { attrs: { for: "fechaConstitucion" } }, [
+              _vm._v("Fecha de Constitución")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fechaConstitucion,
+                  expression: "fechaConstitucion"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              staticClass: "form-control",
+              class: {
+                "border border-danger": _vm.errors.has("Fecha de Constitucion")
+              },
+              attrs: {
+                type: "date",
+                id: "fechaConstitucion",
+                name: "fechaConstitucion",
+                "data-vv-name": "Fecha de Constitucion"
+              },
+              domProps: { value: _vm.fechaConstitucion },
+              on: {
+                blur: _vm.searchPersona,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.fechaConstitucion = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("Fecha de Constitucion"),
+                    expression: "errors.has('Fecha de Constitucion')"
+                  }
+                ],
+                staticClass: "text-danger"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("Fecha de Constitucion")))]
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-4" }, [
@@ -57408,64 +57386,6 @@ var render = function() {
                   _vm._v(_vm._s(_vm.errors.first("rfc")))
                 ])
               : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "fechaConstitucion" } }, [
-              _vm._v("Fecha de Constitución")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.fechaConstitucion,
-                  expression: "fechaConstitucion"
-                },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "form-control",
-              class: {
-                "border border-danger": _vm.errors.has("Fecha de Constitucion")
-              },
-              attrs: {
-                type: "date",
-                id: "fechaConstitucion",
-                name: "fechaConstitucion",
-                "data-vv-name": "Fecha de Constitucion"
-              },
-              domProps: { value: _vm.fechaConstitucion },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.fechaConstitucion = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "span",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.errors.has("Fecha de Constitucion"),
-                    expression: "errors.has('Fecha de Constitucion')"
-                  }
-                ],
-                staticClass: "text-danger"
-              },
-              [_vm._v(_vm._s(_vm.errors.first("Fecha de Constitucion")))]
-            )
           ])
         ]),
         _vm._v(" "),
@@ -57599,15 +57519,15 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(60)
+var __vue_script__ = __webpack_require__(58)
 /* template */
-var __vue_template__ = __webpack_require__(61)
+var __vue_template__ = __webpack_require__(59)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -57646,7 +57566,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 60 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -57693,7 +57613,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 61 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -57799,19 +57719,19 @@ if (false) {
 }
 
 /***/ }),
-/* 62 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(63)
+  __webpack_require__(61)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(65)
+var __vue_script__ = __webpack_require__(63)
 /* template */
-var __vue_template__ = __webpack_require__(66)
+var __vue_template__ = __webpack_require__(64)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -57850,13 +57770,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 63 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(64);
+var content = __webpack_require__(62);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -57876,7 +57796,7 @@ if(false) {
 }
 
 /***/ }),
-/* 64 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -57890,7 +57810,7 @@ exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-contro
 
 
 /***/ }),
-/* 65 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58089,7 +58009,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 66 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -58553,15 +58473,15 @@ if (false) {
 }
 
 /***/ }),
-/* 67 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(68)
+var __vue_script__ = __webpack_require__(66)
 /* template */
-var __vue_template__ = __webpack_require__(69)
+var __vue_template__ = __webpack_require__(67)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -58600,7 +58520,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 68 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58732,7 +58652,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 69 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -58879,7 +58799,92 @@ if (false) {
 }
 
 /***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(69)
+/* template */
+var __vue_template__ = __webpack_require__(70)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\formex.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-49689b0e", Component.options)
+  } else {
+    hotAPI.reload("data-v-49689b0e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 69 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {};
+    }
+});
+
+/***/ }),
 /* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [_c("render-datatable")], 1)
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-49689b0e", module.exports)
+  }
+}
+
+/***/ }),
+/* 71 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
