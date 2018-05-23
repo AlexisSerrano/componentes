@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('./curp');
 window.Vue = require('vue');
 
 /*Vue-Select*/

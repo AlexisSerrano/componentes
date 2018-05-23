@@ -27,8 +27,8 @@
             <div class="form-row">
                 <div v-if="(denunciado==1 || denunciado==2) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" class="form-group col-md-4">
                     <label for="nombres">Nombres</label>
-                    <input v-if="nombresV == 1" type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona">
-                    <input v-else type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" autocomplete="off" @blur="searchPersona">
+                    <input v-if="nombresV == 1" type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona" v-on:input="generarCurp()">
+                    <input v-else type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" autocomplete="off" @blur="searchPersona" v-on:input="generarCurp()">
                     <span v-if="errors.has('nombres')" class="text-danger">{{ errors.first('nombres') }}</span>
                 </div>
                 <div v-if="denunciado==3" class="form-group col-md-4">
@@ -58,8 +58,8 @@
             <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
                 <div class="form-group col-md-4">
                     <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                    <input v-if="fechaNacimientoV == 1" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona">
-                    <input v-else type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona">
+                    <input v-if="fechaNacimientoV == 1" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona" v-on:input="generarEdad()">
+                    <input v-else type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona" v-on:input="generarEdad()">
                     <span v-show="errors.has('Fecha de Nacimiento')" class="text-danger">{{ errors.first('Fecha de Nacimiento') }}</span>
                 </div>
                 <div class="form-group col-md-4">
@@ -216,6 +216,7 @@
 </template>
 
 <script>
+import generaCurp from '../curp'
 import swal from 'sweetalert2'
     export default {
         data(){
@@ -313,6 +314,7 @@ import swal from 'sweetalert2'
            this.getIdentificaciones();
         //    this.getInterpretes();
            this.getValidaciones();
+           this.generarCurp();
         },
         methods:{
             searchPersona: function(){
@@ -444,6 +446,70 @@ import swal from 'sweetalert2'
                 axios.get(urlIdentificaciones).then(response => {
                     this.identificaciones = response.data
                 });
+            },
+            generarCurp: function(){
+                var sex='';
+                var edoArray= ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'	];
+                var edo='';
+                if( (this.sexo!=null)&&(this.sexo!='undefined') ) {
+                    switch (this.sexo.id){
+                        case 1:
+                            sex='H';
+                            break;
+                        case 2:
+                            sex="M";
+                            brak;
+                        default:
+                            sex='';
+                    }
+                }
+                if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!='' && sex!='' && this.estado!=null){
+                    edo=edoArray[this.estado.id-1];
+                    var fecha = this.fechaNacimiento;
+                    var arr = fecha.split('-');
+                    var curpAuto = generaCurp({
+                        nombre            : this.nombres,
+                        apellido_paterno  : this.primerAp,
+                        apellido_materno  : this.segundoAp,
+                        sexo              : sex,
+                        estado            : edo,
+                        fecha_nacimiento  : [arr[2], arr[1], arr[0]]
+                    });
+                    this.curp=curpAuto;
+                }
+            },
+            generarEdad: function() {
+                var hoy = new Date();
+                var hoyR = hoy.split('/');
+
+                var fecha = this.fechaNacimiento;
+                var fechaR = fecha.split('-');
+                var anio = ( hoy.getFullYear() - arr[0] );
+                if(isNaN( anio )){
+                    this.edad='';
+                }else{
+                    if( (fechaR[2] > hoyR[2] ) && (arr[1] >= hoyR[1] ) ){
+                        anio--;
+                        this.edad=anio;
+                        console.log("Primer IF")
+                    }else{
+                        if( (fechaR[2] <= hoy.getDate()) && (arr[1] <= hoy.getMonth()) ){
+                            this.edad=anio;
+                            console.log("Segundo IF")
+                        }else{
+                            if( (fechaR[2] >= hoy.getDate()) && (arr[1] <= hoy.getMonth()) ){
+                                this.edad=anio;
+                                console.log("Tercer IF")
+                            }else{
+                                if( (fechaR[2] <= hoy.getDate()) && (arr[1] >= hoy.getMonth()) ){
+                                    
+                                    this.edad=anio;
+                                    console.log("Cuarto IF")
+                                }
+                            }
+                        }
+                    }
+                }
             },
             getValidaciones: function(){
                 var urlValidaciones = 'getValidaciones';
