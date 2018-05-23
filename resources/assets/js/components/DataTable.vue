@@ -13,11 +13,13 @@
                 </td>
             </tr>
         </table>
-        <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
-        <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
-        <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
-        <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +2)" v-on:click="DTGetData(DataTable.current+2)">{{DataTable.current + 3}}</button>
-        <button class="btn btn-default" :disabled="DTEnabled(DataTable.current + 1)" v-on:click="DTNextData()">&rarr;</button>
+        <div v-if="Datatable.maxpage>0">
+            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
+            <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
+            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
+            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +2)" v-on:click="DTGetData(DataTable.current+2)">{{DataTable.current + 3}}</button>
+            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current + 1)" v-on:click="DTNextData()">&rarr;</button>
+        </div>
     </div>
     <div v-else>
         <span>{{DataTable.message}}</span>
@@ -35,7 +37,7 @@
                         count:0
                     },
                     url:"/api/test/SearchUndefined",
-                    params:{/*
+                    params:{
                             columns:[//select columns in table (correct name col)
                                 {name:"id",show:false},
                                 {name:"nombre",show:true,replace:"Nombre del sistema"},
@@ -44,38 +46,33 @@
                             ],
                             skip:0,//skip
                             limit:5,//limit
-                            filters:{},//search where like (correct name col)
+                            filters:{nombre:"hdjdjh"},//search where like (correct name col)
                             nfilters:{},//search where no like (correct name col)
                             //tablename:"cat_municipio"
                             //tablename:"cat_estado"
-                            tablename:"sistemas"*/
+                            tablename:"sistemas"
                             },
                     current:0,
                     maxpage:0,
                     charging:false,
                     message:"Cargando...",
                     options:{title:"opciones",links:[
-                    {func:function(obj){
-                        alert(obj.id);
-                        },
-                    text:"alert" }]}
+                    {func:function(obj){alert(obj.id);},text:"alert" }
+                    ]}
                 }
             }
         },
         props:{
-            dt:function(value){
-                this.DataTable.url=this.isexits(value.url,this.DataTable.url);
-                //this.DataTable.u.data=this.isexits(value.data,this.DataTable.data);
-                this.DataTable.params=this.isexits(value.params,this.DataTable.params);
-                this.DataTable.options=this.isexits(value.options,this.DataTable.options);
-                return null;
-            }
+            dt:{}
         },
         mounted(){
             //INIT METHOD
-            //if(this.DataTable.data.src==[]){
+                /*if(this.dt!=undefinned){
+                    this.DataTable.url=this.isexits(this.dt.url,this.DataTable.url);
+                    this.DataTable.params=this.isexits(this.dt.params,this.DataTable.params);
+                    this.DataTable.options=this.isexits(this.dt.options,this.DataTable.options);
+                }*/
                 this.DTGetData(0);
-            //}
         },
         methods:{        
             DTallcols:function(){
@@ -100,13 +97,17 @@
                     DT=response.data;
                 }).finally(()=>{
                     if(DT!=undefined){
-                        this.DataTable.data=DT;
-                        if(this.DataTable.columns==undefined){
-                            this.DTallcols();
-                        }
-                        this.DataTable.maxpage=parseInt(this.DataTable.data.count/this.DataTable.params.limit);
-                        this.DataTable.maxpage+=this.DataTable.data.count%this.DataTable.params.limit==0?0:1;                    
-                        this.DataTable.charging=false;                        
+                        if(DT.count>0){
+                            this.DataTable.data=DT;
+                            if(this.DataTable.columns==undefined){
+                                this.DTallcols();
+                            }
+                            this.DataTable.maxpage=parseInt(this.DataTable.data.count/this.DataTable.params.limit);
+                            this.DataTable.maxpage+=this.DataTable.data.count%this.DataTable.params.limit==0?0:1;                    
+                            this.DataTable.charging=false;   
+                        }else{
+                            this.DataTable.message="sin datos";                            
+                        }                     
                     }else{
                         this.DataTable.message="error al cargar la informacion";
                     }                    
