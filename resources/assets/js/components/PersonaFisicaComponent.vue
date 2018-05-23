@@ -58,8 +58,8 @@
             <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
                 <div class="form-group col-md-4">
                     <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                    <input v-if="fechaNacimientoV == 1" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona" v-on:change="generarEdad();generarCurp()">
-                    <input v-else type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona" v-on:change="generarEdad();generarCurp()">
+                    <input v-if="fechaNacimientoV == 1" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona" v-on:change="generarCurp(),generarEdad()">
+                    <input v-else type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona" v-on:change="generarCurp(),generarEdad()">
                     <span v-show="errors.has('Fecha de Nacimiento')" class="text-danger">{{ errors.first('Fecha de Nacimiento') }}</span>
                 </div>
                 <div class="form-group col-md-4">
@@ -480,20 +480,23 @@ import swal from 'sweetalert2'
             },
             generarEdad: function() {
                 var hoy = new Date();
-
                 var fecha = new Date(this.fechaNacimiento);
-                //var fechaR = fecha.split('-');
-                console.log("fecha:"+fecha);
-                var anio = ( hoy.getFullYear() - fecha.getFullYear() );
-                if(isNaN( anio )){
+                var feArr = this.fechaNacimiento;
+                var fechaR = feArr.split('-');
+                var edad = ( hoy.getFullYear() - fechaR[0] );
+                if(isNaN( edad )){
                     this.edad='';
                 }else{
-                    if( (fecha.getDate() > hoy.getDate() ) && (fecha.getMonth() >= hoy.getMonth() ) ){
-                        anio--;
-                        this.edad=anio;
+                    if( ( fechaR[2] == hoy.getDate() ) && ( fecha.getMonth() == hoy.getMonth() ) ){
+                        this.edad=edad;
                     }else{
-                        if( (fecha.getDate() <= hoy.getDate()) && (fecha.getMonth() <= hoy.getMonth()) ){
-                            this.edad=anio;
+                        if( ( (fechaR[2] > hoy.getDate()) || (fechaR[2] <= hoy.getDate()) ) && ( fecha.getMonth() >= hoy.getMonth() ) ){
+                            edad--;
+                            this.edad=edad;
+                        }else{
+                            if( ( (fechaR[2] <= hoy.getDate()) || (fechaR[2] >= hoy.getDate()) ) && ( fecha.getMonth() <= hoy.getMonth() ) ){
+                                this.edad=edad;
+                            }
                         }
                     }
                 }
