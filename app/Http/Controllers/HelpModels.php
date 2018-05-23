@@ -41,11 +41,11 @@ class HelpModels
         //GET ELEMENT BY ELEMENT FROM MODEL FOR CHECK WHIT JSON
          foreach($elements as $name=>$element){
              //CHECK IF EXITS
-             if(!isset($jsonobj[$name])){
+             /*if(!isset($jsonobj[$name])){
                 $errors=$errors."<li>".$name." no se encuentra registrado correctamente.</li>";
                 $fields=100;
                 break;
-             }
+             }*/
              if($element==null&&isset($jsonobj[$name]['default'])){
                  $model[$name]=$jsonobj[$name]['default'];                                  
              }
