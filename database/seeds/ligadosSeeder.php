@@ -85,7 +85,7 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"alias":{"rules":{'.
-                    '"required":true'.
+                    '"required":false'.
                 '}},'.
                 '"lugarTrabajo":{"rules":{'.
                     '"required":false'.
@@ -253,7 +253,7 @@ class ligadosSeeder extends Seeder
                     '"number":true'.
                 '}},'.
                 '"alias":{"rules":{'.
-                    '"required":true'.
+                    '"required":false'.
                 '}},'.
                 '"lugarTrabajo":{"rules":{'.
                     '"required":false'.
@@ -337,7 +337,7 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"alias":{"rules":{'.
-                    '"required":true'.
+                    '"required":false'.
                 '}},'.
                 '"lugarTrabajo":{"rules":{'.
                     '"required":false'.
@@ -505,7 +505,7 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}},'.
                 '"alias":{"rules":{'.
-                    '"required":true'.
+                    '"required":false'.
                 '}},'.
                 '"lugarTrabajo":{"rules":{'.
                     '"required":false'.
