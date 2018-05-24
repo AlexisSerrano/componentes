@@ -14,7 +14,7 @@ class ViewVpersonaActual extends Migration
     public function up()
     {
         //
-        DB::statement('create OR REPLACE view vpersona_actual as select max(updated_at),id from variables_persona where deleted_at is null group by idPersona;');
+        DB::statement('create OR REPLACE view vpersona_actual as select idPersona,max(id) id from variables_persona where deleted_at is null group by idPersona;');
     }
 
     /**
