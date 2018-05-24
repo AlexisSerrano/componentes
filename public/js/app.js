@@ -54576,14 +54576,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -55053,7 +55045,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.DTGetData(0);
             $("#myModal").modal();
         }
-
     },
     watch: {
         sexo: function sexo(val, oldval) {
@@ -57747,7 +57738,9 @@ var staticRenderFns = [
         [_vm._v("×")]
       ),
       _vm._v(" "),
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Modal Header")])
+      _c("h4", { staticClass: "modal-title" }, [
+        _vm._v("Coincidencias econtradas con Alias")
+      ])
     ])
   },
   function() {
@@ -57761,7 +57754,7 @@ var staticRenderFns = [
           staticClass: "btn btn-default",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Close")]
+        [_vm._v("Cerrar")]
       )
     ])
   }
