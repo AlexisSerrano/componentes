@@ -54539,6 +54539,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -54612,7 +54657,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             aliasV: false,
             validaciones: [],
             denunciado: false,
-            qrr: "QUIEN RESULTE RESPONSABLE"
+            qrr: "QUIEN RESULTE RESPONSABLE",
+            DataTable: {
+                data: {
+                    src: [],
+                    count: 0
+                },
+                url: "/api/test/SearchUndefined",
+                params: {
+                    columns: [//select columns in table (correct name col)
+                    { name: "id", show: false }, { name: "alias", show: true, replace: "Nombre del sistema"
+
+                        //name:colname,show:showInTable,replace:NweNameInTable
+                    }],
+                    skip: 0, //skip
+                    limit: 5, //limit
+                    filters: { "alias": "" }, //search where like (correct name col)
+                    nfilters: {}, //search where no like (correct name col)
+                    //tablename:"cat_municipio"
+                    //tablename:"cat_estado"
+                    tablename: "variables_persona"
+                },
+                current: 0,
+                maxpage: 0,
+                charging: false,
+                message: "Cargando...",
+                options: { title: "opciones", links: [{ func: function func(obj) {
+                            alert(obj.id);
+                        },
+                        text: "alert" }] }
+            }
         };
     },
 
@@ -54624,6 +54698,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         tipo: {
             default: false
+        },
+        dt: function dt(value) {
+            this.DataTable.url = this.isexits(value.url, this.DataTable.url);
+            //this.DataTable.u.data=this.isexits(value.data,this.DataTable.data);
+            this.DataTable.params = this.isexits(value.params, this.DataTable.params);
+            this.DataTable.options = this.isexits(value.options, this.DataTable.options);
+            return null;
         }
     },
     mounted: function mounted() {
@@ -54639,7 +54720,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.getIdentificaciones();
         //    this.getInterpretes();
         this.getValidaciones();
-        this.generarCurp();
+        this.DataTable.params.filters.alias = this.alias;
     },
     methods: {
         searchPersona: function searchPersona() {
@@ -54785,12 +54866,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         break;
                     case 2:
                         sex = "M";
-                        brak;
+                        break;
                     default:
                         sex = '';
                 }
             }
-            if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '' && sex != '' && this.estado != null) {
+            if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '' && this.estado != null) {
                 edo = edoArray[this.estado.id - 1];
                 var fecha = this.fechaNacimiento;
                 var arr = fecha.split('-');
@@ -54802,28 +54883,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     estado: edo,
                     fecha_nacimiento: [arr[2], arr[1], arr[0]]
                 });
-                this.curp = curpAuto;
+                if (curp) this.curp = curpAuto;
             }
         },
         generarEdad: function generarEdad() {
             var hoy = new Date();
-
             var fecha = new Date(this.fechaNacimiento);
-            //var fechaR = fecha.split('-');
-            var anio = hoy.getFullYear() - fecha.getFullYear();
-            if (isNaN(anio)) {
+            var feArr = this.fechaNacimiento;
+            var fechaR = feArr.split('-');
+            var edad = hoy.getFullYear() - fechaR[0];
+            if (isNaN(edad)) {
                 this.edad = '';
             } else {
-                if (fecha.getDate() > hoy.getDate() && fecha.getMonth() >= hoy.getMonth()) {
-                    anio--;
-                    this.edad = anio;
-                    this.nombres = fecha;
-                    console.log("Primer IF");
+                if (fechaR[2] == hoy.getDate() && fecha.getMonth() == hoy.getMonth()) {
+                    this.edad = edad;
                 } else {
-                    if (fecha.getDate() <= hoy.getDate() && fecha.getMonth() <= hoy.getMonth()) {
-                        this.edad = anio;
-                        this.nombres = fecha;
-                        console.log("Segundo IF");
+                    if ((fechaR[2] > hoy.getDate() || fechaR[2] <= hoy.getDate()) && fecha.getMonth() >= hoy.getMonth()) {
+                        edad--;
+                        this.edad = edad;
+                    } else {
+                        if ((fechaR[2] <= hoy.getDate() || fechaR[2] >= hoy.getDate()) && fecha.getMonth() <= hoy.getMonth()) {
+                            this.edad = edad;
+                        }
                     }
                 }
             }
@@ -54848,13 +54929,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$validator.validateAll().then(function (result) {
                 if (result) {
                     _this14.crearPersona();
-                    _this14.CleanFields();
-                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                        title: 'Guardado Correctamente!',
-                        text: 'Esta persona fue guardada exitosamente',
-                        type: 'success',
-                        confirmButtonText: 'Ok'
-                    });
+                    //this.CleanFields();
+                    //swal({
+                    //    title: 'Guardado Correctamente!',
+                    //    text: 'Esta persona fue guardada exitosamente',
+                    //    type: 'success',
+                    //    confirmButtonText: 'Ok'
+                    //})
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
@@ -54870,53 +54951,116 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         crearPersona: function crearPersona() {
-            var urlCrearPersona = 'http://localhost/api/PersonaFisica';
-            if (this.denunciado == 1) {
-                axios.post(urlCrearPersona, {
-                    id1: this.sistema,
-                    id2: this.tipo,
-                    id3: 1,
-                    idCarpeta: 1,
-                    nombres: this.nombres.toUpperCase(),
-                    primerAp: this.primerAp.toUpperCase(),
-                    segundoAp: this.segundoAp.toUpperCase(),
-                    fechaNacimiento: this.fechaNacimiento,
-                    edad: this.edad,
-                    sexo: this.sexo.id,
-                    rfc: this.rfc.toUpperCase(),
-                    curp: this.curp.toUpperCase(),
-                    idNacionalidad: this.nacionalidad.id,
-                    idMunicipioOrigen: this.municipio.id,
-                    idEtnia: this.etnia.id,
-                    idLengua: this.lengua.id,
-                    // idInterprete: this.interprete.id,
-                    idInterprete: 1,
-                    telefono: this.telefono,
-                    motivoEstancia: this.motivoEstancia.toUpperCase(),
-                    idOcupacion: this.ocupacion.id,
-                    idEstadoCivil: this.estadoCivil.id,
-                    idEscolaridad: this.escolaridad.id,
-                    idReligion: this.religion.id,
-                    docIdentificacion: this.identificacion.id,
-                    numDocIdentificacion: this.numIdentificacion.toUpperCase(),
-                    lugarTrabajo: this.lugarTrabajo.toUpperCase(),
-                    telefonoTrabajo: this.telefonoTrabajo,
-                    alias: this.alias.toUpperCase(),
-                    esEmpresa: 0
-                });
-            } else if (this.denunciado == 2) {
-                axios.post(urlCrearPersona, {
-                    nombres: this.nombres,
-                    primerAp: this.primerAp,
-                    alias: this.alias.toUpperCase(),
-                    esEmpresa: 0
-                });
-            } else if (this.denunciado == 3) {
-                console.log(1);
-                // axios.post(urlCrearPersona,{
-                // nombres: this.qrr
-                // }) 
-            }
+            var PF = null;
+            var objREST = {
+                id1: this.sistema,
+                id2: this.tipo,
+                id3: 1,
+                id_carpeta: 1,
+                nombres: this.nombres.toUpperCase(),
+                primerAp: this.primerAp.toUpperCase(),
+                segundoAp: this.segundoAp.toUpperCase(),
+                fechaNacimiento: this.fechaNacimiento,
+                edad: this.edad,
+                sexo: this.sexo.id,
+                rfc: this.rfc.toUpperCase(),
+                curp: this.curp.toUpperCase(),
+                idNacionalidad: this.nacionalidad.id,
+                idMunicipioOrigen: this.municipio.id,
+                idEtnia: this.etnia.id,
+                idLengua: this.lengua.id,
+                // idInterprete: this.interprete.id,
+                idInterprete: 1,
+                telefono: this.telefono,
+                motivoEstancia: this.motivoEstancia.toUpperCase(),
+                idOcupacion: this.ocupacion.id,
+                idEstadoCivil: this.estadoCivil.id,
+                idEscolaridad: this.escolaridad.id,
+                idReligion: this.religion.id,
+                docIdentificacion: this.identificacion.id,
+                numDocIdentificacion: this.numIdentificacion.toUpperCase(),
+                lugarTrabajo: this.lugarTrabajo.toUpperCase(),
+                telefonoTrabajo: this.telefonoTrabajo,
+                alias: this.alias.toUpperCase(),
+                esEmpresa: 0
+            };
+            axios.post('/api/PersonaFisica', objREST).then(function (response) {
+                PF = response.data;
+            }).finally(function () {
+                if (PF.id != undefined) {
+                    //obj JSON with data saved
+                    console.log(PF);
+                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                        title: 'Guardado Correctamente!',
+                        text: 'Esta persona fue guardada exitosamente',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    });
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                        title: 'Errores de confirmacion',
+                        html: PF,
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            });
+        },
+        DTallcols: function DTallcols() {
+            var cols = [];
+            Object.keys(this.DataTable.data.src[0]).forEach(function (dt) {
+                cols.push({ name: dt, show: true });
+            });
+            this.DataTable.params.columns = cols;
+        },
+        isexits: function isexits(value, defaultv) {
+            return value == undefined ? defaultv : value;
+        },
+        DTEnabled: function DTEnabled(s) {
+            return !(s >= 0 && s < this.DataTable.maxpage);
+        },
+        DTGetData: function DTGetData(s) {
+            var _this15 = this;
+
+            this.DataTable.charging = true;
+            this.DataTable.current = s;
+            this.DataTable.params.skip = this.DataTable.params.limit * s;
+            var DT;
+            axios.post(this.DataTable.url, this.DataTable.params).then(function (response) {
+                DT = response.data;
+            }).finally(function () {
+                if (DT != undefined) {
+                    _this15.DataTable.data = DT;
+                    if (_this15.DataTable.columns == undefined) {
+                        _this15.DTallcols();
+                    }
+                    _this15.DataTable.maxpage = parseInt(_this15.DataTable.data.count / _this15.DataTable.params.limit);
+                    _this15.DataTable.maxpage += _this15.DataTable.data.count % _this15.DataTable.params.limit == 0 ? 0 : 1;
+                    _this15.DataTable.charging = false;
+                } else {
+                    _this15.DataTable.message = "error al cargar la informacion";
+                }
+            });
+        },
+        DTNextData: function DTNextData() {
+            this.DTGetData(this.DataTable.current + 1);
+        },
+        DTBackData: function DTBackData() {
+            this.DTGetData(this.DataTable.current - 1);
+        },
+        buscarCoincidencias: function buscarCoincidencias() {
+            this.DataTable.params.filters = { alias: this.alias };
+            this.DTGetData(0);
+            $("#myModal").modal();
+        }
+
+    },
+    watch: {
+        sexo: function sexo(val, oldval) {
+            this.generarCurp();
+        },
+        estado: function estado(val, oldval) {
+            this.generarCurp();
         }
     }
 });
@@ -54930,6 +55074,174 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c(
+      "div",
+      { staticClass: "modal fade", attrs: { id: "myModal", role: "dialog" } },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              !_vm.DataTable.charging
+                ? _c("div", [
+                    _c(
+                      "table",
+                      { staticClass: "table" },
+                      [
+                        _c(
+                          "tr",
+                          [
+                            _vm._l(_vm.DataTable.params.columns, function(
+                              cols
+                            ) {
+                              return cols.show
+                                ? _c("th", { key: cols.name }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.isexits(cols.replace, cols.name)
+                                      )
+                                    )
+                                  ])
+                                : _vm._e()
+                            }),
+                            _vm._v(" "),
+                            _vm.DataTable.options != undefined
+                              ? _c("th", [
+                                  _vm._v(_vm._s(_vm.DataTable.options.title))
+                                ])
+                              : _vm._e()
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.DataTable.data.src, function(fields) {
+                          return _c(
+                            "tr",
+                            { key: fields.id },
+                            [
+                              _vm._l(_vm.DataTable.params.columns, function(
+                                cols
+                              ) {
+                                return cols.show
+                                  ? _c("td", { key: cols.name }, [
+                                      _vm._v(_vm._s(fields[cols.name]))
+                                    ])
+                                  : _vm._e()
+                              }),
+                              _vm._v(" "),
+                              _vm._l(_vm.DataTable.options.links, function(
+                                opt
+                              ) {
+                                return _vm.DataTable.options != undefined
+                                  ? _c("td", { key: opt.text }, [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: { href: "#" },
+                                          on: {
+                                            click: function($event) {
+                                              opt.func(fields)
+                                            }
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(opt.text))]
+                                      )
+                                    ])
+                                  : _vm._e()
+                              })
+                            ],
+                            2
+                          )
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default",
+                        attrs: {
+                          disabled: _vm.DTEnabled(_vm.DataTable.current - 1)
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.DTBackData()
+                          }
+                        }
+                      },
+                      [_vm._v("←")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { disabled: "true" }
+                      },
+                      [_vm._v(_vm._s(_vm.DataTable.current + 1))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default",
+                        attrs: {
+                          disabled: _vm.DTEnabled(_vm.DataTable.current + 1)
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.DTGetData(_vm.DataTable.current + 1)
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.DataTable.current + 2))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default",
+                        attrs: {
+                          disabled: _vm.DTEnabled(_vm.DataTable.current + 2)
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.DTGetData(_vm.DataTable.current + 2)
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.DataTable.current + 3))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default",
+                        attrs: {
+                          disabled: _vm.DTEnabled(_vm.DataTable.current + 1)
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.DTNextData()
+                          }
+                        }
+                      },
+                      [_vm._v("→")]
+                    )
+                  ])
+                : _c("div", [
+                    _c("span", [_vm._v(_vm._s(_vm.DataTable.message))])
+                  ])
+            ]),
+            _vm._v(" "),
+            _vm._m(1)
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
     _vm.mostrarForm
       ? _c(
           "form",
@@ -55125,18 +55437,18 @@ var render = function() {
                           },
                           domProps: { value: _vm.nombres },
                           on: {
-                            blur: _vm.searchPersona,
-                            input: [
-                              function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.nombres = $event.target.value
-                              },
+                            blur: [
+                              _vm.searchPersona,
                               function($event) {
                                 _vm.generarCurp()
                               }
-                            ]
+                            ],
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.nombres = $event.target.value
+                            }
                           }
                         })
                       : _c("input", {
@@ -55162,18 +55474,18 @@ var render = function() {
                           },
                           domProps: { value: _vm.nombres },
                           on: {
-                            blur: _vm.searchPersona,
-                            input: [
-                              function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.nombres = $event.target.value
-                              },
+                            blur: [
+                              _vm.searchPersona,
                               function($event) {
                                 _vm.generarCurp()
                               }
-                            ]
+                            ],
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.nombres = $event.target.value
+                            }
                           }
                         }),
                     _vm._v(" "),
@@ -55261,7 +55573,12 @@ var render = function() {
                           },
                           domProps: { value: _vm.primerAp },
                           on: {
-                            blur: _vm.searchPersona,
+                            blur: [
+                              _vm.searchPersona,
+                              function($event) {
+                                _vm.generarCurp()
+                              }
+                            ],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55296,7 +55613,12 @@ var render = function() {
                           },
                           domProps: { value: _vm.primerAp },
                           on: {
-                            blur: _vm.searchPersona,
+                            blur: [
+                              _vm.searchPersona,
+                              function($event) {
+                                _vm.generarCurp()
+                              }
+                            ],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55359,7 +55681,12 @@ var render = function() {
                           },
                           domProps: { value: _vm.segundoAp },
                           on: {
-                            blur: _vm.searchPersona,
+                            blur: [
+                              _vm.searchPersona,
+                              function($event) {
+                                _vm.generarCurp()
+                              }
+                            ],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55394,7 +55721,12 @@ var render = function() {
                           },
                           domProps: { value: _vm.segundoAp },
                           on: {
-                            blur: _vm.searchPersona,
+                            blur: [
+                              _vm.searchPersona,
+                              function($event) {
+                                _vm.generarCurp()
+                              }
+                            ],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55452,6 +55784,9 @@ var render = function() {
                           },
                           domProps: { value: _vm.alias },
                           on: {
+                            blur: function($event) {
+                              _vm.buscarCoincidencias()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55483,6 +55818,9 @@ var render = function() {
                           },
                           domProps: { value: _vm.alias },
                           on: {
+                            blur: function($event) {
+                              _vm.buscarCoincidencias()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55545,17 +55883,15 @@ var render = function() {
                           domProps: { value: _vm.fechaNacimiento },
                           on: {
                             blur: _vm.searchPersona,
-                            input: [
-                              function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.fechaNacimiento = $event.target.value
-                              },
-                              function($event) {
-                                _vm.generarEdad()
+                            change: function($event) {
+                              _vm.generarCurp(), _vm.generarEdad()
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
-                            ]
+                              _vm.fechaNacimiento = $event.target.value
+                            }
                           }
                         })
                       : _c("input", {
@@ -55582,17 +55918,15 @@ var render = function() {
                           domProps: { value: _vm.fechaNacimiento },
                           on: {
                             blur: _vm.searchPersona,
-                            input: [
-                              function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.fechaNacimiento = $event.target.value
-                              },
-                              function($event) {
-                                _vm.generarEdad()
+                            change: function($event) {
+                              _vm.generarCurp(), _vm.generarEdad()
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
-                            ]
+                              _vm.fechaNacimiento = $event.target.value
+                            }
                           }
                         }),
                     _vm._v(" "),
@@ -57320,6 +57654,9 @@ var render = function() {
                               },
                               domProps: { value: _vm.alias },
                               on: {
+                                blur: function($event) {
+                                  _vm.buscarCoincidencias()
+                                },
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
@@ -57351,6 +57688,9 @@ var render = function() {
                               },
                               domProps: { value: _vm.alias },
                               on: {
+                                blur: function($event) {
+                                  _vm.buscarCoincidencias()
+                                },
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
@@ -57392,7 +57732,40 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("×")]
+      ),
+      _vm._v(" "),
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Modal Header")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

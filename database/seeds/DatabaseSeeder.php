@@ -56,5 +56,7 @@ class DatabaseSeeder extends Seeder
         $this->call(sistemasSeeder::class);
         $this->call(ligadosSeeder::class);
 
+        $this->call(InterpreteSeeder::class);
+
     }
 }
