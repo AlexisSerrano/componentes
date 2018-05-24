@@ -1,47 +1,49 @@
 <template>
     <div class="container">
         <!-- <div class="form-row align-items-end" v-if="mostrarForm">
-            <div class="form-group col-md-4">
-                <h5 id="pruebavue">{{personaExiste!=''?personaExiste.nombres+" "+personaExiste.primerAp+" "+personaExiste.segundoAp:''}}</h5>
-            </div>
-        </div> -->
+             <div class="form-group col-md-4">
+                 <h5 id="pruebavue">{{personaExiste!=''?personaExiste.nombres+" "+personaExiste.primerAp+" "+personaExiste.segundoAp:''}}</h5>
+             </div>
+         </div> -->
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Coincidencias econtradas con Alias</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div v-if="!DataTable.charging">    
-                            <table class="table">
-                                <tr >
-                                    <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
-                                    <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
-                                </tr>
-                                <tr v-for="fields in DataTable.data.src" :key="fields.id">
-                                    <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
-                                    <td v-if="DataTable.options!=undefined" v-for="opt in DataTable.options.links" :key="opt.text">
-                                        <a href="#" v-on:click="opt.func(fields)">{{opt.text}}</a>
-                                    </td>
-                                </tr>
-                            </table>
-                            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
-                            <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
-                            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
-                            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +2)" v-on:click="DTGetData(DataTable.current+2)">{{DataTable.current + 3}}</button>
-                            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current + 1)" v-on:click="DTNextData()">&rarr;</button>
-                        </div>
-                        <div v-else>
-                            <span>{{DataTable.message}}</span>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    </div>
+            
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
                 </div>
+                <div class="modal-body">
+                        <div v-if="!DataTable.charging">    
+                <table class="table">
+                    <tr >
+                        <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
+                        <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
+                    </tr>
+                    <tr v-for="fields in DataTable.data.src" :key="fields.id">
+                        <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
+                        <td v-if="DataTable.options!=undefined" v-for="opt in DataTable.options.links" :key="opt.text">
+                            <a href="#" v-on:click="opt.func(fields)">{{opt.text}}</a>
+                        </td>
+                    </tr>
+                </table>
+                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
+                <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
+                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
+                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +2)" v-on:click="DTGetData(DataTable.current+2)">{{DataTable.current + 3}}</button>
+                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current + 1)" v-on:click="DTNextData()">&rarr;</button>
+            </div>
+            <div v-else>
+                <span>{{DataTable.message}}</span>
+            </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            
             </div>
         </div>
         <!-- End Modal-->
@@ -338,7 +340,38 @@ import swal from 'sweetalert2'
                 aliasV:false,
                 validaciones:[],
                 denunciado:false,
-                qrr:"QUIEN RESULTE RESPONSABLE"
+                qrr:"QUIEN RESULTE RESPONSABLE",
+                DataTable:{
+                     data:{
+                         src:[],
+                         count:0
+                     },
+                     url:"/api/test/SearchUndefined",
+                     params:{
+                             columns:[//select columns in table (correct name col)
+                                 {name:"id",show:false},
+                                 {name:"alias",show:true,replace:"Nombre del sistema"}
+                                 
+                             //name:colname,show:showInTable,replace:NweNameInTable
+                             ],
+                             skip:0,//skip
+                             limit:5,//limit
+                             filters:{"alias":""},//search where like (correct name col)
+                             nfilters:{},//search where no like (correct name col)
+                             //tablename:"cat_municipio"
+                             //tablename:"cat_estado"
+                             tablename:"variables_persona"
+                             },
+                     current:0,
+                     maxpage:0,
+                     charging:false,
+                     message:"Cargando...",
+                     options:{title:"opciones",links:[
+                     {func:function(obj){
+                         alert(obj.id);
+                         },
+                     text:"alert" }]}
+                 }
             }
         },
 
