@@ -55001,7 +55001,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         crearPersona: function crearPersona() {
             var _objREST;
 
-            var PF = null;
+            var PF;
             var objREST = (_objREST = {
                 id1: this.sistema,
                 id2: this.tipo,
@@ -55012,7 +55012,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 segundoAp: this.segundoAp.toUpperCase(),
                 fechaNacimiento: this.fechaNacimiento,
                 edad: this.edad,
-                sexo: this.sexo.id,
+                sexo: this.isexits(this.sexo, { id: 0 }).id,
                 rfc: this.rfc.toUpperCase(),
                 curp: this.curp.toUpperCase(),
                 idNacionalidad: this.nacionalidad.id,
@@ -55022,8 +55022,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 idInterprete: this.interprete.id
             }, _defineProperty(_objREST, 'idInterprete', 1), _defineProperty(_objREST, 'telefono', this.telefono), _defineProperty(_objREST, 'motivoEstancia', this.motivoEstancia.toUpperCase()), _defineProperty(_objREST, 'idOcupacion', this.ocupacion.id), _defineProperty(_objREST, 'idEstadoCivil', this.estadoCivil.id), _defineProperty(_objREST, 'idEscolaridad', this.escolaridad.id), _defineProperty(_objREST, 'idReligion', this.religion.id), _defineProperty(_objREST, 'docIdentificacion', this.identificacion.id), _defineProperty(_objREST, 'numDocIdentificacion', this.numIdentificacion.toUpperCase()), _defineProperty(_objREST, 'lugarTrabajo', this.lugarTrabajo.toUpperCase()), _defineProperty(_objREST, 'telefonoTrabajo', this.telefonoTrabajo), _defineProperty(_objREST, 'alias', this.alias.toUpperCase()), _defineProperty(_objREST, 'esEmpresa', 0), _objREST);
             axios.post('/api/PersonaFisica', objREST).then(function (response) {
-                PF = response.data;
+                console.log(response);
+                if (response.status == 200) {
+                    PF = response.data;
+                } else {
+                    PF = "error " + response.status;
+                }
+            }).catch(function (error) {
+                console.log(error);
+                if (error.response) {
+                    PF = error.response.data;
+                } else if (error.request) {
+                    PF = error.request;
+                } else {
+                    PF = error.message;
+                }
             }).finally(function () {
+                console.log(PF);
                 if (PF.id != undefined) {
                     //obj JSON with data saved
                     console.log(PF);
@@ -55035,7 +55050,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     });
                 } else {
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                        title: 'Errores de confirmacion',
+                        title: 'Errores de confirmación',
                         html: PF,
                         type: 'error',
                         confirmButtonText: 'Ok'
@@ -55051,7 +55066,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             this.DataTable.params.columns = cols;
         },
         isexits: function isexits(value, defaultv) {
-            return value == undefined ? defaultv : value;
+            return value == undefined ? defaultv : value != null ? value : defaultv;
         },
         DTEnabled: function DTEnabled(s) {
             return !(s >= 0 && s < this.DataTable.maxpage);
