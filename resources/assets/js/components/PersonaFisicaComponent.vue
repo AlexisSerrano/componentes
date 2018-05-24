@@ -27,8 +27,8 @@
             <div class="form-row">
                 <div v-if="(denunciado==1 || denunciado==2) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" class="form-group col-md-4">
                     <label for="nombres">Nombres</label>
-                    <input v-if="nombresV == 1" type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp();getRfc()">
-                    <input v-else type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp();getRfc()">
+                    <input v-if="nombresV == 1" type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp()">
+                    <input v-else type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp()">
                     <span v-if="errors.has('nombres')" class="text-danger">{{ errors.first('nombres') }}</span>
                 </div>
                 <div v-if="denunciado==3" class="form-group col-md-4">
@@ -541,20 +541,21 @@ import swal from 'sweetalert2'
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         this.crearPersona();
-                        this.CleanFields();
-                        swal({
-                            title: 'Guardado Correctamente!',
-                            text: 'Esta persona fue guardada exitosamente',
-                            type: 'success',
-                            confirmButtonText: 'Ok'
-                        })
+                        //this.CleanFields();
+                        //swal({
+                        //    title: 'Guardado Correctamente!',
+                        //    text: 'Esta persona fue guardada exitosamente',
+                        //    type: 'success',
+                        //    confirmButtonText: 'Ok'
+                        //})
                         return;
                     }
-                    swal({
-                        title: 'Guardado Incorrecto!',
-                        text: 'Esta persona no fue posible guardarla',
-                        type: 'error',
-                        confirmButtonText: 'Ok'
+                    //swal({
+                    //    title: 'Guardado Incorrecto!',
+                    //    text: 'Esta persona no fue posible guardarla',
+                    //    type: 'error',
+                    //    confirmButtonText: 'Ok'
+                    //
                     })
                 });
             },
@@ -587,13 +588,12 @@ import swal from 'sweetalert2'
                 this.$validator.reset();
             },
             crearPersona: function(){
-                var urlCrearPersona = 'http://localhost/api/PersonaFisica';
-                if(this.denunciado==1){
-                    axios.post(urlCrearPersona,{
+                var PF=null;
+                var objREST={
                         id1: this.sistema,
                         id2: this.tipo,
                         id3: 1,
-                        idCarpeta: 1,
+                        id_Carpeta: 1,
                         nombres: this.nombres.toUpperCase(),
                         primerAp: this.primerAp.toUpperCase(),
                         segundoAp: this.segundoAp.toUpperCase(),
@@ -620,22 +620,28 @@ import swal from 'sweetalert2'
                         telefonoTrabajo: this.telefonoTrabajo,
                         alias: this.alias.toUpperCase(),
                         esEmpresa:0
-                    })
-                }
-                else if(this.denunciado==2){
-                    axios.post(urlCrearPersona,{
-                        nombres: this.nombres,
-                        primerAp: this.primerAp,
-                        alias: this.alias.toUpperCase(),
-                        esEmpresa:0
-                    })   
-                }
-                else if(this.denunciado==3){
-                    console.log(1);
-                    // axios.post(urlCrearPersona,{
-                        // nombres: this.qrr
-                    // }) 
-                }
+                    };
+                    axios.post('/api/PersonaFisica',objREST).then(response=>{
+                        PF=response.data;                        
+                    }).finally(()=>{                        
+                        if(PF.id!=undefined){
+                            //obj JSON with data saved
+                            console.log(PF);
+                            swal({
+                                title: 'Guardado Correctamente!',
+                                text: 'Esta persona fue guardada exitosamente',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                        }else{
+                            swal({
+                                title: 'Errores de confirmacion',
+                                text: PF,
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    });
             }
        },
        watch:{
