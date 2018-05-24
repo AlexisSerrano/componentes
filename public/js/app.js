@@ -54539,6 +54539,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -54576,6 +54577,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+=======
+>>>>>>> 204ef1c04e4aae4724f00373eaa0d57a45507861
 
 
 
@@ -54649,36 +54652,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             aliasV: false,
             validaciones: [],
             denunciado: false,
-            qrr: "QUIEN RESULTE RESPONSABLE",
-            DataTable: {
-                data: {
-                    src: [],
-                    count: 0
-                },
-                url: "/api/test/SearchUndefined",
-                params: {
-                    columns: [//select columns in table (correct name col)
-                    { name: "id", show: false }, { name: "alias", show: true, replace: "Nombre del sistema"
-
-                        //name:colname,show:showInTable,replace:NweNameInTable
-                    }],
-                    skip: 0, //skip
-                    limit: 5, //limit
-                    filters: { "alias": "" }, //search where like (correct name col)
-                    nfilters: {}, //search where no like (correct name col)
-                    //tablename:"cat_municipio"
-                    //tablename:"cat_estado"
-                    tablename: "variables_persona"
-                },
-                current: 0,
-                maxpage: 0,
-                charging: false,
-                message: "Cargando...",
-                options: { title: "opciones", links: [{ func: function func(obj) {
-                            alert(obj.id);
-                        },
-                        text: "alert" }] }
-            }
+            qrr: "QUIEN RESULTE RESPONSABLE"
         };
     },
 
@@ -54690,13 +54664,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         tipo: {
             default: false
-        },
-        dt: function dt(value) {
-            this.DataTable.url = this.isexits(value.url, this.DataTable.url);
-            //this.DataTable.u.data=this.isexits(value.data,this.DataTable.data);
-            this.DataTable.params = this.isexits(value.params, this.DataTable.params);
-            this.DataTable.options = this.isexits(value.options, this.DataTable.options);
-            return null;
         }
     },
     mounted: function mounted() {
@@ -54712,7 +54679,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.getIdentificaciones();
         //    this.getInterpretes();
         this.getValidaciones();
-        this.DataTable.params.filters.alias = this.alias;
     },
     methods: {
         searchPersona: function searchPersona() {
@@ -54997,53 +54963,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                 }
             });
-        },
-        DTallcols: function DTallcols() {
-            var cols = [];
-            Object.keys(this.DataTable.data.src[0]).forEach(function (dt) {
-                cols.push({ name: dt, show: true });
-            });
-            this.DataTable.params.columns = cols;
-        },
-        isexits: function isexits(value, defaultv) {
-            return value == undefined ? defaultv : value;
-        },
-        DTEnabled: function DTEnabled(s) {
-            return !(s >= 0 && s < this.DataTable.maxpage);
-        },
-        DTGetData: function DTGetData(s) {
-            var _this15 = this;
-
-            this.DataTable.charging = true;
-            this.DataTable.current = s;
-            this.DataTable.params.skip = this.DataTable.params.limit * s;
-            var DT;
-            axios.post(this.DataTable.url, this.DataTable.params).then(function (response) {
-                DT = response.data;
-            }).finally(function () {
-                if (DT != undefined) {
-                    _this15.DataTable.data = DT;
-                    if (_this15.DataTable.columns == undefined) {
-                        _this15.DTallcols();
-                    }
-                    _this15.DataTable.maxpage = parseInt(_this15.DataTable.data.count / _this15.DataTable.params.limit);
-                    _this15.DataTable.maxpage += _this15.DataTable.data.count % _this15.DataTable.params.limit == 0 ? 0 : 1;
-                    _this15.DataTable.charging = false;
-                } else {
-                    _this15.DataTable.message = "error al cargar la informacion";
-                }
-            });
-        },
-        DTNextData: function DTNextData() {
-            this.DTGetData(this.DataTable.current + 1);
-        },
-        DTBackData: function DTBackData() {
-            this.DTGetData(this.DataTable.current - 1);
-        },
-        buscarCoincidencias: function buscarCoincidencias() {
-            this.DataTable.params.filters = { alias: this.alias };
-            this.DTGetData(0);
-            $("#myModal").modal();
         }
     },
     watch: {
@@ -55065,174 +54984,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c(
-      "div",
-      { staticClass: "modal fade", attrs: { id: "myModal", role: "dialog" } },
-      [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              !_vm.DataTable.charging
-                ? _c("div", [
-                    _c(
-                      "table",
-                      { staticClass: "table" },
-                      [
-                        _c(
-                          "tr",
-                          [
-                            _vm._l(_vm.DataTable.params.columns, function(
-                              cols
-                            ) {
-                              return cols.show
-                                ? _c("th", { key: cols.name }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.isexits(cols.replace, cols.name)
-                                      )
-                                    )
-                                  ])
-                                : _vm._e()
-                            }),
-                            _vm._v(" "),
-                            _vm.DataTable.options != undefined
-                              ? _c("th", [
-                                  _vm._v(_vm._s(_vm.DataTable.options.title))
-                                ])
-                              : _vm._e()
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.DataTable.data.src, function(fields) {
-                          return _c(
-                            "tr",
-                            { key: fields.id },
-                            [
-                              _vm._l(_vm.DataTable.params.columns, function(
-                                cols
-                              ) {
-                                return cols.show
-                                  ? _c("td", { key: cols.name }, [
-                                      _vm._v(_vm._s(fields[cols.name]))
-                                    ])
-                                  : _vm._e()
-                              }),
-                              _vm._v(" "),
-                              _vm._l(_vm.DataTable.options.links, function(
-                                opt
-                              ) {
-                                return _vm.DataTable.options != undefined
-                                  ? _c("td", { key: opt.text }, [
-                                      _c(
-                                        "a",
-                                        {
-                                          attrs: { href: "#" },
-                                          on: {
-                                            click: function($event) {
-                                              opt.func(fields)
-                                            }
-                                          }
-                                        },
-                                        [_vm._v(_vm._s(opt.text))]
-                                      )
-                                    ])
-                                  : _vm._e()
-                              })
-                            ],
-                            2
-                          )
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default",
-                        attrs: {
-                          disabled: _vm.DTEnabled(_vm.DataTable.current - 1)
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.DTBackData()
-                          }
-                        }
-                      },
-                      [_vm._v("←")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { disabled: "true" }
-                      },
-                      [_vm._v(_vm._s(_vm.DataTable.current + 1))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default",
-                        attrs: {
-                          disabled: _vm.DTEnabled(_vm.DataTable.current + 1)
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.DTGetData(_vm.DataTable.current + 1)
-                          }
-                        }
-                      },
-                      [_vm._v(_vm._s(_vm.DataTable.current + 2))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default",
-                        attrs: {
-                          disabled: _vm.DTEnabled(_vm.DataTable.current + 2)
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.DTGetData(_vm.DataTable.current + 2)
-                          }
-                        }
-                      },
-                      [_vm._v(_vm._s(_vm.DataTable.current + 3))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default",
-                        attrs: {
-                          disabled: _vm.DTEnabled(_vm.DataTable.current + 1)
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.DTNextData()
-                          }
-                        }
-                      },
-                      [_vm._v("→")]
-                    )
-                  ])
-                : _c("div", [
-                    _c("span", [_vm._v(_vm._s(_vm.DataTable.message))])
-                  ])
-            ]),
-            _vm._v(" "),
-            _vm._m(1)
-          ])
-        ])
-      ]
-    ),
-    _vm._v(" "),
     _vm.mostrarForm
       ? _c(
           "form",
@@ -55775,9 +55526,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.alias },
                           on: {
-                            blur: function($event) {
-                              _vm.buscarCoincidencias()
-                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55809,9 +55557,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.alias },
                           on: {
-                            blur: function($event) {
-                              _vm.buscarCoincidencias()
-                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -57645,9 +57390,6 @@ var render = function() {
                               },
                               domProps: { value: _vm.alias },
                               on: {
-                                blur: function($event) {
-                                  _vm.buscarCoincidencias()
-                                },
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
@@ -57679,9 +57421,6 @@ var render = function() {
                               },
                               domProps: { value: _vm.alias },
                               on: {
-                                blur: function($event) {
-                                  _vm.buscarCoincidencias()
-                                },
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
@@ -57723,6 +57462,7 @@ var render = function() {
       : _vm._e()
   ])
 }
+<<<<<<< HEAD
 var staticRenderFns = [
   function() {
     var _vm = this
@@ -57759,6 +57499,9 @@ var staticRenderFns = [
     ])
   }
 ]
+=======
+var staticRenderFns = []
+>>>>>>> 204ef1c04e4aae4724f00373eaa0d57a45507861
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
