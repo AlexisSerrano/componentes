@@ -15,6 +15,7 @@ use App\Http\Models\CatEstadoCivil;
 use App\Http\Models\CatEscolaridad;
 use App\Http\Models\CatReligion;
 use App\Http\Models\CatIdentificacion;
+use App\Http\Models\InterpretesModel;
 use App\Http\Models\VariablesPersona;
 use RFC\RfcBuilder;
 
@@ -60,6 +61,45 @@ class PersonaController extends Controller{
 		$personaExiste2=VariablesPersona::orderBy('id','DESC')
 		->where('idPersona',$personaExiste->id)
 		->select('edad','telefono','motivoEstancia','idOcupacion','idEstadoCivil','idEscolaridad','idReligion','idDomicilio','docIdentificacion','idInterprete','numDocIdentificacion','lugarTrabajo','idDomicilioTrabajo','telefonoTrabajo','representanteLegal','alias','esEmpresa')->first();
+		$nacionalidad=NacionalidadesModel::orderBy('id','Asc')
+		->where('id',$personaExiste->idNacionalidad)
+		->select('nombre','id')->first();
+		$municipio=CatMunicipio::orderBy('id','Asc')
+		->where('id',$personaExiste->idMunicipioOrigen)
+		->select('nombre','id')->first();
+		$etnia=EtniaModel::orderBy('id','Asc')
+		->where('id',$personaExiste->idEtnia)
+		->select('nombre','id')->first();
+		$lengua=LenguasModel::orderBy('id','Asc')
+		->where('id',$personaExiste->idLengua)
+		->select('nombre','id')->first();
+		$estadoCivil=CatEstadoCivil::orderBy('id','Asc')
+		->where('id',$personaExiste2->idEstadoCivil)
+		->select('nombre','id')->first();
+		$escolaridad=CatEscolaridad::orderBy('id','Asc')
+		->where('id',$personaExiste2->idEscolaridad)
+		->select('nombre','id')->first();
+		$religion=CatReligion::orderBy('id','Asc')
+		->where('id',$personaExiste2->idReligion)
+		->select('nombre','id')->first();
+		$ocupacion=CatOcupacion::orderBy('id','Asc')
+		->where('id',$personaExiste2->idOcupacion)
+		->select('nombre','id')->first();
+		$identificacion=CatIdentificacion::orderBy('id','Asc')
+		->where('id',$personaExiste2->docIdentificacion)
+		->select('documento','id')->first();
+		$interprete=InterpretesModel::orderBy('id','Asc')
+		->where('id',$personaExiste2->idInterprete)
+		->select('nombre','id')->first();
+		$sexo=SexoModel::orderBy('id','Asc')
+		->where('id',$personaExiste->sexo)
+		->select('nombre','id')->first();
+		$idEstado=CatMunicipio::orderBy('id','Asc')
+		->where('id',$personaExiste->idMunicipioOrigen)
+		->select('idEstado')->first();
+		$estado=CatEstado::orderBy('id','Asc')
+		->where('id',$idEstado->idEstado)
+		->select('nombre','id')->first();
 		$data = array(
 			'nombres'=>$personaExiste->nombres,
 			'primerAp'=>$personaExiste->primerAp,
@@ -68,21 +108,22 @@ class PersonaController extends Controller{
 			'fechaNacimiento'=>$personaExiste->fechaNacimiento,
 			'rfc'=>$personaExiste->rfc,
 			'curp'=>$personaExiste->curp,
-			'sexo'=>$personaExiste->sexo,
-			'idNacionalidad'=>$personaExiste->idNacionalidad,
-			'idEtnia'=>$personaExiste->idEtnia,
-			'idLengua'=>$personaExiste->idLengua,
-			'idMunicipioOrigen'=>$personaExiste->idMunicipioOrigen,
+			'sexo'=>$sexo,
+			'idNacionalidad'=>$nacionalidad,
+			'idEtnia'=>$etnia,
+			'idLengua'=>$lengua,
+			'idMunicipioOrigen'=>$municipio,
+			'idEstado'=>$estado,
 			'edad'=>$personaExiste2->edad,
 			'telefono'=>$personaExiste2->telefono,
 			'motivoEstancia'=>$personaExiste2->motivoEstancia,
-			'idOcupacion'=>$personaExiste2->idOcupacion,
-			'idEstadoCivil'=>$personaExiste2->idEstadoCivil,
-			'idEscolaridad'=>$personaExiste2->idEscolaridad,
-			'idReligion'=>$personaExiste2->idReligion,
+			'idOcupacion'=>$ocupacion,
+			'idEstadoCivil'=>$estadoCivil,
+			'idEscolaridad'=>$escolaridad,
+			'idReligion'=>$religion,
 			'idDomicilio'=>$personaExiste2->idDomicilio,
-			'docIdentificacion'=>$personaExiste2->docIdentificacion,
-			'idInterprete'=>$personaExiste2->idInterprete,
+			'docIdentificacion'=>$identificacion,
+			'idInterprete'=>$interprete,
 			'numDocIdentificacion'=>$personaExiste2->numDocIdentificacion,
 			'lugarTrabajo'=>$personaExiste2->lugarTrabajo,
 			'idDomicilioTrabajo'=>$personaExiste2->idDomicilioTrabajo,
@@ -153,6 +194,11 @@ class PersonaController extends Controller{
         $identificaciones=CatIdentificacion::orderBy('documento', 'ASC')
 	    ->select('documento','id')->get();
         return response()->json($identificaciones);
+	}
+	public function getInterpretes(){
+        $interpretes=InterpretesModel::orderBy('nombre', 'ASC')
+	    ->select('nombre','id')->get();
+        return response()->json($interpretes);
 	}
 	// url:"/api/getValidaciones",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente"
 	public function getValidaciones(Request $request){

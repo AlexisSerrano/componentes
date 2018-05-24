@@ -7,6 +7,25 @@ use App;
 
 class NacionalidadesModel extends Model
 {
-    //
-	protected $table = 'cat_nacionalidad';
+    public $table = 'cat_nacionalidad';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    
+    public $fillable = [
+        'id',
+        'nombre'
+    ];
+
+    public function variablesPersonas()
+    {
+       return $this->hasMany('app/Models/VariablesPersona');
+    }
+    public function persona()
+    {
+       return $this->belongsTo('App\Http\Models\PersonaModel','idNacionalidad','id');
+    }
 }

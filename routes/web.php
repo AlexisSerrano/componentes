@@ -25,6 +25,7 @@ Route::get('getEstadosCiviles','PersonaController@getEstadosCiviles');
 Route::get('getEscolaridades','PersonaController@getEscolaridades');
 Route::get('getReligiones','PersonaController@getReligiones');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
+Route::get('getInterpretes','PersonaController@getInterpretes');
 Route::post('searchPersonaFisica','PersonaController@searchPersona');
 Route::post('searchPersonaMoral','EmpresaController@searchPersona');
 Route::post('getValidaciones','PersonaController@getValidaciones');

@@ -27,8 +27,8 @@
             <div class="form-row">
                 <div v-if="(denunciado==1 || denunciado==2) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" class="form-group col-md-4">
                     <label for="nombres">Nombres</label>
-                    <input v-if="nombresV == 1" type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp();getRfc()">
-                    <input v-else type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp();getRfc()">
+                    <input v-if="nombresV == 1" type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp()">
+                    <input v-else type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp()">
                     <span v-if="errors.has('nombres')" class="text-danger">{{ errors.first('nombres') }}</span>
                 </div>
                 <div v-if="denunciado==3" class="form-group col-md-4">
@@ -210,7 +210,7 @@
             </div>
         </form>
 <!-- <h1>{{fechaNacimiento}}</h1> -->
-<!-- <h1>{{personaExiste}}</h1> -->
+<!-- <h1>{{personaExiste.idMunicipioOrigen}}</h1> -->
 <!-- cambios -->
     </div>
 </template>
@@ -245,7 +245,8 @@ import swal from 'sweetalert2'
                 // mostrarSearch:true,
                 mostrarForm:true,
                 nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
-                estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+                // estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+                estado:'',
                 municipio:null,
                 etnia:{ "nombre": "SIN INFORMACIÓN", "id": 13 },
                 lengua:{ "nombre": "SIN INFORMACIÓN", "id": 69 },
@@ -312,7 +313,7 @@ import swal from 'sweetalert2'
            this.getEscolaridades();
            this.getReligiones();
            this.getIdentificaciones();
-        //    this.getInterpretes();
+           this.getInterpretes();
            this.getValidaciones();
         },
         methods:{
@@ -347,6 +348,7 @@ import swal from 'sweetalert2'
                                 this.rfc=this.personaExiste.rfc,
                                 this.curp=this.personaExiste.curp,
                                 this.nacionalidad=this.personaExiste.idNacionalidad,
+                                this.estado=this.personaExiste.idEstado
                                 this.municipio=this.personaExiste.idMunicipioOrigen,
                                 this.etnia=this.personaExiste.idEtnia,
                                 this.lengua=this.personaExiste.idLengua,
@@ -404,12 +406,12 @@ import swal from 'sweetalert2'
                     this.lenguas = response.data
                 });
             },
-            // getInterprete: function(){
-            //     var urlInterpretes = 'getInterpretes';
-            //     axios.get(urlInterpretes).then(response => {
-            //         this.interpretes = response.data
-            //     });
-            // },
+            getInterpretes: function(){
+                var urlInterpretes = 'getInterpretes';
+                axios.get(urlInterpretes).then(response => {
+                    this.interpretes = response.data
+                });
+            },
             getSexos: function(){
                 var urlSexos = 'getSexos';
                 axios.get(urlSexos).then(response => {
@@ -606,7 +608,7 @@ import swal from 'sweetalert2'
                         idMunicipioOrigen: this.municipio.id,
                         idEtnia: this.etnia.id,
                         idLengua: this.lengua.id,
-                        // idInterprete: this.interprete.id,
+                        idInterprete: this.interprete.id,
                         idInterprete: 1,
                         telefono: this.telefono,
                         motivoEstancia: this.motivoEstancia.toUpperCase(),
