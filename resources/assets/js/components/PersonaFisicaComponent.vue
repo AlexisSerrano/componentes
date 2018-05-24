@@ -105,8 +105,8 @@
            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
                 <div class="form-group col-md-4">
                     <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                    <input v-if="fechaNacimientoV == 1" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona" v-on:change="generarCurp(),generarEdad()">
-                    <input v-else type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona" v-on:change="generarCurp(),generarEdad()">
+                    <input v-if="fechaNacimientoV == 1" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona" v-on:input="generarEdad()" v-on:change="generarCurp()">
+                    <input v-else type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de Nacimiento" :class="{ 'border border-danger': errors.has('Fecha de Nacimiento')}" @blur="searchPersona" v-on:input="generarEdad()" v-on:change="generarCurp()">
                     <span v-show="errors.has('Fecha de Nacimiento')" class="text-danger">{{ errors.first('Fecha de Nacimiento') }}</span>
                 </div>
                 <div class="form-group col-md-4">
@@ -117,8 +117,8 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label for="edad">Edad</label>
-                    <input v-if="edadV == 1" type="number" min="0" max="150" name="edad" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('edad') }" id="edad" v-model="edad" placeholder="Ingrese la edad" v-validate="'required'">
-                    <input v-else type="number"  min="0" max="150" name="edad" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('edad') }" id="edad" v-model="edad" placeholder="Ingrese la edad">
+                    <input v-if="edadV == 1" type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('edad') }" id="edad" v-model="edad" placeholder="Ingrese la edad" v-validate="'required'">
+                    <input v-else type="number"  min="16" max="150" name="edad" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('edad') }" id="edad" v-model="edad" placeholder="Ingrese la edad">
                     <span v-if="errors.has('edad')" class="text-danger">{{ errors.first('edad') }}</span>
                 </div>
                 <div class="form-group col-md-2">
@@ -591,17 +591,21 @@ import swal from 'sweetalert2'
                 if(isNaN( edad )){
                     this.edad='';
                 }else{
-                    if( ( fechaR[2] == hoy.getDate() ) && ( fecha.getMonth() == hoy.getMonth() ) ){
-                        this.edad=edad;
-                    }else{
-                        if( ( (fechaR[2] > hoy.getDate()) || (fechaR[2] <= hoy.getDate()) ) && ( fecha.getMonth() >= hoy.getMonth() ) ){
-                            edad--;
+                    if( edad>=16 ){
+                        if( ( fechaR[2] == hoy.getDate() ) && ( fecha.getMonth() == hoy.getMonth() ) ){
                             this.edad=edad;
                         }else{
-                            if( ( (fechaR[2] <= hoy.getDate()) || (fechaR[2] >= hoy.getDate()) ) && ( fecha.getMonth() <= hoy.getMonth() ) ){
+                            if( ( (fechaR[2] > hoy.getDate()) || (fechaR[2] <= hoy.getDate()) ) && ( fecha.getMonth() >= hoy.getMonth() ) ){
+                                edad--;
                                 this.edad=edad;
+                            }else{
+                                if( ( (fechaR[2] <= hoy.getDate()) || (fechaR[2] >= hoy.getDate()) ) && ( fecha.getMonth() <= hoy.getMonth() ) ){
+                                    this.edad=edad;
+                                }
                             }
                         }
+                    }else{
+                        this.edad=16;
                     }
                 }
             },
