@@ -54847,13 +54847,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$validator.validateAll().then(function (result) {
                 if (result) {
                     _this14.crearPersona();
-                    _this14.CleanFields();
-                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                        title: 'Guardado Correctamente!',
-                        text: 'Esta persona fue guardada exitosamente',
-                        type: 'success',
-                        confirmButtonText: 'Ok'
-                    });
+                    //this.CleanFields();
+                    //swal({
+                    //    title: 'Guardado Correctamente!',
+                    //    text: 'Esta persona fue guardada exitosamente',
+                    //    type: 'success',
+                    //    confirmButtonText: 'Ok'
+                    //})
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
@@ -54869,53 +54869,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         crearPersona: function crearPersona() {
-            var urlCrearPersona = 'http://localhost/api/PersonaFisica';
-            if (this.denunciado == 1) {
-                axios.post(urlCrearPersona, {
-                    id1: this.sistema,
-                    id2: this.tipo,
-                    id3: 1,
-                    idCarpeta: 1,
-                    nombres: this.nombres.toUpperCase(),
-                    primerAp: this.primerAp.toUpperCase(),
-                    segundoAp: this.segundoAp.toUpperCase(),
-                    fechaNacimiento: this.fechaNacimiento,
-                    edad: this.edad,
-                    sexo: this.sexo.id,
-                    rfc: this.rfc.toUpperCase(),
-                    curp: this.curp.toUpperCase(),
-                    idNacionalidad: this.nacionalidad.id,
-                    idMunicipioOrigen: this.municipio.id,
-                    idEtnia: this.etnia.id,
-                    idLengua: this.lengua.id,
-                    // idInterprete: this.interprete.id,
-                    idInterprete: 1,
-                    telefono: this.telefono,
-                    motivoEstancia: this.motivoEstancia.toUpperCase(),
-                    idOcupacion: this.ocupacion.id,
-                    idEstadoCivil: this.estadoCivil.id,
-                    idEscolaridad: this.escolaridad.id,
-                    idReligion: this.religion.id,
-                    docIdentificacion: this.identificacion.id,
-                    numDocIdentificacion: this.numIdentificacion.toUpperCase(),
-                    lugarTrabajo: this.lugarTrabajo.toUpperCase(),
-                    telefonoTrabajo: this.telefonoTrabajo,
-                    alias: this.alias.toUpperCase(),
-                    esEmpresa: 0
-                });
-            } else if (this.denunciado == 2) {
-                axios.post(urlCrearPersona, {
-                    nombres: this.nombres,
-                    primerAp: this.primerAp,
-                    alias: this.alias.toUpperCase(),
-                    esEmpresa: 0
-                });
-            } else if (this.denunciado == 3) {
-                console.log(1);
-                // axios.post(urlCrearPersona,{
-                // nombres: this.qrr
-                // }) 
-            }
+            var PF = null;
+            var objREST = {
+                id1: this.sistema,
+                id2: this.tipo,
+                id3: 1,
+                id_carpeta: 1,
+                nombres: this.nombres.toUpperCase(),
+                primerAp: this.primerAp.toUpperCase(),
+                segundoAp: this.segundoAp.toUpperCase(),
+                fechaNacimiento: this.fechaNacimiento,
+                edad: this.edad,
+                sexo: this.sexo.id,
+                rfc: this.rfc.toUpperCase(),
+                curp: this.curp.toUpperCase(),
+                idNacionalidad: this.nacionalidad.id,
+                idMunicipioOrigen: this.municipio.id,
+                idEtnia: this.etnia.id,
+                idLengua: this.lengua.id,
+                // idInterprete: this.interprete.id,
+                idInterprete: 1,
+                telefono: this.telefono,
+                motivoEstancia: this.motivoEstancia.toUpperCase(),
+                idOcupacion: this.ocupacion.id,
+                idEstadoCivil: this.estadoCivil.id,
+                idEscolaridad: this.escolaridad.id,
+                idReligion: this.religion.id,
+                docIdentificacion: this.identificacion.id,
+                numDocIdentificacion: this.numIdentificacion.toUpperCase(),
+                lugarTrabajo: this.lugarTrabajo.toUpperCase(),
+                telefonoTrabajo: this.telefonoTrabajo,
+                alias: this.alias.toUpperCase(),
+                esEmpresa: 0
+            };
+            axios.post('/api/PersonaFisica', objREST).then(function (response) {
+                PF = response.data;
+            }).finally(function () {
+                if (PF.id != undefined) {
+                    //obj JSON with data saved
+                    console.log(PF);
+                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                        title: 'Guardado Correctamente!',
+                        text: 'Esta persona fue guardada exitosamente',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    });
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                        title: 'Errores de confirmacion',
+                        html: PF,
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            });
         }
     },
     watch: {
@@ -55136,7 +55143,6 @@ var render = function() {
                               _vm.searchPersona,
                               function($event) {
                                 _vm.generarCurp()
-                                _vm.getRfc()
                               }
                             ],
                             input: function($event) {
@@ -55174,7 +55180,6 @@ var render = function() {
                               _vm.searchPersona,
                               function($event) {
                                 _vm.generarCurp()
-                                _vm.getRfc()
                               }
                             ],
                             input: function($event) {

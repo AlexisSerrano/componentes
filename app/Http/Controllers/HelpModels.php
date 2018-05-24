@@ -46,6 +46,7 @@ class HelpModels
                 $fields=100;
                 break;
              }*/
+             if(isset($jsonobj[$name])){
              if($element==null&&isset($jsonobj[$name]['default'])){
                  $model[$name]=$jsonobj[$name]['default'];                                  
              }
@@ -180,13 +181,14 @@ class HelpModels
                      break;
                  }
              }
+            }
         }
         //INSERT IF VALIDATED
         if($fields==0){
             //$model->save();
             return true;//\Response::json($model);
         }else{
-            $error="<ul>".$errors."</ul>";
+            $errors="<ul>".$errors."</ul>";
             return false;//\Response::json("<ul>".$errors."</ul>");
         }
     }
