@@ -7,40 +7,44 @@
          </div> -->
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
             
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
+                
+                <h4 class="modal-title">Personas encontradas</h4>
                 </div>
                 <div class="modal-body">
-                        <div v-if="!DataTable.charging">    
-                <table class="table">
-                    <tr >
-                        <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
-                        <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
-                    </tr>
-                    <tr v-for="fields in DataTable.data.src" :key="fields.id">
-                        <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
-                        <td v-if="DataTable.options!=undefined" v-for="opt in DataTable.options.links" :key="opt.text">
-                            <a href="#" v-on:click="opt.func(fields)">{{opt.text}}</a>
-                        </td>
-                    </tr>
-                </table>
-                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
-                <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
-                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
-                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +2)" v-on:click="DTGetData(DataTable.current+2)">{{DataTable.current + 3}}</button>
-                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current + 1)" v-on:click="DTNextData()">&rarr;</button>
-            </div>
-            <div v-else>
-                <span>{{DataTable.message}}</span>
-            </div>
+                        <div v-if="DataTable!=undefined">
+    <div v-if="!DataTable.charging">    
+        <table class="table table-responsive table-hover table-condensed">
+            <tr>
+                <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
+                <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
+            </tr>
+            <tr v-for="fields in DataTable.data.src" :key="fields.id">
+                <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
+                <td v-if="DataTable.options!=undefined" v-for="opt in DataTable.options.links" :key="opt.text">
+                    <a href="#" v-on:click="opt.func(fields)">{{opt.text}}</a>
+                </td>
+            </tr>
+        </table>
+        <div v-if="DataTable.maxpage>0">
+            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
+            <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
+            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
+            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +2)" v-on:click="DTGetData(DataTable.current+2)">{{DataTable.current + 3}}</button>
+            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current + 1)" v-on:click="DTNextData()">&rarr;</button>
+        </div>
+    </div>
+    <div v-else>
+        <span>{{DataTable.message}}</span>
+    </div>
+    </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
             
@@ -350,8 +354,24 @@ import swal from 'sweetalert2'
                      params:{
                              columns:[//select columns in table (correct name col)
                                  {name:"id",show:false},
-                                 {name:"alias",show:true,replace:"Nombre del sistema"}
-                                 
+                                 {name:"idPersona",show:true,replace:"Nombre del sistema"},
+                                 {name:"edad",show:true,replace:"Nombre del sistema"},
+                                 {name:"telefono",show:true,replace:"Nombre del sistema"},
+                                 {name:"motivoEstancia",show:true,replace:"Nombre del sistema"},
+                                 {name:"idOcupacion",show:true,replace:"Nombre del sistema"},
+                                 {name:"idEstadoCivil",show:true,replace:"Nombre del sistema"},
+                                 {name:"idEscolaridad",show:true,replace:"Nombre del sistema"},
+                                 {name:"idReligion",show:true,replace:"Nombre del sistema"},
+                                 {name:"idDomicilio",show:true,replace:"Nombre del sistema"},
+                                 {name:"docIdentificacion",show:true,replace:"Nombre del sistema"},
+                                 {name:"idInterprete",show:true,replace:"Nombre del sistema"},
+                                 {name:"numDocIdentificacion",show:true,replace:"Nombre del sistema"},
+                                 {name:"lugarTrabajo",show:true,replace:"Nombre del sistema"},
+                                 {name:"idDomicilioTrabajo",show:true,replace:"Nombre del sistema"},
+                                 {name:"telefonoTrabajo",show:true,replace:"Nombre del sistema"},
+                                 {name:"representanteLegal",show:true,replace:"Nombre del sistema"},
+                                 {name:"alias",show:true,replace:"Nombre del sistema"},
+                                 {name:"esEmpresa",show:true,replace:"Nombre del sistema"}                                                                  
                              //name:colname,show:showInTable,replace:NweNameInTable
                              ],
                              skip:0,//skip
@@ -766,10 +786,14 @@ import swal from 'sweetalert2'
             DTBackData:function(){
                 this.DTGetData(this.DataTable.current-1);
             },
-            buscarCoincidencias:function(){
-               this.DataTable.params.filters={alias:this.alias}
-               this.DTGetData(0);
-               $("#myModal").modal()
+            buscarCoincidencias:function(){  
+                this.alias=this.alias.trim()                
+               if((this.alias.length) > 0){
+                   this.DataTable.params.filters={alias:this.alias}                
+                   this.DTGetData(0);
+                   $("#myModal").modal()
+               }
+               return 0;               
             }
        },
        watch:{
