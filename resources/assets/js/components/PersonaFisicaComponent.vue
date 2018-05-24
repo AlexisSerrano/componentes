@@ -550,13 +550,12 @@ import swal from 'sweetalert2'
                         //})
                         return;
                     }
-                    //swal({
-                    //    title: 'Guardado Incorrecto!',
-                    //    text: 'Esta persona no fue posible guardarla',
-                    //    type: 'error',
-                    //    confirmButtonText: 'Ok'
-                    //
-                    })
+                    swal({
+                        title: 'Guardado Incorrecto!',
+                        text: 'Esta persona no fue posible guardarla',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
                 });
             },
             CleanFields() {
@@ -593,7 +592,7 @@ import swal from 'sweetalert2'
                         id1: this.sistema,
                         id2: this.tipo,
                         id3: 1,
-                        id_Carpeta: 1,
+                        id_carpeta: 1,
                         nombres: this.nombres.toUpperCase(),
                         primerAp: this.primerAp.toUpperCase(),
                         segundoAp: this.segundoAp.toUpperCase(),
@@ -636,7 +635,7 @@ import swal from 'sweetalert2'
                         }else{
                             swal({
                                 title: 'Errores de confirmacion',
-                                text: PF,
+                                html: PF,
                                 type: 'error',
                                 confirmButtonText: 'Ok'
                             })

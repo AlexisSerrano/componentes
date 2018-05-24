@@ -52,17 +52,17 @@ class GenericController extends Controller
 			if($request->input('idPersona')==null){
 				$pm=$PM::where('rfc',$model['rfc'])->first();
 				if($pm==null){
-					$PM->nombres=$model['nombres'];
-					$PM->primerAp=$model['primerAp'];
-					$PM->segundoAp=$model['segundoAp'];		
-					$PM->rfc=$model['rfc'];
-					$PM->curp=$model['curp'];
-					$PM->fechaNacimiento=$model['fechaNacimiento'];
-					$PM->idNacionalidad=$model['idNacionalidad'];
-					$PM->idMunicipioOrigen=$model['idMunicipioOrigen'];
-					$PM->sexo=$model['sexo'];
-					$PM->idEtnia=$model['idEtnia'];
-					$PM->idLengua=$model['idLengua'];					
+					$PM->nombres=$request->input('nombres');
+					$PM->primerAp=$request->input('primerAp');
+					$PM->segundoAp=$request->input('segundoAp');		
+					$PM->rfc=$request->input('rfc');
+					$PM->curp=$request->input('curp');
+					$PM->fechaNacimiento=$request->input('fechaNacimiento');
+					$PM->idNacionalidad=$request->input('idNacionalidad');
+					$PM->idMunicipioOrigen=$request->input('idMunicipioOrigen');
+					$PM->sexo=$request->input('sexo');
+					$PM->idEtnia=$request->input('idEtnia');
+					$PM->idLengua=$request->input('idLengua');					
 					$PM->save();
 				}else{
 					$PM->id=$pm->id;
@@ -74,19 +74,19 @@ class GenericController extends Controller
 				$VPM=new \App\Http\Models\VariablesPersona();
 				if($request->input('idVariablesPersona')==null){
 					$VPM->idPersona=$PM->id;
-					$VPM->edad=$model['edad'];
-					$VPM->telefono=$model['telefono'];
-					$VPM->motivoEstancia=$model['motivoEstancia'];
-					$VPM->idOcupacion=$model['idOcupacion'];
-					$VPM->idEstadoCivil=$model['idEstadoCivil'];
-					$VPM->idReligion=$model['idReligion'];
-					$VPM->idEscolaridad=$model['idEscolaridad'];
-					$VPM->docIdentificacion=$model['docIdentificacion'];
-					$VPM->numDocIdentificacion=$model['numDocIdentificacion'];
-					$VPM->idInterprete=$model['idInterprete'];
-					$VPM->alias=$model['alias'];
-					$VPM->lugarTrabajo=$model['lugarTrabajo'];
-					$VPM->telefonoTrabajo=$model['telefonoTrabajo'];		
+					$VPM->edad=$request->input('edad');
+					$VPM->telefono=$request->input('telefono');
+					$VPM->motivoEstancia=$request->input('motivoEstancia');
+					$VPM->idOcupacion=$request->input('idOcupacion');
+					$VPM->idEstadoCivil=$request->input('idEstadoCivil');
+					$VPM->idReligion=$request->input('idReligion');
+					$VPM->idEscolaridad=$request->input('idEscolaridad');
+					$VPM->docIdentificacion=$request->input('docIdentificacion');
+					$VPM->numDocIdentificacion=$request->input('numDocIdentificacion');
+					$VPM->idInterprete=$request->input('idInterprete');
+					$VPM->alias=$request->input('alias');
+					$VPM->lugarTrabajo=$request->input('lugarTrabajo');
+					$VPM->telefonoTrabajo=$request->input('telefonoTrabajo');		
 					$VPM->esEmpresa=false;
 					HelpModels::IsExitsSave($VPM);					
 				}else{
@@ -126,10 +126,10 @@ class GenericController extends Controller
 			if($request->input('idPersona')==null){
 				$pm=$PM::where('rfc',$model['rfc'])->first();
 				if($pm==null){
-					$PM->nombres=$model['nombre'];
-					$PM->rfc=$model['rfc'];
-					$PM->fechaConstitucion=$model['fechaConstitucion'];
-					$PM->telefono=$model['telefono'];
+					$PM->nombres=$request->input('nombre');
+					$PM->rfc=$request->input('rfc');
+					$PM->fechaConstitucion=$request->input('fechaConstitucion');
+					$PM->telefono=$request->input('telefono');
 					$PM->save();
 				}else{
 					$PM->id=$pm->id;
@@ -141,19 +141,19 @@ class GenericController extends Controller
 				$VPM=new \App\Http\Models\VariablesPersona();
 				if($request->input('idVariablesPersona')==null){
 					$VPM->idPersona=$PM->id;
-					$VPM->edad=$model['edad'];
-					$VPM->telefono=$model['telefono'];
-					$VPM->motivoEstancia=$model['motivoEstancia'];
-					$VPM->idOcupacion=$model['idOcupacion'];
-					$VPM->idEstadoCivil=$model['idEstadoCivil'];
-					$VPM->idReligion=$model['idReligion'];
-					$VPM->idEscolaridad=$model['idEscolaridad'];
-					$VPM->docIdentificacion=$model['docIdentificacion'];
-					$VPM->numDocIdentificacion=$model['numDocIdentificacion'];
-					$VPM->idInterprete=$model['idInterprete'];
-					$VPM->alias=$model['alias'];
-					$VPM->lugarTrabajo=$model['lugarTrabajo'];
-					$VPM->telefonoTrabajo=$model['telefonoTrabajo'];		
+					$VPM->edad=$request->input('edad');
+					$VPM->telefono=$request->input('telefono');
+					$VPM->motivoEstancia=$request->input('motivoEstancia');
+					$VPM->idOcupacion=$request->input('idOcupacion');
+					$VPM->idEstadoCivil=$request->input('idEstadoCivil');
+					$VPM->idReligion=$request->input('idReligion');
+					$VPM->idEscolaridad=$request->input('idEscolaridad');
+					$VPM->docIdentificacion=$request->input('docIdentificacion');
+					$VPM->numDocIdentificacion=$request->input('numDocIdentificacion');
+					$VPM->idInterprete=$request->input('idInterprete');
+					$VPM->alias=$request->input('alias');
+					$VPM->lugarTrabajo=$request->input('lugarTrabajo');
+					$VPM->telefonoTrabajo=$request->input('telefonoTrabajo');		
 					$VPM->esEmpresa=true;
 					HelpModels::IsExitsSave($VPM);					
 				}else{

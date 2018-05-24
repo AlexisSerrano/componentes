@@ -188,7 +188,7 @@ class HelpModels
             //$model->save();
             return true;//\Response::json($model);
         }else{
-            $error="<ul>".$errors."</ul>";
+            $errors="<ul>".$errors."</ul>";
             return false;//\Response::json("<ul>".$errors."</ul>");
         }
     }

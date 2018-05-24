@@ -54314,9 +54314,626 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 /* 51 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: C:/Users/rafit/Documents/GitHub/componentes/resources/assets/js/components/PersonaFisicaComponent.vue: Unexpected token, expected , (560:17)\n\n\u001b[0m \u001b[90m 558 | \u001b[39m                    \u001b[90m//\u001b[39m\n \u001b[90m 559 | \u001b[39m                    })\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 560 | \u001b[39m                })\u001b[33m;\u001b[39m\n \u001b[90m     | \u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 561 | \u001b[39m            }\u001b[33m,\u001b[39m\n \u001b[90m 562 | \u001b[39m            \u001b[33mCleanFields\u001b[39m() {\n \u001b[90m 563 | \u001b[39m                \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mnacionalidad\u001b[33m=\u001b[39m{ \u001b[32m\"nombre\"\u001b[39m\u001b[33m:\u001b[39m \u001b[32m\"MEXICANA\"\u001b[39m\u001b[33m,\u001b[39m \u001b[32m\"id\"\u001b[39m\u001b[33m:\u001b[39m \u001b[35m1\u001b[39m }\u001b[33m,\u001b[39m\u001b[0m\n");
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__curp__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            nacionalidades: [],
+            estados: [],
+            municipios: [],
+            etnias: [],
+            lenguas: [],
+            interpretes: [],
+            sexos: [],
+            ocupaciones: [],
+            estadosCiviles: [],
+            escolaridades: [],
+            religiones: [],
+            identificaciones: [],
+            personaExiste: '',
+            nombres: '',
+            primerAp: '',
+            segundoAp: '',
+            fechaNacimiento: '',
+            edad: '',
+            sexo: null,
+            rfc: '',
+            curp: '',
+            // mostrarSearch:true,
+            mostrarForm: true,
+            nacionalidad: { "nombre": "MEXICANA", "id": 1 },
+            estado: { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+            municipio: null,
+            etnia: { "nombre": "SIN INFORMACIÓN", "id": 13 },
+            lengua: { "nombre": "SIN INFORMACIÓN", "id": 69 },
+            interprete: { "nombre": "SIN INFORMACIÓN", "id": 1 },
+            telefono: '',
+            motivoEstancia: '',
+            ocupacion: '',
+            estadoCivil: '',
+            escolaridad: '',
+            religion: '',
+            identificacion: '',
+            numIdentificacion: '',
+            lugarTrabajo: '',
+            telefonoTrabajo: '',
+            alias: '',
+            nombresV: false,
+            primerApV: false,
+            segundoApV: false,
+            fechaNacimientoV: false,
+            edadV: false,
+            sexoV: false,
+            rfcV: false,
+            curpV: false,
+            nacionalidadV: false,
+            estadoV: false,
+            municipioV: false,
+            etniaV: false,
+            lenguaV: false,
+            interpreteV: false,
+            telefonoV: false,
+            motivoEstanciaV: false,
+            ocupacionV: false,
+            estadoCivilV: false,
+            escolaridadV: false,
+            religionV: false,
+            identificacionV: false,
+            numIdentificacionV: false,
+            lugarTrabajoV: false,
+            telefonoTrabajoV: false,
+            aliasV: false,
+            validaciones: [],
+            denunciado: false,
+            qrr: "QUIEN RESULTE RESPONSABLE"
+        };
+    },
+
+
+    // props: ['sistema','tipo'],
+    props: {
+        sistema: {
+            default: false
+        },
+        tipo: {
+            default: false
+        }
+    },
+    mounted: function mounted() {
+        this.getNacionalidades();
+        this.getEstados();
+        this.getEtnias();
+        this.getLenguas();
+        this.getSexos();
+        this.getOcupaciones();
+        this.getEstadosCiviles();
+        this.getEscolaridades();
+        this.getReligiones();
+        this.getIdentificaciones();
+        //    this.getInterpretes();
+        this.getValidaciones();
+    },
+    methods: {
+        searchPersona: function searchPersona() {
+            var _this = this;
+
+            if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '') {
+                var urlRfcFisico = 'rfcFisico';
+                axios.post(urlRfcFisico, {
+                    nombres: this.nombres,
+                    primerAp: this.primerAp,
+                    segundoAp: this.segundoAp,
+                    fechaNacimiento: this.fechaNacimiento
+                }).then(function (response) {
+                    _this.rfc = response.data.res;
+                    var urlBuscarPersona = 'searchPersonaFisica';
+                    axios.post(urlBuscarPersona, {
+                        rfc: _this.rfc
+                    }).then(function (response) {
+                        _this.personaExiste = response.data;
+                        if (_this.personaExiste != '') {
+                            __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                                title: 'Persona Encontrada!',
+                                text: 'Esta persona ya fue registrada anteriormente',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            });
+                            _this.nombres = _this.personaExiste.nombres, _this.primerAp = _this.personaExiste.primerAp, _this.segundoAp = _this.personaExiste.segundoAp,
+                            // this.fechaNacimiento=this.personaExiste.fechaNacimiento,
+                            _this.edad = _this.personaExiste.edad, _this.sexo = _this.personaExiste.sexo, _this.rfc = _this.personaExiste.rfc, _this.curp = _this.personaExiste.curp, _this.nacionalidad = _this.personaExiste.idNacionalidad, _this.municipio = _this.personaExiste.idMunicipioOrigen, _this.etnia = _this.personaExiste.idEtnia, _this.lengua = _this.personaExiste.idLengua, _this.interprete = _this.personaExiste.idInterprete, _this.telefono = _this.personaExiste.telefono, _this.motivoEstancia = _this.personaExiste.motivoEstancia, _this.ocupacion = _this.personaExiste.idOcupacion, _this.estadoCivil = _this.personaExiste.idEstadoCivil, _this.escolaridad = _this.personaExiste.idEscolaridad, _this.religion = _this.personaExiste.idReligion, _this.identificacion = _this.personaExiste.docIdentificacion, _this.numIdentificacion = _this.personaExiste.numDocIdentificacion;
+                            _this.lugarTrabajo = _this.personaExiste.lugarTrabajo, _this.telefonoTrabajo = _this.personaExiste.telefonoTrabajo, _this.alias = _this.personaExiste.alias;
+                        }
+                    });
+                });
+            }
+        },
+        getNacionalidades: function getNacionalidades() {
+            var _this2 = this;
+
+            var urlNacionalidades = 'getNacionalidades';
+            axios.get(urlNacionalidades).then(function (response) {
+                _this2.nacionalidades = response.data;
+            });
+        },
+        getEstados: function getEstados() {
+            var _this3 = this;
+
+            var urlEstados = 'getEstados';
+            axios.get(urlEstados).then(function (response) {
+                _this3.estados = response.data;
+            });
+        },
+        getMunicipios: function getMunicipios() {
+            var _this4 = this;
+
+            if (this.estado != null) {
+                this.municipio = null;
+                var urlMunicipios = 'getMunicipios/' + this.estado.id;
+                axios.get(urlMunicipios).then(function (response) {
+                    _this4.municipios = response.data;
+                });
+            } else {
+                this.municipio = null, this.municipios = [];
+            }
+        },
+        getEtnias: function getEtnias() {
+            var _this5 = this;
+
+            var urlEtnias = 'getEtnias';
+            axios.get(urlEtnias).then(function (response) {
+                _this5.etnias = response.data;
+            });
+        },
+        getLenguas: function getLenguas() {
+            var _this6 = this;
+
+            var urlLenguas = 'getLenguas';
+            axios.get(urlLenguas).then(function (response) {
+                _this6.lenguas = response.data;
+            });
+        },
+        // getInterprete: function(){
+        //     var urlInterpretes = 'getInterpretes';
+        //     axios.get(urlInterpretes).then(response => {
+        //         this.interpretes = response.data
+        //     });
+        // },
+        getSexos: function getSexos() {
+            var _this7 = this;
+
+            var urlSexos = 'getSexos';
+            axios.get(urlSexos).then(function (response) {
+                _this7.sexos = response.data;
+            });
+        },
+        getOcupaciones: function getOcupaciones() {
+            var _this8 = this;
+
+            var urlOcupaciones = 'getOcupaciones';
+            axios.get(urlOcupaciones).then(function (response) {
+                _this8.ocupaciones = response.data;
+            });
+        },
+        getEstadosCiviles: function getEstadosCiviles() {
+            var _this9 = this;
+
+            var urlEstadosCiviles = 'getEstadosCiviles';
+            axios.get(urlEstadosCiviles).then(function (response) {
+                _this9.estadosCiviles = response.data;
+            });
+        },
+        getEscolaridades: function getEscolaridades() {
+            var _this10 = this;
+
+            var urlEscolaridades = 'getEscolaridades';
+            axios.get(urlEscolaridades).then(function (response) {
+                _this10.escolaridades = response.data;
+            });
+        },
+        getReligiones: function getReligiones() {
+            var _this11 = this;
+
+            var urlReligiones = 'getReligiones';
+            axios.get(urlReligiones).then(function (response) {
+                _this11.religiones = response.data;
+            });
+        },
+        getIdentificaciones: function getIdentificaciones() {
+            var _this12 = this;
+
+            var urlIdentificaciones = 'getIdentificaciones';
+            axios.get(urlIdentificaciones).then(function (response) {
+                _this12.identificaciones = response.data;
+            });
+        },
+        generarCurp: function generarCurp() {
+            var sex = '';
+            var edoArray = ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'];
+            var edo = '';
+            if (this.sexo != null && this.sexo != 'undefined') {
+                switch (this.sexo.id) {
+                    case 1:
+                        sex = 'H';
+                        break;
+                    case 2:
+                        sex = "M";
+                        break;
+                    default:
+                        sex = '';
+                }
+            }
+            if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '' && this.estado != null) {
+                edo = edoArray[this.estado.id - 1];
+                var fecha = this.fechaNacimiento;
+                var arr = fecha.split('-');
+                var curpAuto = __WEBPACK_IMPORTED_MODULE_0__curp___default()({
+                    nombre: this.nombres,
+                    apellido_paterno: this.primerAp,
+                    apellido_materno: this.segundoAp,
+                    sexo: sex,
+                    estado: edo,
+                    fecha_nacimiento: [arr[2], arr[1], arr[0]]
+                });
+                if (curp) this.curp = curpAuto;
+            }
+        },
+        generarEdad: function generarEdad() {
+            var hoy = new Date();
+            var fecha = new Date(this.fechaNacimiento);
+            var feArr = this.fechaNacimiento;
+            var fechaR = feArr.split('-');
+            var edad = hoy.getFullYear() - fechaR[0];
+            if (isNaN(edad)) {
+                this.edad = '';
+            } else {
+                if (fechaR[2] == hoy.getDate() && fecha.getMonth() == hoy.getMonth()) {
+                    this.edad = edad;
+                } else {
+                    if ((fechaR[2] > hoy.getDate() || fechaR[2] <= hoy.getDate()) && fecha.getMonth() >= hoy.getMonth()) {
+                        edad--;
+                        this.edad = edad;
+                    } else {
+                        if ((fechaR[2] <= hoy.getDate() || fechaR[2] >= hoy.getDate()) && fecha.getMonth() <= hoy.getMonth()) {
+                            this.edad = edad;
+                        }
+                    }
+                }
+            }
+        },
+        getValidaciones: function getValidaciones() {
+            var _this13 = this;
+
+            var urlValidaciones = 'getValidaciones';
+            axios.post(urlValidaciones, {
+                id1: this.sistema,
+                id2: this.tipo,
+                id3: 1
+            }).then(function (response) {
+                _this13.validaciones = response.data;
+                _this13.nombresV = _this13.validaciones.nombres, _this13.primerApV = _this13.validaciones.primerAp, _this13.segundoApV = _this13.validaciones.segundoAp, _this13.fechaNacimientoV = _this13.validaciones.fechaNacimiento, _this13.edadV = _this13.validaciones.edad, _this13.sexoV = _this13.validaciones.sexo, _this13.rfcV = _this13.validaciones.rfc, _this13.curpV = _this13.validaciones.curp, _this13.nacionalidadV = _this13.validaciones.idNacionalidad, _this13.estadoV = _this13.validaciones.idEdoOrigen, _this13.municipioV = _this13.validaciones.idMunicipioOrigen, _this13.etniaV = _this13.validaciones.idEtnia, _this13.lenguaV = _this13.validaciones.idLengua, _this13.interpreteV = _this13.validaciones.idInterprete, _this13.telefonoV = _this13.validaciones.telefono, _this13.motivoEstanciaV = _this13.validaciones.motivoEstancia, _this13.ocupacionV = _this13.validaciones.idOcupacion, _this13.estadoCivilV = _this13.validaciones.idEstadoCivil, _this13.escolaridadV = _this13.validaciones.idEscolaridad, _this13.religionV = _this13.validaciones.idReligion, _this13.identificacionV = _this13.validaciones.docIdentificacion, _this13.numIdentificacionV = _this13.validaciones.numDocIdentificacion;
+                _this13.lugarTrabajoV = _this13.validaciones.lugarTrabajo, _this13.telefonoTrabajoV = _this13.validaciones.telefonoTrabajo, _this13.aliasV = _this13.validaciones.alias;
+            });
+        },
+        validateBeforeSubmit: function validateBeforeSubmit() {
+            var _this14 = this;
+
+            this.$validator.validateAll().then(function (result) {
+                if (result) {
+                    _this14.crearPersona();
+                    //this.CleanFields();
+                    //swal({
+                    //    title: 'Guardado Correctamente!',
+                    //    text: 'Esta persona fue guardada exitosamente',
+                    //    type: 'success',
+                    //    confirmButtonText: 'Ok'
+                    //})
+                    return;
+                }
+                __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                    title: 'Guardado Incorrecto!',
+                    text: 'Esta persona no fue posible guardarla',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        },
+        CleanFields: function CleanFields() {
+            this.nacionalidad = { "nombre": "MEXICANA", "id": 1 }, this.estado = { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 }, this.municipio = null, this.etnia = { "nombre": "SIN INFORMACIÓN", "id": 13 }, this.lengua = { "nombre": "SIN INFORMACIÓN", "id": 69 }, this.interprete = { "nombre": "SIN INFORMACIÓN", "id": 1 }, this.nombres = '', this.primerAp = '', this.segundoAp = '', this.fechaNacimiento = '', this.edad = '', this.sexo = null, this.rfc = '', this.curp = '', this.telefono = '', this.motivoEstancia = '', this.ocupacion = '', this.estadoCivil = '', this.escolaridad = '', this.religion = '', this.identificacion = '', this.numIdentificacion = '', this.lugarTrabajo = '', this.telefonoTrabajo = '', this.alias = '', this.$validator.reset();
+        },
+
+        crearPersona: function crearPersona() {
+            var PF = null;
+            var objREST = {
+                id1: this.sistema,
+                id2: this.tipo,
+                id3: 1,
+                id_carpeta: 1,
+                nombres: this.nombres.toUpperCase(),
+                primerAp: this.primerAp.toUpperCase(),
+                segundoAp: this.segundoAp.toUpperCase(),
+                fechaNacimiento: this.fechaNacimiento,
+                edad: this.edad,
+                sexo: this.sexo.id,
+                rfc: this.rfc.toUpperCase(),
+                curp: this.curp.toUpperCase(),
+                idNacionalidad: this.nacionalidad.id,
+                idMunicipioOrigen: this.municipio.id,
+                idEtnia: this.etnia.id,
+                idLengua: this.lengua.id,
+                // idInterprete: this.interprete.id,
+                idInterprete: 1,
+                telefono: this.telefono,
+                motivoEstancia: this.motivoEstancia.toUpperCase(),
+                idOcupacion: this.ocupacion.id,
+                idEstadoCivil: this.estadoCivil.id,
+                idEscolaridad: this.escolaridad.id,
+                idReligion: this.religion.id,
+                docIdentificacion: this.identificacion.id,
+                numDocIdentificacion: this.numIdentificacion.toUpperCase(),
+                lugarTrabajo: this.lugarTrabajo.toUpperCase(),
+                telefonoTrabajo: this.telefonoTrabajo,
+                alias: this.alias.toUpperCase(),
+                esEmpresa: 0
+            };
+            axios.post('/api/PersonaFisica', objREST).then(function (response) {
+                PF = response.data;
+            }).finally(function () {
+                if (PF.id != undefined) {
+                    //obj JSON with data saved
+                    console.log(PF);
+                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                        title: 'Guardado Correctamente!',
+                        text: 'Esta persona fue guardada exitosamente',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    });
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                        title: 'Errores de confirmacion',
+                        html: PF,
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            });
+        }
+    },
+    watch: {
+        sexo: function sexo(val, oldval) {
+            this.generarCurp();
+        },
+        estado: function estado(val, oldval) {
+            this.generarCurp();
+        }
+    }
+});
 
 /***/ }),
 /* 52 */
