@@ -5,6 +5,51 @@
                 <h5 id="pruebavue">{{personaExiste!=''?personaExiste.nombres+" "+personaExiste.primerAp+" "+personaExiste.segundoAp:''}}</h5>
             </div>
         </div> -->
+
+
+     <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+                <div v-if="!DataTable.charging">    
+        <table class="table">
+            <tr >
+                <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
+                <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
+            </tr>
+            <tr v-for="fields in DataTable.data.src" :key="fields.id">
+                <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
+                <td v-if="DataTable.options!=undefined" v-for="opt in DataTable.options.links" :key="opt.text">
+                    <a href="#" v-on:click="opt.func(fields)">{{opt.text}}</a>
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
+        <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
+        <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
+        <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +2)" v-on:click="DTGetData(DataTable.current+2)">{{DataTable.current + 3}}</button>
+        <button class="btn btn-default" :disabled="DTEnabled(DataTable.current + 1)" v-on:click="DTNextData()">&rarr;</button>
+    </div>
+    <div v-else>
+        <span>{{DataTable.message}}</span>
+    </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+    <!-- End Modal-->
+
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm">
             <div class="form-row" v-if="tipo ==2 || tipo==3 || tipo==4 || tipo==10 || tipo==11 || tipo==12">
                 <div class="form-group col-md-6">
@@ -49,8 +94,8 @@
                 </div>
                 <div v-if="(denunciado==2) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
                     <label for="alias">Alias</label>
-                    <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off">
-                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off">
+                    <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" v-on:blur="buscarCoincidencias()">
+                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias()">
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
             </div>
@@ -198,8 +243,8 @@
                 </div>
                 <div v-if="(denunciado==1) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
                     <label for="alias">Alias</label>
-                    <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off">
-                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off">
+                    <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" v-on:blur="buscarCoincidencias()">
+                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias()">
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
             </div>
@@ -288,7 +333,38 @@ import swal from 'sweetalert2'
                 aliasV:false,
                 validaciones:[],
                 denunciado:false,
-                qrr:"QUIEN RESULTE RESPONSABLE"
+                qrr:"QUIEN RESULTE RESPONSABLE",
+                                DataTable:{
+                    data:{
+                        src:[],
+                        count:0
+                    },
+                    url:"/api/test/SearchUndefined",
+                    params:{
+                            columns:[//select columns in table (correct name col)
+                                {name:"id",show:false},
+                                {name:"alias",show:true,replace:"Nombre del sistema"}
+                                
+                            //name:colname,show:showInTable,replace:NweNameInTable
+                            ],
+                            skip:0,//skip
+                            limit:5,//limit
+                            filters:{"alias":""},//search where like (correct name col)
+                            nfilters:{},//search where no like (correct name col)
+                            //tablename:"cat_municipio"
+                            //tablename:"cat_estado"
+                            tablename:"variables_persona"
+                            },
+                    current:0,
+                    maxpage:0,
+                    charging:false,
+                    message:"Cargando...",
+                    options:{title:"opciones",links:[
+                    {func:function(obj){
+                        alert(obj.id);
+                        },
+                    text:"alert" }]}
+                }
             }
         },
 
@@ -299,6 +375,13 @@ import swal from 'sweetalert2'
             },
             tipo: {
                 default:false
+            },
+             dt:function(value){
+                this.DataTable.url=this.isexits(value.url,this.DataTable.url);
+                //this.DataTable.u.data=this.isexits(value.data,this.DataTable.data);
+                this.DataTable.params=this.isexits(value.params,this.DataTable.params);
+                this.DataTable.options=this.isexits(value.options,this.DataTable.options);
+                return null;
             }
         },
         mounted: function(){
@@ -313,7 +396,9 @@ import swal from 'sweetalert2'
            this.getReligiones();
            this.getIdentificaciones();
         //    this.getInterpretes();
-           this.getValidaciones();
+           this.getValidaciones();            
+            this.DataTable.params.filters.alias=this.alias;            
+
         },
         methods:{
             searchPersona: function(){
@@ -633,6 +718,51 @@ import swal from 'sweetalert2'
                         // nombres: this.qrr
                     // }) 
                 }
+            },
+            buscarCoincidencias:function(){
+                this.DataTable.params.filters={alias:this.alias};
+                this.DTGetData(0);
+                $("#myModal").modal();
+            },
+             DTallcols:function(){
+                var cols=[];
+                Object.keys(this.DataTable.data.src[0]).forEach(function(dt){
+                    cols.push({name:dt,show:true});
+                })  
+                this.DataTable.params.columns=cols;             
+            },
+            isexits:function(value,defaultv){
+                return value==undefined?defaultv:value;
+            },    
+            DTEnabled:function(s){
+                return !(s>=0&&s<this.DataTable.maxpage)
+            },
+            DTGetData:function(s){          
+                this.DataTable.charging=true;      
+                this.DataTable.current=s;
+                this.DataTable.params.skip=this.DataTable.params.limit*s;
+                var DT;
+                axios.post(this.DataTable.url,this.DataTable.params).then(response=>{
+                    DT=response.data;
+                }).finally(()=>{
+                    if(DT!=undefined){
+                        this.DataTable.data=DT;
+                        if(this.DataTable.columns==undefined){
+                            this.DTallcols();
+                        }
+                        this.DataTable.maxpage=parseInt(this.DataTable.data.count/this.DataTable.params.limit);
+                        this.DataTable.maxpage+=this.DataTable.data.count%this.DataTable.params.limit==0?0:1;                    
+                        this.DataTable.charging=false;                        
+                    }else{
+                        this.DataTable.message="error al cargar la informacion";
+                    }                    
+                });
+            },
+            DTNextData:function(){
+                this.DTGetData(this.DataTable.current+1);
+            },
+            DTBackData:function(){
+                this.DTGetData(this.DataTable.current-1);
             }
        },
        watch:{
