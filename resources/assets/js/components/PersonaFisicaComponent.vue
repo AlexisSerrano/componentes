@@ -99,7 +99,10 @@
                     <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off">
                     <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off">
                     <div v-if="this.DataTable.data.count>0">
-                        <span class="badge"> <button data-toggle="modal" data-target="#myModal" >{{this.DataTable.data.count}}</button></span>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Personas encontradas" animation="true">
+                            <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#myModal">{{this.DataTable.data.count}}</span>
+                        </span>
+                        <!--<span class="badge"> <button data-toggle="modal" data-target="#myModal" >{{this.DataTable.data.count}}</button></span>-->
                     </div>
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
@@ -251,7 +254,10 @@
                     <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" v-on:blur="buscarCoincidencias()">
                     <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias()">
                     <div v-if="this.DataTable.data.count>0">
-                        <span class="badge"> <button data-toggle="modal" data-target="#myModal" >{{this.DataTable.data.count}}</button></span>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Personas encontradas" animation="true">
+                            <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#myModal">{{this.DataTable.data.count}}</span>
+                        </span>
+                        <!--<span class="badge"> <button data-toggle="modal" data-target="#myModal" >{{this.DataTable.data.count}}</button></span>-->
                     </div>
                     
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
@@ -354,7 +360,7 @@ import swal from 'sweetalert2'
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 DataTable:{
-                     data:{
+                    data:{
                          src:[],
                          count:0
                      },
