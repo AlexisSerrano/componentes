@@ -55023,12 +55023,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 sexo: this.isexits(this.sexo, { id: 0 }).id,
                 rfc: this.rfc.toUpperCase(),
                 curp: this.curp.toUpperCase(),
-                idNacionalidad: this.nacionalidad.id,
-                idMunicipioOrigen: this.municipio.id,
-                idEtnia: this.etnia.id,
-                idLengua: this.lengua.id,
-                idInterprete: this.interprete.id
-            }, _defineProperty(_objREST, 'idInterprete', 1), _defineProperty(_objREST, 'telefono', this.telefono), _defineProperty(_objREST, 'motivoEstancia', this.motivoEstancia.toUpperCase()), _defineProperty(_objREST, 'idOcupacion', this.ocupacion.id), _defineProperty(_objREST, 'idEstadoCivil', this.estadoCivil.id), _defineProperty(_objREST, 'idEscolaridad', this.escolaridad.id), _defineProperty(_objREST, 'idReligion', this.religion.id), _defineProperty(_objREST, 'docIdentificacion', this.identificacion.id), _defineProperty(_objREST, 'numDocIdentificacion', this.numIdentificacion.toUpperCase()), _defineProperty(_objREST, 'lugarTrabajo', this.lugarTrabajo.toUpperCase()), _defineProperty(_objREST, 'telefonoTrabajo', this.telefonoTrabajo), _defineProperty(_objREST, 'alias', this.alias.toUpperCase()), _defineProperty(_objREST, 'esEmpresa', 0), _objREST);
+                idNacionalidad: this.isexits(this.nacionalidad, { id: 0 }).id,
+                idMunicipioOrigen: this.isexits(this.municipio, { id: 0 }).id,
+                idEtnia: this.isexits(this.etnia, { id: 0 }).id,
+                idLengua: this.isexits(this.lengua, { id: 0 }).id,
+                idInterprete: this.isexits(this.interprete, { id: 0 }).id
+            }, _defineProperty(_objREST, 'idInterprete', 1), _defineProperty(_objREST, 'telefono', this.telefono), _defineProperty(_objREST, 'motivoEstancia', this.motivoEstancia.toUpperCase()), _defineProperty(_objREST, 'idOcupacion', this.isexits(this.ocupacion, { id: 0 }).id), _defineProperty(_objREST, 'idEstadoCivil', this.isexits(this.estadoCivil, { id: 0 }).id), _defineProperty(_objREST, 'idEscolaridad', this.isexits(this.escolaridad, { id: 0 }).id), _defineProperty(_objREST, 'idReligion', this.isexits(this.religion, { id: 0 }).id), _defineProperty(_objREST, 'docIdentificacion', this.isexits(this.identificacion, { id: 0 }).id), _defineProperty(_objREST, 'numDocIdentificacion', this.numIdentificacion.toUpperCase()), _defineProperty(_objREST, 'lugarTrabajo', this.lugarTrabajo.toUpperCase()), _defineProperty(_objREST, 'telefonoTrabajo', this.telefonoTrabajo), _defineProperty(_objREST, 'alias', this.alias.toUpperCase()), _defineProperty(_objREST, 'esEmpresa', 0), _objREST);
             axios.post('/api/PersonaFisica', objREST).then(function (response) {
                 console.log(response);
                 if (response.status == 200) {
