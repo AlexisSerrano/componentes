@@ -364,7 +364,7 @@ import swal from 'sweetalert2'
                          src:[],
                          count:0
                      },
-                     url:"/api/test/SearchUndefined",
+                     url:"http://localhost/componentes/public/api/test/SearchUndefined",
                      params:{
                              columns:[//select columns in table (correct name col)
                                  {name:"idPersona",show:false},
@@ -443,7 +443,7 @@ import swal from 'sweetalert2'
         methods:{
             searchPersona: function(){
                 if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!=''){
-                    var urlRfcFisico = 'rfcFisico';
+                    var urlRfcFisico = 'http://localhost/componentes/public/rfcFisico';
                     axios.post(urlRfcFisico,{
                         nombres: this.nombres,
                         primerAp: this.primerAp,
@@ -451,7 +451,7 @@ import swal from 'sweetalert2'
                         fechaNacimiento: this.fechaNacimiento
                     }).then(response =>{
                         this.rfc = response.data.res
-                        var urlBuscarPersona = 'searchPersonaFisica';
+                        var urlBuscarPersona = 'http://localhost/componentes/public/searchPersonaFisica';
                         axios.post(urlBuscarPersona,{
                             rfc: this.rfc
                         }).then(response => {
@@ -494,13 +494,13 @@ import swal from 'sweetalert2'
                 }
             },
             getNacionalidades: function(){
-                var urlNacionalidades = 'getNacionalidades';
+                var urlNacionalidades = 'http://localhost/componentes/public/getNacionalidades';
                 axios.get(urlNacionalidades).then(response => {
                     this.nacionalidades = response.data
                 });
             },
             getEstados: function(){
-                var urlEstados = 'getEstados';
+                var urlEstados = 'http://localhost/componentes/public/getEstados';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
                 });
@@ -508,7 +508,7 @@ import swal from 'sweetalert2'
             getMunicipios: function(){
                 if(this.estado!=null){
                     this.municipio=null
-                    var urlMunicipios = 'getMunicipios/'+this.estado.id;
+                    var urlMunicipios = 'http://localhost/componentes/public/getMunicipios/'+this.estado.id;
                     axios.get(urlMunicipios).then(response => {
                         this.municipios = response.data
                     });
@@ -519,55 +519,55 @@ import swal from 'sweetalert2'
                 }
             },
             getEtnias: function(){
-                var urlEtnias = 'getEtnias';
+                var urlEtnias = 'http://localhost/componentes/public/getEtnias';
                 axios.get(urlEtnias).then(response => {
                     this.etnias = response.data
                 });
             },
             getLenguas: function(){
-                var urlLenguas = 'getLenguas';
+                var urlLenguas = 'http://localhost/componentes/public/getLenguas';
                 axios.get(urlLenguas).then(response => {
                     this.lenguas = response.data
                 });
             },
             getInterpretes: function(){
-                var urlInterpretes = 'getInterpretes';
+                var urlInterpretes = 'http://localhost/componentes/public/getInterpretes';
                 axios.get(urlInterpretes).then(response => {
                     this.interpretes = response.data
                 });
             },
             getSexos: function(){
-                var urlSexos = 'getSexos';
+                var urlSexos = 'http://localhost/componentes/public/getSexos';
                 axios.get(urlSexos).then(response => {
                     this.sexos = response.data
                 });
             },
             getOcupaciones: function(){
-                var urlOcupaciones = 'getOcupaciones';
+                var urlOcupaciones = 'http://localhost/componentes/public/getOcupaciones';
                 axios.get(urlOcupaciones).then(response => {
                     this.ocupaciones = response.data
                 });
             },
             getEstadosCiviles: function(){
-                var urlEstadosCiviles = 'getEstadosCiviles';
+                var urlEstadosCiviles = 'http://localhost/componentes/public/getEstadosCiviles';
                 axios.get(urlEstadosCiviles).then(response => {
                     this.estadosCiviles = response.data
                 });
             },
             getEscolaridades: function(){
-                var urlEscolaridades = 'getEscolaridades';
+                var urlEscolaridades = 'http://localhost/componentes/public/getEscolaridades';
                 axios.get(urlEscolaridades).then(response => {
                     this.escolaridades = response.data
                 });
             },
             getReligiones: function(){
-                var urlReligiones = 'getReligiones';
+                var urlReligiones = 'http://localhost/componentes/public/getReligiones';
                 axios.get(urlReligiones).then(response => {
                     this.religiones = response.data
                 });
             },
             getIdentificaciones: function(){
-                var urlIdentificaciones = 'getIdentificaciones';
+                var urlIdentificaciones = 'http://localhost/componentes/public/getIdentificaciones';
                 axios.get(urlIdentificaciones).then(response => {
                     this.identificaciones = response.data
                 });
@@ -576,7 +576,7 @@ import swal from 'sweetalert2'
                 var sex='';
                 var edoArray= ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'	];
                 var edo='';
-                if( (this.sexo!=null)&&(this.sexo!='') ) {
+                if( (this.sexo!=null)&&(this.sexo!=undefined) ) {
                     switch (this.sexo.id){
                         case 1:
                             sex='H';
@@ -588,7 +588,7 @@ import swal from 'sweetalert2'
                             sex='';
                     }
                 }
-                if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!='' && this.estado!=null &&this.estado!='' && this.sexo!='' & this.sexo!=null){
+                if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!='' && this.estado!=null &&this.estado!='' && this.sexo!=undefined & this.sexo!=null){
                     edo=edoArray[this.estado.id-1];
                     var fecha = this.fechaNacimiento;
                     var arr = fecha.split('-');
@@ -632,7 +632,7 @@ import swal from 'sweetalert2'
                 }
             },
             getValidaciones: function(){
-                var urlValidaciones = 'getValidaciones';
+                var urlValidaciones = 'http://localhost/componentes/public/getValidaciones';
                 axios.post(urlValidaciones, {
                     id1: this.sistema,
                     id2: this.tipo,
@@ -750,7 +750,7 @@ import swal from 'sweetalert2'
                         alias: this.alias.toUpperCase(),
                         esEmpresa:0
                     };
-                    axios.post('/api/PersonaFisica',objREST)
+                    axios.post('http://localhost/componentes/public//api/PersonaFisica',objREST)
                     .then((response)=>{
                         console.log(response)
                         if(response.status==200){
