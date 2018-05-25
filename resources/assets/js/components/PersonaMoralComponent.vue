@@ -9,7 +9,7 @@
                     <span v-if="errors.has('nombre')" class="text-danger">{{ errors.first('nombre') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="fechaConstitucion">Fecha de Constitución</label>
+                    <label for="fechaConstitucion">Fecha de constitución</label>
                     <input type="date" class="form-control" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="Fecha de Constitucion" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Constitucion') }" @blur="searchPersona">
                     <span v-show="errors.has('Fecha de Constitucion')" class="text-danger">{{ errors.first('Fecha de Constitucion') }}</span>
                 </div>
@@ -27,7 +27,7 @@
                     <span v-if="errors.has('telefono')" class="text-danger">{{ errors.first('telefono') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="representanteLegal">Representante Legal</label>
+                    <label for="representanteLegal">Representante legal</label>
                     <input type="text" name="representanteLegal" data-vv-name="Representante Legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Representante Legal') }" id="representanteLegal" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
                     <span v-if="errors.has('Representante Legal')" class="text-danger">{{ errors.first('Representante Legal') }}</span>
                 </div>
@@ -76,8 +76,8 @@ import swal from 'sweetalert2'
                             if(this.personaExiste!=''){
                                 console.log(this.personaExiste.ids)
                                 swal({
-                                    title: 'Persona Moral Encontrada!',
-                                    text: 'Esta persona moral ya fue registrada anteriormente',
+                                    title: 'Persona moral encontrada!',
+                                    text: 'Ésta persona moral ya fue registrada anteriormente',
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
@@ -94,16 +94,16 @@ import swal from 'sweetalert2'
                         this.CrearEmpresa();
                         this.CleanFields();
                         swal({
-                            title: 'Guardado Correctamente!',
-                            text: 'Esta empresa fue guardada exitosamente',
+                            title: 'Guardado correctamente!',
+                            text: 'Ésta empresa fue guardada exitosamente',
                             type: 'success',
                             confirmButtonText: 'Ok'
                         })
                         return;
                     }
                     swal({
-                        title: 'Guardado Incorrecto!',
-                        text: 'Esta empresa no fue posible guardarla',
+                        title: 'Guardado incorrecto!',
+                        text: 'Ésta empresa no fue posible guardarla',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     })

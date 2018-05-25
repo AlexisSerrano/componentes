@@ -3,17 +3,17 @@
         <form v-on:submit.prevent="validateBeforeSubmit">
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="estado">Entidad Federativa</label>    
+                    <label for="estado">Entidad federativa</label>    
                     <v-select :options="estados" label="nombre" data-vv-name="Entidad Federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('Entidad Federativa') }" placeholder="Seleccione una entidad federativa"></v-select>
                     <span v-show="errors.has('Entidad Federativa')" class="text-danger">{{ errors.first('Entidad Federativa') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="municipio">Municipios</label>  
+                    <label for="municipio">Municipio</label>  
                     <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') }" placeholder="Seleccione un municipio"></v-select>
                     <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="localidad">Localidades</label>    
+                    <label for="localidad">Localidad</label>    
                     <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') }" placeholder="Seleccione una localidad"></v-select>
                     <span v-show="errors.has('localidad')" class="text-danger">{{ errors.first('localidad') }}</span>
                 </div>
@@ -22,12 +22,12 @@
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="cp">Codigo Postal</label>    
-                    <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias" v-validate="'required'" :class="{ 'border border-danger': errors.has('codigo_postal') }" placeholder="Seleccione un codigo postal"></v-select>
+                    <label for="cp">Código postal</label>    
+                    <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias" v-validate="'required'" :class="{ 'border border-danger': errors.has('codigo_postal') }" placeholder="Seleccione un código postal"></v-select>
                     <span v-show="errors.has('codigo_postal')" class="text-danger">{{ errors.first('codigo_postal') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="colonia">Colonias</label>    
+                    <label for="colonia">Colonia</label>    
                     <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia" v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') }" placeholder="Seleccione una colonia"></v-select>
                     <span v-show="errors.has('colonia')" class="text-danger">{{ errors.first('colonia') }}</span>
                 </div>
@@ -40,12 +40,12 @@
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="numExterno">Número Externo</label>
+                    <label for="numExterno">Número externo</label>
                     <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') }" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'" autocomplete="off">
                     <span v-if="errors.has('Numero Externo')" class="text-danger">{{ errors.first('Numero Externo') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="numInterno">Número Interno</label>
+                    <label for="numInterno">Número interno</label>
                     <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Interno') }" id="numInterno" data-vv-name="Numero Interno" name="numInterno" v-model="numInterno" placeholder="Ingrese el número interno" v-validate="'required'" autocomplete="off">
                     <span v-if="errors.has('Numero Interno')" class="text-danger">{{ errors.first('Numero Interno') }}</span>
                     <span v-if="errornumInterno!=''" class="text-danger">{{ errornumInterno }}</span>
@@ -176,7 +176,7 @@ import swal from 'sweetalert2'
                         this.CleanFields();
                         swal({
                             title: 'Guardado Correctamente!',
-                            text: 'Este domicilio fue guardado exitosamente',
+                            text: 'Éste domicilio fue guardado exitosamente',
                             type: 'success',
                             confirmButtonText: 'Ok'
                         })
@@ -184,7 +184,7 @@ import swal from 'sweetalert2'
                     }
                     swal({
                         title: 'Guardado Incorrecto!',
-                        text: 'Este domicilio no fue posible guardarse',
+                        text: 'Éste domicilio no fue posible guardarse',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     })

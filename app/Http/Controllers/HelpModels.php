@@ -83,13 +83,13 @@ class HelpModels
                                 if(is_numeric($element)){
                                     $fields--;
                                 }else{
-                                    $errors=$errors."<li>".$name." deve de ser un numero.</li>";
+                                    $errors=$errors."<li>".$name." debe de ser un número.</li>";
                                 }
                             }else{
                                 if(!is_numeric($element)){
                                     $fields--;
                                 }else{
-                                    $errors=$errors."<li>".$name." no deve de ser un numero.</li>";
+                                    $errors=$errors."<li>".$name." no debe de ser un número.</li>";
                                 }
                             }
                         }else{
@@ -168,7 +168,7 @@ class HelpModels
                                 if(HelpModels::PhoneValidation($element)){
                                     $fields--;
                                 }else{
-                                    $errors=$errors."<li>".$name." no debe tener un formato de telefono.</li>";
+                                    $errors=$errors."<li>".$name." no debe tener un formato de teléfono.</li>";
                                 }
                             }
                         }else{
@@ -177,7 +177,7 @@ class HelpModels
                     break;
                      default:
                         //RULE NAME ERROR, CHECK JSON
-                        $errors=$errors."<li>".$name."-".$rul." declaracion en JSON incorrecta.</li>";
+                        $errors=$errors."<li>".$name."-".$rul." declaración en JSON incorrecta.</li>";
                         $fields++;
                      break;
                  }

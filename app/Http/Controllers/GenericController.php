@@ -71,7 +71,7 @@ class GenericController extends Controller
 			$PM->idLengua=$request->input('idLengua');					
 			$PM->save();
 			if(!isset($PM->id)){
-				return "error guardando o actualizando persona";
+				return "Error guardando o actualizando persona";
 			}
 			$vpm=\App\Http\Models\VariablesPersona::find($request->input('idVariablesPersona'));
 			if($vpm!=null){
@@ -97,7 +97,7 @@ class GenericController extends Controller
 			$VPM->esEmpresa=false;
 			$VPM->save();
 			if(!isset($VPM->id)){
-				return "error guardando o actualizando variables persona";
+				return "Error guardando o actualizando variables persona";
 			}
 			unset($PM);
 			$am=new \App\Http\Models\aparicionesModel();
@@ -109,7 +109,7 @@ class GenericController extends Controller
 			$am->confirmado=false;
 			$am->save();
 			if(!isset($am->id)){
-				return "error en el ultimo paso";
+				return "Error en el último paso";
 			}
 			return $am;
 		}else{
@@ -170,13 +170,13 @@ class GenericController extends Controller
 					if(isset($am->id)){
 						return $am;
 					}else{
-						return "error en el ultimo paso";						
+						return "Error en el último paso";						
 					}					 					
 				}else{
-					return "error al insertar 'VariablesPersona'";	
+					return "Error al insertar 'VariablesPersona'";	
 				}
 			}else{
-				return "error al insertar 'persona'";
+				return "Error al insertar 'persona'";
 			}
 			return $PM;
 		}else{
