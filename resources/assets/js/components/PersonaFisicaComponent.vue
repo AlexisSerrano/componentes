@@ -1,16 +1,16 @@
 <template>
-    <div class="container">
+    <div class="container"> 
         <!-- <div class="form-row align-items-end" v-if="mostrarForm">
              <div class="form-group col-md-4">
                  <h5 id="pruebavue">{{personaExiste!=''?personaExiste.nombres+" "+personaExiste.primerAp+" "+personaExiste.segundoAp:''}}</h5>
              </div>
          </div> -->
         <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="myModal" role="dialog" style="max-width:100%">
             <div class="modal-dialog modal-lg">
             
             <!-- Modal content-->
-            <div class="modal-content">
+            <div class="modal-content" style="width:100%">
                 <div class="modal-header">
                 
                 <h4 class="modal-title">Personas encontradas</h4>
@@ -18,7 +18,7 @@
                 <div class="modal-body">
                         <div v-if="DataTable!=undefined">
     <div v-if="!DataTable.charging">    
-        <table class="table table-responsive table-hover table-condensed">
+        <table class="table table-responsive">
             <tr>
                 <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
                 <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
@@ -98,6 +98,9 @@
                     <label for="alias">Alias</label>
                     <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off">
                     <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off">
+                    <div v-if="this.DataTable.data.count>0">
+                        <span class="badge"> <button data-toggle="modal" data-target="#myModal" >{{this.DataTable.data.count}}</button></span>
+                    </div>
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
             </div>
@@ -247,6 +250,10 @@
                     <label for="alias">Alias</label>
                     <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" v-on:blur="buscarCoincidencias()">
                     <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias()">
+                    <div v-if="this.DataTable.data.count>0">
+                        <span class="badge"> <button data-toggle="modal" data-target="#myModal" >{{this.DataTable.data.count}}</button></span>
+                    </div>
+                    
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
             </div>
@@ -317,6 +324,7 @@ import swal from 'sweetalert2'
                 lugarTrabajo:'',
                 telefonoTrabajo:'',
                 alias:'',
+                coincidencias:123,
                 nombresV:false,
                 primerApV:false,
                 segundoApV:false,
@@ -353,25 +361,33 @@ import swal from 'sweetalert2'
                      url:"/api/test/SearchUndefined",
                      params:{
                              columns:[//select columns in table (correct name col)
-                                 {name:"id",show:false},
-                                 {name:"idPersona",show:true,replace:"Nombre del sistema"},
-                                 {name:"edad",show:true,replace:"Nombre del sistema"},
-                                 {name:"telefono",show:true,replace:"Nombre del sistema"},
-                                 {name:"motivoEstancia",show:true,replace:"Nombre del sistema"},
-                                 {name:"idOcupacion",show:true,replace:"Nombre del sistema"},
-                                 {name:"idEstadoCivil",show:true,replace:"Nombre del sistema"},
-                                 {name:"idEscolaridad",show:true,replace:"Nombre del sistema"},
-                                 {name:"idReligion",show:true,replace:"Nombre del sistema"},
-                                 {name:"idDomicilio",show:true,replace:"Nombre del sistema"},
-                                 {name:"docIdentificacion",show:true,replace:"Nombre del sistema"},
-                                 {name:"idInterprete",show:true,replace:"Nombre del sistema"},
-                                 {name:"numDocIdentificacion",show:true,replace:"Nombre del sistema"},
-                                 {name:"lugarTrabajo",show:true,replace:"Nombre del sistema"},
-                                 {name:"idDomicilioTrabajo",show:true,replace:"Nombre del sistema"},
-                                 {name:"telefonoTrabajo",show:true,replace:"Nombre del sistema"},
-                                 {name:"representanteLegal",show:true,replace:"Nombre del sistema"},
-                                 {name:"alias",show:true,replace:"Nombre del sistema"},
-                                 {name:"esEmpresa",show:true,replace:"Nombre del sistema"}                                                                  
+                                 {name:"idPersona",show:false},
+                                 {name:"idvar_persona",show:false},
+                                 {name:"nombres",show:true,replace:"Nombres"},
+                                 {name:"primerAp",show:true,replace:"Primer apellido"},
+                                 {name:"segundoAp",show:true,replace:"Segundo apellido"},
+                                 {name:"fechaNacimiento",show:true,replace:"Fecha Nacimiento"},
+                                 {name:"rfc",show:true,replace:"RFC"},
+                                 {name:"curp",show:true,replace:"CURP"},
+                                 {name:"sexo",show:true,replace:"Sexo"},
+                                 {name:"nacionalidad",show:true,replace:"Nacionalidad"},
+                                 {name:"etnia",show:true,replace:"Etnia"},
+                                 {name:"municipioOrigen",show:true,replace:"Municipio origen"},
+                                 {name:"edad",show:true,replace:"Edad"},
+                                 {name:"telefono",show:true,replace:"Telefono"},
+                                 {name:"motivoEstancia",show:true,replace:"Motivo Estancia"},
+                                 {name:"ocupacion",show:true,replace:"Ocupacion"},
+                                 {name:"estadoCivil",show:true,replace:"Estado Civil"},
+                                 {name:"escolaridad",show:true,replace:"Escolaridad"},
+                                 {name:"religion",show:true,replace:"Religion"},
+                                 {name:"docIdentificacion",show:true,replace:"Doc Identificacion"},
+                                 {name:"numDocIdentificacion",show:true,replace:"Num Doc Identi."},
+                                 {name:"lugarTrabajo",show:true,replace:"Lugar Trabajo"},
+                                 {name:"idDomicilioTrabajo",show:false,replace:"idDomicilio"},
+                                 {name:"telefonoTrabajo",show:true,replace:"Telefono Trabajo"},
+                                 {name:"representanteLegal",show:true,replace:"Represent Legal"},
+                                 {name:"alias",show:true,replace:"Alias"}                                 
+
                              //name:colname,show:showInTable,replace:NweNameInTable
                              ],
                              skip:0,//skip
@@ -380,7 +396,7 @@ import swal from 'sweetalert2'
                              nfilters:{},//search where no like (correct name col)
                              //tablename:"cat_municipio"
                              //tablename:"cat_estado"
-                             tablename:"variables_persona"
+                             tablename:"persona_completa_actual"
                              },
                      current:0,
                      maxpage:0,
@@ -709,19 +725,19 @@ import swal from 'sweetalert2'
                         sexo: this.isexits(this.sexo,{id:0}).id,
                         rfc:this.rfc.toUpperCase(),
                         curp: this.curp.toUpperCase(),
-                        idNacionalidad: this.nacionalidad.id,
-                        idMunicipioOrigen: this.municipio.id,
-                        idEtnia: this.etnia.id,
-                        idLengua: this.lengua.id,
-                        idInterprete: this.interprete.id,
+                        idNacionalidad: this.isexits(this.nacionalidad,{id:0}).id,
+                        idMunicipioOrigen: this.isexits(this.municipio,{id:0}).id,
+                        idEtnia: this.isexits(this.etnia,{id:0}).id,
+                        idLengua: this.isexits(this.lengua,{id:0}).id,
+                        idInterprete: this.isexits(this.interprete,{id:0}).id,
                         idInterprete: 1,
                         telefono: this.telefono,
                         motivoEstancia: this.motivoEstancia.toUpperCase(),
-                        idOcupacion: this.ocupacion.id,
-                        idEstadoCivil: this.estadoCivil.id,
-                        idEscolaridad: this.escolaridad.id,
-                        idReligion: this.religion.id,
-                        docIdentificacion: this.identificacion.id,
+                        idOcupacion: this.isexits(this.ocupacion,{id:0}).id,
+                        idEstadoCivil: this.isexits(this.estadoCivil,{id:0}).id,
+                        idEscolaridad: this.isexits(this.escolaridad,{id:0}).id,
+                        idReligion: this.isexits(this.religion,{id:0}).id,
+                        docIdentificacion: this.isexits(this.identificacion,{id:0}).id,
                         numDocIdentificacion: this.numIdentificacion.toUpperCase(),
                         lugarTrabajo: this.lugarTrabajo.toUpperCase(),
                         telefonoTrabajo: this.telefonoTrabajo,
@@ -813,7 +829,10 @@ import swal from 'sweetalert2'
                if((this.alias.length) > 0){
                    this.DataTable.params.filters={alias:this.alias}                
                    this.DTGetData(0);
-                   $("#myModal").modal()
+                   console.log(this.DataTable.data.count);
+                   //$("#myModal").modal()
+               }else{
+                   this.DataTable.data.count=0;                                   
                }
                return 0;               
             }
