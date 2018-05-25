@@ -10,11 +10,7 @@
 
   </head>
     <div id="app">
-<<<<<<< HEAD
-        <persona :sistema="1" :tipo="4"></persona>
-=======
         <persona :sistema="1" :tipo="1"></persona>
->>>>>>> 7190812c84e4ed3d2c9ea016a74758bfcd93b445
         <!-- <button id="btn2">click</button> -->
     </div>
   </body> 

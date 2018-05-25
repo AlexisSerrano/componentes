@@ -29,6 +29,11 @@ class EmpresaController extends Controller{
 			$variablesEmpresa->esEmpresa=$request->input('esEmpresa');
 			$variablesEmpresa->save();
 			DB::commit();
+			$ids = array(
+				'idEmpresa'=>$idEmpresa,
+				'idVariablesPersona'=>$variablesEmpresa->id
+			);
+			return response()->json($ids);
 		}
 		catch (\PDOException $e){
 			DB::rollBack();
@@ -57,17 +62,28 @@ class EmpresaController extends Controller{
         $personaExiste=EmpresaModel::orderBy('rfc', 'ASC')
 		->where('rfc',$persona)
 		->select('nombre','fechaCreacion','rfc','id')->first();
-		$personaExiste2=VariablesPersona::orderBy('id','DESC')
-		->where('idPersona',$personaExiste->id)
-		->select('telefono','representanteLegal','esEmpresa')->first();
-		$data = array(
-			'nombre'=>$personaExiste->nombre,
-			'fechaCreacion'=>$personaExiste->fechaCreacion,
-			'rfc'=>$personaExiste->rfc,
-			'id'=>$personaExiste->id,
-			'telefono'=>$personaExiste2->telefono,
-			'representanteLegal'=>$personaExiste2->representanteLegal,
-			'esEmpresa'=>$personaExiste2->esEmpresa);
+		if($personaExiste){
+			$personaExiste2=VariablesPersona::orderBy('id','DESC')
+			->where('idPersona',$personaExiste->id)
+			->select('telefono','representanteLegal','esEmpresa','id')->first();
+			$ids=array(
+				'idEmpresa'=>$personaExiste->id,
+				'idVariablesPersona'=>$personaExiste2->id
+			);
+			$data = array(
+				'nombre'=>$personaExiste->nombre,
+				'fechaCreacion'=>$personaExiste->fechaCreacion,
+				'rfc'=>$personaExiste->rfc,
+				'id'=>$personaExiste->id,
+				'telefono'=>$personaExiste2->telefono,
+				'representanteLegal'=>$personaExiste2->representanteLegal,
+				'esEmpresa'=>$personaExiste2->esEmpresa,
+				'ids'=>$ids
+			);
+		}else{
+			$data = array(
+			);
+		}
 		return response()->json($data);
 	}
 }

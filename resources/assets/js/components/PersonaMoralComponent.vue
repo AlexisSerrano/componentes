@@ -74,6 +74,7 @@ import swal from 'sweetalert2'
                         }).then(response => {
                             this.personaExiste=response.data
                             if(this.personaExiste!=''){
+                                console.log(this.personaExiste.ids)
                                 swal({
                                     title: 'Persona Moral Encontrada!',
                                     text: 'Esta persona moral ya fue registrada anteriormente',
