@@ -361,25 +361,33 @@ import swal from 'sweetalert2'
                      url:"/api/test/SearchUndefined",
                      params:{
                              columns:[//select columns in table (correct name col)
-                                 {name:"id",show:false},
-                                 {name:"idPersona",show:true,replace:"Nombre del sistema"},
-                                 {name:"edad",show:true,replace:"Nombre del sistema"},
-                                 {name:"telefono",show:true,replace:"Nombre del sistema"},
-                                 {name:"motivoEstancia",show:true,replace:"Nombre del sistema"},
-                                 {name:"idOcupacion",show:true,replace:"Nombre del sistema"},
-                                 {name:"idEstadoCivil",show:true,replace:"Nombre del sistema"},
-                                 {name:"idEscolaridad",show:true,replace:"Nombre del sistema"},
-                                 {name:"idReligion",show:true,replace:"Nombre del sistema"},
-                                 {name:"idDomicilio",show:true,replace:"Nombre del sistema"},
-                                 {name:"docIdentificacion",show:true,replace:"Nombre del sistema"},
-                                 {name:"idInterprete",show:true,replace:"Nombre del sistema"},
-                                 {name:"numDocIdentificacion",show:true,replace:"Nombre del sistema"},
-                                 {name:"lugarTrabajo",show:true,replace:"Nombre del sistema"},
-                                 {name:"idDomicilioTrabajo",show:true,replace:"Nombre del sistema"},
-                                 {name:"telefonoTrabajo",show:true,replace:"Nombre del sistema"},
-                                 {name:"representanteLegal",show:true,replace:"Nombre del sistema"},
-                                 {name:"alias",show:true,replace:"Nombre del sistema"},
-                                 {name:"esEmpresa",show:true,replace:"Nombre del sistema"}                                                                  
+                                 {name:"idPersona",show:false},
+                                 {name:"idvar_persona",show:false},
+                                 {name:"nombres",show:true,replace:"Nombres"},
+                                 {name:"primerAp",show:true,replace:"Primer apellido"},
+                                 {name:"segundoAp",show:true,replace:"Segundo apellido"},
+                                 {name:"fechaNacimiento",show:true,replace:"Fecha Nacimiento"},
+                                 {name:"rfc",show:true,replace:"RFC"},
+                                 {name:"curp",show:true,replace:"CURP"},
+                                 {name:"sexo",show:true,replace:"Sexo"},
+                                 {name:"nacionalidad",show:true,replace:"Nacionalidad"},
+                                 {name:"etnia",show:true,replace:"Etnia"},
+                                 {name:"municipioOrigen",show:true,replace:"Municipio origen"},
+                                 {name:"edad",show:true,replace:"Edad"},
+                                 {name:"telefono",show:true,replace:"Telefono"},
+                                 {name:"motivoEstancia",show:true,replace:"Motivo Estancia"},
+                                 {name:"ocupacion",show:true,replace:"Ocupacion"},
+                                 {name:"estadoCivil",show:true,replace:"Estado Civil"},
+                                 {name:"escolaridad",show:true,replace:"Escolaridad"},
+                                 {name:"religion",show:true,replace:"Religion"},
+                                 {name:"docIdentificacion",show:true,replace:"Doc Identificacion"},
+                                 {name:"numDocIdentificacion",show:true,replace:"Num Doc Identi."},
+                                 {name:"lugarTrabajo",show:true,replace:"Lugar Trabajo"},
+                                 {name:"idDomicilioTrabajo",show:false,replace:"idDomicilio"},
+                                 {name:"telefonoTrabajo",show:true,replace:"Telefono Trabajo"},
+                                 {name:"representanteLegal",show:true,replace:"Represent Legal"},
+                                 {name:"alias",show:true,replace:"Alias"}                                 
+
                              //name:colname,show:showInTable,replace:NweNameInTable
                              ],
                              skip:0,//skip
@@ -388,7 +396,7 @@ import swal from 'sweetalert2'
                              nfilters:{},//search where no like (correct name col)
                              //tablename:"cat_municipio"
                              //tablename:"cat_estado"
-                             tablename:"variables_persona"
+                             tablename:"persona_completa_actual"
                              },
                      current:0,
                      maxpage:0,
