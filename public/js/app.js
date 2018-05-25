@@ -54275,7 +54275,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -54637,6 +54637,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -54684,6 +54691,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             lugarTrabajo: '',
             telefonoTrabajo: '',
             alias: '',
+            coincidencias: 123,
             nombresV: false,
             primerApV: false,
             segundoApV: false,
@@ -55090,7 +55098,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             if (this.alias.length > 0) {
                 this.DataTable.params.filters = { alias: this.alias };
                 this.DTGetData(0);
-                $("#myModal").modal();
+                console.log(this.DataTable.data.count);
+                //$("#myModal").modal()
+            } else {
+                this.DataTable.data.count = 0;
             }
             return 0;
         }
@@ -55116,195 +55127,209 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c(
       "div",
-      { staticClass: "modal fade", attrs: { id: "myModal", role: "dialog" } },
+      {
+        staticClass: "modal fade",
+        staticStyle: { "max-width": "100%" },
+        attrs: { id: "myModal", role: "dialog" }
+      },
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _vm.DataTable != undefined
-                ? _c("div", [
-                    !_vm.DataTable.charging
-                      ? _c("div", [
-                          _c(
-                            "table",
-                            {
-                              staticClass:
-                                "table table-responsive table-hover table-condensed"
-                            },
-                            [
-                              _c(
-                                "tr",
-                                [
-                                  _vm._l(_vm.DataTable.params.columns, function(
-                                    cols
-                                  ) {
-                                    return cols.show
-                                      ? _c("th", { key: cols.name }, [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm.isexits(
-                                                cols.replace,
-                                                cols.name
-                                              )
-                                            )
-                                          )
-                                        ])
-                                      : _vm._e()
-                                  }),
-                                  _vm._v(" "),
-                                  _vm.DataTable.options != undefined
-                                    ? _c("th", [
-                                        _vm._v(
-                                          _vm._s(_vm.DataTable.options.title)
-                                        )
-                                      ])
-                                    : _vm._e()
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _vm._l(_vm.DataTable.data.src, function(fields) {
-                                return _c(
+          _c(
+            "div",
+            { staticClass: "modal-content", staticStyle: { width: "100%" } },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm.DataTable != undefined
+                  ? _c("div", [
+                      !_vm.DataTable.charging
+                        ? _c("div", [
+                            _c(
+                              "table",
+                              { staticClass: "table table-responsive" },
+                              [
+                                _c(
                                   "tr",
-                                  { key: fields.id },
                                   [
                                     _vm._l(
                                       _vm.DataTable.params.columns,
                                       function(cols) {
                                         return cols.show
-                                          ? _c("td", { key: cols.name }, [
-                                              _vm._v(_vm._s(fields[cols.name]))
+                                          ? _c("th", { key: cols.name }, [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm.isexits(
+                                                    cols.replace,
+                                                    cols.name
+                                                  )
+                                                )
+                                              )
                                             ])
                                           : _vm._e()
                                       }
                                     ),
                                     _vm._v(" "),
-                                    _vm._l(
-                                      _vm.DataTable.options.links,
-                                      function(opt) {
-                                        return _vm.DataTable.options !=
-                                          undefined
-                                          ? _c("td", { key: opt.text }, [
-                                              _c(
-                                                "a",
-                                                {
-                                                  attrs: { href: "#" },
-                                                  on: {
-                                                    click: function($event) {
-                                                      opt.func(fields)
-                                                    }
-                                                  }
-                                                },
-                                                [_vm._v(_vm._s(opt.text))]
-                                              )
-                                            ])
-                                          : _vm._e()
-                                      }
-                                    )
+                                    _vm.DataTable.options != undefined
+                                      ? _c("th", [
+                                          _vm._v(
+                                            _vm._s(_vm.DataTable.options.title)
+                                          )
+                                        ])
+                                      : _vm._e()
                                   ],
                                   2
-                                )
-                              })
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
-                          _vm.DataTable.maxpage > 0
-                            ? _c("div", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-default",
-                                    attrs: {
-                                      disabled: _vm.DTEnabled(
-                                        _vm.DataTable.current - 1
-                                      )
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.DTBackData()
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("←")]
                                 ),
                                 _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-primary",
-                                    attrs: { disabled: "true" }
-                                  },
-                                  [_vm._v(_vm._s(_vm.DataTable.current + 1))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-default",
-                                    attrs: {
-                                      disabled: _vm.DTEnabled(
-                                        _vm.DataTable.current + 1
+                                _vm._l(_vm.DataTable.data.src, function(
+                                  fields
+                                ) {
+                                  return _c(
+                                    "tr",
+                                    { key: fields.id },
+                                    [
+                                      _vm._l(
+                                        _vm.DataTable.params.columns,
+                                        function(cols) {
+                                          return cols.show
+                                            ? _c("td", { key: cols.name }, [
+                                                _vm._v(
+                                                  _vm._s(fields[cols.name])
+                                                )
+                                              ])
+                                            : _vm._e()
+                                        }
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(
+                                        _vm.DataTable.options.links,
+                                        function(opt) {
+                                          return _vm.DataTable.options !=
+                                            undefined
+                                            ? _c("td", { key: opt.text }, [
+                                                _c(
+                                                  "a",
+                                                  {
+                                                    attrs: { href: "#" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        opt.func(fields)
+                                                      }
+                                                    }
+                                                  },
+                                                  [_vm._v(_vm._s(opt.text))]
+                                                )
+                                              ])
+                                            : _vm._e()
+                                        }
                                       )
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.DTGetData(_vm.DataTable.current + 1)
+                                    ],
+                                    2
+                                  )
+                                })
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _vm.DataTable.maxpage > 0
+                              ? _c("div", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-default",
+                                      attrs: {
+                                        disabled: _vm.DTEnabled(
+                                          _vm.DataTable.current - 1
+                                        )
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.DTBackData()
+                                        }
                                       }
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(_vm.DataTable.current + 2))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-default",
-                                    attrs: {
-                                      disabled: _vm.DTEnabled(
-                                        _vm.DataTable.current + 2
-                                      )
                                     },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.DTGetData(_vm.DataTable.current + 2)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(_vm.DataTable.current + 3))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-default",
-                                    attrs: {
-                                      disabled: _vm.DTEnabled(
-                                        _vm.DataTable.current + 1
-                                      )
+                                    [_vm._v("←")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: { disabled: "true" }
                                     },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.DTNextData()
+                                    [_vm._v(_vm._s(_vm.DataTable.current + 1))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-default",
+                                      attrs: {
+                                        disabled: _vm.DTEnabled(
+                                          _vm.DataTable.current + 1
+                                        )
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.DTGetData(
+                                            _vm.DataTable.current + 1
+                                          )
+                                        }
                                       }
-                                    }
-                                  },
-                                  [_vm._v("→")]
-                                )
-                              ])
-                            : _vm._e()
-                        ])
-                      : _c("div", [
-                          _c("span", [_vm._v(_vm._s(_vm.DataTable.message))])
-                        ])
-                  ])
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _vm._m(1)
-          ])
+                                    },
+                                    [_vm._v(_vm._s(_vm.DataTable.current + 2))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-default",
+                                      attrs: {
+                                        disabled: _vm.DTEnabled(
+                                          _vm.DataTable.current + 2
+                                        )
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.DTGetData(
+                                            _vm.DataTable.current + 2
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.DataTable.current + 3))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-default",
+                                      attrs: {
+                                        disabled: _vm.DTEnabled(
+                                          _vm.DataTable.current + 1
+                                        )
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.DTNextData()
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("→")]
+                                  )
+                                ])
+                              : _vm._e()
+                          ])
+                        : _c("div", [
+                            _c("span", [_vm._v(_vm._s(_vm.DataTable.message))])
+                          ])
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ]
+          )
         ])
       ]
     ),
@@ -55890,6 +55915,23 @@ var render = function() {
                             }
                           }
                         }),
+                    _vm._v(" "),
+                    this.DataTable.data.count > 0
+                      ? _c("div", [
+                          _c("span", { staticClass: "badge" }, [
+                            _c(
+                              "button",
+                              {
+                                attrs: {
+                                  "data-toggle": "modal",
+                                  "data-target": "#myModal"
+                                }
+                              },
+                              [_vm._v(_vm._s(this.DataTable.data.count))]
+                            )
+                          ])
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _vm.errors.has("alias")
                       ? _c("span", { staticClass: "text-danger" }, [
@@ -57760,6 +57802,23 @@ var render = function() {
                                 }
                               }
                             }),
+                        _vm._v(" "),
+                        this.DataTable.data.count > 0
+                          ? _c("div", [
+                              _c("span", { staticClass: "badge" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    attrs: {
+                                      "data-toggle": "modal",
+                                      "data-target": "#myModal"
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(this.DataTable.data.count))]
+                                )
+                              ])
+                            ])
+                          : _vm._e(),
                         _vm._v(" "),
                         _vm.errors.has("alias")
                           ? _c("span", { staticClass: "text-danger" }, [

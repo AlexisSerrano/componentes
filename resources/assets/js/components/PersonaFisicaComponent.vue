@@ -1,16 +1,16 @@
 <template>
-    <div class="container">
+    <div class="container"> 
         <!-- <div class="form-row align-items-end" v-if="mostrarForm">
              <div class="form-group col-md-4">
                  <h5 id="pruebavue">{{personaExiste!=''?personaExiste.nombres+" "+personaExiste.primerAp+" "+personaExiste.segundoAp:''}}</h5>
              </div>
          </div> -->
         <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="myModal" role="dialog" style="max-width:100%">
             <div class="modal-dialog modal-lg">
             
             <!-- Modal content-->
-            <div class="modal-content">
+            <div class="modal-content" style="width:100%">
                 <div class="modal-header">
                 
                 <h4 class="modal-title">Personas encontradas</h4>
@@ -18,7 +18,7 @@
                 <div class="modal-body">
                         <div v-if="DataTable!=undefined">
     <div v-if="!DataTable.charging">    
-        <table class="table table-responsive table-hover table-condensed">
+        <table class="table table-responsive">
             <tr>
                 <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
                 <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
@@ -98,6 +98,9 @@
                     <label for="alias">Alias</label>
                     <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off">
                     <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off">
+                    <div v-if="this.DataTable.data.count>0">
+                        <span class="badge"> <button data-toggle="modal" data-target="#myModal" >{{this.DataTable.data.count}}</button></span>
+                    </div>
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
             </div>
@@ -247,6 +250,10 @@
                     <label for="alias">Alias</label>
                     <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" v-on:blur="buscarCoincidencias()">
                     <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias()">
+                    <div v-if="this.DataTable.data.count>0">
+                        <span class="badge"> <button data-toggle="modal" data-target="#myModal" >{{this.DataTable.data.count}}</button></span>
+                    </div>
+                    
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
             </div>
@@ -317,6 +324,7 @@ import swal from 'sweetalert2'
                 lugarTrabajo:'',
                 telefonoTrabajo:'',
                 alias:'',
+                coincidencias:123,
                 nombresV:false,
                 primerApV:false,
                 segundoApV:false,
@@ -791,7 +799,10 @@ import swal from 'sweetalert2'
                if((this.alias.length) > 0){
                    this.DataTable.params.filters={alias:this.alias}                
                    this.DTGetData(0);
-                   $("#myModal").modal()
+                   console.log(this.DataTable.data.count);
+                   //$("#myModal").modal()
+               }else{
+                   this.DataTable.data.count=0;                                   
                }
                return 0;               
             }
