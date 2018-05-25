@@ -49,70 +49,69 @@ class GenericController extends Controller
 		$model=$request->all();
 		if(HelpController::JSONDBValidation($model,$request->input('id1'),$request->input('id2'),$request->input('id3'),$errors)){
 			$PM=new \App\Http\Models\PersonaModel();
-			if($request->input('idPersona')==null){
-				$pm=$PM::where('rfc',$model['rfc'])->first();
-				if($pm==null){
-					$PM->nombres=$request->input('nombres');
-					$PM->primerAp=$request->input('primerAp');
-					$PM->segundoAp=$request->input('segundoAp');		
-					$PM->rfc=$request->input('rfc');
-					$PM->curp=$request->input('curp');
-					$PM->fechaNacimiento=$request->input('fechaNacimiento');
-					$PM->idNacionalidad=$request->input('idNacionalidad');
-					$PM->idMunicipioOrigen=$request->input('idMunicipioOrigen');
-					$PM->sexo=$request->input('sexo');
-					$PM->idEtnia=$request->input('idEtnia');
-					$PM->idLengua=$request->input('idLengua');					
-					$PM->save();
-				}else{
-					$PM->id=$pm->id;
-				}
+			$pm=$PM::where('rfc',$request->input('rfc'))
+			->orWhere('curp',$request->input('curp'))
+			->first();
+			if($pm!=null){
+				$PM=\App\Http\Models\PersonaModel::find($pm->id);				
 			}else{
-				$PM->id=$request->input('idPersona');
+				$PM=new \App\Http\Models\PersonaModel();
 			}
-			if(isset($PM->id)){
+			unset($pm);
+			$PM->nombres=$request->input('nombres');
+			$PM->primerAp=$request->input('primerAp');
+			$PM->segundoAp=$request->input('segundoAp');		
+			$PM->rfc=$request->input('rfc');
+			$PM->curp=$request->input('curp');
+			$PM->fechaNacimiento=$request->input('fechaNacimiento');
+			$PM->idNacionalidad=$request->input('idNacionalidad');
+			$PM->idMunicipioOrigen=$request->input('idMunicipioOrigen');
+			$PM->sexo=$request->input('sexo');
+			$PM->idEtnia=$request->input('idEtnia');
+			$PM->idLengua=$request->input('idLengua');					
+			$PM->save();
+			if(!isset($PM->id)){
+				return "error guardando o actualizando persona";
+			}
+			$vpm=\App\Http\Models\VariablesPersona::find($request->input('idVariablesPersona'));
+			if($vpm!=null){
+				$VPM=$vpm;
+			}else{
 				$VPM=new \App\Http\Models\VariablesPersona();
-				if($request->input('idVariablesPersona')==null){
-					$VPM->idPersona=$PM->id;
-					$VPM->edad=$request->input('edad');
-					$VPM->telefono=$request->input('telefono');
-					$VPM->motivoEstancia=$request->input('motivoEstancia');
-					$VPM->idOcupacion=$request->input('idOcupacion');
-					$VPM->idEstadoCivil=$request->input('idEstadoCivil');
-					$VPM->idReligion=$request->input('idReligion');
-					$VPM->idEscolaridad=$request->input('idEscolaridad');
-					$VPM->docIdentificacion=$request->input('docIdentificacion');
-					$VPM->numDocIdentificacion=$request->input('numDocIdentificacion');
-					$VPM->idInterprete=$request->input('idInterprete');
-					$VPM->alias=$request->input('alias');
-					$VPM->lugarTrabajo=$request->input('lugarTrabajo');
-					$VPM->telefonoTrabajo=$request->input('telefonoTrabajo');		
-					$VPM->esEmpresa=false;
-					HelpModels::IsExitsSave($VPM);					
-				}else{
-					$VPM->id=$request->input('idVariablesPersona');
-				}
-				if(isset($VPM->id)){
-					$am=new \App\Http\Models\aparicionesModel();
-					$am->idvar_persona=$VPM->id;
-					$am->id_carpeta=$request->input('id_carpeta');
-					$am->id_sistema=$request->input('id2');
-					$am->id_involucrado=$request->input('id1');
-					$am->nuc=01234;
-					$am->confirmado=false;
-					HelpModels::IsExitsSave($am);
-					if(isset($am->id)){
-						return $am;
-					}else{
-						return "error en el ultimo paso";						
-					}					 					
-				}else{
-					return "error al insertar 'VariablesPersona'";	
-				}
-			}else{
-				return "error al insertar 'persona'";
 			}
-			return $PM;
+			unset($vpm);
+			$VPM->idPersona=$PM->id;
+			$VPM->edad=$request->input('edad');
+			$VPM->telefono=$request->input('telefono');
+			$VPM->motivoEstancia=$request->input('motivoEstancia');
+			$VPM->idOcupacion=$request->input('idOcupacion');
+			$VPM->idEstadoCivil=$request->input('idEstadoCivil');
+			$VPM->idReligion=$request->input('idReligion');
+			$VPM->idEscolaridad=$request->input('idEscolaridad');
+			$VPM->docIdentificacion=$request->input('docIdentificacion');
+			$VPM->numDocIdentificacion=$request->input('numDocIdentificacion');
+			$VPM->idInterprete=$request->input('idInterprete');
+			$VPM->alias=$request->input('alias');
+			$VPM->lugarTrabajo=$request->input('lugarTrabajo');
+			$VPM->telefonoTrabajo=$request->input('telefonoTrabajo');		
+			$VPM->esEmpresa=false;
+			$VPM->save();
+			if(!isset($VPM->id)){
+				return "error guardando o actualizando variables persona";
+			}
+			unset($PM);
+			$am=new \App\Http\Models\aparicionesModel();
+			$am->idvar_persona=$VPM->id;
+			$am->id_carpeta=$request->input('id_carpeta');
+			$am->id_sistema=$request->input('id2');
+			$am->id_involucrado=$request->input('id1');
+			$am->nuc=01234;
+			$am->confirmado=false;
+			$am->save();
+			if(!isset($am->id)){
+				return "error en el ultimo paso";
+			}
+			return $am;
 		}else{
 			return $errors;
 		}

@@ -699,7 +699,7 @@ import swal from 'sweetalert2'
                 this.$validator.reset();
             },
             crearPersona: function(){
-                var PF=null;
+                var PF;
                 var objREST={
                         id1: this.sistema,
                         id2: this.tipo,
@@ -710,31 +710,49 @@ import swal from 'sweetalert2'
                         segundoAp: this.segundoAp.toUpperCase(),
                         fechaNacimiento: this.fechaNacimiento,
                         edad: this.edad,
-                        sexo: this.sexo.id,
+                        sexo: this.isexits(this.sexo,{id:0}).id,
                         rfc:this.rfc.toUpperCase(),
                         curp: this.curp.toUpperCase(),
-                        idNacionalidad: this.nacionalidad.id,
-                        idMunicipioOrigen: this.municipio.id,
-                        idEtnia: this.etnia.id,
-                        idLengua: this.lengua.id,
-                        idInterprete: this.interprete.id,
+                        idNacionalidad: this.isexits(this.nacionalidad,{id:0}).id,
+                        idMunicipioOrigen: this.isexits(this.municipio,{id:0}).id,
+                        idEtnia: this.isexits(this.etnia,{id:0}).id,
+                        idLengua: this.isexits(this.lengua,{id:0}).id,
+                        idInterprete: this.isexits(this.interprete,{id:0}).id,
                         idInterprete: 1,
                         telefono: this.telefono,
                         motivoEstancia: this.motivoEstancia.toUpperCase(),
-                        idOcupacion: this.ocupacion.id,
-                        idEstadoCivil: this.estadoCivil.id,
-                        idEscolaridad: this.escolaridad.id,
-                        idReligion: this.religion.id,
-                        docIdentificacion: this.identificacion.id,
+                        idOcupacion: this.isexits(this.ocupacion,{id:0}).id,
+                        idEstadoCivil: this.isexits(this.estadoCivil,{id:0}).id,
+                        idEscolaridad: this.isexits(this.escolaridad,{id:0}).id,
+                        idReligion: this.isexits(this.religion,{id:0}).id,
+                        docIdentificacion: this.isexits(this.identificacion,{id:0}).id,
                         numDocIdentificacion: this.numIdentificacion.toUpperCase(),
                         lugarTrabajo: this.lugarTrabajo.toUpperCase(),
                         telefonoTrabajo: this.telefonoTrabajo,
                         alias: this.alias.toUpperCase(),
                         esEmpresa:0
                     };
-                    axios.post('/api/PersonaFisica',objREST).then(response=>{
-                        PF=response.data;                        
-                    }).finally(()=>{                        
+                    axios.post('/api/PersonaFisica',objREST)
+                    .then((response)=>{
+                        console.log(response)
+                        if(response.status==200){
+                            PF=response.data;
+                        }else{
+                            PF="error "+response.status;
+                        }                     
+                    })
+                    .catch((error)=>{
+                        console.log(error);
+                         if (error.response) {
+                            PF=error.response.data;
+                        } else if (error.request) {
+                            PF=error.request;
+                        } else {
+                            PF=error.message;
+                        }
+                    })
+                    .finally(()=>{       
+                        console.log(PF)                 
                         if(PF.id!=undefined){
                             //obj JSON with data saved
                             console.log(PF);
@@ -746,7 +764,7 @@ import swal from 'sweetalert2'
                             })
                         }else{
                             swal({
-                                title: 'Errores de confirmacion',
+                                title: 'Errores de confirmación',
                                 html: PF,
                                 type: 'error',
                                 confirmButtonText: 'Ok'
@@ -762,7 +780,7 @@ import swal from 'sweetalert2'
                 this.DataTable.params.columns=cols;             
             },
             isexits:function(value,defaultv){
-                return value==undefined?defaultv:value;
+                return value==undefined?defaultv:value!=null?value:defaultv;
             },    
             DTEnabled:function(s){
                 return !(s>=0&&s<this.DataTable.maxpage)

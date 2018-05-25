@@ -3,20 +3,21 @@ namespace App\Http\Controllers;
 use  Illuminate\Support\Facades\DB;
 class HelpModels
 {
-    public static function IsExitsSave(&$model){
+    public static function IsExitsSave(&$model,$id="id"){
+        $es=false;
         $wheres=[];
         $ma=$model->toArray();
         foreach($ma as $key=>$element){
             $wheres[]=[$key,$element];
         }
         $res=$model::where($wheres)->first();
-        if($res==null){
-            $model->save();
-            //return $model;
-        }else{
-            //return $res;
-            $model=$res;
+        if($res!=null){            
+            $res=$model::find($res[$id]);
+            $es=true;
         }
+        $res->save();
+        $model=$res;
+        return $es;
     }
     public static function GetJSONDB($id1,$id2,$id3){
         $jsons=DB::table('ligados')
