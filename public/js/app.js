@@ -54668,7 +54668,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             segundoAp: '',
             fechaNacimiento: '',
             edad: '',
-            sexo: null,
+            sexo: '',
             rfc: '',
             curp: '',
             // mostrarSearch:true,
@@ -54916,7 +54916,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var sex = '';
             var edoArray = ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'];
             var edo = '';
-            if (this.sexo != null && this.sexo != 'undefined') {
+            if (this.sexo != null && this.sexo != '') {
                 switch (this.sexo.id) {
                     case 1:
                         sex = 'H';
@@ -54928,7 +54928,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                         sex = '';
                 }
             }
-            if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '' && this.estado != null) {
+            if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '' && this.estado != null && this.estado != '' && this.sexo != '' & this.sexo != null) {
+                console.log("ok");
                 edo = edoArray[this.estado.id - 1];
                 var fecha = this.fechaNacimiento;
                 var arr = fecha.split('-');
@@ -55545,12 +55546,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.nombres },
                           on: {
-                            blur: [
-                              _vm.searchPersona,
-                              function($event) {
-                                _vm.generarCurp()
-                              }
-                            ],
+                            blur: [_vm.searchPersona, _vm.generarCurp],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55681,12 +55677,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.primerAp },
                           on: {
-                            blur: [
-                              _vm.searchPersona,
-                              function($event) {
-                                _vm.generarCurp()
-                              }
-                            ],
+                            blur: [_vm.searchPersona, _vm.generarCurp],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55721,12 +55712,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.primerAp },
                           on: {
-                            blur: [
-                              _vm.searchPersona,
-                              function($event) {
-                                _vm.generarCurp()
-                              }
-                            ],
+                            blur: [_vm.searchPersona, _vm.generarCurp],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55789,12 +55775,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.segundoAp },
                           on: {
-                            blur: [
-                              _vm.searchPersona,
-                              function($event) {
-                                _vm.generarCurp()
-                              }
-                            ],
+                            blur: [_vm.searchPersona, _vm.generarCurp],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55829,12 +55810,7 @@ var render = function() {
                           },
                           domProps: { value: _vm.segundoAp },
                           on: {
-                            blur: [
-                              _vm.searchPersona,
-                              function($event) {
-                                _vm.generarCurp()
-                              }
-                            ],
+                            blur: [_vm.searchPersona, _vm.generarCurp],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -56001,10 +55977,12 @@ var render = function() {
                           },
                           domProps: { value: _vm.fechaNacimiento },
                           on: {
-                            blur: _vm.searchPersona,
-                            change: function($event) {
-                              _vm.generarCurp(), _vm.generarEdad()
-                            },
+                            blur: [
+                              _vm.searchPersona,
+                              function($event) {
+                                _vm.generarCurp(), _vm.generarEdad()
+                              }
+                            ],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -56036,10 +56014,12 @@ var render = function() {
                           },
                           domProps: { value: _vm.fechaNacimiento },
                           on: {
-                            blur: _vm.searchPersona,
-                            change: function($event) {
-                              _vm.generarCurp(), _vm.generarEdad()
-                            },
+                            blur: [
+                              _vm.searchPersona,
+                              function($event) {
+                                _vm.generarCurp(), _vm.generarEdad()
+                              }
+                            ],
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -57789,9 +57769,7 @@ var render = function() {
                               },
                               domProps: { value: _vm.alias },
                               on: {
-                                blur: function($event) {
-                                  _vm.buscarCoincidencias()
-                                },
+                                blur: _vm.buscarCoincidencias,
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
@@ -57823,9 +57801,7 @@ var render = function() {
                               },
                               domProps: { value: _vm.alias },
                               on: {
-                                blur: function($event) {
-                                  _vm.buscarCoincidencias()
-                                },
+                                blur: _vm.buscarCoincidencias,
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
