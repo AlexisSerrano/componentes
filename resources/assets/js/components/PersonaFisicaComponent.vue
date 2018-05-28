@@ -364,7 +364,7 @@ import swal from 'sweetalert2'
                          src:[],
                          count:0
                      },
-                     url:"http://localhost/componentes/public/api/test/SearchUndefined",
+                     url:"/api/test/SearchUndefined",
                      params:{
                              columns:[//select columns in table (correct name col)
                                  {name:"idPersona",show:false},
@@ -443,7 +443,7 @@ import swal from 'sweetalert2'
         methods:{
             searchPersona: function(){
                 if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!=''){
-                    var urlRfcFisico = 'http://localhost/componentes/public/rfcFisico';
+                    var urlRfcFisico = '/rfcFisico';
                     axios.post(urlRfcFisico,{
                         nombres: this.nombres,
                         primerAp: this.primerAp,
@@ -451,7 +451,7 @@ import swal from 'sweetalert2'
                         fechaNacimiento: this.fechaNacimiento
                     }).then(response =>{
                         this.rfc = response.data.res
-                        var urlBuscarPersona = 'http://localhost/componentes/public/searchPersonaFisica';
+                        var urlBuscarPersona = '/searchPersonaFisica';
                         axios.post(urlBuscarPersona,{
                             rfc: this.rfc
                         }).then(response => {
@@ -494,80 +494,80 @@ import swal from 'sweetalert2'
                 }
             },
             getNacionalidades: function(){
-                var urlNacionalidades = 'http://localhost/componentes/public/getNacionalidades';
+                var urlNacionalidades = '/getNacionalidades';
                 axios.get(urlNacionalidades).then(response => {
                     this.nacionalidades = response.data
                 });
             },
             getEstados: function(){
-                var urlEstados = 'http://localhost/componentes/public/getEstados';
+                var urlEstados = '/getEstados';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
                 });
             },
             getMunicipios: function(){
                 if(this.estado!=null){
-                    this.municipio=null
-                    var urlMunicipios = 'http://localhost/componentes/public/getMunicipios/'+this.estado.id;
+                    // this.municipio=null
+                    var urlMunicipios = '/getMunicipios/'+this.estado.id;
                     axios.get(urlMunicipios).then(response => {
                         this.municipios = response.data
                     });
                 }
                 else{
-                    this.municipio=null,
+                    // this.municipio=null,
                     this.municipios=[]
                 }
             },
             getEtnias: function(){
-                var urlEtnias = 'http://localhost/componentes/public/getEtnias';
+                var urlEtnias = '/getEtnias';
                 axios.get(urlEtnias).then(response => {
                     this.etnias = response.data
                 });
             },
             getLenguas: function(){
-                var urlLenguas = 'http://localhost/componentes/public/getLenguas';
+                var urlLenguas = '/getLenguas';
                 axios.get(urlLenguas).then(response => {
                     this.lenguas = response.data
                 });
             },
             getInterpretes: function(){
-                var urlInterpretes = 'http://localhost/componentes/public/getInterpretes';
+                var urlInterpretes = '/getInterpretes';
                 axios.get(urlInterpretes).then(response => {
                     this.interpretes = response.data
                 });
             },
             getSexos: function(){
-                var urlSexos = 'http://localhost/componentes/public/getSexos';
+                var urlSexos = '/getSexos';
                 axios.get(urlSexos).then(response => {
                     this.sexos = response.data
                 });
             },
             getOcupaciones: function(){
-                var urlOcupaciones = 'http://localhost/componentes/public/getOcupaciones';
+                var urlOcupaciones = '/getOcupaciones';
                 axios.get(urlOcupaciones).then(response => {
                     this.ocupaciones = response.data
                 });
             },
             getEstadosCiviles: function(){
-                var urlEstadosCiviles = 'http://localhost/componentes/public/getEstadosCiviles';
+                var urlEstadosCiviles = '/getEstadosCiviles';
                 axios.get(urlEstadosCiviles).then(response => {
                     this.estadosCiviles = response.data
                 });
             },
             getEscolaridades: function(){
-                var urlEscolaridades = 'http://localhost/componentes/public/getEscolaridades';
+                var urlEscolaridades = '/getEscolaridades';
                 axios.get(urlEscolaridades).then(response => {
                     this.escolaridades = response.data
                 });
             },
             getReligiones: function(){
-                var urlReligiones = 'http://localhost/componentes/public/getReligiones';
+                var urlReligiones = '/getReligiones';
                 axios.get(urlReligiones).then(response => {
                     this.religiones = response.data
                 });
             },
             getIdentificaciones: function(){
-                var urlIdentificaciones = 'http://localhost/componentes/public/getIdentificaciones';
+                var urlIdentificaciones = '/getIdentificaciones';
                 axios.get(urlIdentificaciones).then(response => {
                     this.identificaciones = response.data
                 });
@@ -614,15 +614,21 @@ import swal from 'sweetalert2'
                     this.edad='';
                 }else{
                     if( edad>=16 ){
-                        if( ( fechaR[2] == hoy.getDate() ) && ( fecha.getMonth() == hoy.getMonth() ) ){
+                        if( ( fechaR[2] == hoy.getDate() || (fechaR[2] <= hoy.getDate()) ) && ( fecha.getMonth() == hoy.getMonth() ) ){
                             this.edad=edad;
+                            //console.log("PRIMER IF")
+                            //console.log("fechaR Dia:"+fechaR[2]+" Mes: "+hoy.getMonth()+" FECHA Dia: "+fecha.getDate()+" Mes: "+fecha.getMonth()+"")
                         }else{
-                            if( ( (fechaR[2] > hoy.getDate()) || (fechaR[2] <= hoy.getDate()) ) && ( fecha.getMonth() >= hoy.getMonth() ) ){
+                            if( ( (fechaR[2] >= hoy.getDate()) || (fechaR[2] < hoy.getDate()) ) && ( fecha.getMonth() >= hoy.getMonth() ) ){
                                 edad--;
                                 this.edad=edad;
+                                //console.log("SEGUNDO IF")
+                                //console.log("fechaR Dia:"+fechaR[2]+" Mes: "+hoy.getMonth()+" FECHA Dia: "+fecha.getDate()+" Mes: "+fecha.getMonth()+"")
                             }else{
                                 if( ( (fechaR[2] <= hoy.getDate()) || (fechaR[2] >= hoy.getDate()) ) && ( fecha.getMonth() <= hoy.getMonth() ) ){
                                     this.edad=edad;
+                                    //console.log("TERCER IF")
+                                    //console.log("fechaR Dia:"+fechaR[2]+" Mes: "+hoy.getMonth()+" FECHA Dia: "+fecha.getDate()+" Mes: "+fecha.getMonth()+"")
                                 }
                             }
                         }
@@ -632,7 +638,7 @@ import swal from 'sweetalert2'
                 }
             },
             getValidaciones: function(){
-                var urlValidaciones = 'http://localhost/componentes/public/getValidaciones';
+                var urlValidaciones = '/getValidaciones';
                 axios.post(urlValidaciones, {
                     id1: this.sistema,
                     id2: this.tipo,
@@ -670,8 +676,7 @@ import swal from 'sweetalert2'
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.crearPersona();
-                        //this.CleanFields();
+                        this.crearPersona();                        
                         //swal({
                         //    title: 'Guardado Correctamente!',
                         //    text: 'Esta persona fue guardada exitosamente',
@@ -750,17 +755,19 @@ import swal from 'sweetalert2'
                         alias: this.alias.toUpperCase(),
                         esEmpresa:0
                     };
-                    axios.post('http://localhost/componentes/public//api/PersonaFisica',objREST)
+                    axios.post('/api/PersonaFisica',objREST)
                     .then((response)=>{
-                        console.log(response)
+                        /*console.log(response)
                         if(response.status==200){
                             PF=response.data;
                         }else{
                             PF="error "+response.status;
-                        }                     
+                        } */                 
+                        console.log(response)
+                        PF=response.data;   
                     })
                     .catch((error)=>{
-                        console.log(error);
+                        //console.log(error);
                          if (error.response) {
                             PF=error.response.data;
                         } else if (error.request) {
@@ -774,6 +781,7 @@ import swal from 'sweetalert2'
                         if(PF.id!=undefined){
                             //obj JSON with data saved
                             console.log(PF);
+                            this.CleanFields();
                             swal({
                                 title: 'Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente',
