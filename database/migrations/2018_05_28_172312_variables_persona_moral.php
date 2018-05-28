@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVariablesPersonaTable extends Migration
+class VariablesPersonaMoral extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateVariablesPersonaTable extends Migration
      */
     public function up()
     {
-        Schema::create('variables_persona', function (Blueprint $table) {
+        //
+        Schema::create('variables_persona_moral', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idPersona')->unsigned();
-            $table->integer('edad')->nullable();
+            //$table->integer('edad')->nullable();
             $table->string('telefono',15)->nullable()->default("SIN INFORMACION");
             $table->string('motivoEstancia',200)->nullable()->default("SIN INFORMACION");
             $table->integer('idOcupacion')->nullable()->unsigned()->default(2941);
@@ -54,6 +55,6 @@ class CreateVariablesPersonaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('variables_persona');
+        //
     }
 }
