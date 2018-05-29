@@ -54275,7 +54275,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -54620,36 +54620,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -54697,7 +54667,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             lugarTrabajo: '',
             telefonoTrabajo: '',
             alias: '',
-            coincidencias: 123,
+            coincidencias: '',
             nombresV: false,
             primerApV: false,
             segundoApV: false,
@@ -54725,36 +54695,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             aliasV: false,
             validaciones: [],
             denunciado: false,
-            qrr: "QUIEN RESULTE RESPONSABLE",
-            DataTable: {
-                data: {
-                    src: [],
-                    count: 0
-                },
-                url: "/api/test/SearchUndefined",
-                params: {
-                    columns: [//select columns in table (correct name col)
-                    { name: "idPersona", show: false }, { name: "idvar_persona", show: false }, { name: "nombres", show: true, replace: "Nombres" }, { name: "primerAp", show: true, replace: "Primer apellido" }, { name: "segundoAp", show: true, replace: "Segundo apellido" }, { name: "fechaNacimiento", show: true, replace: "Fecha nacimiento" }, { name: "rfc", show: true, replace: "RFC" }, { name: "curp", show: true, replace: "CURP" }, { name: "sexo", show: true, replace: "Sexo" }, { name: "nacionalidad", show: true, replace: "Nacionalidad" }, { name: "etnia", show: true, replace: "Etnia" }, { name: "municipioOrigen", show: true, replace: "Municipio origen" }, { name: "edad", show: true, replace: "Edad" }, { name: "telefono", show: true, replace: "Teléfono" }, { name: "motivoEstancia", show: true, replace: "Motivo estancia" }, { name: "ocupacion", show: true, replace: "Ocupacion" }, { name: "estadoCivil", show: true, replace: "Estado civil" }, { name: "escolaridad", show: true, replace: "Escolaridad" }, { name: "religion", show: true, replace: "Religión" }, { name: "docIdentificacion", show: true, replace: "Doc identificación" }, { name: "numDocIdentificacion", show: true, replace: "Num doc identif." }, { name: "lugarTrabajo", show: true, replace: "Lugar trabajo" }, { name: "idDomicilioTrabajo", show: false, replace: "idDomicilio" }, { name: "telefonoTrabajo", show: true, replace: "Teléfono trabajo" }, { name: "representanteLegal", show: true, replace: "Representante legal" }, { name: "alias", show: true, replace: "Alias"
-
-                        //name:colname,show:showInTable,replace:NweNameInTable
-                    }],
-                    skip: 0, //skip
-                    limit: 5, //limit
-                    filters: { "alias": "" }, //search where like (correct name col)
-                    nfilters: {}, //search where no like (correct name col)
-                    //tablename:"cat_municipio"
-                    //tablename:"cat_estado"
-                    tablename: "persona_completa_actual"
-                },
-                current: 0,
-                maxpage: 0,
-                charging: false,
-                message: "Cargando...",
-                options: { title: "opciones", links: [{ func: function func(obj) {
-                            alert(obj.id);
-                        },
-                        text: "alert" }] }
-            }
+            qrr: "QUIEN RESULTE RESPONSABLE"
         };
     },
 
@@ -55087,59 +55028,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
             });
         },
-        DTallcols: function DTallcols() {
-            var cols = [];
-            Object.keys(this.DataTable.data.src[0]).forEach(function (dt) {
-                cols.push({ name: dt, show: true });
-            });
-            this.DataTable.params.columns = cols;
-        },
-        isexits: function isexits(value, defaultv) {
-            return value == undefined ? defaultv : value != null ? value : defaultv;
-        },
-        DTEnabled: function DTEnabled(s) {
-            return !(s >= 0 && s < this.DataTable.maxpage);
-        },
-        DTGetData: function DTGetData(s) {
+        buscarCoincidencias: function buscarCoincidencias() {
             var _this17 = this;
 
-            this.DataTable.charging = true;
-            this.DataTable.current = s;
-            this.DataTable.params.skip = this.DataTable.params.limit * s;
-            var DT;
-            axios.post(this.DataTable.url, this.DataTable.params).then(function (response) {
-                DT = response.data;
-            }).finally(function () {
-                if (DT != undefined) {
-                    _this17.DataTable.data = DT;
-                    if (_this17.DataTable.columns == undefined) {
-                        _this17.DTallcols();
-                    }
-                    _this17.DataTable.maxpage = parseInt(_this17.DataTable.data.count / _this17.DataTable.params.limit);
-                    _this17.DataTable.maxpage += _this17.DataTable.data.count % _this17.DataTable.params.limit == 0 ? 0 : 1;
-                    _this17.DataTable.charging = false;
-                } else {
-                    _this17.DataTable.message = "Error al cargar la informacion";
-                }
-            });
-        },
-        DTNextData: function DTNextData() {
-            this.DTGetData(this.DataTable.current + 1);
-        },
-        DTBackData: function DTBackData() {
-            this.DTGetData(this.DataTable.current - 1);
-        },
-        buscarCoincidencias: function buscarCoincidencias() {
             this.alias = this.alias.trim();
             if (this.alias.length > 0) {
-                this.DataTable.params.filters = { alias: this.alias };
-                this.DTGetData(0);
-                console.log(this.DataTable.data.count);
-                //$("#myModal").modal()
+                var DT;
+                var DataTable = { "tablename": "persona_completa_actual", "filters": { "alias": this.alias }, "limit": 5, "skip": "0" };
+                axios.post('/api/test/SearchUndefined', DataTable).then(function (response) {
+                    DT = response.data;
+                }).finally(function () {
+                    if (DT != undefined) {
+                        if (DT.count > 0) {
+                            console.log("Se encontraron: " + DT.count + " Resultados");
+                            _this17.coincidencias = DT.count;
+                        } else {
+                            console.log("No hay datos");
+                            _this17.coincidencias = 0;
+                        }
+                    } else {
+                        console.log("Sin informacion");
+                    }
+                });
             } else {
-                this.DataTable.data.count = 0;
+                console.log("No hay alias");
             }
-            return 0;
         }
     },
     watch: {
@@ -55176,192 +55089,12 @@ var render = function() {
             [
               _vm._m(0),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _vm.DataTable != undefined
-                  ? _c("div", [
-                      !_vm.DataTable.charging
-                        ? _c("div", [
-                            _c(
-                              "table",
-                              { staticClass: "table table-responsive" },
-                              [
-                                _c(
-                                  "tr",
-                                  [
-                                    _vm._l(
-                                      _vm.DataTable.params.columns,
-                                      function(cols) {
-                                        return cols.show
-                                          ? _c("th", { key: cols.name }, [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm.isexits(
-                                                    cols.replace,
-                                                    cols.name
-                                                  )
-                                                )
-                                              )
-                                            ])
-                                          : _vm._e()
-                                      }
-                                    ),
-                                    _vm._v(" "),
-                                    _vm.DataTable.options != undefined
-                                      ? _c("th", [
-                                          _vm._v(
-                                            _vm._s(_vm.DataTable.options.title)
-                                          )
-                                        ])
-                                      : _vm._e()
-                                  ],
-                                  2
-                                ),
-                                _vm._v(" "),
-                                _vm._l(_vm.DataTable.data.src, function(
-                                  fields
-                                ) {
-                                  return _c(
-                                    "tr",
-                                    { key: fields.id },
-                                    [
-                                      _vm._l(
-                                        _vm.DataTable.params.columns,
-                                        function(cols) {
-                                          return cols.show
-                                            ? _c("td", { key: cols.name }, [
-                                                _vm._v(
-                                                  _vm._s(fields[cols.name])
-                                                )
-                                              ])
-                                            : _vm._e()
-                                        }
-                                      ),
-                                      _vm._v(" "),
-                                      _vm._l(
-                                        _vm.DataTable.options.links,
-                                        function(opt) {
-                                          return _vm.DataTable.options !=
-                                            undefined
-                                            ? _c("td", { key: opt.text }, [
-                                                _c(
-                                                  "a",
-                                                  {
-                                                    attrs: { href: "#" },
-                                                    on: {
-                                                      click: function($event) {
-                                                        opt.func(fields)
-                                                      }
-                                                    }
-                                                  },
-                                                  [_vm._v(_vm._s(opt.text))]
-                                                )
-                                              ])
-                                            : _vm._e()
-                                        }
-                                      )
-                                    ],
-                                    2
-                                  )
-                                })
-                              ],
-                              2
-                            ),
-                            _vm._v(" "),
-                            _vm.DataTable.maxpage > 0
-                              ? _c("div", [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-default",
-                                      attrs: {
-                                        disabled: _vm.DTEnabled(
-                                          _vm.DataTable.current - 1
-                                        )
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.DTBackData()
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("←")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-primary",
-                                      attrs: { disabled: "true" }
-                                    },
-                                    [_vm._v(_vm._s(_vm.DataTable.current + 1))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-default",
-                                      attrs: {
-                                        disabled: _vm.DTEnabled(
-                                          _vm.DataTable.current + 1
-                                        )
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.DTGetData(
-                                            _vm.DataTable.current + 1
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(_vm.DataTable.current + 2))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-default",
-                                      attrs: {
-                                        disabled: _vm.DTEnabled(
-                                          _vm.DataTable.current + 2
-                                        )
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.DTGetData(
-                                            _vm.DataTable.current + 2
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(_vm.DataTable.current + 3))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-default",
-                                      attrs: {
-                                        disabled: _vm.DTEnabled(
-                                          _vm.DataTable.current + 1
-                                        )
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.DTNextData()
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("→")]
-                                  )
-                                ])
-                              : _vm._e()
-                          ])
-                        : _c("div", [
-                            _c("span", [_vm._v(_vm._s(_vm.DataTable.message))])
-                          ])
-                    ])
-                  : _vm._e()
-              ]),
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                [_c("render-datatable", { attrs: { data: this.alias } })],
+                1
+              ),
               _vm._v(" "),
               _vm._m(1)
             ]
@@ -55888,6 +55621,9 @@ var render = function() {
                           },
                           domProps: { value: _vm.alias },
                           on: {
+                            blur: function($event) {
+                              _vm.buscarCoincidencias()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55919,6 +55655,9 @@ var render = function() {
                           },
                           domProps: { value: _vm.alias },
                           on: {
+                            blur: function($event) {
+                              _vm.buscarCoincidencias()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55928,34 +55667,20 @@ var render = function() {
                           }
                         }),
                     _vm._v(" "),
-                    this.DataTable.data.count > 0
+                    this.coincidencias > 0
                       ? _c("div", [
                           _c(
                             "span",
                             {
-                              staticClass: "d-inline-block",
+                              staticClass: "badge",
+                              staticStyle: { cursor: "pointer" },
                               attrs: {
-                                tabindex: "0",
-                                "data-toggle": "tooltip",
-                                title: "Personas encontradas",
-                                animation: "true"
+                                type: "button",
+                                "data-toggle": "modal",
+                                "data-target": "#myModal"
                               }
                             },
-                            [
-                              _c(
-                                "span",
-                                {
-                                  staticClass: "badge badge-secondary",
-                                  staticStyle: { cursor: "pointer" },
-                                  attrs: {
-                                    type: "button",
-                                    "data-toggle": "modal",
-                                    "data-target": "#myModal"
-                                  }
-                                },
-                                [_vm._v(_vm._s(this.DataTable.data.count))]
-                              )
-                            ]
+                            [_vm._v(_vm._s(this.coincidencias))]
                           )
                         ])
                       : _vm._e(),
@@ -57874,34 +57599,20 @@ var render = function() {
                               }
                             }),
                         _vm._v(" "),
-                        this.DataTable.data.count > 0
+                        this.coincidencias > 0
                           ? _c("div", [
                               _c(
                                 "span",
                                 {
-                                  staticClass: "d-inline-block",
+                                  staticClass: "badge",
+                                  staticStyle: { cursor: "pointer" },
                                   attrs: {
-                                    tabindex: "0",
-                                    "data-toggle": "tooltip",
-                                    title: "Personas encontradas",
-                                    animation: "true"
+                                    type: "button",
+                                    "data-toggle": "modal",
+                                    "data-target": "#myModal"
                                   }
                                 },
-                                [
-                                  _c(
-                                    "span",
-                                    {
-                                      staticClass: "badge badge-secondary",
-                                      staticStyle: { cursor: "pointer" },
-                                      attrs: {
-                                        type: "button",
-                                        "data-toggle": "modal",
-                                        "data-target": "#myModal"
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(this.DataTable.data.count))]
-                                  )
-                                ]
+                                [_vm._v(_vm._s(this.coincidencias))]
                               )
                             ])
                           : _vm._e(),
@@ -57944,7 +57655,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Personas encontradas")])
+      _c("h4", { staticClass: "modal-title" }, [
+        _vm._v("Coincidencias con el Alias")
+      ])
     ])
   },
   function() {
@@ -59556,6 +59269,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -59568,16 +59283,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 url: "/api/test/SearchUndefined",
                 params: {
                     columns: [//select columns in table (correct name col)
-                    { name: "id", show: false }, { name: "nombre", show: true, replace: "Nombre del sistema" }, { name: "descripcion", show: true, replace: "Descripcion del sistema"
+                    { name: "idPersona", show: false }, { name: "idvar_persona", show: false }, { name: "nombres", show: true, replace: "Nombres" }, { name: "primerAp", show: true, replace: "Primer apellido" }, { name: "segundoAp", show: true, replace: "Segundo apellido" }, { name: "fechaNacimiento", show: true, replace: "Fecha nacimiento" }, { name: "rfc", show: true, replace: "RFC" }, { name: "curp", show: true, replace: "CURP" }, { name: "sexo", show: true, replace: "Sexo" }, { name: "nacionalidad", show: true, replace: "Nacionalidad" }, { name: "etnia", show: true, replace: "Etnia" }, { name: "municipioOrigen", show: true, replace: "Municipio origen" }, { name: "edad", show: true, replace: "Edad" }, { name: "telefono", show: true, replace: "Teléfono" }, { name: "motivoEstancia", show: true, replace: "Motivo estancia" }, { name: "ocupacion", show: true, replace: "Ocupacion" }, { name: "estadoCivil", show: true, replace: "Estado civil" }, { name: "escolaridad", show: true, replace: "Escolaridad" }, { name: "religion", show: true, replace: "Religión" }, { name: "docIdentificacion", show: true, replace: "Doc identificación" }, { name: "numDocIdentificacion", show: true, replace: "Num doc identif." }, { name: "lugarTrabajo", show: true, replace: "Lugar trabajo" }, { name: "idDomicilioTrabajo", show: false, replace: "idDomicilio" }, { name: "telefonoTrabajo", show: true, replace: "Teléfono trabajo" }, { name: "representanteLegal", show: true, replace: "Representante legal" }, { name: "alias", show: true, replace: "Alias"
+
                         //name:colname,show:showInTable,replace:NweNameInTable
                     }],
                     skip: 0, //skip
                     limit: 5, //limit
-                    filters: { nombre: "hdjdjh" }, //search where like (correct name col)
+                    filters: { "alias": "Mata Viejitas" }, //search where like (correct name col)
                     nfilters: {}, //search where no like (correct name col)
                     //tablename:"cat_municipio"
                     //tablename:"cat_estado"
-                    tablename: "sistemas"
+                    tablename: "persona_completa_actual"
                 },
                 current: 0,
                 maxpage: 0,
@@ -59585,13 +59301,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 message: "Cargando...",
                 options: { title: "opciones", links: [{ func: function func(obj) {
                             alert(obj.id);
-                        }, text: "alert" }] }
+                        },
+                        text: "alert" }] }
             }
         };
     },
 
+    computed: {
+        printData: function printData() {
+            console.log("Valor de alias: " + this.data);
+        }
+    },
     props: {
-        dt: {}
+        data: {
+            default: false
+        }
     },
     mounted: function mounted() {
         //INIT METHOD
@@ -59662,147 +59386,155 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    !_vm.DataTable.charging
+    _vm.DataTable != undefined
       ? _c("div", [
-          _c(
-            "table",
-            { staticClass: "table" },
-            [
-              _c(
-                "tr",
-                [
-                  _vm._l(_vm.DataTable.params.columns, function(cols) {
-                    return cols.show
-                      ? _c("th", { key: cols.name }, [
-                          _vm._v(_vm._s(_vm.isexits(cols.replace, cols.name)))
-                        ])
-                      : _vm._e()
-                  }),
-                  _vm._v(" "),
-                  _vm.DataTable.options != undefined
-                    ? _c("th", [_vm._v(_vm._s(_vm.DataTable.options.title))])
-                    : _vm._e()
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.DataTable.data.src, function(fields) {
-                return _c(
-                  "tr",
-                  { key: fields.id },
+          !_vm.DataTable.charging
+            ? _c("div", [
+                _c(
+                  "table",
+                  { staticClass: "table table-responsive" },
                   [
-                    _vm._l(_vm.DataTable.params.columns, function(cols) {
-                      return cols.show
-                        ? _c("td", { key: cols.name }, [
-                            _vm._v(_vm._s(fields[cols.name]))
-                          ])
-                        : _vm._e()
-                    }),
+                    _c(
+                      "tr",
+                      [
+                        _vm._l(_vm.DataTable.params.columns, function(cols) {
+                          return cols.show
+                            ? _c("th", { key: cols.name }, [
+                                _vm._v(
+                                  _vm._s(_vm.isexits(cols.replace, cols.name))
+                                )
+                              ])
+                            : _vm._e()
+                        }),
+                        _vm._v(" "),
+                        _vm.DataTable.options != undefined
+                          ? _c("th", [
+                              _vm._v(_vm._s(_vm.DataTable.options.title))
+                            ])
+                          : _vm._e()
+                      ],
+                      2
+                    ),
                     _vm._v(" "),
-                    _vm._l(_vm.DataTable.options.links, function(opt) {
-                      return _vm.DataTable.options != undefined
-                        ? _c("td", { key: opt.text }, [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    opt.func(fields)
-                                  }
-                                }
-                              },
-                              [_vm._v(_vm._s(opt.text))]
-                            )
-                          ])
-                        : _vm._e()
+                    _vm._l(_vm.DataTable.data.src, function(fields) {
+                      return _c(
+                        "tr",
+                        { key: fields.id },
+                        [
+                          _vm._l(_vm.DataTable.params.columns, function(cols) {
+                            return cols.show
+                              ? _c("td", { key: cols.name }, [
+                                  _vm._v(_vm._s(fields[cols.name]))
+                                ])
+                              : _vm._e()
+                          }),
+                          _vm._v(" "),
+                          _vm._l(_vm.DataTable.options.links, function(opt) {
+                            return _vm.DataTable.options != undefined
+                              ? _c("td", { key: opt.text }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          opt.func(fields)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(opt.text))]
+                                  )
+                                ])
+                              : _vm._e()
+                          })
+                        ],
+                        2
+                      )
                     })
                   ],
                   2
-                )
-              })
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _vm.Datatable.maxpage > 0
-            ? _c("div", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default",
-                    attrs: {
-                      disabled: _vm.DTEnabled(_vm.DataTable.current - 1)
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm.DTBackData()
-                      }
-                    }
-                  },
-                  [_vm._v("←")]
                 ),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { disabled: "true" }
-                  },
-                  [_vm._v(_vm._s(_vm.DataTable.current + 1))]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default",
-                    attrs: {
-                      disabled: _vm.DTEnabled(_vm.DataTable.current + 1)
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm.DTGetData(_vm.DataTable.current + 1)
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(_vm.DataTable.current + 2))]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default",
-                    attrs: {
-                      disabled: _vm.DTEnabled(_vm.DataTable.current + 2)
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm.DTGetData(_vm.DataTable.current + 2)
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(_vm.DataTable.current + 3))]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default",
-                    attrs: {
-                      disabled: _vm.DTEnabled(_vm.DataTable.current + 1)
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm.DTNextData()
-                      }
-                    }
-                  },
-                  [_vm._v("→")]
-                )
+                _vm.DataTable.maxpage > 0
+                  ? _c("div", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-default",
+                          attrs: {
+                            disabled: _vm.DTEnabled(_vm.DataTable.current - 1)
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.DTBackData()
+                            }
+                          }
+                        },
+                        [_vm._v("←")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { disabled: "true" }
+                        },
+                        [_vm._v(_vm._s(_vm.DataTable.current + 1))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-default",
+                          attrs: {
+                            disabled: _vm.DTEnabled(_vm.DataTable.current + 1)
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.DTGetData(_vm.DataTable.current + 1)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.DataTable.current + 2))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-default",
+                          attrs: {
+                            disabled: _vm.DTEnabled(_vm.DataTable.current + 2)
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.DTGetData(_vm.DataTable.current + 2)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.DataTable.current + 3))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-default",
+                          attrs: {
+                            disabled: _vm.DTEnabled(_vm.DataTable.current + 1)
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.DTNextData()
+                            }
+                          }
+                        },
+                        [_vm._v("→")]
+                      )
+                    ])
+                  : _vm._e()
               ])
-            : _vm._e()
+            : _c("div", [_c("span", [_vm._v(_vm._s(_vm.DataTable.message))])])
         ])
-      : _c("div", [_c("span", [_vm._v(_vm._s(_vm.DataTable.message))])])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

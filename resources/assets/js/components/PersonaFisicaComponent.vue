@@ -5,6 +5,7 @@
                  <h5 id="pruebavue">{{personaExiste!=''?personaExiste.nombres+" "+personaExiste.primerAp+" "+personaExiste.segundoAp:''}}</h5>
              </div>
          </div> -->
+
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog" style="max-width:100%">
             <div class="modal-dialog modal-lg">
@@ -13,35 +14,10 @@
             <div class="modal-content" style="width:100%">
                 <div class="modal-header">
                 
-                <h4 class="modal-title">Personas encontradas</h4>
+                <h4 class="modal-title">Coincidencias con el Alias</h4>
                 </div>
-                <div class="modal-body">
-                        <div v-if="DataTable!=undefined">
-    <div v-if="!DataTable.charging">    
-        <table class="table table-responsive">
-            <tr>
-                <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
-                <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
-            </tr>
-            <tr v-for="fields in DataTable.data.src" :key="fields.id">
-                <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
-                <td v-if="DataTable.options!=undefined" v-for="opt in DataTable.options.links" :key="opt.text">
-                    <a href="#" v-on:click="opt.func(fields)">{{opt.text}}</a>
-                </td>
-            </tr>
-        </table>
-        <div v-if="DataTable.maxpage>0">
-            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
-            <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
-            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
-            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +2)" v-on:click="DTGetData(DataTable.current+2)">{{DataTable.current + 3}}</button>
-            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current + 1)" v-on:click="DTNextData()">&rarr;</button>
-        </div>
-    </div>
-    <div v-else>
-        <span>{{DataTable.message}}</span>
-    </div>
-    </div>
+                <div class="modal-body">                    
+                    <render-datatable :data="this.alias"></render-datatable>
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -51,7 +27,7 @@
             </div>
         </div>
         <!-- End Modal-->
-        
+
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm">
             <div class="form-row" v-if="tipo ==2 || tipo==3 || tipo==4 || tipo==10 || tipo==11 || tipo==12">
                 <div class="form-group col-md-6">
@@ -96,13 +72,10 @@
                 </div>
                 <div v-if="(denunciado==2) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
                     <label for="alias">Alias</label>
-                    <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias">
-                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off">
-                    <div v-if="this.DataTable.data.count>0">
-                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Personas encontradas" animation="true">
-                            <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#myModal">{{this.DataTable.data.count}}</span>
-                        </span>
-                        <!--<span class="badge"> <button data-toggle="modal" data-target="#myModal" >{{this.DataTable.data.count}}</button></span>-->
+                    <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="buscarCoincidencias()">
+                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias()">
+                    <div v-if="this.coincidencias>0">                      
+                        <span type="button" class="badge" style="cursor:pointer" data-toggle="modal" data-target="#myModal">{{this.coincidencias}}</span>
                     </div>
                     <span v-if="errors.has('Alias')" class="text-danger">{{ errors.first('Alias') }}</span>
                 </div>
@@ -253,11 +226,8 @@
                     <label for="alias">Alias</label>
                     <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" v-on:blur="buscarCoincidencias">
                     <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias">
-                    <div v-if="this.DataTable.data.count>0">
-                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Personas encontradas" animation="true">
-                            <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#myModal">{{this.DataTable.data.count}}</span>
-                        </span>
-                        <!--<span class="badge"> <button data-toggle="modal" data-target="#myModal" >{{this.DataTable.data.count}}</button></span>-->
+                    <div v-if="this.coincidencias>0">                      
+                        <span type="button" class="badge" style="cursor:pointer" data-toggle="modal" data-target="#myModal">{{this.coincidencias}}</span>
                     </div>
                     
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
@@ -309,7 +279,7 @@ import swal from 'sweetalert2'
                 edad: '',
                 sexo:'',
                 rfc:'',
-                curp: '',
+                curp: '',                
                 // mostrarSearch:true,
                 mostrarForm:true,
                 nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
@@ -330,7 +300,7 @@ import swal from 'sweetalert2'
                 lugarTrabajo:'',
                 telefonoTrabajo:'',
                 alias:'',
-                coincidencias:123,
+                coincidencias:'',                
                 nombresV:false,
                 primerApV:false,
                 segundoApV:false,
@@ -359,61 +329,6 @@ import swal from 'sweetalert2'
                 validaciones:[],
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
-                DataTable:{
-                    data:{
-                         src:[],
-                         count:0
-                     },
-                     url:"/api/test/SearchUndefined",
-                     params:{
-                             columns:[//select columns in table (correct name col)
-                                 {name:"idPersona",show:false},
-                                 {name:"idvar_persona",show:false},
-                                 {name:"nombres",show:true,replace:"Nombres"},
-                                 {name:"primerAp",show:true,replace:"Primer apellido"},
-                                 {name:"segundoAp",show:true,replace:"Segundo apellido"},
-                                 {name:"fechaNacimiento",show:true,replace:"Fecha nacimiento"},
-                                 {name:"rfc",show:true,replace:"RFC"},
-                                 {name:"curp",show:true,replace:"CURP"},
-                                 {name:"sexo",show:true,replace:"Sexo"},
-                                 {name:"nacionalidad",show:true,replace:"Nacionalidad"},
-                                 {name:"etnia",show:true,replace:"Etnia"},
-                                 {name:"municipioOrigen",show:true,replace:"Municipio origen"},
-                                 {name:"edad",show:true,replace:"Edad"},
-                                 {name:"telefono",show:true,replace:"Teléfono"},
-                                 {name:"motivoEstancia",show:true,replace:"Motivo estancia"},
-                                 {name:"ocupacion",show:true,replace:"Ocupacion"},
-                                 {name:"estadoCivil",show:true,replace:"Estado civil"},
-                                 {name:"escolaridad",show:true,replace:"Escolaridad"},
-                                 {name:"religion",show:true,replace:"Religión"},
-                                 {name:"docIdentificacion",show:true,replace:"Doc identificación"},
-                                 {name:"numDocIdentificacion",show:true,replace:"Num doc identif."},
-                                 {name:"lugarTrabajo",show:true,replace:"Lugar trabajo"},
-                                 {name:"idDomicilioTrabajo",show:false,replace:"idDomicilio"},
-                                 {name:"telefonoTrabajo",show:true,replace:"Teléfono trabajo"},
-                                 {name:"representanteLegal",show:true,replace:"Representante legal"},
-                                 {name:"alias",show:true,replace:"Alias"}                                 
-
-                             //name:colname,show:showInTable,replace:NweNameInTable
-                             ],
-                             skip:0,//skip
-                             limit:5,//limit
-                             filters:{"alias":""},//search where like (correct name col)
-                             nfilters:{},//search where no like (correct name col)
-                             //tablename:"cat_municipio"
-                             //tablename:"cat_estado"
-                             tablename:"persona_completa_actual"
-                             },
-                     current:0,
-                     maxpage:0,
-                     charging:false,
-                     message:"Cargando...",
-                     options:{title:"opciones",links:[
-                     {func:function(obj){
-                         alert(obj.id);
-                         },
-                     text:"alert" }]}
-                 }
             }
         },
 
@@ -438,7 +353,7 @@ import swal from 'sweetalert2'
            this.getReligiones();
            this.getIdentificaciones();
            this.getInterpretes();
-           this.getValidaciones();
+           this.getValidaciones();           
         },
         methods:{
             searchPersona: function(){
@@ -797,57 +712,29 @@ import swal from 'sweetalert2'
                         }
                     });
             },
-            DTallcols:function(){
-                var cols=[];
-                Object.keys(this.DataTable.data.src[0]).forEach(function(dt){
-                    cols.push({name:dt,show:true});
-                })  
-                this.DataTable.params.columns=cols;             
-            },
-            isexits:function(value,defaultv){
-                return value==undefined?defaultv:value!=null?value:defaultv;
-            },    
-            DTEnabled:function(s){
-                return !(s>=0&&s<this.DataTable.maxpage)
-            },
-            DTGetData:function(s){          
-                this.DataTable.charging=true;      
-                this.DataTable.current=s;
-                this.DataTable.params.skip=this.DataTable.params.limit*s;
-                var DT;
-                axios.post(this.DataTable.url,this.DataTable.params).then(response=>{
+            buscarCoincidencias:function(){  
+                this.alias=this.alias.trim()                
+               if((this.alias.length) > 0){    
+                var DT;          
+                var DataTable={"tablename":"persona_completa_actual","filters":{"alias":this.alias}, "limit":5, "skip":"0"}
+                axios.post('/api/test/SearchUndefined',DataTable).then(response=>{
                     DT=response.data;
                 }).finally(()=>{
                     if(DT!=undefined){
-                        this.DataTable.data=DT;
-                        if(this.DataTable.columns==undefined){
-                            this.DTallcols();
-                        }
-                        this.DataTable.maxpage=parseInt(this.DataTable.data.count/this.DataTable.params.limit);
-                        this.DataTable.maxpage+=this.DataTable.data.count%this.DataTable.params.limit==0?0:1;                    
-                        this.DataTable.charging=false;                        
+                        if(DT.count>0){
+                            console.log("Se encontraron: "+DT.count+" Resultados");
+                            this.coincidencias=DT.count;  
+                        }else{
+                            console.log("No hay datos");
+                            this.coincidencias=0;                                                      
+                        }                     
                     }else{
-                        this.DataTable.message="Error al cargar la informacion";
+                        console.log("Sin informacion");
                     }                    
                 });
-            },
-            DTNextData:function(){
-                this.DTGetData(this.DataTable.current+1);
-            },
-            DTBackData:function(){
-                this.DTGetData(this.DataTable.current-1);
-            },
-            buscarCoincidencias:function(){  
-                this.alias=this.alias.trim()                
-               if((this.alias.length) > 0){
-                   this.DataTable.params.filters={alias:this.alias}                
-                   this.DTGetData(0);
-                   console.log(this.DataTable.data.count);
-                   //$("#myModal").modal()
                }else{
-                   this.DataTable.data.count=0;                                   
-               }
-               return 0;               
+                   console.log("No hay alias");                                  
+               }                             
             }
        },
        watch:{
