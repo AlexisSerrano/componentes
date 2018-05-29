@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
 class GenericController extends Controller
 {
 	// url:"/api/test/ValidacionDBJSON",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente"
@@ -19,29 +18,30 @@ class GenericController extends Controller
 	}
 	// url:"/api/test/SetConfirm",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idvar_persona",id_carpeta:"id_carpeta",nuc,"nuc"
 	public function SetConfirm(Request $request){
-		DB::beginTransaction();
-		try{
-			$amc=\App\Http\Models\aparicionesModel::where('id_involucrado',$request->input('id2'))
-				->where('id_sistema',$request->input('id1'))
-				->where('idvar_persona',$request->input('id3'))
-				->first();			
-			if($amc!=null){
-			//BUG LARAVEL
-				$ma=\App\Http\Models\aparicionesModel::find($amc->id);
-				$ma->id_carpeta=$request->input('id_carpeta');
-				$ma->nuc=$request->input('nuc');
-				$ma->confirmado=true;
-				$ma->save();
-				DB::commit();
-				return $ma;
-			}else{
-				DB::rollBack();
-				return "error no exits";
-			}			
-		}catch(Exception $e){
-			DB::rollBack();
-			return "error ".$e;
+		$errors;
+		HelpController::SetConfirm(
+			$request->input('id1'),
+			$request->input('id2'),
+			$request->input('id3'),
+			$errors
+		);
+		return $errors;
+	}
+	// url:"/api/test/SetConfirmMulti",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:["idvar_persona"],id_carpeta:"id_carpeta",nuc,"nuc"
+	public function SetConfirmMulti(Request $request){
+		$ids=$request->input('id3');
+		$errors;
+		foreach($id3 as $ids){
+			if(!HelpController::SetConfirm(
+				$request->input('id1'),
+				$request->input('id2'),
+				$id3,
+				$errors
+			)){
+				break;
+			}
 		}
+		return $errors;
 	}
 	// url:"/api/test/ValidacionJSONDBPF",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente",objSON
 	public function ValidacionJSONDBPF(Request $request){
@@ -94,7 +94,7 @@ class GenericController extends Controller
 			$VPM->alias=$request->input('alias');
 			$VPM->lugarTrabajo=$request->input('lugarTrabajo');
 			$VPM->telefonoTrabajo=$request->input('telefonoTrabajo');		
-			$VPM->esEmpresa=false;
+			//$VPM->esEmpresa=false;
 			$VPM->save();
 			if(!isset($VPM->id)){
 				return "Error guardando o actualizando variables persona";
@@ -107,6 +107,7 @@ class GenericController extends Controller
 			$am->id_involucrado=$request->input('id1');
 			$am->nuc=01234;
 			$am->confirmado=false;
+			$am->esEmpresa=false;
 			$am->save();
 			if(!isset($am->id)){
 				return "Error en el último paso";
