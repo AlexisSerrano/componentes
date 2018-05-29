@@ -55,7 +55,11 @@ import swal from 'sweetalert2'
                 personaExiste:''
             }
         },
-
+        props:{
+            sistema: {
+                default:false
+            }
+        },
         mounted: function(){
         //    this.getNacionalidades();
         },
@@ -118,13 +122,14 @@ import swal from 'sweetalert2'
                 this.$validator.reset();
             },
             CrearEmpresa: function(){
-                var urlCrearEmpresa = '/addEmpresa';
-                    axios.post(urlCrearEmpresa,{
+                var urlCrearMoral = '/addPersonaMoral';
+                    axios.post(urlCrearMoral,{
                         nombre: this.nombre.toUpperCase(),
                         fechaConstitucion: this.fechaConstitucion,
                         rfc:this.rfc.toUpperCase(),
                         telefono: this.telefono,
                         representanteLegal: this.representanteLegal.toUpperCase(),
+                        sistema: this.sistema
                     })
                     .then (response =>{
                         console.log(response.data)
