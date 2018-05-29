@@ -3,7 +3,7 @@ use Illuminate\Http\Request;
 
 /*URLS PARA PERSONAS */
 Route::get('/','PersonaController@index');
-Route::post('addPersona','PersonaController@addPersona')->name('addPersona');
+//Route::post('addPersona','PersonaController@addPersona')->name('addPersona');
 
 /*URLS PARA DOMICILIOS*/
 Route::get('/domicilio','DomicilioController@index');
@@ -14,6 +14,9 @@ Route::get('/personaMoral','PersonaMoralController@index');
 Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');
 
 /*URLS PARA SELECTS PERSONAS */
+Route::get('getDatosPersonaTelefono','PersonaController@getdctt');
+Route::get('getDatosPersonaRed','PersonaController@getdctr');
+Route::get('getDatosPersonaCorreo','PersonaController@getdctc');
 Route::get('getNacionalidades','PersonaController@getNacionalidades');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
 Route::get('getEtnias','PersonaController@getEtnias');
