@@ -3,35 +3,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Models\EmpresaModel;
+use App\Http\Models\PersonaMoralModel;
 use App\Http\Models\VariablesPersona;
+use App\Http\Models\VariablesPersonaMoral;
+use App\Http\Models\aparicionesModel;
 use DB;
 use RFC\RfcBuilder;
 
-class EmpresaController extends Controller{
+class PersonaMoralController extends Controller{
 	public function index(){
-		return view("empresa");
+		return view("personaMoral");
 	}
  
-	public function addEmpresa(Request $request){
+	public function addPersonaMoral(Request $request){
 		DB::beginTransaction();
 		try{
-			$empresa=new EmpresaModel();
-			$empresa->nombre=$request->input('nombre');		
-			$empresa->fechaCreacion=$request->input('fechaConstitucion');
-			$empresa->rfc=$request->input('rfc');
-			$empresa->save();
-			$idEmpresa = $empresa->id;
-			$variablesEmpresa=new VariablesPersona();
-			$variablesEmpresa->idPersona = $idEmpresa;
-			$variablesEmpresa->telefono=$request->input('telefono');
-			$variablesEmpresa->representanteLegal=$request->input('representanteLegal');
-			$variablesEmpresa->esEmpresa=$request->input('esEmpresa');
-			$variablesEmpresa->save();
+			$moral=new PersonaMoralModel();
+			$moral->nombre=$request->input('nombre');		
+			$moral->fechaCreacion=$request->input('fechaConstitucion');
+			$moral->rfc=$request->input('rfc');
+			$moral->save();
+			$idMoral = $moral->id;
+			$variablesMoral=new VariablesPersonaMoral();
+			$variablesMoral->idPersona = $idMoral;
+			$variablesMoral->telefono=$request->input('telefono');
+			$variablesMoral->representanteLegal=$request->input('representanteLegal');
+			$variablesMoral->save();
+			$idVariablesMoral= $variablesMoral->id;
+			$apariciones = new aparicionesModel();
+			$apariciones ->idvar_persona = $idVariablesMoral;
+			$apariciones ->id_carpeta=0;
+			$apariciones ->id_sistema=$request->input('sistema');
+			$apariciones ->esEmpresa=true;
+			$apariciones ->nuc=0;
+			$apariciones->save();
 			DB::commit();
 			$ids = array(
-				'idEmpresa'=>$idEmpresa,
-				'idVariablesPersona'=>$variablesEmpresa->id
+				'idPersonaMoral'=>$idMoral,
+				'idVariablesPersonaMoral'=>$variablesMoral->id,
+				'idAparicion'=>$apariciones->id
 			);
 			return response()->json($ids);
 		}
@@ -59,13 +69,13 @@ class EmpresaController extends Controller{
 
 	public function searchPersona(Request $request){
 		$persona = $request->rfc;
-        $personaExiste=EmpresaModel::orderBy('rfc', 'ASC')
+        $personaExiste=PersonaMoralModel::orderBy('rfc', 'ASC')
 		->where('rfc',$persona)
 		->select('nombre','fechaCreacion','rfc','id')->first();
 		if($personaExiste){
-			$personaExiste2=VariablesPersona::orderBy('id','DESC')
+			$personaExiste2=VariablesPersonaMoral::orderBy('id','DESC')
 			->where('idPersona',$personaExiste->id)
-			->select('telefono','representanteLegal','esEmpresa','id')->first();
+			->select('telefono','representanteLegal','id')->first();
 			$ids=array(
 				'idEmpresa'=>$personaExiste->id,
 				'idVariablesPersona'=>$personaExiste2->id
@@ -77,7 +87,6 @@ class EmpresaController extends Controller{
 				'id'=>$personaExiste->id,
 				'telefono'=>$personaExiste2->telefono,
 				'representanteLegal'=>$personaExiste2->representanteLegal,
-				'esEmpresa'=>$personaExiste2->esEmpresa,
 				'ids'=>$ids
 			);
 		}else{

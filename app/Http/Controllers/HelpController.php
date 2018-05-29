@@ -2,6 +2,35 @@
 namespace App\Http\Controllers;
 use  Illuminate\Support\Facades\DB;
 class HelpController{
+	public static function SetConfirm($id1,$id2,$id3,&$errors){
+		DB::beginTransaction();
+		try{
+			$amc=\App\Http\Models\aparicionesModel::
+				where('id_involucrado',$id1)
+				->where('id_sistema',$id2)
+				->where('idvar_persona',$id3)
+				->first();			
+			if($amc!=null){
+			//BUG LARAVEL
+				$ma=\App\Http\Models\aparicionesModel::find($amc->id);
+				$ma->id_carpeta=$request->input('id_carpeta');
+				$ma->nuc=$request->input('nuc');
+				$ma->confirmado=true;
+				$ma->save();
+				DB::commit();
+				$errors= $ma;
+				return false;
+			}else{
+				DB::rollBack();
+				$errors="combinacion de id no existe ".$id1.",".$id2.",".$id3.",";
+				return false;
+			}			
+		}catch(Exception $e){
+			DB::rollBack();
+			$errors= "error ".$e;
+			return false;
+		}
+	}
 	public static function JSONDBValidation(&$model,$id1,$id2,$id3,&$errors){
 		//GET JSON FROM DB
 		$jsons=HelpModels::GetJSONDB($id1,$id2,$id3);					

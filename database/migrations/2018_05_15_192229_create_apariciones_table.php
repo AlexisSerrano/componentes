@@ -18,15 +18,16 @@ class CreateAparicionesTable extends Migration
             $table->integer('idvar_persona')->unsigned();
             $table->integer('id_carpeta')->unsigned();
             $table->integer('id_sistema')->unsigned();
-            $table->integer('id_involucrado')->unsigned();
+            $table->integer('id_involucrado')->nullable()->unsigned();
             $table->timestamp('fecha_creacion')->useCurrent();
             $table->string('nuc');
             $table->boolean('confirmado')->default(false);
+            $table->boolean('esEmpresa')->nullable()->default(false);
 
-            $table->foreign('idvar_persona')->references('id')->on('variables_persona')->onDelete('cascade');
+            //$table->foreign('idvar_persona')->references('id')->on('variables_persona')->onDelete('cascade');
             //$table->foreign('id_carpeta')->references('id')->on('carpeta')->onDelete('cascade');
             $table->foreign('id_sistema')->references('id')->on('sistemas')->onDelete('cascade');
-            $table->foreign('id_involucrado')->references('id')->on('involucrados')->onDelete('cascade');
+            // $table->foreign('id_involucrado')->references('id')->on('involucrados')->onDelete('cascade');
             
             $table->timestamps();
 

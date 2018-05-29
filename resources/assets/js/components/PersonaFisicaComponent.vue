@@ -668,7 +668,6 @@ import swal from 'sweetalert2'
                         lugarTrabajo: this.lugarTrabajo.toUpperCase(),
                         telefonoTrabajo: this.telefonoTrabajo,
                         alias: this.alias.toUpperCase(),
-                        esEmpresa:0
                     };
                     axios.post('/api/PersonaFisica',objREST)
                     .then((response)=>{

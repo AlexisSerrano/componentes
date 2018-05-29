@@ -10,8 +10,8 @@ Route::get('/domicilio','DomicilioController@index');
 Route::post('addDomicilio','DomicilioController@addDomicilio')->name('addDomicilio');
 
 /*URLS PARA EMPRESAS*/
-Route::get('/empresa','EmpresaController@index');
-Route::post('addEmpresa','EmpresaController@addEmpresa')->name('addEmpresa');
+Route::get('/personaMoral','PersonaMoralController@index');
+Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');
 
 /*URLS PARA SELECTS PERSONAS */
 Route::get('getNacionalidades','PersonaController@getNacionalidades');
@@ -27,10 +27,10 @@ Route::get('getReligiones','PersonaController@getReligiones');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
 Route::get('getInterpretes','PersonaController@getInterpretes');
 Route::post('searchPersonaFisica','PersonaController@searchPersona');
-Route::post('searchPersonaMoral','EmpresaController@searchPersona');
+Route::post('searchPersonaMoral','PersonaMoralController@searchPersona');
 Route::post('getValidaciones','PersonaController@getValidaciones');
 Route::post('rfcFisico','PersonaController@rfcFisico');
-Route::post('rfcMoral','EmpresaController@rfcMoral');
+Route::post('rfcMoral','PersonaMoralController@rfcMoral');
 
 /*URLS PARA SELECTS DOMICILIO */
 Route::get('getEstados2','DomicilioController@getEstados');

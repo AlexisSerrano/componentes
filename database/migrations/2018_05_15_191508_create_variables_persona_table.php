@@ -30,14 +30,12 @@ class CreateVariablesPersonaTable extends Migration
             $table->string('lugarTrabajo',50)->nullable()->default("SIN INFORMACION");
             $table->integer('idDomicilioTrabajo')->nullable()->unsigned()->default(1);
             $table->string('telefonoTrabajo',15)->nullable()->default("SIN INFORMACION");
-            $table->string('representanteLegal',100)->nullable()->default("SIN INFORMACION");
             $table->string('alias',100)->nullable()->default("SIN INFORMACION");
-            $table->boolean('esEmpresa')->nullable()->default(false);
 
             $table->timestamps();
             $table->softDeletes();
             
-            // $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
+            $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
             $table->foreign('idOcupacion')->references('id')->on('cat_ocupacion')->onDelete('cascade');
             $table->foreign('idEstadoCivil')->references('id')->on('cat_estado_civil')->onDelete('cascade');
             $table->foreign('idEscolaridad')->references('id')->on('cat_escolaridad')->onDelete('cascade');
