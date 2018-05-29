@@ -62,13 +62,13 @@ import swal from 'sweetalert2'
         methods:{
             searchPersona: function(){
                 if(this.nombre!='' && this.fechaConstitucion!=''){
-                    var urlRfcMoral = 'http://localhost/componentes/public/rfcMoral';
+                    var urlRfcMoral = '/rfcMoral';
                     axios.post(urlRfcMoral,{
                         nombre: this.nombre,
                         fechaConstitucion: this.fechaConstitucion
                     }).then(response =>{
                         this.rfc = response.data.res
-                        var urlBuscarPersona = 'http://localhost/componentes/public/searchPersonaMoral';
+                        var urlBuscarPersona = '/searchPersonaMoral';
                         axios.post(urlBuscarPersona,{
                             rfc: this.rfc
                         }).then(response => {
@@ -118,14 +118,13 @@ import swal from 'sweetalert2'
                 this.$validator.reset();
             },
             CrearEmpresa: function(){
-                var urlCrearEmpresa = 'http://localhost/componentes/public/addEmpresa';
+                var urlCrearEmpresa = '/addEmpresa';
                     axios.post(urlCrearEmpresa,{
                         nombre: this.nombre.toUpperCase(),
                         fechaConstitucion: this.fechaConstitucion,
                         rfc:this.rfc.toUpperCase(),
                         telefono: this.telefono,
                         representanteLegal: this.representanteLegal.toUpperCase(),
-                        esEmpresa: 1
                     })
                     .then (response =>{
                         console.log(response.data)
