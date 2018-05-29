@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDomiciliosTable extends Migration
+class CreateDomiciliosNotificaciones extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateDomiciliosTable extends Migration
      */
     public function up()
     {
-        Schema::create('domicilios', function (Blueprint $table) {
+        Schema::create('domicilios_notificaciones', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('idvar_persona')->unsigned();
+            $table->string('correo',200)->nullable()->default("SIN INFORMACION");
+            $table->string('telefono',15)->nullable()->default("SIN INFORMACION");
+            $table->string('fax',15)->nullable()->default("SIN INFORMACION");
             $table->integer('idEstado')->unsigned()->default(33);
             $table->integer('idMunicipio')->unsigned()->default(2497);
             $table->integer('idLocalidad')->unsigned()->default(27592);
@@ -22,7 +26,8 @@ class CreateDomiciliosTable extends Migration
             $table->string('calle', 100)->default("SIN INFORMACION");
             $table->string('numExterno', 10)->default('S/N');
             $table->string('numInterno', 10)->default('S/N');
-
+            $table->boolean('esEmpresa')->nullable()->default(false);
+            
             $table->foreign('idEstado')->references('id')->on('cat_estado')->onDelete('cascade');
             $table->foreign('idMunicipio')->references('id')->on('cat_municipio')->onDelete('cascade');
             $table->foreign('idLocalidad')->references('id')->on('cat_localidad')->onDelete('cascade');
@@ -40,6 +45,6 @@ class CreateDomiciliosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('domicilios');
+        Schema::dropIfExists('domicilios_notificaciones');
     }
 }
