@@ -10,7 +10,7 @@
 
   </head>
     <div id="app">
-        <persona :sistema="1" :tipo="4"></persona>
+        <persona :sistema="1" :tipo="1"></persona>
         <!-- <button id="btn2">click</button> -->
     </div>
   </body> 
