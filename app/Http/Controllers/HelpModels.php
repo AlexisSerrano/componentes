@@ -27,7 +27,7 @@ class HelpModels
         ->first();        
         return $jsons;
     }
-    public static function MatchJSONModel($name,$jsonobj,$element,&$fields)
+    public static function MatchJSONModel($name,$jsonobj,$element,&$fields,&$errors,$index=0)
     {
         //COUNT RULES FOR THE FIELD
         $fields+=count($jsonobj[$name]["rules"]);
@@ -43,7 +43,7 @@ class HelpModels
                            $fields--;
                        }else{
                            //ERROR MESSAGE
-                           $errors=$errors."<li>".$name." es un campo requerido.</li>";
+                           $errors=$errors."<li>".$name."-".$index." es un campo requerido.</li>";
                        }
                    }else{
                        //NO REQUIRED
@@ -57,13 +57,13 @@ class HelpModels
                            if(is_numeric($element)){
                                $fields--;
                            }else{
-                               $errors=$errors."<li>".$name." debe de ser un número.</li>";
+                               $errors=$errors."<li>".$name."-".$index." debe de ser un número.</li>";
                            }
                        }else{
                            if(!is_numeric($element)){
                                $fields--;
                            }else{
-                               $errors=$errors."<li>".$name." no debe de ser un número.</li>";
+                               $errors=$errors."<li>".$name."-".$index." no debe de ser un número.</li>";
                            }
                        }
                    }else{
@@ -77,13 +77,13 @@ class HelpModels
                            if(HelpModels::validateDate($element, 'Y-m-d')){
                                $fields--;
                            }else{
-                               $errors=$errors."<li>".$name." debe ser tipo fecha.</li>";
+                               $errors=$errors."<li>".$name."-".$index." debe ser tipo fecha.</li>";
                            }
                        }else{
                            if(!(HelpModels::validateDate($element, 'Y-m-d'))){
                                $fields--;
                            }else{
-                               $errors=$errors."<li>".$name." no debe ser tipo fecha.</li>";
+                               $errors=$errors."<li>".$name."-".$index." no debe ser tipo fecha.</li>";
                            }
                        }
                    }else{
@@ -96,13 +96,13 @@ class HelpModels
                            if(HelpModels::validarCURP($element)){
                                $fields--;
                            }else{
-                               $errors=$errors."<li>".$name." debe ser formato CURP.</li>";
+                               $errors=$errors."<li>".$name."-".$index." debe ser formato CURP.</li>";
                            }
                        }else{
                            if(HelpModels::validarCURP($element)){
                                $fields--;
                            }else{
-                               $errors=$errors."<li>".$name." no debe ser formato CURP.</li>";
+                               $errors=$errors."<li>".$name."-".$index." no debe ser formato CURP.</li>";
                            }
                        }
                    }else{
@@ -115,13 +115,13 @@ class HelpModels
                            if(HelpModels::validarRFC($element)){
                                $fields--;
                            }else{
-                               $errors=$errors."<li>".$name." debe ser formato RFC.</li>";;
+                               $errors=$errors."<li>".$name."-".$index." debe ser formato RFC.</li>";;
                            }
                        }else{
                            if(HelpModels::validarRFC($element)){
                                $fields--;
                            }else{
-                               $errors=$errors."<li>".$name." no debe ser tipo fecha.</li>";
+                               $errors=$errors."<li>".$name."-".$index." no debe ser tipo fecha.</li>";
                            }
                        }
                    }else{
@@ -134,15 +134,13 @@ class HelpModels
                            if(HelpModels::PhoneValidation($element)){
                                $fields--;
                            }else{
-                               $errors=$errors."<li>".$name.
-                               ' Teléfono no válido<br>EJEMPLOS:<br>(123) 456 7899<br>(123).456.7899<br>(123)-456-7899<br>123-456-7899<br>123 456 7899<br>1234567899'
-                               ."</li>";;
+                               $errors=$errors."<li>".$name."-".$index." Teléfono no válido<br>EJEMPLOS:<br>(123) 456 7899<br>(123).456.7899<br>(123)-456-7899<br>123-456-7899<br>123 456 7899<br>1234567899</li>";;
                            }
                        }else{
                            if(HelpModels::PhoneValidation($element)){
                                $fields--;
                            }else{
-                               $errors=$errors."<li>".$name." no debe tener un formato de teléfono.</li>";
+                               $errors=$errors."<li>".$name."-".$index." no debe tener un formato de teléfono.</li>";
                            }
                        }
                    }else{
@@ -173,7 +171,7 @@ class HelpModels
          foreach($elements as $name=>$element){
              //CHECK IF EXITS
              /*if(!isset($jsonobj[$name])){
-                $errors=$errors."<li>".$name." no se encuentra registrado correctamente.</li>";
+                $errors=$errors."<li>".$name."-".$index." no se encuentra registrado correctamente.</li>";
                 $fields=100;
                 break;
              }*/
@@ -185,12 +183,17 @@ class HelpModels
                     $jsonobj[$name]['shape']='line';                                  
                 }
                 if($jsonobj[$name]['shape']=='array'){
+                    if($element==null){
+                        HelpModels::MatchJSONModel($name,$jsonobj,null,$fields,$errors);
+                    }
                     $pos=$jsonobj[$name]['pos'];
-                    foreach($elements as $el){
-                        HelpModels::MatchJSONModel($name,$jsonobj,$el,$fields);
+                    $index=0;
+                    foreach($element as $el){
+                        HelpModels::MatchJSONModel($name,$jsonobj,$el[$pos],$fields,$errors,$index);
+                        $index++;
                     }
                 }else{
-                    HelpModels::MatchJSONModel($name,$jsonobj,$element,$fields);
+                    HelpModels::MatchJSONModel($name,$jsonobj,$element,$fields,$errors);
                 }
              /*### FAST VALIDATION, ONLY DETECT 1 ERROR
              if($fields>0){

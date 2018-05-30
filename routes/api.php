@@ -25,6 +25,5 @@ Route::group(['prefix' => 'test'], function () {
     Route::post('SetConfirm','GenericController@SetConfirm');
     Route::post('getValidaciones','GenericController@ValidacionDBJSON');
     Route::post('SearchUndefined','GenericController@SearchUndefined');
-    Route::post('ValidacionJSONDBPF','GenericController@ValidacionJSONDBPF');
-    Route::post('ValidacionJSONDBPM','GenericController@ValidacionJSONDBPM');
+    Route::post('ValidacionJSONDB','GenericController@ValidacionJSONDB');
 });

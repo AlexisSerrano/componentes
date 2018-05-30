@@ -9,13 +9,14 @@ use App\Http\Models\VariablesPersonaMoral;
 use App\Http\Models\aparicionesModel;
 use DB;
 use RFC\RfcBuilder;
+use App\Http\Requests\PersonaMoralRequest;
 
 class PersonaMoralController extends Controller{
 	public function index(){
 		return view("personaMoral");
 	}
  
-	public function addPersonaMoral(Request $request){
+	public function addPersonaMoral(PersonaMoralRequest $request){
 		DB::beginTransaction();
 		try{
 			$moral=new PersonaMoralModel();
