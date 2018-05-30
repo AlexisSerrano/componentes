@@ -243,17 +243,6 @@
 </template>
 
 <script>
-export default {
-
-}
-</script>
-
-<style>
-
-</style>
-
-
-<script>
 import generaCurp from '../curp'
 import swal from 'sweetalert2'
     export default {
