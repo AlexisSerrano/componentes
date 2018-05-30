@@ -43,3 +43,7 @@ Route::get('getCodigosPostales2/{id}','DomicilioController@getCodigosPostales');
 Route::get('dt', function () {
     return view('DT');
 });
+
+Route::get('datoslaborales', function(){
+    return view('DatosLaborales');
+});
