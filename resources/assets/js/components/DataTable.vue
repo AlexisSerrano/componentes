@@ -1,5 +1,17 @@
 <template>
-<div class="container">    
+<div class="container"> 
+        <input type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="datoAlias" placeholder="Ingresa" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="mostrarTable()">
+    <!-- Modal -->
+       <div class="modal fade" id="myModal" role="dialog">
+           <div class="modal-dialog">
+           
+           <!-- Modal content-->
+           <div class="modal-content">
+               <div class="modal-header">                
+                   <h3>Coincidencias con el alias</h3>
+               </div>
+               <div class="modal-body">
+
     <div v-if="DataTable!=undefined">
     <div v-if="!DataTable.charging">    
         <table class="table table-responsive">                    
@@ -26,6 +38,16 @@
         <span>{{DataTable.message}}</span>
     </div>
     </div>
+
+    </div>
+               <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+           </div>
+           
+           </div>
+       </div>
+
 </div>
 </template>
 
@@ -72,7 +94,7 @@
                              ],
                              skip:0,//skip
                              limit:5,//limit
-                             filters:{"alias":"Mata Viejitas"},//search where like (correct name col)
+                             filters:{},//search where like (correct name col)
                              nfilters:{},//search where no like (correct name col)
                              //tablename:"cat_municipio"
                              //tablename:"cat_estado"
@@ -87,18 +109,16 @@
                          alert(obj.id);
                          },
                      text:"alert" }]}
-                 }
+                 },
+                 datoAlias:''
             }
         },
-        computed: {
-            printData: function () {
-                 console.log("Valor de alias: "+this.data);
-                }
-        },
-        props:{
-            data:{
-                default:false
-            }
+        props: {
+            title: String,
+            aliasReceived: Boolean,
+            isPublished: Boolean,
+            commentIds: Array,
+            author: Object
         },
         mounted(){
             //INIT METHOD
@@ -106,8 +126,7 @@
                     this.DataTable.url=this.isexits(this.dt.url,this.DataTable.url);
                     this.DataTable.params=this.isexits(this.dt.params,this.DataTable.params);
                     this.DataTable.options=this.isexits(this.dt.options,this.DataTable.options);
-                }*/
-                this.DTGetData(0);
+                }*/                                
         },
         methods:{        
             DTallcols:function(){
@@ -141,7 +160,7 @@
                             this.DataTable.maxpage+=this.DataTable.data.count%this.DataTable.params.limit==0?0:1;                    
                             this.DataTable.charging=false;   
                         }else{
-                            this.DataTable.message="sin datos";                            
+                            this.DataTable.message="No hay datos para mostrar";                            
                         }                     
                     }else{
                         this.DataTable.message="error al cargar la informacion";
@@ -153,6 +172,16 @@
             },
             DTBackData:function(){
                 this.DTGetData(this.DataTable.current-1);
+            },
+            mostrarTable:function(){  
+                this.datoAlias=this.datoAlias.trim()  
+                if((this.datoAlias.length) > 0){
+                    this.DataTable.params.filters={"alias":this.datoAlias}
+                    this.DTGetData(0)
+                    $("#myModal").modal();
+                }else{
+                    console.log("No hay datos en el input");
+                }                   
             }
         }
     }
