@@ -33,7 +33,7 @@ Vue.component('persona', require('./components/personaComponent.vue'));
 Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
 Vue.component('render-datatable', require('./components/DataTable.vue'));
 Vue.component('formex',require('./components/formex.vue'));
-Vue.component('datoslaborales',require('./components/DatosLaboralesComponent.vue'));
+Vue.component('datoscontactos',require('./components/DatosContactosComponent.vue'));
 const app = new Vue({
     el: '#app'
 });

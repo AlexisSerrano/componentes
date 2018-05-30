@@ -17,8 +17,8 @@ class ViewPersonaCompletaActual extends Migration
         //DB::statement('create OR REPLACE view persona_completa_actual as select * from variables_persona vp1 inner join vpersona_actual vp2 on vp1.id=vp2.id inner join personas p  on  p.id = vp1.idPersona;');
         DB::statement('create OR REPLACE view persona_completa_actual as SELECT var.updated_at, per.nombres, per.primerAp,per.segundoAp,var.alias,per.fechaNacimiento,per.sexo,per.rfc,per.curp,per.idNacionalidad,nac.nombre nacionalidad,per.idEtnia,et.nombre etnia,
         per.idLengua, len.nombre lengua, edo.id idEstadoOrigen,edo.nombre estadoOrigen,per.idMunicipioOrigen, mun.nombre municipioOrigen,
-        var.id idvar_persona,edad,telefono,motivoEstancia,idOcupacion,ocu.nombre ocupacion, idEstadoCivil,civ.nombre estadoCivil,idEscolaridad,esc.nombre escolaridad,
-        idReligion, rel.nombre religion,idDomicilio,docIdentificacion,numDocIdentificacion,idInterprete,inte.nombre interprete, lugarTrabajo,idDomicilioTrabajo,telefonoTrabajo,per.id idPersona
+        var.id idvar_persona,edad,motivoEstancia,idOcupacion,ocu.nombre ocupacion, idEstadoCivil,civ.nombre estadoCivil,idEscolaridad,esc.nombre escolaridad,
+        idReligion, rel.nombre religion,idDomicilio,docIdentificacion,numDocIdentificacion,idInterprete,inte.nombre interprete, lugarTrabajo,idDomicilioTrabajo,per.id idPersona
 
         FROM variables_persona var 
         left join personas per on var.idPersona=per.id

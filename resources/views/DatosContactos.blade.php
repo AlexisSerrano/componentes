@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="app">
-        <datoslaborales></datoslaborales>
+        <datoscontactos></datoscontactos>
     </div>
 </body>
 

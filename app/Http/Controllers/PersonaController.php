@@ -189,19 +189,19 @@ class PersonaController extends Controller{
         return response()->json($interpretes);
 	}
 	public function getdctt(){
-        DB::table('datos_contacto_tipos_telefono')->orderBy('tipo', 'ASC')
+        $telefonos=DB::table('datos_contacto_tipos_telefono')->orderBy('tipo', 'ASC')
 	    ->select('tipo','id')->get();
-        return response()->json($interpretes);
+        return response()->json($telefonos);
 	}
 	public function getdctr(){
-        DB::table('datos_contacto_tipos_red')->orderBy('tipo', 'ASC')
+        $red=DB::table('datos_contacto_tipos_red')->orderBy('tipo', 'ASC')
 	    ->select('tipo','id')->get();
-        return response()->json($interpretes);
+        return response()->json($red);
 	}
 	public function getdctc(){
-        DB::table('datos_contacto_tipos_correo')->orderBy('tipo', 'ASC')
+        $correo=DB::table('datos_contacto_tipos_correo')->orderBy('tipo', 'ASC')
 	    ->select('tipo','id')->get();
-        return response()->json($interpretes);
+        return response()->json($correo);
 	}
 	/* GET METHOD
 	public function getValidaciones($id1,$id2,$id3){

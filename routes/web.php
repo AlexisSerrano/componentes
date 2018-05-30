@@ -47,6 +47,6 @@ Route::get('dt', function () {
     return view('DT');
 });
 
-Route::get('datoslaborales', function(){
-    return view('DatosLaborales');
+Route::get('datoscontactos', function(){
+    return view('DatosContactos');
 });
