@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use  Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Models\SexoModel;
@@ -32,24 +32,6 @@ class PersonaController extends Controller{
 		$estados=CatEstado::orderBy('nombre','ASC')
 		->select('nombre','id')->get();
 		return view("persona",compact("nacionalidades","municipios","etnias","lenguas","estados"));
-	}
- 
-	public function addPersona(Request $request){
-		$persona=new PersonaModel();		
-		$persona->nombres=$request->input('nombres');		
-		$persona->primerAp=$request->input('primerAp');
-		$persona->segundoAp=$request->input('segundoAp');
-		$persona->fechaNacimiento=$request->input('fechaNacimiento');
-		$persona->rfc=$request->input('rfc');
-		$persona->curp=$request->input('curp');
-		$persona->sexo=$request->input('sexo');
-		$persona->idNacionalidad=$request->input('nacionalidad');
-		$persona->idEtnia=$request->input('etnia');
-		$persona->idLengua=$request->input('lengua');
-		$persona->idMunicipioOrigen=$request->input('municipio');
-		$persona->esEmpresa=$request->input('esEmpresa');
-		$persona->save();
-		return $persona;
 	}
 
 	public function searchPersona(Request $request){
@@ -206,9 +188,20 @@ class PersonaController extends Controller{
 	    ->select('nombre','id')->get();
         return response()->json($interpretes);
 	}
-	// url:"/api/getValidaciones",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente"
-	public function getValidaciones(Request $request){
-		return HelpController::GetJSONDBValidation($request->input('id1'),$request->input('id2'),$request->input('id3'));
+	public function getdctt(){
+        $telefonos=DB::table('datos_contacto_tipos_telefono')->orderBy('tipo', 'ASC')
+	    ->select('tipo','id')->get();
+        return response()->json($telefonos);
+	}
+	public function getdctr(){
+        $red=DB::table('datos_contacto_tipos_red')->orderBy('tipo', 'ASC')
+	    ->select('tipo','id')->get();
+        return response()->json($red);
+	}
+	public function getdctc(){
+        $correo=DB::table('datos_contacto_tipos_correo')->orderBy('tipo', 'ASC')
+	    ->select('tipo','id')->get();
+        return response()->json($correo);
 	}
 	/* GET METHOD
 	public function getValidaciones($id1,$id2,$id3){

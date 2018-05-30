@@ -213,17 +213,6 @@
 </template>
 
 <script>
-export default {
-
-}
-</script>
-
-<style>
-
-</style>
-
-
-<script>
 import generaCurp from '../curp'
 import swal from 'sweetalert2'
     export default {
@@ -605,6 +594,9 @@ import swal from 'sweetalert2'
                 this.alias='',
                 this.$validator.reset();
             },
+            isexits:function(value,defaultv){
+                return value==undefined?defaultv:value;
+            },
             crearPersona: function(){
                 var PF;
                 var objREST={
@@ -626,7 +618,7 @@ import swal from 'sweetalert2'
                         idLengua: this.isexits(this.lengua,{id:0}).id,
                         idInterprete: this.isexits(this.interprete,{id:0}).id,
                         idInterprete: 1,
-                        telefono: this.telefono,
+                        //telefono: this.telefono,
                         motivoEstancia: this.motivoEstancia.toUpperCase(),
                         idOcupacion: this.isexits(this.ocupacion,{id:0}).id,
                         idEstadoCivil: this.isexits(this.estadoCivil,{id:0}).id,
@@ -635,7 +627,7 @@ import swal from 'sweetalert2'
                         docIdentificacion: this.isexits(this.identificacion,{id:0}).id,
                         numDocIdentificacion: this.numIdentificacion.toUpperCase(),
                         lugarTrabajo: this.lugarTrabajo.toUpperCase(),
-                        telefonoTrabajo: this.telefonoTrabajo,
+                        //telefonoTrabajo: this.telefonoTrabajo,
                         alias: this.alias.toUpperCase(),
                     };
                     axios.post('/api/PersonaFisica',objREST)

@@ -27,6 +27,134 @@ class HelpModels
         ->first();        
         return $jsons;
     }
+    public static function MatchJSONModel($name,$jsonobj,$element,&$fields,&$errors,$index=0)
+    {
+        //COUNT RULES FOR THE FIELD
+        $fields+=count($jsonobj[$name]["rules"]);
+        foreach($jsonobj[$name]["rules"] as $rul=>$val){
+            //WHAT RULE IS?
+            switch($rul){
+                //THE RULE REQUIRED IS SAME NO EMPTY
+                case "required":
+                   if($val){
+                       //REQUIRED
+                       if($element!=null){
+                           //GOOD VALIDATION
+                           $fields--;
+                       }else{
+                           //ERROR MESSAGE
+                           $errors=$errors."<li>".$name."-".$index." es un campo requerido.</li>";
+                       }
+                   }else{
+                       //NO REQUIRED
+                       $fields--;
+                   }
+                break;
+                //THE RULE NUMBER , BEFFORE FROM REQUIRED RULE
+                case "number":
+                   if(isset($element)){
+                       if($val){
+                           if(is_numeric($element)){
+                               $fields--;
+                           }else{
+                               $errors=$errors."<li>".$name."-".$index." debe de ser un número.</li>";
+                           }
+                       }else{
+                           if(!is_numeric($element)){
+                               $fields--;
+                           }else{
+                               $errors=$errors."<li>".$name."-".$index." no debe de ser un número.</li>";
+                           }
+                       }
+                   }else{
+                       //not validate nulls
+                       $fields--;
+                   }
+                break;
+               case "date":
+                   if(isset($element)){
+                       if($val){
+                           if(HelpModels::validateDate($element, 'Y-m-d')){
+                               $fields--;
+                           }else{
+                               $errors=$errors."<li>".$name."-".$index." debe ser tipo fecha.</li>";
+                           }
+                       }else{
+                           if(!(HelpModels::validateDate($element, 'Y-m-d'))){
+                               $fields--;
+                           }else{
+                               $errors=$errors."<li>".$name."-".$index." no debe ser tipo fecha.</li>";
+                           }
+                       }
+                   }else{
+                       $fields--;
+                   }
+               break;
+               case "curp":
+                   if(isset($element)){
+                       if($val){
+                           if(HelpModels::validarCURP($element)){
+                               $fields--;
+                           }else{
+                               $errors=$errors."<li>".$name."-".$index." debe ser formato CURP.</li>";
+                           }
+                       }else{
+                           if(HelpModels::validarCURP($element)){
+                               $fields--;
+                           }else{
+                               $errors=$errors."<li>".$name."-".$index." no debe ser formato CURP.</li>";
+                           }
+                       }
+                   }else{
+                       $fields--;
+                   }
+               break;
+               case "rfc":
+                   if(isset($element)){
+                       if($val){
+                           if(HelpModels::validarRFC($element)){
+                               $fields--;
+                           }else{
+                               $errors=$errors."<li>".$name."-".$index." debe ser formato RFC.</li>";;
+                           }
+                       }else{
+                           if(HelpModels::validarRFC($element)){
+                               $fields--;
+                           }else{
+                               $errors=$errors."<li>".$name."-".$index." no debe ser tipo fecha.</li>";
+                           }
+                       }
+                   }else{
+                       $fields--;
+                   }
+               break;
+               case "phone":
+                   if(isset($element)){
+                       if($val){
+                           if(HelpModels::PhoneValidation($element)){
+                               $fields--;
+                           }else{
+                               $errors=$errors."<li>".$name."-".$index." Teléfono no válido<br>EJEMPLOS:<br>(123) 456 7899<br>(123).456.7899<br>(123)-456-7899<br>123-456-7899<br>123 456 7899<br>1234567899</li>";;
+                           }
+                       }else{
+                           if(HelpModels::PhoneValidation($element)){
+                               $fields--;
+                           }else{
+                               $errors=$errors."<li>".$name."-".$index." no debe tener un formato de teléfono.</li>";
+                           }
+                       }
+                   }else{
+                       $fields--;
+                   }
+               break;
+                default:
+                   //RULE NAME ERROR, CHECK JSON
+                   $errors=$errors."<li>".$name."-".$rul." declaración en JSON incorrecta.</li>";
+                   $fields++;
+                break;
+            }
+        }
+    }
     public static function ModelvsJSON(&$model,$jsonobj,&$errors)
     {
         //MODEL TO ARRAY (ENLY THE ELEMENTS INNER MODEL, NOT update_at OR insert_at)
@@ -43,145 +171,34 @@ class HelpModels
          foreach($elements as $name=>$element){
              //CHECK IF EXITS
              /*if(!isset($jsonobj[$name])){
-                $errors=$errors."<li>".$name." no se encuentra registrado correctamente.</li>";
+                $errors=$errors."<li>".$name."-".$index." no se encuentra registrado correctamente.</li>";
                 $fields=100;
                 break;
              }*/
              if(isset($jsonobj[$name])){
-             if($element==null&&isset($jsonobj[$name]['default'])){
-                 $model[$name]=$jsonobj[$name]['default'];                                  
-             }
+                if($element==null&&isset($jsonobj[$name]['default'])){
+                     $model[$name]=$jsonobj[$name]['default'];                                  
+                }
+                if(!isset($jsonobj[$name]['shape'])){
+                    $jsonobj[$name]['shape']='line';                                  
+                }
+                if($jsonobj[$name]['shape']=='array'){
+                    if($element==null){
+                        HelpModels::MatchJSONModel($name,$jsonobj,null,$fields,$errors);
+                    }
+                    $pos=$jsonobj[$name]['pos'];
+                    $index=0;
+                    foreach($element as $el){
+                        HelpModels::MatchJSONModel($name,$jsonobj,$el[$pos],$fields,$errors,$index);
+                        $index++;
+                    }
+                }else{
+                    HelpModels::MatchJSONModel($name,$jsonobj,$element,$fields,$errors);
+                }
              /*### FAST VALIDATION, ONLY DETECT 1 ERROR
              if($fields>0){
                  break;
-             }*/
-             //COUNT RULES FOR THE FIELD
-             $fields+=count($jsonobj[$name]["rules"]);
-             foreach($jsonobj[$name]["rules"] as $rul=>$val){
-                 //WHAT RULE IS?
-                 switch($rul){
-                     //THE RULE REQUIRED IS SAME NO EMPTY
-                     case "required":
-                        if($val){
-                            //REQUIRED
-                            if($element!=null){
-                                //GOOD VALIDATION
-                                $fields--;
-                            }else{
-                                //ERROR MESSAGE
-                                $errors=$errors."<li>".$name." es un campo requerido.</li>";
-                            }
-                        }else{
-                            //NO REQUIRED
-                            $fields--;
-                        }
-                     break;
-                     //THE RULE NUMBER , BEFFORE FROM REQUIRED RULE
-                     case "number":
-                        if(isset($element)){
-                            if($val){
-                                if(is_numeric($element)){
-                                    $fields--;
-                                }else{
-                                    $errors=$errors."<li>".$name." debe de ser un número.</li>";
-                                }
-                            }else{
-                                if(!is_numeric($element)){
-                                    $fields--;
-                                }else{
-                                    $errors=$errors."<li>".$name." no debe de ser un número.</li>";
-                                }
-                            }
-                        }else{
-                            //not validate nulls
-                            $fields--;
-                        }
-                     break;
-                    case "date":
-                        if(isset($element)){
-                            if($val){
-                                if(HelpModels::validateDate($element, 'Y-m-d')){
-                                    $fields--;
-                                }else{
-                                    $errors=$errors."<li>".$name." debe ser tipo fecha.</li>";
-                                }
-                            }else{
-                                if(!(HelpModels::validateDate($element, 'Y-m-d'))){
-                                    $fields--;
-                                }else{
-                                    $errors=$errors."<li>".$name." no debe ser tipo fecha.</li>";
-                                }
-                            }
-                        }else{
-                            $fields--;
-                        }
-                    break;
-                    case "curp":
-                        if(isset($element)){
-                            if($val){
-                                if(HelpModels::validarCURP($element)){
-                                    $fields--;
-                                }else{
-                                    $errors=$errors."<li>".$name." debe ser formato CURP.</li>";
-                                }
-                            }else{
-                                if(HelpModels::validarCURP($element)){
-                                    $fields--;
-                                }else{
-                                    $errors=$errors."<li>".$name." no debe ser formato CURP.</li>";
-                                }
-                            }
-                        }else{
-                            $fields--;
-                        }
-                    break;
-                    case "rfc":
-                        if(isset($element)){
-                            if($val){
-                                if(HelpModels::validarRFC($element)){
-                                    $fields--;
-                                }else{
-                                    $errors=$errors."<li>".$name." debe ser formato RFC.</li>";;
-                                }
-                            }else{
-                                if(HelpModels::validarRFC($element)){
-                                    $fields--;
-                                }else{
-                                    $errors=$errors."<li>".$name." no debe ser tipo fecha.</li>";
-                                }
-                            }
-                        }else{
-                            $fields--;
-                        }
-                    break;
-                    case "phone":
-                        if(isset($element)){
-                            if($val){
-                                if(HelpModels::PhoneValidation($element)){
-                                    $fields--;
-                                }else{
-                                    $errors=$errors."<li>".$name.
-                                    ' Teléfono no válido<br>EJEMPLOS:<br>(123) 456 7899<br>(123).456.7899<br>(123)-456-7899<br>123-456-7899<br>123 456 7899<br>1234567899'
-                                    ."</li>";;
-                                }
-                            }else{
-                                if(HelpModels::PhoneValidation($element)){
-                                    $fields--;
-                                }else{
-                                    $errors=$errors."<li>".$name." no debe tener un formato de teléfono.</li>";
-                                }
-                            }
-                        }else{
-                            $fields--;
-                        }
-                    break;
-                     default:
-                        //RULE NAME ERROR, CHECK JSON
-                        $errors=$errors."<li>".$name."-".$rul." declaración en JSON incorrecta.</li>";
-                        $fields++;
-                     break;
-                 }
-             }
+             }*/             
             }
         }
         //INSERT IF VALIDATED
