@@ -1,9 +1,10 @@
 <template>
-<div class="container">
+<div class="container">    
+    <div v-if="DataTable!=undefined">
     <div v-if="!DataTable.charging">    
-        <table class="table">
-            <tr >
-                <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
+        <table class="table table-responsive">                    
+            <tr>                
+           <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
                 <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
             </tr>
             <tr v-for="fields in DataTable.data.src" :key="fields.id">
@@ -13,7 +14,7 @@
                 </td>
             </tr>
         </table>
-        <div v-if="Datatable.maxpage>0">
+        <div v-if="DataTable.maxpage>0">
             <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
             <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
             <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
@@ -24,6 +25,7 @@
     <div v-else>
         <span>{{DataTable.message}}</span>
     </div>
+    </div>
 </div>
 </template>
 
@@ -31,39 +33,72 @@
     export default {        
         data(){
             return{
-                DataTable:{
+                                DataTable:{
                     data:{
-                        src:[],
-                        count:0
-                    },
-                    url:"/api/test/SearchUndefined",
-                    params:{
-                            columns:[//select columns in table (correct name col)
-                                {name:"id",show:false},
-                                {name:"nombre",show:true,replace:"Nombre del sistema"},
-                                {name:"descripcion",show:true,replace:"Descripcion del sistema"}
-                            //name:colname,show:showInTable,replace:NweNameInTable
-                            ],
-                            skip:0,//skip
-                            limit:5,//limit
-                            filters:{nombre:"hdjdjh"},//search where like (correct name col)
-                            nfilters:{},//search where no like (correct name col)
-                            //tablename:"cat_municipio"
-                            //tablename:"cat_estado"
-                            tablename:"sistemas"
-                            },
-                    current:0,
-                    maxpage:0,
-                    charging:false,
-                    message:"Cargando...",
-                    options:{title:"opciones",links:[
-                    {func:function(obj){alert(obj.id);},text:"alert" }
-                    ]}
-                }
+                         src:[],
+                         count:0
+                     },
+                     url:"/api/test/SearchUndefined",
+                     params:{
+                             columns:[//select columns in table (correct name col)
+                                 {name:"idPersona",show:false},
+                                 {name:"idvar_persona",show:false},
+                                 {name:"nombres",show:true,replace:"Nombres"},
+                                 {name:"primerAp",show:true,replace:"Primer apellido"},
+                                 {name:"segundoAp",show:true,replace:"Segundo apellido"},
+                                 {name:"fechaNacimiento",show:true,replace:"Fecha nacimiento"},
+                                 {name:"rfc",show:true,replace:"RFC"},
+                                 {name:"curp",show:true,replace:"CURP"},
+                                 {name:"sexo",show:true,replace:"Sexo"},
+                                 {name:"nacionalidad",show:true,replace:"Nacionalidad"},
+                                 {name:"etnia",show:true,replace:"Etnia"},
+                                 {name:"municipioOrigen",show:true,replace:"Municipio origen"},
+                                 {name:"edad",show:true,replace:"Edad"},
+                                 {name:"telefono",show:true,replace:"Teléfono"},
+                                 {name:"motivoEstancia",show:true,replace:"Motivo estancia"},
+                                 {name:"ocupacion",show:true,replace:"Ocupacion"},
+                                 {name:"estadoCivil",show:true,replace:"Estado civil"},
+                                 {name:"escolaridad",show:true,replace:"Escolaridad"},
+                                 {name:"religion",show:true,replace:"Religión"},
+                                 {name:"docIdentificacion",show:true,replace:"Doc identificación"},
+                                 {name:"numDocIdentificacion",show:true,replace:"Num doc identif."},
+                                 {name:"lugarTrabajo",show:true,replace:"Lugar trabajo"},
+                                 {name:"idDomicilioTrabajo",show:false,replace:"idDomicilio"},
+                                 {name:"telefonoTrabajo",show:true,replace:"Teléfono trabajo"},
+                                 {name:"representanteLegal",show:true,replace:"Representante legal"},
+                                 {name:"alias",show:true,replace:"Alias"}                                 
+
+                             //name:colname,show:showInTable,replace:NweNameInTable
+                             ],
+                             skip:0,//skip
+                             limit:5,//limit
+                             filters:{"alias":"Mata Viejitas"},//search where like (correct name col)
+                             nfilters:{},//search where no like (correct name col)
+                             //tablename:"cat_municipio"
+                             //tablename:"cat_estado"
+                             tablename:"persona_completa_actual"
+                             },
+                     current:0,
+                     maxpage:0,
+                     charging:false,
+                     message:"Cargando...",
+                     options:{title:"opciones",links:[
+                     {func:function(obj){
+                         alert(obj.id);
+                         },
+                     text:"alert" }]}
+                 }
             }
         },
+        computed: {
+            printData: function () {
+                 console.log("Valor de alias: "+this.data);
+                }
+        },
         props:{
-            dt:{}
+            data:{
+                default:false
+            }
         },
         mounted(){
             //INIT METHOD
