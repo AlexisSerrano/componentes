@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="rfc">R.F.C</label>
-                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required'" autocomplete="off">
+                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required|size:12'" autocomplete="off">
                     <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
                 </div>
             </div>
@@ -97,12 +97,6 @@ import swal from 'sweetalert2'
                     if (result) {
                         this.CrearEmpresa();
                         this.CleanFields();
-                        swal({
-                            title: 'Guardado correctamente!',
-                            text: 'Ésta empresa fue guardada exitosamente',
-                            type: 'success',
-                            confirmButtonText: 'Ok'
-                        })
                         return;
                     }
                     swal({
@@ -133,7 +127,21 @@ import swal from 'sweetalert2'
                     })
                     .then (response =>{
                         console.log(response.data)
-                });
+                        swal({
+                            title: 'Guardado correctamente!',
+                            text: 'Ésta empresa fue guardada exitosamente',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        })
+                    }).catch((error)=>{
+                        console.log(error.response.data.errors);
+                        swal({
+                        title: 'Guardado incorrecto!',
+                        text: 'Ésta persona moral no fue posible guardarla',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                        })
+                    });
             }
        }
     }
