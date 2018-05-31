@@ -5,29 +5,6 @@
                  <h5 id="pruebavue">{{personaExiste!=''?personaExiste.nombres+" "+personaExiste.primerAp+" "+personaExiste.segundoAp:''}}</h5>
              </div>
          </div> -->
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog" style="max-width:100%">
-            <div class="modal-dialog modal-lg">
-            
-            <!-- Modal content-->
-            <div class="modal-content" style="width:100%">
-                <div class="modal-header">
-                
-                <h4 class="modal-title">Coincidencias con el Alias</h4>
-                </div>
-                <div class="modal-body">                    
-                    <render-datatable :data="this.alias"></render-datatable>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-            
-            </div>
-        </div>
-        <!-- End Modal-->
-
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm">
             <div class="form-row" v-if="tipo ==2 || tipo==3 || tipo==4 || tipo==10 || tipo==11 || tipo==12">
                 <div class="form-group col-md-6">
@@ -71,12 +48,10 @@
                     <span v-if="errors.has('Segundo apellido')" class="text-danger">{{ errors.first('Segundo apellido') }}</span>
                 </div>
                 <div v-if="(denunciado==2) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
-                    <label for="alias">Alias</label>
-                    <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="buscarCoincidencias()">
-                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias()">
-                    <div v-if="this.coincidencias>0">                      
-                        <span type="button" class="badge" style="cursor:pointer" data-toggle="modal" data-target="#myModal">{{this.coincidencias}}</span>
-                    </div>
+                    <label for="alias">Alias</label>                    
+                    <render-datatable> </render-datatable>
+                    <!-- <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="buscarCoincidencias()">-->
+                    <!-- <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias()">-->                    
                     <span v-if="errors.has('Alias')" class="text-danger">{{ errors.first('Alias') }}</span>
                 </div>
             </div>
@@ -224,12 +199,7 @@
                 </div>
                 <div v-if="(denunciado==1) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
                     <label for="alias">Alias</label>
-                    <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" v-on:blur="buscarCoincidencias">
-                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias">
-                    <div v-if="this.coincidencias>0">                      
-                        <span type="button" class="badge" style="cursor:pointer" data-toggle="modal" data-target="#myModal">{{this.coincidencias}}</span>
-                    </div>
-                    
+                     <render-datatable> </render-datatable>
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
             </div>
@@ -288,8 +258,7 @@ import swal from 'sweetalert2'
                 numIdentificacion:'',
                 lugarTrabajo:'',
                 telefonoTrabajo:'',
-                alias:'',
-                coincidencias:'',                
+                alias:'',                                
                 nombresV:false,
                 primerApV:false,
                 segundoApV:false,
