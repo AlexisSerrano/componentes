@@ -92,7 +92,6 @@
                                  {name:"lugarTrabajo",show:true,replace:"Lugar trabajo"},
                                  {name:"idDomicilioTrabajo",show:false,replace:"idDomicilio"},
                                  {name:"telefonoTrabajo",show:true,replace:"Teléfono trabajo"},
-                                 {name:"representanteLegal",show:true,replace:"Representante legal"},
                                  {name:"alias",show:true,replace:"Alias"}                                 
 
                              //name:colname,show:showInTable,replace:NweNameInTable
