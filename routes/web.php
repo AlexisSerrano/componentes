@@ -16,9 +16,11 @@ Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('a
 /*URLS PARA SELECTS PERSONAS */
 Route::post('addDatosTelefono','PersonaController@addDatosTelefono')->name('addDatosTelefono');;
 
-Route::get('getDatosPersonaTelefono','PersonaController@getdctt');
-Route::get('getDatosPersonaRed','PersonaController@getdctr');
-Route::get('getDatosPersonaCorreo','PersonaController@getdctc');
+
+Route::get('getDatosPersonaTelefono','DatosContacto@getdctt');
+Route::get('getDatosPersonaRed','DatosContacto@getdctr');
+Route::get('getDatosPersonaCorreo','DatosContacto@getdctc');
+
 Route::get('getDatosContacto','PersonaController@getdc');
 
 Route::get('getNacionalidades','PersonaController@getNacionalidades');

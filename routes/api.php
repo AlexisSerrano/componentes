@@ -20,7 +20,7 @@ Route::post('PersonaFisica','GenericController@ValidacionJSONDBPF');
 Route::post('PersonaMoral','GenericController@ValidacionJSONDBPM');
 Route::post('SearchUndefined','GenericController@SearchUndefined');
 Route::post('SetConfirm','GenericController@SetConfirm');
-
+Route::post('adddc','DatosContacto@adddc');
 Route::group(['prefix' => 'test'], function () {
     Route::post('SetConfirm','GenericController@SetConfirm');
     Route::post('getValidaciones','GenericController@ValidacionDBJSON');
