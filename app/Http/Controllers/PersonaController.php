@@ -17,6 +17,7 @@ use App\Http\Models\CatReligion;
 use App\Http\Models\CatIdentificacion;
 use App\Http\Models\InterpretesModel;
 use App\Http\Models\VariablesPersona;
+use App\Http\Models\DatosContacto;
 use RFC\RfcBuilder;
 
 class PersonaController extends Controller{
@@ -203,6 +204,36 @@ class PersonaController extends Controller{
 	    ->select('tipo','id')->get();
         return response()->json($correo);
 	}
+	public function getdc(){
+		$vdc=DB::table('datos_contacto')->orderBy('id','ASC')
+		->select('iddatostipo','valor')->get();
+		return response()->json($vdc);
+	}
+	public function addDatosTelefono(Request $request){			
+		/*$datosTel = new DatosContacto(array(
+			'idPersona' => $request->input('idPersona'),
+			'iddatostipo' => $request->input('iddatostipo'),
+			'valor' => $request->input('valor'),
+			'habilitado' => $request->input('habilitado')
+		));			
+		$datosTel->save();*/
+		DB::beginTransaction();
+		try{
+			$dct= new DatosContacto();
+			//$dct->idPersona=1;
+			$dct->iddatostipo=$request->input('datostipo');
+			$dct->valor=$request->input('valor');
+			$dct->save();
+			DB::commit();
+			return $dct;
+		}
+		catch(\PDOException $e){
+			DB::rollBack();
+			throw $e;
+            return back()->withInput();
+		}
+	}
+
 	/* GET METHOD
 	public function getValidaciones($id1,$id2,$id3){
 		return HelpController::GetJSONDBValidation($id1,$id2,$id3);
