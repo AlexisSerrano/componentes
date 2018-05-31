@@ -1,6 +1,11 @@
 <template>
 <div class="container"> 
-        <input type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="datoAlias" placeholder="Ingresa" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="mostrarTable()">
+    <div class="form-row">
+        
+            <input type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="datoAlias" placeholder="Ingresa el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="mostrarTable()" style="width:12em;" > 
+            <div style="cursor:pointer"> <span class="badge badge-dark" id="match" v-on:click="mostrarTable(1)"></span>  </div>
+        
+    </div>        
     <!-- Modal -->
        <div class="modal fade" id="myModal" role="dialog">
            <div class="modal-dialog">
@@ -153,6 +158,7 @@
                     if(DT!=undefined){
                         if(DT.count>0){
                             this.DataTable.data=DT;
+                            console.log("Dentro del getData  "+ this.DataTable.data.count); 
                             if(this.DataTable.columns==undefined){
                                 this.DTallcols();
                             }
@@ -173,12 +179,37 @@
             DTBackData:function(){
                 this.DTGetData(this.DataTable.current-1);
             },
-            mostrarTable:function(){  
-                this.datoAlias=this.datoAlias.trim()  
-                if((this.datoAlias.length) > 0){
-                    this.DataTable.params.filters={"alias":this.datoAlias}
+            mostrarTable:function(triger){
+                if(triger!=undefined){
                     this.DTGetData(0)
                     $("#myModal").modal();
+                    return;
+                }  
+                this.datoAlias=this.datoAlias.trim()  
+                if((this.datoAlias.length) > 0){                    
+                    /*this.DataTable.params.filters={"alias":this.datoAlias}
+                    this.DTGetData(0)
+                    console.log("Resultados: "+ this.DataTable.data.count);                    
+                    $("#myModal").modal();  */
+                    this.DataTable.params.filters={"alias":this.datoAlias}
+                    var DT;                              
+                    axios.post(this.DataTable.url, this.DataTable.params).then(response=>{
+                        DT=response.data;
+                    }).finally(()=>{
+                        if(DT!=undefined){
+                            if(DT.count>0){
+                                console.log("Se encontraron: "+DT.count+" Resultados");     
+                                $('#match').html(DT.count)                           
+                            }else{
+                                console.log("No hay datos"); 
+                                $('#match').html('')                                                                                   
+                            }                     
+                        }else{
+                            console.log("Sin informacion");
+                        }                    
+                    });
+
+
                 }else{
                     console.log("No hay datos en el input");
                 }                   

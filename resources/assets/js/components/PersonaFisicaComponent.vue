@@ -50,8 +50,6 @@
                 <div v-if="(denunciado==2) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
                     <label for="alias">Alias</label>                    
                     <render-datatable> </render-datatable>
-                    <!-- <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="buscarCoincidencias()">-->
-                    <!-- <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="buscarCoincidencias()">-->                    
                     <span v-if="errors.has('Alias')" class="text-danger">{{ errors.first('Alias') }}</span>
                 </div>
             </div>
@@ -199,7 +197,7 @@
                 </div>
                 <div v-if="(denunciado==1) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
                     <label for="alias">Alias</label>
-                     <render-datatable> </render-datatable>
+                     <render-datatable>  </render-datatable>
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
             </div>
@@ -672,30 +670,6 @@ import swal from 'sweetalert2'
                             })
                         }
                     });
-            },
-            buscarCoincidencias:function(){  
-                this.alias=this.alias.trim()                
-               if((this.alias.length) > 0){    
-                var DT;          
-                var DataTable={"tablename":"persona_completa_actual","filters":{"alias":this.alias}, "limit":5, "skip":"0"}
-                axios.post('/api/test/SearchUndefined',DataTable).then(response=>{
-                    DT=response.data;
-                }).finally(()=>{
-                    if(DT!=undefined){
-                        if(DT.count>0){
-                            console.log("Se encontraron: "+DT.count+" Resultados");
-                            this.coincidencias=DT.count;  
-                        }else{
-                            console.log("No hay datos");
-                            this.coincidencias=0;                                                      
-                        }                     
-                    }else{
-                        console.log("Sin informacion");
-                    }                    
-                });
-               }else{
-                   console.log("No hay alias");                                  
-               }                             
             }
        },
        watch:{
