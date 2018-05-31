@@ -4,28 +4,27 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="telefonos">Telefonos <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalTelefonos">+</span></label>
-                <v-select multiple :options="telefonos" v-model="telefono" name="telefono" id="telefono"></v-select>
+                <v-select multiple :options="telefonos" v-model="telefono" name="telefono" id="telefono" label="valor"></v-select>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="correos">Correos <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalCorreos">+</span></label>
-                <v-select multiple :options="correos" v-model="correo" name="correo" id="correo"></v-select>
+                <v-select multiple :options="correos" v-model="correo" name="correo" id="correo" label="valor"></v-select>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="redes">Redes Sociales <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalRedes">+</span></label>
-                <v-select multiple :options="redes" v-model="red" name="red" id="red"></v-select>
+                <v-select multiple :options="redes" v-model="red" name="red" id="red" label="valor"></v-select>
             </div>
         </div>
-        <button type="submit" class="btn btn-secondary">Guardar</button>
     </form>
     <!--MODAL TELEFONO-->
     <div class="modal fade" id="ModalTelefonos" role="dialog" style="max-width:100%">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="width:100%">
-                <form>
+                <form v-on:submit.prevent="creardct">
                     <div class="modal-header">
                         <h4 class="modal-title">Registrar teléfono</h4>
                     </div>
@@ -130,8 +129,17 @@ export default{
         this.getdctt();
         this.getdctc();
         this.getdctr();
+        this.getdc();
     },
     methods:{
+        getdc: function(){
+            var urlDatosContacto = 'getDatosContacto';
+            axios.get(urlDatosContacto).then(response => {
+                this.telefonos=response.data;
+                this.correos=response.data;
+                this.redes=response.data;
+            });
+        },
         getdctt: function(){
             var urlTelefono = 'getDatosPersonaTelefono';
             axios.get(urlTelefono).then(response => {
@@ -148,6 +156,29 @@ export default{
             var urlRed = 'getDatosPersonaRed';
             axios.get(urlRed).then(response => {
                 this.tipoRedes=response.data;
+            });
+        },
+        creardct: function(){
+            var urlCrear = 'addDatosTelefono';
+            axios.post(urlCrear,{
+                datostipo: this.tipoTelefonos.id,
+                valor: this.numero,
+            }).then(response=>{
+                console.log(response.data)
+                swal({
+                    title: 'Guardado correctamente!',
+                    text: 'Número de teléfono agregado exitosamente',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                })
+            }).catch((error)=>{
+                console.log(error.response.data.errors);
+                swal({
+                title: 'Guardado incorrecto!',
+                text: 'Número de teléfono imposible de guardar',
+                type: 'error',
+                confirmButtonText: 'Ok'
+                })
             });
         }
     },
