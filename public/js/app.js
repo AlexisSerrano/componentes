@@ -513,420 +513,6 @@ module.exports = g;
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(26);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(11);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(11);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-  Modified by Evan You @yyx990803
-*/
-
-var hasDocument = typeof document !== 'undefined'
-
-if (typeof DEBUG !== 'undefined' && DEBUG) {
-  if (!hasDocument) {
-    throw new Error(
-    'vue-style-loader cannot be used in a non-browser environment. ' +
-    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-  ) }
-}
-
-var listToStyles = __webpack_require__(50)
-
-/*
-type StyleObject = {
-  id: number;
-  parts: Array<StyleObjectPart>
-}
-
-type StyleObjectPart = {
-  css: string;
-  media: string;
-  sourceMap: ?string
-}
-*/
-
-var stylesInDom = {/*
-  [id: number]: {
-    id: number,
-    refs: number,
-    parts: Array<(obj?: StyleObjectPart) => void>
-  }
-*/}
-
-var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-var singletonElement = null
-var singletonCounter = 0
-var isProduction = false
-var noop = function () {}
-var options = null
-var ssrIdKey = 'data-vue-ssr-id'
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-module.exports = function (parentId, list, _isProduction, _options) {
-  isProduction = _isProduction
-
-  options = _options || {}
-
-  var styles = listToStyles(parentId, list)
-  addStylesToDom(styles)
-
-  return function update (newList) {
-    var mayRemove = []
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i]
-      var domStyle = stylesInDom[item.id]
-      domStyle.refs--
-      mayRemove.push(domStyle)
-    }
-    if (newList) {
-      styles = listToStyles(parentId, newList)
-      addStylesToDom(styles)
-    } else {
-      styles = []
-    }
-    for (var i = 0; i < mayRemove.length; i++) {
-      var domStyle = mayRemove[i]
-      if (domStyle.refs === 0) {
-        for (var j = 0; j < domStyle.parts.length; j++) {
-          domStyle.parts[j]()
-        }
-        delete stylesInDom[domStyle.id]
-      }
-    }
-  }
-}
-
-function addStylesToDom (styles /* Array<StyleObject> */) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i]
-    var domStyle = stylesInDom[item.id]
-    if (domStyle) {
-      domStyle.refs++
-      for (var j = 0; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j])
-      }
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j]))
-      }
-      if (domStyle.parts.length > item.parts.length) {
-        domStyle.parts.length = item.parts.length
-      }
-    } else {
-      var parts = []
-      for (var j = 0; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j]))
-      }
-      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-    }
-  }
-}
-
-function createStyleElement () {
-  var styleElement = document.createElement('style')
-  styleElement.type = 'text/css'
-  head.appendChild(styleElement)
-  return styleElement
-}
-
-function addStyle (obj /* StyleObjectPart */) {
-  var update, remove
-  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
-
-  if (styleElement) {
-    if (isProduction) {
-      // has SSR styles and in production mode.
-      // simply do nothing.
-      return noop
-    } else {
-      // has SSR styles but in dev mode.
-      // for some reason Chrome can't handle source map in server-rendered
-      // style tags - source maps in <style> only works if the style tag is
-      // created and inserted dynamically. So we remove the server rendered
-      // styles and inject new ones.
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  if (isOldIE) {
-    // use singleton mode for IE9.
-    var styleIndex = singletonCounter++
-    styleElement = singletonElement || (singletonElement = createStyleElement())
-    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-  } else {
-    // use multi-style-tag mode in all other cases
-    styleElement = createStyleElement()
-    update = applyToTag.bind(null, styleElement)
-    remove = function () {
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  update(obj)
-
-  return function updateStyle (newObj /* StyleObjectPart */) {
-    if (newObj) {
-      if (newObj.css === obj.css &&
-          newObj.media === obj.media &&
-          newObj.sourceMap === obj.sourceMap) {
-        return
-      }
-      update(obj = newObj)
-    } else {
-      remove()
-    }
-  }
-}
-
-var replaceText = (function () {
-  var textStore = []
-
-  return function (index, replacement) {
-    textStore[index] = replacement
-    return textStore.filter(Boolean).join('\n')
-  }
-})()
-
-function applyToSingletonTag (styleElement, index, remove, obj) {
-  var css = remove ? '' : obj.css
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = replaceText(index, css)
-  } else {
-    var cssNode = document.createTextNode(css)
-    var childNodes = styleElement.childNodes
-    if (childNodes[index]) styleElement.removeChild(childNodes[index])
-    if (childNodes.length) {
-      styleElement.insertBefore(cssNode, childNodes[index])
-    } else {
-      styleElement.appendChild(cssNode)
-    }
-  }
-}
-
-function applyToTag (styleElement, obj) {
-  var css = obj.css
-  var media = obj.media
-  var sourceMap = obj.sourceMap
-
-  if (media) {
-    styleElement.setAttribute('media', media)
-  }
-  if (options.ssrId) {
-    styleElement.setAttribute(ssrIdKey, obj.id)
-  }
-
-  if (sourceMap) {
-    // https://developer.chrome.com/devtools/docs/javascript-debugging
-    // this makes source maps inside style tags work properly in Chrome
-    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-    // http://stackoverflow.com/a/26603875
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-  }
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild)
-    }
-    styleElement.appendChild(document.createTextNode(css))
-  }
-}
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /*!
 * sweetalert2 v7.19.1
 * Released under the MIT License.
@@ -2063,6 +1649,420 @@ function applyToTag (styleElement, obj) {
 "  100% {\n" +
 "    -webkit-transform: rotate(360deg);\n" +
 "            transform: rotate(360deg); } }");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(26);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(11);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(11);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+var listToStyles = __webpack_require__(50)
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+module.exports = function (parentId, list, _isProduction, _options) {
+  isProduction = _isProduction
+
+  options = _options || {}
+
+  var styles = listToStyles(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = listToStyles(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
 
 /***/ }),
 /* 7 */
@@ -15773,7 +15773,7 @@ function actualizarCurp(curp) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(17);
-module.exports = __webpack_require__(72);
+module.exports = __webpack_require__(75);
 
 
 /***/ }),
@@ -15821,6 +15821,7 @@ Vue.component('persona', __webpack_require__(58));
 Vue.component('domicilio', __webpack_require__(61));
 Vue.component('render-datatable', __webpack_require__(66));
 Vue.component('formex', __webpack_require__(69));
+Vue.component('datoscontactos', __webpack_require__(72));
 var app = new Vue({
   el: '#app'
 });
@@ -36966,7 +36967,7 @@ module.exports = __webpack_require__(23);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(9);
 var Axios = __webpack_require__(25);
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 
 /**
  * Create an instance of Axios
@@ -37049,7 +37050,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(34);
 var dispatchRequest = __webpack_require__(35);
@@ -37588,7 +37589,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(36);
 var isCancel = __webpack_require__(13);
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 var isAbsoluteURL = __webpack_require__(37);
 var combineURLs = __webpack_require__(38);
 
@@ -54250,7 +54251,7 @@ var content = __webpack_require__(49);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("4d72c6f2", content, false, {});
+var update = __webpack_require__(6)("4d72c6f2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -54269,7 +54270,7 @@ if(false) {
 /* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)(false);
+exports = module.exports = __webpack_require__(5)(false);
 // imports
 
 
@@ -54320,42 +54321,10 @@ module.exports = function listToStyles (parentId, list) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__curp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -54615,7 +54584,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             lugarTrabajo: '',
             telefonoTrabajo: '',
             alias: '',
-            coincidencias: '',
             nombresV: false,
             primerApV: false,
             segundoApV: false,
@@ -54912,6 +54880,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             this.nacionalidad = { "nombre": "MEXICANA", "id": 1 }, this.estado = { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 }, this.municipio = null, this.etnia = { "nombre": "SIN INFORMACIÓN", "id": 13 }, this.lengua = { "nombre": "SIN INFORMACIÓN", "id": 69 }, this.interprete = { "nombre": "SIN INFORMACIÓN", "id": 1 }, this.nombres = '', this.primerAp = '', this.segundoAp = '', this.fechaNacimiento = '', this.edad = '', this.sexo = null, this.rfc = '', this.curp = '', this.telefono = '', this.motivoEstancia = '', this.ocupacion = '', this.estadoCivil = '', this.escolaridad = '', this.religion = '', this.identificacion = '', this.numIdentificacion = '', this.lugarTrabajo = '', this.telefonoTrabajo = '', this.alias = '', this.$validator.reset();
         },
 
+        isexits: function isexits(value, defaultv) {
+            return value == undefined ? defaultv : value;
+        },
         crearPersona: function crearPersona() {
             var _objREST,
                 _this16 = this;
@@ -54935,7 +54906,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 idEtnia: this.isexits(this.etnia, { id: 0 }).id,
                 idLengua: this.isexits(this.lengua, { id: 0 }).id,
                 idInterprete: this.isexits(this.interprete, { id: 0 }).id
-            }, _defineProperty(_objREST, 'idInterprete', 1), _defineProperty(_objREST, 'telefono', this.telefono), _defineProperty(_objREST, 'motivoEstancia', this.motivoEstancia.toUpperCase()), _defineProperty(_objREST, 'idOcupacion', this.isexits(this.ocupacion, { id: 0 }).id), _defineProperty(_objREST, 'idEstadoCivil', this.isexits(this.estadoCivil, { id: 0 }).id), _defineProperty(_objREST, 'idEscolaridad', this.isexits(this.escolaridad, { id: 0 }).id), _defineProperty(_objREST, 'idReligion', this.isexits(this.religion, { id: 0 }).id), _defineProperty(_objREST, 'docIdentificacion', this.isexits(this.identificacion, { id: 0 }).id), _defineProperty(_objREST, 'numDocIdentificacion', this.numIdentificacion.toUpperCase()), _defineProperty(_objREST, 'lugarTrabajo', this.lugarTrabajo.toUpperCase()), _defineProperty(_objREST, 'telefonoTrabajo', this.telefonoTrabajo), _defineProperty(_objREST, 'alias', this.alias.toUpperCase()), _objREST);
+            }, _defineProperty(_objREST, 'idInterprete', 1), _defineProperty(_objREST, 'motivoEstancia', this.motivoEstancia.toUpperCase()), _defineProperty(_objREST, 'idOcupacion', this.isexits(this.ocupacion, { id: 0 }).id), _defineProperty(_objREST, 'idEstadoCivil', this.isexits(this.estadoCivil, { id: 0 }).id), _defineProperty(_objREST, 'idEscolaridad', this.isexits(this.escolaridad, { id: 0 }).id), _defineProperty(_objREST, 'idReligion', this.isexits(this.religion, { id: 0 }).id), _defineProperty(_objREST, 'docIdentificacion', this.isexits(this.identificacion, { id: 0 }).id), _defineProperty(_objREST, 'numDocIdentificacion', this.numIdentificacion.toUpperCase()), _defineProperty(_objREST, 'lugarTrabajo', this.lugarTrabajo.toUpperCase()), _defineProperty(_objREST, 'alias', this.alias.toUpperCase()), _objREST);
             axios.post('/api/PersonaFisica', objREST).then(function (response) {
                 /*console.log(response)
                 if(response.status==200){
@@ -54975,32 +54946,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     });
                 }
             });
-        },
-        buscarCoincidencias: function buscarCoincidencias() {
-            var _this17 = this;
-
-            this.alias = this.alias.trim();
-            if (this.alias.length > 0) {
-                var DT;
-                var DataTable = { "tablename": "persona_completa_actual", "filters": { "alias": this.alias }, "limit": 5, "skip": "0" };
-                axios.post('/api/test/SearchUndefined', DataTable).then(function (response) {
-                    DT = response.data;
-                }).finally(function () {
-                    if (DT != undefined) {
-                        if (DT.count > 0) {
-                            console.log("Se encontraron: " + DT.count + " Resultados");
-                            _this17.coincidencias = DT.count;
-                        } else {
-                            console.log("No hay datos");
-                            _this17.coincidencias = 0;
-                        }
-                    } else {
-                        console.log("Sin informacion");
-                    }
-                });
-            } else {
-                console.log("No hay alias");
-            }
         }
     },
     watch: {
@@ -55022,35 +54967,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        staticStyle: { "max-width": "100%" },
-        attrs: { id: "myModal", role: "dialog" }
-      },
-      [
-        _c("div", { staticClass: "modal-dialog modal-lg" }, [
-          _c(
-            "div",
-            { staticClass: "modal-content", staticStyle: { width: "100%" } },
-            [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "modal-body" },
-                [_c("render-datatable", { attrs: { data: this.alias } })],
-                1
-              ),
-              _vm._v(" "),
-              _vm._m(1)
-            ]
-          )
-        ])
-      ]
-    ),
-    _vm._v(" "),
     _vm.mostrarForm
       ? _c(
           "form",
@@ -55535,110 +55451,24 @@ var render = function() {
                 _vm.tipo == 10 &&
                 _vm.tipo == 11 &&
                 _vm.tipo == 12)
-                ? _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "alias" } }, [_vm._v("Alias")]),
-                    _vm._v(" "),
-                    _vm.aliasV == 1
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.alias,
-                              expression: "alias"
-                            },
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required",
-                              expression: "'required'"
-                            }
-                          ],
-                          class: {
-                            input: true,
-                            "form-control": true,
-                            "border border-danger": _vm.errors.has("Alias")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "alias",
-                            id: "alias",
-                            placeholder: "Ingrese el alias",
-                            autocomplete: "off",
-                            "data-vv-name": "Alias"
-                          },
-                          domProps: { value: _vm.alias },
-                          on: {
-                            blur: function($event) {
-                              _vm.buscarCoincidencias()
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.alias = $event.target.value
-                            }
-                          }
-                        })
-                      : _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.alias,
-                              expression: "alias"
-                            }
-                          ],
-                          class: {
-                            input: true,
-                            "form-control": true,
-                            "border border-danger": _vm.errors.has("alias")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "alias",
-                            id: "alias",
-                            placeholder: "Ingrese el alias",
-                            autocomplete: "off"
-                          },
-                          domProps: { value: _vm.alias },
-                          on: {
-                            blur: function($event) {
-                              _vm.buscarCoincidencias()
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.alias = $event.target.value
-                            }
-                          }
-                        }),
-                    _vm._v(" "),
-                    this.coincidencias > 0
-                      ? _c("div", [
-                          _c(
-                            "span",
-                            {
-                              staticClass: "badge",
-                              staticStyle: { cursor: "pointer" },
-                              attrs: {
-                                type: "button",
-                                "data-toggle": "modal",
-                                "data-target": "#myModal"
-                              }
-                            },
-                            [_vm._v(_vm._s(this.coincidencias))]
-                          )
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.errors.has("Alias")
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.first("Alias")))
-                        ])
-                      : _vm._e()
-                  ])
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c("label", { attrs: { for: "alias" } }, [
+                        _vm._v("Alias")
+                      ]),
+                      _vm._v(" "),
+                      _c("render-datatable"),
+                      _vm._v(" "),
+                      _vm.errors.has("Alias")
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.errors.first("Alias")))
+                          ])
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 : _vm._e()
             ]),
             _vm._v(" "),
@@ -57470,107 +57300,24 @@ var render = function() {
                     _vm.tipo == 10 &&
                     _vm.tipo == 11 &&
                     _vm.tipo == 12)
-                    ? _c("div", { staticClass: "form-group col-md-4" }, [
-                        _c("label", { attrs: { for: "alias" } }, [
-                          _vm._v("Alias")
-                        ]),
-                        _vm._v(" "),
-                        _vm.aliasV == 1
-                          ? _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.alias,
-                                  expression: "alias"
-                                },
-                                {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                }
-                              ],
-                              class: {
-                                input: true,
-                                "form-control": true,
-                                "border border-danger": _vm.errors.has("alias")
-                              },
-                              attrs: {
-                                type: "text",
-                                name: "alias",
-                                id: "alias",
-                                placeholder: "Ingrese el alias",
-                                autocomplete: "off"
-                              },
-                              domProps: { value: _vm.alias },
-                              on: {
-                                blur: _vm.buscarCoincidencias,
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.alias = $event.target.value
-                                }
-                              }
-                            })
-                          : _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.alias,
-                                  expression: "alias"
-                                }
-                              ],
-                              class: {
-                                input: true,
-                                "form-control": true,
-                                "border border-danger": _vm.errors.has("alias")
-                              },
-                              attrs: {
-                                type: "text",
-                                name: "alias",
-                                id: "alias",
-                                placeholder: "Ingrese el alias",
-                                autocomplete: "off"
-                              },
-                              domProps: { value: _vm.alias },
-                              on: {
-                                blur: _vm.buscarCoincidencias,
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.alias = $event.target.value
-                                }
-                              }
-                            }),
-                        _vm._v(" "),
-                        this.coincidencias > 0
-                          ? _c("div", [
-                              _c(
-                                "span",
-                                {
-                                  staticClass: "badge",
-                                  staticStyle: { cursor: "pointer" },
-                                  attrs: {
-                                    type: "button",
-                                    "data-toggle": "modal",
-                                    "data-target": "#myModal"
-                                  }
-                                },
-                                [_vm._v(_vm._s(this.coincidencias))]
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.errors.has("alias")
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.first("alias")))
-                            ])
-                          : _vm._e()
-                      ])
+                    ? _c(
+                        "div",
+                        { staticClass: "form-group col-md-4" },
+                        [
+                          _c("label", { attrs: { for: "alias" } }, [
+                            _vm._v("Alias")
+                          ]),
+                          _vm._v(" "),
+                          _c("render-datatable"),
+                          _vm._v(" "),
+                          _vm.errors.has("alias")
+                            ? _c("span", { staticClass: "text-danger" }, [
+                                _vm._v(_vm._s(_vm.errors.first("alias")))
+                              ])
+                            : _vm._e()
+                        ],
+                        1
+                      )
                     : _vm._e()
                 ])
               : _vm._e(),
@@ -57597,33 +57344,7 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [
-        _vm._v("Coincidencias con el Alias")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-default",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Cerrar")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -57695,7 +57416,7 @@ var content = __webpack_require__(55);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("436df3b0", content, false, {});
+var update = __webpack_require__(6)("436df3b0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -57714,7 +57435,7 @@ if(false) {
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)(false);
+exports = module.exports = __webpack_require__(5)(false);
 // imports
 
 
@@ -57730,7 +57451,7 @@ exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-contro
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
 //
 //
@@ -57786,7 +57507,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             rfc: '',
             telefono: '',
             representanteLegal: '',
-            personaExiste: ''
+            personaExiste: '',
+            nombreV: '',
+            fechaConstitucionV: '',
+            rfcV: '',
+            telefonoV: '',
+            representanteLegalV: ''
         };
     },
 
@@ -57851,6 +57577,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         CrearEmpresa: function CrearEmpresa() {
+            var _this3 = this;
+
             var urlCrearMoral = '/addPersonaMoral';
             axios.post(urlCrearMoral, {
                 nombre: this.nombre.toUpperCase(),
@@ -57869,6 +57597,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }).catch(function (error) {
                 console.log(error.response.data.errors);
+                _this3.nombreV = error.response.data.errors.nombre, _this3.fechaConstitucionV = error.response.data.errors.fechaConstitucion, _this3.rfcV = error.response.data.errors.rfc, _this3.telefonoV = error.response.data.errors.telefono, _this3.representanteLegalV = error.response.data.errors.representanteLegal;
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado incorrecto!',
                     text: 'Ésta persona moral no fue posible guardarla',
@@ -57922,7 +57651,7 @@ var render = function() {
               class: {
                 input: true,
                 "form-control": true,
-                "border border-danger": _vm.errors.has("nombre")
+                "border border-danger": _vm.errors.has("nombre") || _vm.nombreV
               },
               attrs: {
                 type: "text",
@@ -57943,9 +57672,9 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.errors.has("nombre")
+            _vm.errors.has("nombre") || _vm.nombreV
               ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.first("nombre")))
+                  _vm._v(_vm._s(_vm.errors.first("nombre") || _vm.nombreV[0]))
                 ])
               : _vm._e()
           ]),
@@ -57972,7 +57701,9 @@ var render = function() {
               ],
               staticClass: "form-control",
               class: {
-                "border border-danger": _vm.errors.has("Fecha de Constitucion")
+                "border border-danger":
+                  _vm.errors.has("Fecha de Constitucion") ||
+                  _vm.fechaConstitucionV
               },
               attrs: {
                 type: "date",
@@ -57999,13 +57730,23 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.errors.has("Fecha de Constitucion"),
-                    expression: "errors.has('Fecha de Constitucion')"
+                    value:
+                      _vm.errors.has("Fecha de Constitucion") ||
+                      _vm.fechaConstitucionV,
+                    expression:
+                      "errors.has('Fecha de Constitucion') || fechaConstitucionV"
                   }
                 ],
                 staticClass: "text-danger"
               },
-              [_vm._v(_vm._s(_vm.errors.first("Fecha de Constitucion")))]
+              [
+                _vm._v(
+                  _vm._s(
+                    _vm.errors.first("Fecha de Constitucion") ||
+                      _vm.fechaConstitucionV
+                  )
+                )
+              ]
             )
           ]),
           _vm._v(" "),
@@ -58030,7 +57771,7 @@ var render = function() {
               class: {
                 input: true,
                 "form-control": true,
-                "border border-danger": _vm.errors.has("rfc")
+                "border border-danger": _vm.errors.has("rfc") || _vm.rfcV
               },
               attrs: {
                 type: "text",
@@ -58050,9 +57791,9 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.errors.has("rfc")
+            _vm.errors.has("rfc") || _vm.rfcV
               ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.first("rfc")))
+                  _vm._v(_vm._s(_vm.errors.first("rfc") || _vm.rfcV[0]))
                 ])
               : _vm._e()
           ])
@@ -58080,7 +57821,8 @@ var render = function() {
               class: {
                 input: true,
                 "form-control": true,
-                "border border-danger": _vm.errors.has("telefono")
+                "border border-danger":
+                  _vm.errors.has("telefono") || _vm.telefonoV
               },
               attrs: {
                 type: "text",
@@ -58100,9 +57842,11 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.errors.has("telefono")
+            _vm.errors.has("telefono") || _vm.telefonoV
               ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.first("telefono")))
+                  _vm._v(
+                    _vm._s(_vm.errors.first("telefono") || _vm.telefonoV[0])
+                  )
                 ])
               : _vm._e()
           ]),
@@ -58130,7 +57874,9 @@ var render = function() {
               class: {
                 input: true,
                 "form-control": true,
-                "border border-danger": _vm.errors.has("Representante Legal")
+                "border border-danger":
+                  _vm.errors.has("Representante Legal") ||
+                  _vm.representanteLegalV
               },
               attrs: {
                 type: "text",
@@ -58151,9 +57897,14 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.errors.has("Representante Legal")
+            _vm.errors.has("Representante Legal") || _vm.representanteLegalV
               ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.first("Representante Legal")))
+                  _vm._v(
+                    _vm._s(
+                      _vm.errors.first("Representante Legal") ||
+                        _vm.representanteLegalV[0]
+                    )
+                  )
                 ])
               : _vm._e()
           ])
@@ -58451,7 +58202,7 @@ var content = __webpack_require__(63);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("449d6939", content, false, {});
+var update = __webpack_require__(6)("449d6939", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -58470,7 +58221,7 @@ if(false) {
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)(false);
+exports = module.exports = __webpack_require__(5)(false);
 // imports
 
 
@@ -58486,7 +58237,7 @@ exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-contro
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
 //
 //
@@ -59227,6 +58978,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -59245,7 +59023,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }],
                     skip: 0, //skip
                     limit: 5, //limit
-                    filters: { "alias": "Mata Viejitas" }, //search where like (correct name col)
+                    filters: {}, //search where like (correct name col)
                     nfilters: {}, //search where no like (correct name col)
                     //tablename:"cat_municipio"
                     //tablename:"cat_estado"
@@ -59259,19 +59037,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             alert(obj.id);
                         },
                         text: "alert" }] }
-            }
+            },
+            datoAlias: ''
         };
     },
 
-    computed: {
-        printData: function printData() {
-            console.log("Valor de alias: " + this.data);
-        }
-    },
     props: {
-        data: {
-            default: false
-        }
+        title: String,
+        aliasReceived: Boolean,
+        isPublished: Boolean,
+        commentIds: Array,
+        author: Object
     },
     mounted: function mounted() {
         //INIT METHOD
@@ -59280,7 +59056,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.DataTable.params=this.isexits(this.dt.params,this.DataTable.params);
             this.DataTable.options=this.isexits(this.dt.options,this.DataTable.options);
         }*/
-        this.DTGetData(0);
     },
 
     methods: {
@@ -59310,6 +59085,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (DT != undefined) {
                     if (DT.count > 0) {
                         _this.DataTable.data = DT;
+                        console.log("Dentro del getData  " + _this.DataTable.data.count);
                         if (_this.DataTable.columns == undefined) {
                             _this.DTallcols();
                         }
@@ -59317,7 +59093,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         _this.DataTable.maxpage += _this.DataTable.data.count % _this.DataTable.params.limit == 0 ? 0 : 1;
                         _this.DataTable.charging = false;
                     } else {
-                        _this.DataTable.message = "sin datos";
+                        _this.DataTable.message = "No hay datos para mostrar";
                     }
                 } else {
                     _this.DataTable.message = "error al cargar la informacion";
@@ -59329,6 +59105,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         DTBackData: function DTBackData() {
             this.DTGetData(this.DataTable.current - 1);
+        },
+        mostrarTable: function mostrarTable(triger) {
+            if (triger != undefined) {
+                this.DTGetData(0);
+                $("#myModal").modal();
+                return;
+            }
+            this.datoAlias = this.datoAlias.trim();
+            if (this.datoAlias.length > 0) {
+                /*this.DataTable.params.filters={"alias":this.datoAlias}
+                this.DTGetData(0)
+                console.log("Resultados: "+ this.DataTable.data.count);                    
+                $("#myModal").modal();  */
+                this.DataTable.params.filters = { "alias": this.datoAlias };
+                var DT;
+                axios.post(this.DataTable.url, this.DataTable.params).then(function (response) {
+                    DT = response.data;
+                }).finally(function () {
+                    if (DT != undefined) {
+                        if (DT.count > 0) {
+                            console.log("Se encontraron: " + DT.count + " Resultados");
+                            $('#match').html(DT.count);
+                        } else {
+                            console.log("No hay datos");
+                            $('#match').html('');
+                        }
+                    } else {
+                        console.log("Sin informacion");
+                    }
+                });
+            } else {
+                console.log("No hay datos en el input");
+            }
         }
     }
 });
@@ -59342,158 +59151,281 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm.DataTable != undefined
-      ? _c("div", [
-          !_vm.DataTable.charging
-            ? _c("div", [
-                _c(
-                  "table",
-                  { staticClass: "table table-responsive" },
-                  [
-                    _c(
-                      "tr",
-                      [
-                        _vm._l(_vm.DataTable.params.columns, function(cols) {
-                          return cols.show
-                            ? _c("th", { key: cols.name }, [
-                                _vm._v(
-                                  _vm._s(_vm.isexits(cols.replace, cols.name))
+    _c("div", { staticClass: "form-row" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.datoAlias,
+            expression: "datoAlias"
+          },
+          {
+            name: "validate",
+            rawName: "v-validate",
+            value: "required",
+            expression: "'required'"
+          }
+        ],
+        class: {
+          input: true,
+          "form-control": true,
+          "border border-danger": _vm.errors.has("Alias")
+        },
+        staticStyle: { width: "12em" },
+        attrs: {
+          type: "text",
+          name: "alias",
+          id: "alias",
+          placeholder: "Ingresa el alias",
+          autocomplete: "off",
+          "data-vv-name": "Alias"
+        },
+        domProps: { value: _vm.datoAlias },
+        on: {
+          blur: function($event) {
+            _vm.mostrarTable()
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.datoAlias = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticStyle: { cursor: "pointer" } }, [
+        _c("span", {
+          staticClass: "badge badge-dark",
+          attrs: { id: "match" },
+          on: {
+            click: function($event) {
+              _vm.mostrarTable(1)
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "modal fade", attrs: { id: "myModal", role: "dialog" } },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _vm.DataTable != undefined
+                ? _c("div", [
+                    !_vm.DataTable.charging
+                      ? _c("div", [
+                          _c(
+                            "table",
+                            { staticClass: "table table-responsive" },
+                            [
+                              _c(
+                                "tr",
+                                [
+                                  _vm._l(_vm.DataTable.params.columns, function(
+                                    cols
+                                  ) {
+                                    return cols.show
+                                      ? _c("th", { key: cols.name }, [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.isexits(
+                                                cols.replace,
+                                                cols.name
+                                              )
+                                            )
+                                          )
+                                        ])
+                                      : _vm._e()
+                                  }),
+                                  _vm._v(" "),
+                                  _vm.DataTable.options != undefined
+                                    ? _c("th", [
+                                        _vm._v(
+                                          _vm._s(_vm.DataTable.options.title)
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.DataTable.data.src, function(fields) {
+                                return _c(
+                                  "tr",
+                                  { key: fields.id },
+                                  [
+                                    _vm._l(
+                                      _vm.DataTable.params.columns,
+                                      function(cols) {
+                                        return cols.show
+                                          ? _c("td", { key: cols.name }, [
+                                              _vm._v(_vm._s(fields[cols.name]))
+                                            ])
+                                          : _vm._e()
+                                      }
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.DataTable.options.links,
+                                      function(opt) {
+                                        return _vm.DataTable.options !=
+                                          undefined
+                                          ? _c("td", { key: opt.text }, [
+                                              _c(
+                                                "a",
+                                                {
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      opt.func(fields)
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(opt.text))]
+                                              )
+                                            ])
+                                          : _vm._e()
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              })
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _vm.DataTable.maxpage > 0
+                            ? _c("div", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-default",
+                                    attrs: {
+                                      disabled: _vm.DTEnabled(
+                                        _vm.DataTable.current - 1
+                                      )
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.DTBackData()
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("←")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: { disabled: "true" }
+                                  },
+                                  [_vm._v(_vm._s(_vm.DataTable.current + 1))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-default",
+                                    attrs: {
+                                      disabled: _vm.DTEnabled(
+                                        _vm.DataTable.current + 1
+                                      )
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.DTGetData(_vm.DataTable.current + 1)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(_vm.DataTable.current + 2))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-default",
+                                    attrs: {
+                                      disabled: _vm.DTEnabled(
+                                        _vm.DataTable.current + 2
+                                      )
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.DTGetData(_vm.DataTable.current + 2)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(_vm.DataTable.current + 3))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-default",
+                                    attrs: {
+                                      disabled: _vm.DTEnabled(
+                                        _vm.DataTable.current + 1
+                                      )
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.DTNextData()
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("→")]
                                 )
                               ])
                             : _vm._e()
-                        }),
-                        _vm._v(" "),
-                        _vm.DataTable.options != undefined
-                          ? _c("th", [
-                              _vm._v(_vm._s(_vm.DataTable.options.title))
-                            ])
-                          : _vm._e()
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _vm._l(_vm.DataTable.data.src, function(fields) {
-                      return _c(
-                        "tr",
-                        { key: fields.id },
-                        [
-                          _vm._l(_vm.DataTable.params.columns, function(cols) {
-                            return cols.show
-                              ? _c("td", { key: cols.name }, [
-                                  _vm._v(_vm._s(fields[cols.name]))
-                                ])
-                              : _vm._e()
-                          }),
-                          _vm._v(" "),
-                          _vm._l(_vm.DataTable.options.links, function(opt) {
-                            return _vm.DataTable.options != undefined
-                              ? _c("td", { key: opt.text }, [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          opt.func(fields)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(opt.text))]
-                                  )
-                                ])
-                              : _vm._e()
-                          })
-                        ],
-                        2
-                      )
-                    })
-                  ],
-                  2
-                ),
-                _vm._v(" "),
-                _vm.DataTable.maxpage > 0
-                  ? _c("div", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default",
-                          attrs: {
-                            disabled: _vm.DTEnabled(_vm.DataTable.current - 1)
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.DTBackData()
-                            }
-                          }
-                        },
-                        [_vm._v("←")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: { disabled: "true" }
-                        },
-                        [_vm._v(_vm._s(_vm.DataTable.current + 1))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default",
-                          attrs: {
-                            disabled: _vm.DTEnabled(_vm.DataTable.current + 1)
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.DTGetData(_vm.DataTable.current + 1)
-                            }
-                          }
-                        },
-                        [_vm._v(_vm._s(_vm.DataTable.current + 2))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default",
-                          attrs: {
-                            disabled: _vm.DTEnabled(_vm.DataTable.current + 2)
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.DTGetData(_vm.DataTable.current + 2)
-                            }
-                          }
-                        },
-                        [_vm._v(_vm._s(_vm.DataTable.current + 3))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default",
-                          attrs: {
-                            disabled: _vm.DTEnabled(_vm.DataTable.current + 1)
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.DTNextData()
-                            }
-                          }
-                        },
-                        [_vm._v("→")]
-                      )
-                    ])
-                  : _vm._e()
-              ])
-            : _c("div", [_c("span", [_vm._v(_vm._s(_vm.DataTable.message))])])
+                        ])
+                      : _c("div", [
+                          _c("span", [_vm._v(_vm._s(_vm.DataTable.message))])
+                        ])
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _vm._m(1)
+          ])
         ])
-      : _vm._e()
+      ]
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h3", [_vm._v("Coincidencias con el alias")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -59873,6 +59805,820 @@ if (false) {
 
 /***/ }),
 /* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(73)
+/* template */
+var __vue_template__ = __webpack_require__(74)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\DatosContactosComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-74326566", Component.options)
+  } else {
+    hotAPI.reload("data-v-74326566", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            telefono: null,
+            telefonos: [],
+            correo: null,
+            correos: [],
+            red: null,
+            redes: [],
+            tipoTelefono: null,
+            tipoTelefonos: [],
+            numero: '',
+            tipoCorreo: null,
+            tipoCorreos: [],
+            tCorreo: '',
+            tipoRed: null,
+            tipoRedes: [],
+            tRed: ''
+        };
+    },
+
+    mounted: function mounted() {
+        this.getdctt();
+        this.getdctc();
+        this.getdctr();
+        this.getdc();
+    },
+    methods: {
+        getdc: function getdc() {
+            var _this = this;
+
+            var urlDatosContacto = 'getDatosContacto';
+            axios.get(urlDatosContacto).then(function (response) {
+                _this.telefonos = response.data;
+                _this.correos = response.data;
+                _this.redes = response.data;
+            });
+        },
+        getdctt: function getdctt() {
+            var _this2 = this;
+
+            var urlTelefono = 'getDatosPersonaTelefono';
+            axios.get(urlTelefono).then(function (response) {
+                _this2.tipoTelefonos = response.data;
+            });
+        },
+        getdctc: function getdctc() {
+            var _this3 = this;
+
+            var urlCorreo = 'getDatosPersonaCorreo';
+            axios.get(urlCorreo).then(function (response) {
+                _this3.tipoCorreos = response.data;
+            });
+        },
+        getdctr: function getdctr() {
+            var _this4 = this;
+
+            var urlRed = 'getDatosPersonaRed';
+            axios.get(urlRed).then(function (response) {
+                _this4.tipoRedes = response.data;
+            });
+        },
+        creardct: function creardct() {
+            var urlCrear = 'addDatosTelefono';
+            axios.post(urlCrear, {
+                datostipo: this.tipoTelefonos.id,
+                valor: this.numero
+            }).then(function (response) {
+                console.log(response.data);
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: 'Guardado correctamente!',
+                    text: 'Número de teléfono agregado exitosamente',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                });
+            }).catch(function (error) {
+                console.log(error.response.data.errors);
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: 'Guardado incorrecto!',
+                    text: 'Número de teléfono imposible de guardar',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        }
+    }
+
+});
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container mt-3" }, [
+    _c("form", [
+      _c("div", { staticClass: "form-row" }, [
+        _c(
+          "div",
+          { staticClass: "form-group col-md-6" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("v-select", {
+              attrs: {
+                multiple: "",
+                options: _vm.telefonos,
+                name: "telefono",
+                id: "telefono",
+                label: "valor"
+              },
+              model: {
+                value: _vm.telefono,
+                callback: function($$v) {
+                  _vm.telefono = $$v
+                },
+                expression: "telefono"
+              }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-row" }, [
+        _c(
+          "div",
+          { staticClass: "form-group col-md-6" },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("v-select", {
+              attrs: {
+                multiple: "",
+                options: _vm.correos,
+                name: "correo",
+                id: "correo",
+                label: "valor"
+              },
+              model: {
+                value: _vm.correo,
+                callback: function($$v) {
+                  _vm.correo = $$v
+                },
+                expression: "correo"
+              }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-row" }, [
+        _c(
+          "div",
+          { staticClass: "form-group col-md-6" },
+          [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("v-select", {
+              attrs: {
+                multiple: "",
+                options: _vm.redes,
+                name: "red",
+                id: "red",
+                label: "valor"
+              },
+              model: {
+                value: _vm.red,
+                callback: function($$v) {
+                  _vm.red = $$v
+                },
+                expression: "red"
+              }
+            })
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        staticStyle: { "max-width": "100%" },
+        attrs: { id: "ModalTelefonos", role: "dialog" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c(
+            "div",
+            { staticClass: "modal-content", staticStyle: { width: "100%" } },
+            [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.creardct($event)
+                    }
+                  }
+                },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-4" },
+                        [
+                          _c("label", { attrs: { for: "tipoTelefono" } }, [
+                            _vm._v("Tipo")
+                          ]),
+                          _vm._v(" "),
+                          _c("v-select", {
+                            attrs: {
+                              options: _vm.tipoTelefonos,
+                              name: "tipoTelefono",
+                              id: "tipoTelefono",
+                              label: "tipo"
+                            },
+                            model: {
+                              value: _vm.tipoTelefono,
+                              callback: function($$v) {
+                                _vm.tipoTelefono = $$v
+                              },
+                              expression: "tipoTelefono"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c("label", { attrs: { for: "numero" } }, [
+                          _vm._v("Número")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.numero,
+                              expression: "numero"
+                            },
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          class: {
+                            input: true,
+                            "form-control": true,
+                            "border border-danger": _vm.errors.has("numero")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "numero",
+                            id: "numero",
+                            placeholder: "Número",
+                            autocomplete: "off"
+                          },
+                          domProps: { value: _vm.numero },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.numero = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ]
+              )
+            ]
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        staticStyle: { "max-width": "100%" },
+        attrs: { id: "ModalCorreos", role: "dialog" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c(
+            "div",
+            { staticClass: "modal-content", staticStyle: { width: "100%" } },
+            [
+              _vm._m(5),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c("label", { attrs: { for: "tipoCorreo" } }, [
+                        _vm._v("Tipo")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        attrs: {
+                          options: _vm.tipoCorreos,
+                          name: "tipoCorreo",
+                          id: "tipoCorreo",
+                          label: "tipo"
+                        },
+                        model: {
+                          value: _vm.tipoCorreo,
+                          callback: function($$v) {
+                            _vm.tipoCorreo = $$v
+                          },
+                          expression: "tipoCorreo"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "correo" } }, [
+                      _vm._v("Correo")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.tCorreo,
+                          expression: "tCorreo"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control": true,
+                        "border border-danger": _vm.errors.has("correo")
+                      },
+                      attrs: {
+                        type: "email",
+                        name: "tCorreo",
+                        id: "correos",
+                        placeholder: "Correos",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.tCorreo },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.tCorreo = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(6)
+            ]
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        staticStyle: { "max-width": "100%" },
+        attrs: { id: "ModalRedes", role: "dialog" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c(
+            "div",
+            { staticClass: "modal-content", staticStyle: { width: "100%" } },
+            [
+              _vm._m(7),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c("label", { attrs: { for: "tipoRedes" } }, [
+                        _vm._v("Tipo")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        attrs: {
+                          options: _vm.tipoRedes,
+                          name: "tipoRed",
+                          id: "tipoRed",
+                          label: "tipo"
+                        },
+                        model: {
+                          value: _vm.tipoRed,
+                          callback: function($$v) {
+                            _vm.tipoRed = $$v
+                          },
+                          expression: "tipoRed"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "nombre" } }, [
+                      _vm._v("Nombre")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.tRed,
+                          expression: "tRed"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control": true,
+                        "border border-danger": _vm.errors.has("red")
+                      },
+                      attrs: {
+                        type: "text",
+                        name: "tRed",
+                        id: "red",
+                        placeholder: "Red Social",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.tRed },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.tRed = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(8)
+            ]
+          )
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "telefonos" } }, [
+      _vm._v("Telefonos "),
+      _c(
+        "span",
+        {
+          staticClass: "badge badge-secondary",
+          staticStyle: { cursor: "pointer" },
+          attrs: {
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#ModalTelefonos"
+          }
+        },
+        [_vm._v("+")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "correos" } }, [
+      _vm._v("Correos "),
+      _c(
+        "span",
+        {
+          staticClass: "badge badge-secondary",
+          staticStyle: { cursor: "pointer" },
+          attrs: {
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#ModalCorreos"
+          }
+        },
+        [_vm._v("+")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "redes" } }, [
+      _vm._v("Redes Sociales "),
+      _c(
+        "span",
+        {
+          staticClass: "badge badge-secondary",
+          staticStyle: { cursor: "pointer" },
+          attrs: {
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#ModalRedes"
+          }
+        },
+        [_vm._v("+")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Registrar teléfono")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Agregar")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cancelar")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Registrar correo")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Agregar")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cancelar")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [
+        _vm._v("Registrar Redes Sociales")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Guardar")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cancelar")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-74326566", module.exports)
+  }
+}
+
+/***/ }),
+/* 75 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

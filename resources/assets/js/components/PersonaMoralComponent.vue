@@ -5,31 +5,31 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') }" id="nombre" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona">
-                    <span v-if="errors.has('nombre')" class="text-danger">{{ errors.first('nombre') }}</span>
+                    <input type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') || nombreV}" id="nombre" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <span v-if="errors.has('nombre') || nombreV" class="text-danger">{{ errors.first('nombre') || nombreV[0] }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="fechaConstitucion">Fecha de constitución</label>
-                    <input type="date" class="form-control" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="Fecha de Constitucion" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Constitucion') }" @blur="searchPersona">
-                    <span v-show="errors.has('Fecha de Constitucion')" class="text-danger">{{ errors.first('Fecha de Constitucion') }}</span>
+                    <input type="date" class="form-control" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="Fecha de Constitucion"  v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Constitucion') || fechaConstitucionV}" @blur="searchPersona">
+                    <span v-show="errors.has('Fecha de Constitucion') || fechaConstitucionV" class="text-danger">{{ errors.first('Fecha de Constitucion') || fechaConstitucionV }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="rfc">R.F.C</label>
-                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') }" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required|size:12'" autocomplete="off">
-                    <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
+                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') || rfcV}" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required|size:12'" autocomplete="off">
+                    <span v-if="errors.has('rfc') || rfcV" class="text-danger">{{ errors.first('rfc') || rfcV[0] }}</span>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="telefono">Teléfono</label>
-                    <input type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('telefono') }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'required|numeric'" autocomplete="off">
-                    <span v-if="errors.has('telefono')" class="text-danger">{{ errors.first('telefono') }}</span>
+                    <input type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('telefono') || telefonoV }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'required|numeric'" autocomplete="off">
+                    <span v-if="errors.has('telefono') || telefonoV" class="text-danger">{{ errors.first('telefono') || telefonoV[0] }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="representanteLegal">Representante legal</label>
-                    <input type="text" name="representanteLegal" data-vv-name="Representante Legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Representante Legal') }" id="representanteLegal" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
-                    <span v-if="errors.has('Representante Legal')" class="text-danger">{{ errors.first('Representante Legal') }}</span>
+                    <input type="text" name="representanteLegal" data-vv-name="Representante Legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Representante Legal') || representanteLegalV }" id="representanteLegal" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
+                    <span v-if="errors.has('Representante Legal') || representanteLegalV" class="text-danger">{{ errors.first('Representante Legal') || representanteLegalV[0] }}</span>
                 </div>
             </div>
             <div class="form-row mt-3">
@@ -52,7 +52,12 @@ import swal from 'sweetalert2'
                 rfc:'',
                 telefono:'',
                 representanteLegal:'',
-                personaExiste:''
+                personaExiste:'',
+                nombreV:'',
+                fechaConstitucionV:'',
+                rfcV:'',
+                telefonoV:'',
+                representanteLegalV:''
             }
         },
         props:{
@@ -135,6 +140,11 @@ import swal from 'sweetalert2'
                         })
                     }).catch((error)=>{
                         console.log(error.response.data.errors);
+                        this.nombreV = error.response.data.errors.nombre,
+                        this.fechaConstitucionV = error.response.data.errors.fechaConstitucion,
+                        this.rfcV = error.response.data.errors.rfc,
+                        this.telefonoV = error.response.data.errors.telefono,
+                        this.representanteLegalV = error.response.data.errors.representanteLegal
                         swal({
                         title: 'Guardado incorrecto!',
                         text: 'Ésta persona moral no fue posible guardarla',

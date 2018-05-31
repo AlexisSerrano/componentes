@@ -25,7 +25,7 @@ class PersonaMoralRequest extends FormRequest
     {
         return [
             'nombre' => 'required',
-            // 'fechaCreacion' => 'required',
+            'fechaConstitucion' => 'required',
             'rfc' => 'required|size:12',
             'telefono' => 'required|numeric',
             'representanteLegal' => 'required'
@@ -36,8 +36,7 @@ class PersonaMoralRequest extends FormRequest
     {
         return [
             'nombre.required' => 'Introduzca el campo nombre',
-            // 'fechaCreacion.required' => 'Introduzca el campo fecha de constitución',
-            // 'fechaCreacion.date' => 'El campo fecha de constitución debe tener un formato de fecha',
+            'fechaConstitucion.required' => 'Introduzca el campo fecha de constitución',
             'rfc.required' => 'Introduzca el campo rfc',
             'rfc.size' => 'El campo rfc debe tener un tamaño de 12 caracteres',
             'telefono.required' => 'Introduzca el campo telefono',
