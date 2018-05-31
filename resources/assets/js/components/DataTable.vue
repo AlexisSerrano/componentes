@@ -81,7 +81,7 @@
                                  {name:"etnia",show:true,replace:"Etnia"},
                                  {name:"municipioOrigen",show:true,replace:"Municipio origen"},
                                  {name:"edad",show:true,replace:"Edad"},
-                                 {name:"telefono",show:true,replace:"Teléfono"},
+                                 //{name:"telefono",show:true,replace:"Teléfono"},
                                  {name:"motivoEstancia",show:true,replace:"Motivo estancia"},
                                  {name:"ocupacion",show:true,replace:"Ocupacion"},
                                  {name:"estadoCivil",show:true,replace:"Estado civil"},
@@ -91,7 +91,7 @@
                                  {name:"numDocIdentificacion",show:true,replace:"Num doc identif."},
                                  {name:"lugarTrabajo",show:true,replace:"Lugar trabajo"},
                                  {name:"idDomicilioTrabajo",show:false,replace:"idDomicilio"},
-                                 {name:"telefonoTrabajo",show:true,replace:"Teléfono trabajo"},
+                                 //{name:"telefonoTrabajo",show:true,replace:"Teléfono trabajo"},
                                  {name:"alias",show:true,replace:"Alias"}                                 
 
                              //name:colname,show:showInTable,replace:NweNameInTable

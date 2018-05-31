@@ -31,8 +31,7 @@ class VariablesPersona extends Model
         'numDocIdentificacion',
         'lugarTrabajo',
         'idDomicilioTrabajo',
-        'telefonoTrabajo',
-        'representanteLegal'
+        'telefonoTrabajo'
     ];
 
     public function carpeta()
