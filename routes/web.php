@@ -14,15 +14,10 @@ Route::get('/personaMoral','PersonaMoralController@index');
 Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');
 
 /*URLS PARA SELECTS PERSONAS */
-Route::post('addDatosTelefono','PersonaController@addDatosTelefono')->name('addDatosTelefono');;
-
-
 Route::get('getDatosPersonaTelefono','DatosContacto@getdctt');
 Route::get('getDatosPersonaRed','DatosContacto@getdctr');
 Route::get('getDatosPersonaCorreo','DatosContacto@getdctc');
-
-Route::get('getDatosContacto','PersonaController@getdc');
-
+Route::get('getDatosContacto','DatosContacto@getdc');
 Route::get('getNacionalidades','PersonaController@getNacionalidades');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
 Route::get('getEtnias','PersonaController@getEtnias');

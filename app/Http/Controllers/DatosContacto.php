@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use  Illuminate\Support\Facades\DB;
 
 class DatosContacto extends Controller
 {
@@ -16,19 +17,24 @@ class DatosContacto extends Controller
         ]);
     }
     public function getdctt(){
-        DB::table('datos_contacto_tipos_telefono')->orderBy('tipo', 'ASC')
+        $telefonos=DB::table('datos_contacto_tipos_telefono')->orderBy('id', 'ASC')
 	    ->select('tipo','id')->get();
-        return response()->json($interpretes);
+        return response()->json($telefonos);
 	}
 	public function getdctr(){
-        DB::table('datos_contacto_tipos_red')->orderBy('tipo', 'ASC')
+        $redes=DB::table('datos_contacto_tipos_red')->orderBy('id', 'ASC')
 	    ->select('tipo','id')->get();
-        return response()->json($interpretes);
+        return response()->json($redes);
 	}
 	public function getdctc(){
-        DB::table('datos_contacto_tipos_correo')->orderBy('tipo', 'ASC')
+        $correos=DB::table('datos_contacto_tipos_correo')->orderBy('id', 'ASC')
 	    ->select('tipo','id')->get();
-        return response()->json($interpretes);
+        return response()->json($correos);
+    }
+    public function getdc(){
+        $vdc=DB::table('datos_contacto')->orderBy('iddatostipo','ASC')
+        ->select('iddatostipo','valor')->get();
+        return response()->json($vdc);
     }
     
 }

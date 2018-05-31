@@ -52,25 +52,27 @@
     <div class="modal fade" id="ModalCorreos" role="dialog" style="max-width:100%">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="width:100%">
-                <div class="modal-header">
-                    <h4 class="modal-title">Registrar correo</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="tipoCorreo">Tipo</label>
-                            <v-select :options="tipoCorreos" v-model="tipoCorreo" name="tipoCorreo" id="tipoCorreo" label="tipo"></v-select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="correo">Correo</label>
-                            <input type="email" name="tCorreo" v-model="tCorreo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('correo') }" id="correos" placeholder="Correos" v-validate="'required'" autocomplete="off">
+                <form v-on:submit.prevent="creardcc">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Registrar correo</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="tipoCorreo">Tipo</label>
+                                <v-select :options="tipoCorreos" v-model="tipoCorreo" name="tipoCorreo" id="tipoCorreo" label="tipo"></v-select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="correo">Correo</label>
+                                <input type="email" name="tCorreo" v-model="tCorreo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('correo') }" id="correos" placeholder="Correos" v-validate="'required'" autocomplete="off">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Agregar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -78,25 +80,27 @@
     <div class="modal fade" id="ModalRedes" role="dialog" style="max-width:100%">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="width:100%">
-                <div class="modal-header">
-                    <h4 class="modal-title">Registrar Redes Sociales</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="tipoRedes">Tipo</label>
-                            <v-select :options="tipoRedes" v-model="tipoRed" name="tipoRed" id="tipoRed" label="tipo"></v-select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" name="tRed" v-model="tRed" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('red') }" id="red" placeholder="Red Social" v-validate="'required'" autocomplete="off">
+                <form v-on:submit.prevent="creardcr">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Registrar Redes Sociales</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="tipoRedes">Tipo</label>
+                                <v-select :options="tipoRedes" v-model="tipoRed" name="tipoRed" id="tipoRed" label="tipo"></v-select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" name="tRed" v-model="tRed" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('red') }" id="red" placeholder="Red Social" v-validate="'required'" autocomplete="off">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Guardar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -108,7 +112,7 @@ import swal from 'sweetalert2'
 export default{
     data(){
         return{
-            telefono:null,
+            telefono:[],
             telefonos: [],
             correo:null,
             correos: [],
@@ -159,10 +163,59 @@ export default{
             });
         },
         creardct: function(){
-            var urlCrear = 'addDatosTelefono';
+            var urlCrear = '/api/adddc';
             axios.post(urlCrear,{
-                datostipo: this.tipoTelefonos.id,
+                idPersona:1,
+                tipo: this.tipoTelefono.id,
                 valor: this.numero,
+            }).then(response=>{
+                console.log(response.data)
+                swal({
+                    title: 'Guardado correctamente!',
+                    text: 'Número de teléfono agregado exitosamente',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                })
+            }).catch((error)=>{
+                console.log(error.response.data.errors);
+                swal({
+                title: 'Guardado incorrecto!',
+                text: 'Número de teléfono imposible de guardar',
+                type: 'error',
+                confirmButtonText: 'Ok'
+                })
+            });
+        },
+        creardcc: function(){
+            var urlCrear = '/api/adddc';
+            axios.post(urlCrear,{
+                idPersona:1,
+                tipo: this.tipoCorreo.id,
+                valor: this.tCorreo,
+            }).then(response=>{
+                console.log(response.data)
+                swal({
+                    title: 'Guardado correctamente!',
+                    text: 'Número de teléfono agregado exitosamente',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                })
+            }).catch((error)=>{
+                console.log(error.response.data.errors);
+                swal({
+                title: 'Guardado incorrecto!',
+                text: 'Número de teléfono imposible de guardar',
+                type: 'error',
+                confirmButtonText: 'Ok'
+                })
+            });
+        },
+        creardcr: function(){
+            var urlCrear = '/api/adddc';
+            axios.post(urlCrear,{
+                idPersona:1,
+                tipo: this.tipoRed.id,
+                valor: this.tRed,
             }).then(response=>{
                 console.log(response.data)
                 swal({
