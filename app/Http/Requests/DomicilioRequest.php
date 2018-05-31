@@ -24,14 +24,22 @@ class DomicilioRequest extends FormRequest
     public function rules()
     {
         return [
-            'numInterno' => 'required'
+            'municipio' => 'required',
+            'localidad' => 'required',
+            'colonia' => 'required',
+            'calle' => 'required',
+            'numExterno' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'numInterno.required' => 'Introduzca el campo Número interno'
+            'municipio.required' => 'Introduzca el campo municipio',
+            'localidad.required' => 'Introduzca el campo localidad',
+            'colonia.required' => 'Introduzca el campo colonia',
+            'calle.required' => 'Introduzca el campo calle',
+            'numExterno.required' => 'Introduzca el campo número externo',
         ];
     }
 }

@@ -58296,8 +58296,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -58316,7 +58314,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             calle: '',
             numExterno: '',
             numInterno: '',
-            errornumInterno: ''
+            municipioV: '',
+            localidadV: '',
+            coloniaV: '',
+            calleV: '',
+            numExternoV: ''
         };
     },
 
@@ -58397,12 +58399,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (result) {
                     _this6.crearDomicilio();
                     _this6.CleanFields();
-                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                        title: 'Guardado Correctamente!',
-                        text: 'Éste domicilio fue guardado exitosamente',
-                        type: 'success',
-                        confirmButtonText: 'Ok'
-                    });
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -58415,6 +58411,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         crearDomicilio: function crearDomicilio() {
+            var _this7 = this;
+
             var urlDomicilio = 'addDomicilio';
             axios.post(urlDomicilio, {
                 estado: this.estado.id,
@@ -58425,6 +58423,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 calle: this.calle.toUpperCase(),
                 numExterno: this.numExterno.toUpperCase(),
                 numInterno: this.numInterno.toUpperCase()
+            }).then(function (response) {
+                console.log(response.data);
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: 'Guardado Correctamente!',
+                    text: 'Éste domicilio fue guardado exitosamente',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                }).catch(function (error) {
+                    console.log(error.response.data.errors);
+                    _this7.municipioV = error.response.data.errors.municipio, _this7.localidadV = error.response.data.errors.localidad, _this7.coloniaV = error.response.data.errors.colonia, _this7.calleV = error.response.data.errors.calle, _this7.numExternoV = error.response.data.errors.numExterno;
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: 'Guardado Incorrecto!',
+                        text: 'Éste domicilio no fue posible guardarse',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                });
             });
         }
     }
@@ -58524,7 +58539,10 @@ var render = function() {
                     expression: "'required'"
                   }
                 ],
-                class: { "border border-danger": _vm.errors.has("municipio") },
+                class: {
+                  "border border-danger":
+                    _vm.errors.has("municipio") || _vm.municipioV
+                },
                 attrs: {
                   options: _vm.municipios,
                   label: "nombre",
@@ -58548,13 +58566,17 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("municipio"),
-                      expression: "errors.has('municipio')"
+                      value: _vm.errors.has("municipio") || _vm.municipioV,
+                      expression: "errors.has('municipio') || municipioV"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("municipio")))]
+                [
+                  _vm._v(
+                    _vm._s(_vm.errors.first("municipio") || _vm.municipioV[0])
+                  )
+                ]
               )
             ],
             1
@@ -58577,7 +58599,10 @@ var render = function() {
                     expression: "'required'"
                   }
                 ],
-                class: { "border border-danger": _vm.errors.has("localidad") },
+                class: {
+                  "border border-danger":
+                    _vm.errors.has("localidad") || _vm.localidadV
+                },
                 attrs: {
                   options: _vm.localidades,
                   label: "nombre",
@@ -58601,13 +58626,17 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("localidad"),
-                      expression: "errors.has('localidad')"
+                      value: _vm.errors.has("localidad") || _vm.localidadV,
+                      expression: "errors.has('localidad')|| localidadV"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("localidad")))]
+                [
+                  _vm._v(
+                    _vm._s(_vm.errors.first("localidad") || _vm.localidadV[0])
+                  )
+                ]
               )
             ],
             1
@@ -58631,12 +58660,13 @@ var render = function() {
                   }
                 ],
                 class: {
-                  "border border-danger": _vm.errors.has("codigo_postal")
+                  "border border-danger": _vm.errors.has("codigo postal")
                 },
                 attrs: {
                   options: _vm.cp,
                   label: "codigoPostal",
                   name: "codigo_postal",
+                  "data-vv-name": "codigo postal",
                   placeholder: "Seleccione un código postal"
                 },
                 on: { input: _vm.getColonias },
@@ -58656,13 +58686,13 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("codigo_postal"),
-                      expression: "errors.has('codigo_postal')"
+                      value: _vm.errors.has("codigo postal"),
+                      expression: "errors.has('codigo postal')"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("codigo_postal")))]
+                [_vm._v(_vm._s(_vm.errors.first("codigo postal")))]
               )
             ],
             1
@@ -58683,7 +58713,10 @@ var render = function() {
                     expression: "'required'"
                   }
                 ],
-                class: { "border border-danger": _vm.errors.has("colonia") },
+                class: {
+                  "border border-danger":
+                    _vm.errors.has("colonia") || _vm.coloniaV
+                },
                 attrs: {
                   options: _vm.colonias,
                   label: "nombre",
@@ -58706,13 +58739,13 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("colonia"),
-                      expression: "errors.has('colonia')"
+                      value: _vm.errors.has("colonia") || _vm.coloniaV,
+                      expression: "errors.has('colonia')|| coloniaV"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("colonia")))]
+                [_vm._v(_vm._s(_vm.errors.first("colonia") || _vm.coloniaV[0]))]
               )
             ],
             1
@@ -58724,22 +58757,22 @@ var render = function() {
             _c("input", {
               directives: [
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.calle,
-                  expression: "calle"
-                },
-                {
                   name: "validate",
                   rawName: "v-validate",
                   value: "required",
                   expression: "'required'"
+                },
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.calle,
+                  expression: "calle"
                 }
               ],
               class: {
                 input: true,
                 "form-control": true,
-                "border border-danger": _vm.errors.has("calle")
+                "border border-danger": _vm.errors.has("calle") || _vm.calleV
               },
               attrs: {
                 type: "text",
@@ -58759,9 +58792,9 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.errors.has("calle")
+            _vm.errors.has("calle") || _vm.calleV
               ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.first("calle")))
+                  _vm._v(_vm._s(_vm.errors.first("calle") || _vm.calleV[0]))
                 ])
               : _vm._e()
           ])
@@ -58776,22 +58809,23 @@ var render = function() {
             _c("input", {
               directives: [
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.numExterno,
-                  expression: "numExterno"
-                },
-                {
                   name: "validate",
                   rawName: "v-validate",
                   value: "required",
                   expression: "'required'"
+                },
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.numExterno,
+                  expression: "numExterno"
                 }
               ],
               class: {
                 input: true,
                 "form-control": true,
-                "border border-danger": _vm.errors.has("Numero Externo")
+                "border border-danger":
+                  _vm.errors.has("Numero Externo") || _vm.numExternoV
               },
               attrs: {
                 type: "text",
@@ -58812,9 +58846,13 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.errors.has("Numero Externo")
+            _vm.errors.has("Numero Externo") || _vm.numExternoV
               ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.first("Numero Externo")))
+                  _vm._v(
+                    _vm._s(
+                      _vm.errors.first("Numero Externo") || _vm.numExternoV[0]
+                    )
+                  )
                 ])
               : _vm._e()
           ]),
@@ -58831,23 +58869,12 @@ var render = function() {
                   rawName: "v-model",
                   value: _vm.numInterno,
                   expression: "numInterno"
-                },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
                 }
               ],
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger": _vm.errors.has("Numero Interno")
-              },
+              staticClass: "input form-control",
               attrs: {
                 type: "text",
                 id: "numInterno",
-                "data-vv-name": "Numero Interno",
                 name: "numInterno",
                 placeholder: "Ingrese el número interno",
                 autocomplete: "off"
@@ -58861,19 +58888,7 @@ var render = function() {
                   _vm.numInterno = $event.target.value
                 }
               }
-            }),
-            _vm._v(" "),
-            _vm.errors.has("Numero Interno")
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.first("Numero Interno")))
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.errornumInterno != ""
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errornumInterno))
-                ])
-              : _vm._e()
+            })
           ])
         ]),
         _vm._v(" "),
@@ -59017,7 +59032,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 url: "/api/test/SearchUndefined",
                 params: {
                     columns: [//select columns in table (correct name col)
-                    { name: "idPersona", show: false }, { name: "idvar_persona", show: false }, { name: "nombres", show: true, replace: "Nombres" }, { name: "primerAp", show: true, replace: "Primer apellido" }, { name: "segundoAp", show: true, replace: "Segundo apellido" }, { name: "fechaNacimiento", show: true, replace: "Fecha nacimiento" }, { name: "rfc", show: true, replace: "RFC" }, { name: "curp", show: true, replace: "CURP" }, { name: "sexo", show: true, replace: "Sexo" }, { name: "nacionalidad", show: true, replace: "Nacionalidad" }, { name: "etnia", show: true, replace: "Etnia" }, { name: "municipioOrigen", show: true, replace: "Municipio origen" }, { name: "edad", show: true, replace: "Edad" }, { name: "telefono", show: true, replace: "Teléfono" }, { name: "motivoEstancia", show: true, replace: "Motivo estancia" }, { name: "ocupacion", show: true, replace: "Ocupacion" }, { name: "estadoCivil", show: true, replace: "Estado civil" }, { name: "escolaridad", show: true, replace: "Escolaridad" }, { name: "religion", show: true, replace: "Religión" }, { name: "docIdentificacion", show: true, replace: "Doc identificación" }, { name: "numDocIdentificacion", show: true, replace: "Num doc identif." }, { name: "lugarTrabajo", show: true, replace: "Lugar trabajo" }, { name: "idDomicilioTrabajo", show: false, replace: "idDomicilio" }, { name: "telefonoTrabajo", show: true, replace: "Teléfono trabajo" }, { name: "representanteLegal", show: true, replace: "Representante legal" }, { name: "alias", show: true, replace: "Alias"
+                    { name: "idPersona", show: false }, { name: "idvar_persona", show: false }, { name: "nombres", show: true, replace: "Nombres" }, { name: "primerAp", show: true, replace: "Primer apellido" }, { name: "segundoAp", show: true, replace: "Segundo apellido" }, { name: "fechaNacimiento", show: true, replace: "Fecha nacimiento" }, { name: "rfc", show: true, replace: "RFC" }, { name: "curp", show: true, replace: "CURP" }, { name: "sexo", show: true, replace: "Sexo" }, { name: "nacionalidad", show: true, replace: "Nacionalidad" }, { name: "etnia", show: true, replace: "Etnia" }, { name: "municipioOrigen", show: true, replace: "Municipio origen" }, { name: "edad", show: true, replace: "Edad" },
+                    //{name:"telefono",show:true,replace:"Teléfono"},
+                    { name: "motivoEstancia", show: true, replace: "Motivo estancia" }, { name: "ocupacion", show: true, replace: "Ocupacion" }, { name: "estadoCivil", show: true, replace: "Estado civil" }, { name: "escolaridad", show: true, replace: "Escolaridad" }, { name: "religion", show: true, replace: "Religión" }, { name: "docIdentificacion", show: true, replace: "Doc identificación" }, { name: "numDocIdentificacion", show: true, replace: "Num doc identif." }, { name: "lugarTrabajo", show: true, replace: "Lugar trabajo" }, { name: "idDomicilioTrabajo", show: false, replace: "idDomicilio" },
+                    //{name:"telefonoTrabajo",show:true,replace:"Teléfono trabajo"},
+                    { name: "alias", show: true, replace: "Alias"
 
                         //name:colname,show:showInTable,replace:NweNameInTable
                     }],
@@ -59963,12 +59982,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            telefono: null,
+            telefono: [],
             telefonos: [],
             correo: null,
             correos: [],
@@ -60028,10 +60051,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         creardct: function creardct() {
-            var urlCrear = 'addDatosTelefono';
+            var urlCrear = '/api/adddc';
             axios.post(urlCrear, {
-                datostipo: this.tipoTelefonos.id,
+                idPersona: 1,
+                tipo: this.tipoTelefono.id,
                 valor: this.numero
+            }).then(function (response) {
+                console.log(response.data);
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: 'Guardado correctamente!',
+                    text: 'Número de teléfono agregado exitosamente',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                });
+            }).catch(function (error) {
+                console.log(error.response.data.errors);
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: 'Guardado incorrecto!',
+                    text: 'Número de teléfono imposible de guardar',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        },
+        creardcc: function creardcc() {
+            var urlCrear = '/api/adddc';
+            axios.post(urlCrear, {
+                idPersona: 1,
+                tipo: this.tipoCorreo.id,
+                valor: this.tCorreo
+            }).then(function (response) {
+                console.log(response.data);
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: 'Guardado correctamente!',
+                    text: 'Número de teléfono agregado exitosamente',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                });
+            }).catch(function (error) {
+                console.log(error.response.data.errors);
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: 'Guardado incorrecto!',
+                    text: 'Número de teléfono imposible de guardar',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        },
+        creardcr: function creardcr() {
+            var urlCrear = '/api/adddc';
+            axios.post(urlCrear, {
+                idPersona: 1,
+                tipo: this.tipoRed.id,
+                valor: this.tRed
             }).then(function (response) {
                 console.log(response.data);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -60272,84 +60344,97 @@ var render = function() {
             "div",
             { staticClass: "modal-content", staticStyle: { width: "100%" } },
             [
-              _vm._m(5),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-row" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group col-md-4" },
-                    [
-                      _c("label", { attrs: { for: "tipoCorreo" } }, [
-                        _vm._v("Tipo")
-                      ]),
-                      _vm._v(" "),
-                      _c("v-select", {
-                        attrs: {
-                          options: _vm.tipoCorreos,
-                          name: "tipoCorreo",
-                          id: "tipoCorreo",
-                          label: "tipo"
-                        },
-                        model: {
-                          value: _vm.tipoCorreo,
-                          callback: function($$v) {
-                            _vm.tipoCorreo = $$v
-                          },
-                          expression: "tipoCorreo"
-                        }
-                      })
-                    ],
-                    1
-                  ),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.creardcc($event)
+                    }
+                  }
+                },
+                [
+                  _vm._m(5),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "correo" } }, [
-                      _vm._v("Correo")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.tCorreo,
-                          expression: "tCorreo"
-                        },
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      class: {
-                        input: true,
-                        "form-control": true,
-                        "border border-danger": _vm.errors.has("correo")
-                      },
-                      attrs: {
-                        type: "email",
-                        name: "tCorreo",
-                        id: "correos",
-                        placeholder: "Correos",
-                        autocomplete: "off"
-                      },
-                      domProps: { value: _vm.tCorreo },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-4" },
+                        [
+                          _c("label", { attrs: { for: "tipoCorreo" } }, [
+                            _vm._v("Tipo")
+                          ]),
+                          _vm._v(" "),
+                          _c("v-select", {
+                            attrs: {
+                              options: _vm.tipoCorreos,
+                              name: "tipoCorreo",
+                              id: "tipoCorreo",
+                              label: "tipo"
+                            },
+                            model: {
+                              value: _vm.tipoCorreo,
+                              callback: function($$v) {
+                                _vm.tipoCorreo = $$v
+                              },
+                              expression: "tipoCorreo"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c("label", { attrs: { for: "correo" } }, [
+                          _vm._v("Correo")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tCorreo,
+                              expression: "tCorreo"
+                            },
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          class: {
+                            input: true,
+                            "form-control": true,
+                            "border border-danger": _vm.errors.has("correo")
+                          },
+                          attrs: {
+                            type: "email",
+                            name: "tCorreo",
+                            id: "correos",
+                            placeholder: "Correos",
+                            autocomplete: "off"
+                          },
+                          domProps: { value: _vm.tCorreo },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.tCorreo = $event.target.value
+                            }
                           }
-                          _vm.tCorreo = $event.target.value
-                        }
-                      }
-                    })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(6)
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(6)
+                ]
+              )
             ]
           )
         ])
@@ -60369,84 +60454,97 @@ var render = function() {
             "div",
             { staticClass: "modal-content", staticStyle: { width: "100%" } },
             [
-              _vm._m(7),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-row" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group col-md-4" },
-                    [
-                      _c("label", { attrs: { for: "tipoRedes" } }, [
-                        _vm._v("Tipo")
-                      ]),
-                      _vm._v(" "),
-                      _c("v-select", {
-                        attrs: {
-                          options: _vm.tipoRedes,
-                          name: "tipoRed",
-                          id: "tipoRed",
-                          label: "tipo"
-                        },
-                        model: {
-                          value: _vm.tipoRed,
-                          callback: function($$v) {
-                            _vm.tipoRed = $$v
-                          },
-                          expression: "tipoRed"
-                        }
-                      })
-                    ],
-                    1
-                  ),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.creardcr($event)
+                    }
+                  }
+                },
+                [
+                  _vm._m(7),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "nombre" } }, [
-                      _vm._v("Nombre")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.tRed,
-                          expression: "tRed"
-                        },
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      class: {
-                        input: true,
-                        "form-control": true,
-                        "border border-danger": _vm.errors.has("red")
-                      },
-                      attrs: {
-                        type: "text",
-                        name: "tRed",
-                        id: "red",
-                        placeholder: "Red Social",
-                        autocomplete: "off"
-                      },
-                      domProps: { value: _vm.tRed },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-4" },
+                        [
+                          _c("label", { attrs: { for: "tipoRedes" } }, [
+                            _vm._v("Tipo")
+                          ]),
+                          _vm._v(" "),
+                          _c("v-select", {
+                            attrs: {
+                              options: _vm.tipoRedes,
+                              name: "tipoRed",
+                              id: "tipoRed",
+                              label: "tipo"
+                            },
+                            model: {
+                              value: _vm.tipoRed,
+                              callback: function($$v) {
+                                _vm.tipoRed = $$v
+                              },
+                              expression: "tipoRed"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c("label", { attrs: { for: "nombre" } }, [
+                          _vm._v("Nombre")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tRed,
+                              expression: "tRed"
+                            },
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          class: {
+                            input: true,
+                            "form-control": true,
+                            "border border-danger": _vm.errors.has("red")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "tRed",
+                            id: "red",
+                            placeholder: "Red Social",
+                            autocomplete: "off"
+                          },
+                          domProps: { value: _vm.tRed },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.tRed = $event.target.value
+                            }
                           }
-                          _vm.tRed = $event.target.value
-                        }
-                      }
-                    })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(8)
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(8)
+                ]
+              )
             ]
           )
         ])
@@ -60562,7 +60660,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "modal-footer" }, [
       _c(
         "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("Agregar")]
       ),
       _vm._v(" "),
@@ -60593,7 +60691,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "modal-footer" }, [
       _c(
         "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("Guardar")]
       ),
       _vm._v(" "),
