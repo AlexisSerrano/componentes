@@ -17,7 +17,10 @@ Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('a
 Route::get('getDatosPersonaTelefono','DatosContacto@getdctt');
 Route::get('getDatosPersonaRed','DatosContacto@getdctr');
 Route::get('getDatosPersonaCorreo','DatosContacto@getdctc');
-Route::get('getDatosContacto','DatosContacto@getdc');
+Route::get('getDatosContactoTel','DatosContacto@getdct');
+Route::get('getDatosContactoCor','DatosContacto@getdcc');
+Route::get('getDatosContactoRed','DatosContacto@getdcr');
+
 Route::get('getNacionalidades','PersonaController@getNacionalidades');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
 Route::get('getEtnias','PersonaController@getEtnias');
