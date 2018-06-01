@@ -129,25 +129,19 @@
                     <span v-show="errors.has('interprete')" class="text-danger">{{ errors.first('interprete') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="telefono">Teléfono</label>
-                    <input v-if="telefonoV == 1" type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('teléfono') }" id="telefono" v-model="telefono" placeholder="Ingrese el teléfono" v-validate="'required|numeric'" autocomplete="off">
-                    <input v-else type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('telefono') }" id="telefono" v-model="telefono" placeholder="Ingrese el teléfono" v-validate="'numeric'" autocomplete="off">
-                    <span v-if="errors.has('telefono')" class="text-danger">{{ errors.first('telefono') }}</span>
-                </div>
-                <div class="form-group col-md-4">
                     <label for="motivoEstancia">Motivo de estancia</label>
                     <input v-if="motivoEstanciaV == 1" type="text" name="motivoEstancia" data-vv-name="Motivo de estancia" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Motivo de estancia') }" id="motivoEstancia" v-model="motivoEstancia" placeholder="Ingrese el motivo de estancia" v-validate="'required'" autocomplete="off">
                     <input v-else type="text" name="motivoEstancia" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Motivo de estancia') }" id="motivoEstancia" v-model="motivoEstancia" placeholder="Ingrese el motivo de estancia" autocomplete="off">
                     <span v-if="errors.has('Motivo de estancia')" class="text-danger">{{ errors.first('Motivo de estancia') }}</span>
                 </div>
-            </div>
-            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
                 <div class="form-group col-md-4">
                     <label for="ocupacion">Ocupación</label>    
                     <v-select v-if="ocupacionV == 1" :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupacion" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('ocupacion') }" placeholder="Seleccione una ocupación"></v-select>
                     <v-select v-else :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupacion" :class="{ 'border border-danger rounded': errors.has('ocupacion') }" placeholder="Seleccione una ocupación"></v-select>
                     <span v-show="errors.has('ocupacion')" class="text-danger">{{ errors.first('ocupacion') }}</span>
                 </div>
+            </div>
+            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
                 <div class="form-group col-md-4">
                     <label for="estadoCivil">Estado civil</label>    
                     <v-select v-if="estadoCivilV == 1" :options="estadosCiviles" label="nombre" v-model="estadoCivil" name="estadoCivil" data-vv-name="Estado Civil" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('Estado Civil') }" placeholder="Seleccione un estado civil"></v-select>
@@ -160,15 +154,15 @@
                     <v-select v-else :options="escolaridades" label="nombre" v-model="escolaridad" name="escolaridad" :class="{ 'border border-danger rounded': errors.has('escolaridad') }" placeholder="Seleccione una escolaridad"></v-select>
                     <span v-show="errors.has('escolaridad')" class="text-danger">{{ errors.first('escolaridad') }}</span>
                 </div>
-            </div>
-
-            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
                 <div class="form-group col-md-4">
                     <label for="religion">Religión</label>    
                     <v-select v-if="religionV == 1" :options="religiones" label="nombre" v-model="religion" name="religion" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('religion') }" placeholder="Seleccione una religión"></v-select>
                     <v-select v-else :options="religiones" label="nombre" v-model="religion" name="religion" :class="{ 'border border-danger rounded': errors.has('religion') }" placeholder="Seleccione una religión"></v-select>
                     <span v-show="errors.has('religion')" class="text-danger">{{ errors.first('religion') }}</span>
                 </div>
+            </div>
+
+            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
                 <div class="form-group col-md-4">
                     <label for="identificacion">Identificación</label>    
                     <v-select v-if="identificacionV == 1" :options="identificaciones" label="documento" v-model="identificacion" name="identificacion" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('identificacion') }" placeholder="Seleccione una identificación"></v-select>
@@ -180,20 +174,6 @@
                     <input v-if="numIdentificacionV == 1" type="text" name="numIdentificacion" data-vv-name="Número de identificación" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Número de identificación') }" id="numIdentificacion" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" v-validate="'required'" autocomplete="off">
                     <input v-else type="text" name="numIdentificacion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Número de identificación') }" id="numIdentificacion" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" autocomplete="off">
                     <span v-if="errors.has('Número de identificación')" class="text-danger">{{ errors.first('Número de identificación') }}</span>
-                </div>
-            </div>
-            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
-                <div class="form-group col-md-4">
-                    <label for="lugarTrabajo">Lugar de trabajo</label>
-                    <input v-if="lugarTrabajoV == 1" type="text" name="lugarTrabajo" data-vv-name="Lugar de trabajo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Lugar de trabajo') }" id="lugarTrabajo" v-model="lugarTrabajo" placeholder="Ingrese el lugar de trabajo" v-validate="'required'" autocomplete="off">
-                    <input v-else type="text" name="lugarTrabajo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Lugar de Trabajo') }" id="lugarTrabajo" v-model="lugarTrabajo" placeholder="Ingrese el lugar de trabajo" autocomplete="off">
-                    <span v-if="errors.has('Lugar de trabajo')" class="text-danger">{{ errors.first('Lugar de trabajo') }}</span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="telefonoTrabajo">Teléfono de trabajo</label>
-                    <input v-if="telefonoTrabajoV == 1" type="text" name="telefonoTrabajo" data-vv-name="Teléfono de trabajo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Teléfono de trabajo') }" id="telefonoTrabajo" v-model="telefonoTrabajo" placeholder="Ingrese el teléfono de trabajo" v-validate="'required|numeric'" autocomplete="off">
-                    <input v-else type="text" name="telefonoTrabajo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Teléfono de trabajo') }" id="telefonoTrabajo" v-model="telefonoTrabajo" placeholder="Ingrese el teléfono de trabajo" v-validate="'numeric'" autocomplete="off">
-                    <span v-if="errors.has('Teléfono de trabajo')" class="text-danger">{{ errors.first('Teléfono de trabajo') }}</span>
                 </div>
                 <div v-if="(denunciado==1) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
                     <label for="alias">Alias</label>
@@ -246,7 +226,6 @@ import swal from 'sweetalert2'
                 etnia:{ "nombre": "SIN INFORMACIÓN", "id": 13 },
                 lengua:{ "nombre": "SIN INFORMACIÓN", "id": 69 },
                 interprete:{ "nombre": "SIN INFORMACIÓN", "id": 1 },
-                telefono:'',
                 motivoEstancia:'',
                 ocupacion:'',
                 estadoCivil:'',
@@ -254,8 +233,6 @@ import swal from 'sweetalert2'
                 religion:'',
                 identificacion:'',
                 numIdentificacion:'',
-                lugarTrabajo:'',
-                telefonoTrabajo:'',
                 alias:'',                                
                 nombresV:false,
                 primerApV:false,
@@ -271,7 +248,6 @@ import swal from 'sweetalert2'
                 etniaV:false,
                 lenguaV:false,
                 interpreteV:false,
-                telefonoV:false,
                 motivoEstanciaV:false,
                 ocupacionV:false,
                 estadoCivilV:false,
@@ -279,8 +255,6 @@ import swal from 'sweetalert2'
                 religionV:false,
                 identificacionV:false,
                 numIdentificacionV:false,
-                lugarTrabajoV:false,
-                telefonoTrabajoV:false,
                 aliasV:false,
                 validaciones:[],
                 denunciado:false,
@@ -348,7 +322,6 @@ import swal from 'sweetalert2'
                                 this.etnia=this.personaExiste.idEtnia,
                                 this.lengua=this.personaExiste.idLengua,
                                 this.interprete=this.personaExiste.idInterprete,
-                                this.telefono=this.personaExiste.telefono,
                                 this.motivoEstancia=this.personaExiste.motivoEstancia,
                                 this.ocupacion=this.personaExiste.idOcupacion,
                                 this.estadoCivil=this.personaExiste.idEstadoCivil,
@@ -356,8 +329,6 @@ import swal from 'sweetalert2'
                                 this.religion=this.personaExiste.idReligion,
                                 this.identificacion=this.personaExiste.docIdentificacion,
                                 this.numIdentificacion=this.personaExiste.numDocIdentificacion
-                                this.lugarTrabajo=this.personaExiste.lugarTrabajo,
-                                this.telefonoTrabajo=this.personaExiste.telefonoTrabajo,
                                 this.alias=this.personaExiste.alias
                             }
                         })
@@ -531,7 +502,6 @@ import swal from 'sweetalert2'
                     this.etniaV=this.validaciones.idEtnia,
                     this.lenguaV=this.validaciones.idLengua,
                     this.interpreteV=this.validaciones.idInterprete,
-                    this.telefonoV=this.validaciones.telefono,
                     this.motivoEstanciaV=this.validaciones.motivoEstancia,
                     this.ocupacionV=this.validaciones.idOcupacion,
                     this.estadoCivilV=this.validaciones.idEstadoCivil,
@@ -539,21 +509,13 @@ import swal from 'sweetalert2'
                     this.religionV=this.validaciones.idReligion,
                     this.identificacionV=this.validaciones.docIdentificacion,
                     this.numIdentificacionV=this.validaciones.numDocIdentificacion
-                    this.lugarTrabajoV=this.validaciones.lugarTrabajo,
-                    this.telefonoTrabajoV=this.validaciones.telefonoTrabajo,
                     this.aliasV=this.validaciones.alias
                 });
             },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.crearPersona();                        
-                        //swal({
-                        //    title: 'Guardado Correctamente!',
-                        //    text: 'Esta persona fue guardada exitosamente',
-                        //    type: 'success',
-                        //    confirmButtonText: 'Ok'
-                        //})
+                        this.crearPersona();
                         return;
                     }
                     swal({
@@ -579,7 +541,6 @@ import swal from 'sweetalert2'
                 this.sexo=null,
                 this.rfc='',
                 this.curp='',
-                this.telefono='',
                 this.motivoEstancia='',
                 this.ocupacion='',
                 this.estadoCivil='',
@@ -587,8 +548,6 @@ import swal from 'sweetalert2'
                 this.religion='',
                 this.identificacion='',
                 this.numIdentificacion='',
-                this.lugarTrabajo='',
-                this.telefonoTrabajo='',
                 this.alias='',
                 this.$validator.reset();
             },
@@ -616,7 +575,6 @@ import swal from 'sweetalert2'
                         idLengua: this.isexits(this.lengua,{id:0}).id,
                         idInterprete: this.isexits(this.interprete,{id:0}).id,
                         idInterprete: 1,
-                        //telefono: this.telefono,
                         motivoEstancia: this.motivoEstancia.toUpperCase(),
                         idOcupacion: this.isexits(this.ocupacion,{id:0}).id,
                         idEstadoCivil: this.isexits(this.estadoCivil,{id:0}).id,
@@ -624,8 +582,6 @@ import swal from 'sweetalert2'
                         idReligion: this.isexits(this.religion,{id:0}).id,
                         docIdentificacion: this.isexits(this.identificacion,{id:0}).id,
                         numDocIdentificacion: this.numIdentificacion.toUpperCase(),
-                        lugarTrabajo: this.lugarTrabajo.toUpperCase(),
-                        //telefonoTrabajo: this.telefonoTrabajo,
                         alias: this.alias.toUpperCase(),
                     };
                     axios.post('/api/PersonaFisica',objREST)
