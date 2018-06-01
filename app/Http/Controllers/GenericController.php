@@ -97,7 +97,7 @@ class GenericController extends Controller
 			unset($vpm);
 			$VPM->idPersona=$PM->id;
 			$VPM->edad=$request->input('edad');
-			$VPM->telefono=$request->input('telefono');
+			//$VPM->telefono=$request->input('telefono');
 			$VPM->motivoEstancia=$request->input('motivoEstancia');
 			$VPM->idOcupacion=$request->input('idOcupacion');
 			$VPM->idEstadoCivil=$request->input('idEstadoCivil');
@@ -108,7 +108,7 @@ class GenericController extends Controller
 			$VPM->idInterprete=$request->input('idInterprete');
 			$VPM->alias=$request->input('alias');
 			$VPM->lugarTrabajo=$request->input('lugarTrabajo');
-			$VPM->telefonoTrabajo=$request->input('telefonoTrabajo');		
+			//$VPM->telefonoTrabajo=$request->input('telefonoTrabajo');		
 			//$VPM->esEmpresa=false;
 			$VPM->save();
 			if(!isset($VPM->id)){
