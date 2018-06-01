@@ -97,7 +97,6 @@ class GenericController extends Controller
 			unset($vpm);
 			$VPM->idPersona=$PM->id;
 			$VPM->edad=$request->input('edad');
-			//$VPM->telefono=$request->input('telefono');
 			$VPM->motivoEstancia=$request->input('motivoEstancia');
 			$VPM->idOcupacion=$request->input('idOcupacion');
 			$VPM->idEstadoCivil=$request->input('idEstadoCivil');
@@ -107,9 +106,7 @@ class GenericController extends Controller
 			$VPM->numDocIdentificacion=$request->input('numDocIdentificacion');
 			$VPM->idInterprete=$request->input('idInterprete');
 			$VPM->alias=$request->input('alias');
-			$VPM->lugarTrabajo=$request->input('lugarTrabajo');
-			//$VPM->telefonoTrabajo=$request->input('telefonoTrabajo');		
-			//$VPM->esEmpresa=false;
+
 			$VPM->save();
 			if(!isset($VPM->id)){
 				return "Error guardando o actualizando variables persona";
