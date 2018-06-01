@@ -54843,7 +54843,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         getValidaciones: function getValidaciones() {
             var _this14 = this;
 
-            var urlValidaciones = '/getValidaciones';
+            var urlValidaciones = '/api/getValidaciones';
             axios.post(urlValidaciones, {
                 id1: this.sistema,
                 id2: this.tipo,

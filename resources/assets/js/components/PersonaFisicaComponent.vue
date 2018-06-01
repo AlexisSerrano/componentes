@@ -509,7 +509,7 @@ import swal from 'sweetalert2'
                 }
             },
             getValidaciones: function(){
-                var urlValidaciones = '/getValidaciones';
+                var urlValidaciones = '/api/getValidaciones';
                 axios.post(urlValidaciones, {
                     id1: this.sistema,
                     id2: this.tipo,
