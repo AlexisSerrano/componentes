@@ -9,13 +9,13 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="municipio">Municipio</label>  
-                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') }" placeholder="Seleccione un municipio"></v-select>
-                    <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio') }}</span>
+                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || municipioV}" placeholder="Seleccione un municipio"></v-select>
+                    <span v-show="errors.has('municipio') || municipioV" class="text-danger">{{ errors.first('municipio') || municipioV[0]}}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="localidad">Localidad</label>    
-                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') }" placeholder="Seleccione una localidad"></v-select>
-                    <span v-show="errors.has('localidad')" class="text-danger">{{ errors.first('localidad') }}</span>
+                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') || localidadV}" placeholder="Seleccione una localidad"></v-select>
+                    <span v-show="errors.has('localidad')|| localidadV" class="text-danger">{{ errors.first('localidad') || localidadV[0]}}</span>
                 </div>
             </div>
 
@@ -23,32 +23,30 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="cp">Código postal</label>    
-                    <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias" v-validate="'required'" :class="{ 'border border-danger': errors.has('codigo_postal') }" placeholder="Seleccione un código postal"></v-select>
-                    <span v-show="errors.has('codigo_postal')" class="text-danger">{{ errors.first('codigo_postal') }}</span>
+                    <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias"  v-validate="'required'" data-vv-name="codigo postal" :class="{ 'border border-danger': errors.has('codigo postal') }" placeholder="Seleccione un código postal"></v-select>
+                    <span v-show="errors.has('codigo postal')" class="text-danger">{{ errors.first('codigo postal') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="colonia">Colonia</label>    
-                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia" v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') }" placeholder="Seleccione una colonia"></v-select>
-                    <span v-show="errors.has('colonia')" class="text-danger">{{ errors.first('colonia') }}</span>
+                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia"  v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia')|| coloniaV }" placeholder="Seleccione una colonia"></v-select>
+                    <span v-show="errors.has('colonia')|| coloniaV" class="text-danger">{{ errors.first('colonia') || coloniaV[0]}}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="calle">Calle</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('calle') }" id="calle" name="calle" v-model="calle" placeholder="Ingrese la calle" v-validate="'required'" autocomplete="off">
-                    <span v-if="errors.has('calle')" class="text-danger">{{ errors.first('calle') }}</span>
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('calle') || calleV}" id="calle" name="calle" v-validate="'required'" v-model="calle" placeholder="Ingrese la calle"  autocomplete="off">
+                    <span v-if="errors.has('calle') || calleV" class="text-danger">{{ errors.first('calle') || calleV[0]}}</span>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="numExterno">Número externo</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') }" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'" autocomplete="off">
-                    <span v-if="errors.has('Numero Externo')" class="text-danger">{{ errors.first('Numero Externo') }}</span>
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') || numExternoV}" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-validate="'required'" v-model="numExterno" placeholder="Ingrese el número externo"  autocomplete="off">
+                    <span v-if="errors.has('Numero Externo') || numExternoV" class="text-danger">{{ errors.first('Numero Externo') || numExternoV[0]}}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="numInterno">Número interno</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Interno') }" id="numInterno" data-vv-name="Numero Interno" name="numInterno" v-model="numInterno" placeholder="Ingrese el número interno" v-validate="'required'" autocomplete="off">
-                    <span v-if="errors.has('Numero Interno')" class="text-danger">{{ errors.first('Numero Interno') }}</span>
-                    <span v-if="errornumInterno!=''" class="text-danger">{{ errornumInterno }}</span>
+                    <input type="text" class="input form-control" id="numInterno" name="numInterno" v-model="numInterno" placeholder="Ingrese el número interno" autocomplete="off">
                 </div>
             </div>
             <!-- <h1>{{(estado!=null)?estado.id:estado}}</h1> -->
@@ -75,7 +73,11 @@ import swal from 'sweetalert2'
                 calle: '',
                 numExterno: '',
                 numInterno: '',
-                errornumInterno: '',
+                municipioV:'',
+                localidadV:'',
+                coloniaV:'',
+                calleV:'',
+                numExternoV:''
             }
         },
         mounted: function () {
@@ -174,12 +176,6 @@ import swal from 'sweetalert2'
                     if (result) {
                         this.crearDomicilio();
                         this.CleanFields();
-                        swal({
-                            title: 'Guardado Correctamente!',
-                            text: 'Éste domicilio fue guardado exitosamente',
-                            type: 'success',
-                            confirmButtonText: 'Ok'
-                        })
                         return;
                     }
                     swal({
@@ -201,6 +197,27 @@ import swal from 'sweetalert2'
                     calle: this.calle.toUpperCase(),
                     numExterno: this.numExterno.toUpperCase(),
                     numInterno: this.numInterno.toUpperCase(),
+                }).then((response)=>{
+                    console.log(response.data)
+                    swal({
+                        title: 'Guardado Correctamente!',
+                        text: 'Éste domicilio fue guardado exitosamente',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    }).catch((error)=>{
+                        console.log(error.response.data.errors);
+                        this.municipioV = error.response.data.errors.municipio,
+                        this.localidadV = error.response.data.errors.localidad,
+                        this.coloniaV = error.response.data.errors.colonia,
+                        this.calleV = error.response.data.errors.calle,
+                        this.numExternoV = error.response.data.errors.numExterno
+                        swal({
+                            title: 'Guardado Incorrecto!',
+                            text: 'Éste domicilio no fue posible guardarse',
+                            type: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    })
                 })
             }
        }

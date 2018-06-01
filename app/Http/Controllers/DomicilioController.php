@@ -15,18 +15,7 @@ use App\Http\Requests\DomicilioRequest;
 class DomicilioController extends Controller
 {
 	public function index(){
-		// $estados=catEstado::orderBy('nombre', 'ASC')
-		// ->select('nombre','id')->get();
-		// $municipios=catMunicipio::orderBy('nombre','ASC')
-		// ->select('nombre','id')->get();
-		// $localidades=catLocalidad::orderBy('nombre','ASC')
-		// ->select('nombre','id')->get();
-		// $colonias=catColonia::orderBy('nombre','ASC')
-        // ->select('nombre','id')->get();
-        // $codigosPostales=catColonia::orderBy('nombre','ASC')
-		// ->select('codigoPostal','id')->get();
-		// return view("domicilio",compact("estados","municipios","localidades","colonias","codigosPostales"));
-		return view("domicilio");
+        return view("domicilio");
 	}
 
      public function addDomicilio(DomicilioRequest $request){
@@ -40,7 +29,7 @@ class DomicilioController extends Controller
         $domicilio->numInterno=$request->input('numInterno');
         }
         $domicilio->save();
-        return $domicilio;
+        return $domicilio->id;
     }
 
     public function getEstados()
