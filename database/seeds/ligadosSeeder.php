@@ -56,10 +56,6 @@ class ligadosSeeder extends Seeder
                 '"idLengua":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":true,'.
-                    '"phone":true'.
-                '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
                 '}},'.
@@ -87,13 +83,6 @@ class ligadosSeeder extends Seeder
                 '"alias":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false,'.
-                    '"phone":true'.
-                '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>4,"config"=>
             '{'.
@@ -140,10 +129,6 @@ class ligadosSeeder extends Seeder
                 '"idLengua":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":true,'.
-                    '"phone":true'.
-                '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
                 '}},'.
@@ -171,13 +156,6 @@ class ligadosSeeder extends Seeder
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false,'.
-                    '"phone":true'.
-                '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>5,"config"=>
             '{'.
@@ -220,10 +198,6 @@ class ligadosSeeder extends Seeder
                 '"idLengua":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":true,'.
-                    '"phone":true'.
-                '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
                 '}},'.
@@ -255,13 +229,6 @@ class ligadosSeeder extends Seeder
                 '"alias":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false,'.
-                    '"phone":true'.
-                '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>6,"config"=>
             '{'.
@@ -308,10 +275,6 @@ class ligadosSeeder extends Seeder
                 '"idLengua":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":true,'.
-                    '"phone":true'.
-                '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
                 '}},'.
@@ -339,13 +302,6 @@ class ligadosSeeder extends Seeder
                 '"alias":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false,'.
-                    '"phone":true'.
-                '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>7,"config"=>
             '{'.
@@ -378,10 +334,6 @@ class ligadosSeeder extends Seeder
                 '}},'.
                 '"sexo":{"rules":{'.
                     '"required":true'.
-                '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":true,'.
-                    '"phone":true'.
                 '}},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":true'.
@@ -423,13 +375,6 @@ class ligadosSeeder extends Seeder
                 '"alias":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false,'.
-                    '"phone":true'.
-                '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>8,"config"=>
             '{'.
@@ -476,10 +421,6 @@ class ligadosSeeder extends Seeder
                 '"idLengua":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":true,'.
-                    '"phone":true'.
-                '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
                 '}},'.
@@ -507,13 +448,6 @@ class ligadosSeeder extends Seeder
                 '"alias":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false,'.
-                    '"phone":true'.
-                '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>9,"config"=>
             '{'.
@@ -560,10 +494,6 @@ class ligadosSeeder extends Seeder
                 '"idLengua":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":true,'.
-                    '"phone":true'.
-                '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
                 '}},'.
@@ -591,13 +521,6 @@ class ligadosSeeder extends Seeder
                 '"alias":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false,'.
-                    '"phone":true'.
-                '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>12,"config"=>
             '{'.
@@ -644,10 +567,6 @@ class ligadosSeeder extends Seeder
                 '"idLengua":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":true,'.
-                    '"phone":true'.
-                '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
                 '}},'.
@@ -675,13 +594,6 @@ class ligadosSeeder extends Seeder
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false,'.
-                    '"phone":true'.
-                '}}'.
             '}'],
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>7,"config"=>
             '{'.
@@ -728,10 +640,6 @@ class ligadosSeeder extends Seeder
                 '"idLengua":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":true,'.
-                    '"phone":true'.
-                '}},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":false'.
                 '}},'.
@@ -759,13 +667,6 @@ class ligadosSeeder extends Seeder
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false,'.
-                    '"phone":true'.
-                '}}'.
             '}'
             ],
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>5,"config"=>
@@ -809,10 +710,6 @@ class ligadosSeeder extends Seeder
                 '"idLengua":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"telefono":{"rules":{'.
-                    '"required":true,'.
-                    '"phone":true'.
-                '}},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":false'.
                 '}},'.
@@ -844,13 +741,6 @@ class ligadosSeeder extends Seeder
                 '"alias":{"rules":{'.
                     '"required":false'.
                 '}},'.
-                '"lugarTrabajo":{"rules":{'.
-                    '"required":false'.
-                '}},'.
-                '"telefonoTrabajo":{"rules":{'.
-                    '"required":false,'.
-                    '"phone":true'.
-                '}}'.
             '}'],
         ]);
     }

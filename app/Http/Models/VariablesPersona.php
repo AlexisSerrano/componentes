@@ -20,6 +20,7 @@ class VariablesPersona extends Model
         'idCarpeta',
         'idPersona',
         'edad',
+        'telefono',
         'motivoEstancia',
         'idOcupacion',
         'idEstadoCivil',
@@ -28,8 +29,8 @@ class VariablesPersona extends Model
         'idDomicilio',
         'docIdentificacion',
         'numDocIdentificacion',
-        'idDomicilioTrabajo',
-        'alias'
+        'lugarTrabajo',
+        'idDomicilioTrabajo'
     ];
 
     public function carpeta()
