@@ -5,26 +5,55 @@
 </div>
 </template>
 <script>
-import init from 'rendata'
-    export default {        
-        data(){
-            return{
-                alias:""
+import { execn, draw } from "rendata";
+export default {
+  data() {
+    return {
+      alias: ""
+    };
+  },
+  mounted() {},
+  methods: {
+    search: function() {
+      let dt = {
+        url: "/api/SearchUndefined",
+        params: {
+          columns: [
+            { name: "id", show: false },
+            { name: "nombre", replace: "nombre del sistema", show: true },
+            {
+              name: "descripcion",
+              replace: "descripcion del sistema",
+              show: true
             }
+          ],
+          tablename: "sistemas",
+          limit: 2
         },
-        mounted (){},
-        methods:{             
-            search:function(){
-                console.log(this.alias);
-                init(
-                {
-                    url:"/api/SearchUndefined",
-                    params:{
-                        filters:{"alias":this.alias},
-                        tablename:"persona_completa_actual"
-                    }
-                },1);
+        options: {
+          title: "Opciones",
+          links: [
+            {
+              text: "consola",
+              func: function(obj) {
+                console.log(obj);
+              }
             }
-        } 
+          ]
+        }
+      };
+      execn(dt, 0)
+        .then(datatable => {
+          dt = datatable;
+        })
+        .catch(datatable => {
+          dt = datatable;
+        })
+        .finally(() => {
+          console.log(dt);
+          draw(dt, 1);
+        });
     }
+  }
+};
 </script>
