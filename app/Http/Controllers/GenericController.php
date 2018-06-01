@@ -10,11 +10,13 @@ class GenericController extends Controller
 	}
 	// url:"/api/test/SearchUndefined",method:"POST",filters:[ _name:"bysearch"_ ],skip: [0-9]*,limit: [0-9]*
 	public function SearchUndefined(Request $request){
-		$tablename="cat_estado";
-		if($request->input('tablename')!==null){
-			$tablename=$request->input('tablename');
+		$responseJSON=json_decode($request->getContent(), true);
+		if($responseJSON==null){
+			$result=HelpController::SearchFilter($request->input('tablename'),$request->input('filters'),$request->input('limit'),$request->input('skip'),$request->input('nfilters'),$request->input('columns'));
+		}else{
+			$result=HelpController::SearchFilter($responseJSON['tablename']??"sistemas",$responseJSON['filters']??null,$responseJSON['limit']??0,$responseJSON['skip']??0,$responseJSON['nfilters']??null,$responseJSON['columns']??null);
 		}
-		return HelpController::SearchFilter($tablename,$request->input('filters'),$request->input('limit'),$request->input('skip'),$request->input('nfilters'),$request->input('columns'));
+		return $result;
 	}
 	// url:"/api/test/SetConfirm",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idvar_persona",id_carpeta:"id_carpeta",nuc,"nuc"
 	public function SetConfirm(Request $request){
