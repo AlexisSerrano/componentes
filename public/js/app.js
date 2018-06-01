@@ -54517,6 +54517,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -55419,24 +55421,86 @@ var render = function() {
                 _vm.tipo == 10 &&
                 _vm.tipo == 11 &&
                 _vm.tipo == 12)
-                ? _c(
-                    "div",
-                    { staticClass: "form-group col-md-4" },
-                    [
-                      _c("label", { attrs: { for: "alias" } }, [
-                        _vm._v("Alias")
-                      ]),
-                      _vm._v(" "),
-                      _c("render-datatable"),
-                      _vm._v(" "),
-                      _vm.errors.has("Alias")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.first("Alias")))
-                          ])
-                        : _vm._e()
-                    ],
-                    1
-                  )
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "alias" } }, [_vm._v("Alias")]),
+                    _vm._v(" "),
+                    _vm.aliasV == 1
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.alias,
+                              expression: "alias"
+                            },
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          class: {
+                            input: true,
+                            "form-control": true,
+                            "border border-danger": _vm.errors.has("Alias")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "alias",
+                            id: "alias",
+                            placeholder: "Ingrese el alias",
+                            autocomplete: "off",
+                            "data-vv-name": "Alias"
+                          },
+                          domProps: { value: _vm.alias },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.alias = $event.target.value
+                            }
+                          }
+                        })
+                      : _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.alias,
+                              expression: "alias"
+                            }
+                          ],
+                          class: {
+                            input: true,
+                            "form-control": true,
+                            "border border-danger": _vm.errors.has("alias")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "alias",
+                            id: "alias",
+                            placeholder: "Ingrese el alias",
+                            autocomplete: "off"
+                          },
+                          domProps: { value: _vm.alias },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.alias = $event.target.value
+                            }
+                          }
+                        }),
+                    _vm._v(" "),
+                    _vm.errors.has("Alias")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("Alias")))
+                        ])
+                      : _vm._e()
+                  ])
                 : _vm._e()
             ]),
             _vm._v(" "),
@@ -56988,24 +57052,88 @@ var render = function() {
                     _vm.tipo == 10 &&
                     _vm.tipo == 11 &&
                     _vm.tipo == 12)
-                    ? _c(
-                        "div",
-                        { staticClass: "form-group col-md-4" },
-                        [
-                          _c("label", { attrs: { for: "alias" } }, [
-                            _vm._v("Alias")
-                          ]),
-                          _vm._v(" "),
-                          _c("render-datatable"),
-                          _vm._v(" "),
-                          _vm.errors.has("alias")
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(_vm._s(_vm.errors.first("alias")))
-                              ])
-                            : _vm._e()
-                        ],
-                        1
-                      )
+                    ? _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c("label", { attrs: { for: "alias" } }, [
+                          _vm._v("Alias")
+                        ]),
+                        _vm._v(" "),
+                        _vm.aliasV == 1
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.alias,
+                                  expression: "alias"
+                                },
+                                {
+                                  name: "validate",
+                                  rawName: "v-validate",
+                                  value: "required",
+                                  expression: "'required'"
+                                }
+                              ],
+                              class: {
+                                input: true,
+                                "form-control": true,
+                                "border border-danger": _vm.errors.has("Alias")
+                              },
+                              attrs: {
+                                type: "text",
+                                name: "alias",
+                                id: "alias",
+                                placeholder: "Ingrese el alias",
+                                autocomplete: "off",
+                                "data-vv-name": "Alias"
+                              },
+                              domProps: { value: _vm.alias },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.alias = $event.target.value
+                                }
+                              }
+                            })
+                          : _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.alias,
+                                  expression: "alias"
+                                }
+                              ],
+                              class: {
+                                input: true,
+                                "form-control": true,
+                                "border border-danger": _vm.errors.has("alias")
+                              },
+                              attrs: {
+                                type: "text",
+                                name: "alias",
+                                id: "alias",
+                                placeholder: "Ingrese el alias",
+                                autocomplete: "off"
+                              },
+                              domProps: { value: _vm.alias },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.alias = $event.target.value
+                                }
+                              }
+                            }),
+                        _vm._v(" "),
+                        _vm.errors.has("alias")
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.errors.first("alias")))
+                            ])
+                          : _vm._e()
+                      ])
                     : _vm._e()
                 ])
               : _vm._e(),

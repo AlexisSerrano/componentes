@@ -10,7 +10,7 @@ class PersonaModel extends Model
     protected $table = 'personas';
 
     protected $fillable = [
-        'id', 'nombres', 'primerAp', 'segundoAp', 'fechaNacimiento', 'rfc', 'curp', 'sexo', 'idNacionalidad', 'idEtnia', 'idLengua', 'idMunicipioOrigen', 'esEmpresa',
+        'id', 'nombres', 'primerAp', 'segundoAp', 'fechaNacimiento', 'rfc', 'curp', 'sexo', 'idNacionalidad', 'idEtnia', 'idLengua', 'idMunicipioOrigen'
     ];
 
     // public function familiares(){

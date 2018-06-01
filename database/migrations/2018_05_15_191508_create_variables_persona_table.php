@@ -26,7 +26,6 @@ class CreateVariablesPersonaTable extends Migration
             $table->string('docIdentificacion',50)->nullable()->default("SIN INFORMACION");
             $table->integer('idInterprete')->nullable()->unsigned()->default(0);
             $table->string('numDocIdentificacion',50)->nullable()->default("SIN INFORMACION");
-            $table->string('lugarTrabajo',50)->nullable()->default("SIN INFORMACION");
             $table->integer('idDomicilioTrabajo')->nullable()->unsigned()->default(1);
             $table->string('alias',100)->nullable()->default("SIN INFORMACION");
 
