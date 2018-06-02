@@ -59776,6 +59776,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -59936,6 +59942,30 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container mt-3" }, [
+    _c(
+      "div",
+      _vm._l(_vm.telefonos, function(t) {
+        return _c("span", { key: t.id, staticClass: "btn-group" }, [
+          _c("span", { staticClass: "btn btn-outline-success" }, [
+            _vm._v(_vm._s(t.valor))
+          ]),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass: "btn btn-outline-danger",
+              on: {
+                click: function($event) {
+                  _vm.delate(t)
+                }
+              }
+            },
+            [_vm._v(" x")]
+          )
+        ])
+      })
+    ),
+    _vm._v(" "),
     _c("form", [
       _c("div", { staticClass: "form-row" }, [
         _c(

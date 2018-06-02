@@ -1,5 +1,28 @@
 <template>
     <div class="container"> 
+
+        <!-- Modal -->
+       <div class="modal fade" id="myModal" role="dialog">
+           <div class="modal-dialog">
+           
+           <!-- Modal content-->
+           <div class="modal-content">
+               <div class="modal-header">
+                <h5>Coincidencias con el alias</h5>
+               </div>
+            <div class="modal-body">
+                <table class="table table-responsive">
+                    <div id="r-td-1"></div>
+                </table>                
+            </div>
+               <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+           </div>
+           
+           </div>
+       </div>
+
         <!-- <div class="form-row align-items-end" v-if="mostrarForm">
              <div class="form-group col-md-4">
                  <h5 id="pruebavue">{{personaExiste!=''?personaExiste.nombres+" "+personaExiste.primerAp+" "+personaExiste.segundoAp:''}}</h5>
@@ -49,8 +72,8 @@
                 </div>
                 <div v-if="(denunciado==2) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
                     <label for="alias">Alias</label>                    
-                     <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias">
-                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" >                    
+                    <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="search()">
+                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="search()" >                    
                     <span v-if="errors.has('Alias')" class="text-danger">{{ errors.first('Alias') }}</span>
                 </div>
             </div>
@@ -177,10 +200,14 @@
                     <span v-if="errors.has('Número de identificación')" class="text-danger">{{ errors.first('Número de identificación') }}</span>
                 </div>
                 <div v-if="(denunciado==1) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
-                    <label for="alias">Alias</label>
-                      <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias">
-                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off">                    
+                    <label for="alias">Alias</label>  
+                    <div class="row-gruop">
+                        <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="search()" style="width:12em;">
+                        <input v-else type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="search()" style="width:12em;">                                                          
+                        <div style="cursor:pointer"> <span class="badge badge-dark" id="match" v-on:click="search(1)"></span></div>
+                    </div>                  
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
+
                 </div>
             </div>
             <div class="form-row mt-3">
@@ -195,6 +222,7 @@
 <script>
 import generaCurp from '../curp'
 import swal from 'sweetalert2'
+import { execn, draw } from "rendata";
     export default {
         data(){
              return{
@@ -285,7 +313,7 @@ import swal from 'sweetalert2'
            this.getReligiones();
            this.getIdentificaciones();
            this.getInterpretes();
-           this.getValidaciones();           
+           this.getValidaciones();                                
         },
         methods:{
             searchPersona: function(){
@@ -643,7 +671,87 @@ import swal from 'sweetalert2'
                             })
                         }
                     });
+            },
+        search: function(triger) {
+            if(triger!=undefined){
+                $('#myModal').modal();
+                draw(dt, 1);                
+                return
             }
+            this.alias=this.alias.trim()
+            if((this.alias.length) == 0){
+                console.log("Alias vacio");
+                return
+            }
+            let dt = {
+                url: "/api/SearchUndefined",
+                params: {
+                columns: [
+                    {name:"idPersona",show:false},
+                    {name:"idvar_persona",show:false},
+                    {name:"nombres",show:true,replace:"Nombres"},
+                    {name:"primerAp",show:true,replace:"Primer apellido"},
+                    {name:"segundoAp",show:true,replace:"Segundo apellido"},
+                    {name:"fechaNacimiento",show:true,replace:"Fecha nacimiento"},
+                    {name:"rfc",show:true,replace:"RFC"},
+                    {name:"curp",show:true,replace:"CURP"},
+                    {name:"sexo",show:true,replace:"Sexo"},
+                    {name:"nacionalidad",show:true,replace:"Nacionalidad"},
+                    {name:"etnia",show:true,replace:"Etnia"},
+                    {name:"municipioOrigen",show:true,replace:"Municipio origen"},
+                    {name:"edad",show:true,replace:"Edad"},
+                    //{name:"telefono",show:true,replace:"Teléfono"},
+                    {name:"motivoEstancia",show:true,replace:"Motivo estancia"},
+                    {name:"ocupacion",show:true,replace:"Ocupacion"},
+                    {name:"estadoCivil",show:true,replace:"Estado civil"},
+                    {name:"escolaridad",show:true,replace:"Escolaridad"},
+                    {name:"religion",show:true,replace:"Religión"},
+                    {name:"docIdentificacion",show:true,replace:"Doc identificación"},
+                    {name:"numDocIdentificacion",show:true,replace:"Num doc identif."},
+                    {name:"lugarTrabajo",show:true,replace:"Lugar trabajo"},
+                    {name:"idDomicilioTrabajo",show:false,replace:"idDomicilio"},
+                    //{name:"telefonoTrabajo",show:true,replace:"Teléfono trabajo"},
+                    {name:"alias",show:true,replace:"Alias"}                
+
+                ],
+                tablename: "persona_completa_actual",
+                limit: 5,
+                filters:{}
+            },
+            options: {
+            title: "Opciones",
+            links: [
+                {
+                text: "consola",
+                func: function(obj) {
+                    console.log(obj);
+                }
+                }
+            ]
+            }
+        };
+        dt.params.filters={"alias":this.alias}
+        execn(dt, 0)
+            .then((datatable) => {
+            dt = datatable;
+            })
+            .catch((datatable) => {
+            dt = datatable;
+            })
+            .finally(() => {
+            console.log(dt);
+            //Mostrar Count
+            //dt.data.count>0?
+            if(dt.data.count>0){
+                $('#match').html(dt.data.count)        
+                /*$('#myModal').modal();
+                draw(dt, 1);*/
+            }else{
+                console.log("No hay coincidencias");
+                $('#match').html("")
+            }
+            });
+        }
        },
        watch:{
             sexo : function (val, oldval) {
@@ -684,4 +792,5 @@ input{
 ::placeholder{
     text-transform: none
 }
+
 </style>
