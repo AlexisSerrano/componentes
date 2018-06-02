@@ -1,5 +1,11 @@
 <template>
 <div class="container mt-3">
+<div >
+    <span v-for="t in telefonos" :key="t.id" class="btn-group" >
+        <span class="btn btn-outline-success">{{t.valor }}</span>
+        <span class="btn btn-outline-danger" v-on:click="delate(t)"> x</span>
+    </span>
+</div>
     <form>
         <div class="form-row">
             <div class="form-group col-md-6">
