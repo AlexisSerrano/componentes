@@ -178,19 +178,20 @@ export default{
                 tipo: this.tipoTelefono.id,
                 valor: this.numero,
             }).then(response=>{
-                this.limpiaCampos()
                 console.log(response.data)
                 swal({
                     title: 'Guardado correctamente!',
-                    text: 'Número de teléfono agregado exitosamente',
+                    text: 'Dirección telefónica agregada exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 })
+                this.limpiaCampos()
+                $('#ModalTelefonos').modal('hide');
             }).catch((error)=>{
                 console.log(error.response.data.errors);
                 swal({
                 title: 'Guardado incorrecto!',
-                text: 'Número de teléfono imposible de guardar',
+                text: 'La dirección telefónica es imposible de guardar',
                 type: 'error',
                 confirmButtonText: 'Ok'
                 })
@@ -206,15 +207,17 @@ export default{
                 console.log(response.data)
                 swal({
                     title: 'Guardado correctamente!',
-                    text: 'Número de teléfono agregado exitosamente',
+                    text: 'Correo electrónico agregado exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 })
+                this.limpiaCampos()
+                $('#ModalCorreos').modal('hide');
             }).catch((error)=>{
                 console.log(error.response.data.errors);
                 swal({
                 title: 'Guardado incorrecto!',
-                text: 'Número de teléfono imposible de guardar',
+                text: 'El correo electrónico es imposible de agregar',
                 type: 'error',
                 confirmButtonText: 'Ok'
                 })
@@ -230,36 +233,38 @@ export default{
                 console.log(response.data)
                 swal({
                     title: 'Guardado correctamente!',
-                    text: 'Número de teléfono agregado exitosamente',
+                    text: 'Red social agregado exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 })
+                this.limpiaCampos()
+                $('#ModalRedes').modal('hide');
             }).catch((error)=>{
                 console.log(error.response.data.errors);
                 swal({
                 title: 'Guardado incorrecto!',
-                text: 'Número de teléfono imposible de guardar',
+                text: 'La red social es imposible de agregar',
                 type: 'error',
                 confirmButtonText: 'Ok'
                 })
             });
         },
         limpiaCampos() {
-            this.telefono=null,
-            this.telefonos= [],
-            this.correo=null,
-            this.correos= [],
-            this.red=null,
-            this.redes= [],
+            this.data,
+            this.getdc(),
             this.tipoTelefono=null,
-            this.tipoTelefonos= [],
-            this.numero='',
+            this.tipoTelefonos=[],
+            this.getdctt(),
             this.tipoCorreo=null,
             this.tipoCorreos=[],
-            this.tCorreo='',
+            this.getdctc(),
             this.tipoRed=null,
             this.tipoRedes=[],
-            this.tRed=''
+            this.getdctr(),
+            this.numero='',
+            this.tCorreo='',
+            this.tRed='',
+            this.$validator.reset()
         }
     }
 }
