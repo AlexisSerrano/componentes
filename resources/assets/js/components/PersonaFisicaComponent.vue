@@ -558,7 +558,8 @@ import swal from 'sweetalert2'
             },
             crearPersona: function(){
                 var PF;
-                var objREST={
+                if(this.denunciado!=2 && this.denunciado!=3){
+                     var objREST={
                         id1: this.sistema,
                         id2: this.tipo,
                         id3: 1,
@@ -586,6 +587,20 @@ import swal from 'sweetalert2'
                         numDocIdentificacion: this.numIdentificacion.toUpperCase(),
                         alias: this.alias.toUpperCase(),
                     };
+                }else if(this.denunciado==2){
+                     var objREST={
+                        id1: this.sistema,
+                        id2: this.tipo,
+                        id3: 1,
+                        id_carpeta: 1,
+                        nombres: this.nombres.toUpperCase(),
+                        primerAp: this.primerAp.toUpperCase(),
+                        alias: this.alias.toUpperCase(),
+                    };
+                }else if(this.denunciado==3){
+                    console.log("Quien resulte responsable")
+                    return;
+                }
                     axios.post('/api/PersonaFisica',objREST)
                     .then((response)=>{
                         /*console.log(response)
