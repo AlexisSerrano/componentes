@@ -1,5 +1,11 @@
 <template>
 <div class="container mt-3">
+<div >
+    <span v-for="t in telefonos" :key="t.id" class="btn-group" >
+        <span class="btn btn-outline-success">{{t.valor }}</span>
+        <span class="btn btn-outline-danger" v-on:click="delate(t)"> x</span>
+    </span>
+</div>
     <form>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -26,17 +32,17 @@
             <div class="modal-content" style="width:100%">
                 <form v-on:submit.prevent="creardct">
                     <div class="modal-header">
-                        <h4 class="modal-title">Registrar teléfono</h4>
+                        <h4 class="modal-title">Agregar nueva dirección telefónica</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="tipoTelefono">Tipo</label>
-                                <v-select :options="tipoTelefonos" v-model="tipoTelefono" name="tipoTelefono" id="tipoTelefono" label="tipo"></v-select>
+                                <v-select :options="tipoTelefonos" v-model="tipoTelefono" name="tipoTelefono" id="tipoTelefono" label="tipo" :class="{ 'border border-danger rounded': errors.has('tipoTelefono') }" aria-required="true"></v-select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="numero">Número</label>
-                                <input type="text" name="numero" id="numero" v-model="numero" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('numero') }" placeholder="Número" v-validate="'required'" autocomplete="off">
+                                <input type="text" minlength="7" name="numero" id="numero" v-model="numero" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('numero') }" placeholder="Ingrese dirección telefónica" v-validate="'required'" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -54,7 +60,7 @@
             <div class="modal-content" style="width:100%">
                 <form v-on:submit.prevent="creardcc">
                     <div class="modal-header">
-                        <h4 class="modal-title">Registrar correo</h4>
+                        <h4 class="modal-title">Agregar nueva dirección de correo electrónico</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-row">
@@ -64,7 +70,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="correo">Correo</label>
-                                <input type="email" name="tCorreo" v-model="tCorreo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('correo') }" id="correos" placeholder="Correos" v-validate="'required'" autocomplete="off">
+                                <input type="email" name="tCorreo" id="tCorreo" v-model="tCorreo" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('tCorreo') }" placeholder="Ingrese correo electrónico" v-validate="'required'" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -82,7 +88,7 @@
             <div class="modal-content" style="width:100%">
                 <form v-on:submit.prevent="creardcr">
                     <div class="modal-header">
-                        <h4 class="modal-title">Registrar Redes Sociales</h4>
+                        <h4 class="modal-title">Agregar red social</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-row">
@@ -92,7 +98,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" name="tRed" v-model="tRed" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('red') }" id="red" placeholder="Red Social" v-validate="'required'" autocomplete="off">
+                                <input type="text" name="tRed" id="tRed" v-model="tRed" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('tRed') }" placeholder="Ingrese red social" v-validate="'required'" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -112,7 +118,7 @@ import swal from 'sweetalert2'
 export default{
     data(){
         return{
-            telefono:[],
+            telefono:null,
             telefonos: [],
             correo:null,
             correos: [],
@@ -130,18 +136,27 @@ export default{
         }
     },
     mounted: function () {
+        this.getdc();
         this.getdctt();
         this.getdctc();
         this.getdctr();
-        this.getdc();
     },
     methods:{
         getdc: function(){
-            var urlDatosContacto = 'getDatosContacto';
-            axios.get(urlDatosContacto).then(response => {
+            var urlDatosContactoTel = 'getDatosContactoTel';
+            axios.get(urlDatosContactoTel).then(response => {
                 this.telefonos=response.data;
+                this.telefono=response.data;
+            });
+            var urlDatosContactoCor = 'getDatosContactoCor';
+            axios.get(urlDatosContactoCor).then(response => {
                 this.correos=response.data;
+                this.correo=response.data;
+            });
+            var urlDatosContactoRed = 'getDatosContactoRed';
+            axios.get(urlDatosContactoRed).then(response => {
                 this.redes=response.data;
+                this.red=response.data;
             });
         },
         getdctt: function(){
@@ -233,8 +248,15 @@ export default{
                 confirmButtonText: 'Ok'
                 })
             });
-        }
-    },
-
+        },
+        limpiaCampos() {
+                this.nombre='',
+                this.fechaConstitucion='',
+                this.rfc='',
+                this.telefono='',
+                this.representanteLegal='',
+                this.$validator.reset();
+        },
+    }
 }
 </script>
