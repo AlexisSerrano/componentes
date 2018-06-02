@@ -9,6 +9,11 @@ Route::get('/','PersonaController@index');
 Route::get('/domicilio','DomicilioController@index');
 Route::post('addDomicilio','DomicilioController@addDomicilio')->name('addDomicilio');
 
+/*URLS PARA DATOS LABORALES*/
+Route::get('/datosLaborales','DatosLaboralesController@index');
+Route::post('addDatosLaborales','DatosLaboralesController@addDatosLaborales')->name('addDatosLaborales');
+
+
 /*URLS PARA EMPRESAS*/
 Route::get('/personaMoral','PersonaMoralController@index');
 Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');

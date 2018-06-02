@@ -15430,7 +15430,7 @@ module.exports = Cancel;
 (function (global) {
 	'use strict';
 
-	var comunes = ['MARIA', 'MA', 'MA.', 'JOSE', 'J', 'J.', 'MARÍA', 'JOSÉ'];
+	var comunes = ['MA', 'MA.', 'J', 'J.'];
 	/**
  	curp.js
  	Función para generar el CURP, de acuerdo a las especificaciones oficiales.
@@ -15822,6 +15822,7 @@ Vue.component('domicilio', __webpack_require__(61));
 Vue.component('render-datatable', __webpack_require__(66));
 Vue.component('formex', __webpack_require__(69));
 Vue.component('datoscontactos', __webpack_require__(73));
+Vue.component('datoslaborales', __webpack_require__(80));
 var app = new Vue({
   el: '#app'
 });
@@ -54275,7 +54276,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\nh5{\r\n    color: #138c13;\n}\n.icons{\r\n    height: 1rem;\r\n    margin-bottom: 3px;\n}\ninput{\r\n    text-transform: uppercase\n}\n::-webkit-input-placeholder{\r\n    text-transform: none\n}\n:-ms-input-placeholder{\r\n    text-transform: none\n}\n::-ms-input-placeholder{\r\n    text-transform: none\n}\n::placeholder{\r\n    text-transform: none\n}\r\n", ""]);
+exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\nh5{\r\n    color: #138c13;\n}\n.icons{\r\n    height: 1rem;\r\n    margin-bottom: 3px;\n}\ninput{\r\n    text-transform: uppercase\n}\n::-webkit-input-placeholder{\r\n    text-transform: none\n}\n:-ms-input-placeholder{\r\n    text-transform: none\n}\n::-ms-input-placeholder{\r\n    text-transform: none\n}\n::placeholder{\r\n    text-transform: none\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -54323,6 +54324,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__curp__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rendata__ = __webpack_require__(71);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -54519,6 +54521,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -54932,6 +54962,58 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     });
                 }
             });
+        },
+        search: function search(triger) {
+            if (triger != undefined) {
+                $('#myModal').modal();
+                Object(__WEBPACK_IMPORTED_MODULE_2_rendata__["a" /* draw */])(dt, 1);
+                return;
+            }
+            this.alias = this.alias.trim();
+            if (this.alias.length == 0) {
+                console.log("Alias vacio");
+                return;
+            }
+            var dt = {
+                url: "/api/SearchUndefined",
+                params: {
+                    columns: [{ name: "idPersona", show: false }, { name: "idvar_persona", show: false }, { name: "nombres", show: true, replace: "Nombres" }, { name: "primerAp", show: true, replace: "Primer apellido" }, { name: "segundoAp", show: true, replace: "Segundo apellido" }, { name: "fechaNacimiento", show: true, replace: "Fecha nacimiento" }, { name: "rfc", show: true, replace: "RFC" }, { name: "curp", show: true, replace: "CURP" }, { name: "sexo", show: true, replace: "Sexo" }, { name: "nacionalidad", show: true, replace: "Nacionalidad" }, { name: "etnia", show: true, replace: "Etnia" }, { name: "municipioOrigen", show: true, replace: "Municipio origen" }, { name: "edad", show: true, replace: "Edad" },
+                    //{name:"telefono",show:true,replace:"Teléfono"},
+                    { name: "motivoEstancia", show: true, replace: "Motivo estancia" }, { name: "ocupacion", show: true, replace: "Ocupacion" }, { name: "estadoCivil", show: true, replace: "Estado civil" }, { name: "escolaridad", show: true, replace: "Escolaridad" }, { name: "religion", show: true, replace: "Religión" }, { name: "docIdentificacion", show: true, replace: "Doc identificación" }, { name: "numDocIdentificacion", show: true, replace: "Num doc identif." }, { name: "lugarTrabajo", show: true, replace: "Lugar trabajo" }, { name: "idDomicilioTrabajo", show: false, replace: "idDomicilio" },
+                    //{name:"telefonoTrabajo",show:true,replace:"Teléfono trabajo"},
+                    { name: "alias", show: true, replace: "Alias" }],
+                    tablename: "persona_completa_actual",
+                    limit: 5,
+                    filters: {}
+                },
+                options: {
+                    title: "Opciones",
+                    links: [{
+                        text: "consola",
+                        func: function func(obj) {
+                            console.log(obj);
+                        }
+                    }]
+                }
+            };
+            dt.params.filters = { "alias": this.alias };
+            Object(__WEBPACK_IMPORTED_MODULE_2_rendata__["b" /* execn */])(dt, 0).then(function (datatable) {
+                dt = datatable;
+            }).catch(function (datatable) {
+                dt = datatable;
+            }).finally(function () {
+                console.log(dt);
+                //Mostrar Count
+                //dt.data.count>0?
+                if (dt.data.count > 0) {
+                    $('#match').html(dt.data.count);
+                    /*$('#myModal').modal();
+                    draw(dt, 1);*/
+                } else {
+                    console.log("No hay coincidencias");
+                    $('#match').html("");
+                }
+            });
         }
     },
     watch: {
@@ -54953,6 +55035,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _vm._m(0),
+    _vm._v(" "),
     _vm.mostrarForm
       ? _c(
           "form",
@@ -55471,6 +55555,9 @@ var render = function() {
                           },
                           domProps: { value: _vm.alias },
                           on: {
+                            blur: function($event) {
+                              _vm.search()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -55502,6 +55589,9 @@ var render = function() {
                           },
                           domProps: { value: _vm.alias },
                           on: {
+                            blur: function($event) {
+                              _vm.search()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -57073,76 +57163,102 @@ var render = function() {
                           _vm._v("Alias")
                         ]),
                         _vm._v(" "),
-                        _vm.aliasV == 1
-                          ? _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.alias,
-                                  expression: "alias"
-                                },
-                                {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                }
-                              ],
-                              class: {
-                                input: true,
-                                "form-control": true,
-                                "border border-danger": _vm.errors.has("Alias")
-                              },
-                              attrs: {
-                                type: "text",
-                                name: "alias",
-                                id: "alias",
-                                placeholder: "Ingrese el alias",
-                                autocomplete: "off",
-                                "data-vv-name": "Alias"
-                              },
-                              domProps: { value: _vm.alias },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
+                        _c("div", { staticClass: "row-gruop" }, [
+                          _vm.aliasV == 1
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.alias,
+                                    expression: "alias"
+                                  },
+                                  {
+                                    name: "validate",
+                                    rawName: "v-validate",
+                                    value: "required",
+                                    expression: "'required'"
                                   }
-                                  _vm.alias = $event.target.value
+                                ],
+                                class: {
+                                  input: true,
+                                  "form-control": true,
+                                  "border border-danger": _vm.errors.has(
+                                    "Alias"
+                                  )
+                                },
+                                staticStyle: { width: "12em" },
+                                attrs: {
+                                  type: "text",
+                                  name: "alias",
+                                  id: "alias",
+                                  placeholder: "Ingrese el alias",
+                                  autocomplete: "off",
+                                  "data-vv-name": "Alias"
+                                },
+                                domProps: { value: _vm.alias },
+                                on: {
+                                  blur: function($event) {
+                                    _vm.search()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.alias = $event.target.value
+                                  }
+                                }
+                              })
+                            : _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.alias,
+                                    expression: "alias"
+                                  }
+                                ],
+                                class: {
+                                  input: true,
+                                  "form-control": true,
+                                  "border border-danger": _vm.errors.has(
+                                    "alias"
+                                  )
+                                },
+                                staticStyle: { width: "12em" },
+                                attrs: {
+                                  type: "text",
+                                  name: "alias",
+                                  id: "alias",
+                                  placeholder: "Ingrese el alias",
+                                  autocomplete: "off"
+                                },
+                                domProps: { value: _vm.alias },
+                                on: {
+                                  blur: function($event) {
+                                    _vm.search()
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.alias = $event.target.value
+                                  }
+                                }
+                              }),
+                          _vm._v(" "),
+                          _c("div", { staticStyle: { cursor: "pointer" } }, [
+                            _c("span", {
+                              staticClass: "badge badge-dark",
+                              attrs: { id: "match" },
+                              on: {
+                                click: function($event) {
+                                  _vm.search(1)
                                 }
                               }
                             })
-                          : _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.alias,
-                                  expression: "alias"
-                                }
-                              ],
-                              class: {
-                                input: true,
-                                "form-control": true,
-                                "border border-danger": _vm.errors.has("alias")
-                              },
-                              attrs: {
-                                type: "text",
-                                name: "alias",
-                                id: "alias",
-                                placeholder: "Ingrese el alias",
-                                autocomplete: "off"
-                              },
-                              domProps: { value: _vm.alias },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.alias = $event.target.value
-                                }
-                              }
-                            }),
+                          ])
+                        ]),
                         _vm._v(" "),
                         _vm.errors.has("alias")
                           ? _c("span", { staticClass: "text-danger" }, [
@@ -57176,7 +57292,43 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "modal fade", attrs: { id: "myModal", role: "dialog" } },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c("h5", [_vm._v("Coincidencias con el alias")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("table", { staticClass: "table table-responsive" }, [
+                _c("div", { attrs: { id: "r-td-1" } })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default",
+                  attrs: { type: "button", "data-dismiss": "modal" }
+                },
+                [_vm._v("Close")]
+              )
+            ])
+          ])
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -58845,13 +58997,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -59061,192 +59206,209 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "modal fade", attrs: { id: "myModal", role: "dialog" } },
+      {
+        staticClass: "modal fade",
+        staticStyle: { "max-width": "100%" },
+        attrs: { id: "myModal", role: "dialog" }
+      },
       [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _vm.DataTable != undefined
-                ? _c("div", [
-                    !_vm.DataTable.charging
-                      ? _c("div", [
-                          _c(
-                            "table",
-                            { staticClass: "table table-responsive" },
-                            [
-                              _c(
-                                "tr",
-                                [
-                                  _vm._l(_vm.DataTable.params.columns, function(
-                                    cols
-                                  ) {
-                                    return cols.show
-                                      ? _c("th", { key: cols.name }, [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm.isexits(
-                                                cols.replace,
-                                                cols.name
-                                              )
-                                            )
-                                          )
-                                        ])
-                                      : _vm._e()
-                                  }),
-                                  _vm._v(" "),
-                                  _vm.DataTable.options != undefined
-                                    ? _c("th", [
-                                        _vm._v(
-                                          _vm._s(_vm.DataTable.options.title)
-                                        )
-                                      ])
-                                    : _vm._e()
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _vm._l(_vm.DataTable.data.src, function(fields) {
-                                return _c(
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c(
+            "div",
+            { staticClass: "modal-content", staticStyle: { width: "100%" } },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm.DataTable != undefined
+                  ? _c("div", [
+                      !_vm.DataTable.charging
+                        ? _c("div", [
+                            _c(
+                              "table",
+                              { staticClass: "table table-responsive" },
+                              [
+                                _c(
                                   "tr",
-                                  { key: fields.id },
                                   [
                                     _vm._l(
                                       _vm.DataTable.params.columns,
                                       function(cols) {
                                         return cols.show
-                                          ? _c("td", { key: cols.name }, [
-                                              _vm._v(_vm._s(fields[cols.name]))
+                                          ? _c("th", { key: cols.name }, [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm.isexits(
+                                                    cols.replace,
+                                                    cols.name
+                                                  )
+                                                )
+                                              )
                                             ])
                                           : _vm._e()
                                       }
                                     ),
                                     _vm._v(" "),
-                                    _vm._l(
-                                      _vm.DataTable.options.links,
-                                      function(opt) {
-                                        return _vm.DataTable.options !=
-                                          undefined
-                                          ? _c("td", { key: opt.text }, [
-                                              _c(
-                                                "a",
-                                                {
-                                                  attrs: { href: "#" },
-                                                  on: {
-                                                    click: function($event) {
-                                                      opt.func(fields)
-                                                    }
-                                                  }
-                                                },
-                                                [_vm._v(_vm._s(opt.text))]
-                                              )
-                                            ])
-                                          : _vm._e()
-                                      }
-                                    )
+                                    _vm.DataTable.options != undefined
+                                      ? _c("th", [
+                                          _vm._v(
+                                            _vm._s(_vm.DataTable.options.title)
+                                          )
+                                        ])
+                                      : _vm._e()
                                   ],
                                   2
-                                )
-                              })
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
-                          _vm.DataTable.maxpage > 0
-                            ? _c("div", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-default",
-                                    attrs: {
-                                      disabled: _vm.DTEnabled(
-                                        _vm.DataTable.current - 1
-                                      )
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.DTBackData()
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("←")]
                                 ),
                                 _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-primary",
-                                    attrs: { disabled: "true" }
-                                  },
-                                  [_vm._v(_vm._s(_vm.DataTable.current + 1))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-default",
-                                    attrs: {
-                                      disabled: _vm.DTEnabled(
-                                        _vm.DataTable.current + 1
+                                _vm._l(_vm.DataTable.data.src, function(
+                                  fields
+                                ) {
+                                  return _c(
+                                    "tr",
+                                    { key: fields.id },
+                                    [
+                                      _vm._l(
+                                        _vm.DataTable.params.columns,
+                                        function(cols) {
+                                          return cols.show
+                                            ? _c("td", { key: cols.name }, [
+                                                _vm._v(
+                                                  _vm._s(fields[cols.name])
+                                                )
+                                              ])
+                                            : _vm._e()
+                                        }
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(
+                                        _vm.DataTable.options.links,
+                                        function(opt) {
+                                          return _vm.DataTable.options !=
+                                            undefined
+                                            ? _c("td", { key: opt.text }, [
+                                                _c(
+                                                  "a",
+                                                  {
+                                                    attrs: { href: "#" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        opt.func(fields)
+                                                      }
+                                                    }
+                                                  },
+                                                  [_vm._v(_vm._s(opt.text))]
+                                                )
+                                              ])
+                                            : _vm._e()
+                                        }
                                       )
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.DTGetData(_vm.DataTable.current + 1)
+                                    ],
+                                    2
+                                  )
+                                })
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _vm.DataTable.maxpage > 0
+                              ? _c("div", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-default",
+                                      attrs: {
+                                        disabled: _vm.DTEnabled(
+                                          _vm.DataTable.current - 1
+                                        )
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.DTBackData()
+                                        }
                                       }
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(_vm.DataTable.current + 2))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-default",
-                                    attrs: {
-                                      disabled: _vm.DTEnabled(
-                                        _vm.DataTable.current + 2
-                                      )
                                     },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.DTGetData(_vm.DataTable.current + 2)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(_vm.DataTable.current + 3))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-default",
-                                    attrs: {
-                                      disabled: _vm.DTEnabled(
-                                        _vm.DataTable.current + 1
-                                      )
+                                    [_vm._v("←")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: { disabled: "true" }
                                     },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.DTNextData()
+                                    [_vm._v(_vm._s(_vm.DataTable.current + 1))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-default",
+                                      attrs: {
+                                        disabled: _vm.DTEnabled(
+                                          _vm.DataTable.current + 1
+                                        )
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.DTGetData(
+                                            _vm.DataTable.current + 1
+                                          )
+                                        }
                                       }
-                                    }
-                                  },
-                                  [_vm._v("→")]
-                                )
-                              ])
-                            : _vm._e()
-                        ])
-                      : _c("div", [
-                          _c("span", [_vm._v(_vm._s(_vm.DataTable.message))])
-                        ])
-                  ])
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _vm._m(1)
-          ])
+                                    },
+                                    [_vm._v(_vm._s(_vm.DataTable.current + 2))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-default",
+                                      attrs: {
+                                        disabled: _vm.DTEnabled(
+                                          _vm.DataTable.current + 2
+                                        )
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.DTGetData(
+                                            _vm.DataTable.current + 2
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.DataTable.current + 3))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-default",
+                                      attrs: {
+                                        disabled: _vm.DTEnabled(
+                                          _vm.DataTable.current + 1
+                                        )
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.DTNextData()
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("→")]
+                                  )
+                                ])
+                              : _vm._e()
+                          ])
+                        : _c("div", [
+                            _c("span", [_vm._v(_vm._s(_vm.DataTable.message))])
+                          ])
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ]
+          )
         ])
       ]
     )
@@ -59379,13 +59541,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           }]
         }
       };
-      Object(__WEBPACK_IMPORTED_MODULE_0_rendata__["execn"])(dt, 0).then(function (datatable) {
+      Object(__WEBPACK_IMPORTED_MODULE_0_rendata__["b" /* execn */])(dt, 0).then(function (datatable) {
         dt = datatable;
       }).catch(function (datatable) {
         dt = datatable;
       }).finally(function () {
         console.log(dt);
-        Object(__WEBPACK_IMPORTED_MODULE_0_rendata__["draw"])(dt, 1);
+        Object(__WEBPACK_IMPORTED_MODULE_0_rendata__["a" /* draw */])(dt, 1);
       });
     }
   }
@@ -59396,6 +59558,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export init */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return draw; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return execn; });
 const tagname = "r-td";
 let datatable = {
     url:"",
@@ -59411,7 +59576,7 @@ let datatable = {
     message:"",
     charging:false,
     current:0,
-    maxpage:0
+    maxpage: 0    
 }
 let ydt = -1;
 const isexistr=(field,value)=>{
@@ -59445,29 +59610,41 @@ const start = () => {
         }
         index++;
     }
-    if(index==0){
-
-    }
 }
 const init=(dt,n)=>{
-    if(dt!=undefined){
-        datatable.url=isexistr(dt.url,"/api/SearchUndefined");
-        datatable.params=isexistr(dt.params,{tablename:"sistemas"});        
+    if (dt != undefined) {
+        if (typeof dt === 'string') {
+            dt = JSON.parse(dt);
+        }
+        datatable.url = isexistr(dt.url, "/api/SearchUndefined");        
+        if(dt.params!=undefined){
+            datatable.params.columns=isexistr(dt.params.columns,[]);        
+            datatable.params.tablename=isexistr(dt.params.tablename,"sistemas");        
+            datatable.params.skip=isexistr(dt.params.skip,0);        
+            datatable.params.limit=isexistr(dt.params.limit,0);        
+            datatable.params.filters=isexistr(dt.params.filters,[]);        
+            datatable.params.nfilters = isexistr(dt.params.nfilters, []);                    
+        }
+        if (dt.options != undefined) {
+            datatable.options = isexistr(dt.params.nfilters, { title: "opciones", links: [{ text: "alert", func: function (obj) { console.log(obj); } }]  });                    
+        }
     }
     if (n != undefined) {
         ydt = n;
     }
     exec(0);
 }
-const draw = () => {
+const draw = (dt, n) => {
+    datatable = isexistr(dt, datatable);
+    ydt = isexistr(n, ydt);
     let body = null;
     let index = 0;
-    for (let element of document.getElementsByTagName(tagname)) {
-        if (element.getAttribute('y-dt') == ydt) {
-            body = element;
-            break;
-        }
+    for (let element of document.getElementsByTagName(tagname)) {        
         index++;
+        if (parseInt(element.getAttribute('y-dt')) == ydt) {
+            body = element;            
+            break;
+        }        
     }    
     if(index==0){
         body=document.getElementById("r-td-"+ydt);
@@ -59482,9 +59659,14 @@ const draw = () => {
         for (let col of datatable.params.columns) {
             if (col.show) {
                 let th = document.createElement("th");
-                th.innerText = col.name;
+                th.innerText = isexistr(col.replace ,col.name );
                 trh.appendChild(th);
             }
+        }
+        if (datatable.options != undefined) {
+            let th = document.createElement("th");
+            th.innerText = datatable.options.title;
+            trh.appendChild(th);
         }
         table.appendChild(trh);
         for (let row of datatable.data.src) {
@@ -59496,9 +59678,66 @@ const draw = () => {
                     trd.appendChild(td);
                 }
             }
+            if (datatable.options != undefined) {
+                let td = document.createElement("td");
+                for (let opt of datatable.options.links) {                    
+                    let link = document.createElement("a");
+                    link.setAttribute("href", "#");
+                    link.innerText = opt.text;
+                    link.onclick = () => {
+                        opt.func(row);
+                    };
+                    td.appendChild(link);
+                }
+                trd.appendChild(td);
+            }
             table.appendChild(trd);
         }
         content.appendChild(table);
+        if (datatable.maxpage > 1) {
+            let buttons = document.createElement("div");
+            let button = [];
+            let buttonb = document.createElement("span");
+            buttonb.classList.add("btn");
+            buttonb.classList.add("btn-default");
+            buttonb.innerText = "-";
+            if (datatable.current > 0) {
+                buttonb.onclick = () => {
+                    exec(datatable.current - 1);
+                }
+            } else {
+                buttonb.classList.add("disabled");
+            }
+            buttons.appendChild(buttonb)
+            for (let i = 0; i < datatable.maxpage; i++) {
+                button.push(document.createElement("span"));
+                button[i].classList.add("btn");
+                button[i].innerText = i + 1;
+                if (datatable.current == i) {
+                    button[i].classList.add("btn-primary");
+                    button[i].classList.add("disabled");
+                } else {
+                    button[i].classList.add("btn-default");                    
+                    button[i].onclick = () => {
+                        exec(i);
+                    }                    
+                }
+                buttons.appendChild(button[i]);
+            }
+            let buttonn = document.createElement("span");
+            buttonn.classList.add("btn");
+            buttonn.classList.add("btn-default");
+            buttonn.innerText = "-";
+            if (datatable.current < datatable.maxpage-1) {
+                buttonn.onclick = () => {
+                    exec(datatable.current + 1);
+                }
+            } else {
+                buttonn.classList.add("disabled");
+            }
+            buttons.appendChild(buttonn)
+            content.appendChild(buttons);
+        }
     }
     if(body!=null){
         body.innerHTML = '';
@@ -59506,24 +59745,23 @@ const draw = () => {
     }else{
         console.log(datatable);
     }
-
 }
 const exec=(c)=>{
-    datatable.current=c;
+    datatable.current = c;
     datatable.params.skip = datatable.params.limit * c;
     datatable.data = {};
     datatable.charging = true;
     datatable.message = "cargando . . .";
     draw();
-    Request()
+    request()
         .then((data) => {
             datatable.data = data;
         })
         .catch((data) => {
             datatable.message = "error en la conexion";
         })
-        .finally(() => {
-            if (datatable.data.src != undefined) {
+        .finally(() => {            
+            if (datatable.data != undefined) {
                 if (datatable.data.count > 0) {
                     if (datatable.params.columns.length == 0) {
                         setallcolumns(datatable.data.src);
@@ -59532,13 +59770,13 @@ const exec=(c)=>{
                     datatable.maxpage += datatable.data.count % datatable.params.limit == 0 ? 0 : 1;
                     datatable.charging = false;
                 } else {
-                    message = "sin datos";
+                    datatable.message = "sin datos";
                 }
             }
             draw();
         });           
 }
-const Request = () => {
+const request = () => {
     return new Promise((resolve, reject ) => {
         let data;        
         fetch(datatable.url,
@@ -59564,8 +59802,41 @@ const setallcolumns = (cols) => {
         datatable.params.columns.push({ name: col, replace: col, show: true });
     }
 }
+const execn = (dt, c) => {
+    datatable = isexistr(dt, datatable);
+    return new Promise((resolve, reject) => {
+        datatable.current = c;
+        datatable.params.skip = datatable.params.limit * c;
+        datatable.data = {};
+        datatable.charging = true;
+        datatable.message = "cargando . . .";
+        request()
+            .then((data) => {
+                datatable.data = data;
+            })
+            .catch((data) => {
+                datatable.message = "error en la conexion";
+                reject(datatable);
+            })
+            .finally(() => {
+                if (datatable.data != undefined) {
+                    if (datatable.data.count > 0) {
+                        if (datatable.params.columns.length == 0) {
+                            setallcolumns(datatable.data.src);
+                        }
+                        datatable.maxpage = parseInt(datatable.data.count / datatable.params.limit);
+                        datatable.maxpage += datatable.data.count % datatable.params.limit == 0 ? 0 : 1;
+                        datatable.charging = false;
+                    } else {
+                        datatable.message = "sin datos";
+                    }
+                }
+                resolve(datatable);
+            });
+    });
+}
 start();
-/* unused harmony default export */ var _unused_webpack_default_export = (init);
+
 
 /***/ }),
 /* 72 */
@@ -59856,6 +60127,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         creardct: function creardct() {
+            var _this5 = this;
+
             var urlCrear = '/api/adddc';
             axios.post(urlCrear, {
                 idPersona: 1,
@@ -59865,21 +60138,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(response.data);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado correctamente!',
-                    text: 'Número de teléfono agregado exitosamente',
+                    text: 'Dirección telefónica agregada exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
+                _this5.limpiaCampos();
+                $('#ModalTelefonos').modal('hide');
             }).catch(function (error) {
                 console.log(error.response.data.errors);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado incorrecto!',
-                    text: 'Número de teléfono imposible de guardar',
+                    text: 'La dirección telefónica es imposible de guardar',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
             });
         },
         creardcc: function creardcc() {
+            var _this6 = this;
+
             var urlCrear = '/api/adddc';
             axios.post(urlCrear, {
                 idPersona: 1,
@@ -59889,21 +60166,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(response.data);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado correctamente!',
-                    text: 'Número de teléfono agregado exitosamente',
+                    text: 'Correo electrónico agregado exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
+                _this6.limpiaCampos();
+                $('#ModalCorreos').modal('hide');
             }).catch(function (error) {
                 console.log(error.response.data.errors);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado incorrecto!',
-                    text: 'Número de teléfono imposible de guardar',
+                    text: 'El correo electrónico es imposible de agregar',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
             });
         },
         creardcr: function creardcr() {
+            var _this7 = this;
+
             var urlCrear = '/api/adddc';
             axios.post(urlCrear, {
                 idPersona: 1,
@@ -59913,22 +60194,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(response.data);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado correctamente!',
-                    text: 'Número de teléfono agregado exitosamente',
+                    text: 'Red social agregado exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
+                _this7.limpiaCampos();
+                $('#ModalRedes').modal('hide');
             }).catch(function (error) {
                 console.log(error.response.data.errors);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado incorrecto!',
-                    text: 'Número de teléfono imposible de guardar',
+                    text: 'La red social es imposible de agregar',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
             });
         },
         limpiaCampos: function limpiaCampos() {
-            this.nombre = '', this.fechaConstitucion = '', this.rfc = '', this.telefono = '', this.representanteLegal = '', this.$validator.reset();
+            this.data, this.getdc(), this.tipoTelefono = null, this.tipoTelefonos = [], this.getdctt(), this.tipoCorreo = null, this.tipoCorreos = [], this.getdctc(), this.tipoRed = null, this.tipoRedes = [], this.getdctr(), this.numero = '', this.tCorreo = '', this.tRed = '', this.$validator.reset();
         }
     }
 });
@@ -60560,6 +60843,976 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(81)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(83)
+/* template */
+var __vue_template__ = __webpack_require__(84)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\DatosLaboralesComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-64e3a5b0", Component.options)
+  } else {
+    hotAPI.reload("data-v-64e3a5b0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(82);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("cb5f2776", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-64e3a5b0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DatosLaboralesComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-64e3a5b0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DatosLaboralesComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\ninput{\r\n    text-transform: uppercase\n}\n::-webkit-input-placeholder{\r\n    text-transform: none\n}\n:-ms-input-placeholder{\r\n    text-transform: none\n}\n::-ms-input-placeholder{\r\n    text-transform: none\n}\n::placeholder{\r\n    text-transform: none\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 83 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            estado: { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+            municipio: null,
+            localidad: null,
+            codigo_postal: null,
+            colonia: null,
+            estados: [],
+            municipios: [],
+            localidades: [],
+            cp: [],
+            colonias: [],
+            calle: '',
+            numExterno: '',
+            numInterno: '',
+            telefono: '',
+            lugarTrabajo: '',
+            telefonoTrabajo: '',
+            municipioV: '',
+            localidadV: '',
+            coloniaV: '',
+            calleV: '',
+            numExternoV: '',
+            telefonoV: '',
+            telefonoTrabajoV: '',
+            lugarTrabajoV: ''
+        };
+    },
+
+    mounted: function mounted() {
+        this.getEstados();
+    },
+    methods: {
+        getEstados: function getEstados() {
+            var _this = this;
+
+            var urlEstados = 'getEstados2';
+            axios.get(urlEstados).then(function (response) {
+                _this.estados = response.data;
+            });
+        },
+        getMunicipios: function getMunicipios() {
+            var _this2 = this;
+
+            if (this.estado != null) {
+                this.municipio = null, this.localidad = null, this.codigo_postal = null, this.colonia = null;
+                var urlMunicipios = 'getMunicipios2/' + this.estado.id;
+                axios.get(urlMunicipios).then(function (response) {
+                    _this2.municipios = response.data;
+                });
+            } else {
+                this.municipio = null, this.localidad = null, this.codigo_postal = null, this.colonia = null, this.municipios = [], this.localidades = [], this.cp = [], this.colonias = [];
+            }
+        },
+        getLocalidades: function getLocalidades() {
+            var _this3 = this;
+
+            if (this.municipio != null) {
+                this.localidad = null, this.codigo_postal = null, this.colonia = null;
+                var urlLocalidades = 'getLocalidades2/' + this.municipio.id;
+                axios.get(urlLocalidades).then(function (response) {
+                    _this3.localidades = response.data;
+                });
+            } else {
+                this.localidad = null, this.codigo_postal = null, this.colonia = null, this.localidades = [], this.cp = [], this.colonias = [];
+            }
+        },
+        getCodigosPostales: function getCodigosPostales() {
+            var _this4 = this;
+
+            if (this.municipio != null) {
+                this.codigo_postal = null;
+                this.colonia = null;
+                var urlCodigosPostales = 'getCodigosPostales2/' + this.municipio.id;
+                axios.get(urlCodigosPostales).then(function (response) {
+                    _this4.cp = response.data;
+                });
+            } else {
+                this.codigo_postal = null, this.colonia = null;
+                this.cp = [], this.colonias = [];
+            }
+        },
+        getColonias: function getColonias() {
+            var _this5 = this;
+
+            if (this.codigo_postal != null) {
+                this.colonia = null;
+                var urlColonias = 'getColonias2/' + this.codigo_postal.id;
+                axios.get(urlColonias).then(function (response) {
+                    _this5.colonias = response.data;
+                });
+            } else {
+                this.colonia = null, this.colonias = [];
+            }
+        },
+        CleanFields: function CleanFields() {
+            this.calle = '', this.numExterno = '', this.numInterno = '', this.estado = { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 }, this.municipio = null, this.localidad = null, this.codigo_postal = null, this.colonia = null, this.telefono = '', this.telefonoTrabajo = '', this.lugarTrabajo = '';
+            this.$validator.reset();
+        },
+        validateBeforeSubmit: function validateBeforeSubmit() {
+            var _this6 = this;
+
+            this.$validator.validateAll().then(function (result) {
+                if (result) {
+                    _this6.crearDatosLaborales();
+                    _this6.CleanFields();
+                    return;
+                }
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: 'Guardado Incorrecto!',
+                    text: 'Éste domicilio no fue posible guardarse',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        },
+
+        crearDatosLaborales: function crearDatosLaborales() {
+            var _this7 = this;
+
+            var urlDomicilio = 'addDatosLaborales';
+            axios.post(urlDomicilio, {
+                estado: this.estado.id,
+                municipio: this.municipio.id,
+                localidad: this.localidad.id,
+                colonia: this.colonia.id,
+                codigo_postal: this.codigo_postal.id,
+                calle: this.calle.toUpperCase(),
+                numExterno: this.numExterno.toUpperCase(),
+                numInterno: this.numInterno.toUpperCase(),
+                telefono: this.telefono,
+                telefonoTrabajo: this.telefonoTrabajo,
+                lugarTrabajo: this.lugarTrabajo
+            }).then(function (response) {
+                console.log(response.data);
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: 'Guardado Correctamente!',
+                    text: 'Éste domicilio fue guardado exitosamente',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                }).catch(function (error) {
+                    console.log(error.response.data.errors);
+                    _this7.municipioV = error.response.data.errors.municipio, _this7.localidadV = error.response.data.errors.localidad, _this7.coloniaV = error.response.data.errors.colonia, _this7.calleV = error.response.data.errors.calle, _this7.numExternoV = error.response.data.errors.numExterno;
+                    _this7.telefonoV = error.response.data.errors.telefono;
+                    _this7.telefonoTrabajoV = error.response.data.errors.telefonoTrabajo;
+                    _this7.lugarTrabajoV = error.response.data.errors.lugarTrabajo;
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: 'Guardado Incorrecto!',
+                        text: 'Éste domicilio no fue posible guardarse',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                });
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container mt-3" }, [
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.validateBeforeSubmit($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "form-row" }, [
+          _c(
+            "div",
+            { staticClass: "form-group col-md-4" },
+            [
+              _c("label", { attrs: { for: "estado" } }, [
+                _vm._v("Entidad federativa")
+              ]),
+              _vm._v(" "),
+              _c("v-select", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                class: {
+                  "border border-danger": _vm.errors.has("Entidad Federativa")
+                },
+                attrs: {
+                  options: _vm.estados,
+                  label: "nombre",
+                  "data-vv-name": "Entidad Federativa",
+                  name: "estado",
+                  placeholder: "Seleccione una entidad federativa"
+                },
+                on: { input: _vm.getMunicipios },
+                model: {
+                  value: _vm.estado,
+                  callback: function($$v) {
+                    _vm.estado = $$v
+                  },
+                  expression: "estado"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("Entidad Federativa"),
+                      expression: "errors.has('Entidad Federativa')"
+                    }
+                  ],
+                  staticClass: "text-danger"
+                },
+                [_vm._v(_vm._s(_vm.errors.first("Entidad Federativa")))]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group col-md-4" },
+            [
+              _c("label", { attrs: { for: "municipio" } }, [
+                _vm._v("Municipio")
+              ]),
+              _vm._v(" "),
+              _c("v-select", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                class: {
+                  "border border-danger":
+                    _vm.errors.has("municipio") || _vm.municipioV
+                },
+                attrs: {
+                  options: _vm.municipios,
+                  label: "nombre",
+                  name: "municipio",
+                  placeholder: "Seleccione un municipio"
+                },
+                on: { input: _vm.getLocalidades },
+                model: {
+                  value: _vm.municipio,
+                  callback: function($$v) {
+                    _vm.municipio = $$v
+                  },
+                  expression: "municipio"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("municipio") || _vm.municipioV,
+                      expression: "errors.has('municipio') || municipioV"
+                    }
+                  ],
+                  staticClass: "text-danger"
+                },
+                [
+                  _vm._v(
+                    _vm._s(_vm.errors.first("municipio") || _vm.municipioV[0])
+                  )
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group col-md-4" },
+            [
+              _c("label", { attrs: { for: "localidad" } }, [
+                _vm._v("Localidad")
+              ]),
+              _vm._v(" "),
+              _c("v-select", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                class: {
+                  "border border-danger":
+                    _vm.errors.has("localidad") || _vm.localidadV
+                },
+                attrs: {
+                  options: _vm.localidades,
+                  label: "nombre",
+                  name: "localidad",
+                  placeholder: "Seleccione una localidad"
+                },
+                on: { input: _vm.getCodigosPostales },
+                model: {
+                  value: _vm.localidad,
+                  callback: function($$v) {
+                    _vm.localidad = $$v
+                  },
+                  expression: "localidad"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("localidad") || _vm.localidadV,
+                      expression: "errors.has('localidad')|| localidadV"
+                    }
+                  ],
+                  staticClass: "text-danger"
+                },
+                [
+                  _vm._v(
+                    _vm._s(_vm.errors.first("localidad") || _vm.localidadV[0])
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
+          _c(
+            "div",
+            { staticClass: "form-group col-md-4" },
+            [
+              _c("label", { attrs: { for: "cp" } }, [_vm._v("Código postal")]),
+              _vm._v(" "),
+              _c("v-select", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                class: {
+                  "border border-danger": _vm.errors.has("codigo postal")
+                },
+                attrs: {
+                  options: _vm.cp,
+                  label: "codigoPostal",
+                  name: "codigo_postal",
+                  "data-vv-name": "codigo postal",
+                  placeholder: "Seleccione un código postal"
+                },
+                on: { input: _vm.getColonias },
+                model: {
+                  value: _vm.codigo_postal,
+                  callback: function($$v) {
+                    _vm.codigo_postal = $$v
+                  },
+                  expression: "codigo_postal"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("codigo postal"),
+                      expression: "errors.has('codigo postal')"
+                    }
+                  ],
+                  staticClass: "text-danger"
+                },
+                [_vm._v(_vm._s(_vm.errors.first("codigo postal")))]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group col-md-4" },
+            [
+              _c("label", { attrs: { for: "colonia" } }, [_vm._v("Colonia")]),
+              _vm._v(" "),
+              _c("v-select", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                class: {
+                  "border border-danger":
+                    _vm.errors.has("colonia") || _vm.coloniaV
+                },
+                attrs: {
+                  options: _vm.colonias,
+                  label: "nombre",
+                  name: "colonia",
+                  placeholder: "Seleccione una colonia"
+                },
+                model: {
+                  value: _vm.colonia,
+                  callback: function($$v) {
+                    _vm.colonia = $$v
+                  },
+                  expression: "colonia"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("colonia") || _vm.coloniaV,
+                      expression: "errors.has('colonia')|| coloniaV"
+                    }
+                  ],
+                  staticClass: "text-danger"
+                },
+                [_vm._v(_vm._s(_vm.errors.first("colonia") || _vm.coloniaV[0]))]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { attrs: { for: "calle" } }, [_vm._v("Calle")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                },
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.calle,
+                  expression: "calle"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger": _vm.errors.has("calle") || _vm.calleV
+              },
+              attrs: {
+                type: "text",
+                id: "calle",
+                name: "calle",
+                placeholder: "Ingrese la calle",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.calle },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.calle = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("calle") || _vm.calleV
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(_vm.errors.first("calle") || _vm.calleV[0]))
+                ])
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { attrs: { for: "numExterno" } }, [
+              _vm._v("Número externo")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                },
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.numExterno,
+                  expression: "numExterno"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger":
+                  _vm.errors.has("Numero Externo") || _vm.numExternoV
+              },
+              attrs: {
+                type: "text",
+                id: "numExterno",
+                "data-vv-name": "Numero Externo",
+                name: "numExterno",
+                placeholder: "Ingrese el número externo",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.numExterno },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.numExterno = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("Numero Externo") || _vm.numExternoV
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.errors.first("Numero Externo") || _vm.numExternoV[0]
+                    )
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { attrs: { for: "numInterno" } }, [
+              _vm._v("Número interno")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.numInterno,
+                  expression: "numInterno"
+                }
+              ],
+              staticClass: "input form-control",
+              attrs: {
+                type: "text",
+                id: "numInterno",
+                name: "numInterno",
+                placeholder: "Ingrese el número interno",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.numInterno },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.numInterno = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { attrs: { for: "telefono" } }, [_vm._v("Teléfono")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|numeric",
+                  expression: "'required|numeric'"
+                },
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.telefono,
+                  expression: "telefono"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger":
+                  _vm.errors.has("telefono") || _vm.telefonoV
+              },
+              attrs: {
+                type: "text",
+                id: "telefono",
+                name: "telefono",
+                placeholder: "Ingrese el teléfono",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.telefono },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.telefono = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("telefono") || _vm.telefonoV
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(_vm.errors.first("telefono") || _vm.telefonoV[0])
+                  )
+                ])
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { attrs: { for: "lugarTrabajo" } }, [
+              _vm._v("Lugar de trabajo")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                },
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.lugarTrabajo,
+                  expression: "lugarTrabajo"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger":
+                  _vm.errors.has("Lugar de Trabajo") || _vm.lugarTrabajoV
+              },
+              attrs: {
+                type: "text",
+                id: "lugarTrabajo",
+                "data-vv-name": "Lugar de Trabajo",
+                name: "lugarTrabajo",
+                placeholder: "Ingrese el lugar de trabajo",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.lugarTrabajo },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.lugarTrabajo = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("Lugar de Trabajo") || _vm.lugarTrabajoV
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.errors.first("Lugar de Trabajo") ||
+                        _vm.lugarTrabajoV[0]
+                    )
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { attrs: { for: "telefonoTrabajo" } }, [
+              _vm._v("Teléfono de trabajo")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|numeric",
+                  expression: "'required|numeric'"
+                },
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.telefonoTrabajo,
+                  expression: "telefonoTrabajo"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger":
+                  _vm.errors.has("Télefono de Trabajo") || _vm.telefonoTrabajoV
+              },
+              attrs: {
+                type: "text",
+                id: "telefonoTrabajo",
+                "data-vv-name": "Télefono de Trabajo",
+                name: "telefonoTrabajo",
+                placeholder: "Ingrese el teléfono de trabajo",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.telefonoTrabajo },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.telefonoTrabajo = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("Télefono de Trabajo") || _vm.telefonoTrabajoV
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.errors.first("Télefono de Trabajo") ||
+                        _vm.telefonoTrabajoV[0]
+                    )
+                  )
+                ])
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
+          _vm._v("Guardar")
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-64e3a5b0", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

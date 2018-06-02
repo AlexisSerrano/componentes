@@ -15,9 +15,10 @@ class CreateDatosLaborales extends Migration
     {
         Schema::create('datos_laborales', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idvar_persona')->unsigned();
-            $table->string('lugar',200);
+            $table->integer('idvar_persona')->unsigned()->nullable();
+            $table->string('lugarTrabajo',200);
             $table->string('telefono',15)->nullable()->default("SIN INFORMACION");
+            $table->string('telefonoTrabajo',15)->nullable()->default("SIN INFORMACION");
             $table->integer('idEstado')->unsigned()->default(33);
             $table->integer('idMunicipio')->unsigned()->default(2497);
             $table->integer('idLocalidad')->unsigned()->default(27592);
