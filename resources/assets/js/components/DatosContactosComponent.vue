@@ -178,6 +178,7 @@ export default{
                 tipo: this.tipoTelefono.id,
                 valor: this.numero,
             }).then(response=>{
+                this.limpiaCampos()
                 console.log(response.data)
                 swal({
                     title: 'Guardado correctamente!',
@@ -244,13 +245,22 @@ export default{
             });
         },
         limpiaCampos() {
-                this.nombre='',
-                this.fechaConstitucion='',
-                this.rfc='',
-                this.telefono='',
-                this.representanteLegal='',
-                this.$validator.reset();
-        },
+            this.telefono=null,
+            this.telefonos= [],
+            this.correo=null,
+            this.correos= [],
+            this.red=null,
+            this.redes= [],
+            this.tipoTelefono=null,
+            this.tipoTelefonos= [],
+            this.numero='',
+            this.tipoCorreo=null,
+            this.tipoCorreos=[],
+            this.tCorreo='',
+            this.tipoRed=null,
+            this.tipoRedes=[],
+            this.tRed=''
+        }
     }
 }
 </script>
