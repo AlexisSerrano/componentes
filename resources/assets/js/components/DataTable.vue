@@ -1,58 +1,51 @@
 <template>
 <div class="container"> 
     <div class="form-row">
-        
-            <input type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="datoAlias" placeholder="Ingresa el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="mostrarTable()" style="width:12em;" > 
-            <div style="cursor:pointer"> <span class="badge badge-dark" id="match" v-on:click="mostrarTable(1)"></span>  </div>
-        
+        <input type="text" name="alias" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="datoAlias" placeholder="Ingresa el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="mostrarTable()" style="width:12em;" > 
+        <div style="cursor:pointer"> <span class="badge badge-dark" id="match" v-on:click="mostrarTable(1)"></span>  </div>
     </div>        
     <!-- Modal -->
-       <div class="modal fade" id="myModal" role="dialog">
-           <div class="modal-dialog">
-           
-           <!-- Modal content-->
-           <div class="modal-content">
-               <div class="modal-header">                
-                   <h3>Coincidencias con el alias</h3>
-               </div>
-               <div class="modal-body">
-
-    <div v-if="DataTable!=undefined">
-    <div v-if="!DataTable.charging">    
-        <table class="table table-responsive">                    
-            <tr>                
-           <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
-                <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
-            </tr>
-            <tr v-for="fields in DataTable.data.src" :key="fields.id">
-                <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
-                <td v-if="DataTable.options!=undefined" v-for="opt in DataTable.options.links" :key="opt.text">
-                    <a href="#" v-on:click="opt.func(fields)">{{opt.text}}</a>
-                </td>
-            </tr>
-        </table>
-        <div v-if="DataTable.maxpage>0">
-            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
-            <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
-            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
-            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +2)" v-on:click="DTGetData(DataTable.current+2)">{{DataTable.current + 3}}</button>
-            <button class="btn btn-default" :disabled="DTEnabled(DataTable.current + 1)" v-on:click="DTNextData()">&rarr;</button>
+    <div class="modal fade" id="myModal" role="dialog" style="max-width:100%">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content" style="width:100%">
+                <div class="modal-header">                
+                    <h3>Coincidencias con el alias</h3>
+                </div>
+                <div class="modal-body">
+                    <div v-if="DataTable!=undefined">
+                        <div v-if="!DataTable.charging">    
+                            <table class="table table-responsive">                
+                                <tr>
+                                    <th v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{isexits(cols.replace,cols.name)}}</th>
+                                    <th v-if="DataTable.options!=undefined">{{DataTable.options.title}}</th>
+                                </tr>
+                                <tr v-for="fields in DataTable.data.src" :key="fields.id">
+                                    <td v-for="cols in DataTable.params.columns" :key="cols.name" v-if="cols.show">{{fields[cols.name]}}</td>
+                                    <td v-if="DataTable.options!=undefined" v-for="opt in DataTable.options.links" :key="opt.text">
+                                        <a href="#" v-on:click="opt.func(fields)">{{opt.text}}</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div v-if="DataTable.maxpage>0">
+                                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current - 1)" v-on:click="DTBackData()">&larr;</button>    
+                                <button class="btn btn-primary" disabled="true">{{DataTable.current + 1}}</button>
+                                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +1)" v-on:click="DTGetData(DataTable.current+1)">{{DataTable.current + 2}}</button>
+                                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current +2)" v-on:click="DTGetData(DataTable.current+2)">{{DataTable.current + 3}}</button>
+                                <button class="btn btn-default" :disabled="DTEnabled(DataTable.current + 1)" v-on:click="DTNextData()">&rarr;</button>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <span>{{DataTable.message}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div v-else>
-        <span>{{DataTable.message}}</span>
-    </div>
-    </div>
-
-    </div>
-               <div class="modal-footer">
-               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-               </div>
-           </div>
-           
-           </div>
-       </div>
-
 </div>
 </template>
 

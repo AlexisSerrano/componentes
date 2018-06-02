@@ -1,7 +1,7 @@
 /*jslint indent:2, regexp:true*/
 (function(global) {
 	'use strict';
-	var comunes = ['MARIA', 'MA', 'MA.', 'JOSE', 'J', 'J.','MARÍA','JOSÉ'];
+	var comunes = ['MA', 'MA.', 'J', 'J.'];
 	/**
 		curp.js
 		Función para generar el CURP, de acuerdo a las especificaciones oficiales.
