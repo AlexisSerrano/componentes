@@ -1,16 +1,17 @@
 <template>
 <div class="container mt-3">
-<div >
-    <span v-for="t in telefonos" :key="t.id" class="btn-group" >
-        <span class="btn btn-outline-success">{{t.valor }}</span>
-        <span class="btn btn-outline-danger" v-on:click="delate(t)"> x</span>
-    </span>
-</div>
     <form>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-8">
                 <label for="telefonos">Telefonos <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalTelefonos">+</span></label>
-                <v-select multiple :options="telefonos" v-model="telefono" name="telefono" id="telefono" label="valor"></v-select>
+                <div class="row">
+                    <div v-for="t in telefonos" :key="t.id" class="col-md-3 col-md-offset-1 ">
+                        <span  class="btn-group" >
+                            <span class="btn btn-outline-success">{{t.valor }}</span>
+                            <span class="btn btn-outline-danger" v-on:click="delatet(t)"> x</span>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-row">
@@ -184,17 +185,17 @@ export default{
                 tipo: this.tipoTelefono.id,
                 valor: this.numero,
             }).then(response=>{
-                console.log(response.data)
+                this.telefonos.push({id:response.data,valor:this.numero});                             
+                this.limpiaCampos()
+                $('#ModalTelefonos').modal('hide');
                 swal({
                     title: 'Guardado correctamente!',
                     text: 'Dirección telefónica agregada exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 })
-                this.limpiaCampos()
-                $('#ModalTelefonos').modal('hide');
             }).catch((error)=>{
-                console.log(error.response.data.errors);
+                console.log(error);
                 swal({
                 title: 'Guardado incorrecto!',
                 text: 'La dirección telefónica es imposible de guardar',
@@ -202,6 +203,12 @@ export default{
                 confirmButtonText: 'Ok'
                 })
             });
+        },
+        delatet:function(t){
+            let tn=this.telefonos.indexOf(t);
+            if(tn>-1){
+                this.telefonos.splice(tn,1);
+            }
         },
         creardcc: function(){
             var urlCrear = '/api/adddc';
@@ -220,7 +227,7 @@ export default{
                 this.limpiaCampos()
                 $('#ModalCorreos').modal('hide');
             }).catch((error)=>{
-                console.log(error.response.data.errors);
+                console.log(error.data);
                 swal({
                 title: 'Guardado incorrecto!',
                 text: 'El correo electrónico es imposible de agregar',

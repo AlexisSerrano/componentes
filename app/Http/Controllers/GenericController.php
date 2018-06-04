@@ -64,9 +64,9 @@ class GenericController extends Controller
 		$model=$request->all();
 		if(HelpController::JSONDBValidation($model,$request->input('id1'),$request->input('id2'),$request->input('id3'),$errors)){
 			$PM=new \App\Http\Models\PersonaModel();
-			$pm=$PM::where('rfc',$request->input('rfc'))
-			->orWhere('curp',$request->input('curp'))
-			->first();
+			$pm=$PM::where('id',$request->input('id'))->first();
+			//->orWhere('curp',$request->input('curp'))
+			//->first();
 			if($pm!=null){
 				$PM=\App\Http\Models\PersonaModel::find($pm->id);				
 			}else{
