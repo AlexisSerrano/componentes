@@ -59367,6 +59367,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -59386,7 +59400,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tCorreo: '',
             tipoRed: null,
             tipoRedes: [],
-            tRed: ''
+            tRed: '',
+            idPersona: 1
         };
     },
 
@@ -59400,20 +59415,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getdc: function getdc() {
             var _this = this;
 
-            var urlDatosContactoTel = 'getDatosContactoTel';
+            var urlDatosContactoTel = 'getDatosContactoTel/' + this.idPersona;
             axios.get(urlDatosContactoTel).then(function (response) {
                 _this.telefonos = response.data;
-                _this.telefono = response.data;
             });
-            var urlDatosContactoCor = 'getDatosContactoCor';
+            var urlDatosContactoCor = 'getDatosContactoCor/' + this.idPersona;
             axios.get(urlDatosContactoCor).then(function (response) {
                 _this.correos = response.data;
-                _this.correo = response.data;
             });
-            var urlDatosContactoRed = 'getDatosContactoRed';
+            var urlDatosContactoRed = 'getDatosContactoRed/' + this.idPersona;
             axios.get(urlDatosContactoRed).then(function (response) {
                 _this.redes = response.data;
-                _this.red = response.data;
             });
         },
         getdctt: function getdctt() {
@@ -59445,7 +59457,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var urlCrear = '/api/adddc';
             axios.post(urlCrear, {
-                idPersona: 1,
+                idPersona: this.idPersona,
                 tipo: this.tipoTelefono.id,
                 valor: this.numero
             }).then(function (response) {
@@ -59469,29 +59481,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         delatet: function delatet(t) {
-            var tn = this.telefonos.indexOf(t);
-            if (tn > -1) {
-                this.telefonos.splice(tn, 1);
-            }
+            var _this6 = this;
+
+            var del = false;
+            axios.post('api/deldc', { id: t.id }).then(function (resopnce) {
+                console.log(resopnce);
+                del = true;
+            }).finally(function () {
+                if (del) {
+                    var tn = _this6.telefonos.indexOf(t);
+                    if (tn > -1) {
+                        _this6.telefonos.splice(tn, 1);
+                    }
+                }
+            });
         },
         creardcc: function creardcc() {
-            var _this6 = this;
+            var _this7 = this;
 
             var urlCrear = '/api/adddc';
             axios.post(urlCrear, {
-                idPersona: 1,
+                idPersona: this.idPersona,
                 tipo: this.tipoCorreo.id,
                 valor: this.tCorreo
             }).then(function (response) {
-                console.log(response.data);
+                _this7.correos.push({ id: response.data, valor: _this7.tCorreo });
+                _this7.limpiaCampos();
+                $('#ModalCorreos').modal('hide');
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado correctamente!',
                     text: 'Correo electrónico agregado exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
-                _this6.limpiaCampos();
-                $('#ModalCorreos').modal('hide');
             }).catch(function (error) {
                 console.log(error.data);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -59503,23 +59525,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         creardcr: function creardcr() {
-            var _this7 = this;
+            var _this8 = this;
 
             var urlCrear = '/api/adddc';
             axios.post(urlCrear, {
-                idPersona: 1,
+                idPersona: this.idPersona,
                 tipo: this.tipoRed.id,
                 valor: this.tRed
             }).then(function (response) {
-                console.log(response.data);
+                _this8.correos.push({ "id": response.data, "valor": _this8.tRed });
+                _this8.limpiaCampos();
+                $('#ModalRedes').modal('hide');
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado correctamente!',
                     text: 'Red social agregado exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
-                _this7.limpiaCampos();
-                $('#ModalRedes').modal('hide');
             }).catch(function (error) {
                 console.log(error.response.data.errors);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -59584,59 +59606,77 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-row" }, [
-        _c(
-          "div",
-          { staticClass: "form-group col-md-6" },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("v-select", {
-              attrs: {
-                multiple: "",
-                options: _vm.correos,
-                name: "correo",
-                id: "correo",
-                label: "valor"
-              },
-              model: {
-                value: _vm.correo,
-                callback: function($$v) {
-                  _vm.correo = $$v
-                },
-                expression: "correo"
-              }
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "row" },
+            _vm._l(_vm.correos, function(t) {
+              return _c(
+                "div",
+                { key: t.id, staticClass: "col-md-3 col-md-offset-1 " },
+                [
+                  _c("span", { staticClass: "btn-group" }, [
+                    _c("span", { staticClass: "btn btn-outline-success" }, [
+                      _vm._v(_vm._s(t.valor))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "btn btn-outline-danger",
+                        on: {
+                          click: function($event) {
+                            _vm.delatet(t)
+                          }
+                        }
+                      },
+                      [_vm._v(" x")]
+                    )
+                  ])
+                ]
+              )
             })
-          ],
-          1
-        )
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-row" }, [
-        _c(
-          "div",
-          { staticClass: "form-group col-md-6" },
-          [
-            _vm._m(2),
-            _vm._v(" "),
-            _c("v-select", {
-              attrs: {
-                multiple: "",
-                options: _vm.redes,
-                name: "red",
-                id: "red",
-                label: "valor"
-              },
-              model: {
-                value: _vm.red,
-                callback: function($$v) {
-                  _vm.red = $$v
-                },
-                expression: "red"
-              }
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "row" },
+            _vm._l(_vm.redes, function(t) {
+              return _c(
+                "div",
+                { key: t.id, staticClass: "col-md-3 col-md-offset-1 " },
+                [
+                  _c("span", { staticClass: "btn-group" }, [
+                    _c("span", { staticClass: "btn btn-outline-success" }, [
+                      _vm._v(_vm._s(t.valor))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "btn btn-outline-danger",
+                        on: {
+                          click: function($event) {
+                            _vm.delatet(t)
+                          }
+                        }
+                      },
+                      [_vm._v(" x")]
+                    )
+                  ])
+                ]
+              )
             })
-          ],
-          1
-        )
+          )
+        ])
       ])
     ]),
     _vm._v(" "),

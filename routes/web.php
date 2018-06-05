@@ -22,9 +22,9 @@ Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('a
 Route::get('getDatosPersonaTelefono','DatosContacto@getdctt');
 Route::get('getDatosPersonaRed','DatosContacto@getdctr');
 Route::get('getDatosPersonaCorreo','DatosContacto@getdctc');
-Route::get('getDatosContactoTel','DatosContacto@getdct');
-Route::get('getDatosContactoCor','DatosContacto@getdcc');
-Route::get('getDatosContactoRed','DatosContacto@getdcr');
+Route::get('getDatosContactoTel/{idPersona}','DatosContacto@getdct');
+Route::get('getDatosContactoCor/{idPersona}','DatosContacto@getdcc');
+Route::get('getDatosContactoRed/{idPersona}','DatosContacto@getdcr');
 
 Route::get('getNacionalidades','PersonaController@getNacionalidades');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');

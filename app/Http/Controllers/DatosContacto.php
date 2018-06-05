@@ -8,6 +8,12 @@ use  Illuminate\Support\Facades\DB;
 class DatosContacto extends Controller
 {
     //
+    public function deldc(Request $request){
+            return response()->json(DB::table('datos_contacto')
+        ->where('id',$request->input('id'))
+        ->update(['habilitado'=>false])
+        );
+    }
     public function adddc(Request $request){
         return response()->json(DB::table('datos_contacto')->insertGetId(
             ['idPersona'=>$request->input('idPersona'),
@@ -16,22 +22,28 @@ class DatosContacto extends Controller
             'habilitado'=>true]
         ));
     }
-    public function getdct(){
-        $vdct=DB::table('datos_contacto')->orderBy('valor','ASC')
+    public function getdct($idPersona){
+        $vdct=DB::table('datos_contacto')
+        ->where('idPersona',$idPersona)
+        ->where('habilitado',true)
         ->whereIn('iddatostipo',[4,5,6,7])
-        ->select('iddatostipo','valor')->get();
+        ->select('id','iddatostipo','valor')->get();
         return response()->json($vdct);
     }
-    public function getdcc(){
-        $vdcc=DB::table('datos_contacto')->orderBy('valor','ASC')
+    public function getdcc($idPersona){
+        $vdcc=DB::table('datos_contacto')
+        ->where('idPersona',$idPersona)
+        ->where('habilitado',true)
         ->whereIn('iddatostipo',[8,9])
-        ->select('iddatostipo','valor')->get();
+        ->select('id','iddatostipo','valor')->get();
         return response()->json($vdcc);
     }
-    public function getdcr(){
-        $vdcr=DB::table('datos_contacto')->orderBy('valor','ASC')
+    public function getdcr($idPersona){
+        $vdcr=DB::table('datos_contacto')
+        ->where('idPersona',$idPersona)
+        ->where('habilitado',true)
         ->whereIn('iddatostipo',[1,2,3])
-        ->select('iddatostipo','valor')->get();
+        ->select('id','iddatostipo','valor')->get();
         return response()->json($vdcr);
     }
     public function getdctt(){

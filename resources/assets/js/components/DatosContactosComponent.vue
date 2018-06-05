@@ -17,13 +17,27 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="correos">Correos <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalCorreos">+</span></label>
-                <v-select multiple :options="correos" v-model="correo" name="correo" id="correo" label="valor"></v-select>
+                <div class="row">
+                    <div v-for="t in correos" :key="t.id" class="col-md-3 col-md-offset-1 ">
+                        <span  class="btn-group" >
+                            <span class="btn btn-outline-success">{{t.valor }}</span>
+                            <span class="btn btn-outline-danger" v-on:click="delatet(t)"> x</span>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="redes">Redes Sociales <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalRedes">+</span></label>
-                <v-select multiple :options="redes" v-model="red" name="red" id="red" label="valor"></v-select>
+                <div class="row">
+                    <div v-for="t in redes" :key="t.id" class="col-md-3 col-md-offset-1 ">
+                        <span  class="btn-group" >
+                            <span class="btn btn-outline-success">{{t.valor }}</span>
+                            <span class="btn btn-outline-danger" v-on:click="delatet(t)"> x</span>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
@@ -134,6 +148,7 @@ export default{
             tipoRed:null,
             tipoRedes:[],
             tRed:'',
+            idPersona:1
         }
     },
     mounted: function () {
@@ -144,20 +159,17 @@ export default{
     },
     methods:{
         getdc: function(){
-            var urlDatosContactoTel = 'getDatosContactoTel';
+            var urlDatosContactoTel = 'getDatosContactoTel/'+this.idPersona;
             axios.get(urlDatosContactoTel).then(response => {
                 this.telefonos=response.data;
-                this.telefono=response.data;
             });
-            var urlDatosContactoCor = 'getDatosContactoCor';
+            var urlDatosContactoCor = 'getDatosContactoCor/'+this.idPersona;
             axios.get(urlDatosContactoCor).then(response => {
                 this.correos=response.data;
-                this.correo=response.data;
             });
-            var urlDatosContactoRed = 'getDatosContactoRed';
+            var urlDatosContactoRed = 'getDatosContactoRed/'+this.idPersona;
             axios.get(urlDatosContactoRed).then(response => {
                 this.redes=response.data;
-                this.red=response.data;
             });
         },
         getdctt: function(){
@@ -181,7 +193,7 @@ export default{
         creardct: function(){
             var urlCrear = '/api/adddc';
             axios.post(urlCrear,{
-                idPersona:1,
+                idPersona:this.idPersona,
                 tipo: this.tipoTelefono.id,
                 valor: this.numero,
             }).then(response=>{
@@ -205,27 +217,38 @@ export default{
             });
         },
         delatet:function(t){
-            let tn=this.telefonos.indexOf(t);
-            if(tn>-1){
-                this.telefonos.splice(tn,1);
-            }
+            let del=false;
+            axios.post('api/deldc',{id:t.id})
+            .then((resopnce)=>{
+                console.log(resopnce);
+                del=true;
+            })
+            .finally(()=>{
+                    if(del){
+                        let tn=this.telefonos.indexOf(t);
+                        if(tn>-1){
+                            this.telefonos.splice(tn,1);
+                        }
+                    }
+            });           
         },
         creardcc: function(){
             var urlCrear = '/api/adddc';
             axios.post(urlCrear,{
-                idPersona:1,
+                idPersona:this.idPersona,
                 tipo: this.tipoCorreo.id,
                 valor: this.tCorreo,
             }).then(response=>{
-                console.log(response.data)
+                this.correos.push({id:response.data,valor:this.tCorreo});                             
+                this.limpiaCampos();
+                $('#ModalCorreos').modal('hide');
                 swal({
                     title: 'Guardado correctamente!',
                     text: 'Correo electrónico agregado exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 })
-                this.limpiaCampos()
-                $('#ModalCorreos').modal('hide');
+                
             }).catch((error)=>{
                 console.log(error.data);
                 swal({
@@ -239,19 +262,19 @@ export default{
         creardcr: function(){
             var urlCrear = '/api/adddc';
             axios.post(urlCrear,{
-                idPersona:1,
+                idPersona:this.idPersona,
                 tipo: this.tipoRed.id,
                 valor: this.tRed,
             }).then(response=>{
-                console.log(response.data)
+                this.correos.push({"id":response.data,"valor":this.tRed}); 
+                this.limpiaCampos();
+                $('#ModalRedes').modal('hide');
                 swal({
                     title: 'Guardado correctamente!',
                     text: 'Red social agregado exitosamente',
                     type: 'success',
                     confirmButtonText: 'Ok'
-                })
-                this.limpiaCampos()
-                $('#ModalRedes').modal('hide');
+                });
             }).catch((error)=>{
                 console.log(error.response.data.errors);
                 swal({
