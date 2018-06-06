@@ -626,9 +626,9 @@ import { execn, draw } from "rendata";
                         PF=response.data;   
                     })
                     .catch((error)=>{
-                        //console.log(error);
+                        
                          if (error.response) {
-                            PF=error.response.data;
+                            PF=error.response.data.message;
                         } else if (error.request) {
                             PF=error.request;
                         } else {
@@ -646,7 +646,8 @@ import { execn, draw } from "rendata";
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })
-                        }else{
+                        }else{           
+                            console.log(PF)                 ;
                             swal({
                                 title: 'Errores de confirmación',
                                 html: PF,

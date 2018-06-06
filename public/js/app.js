@@ -54919,9 +54919,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 } */
                 PF = response.data;
             }).catch(function (error) {
-                //console.log(error);
+
                 if (error.response) {
-                    PF = error.response.data;
+                    PF = error.response.data.message;
                 } else if (error.request) {
                     PF = error.request;
                 } else {
@@ -54939,6 +54939,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                         confirmButtonText: 'Ok'
                     });
                 } else {
+                    console.log(PF);
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                         title: 'Errores de confirmación',
                         html: PF,
