@@ -74,19 +74,6 @@ class GenericController extends Controller
 		}
 		return $errors;
 	}
-	// url:"/api/test/ValidacionJSONDB",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente",objSON
-	public function ValidacionJSONDB(Request $request){
-		//BUILD VARSMODEL ANY		
-		$model=$request->all();
-		$errors="";
-		$json=json_decode(
-			'{"telefono":{"shape":"array","pos":"value","rules":{"required":true,"phone":true}}'.
-			',"red":{"shape":"array","pos":"value","rules":{"required":true}}}',TRUE);
-		if(HelpModels::ModelvsJSON($model,$json,$errors)){
-			return "exito";
-		}
-		return $errors;
-	}
 	// url:"/api/ValidacionJSONDBPF",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente",objSON
 	public function ValidacionJSONDBPF(Request $request){
 		//BUILD VARSMODEL ANY		
