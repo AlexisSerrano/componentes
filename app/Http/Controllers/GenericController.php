@@ -2,8 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-class GenericController extends Controller
-{
+class GenericController extends Controller{
 	// url:"/api/ValidacionDBJSON",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:"idcomponente"
 	public function ValidacionDBJSON(Request $request){
 		return HelpController::GetJSONDBValidation($request->input('id1'),$request->input('id2'),$request->input('id3'));
@@ -38,19 +37,20 @@ class GenericController extends Controller
 			foreach($amc as $ap){
 				DB::beginTransaction();
 				try{
-				$ma=\App\Http\Models\aparicionesModel::find($ap->id);
-				$ma->id_carpeta=$request->input('idb');
+					$ma=\App\Http\Models\aparicionesModel::find($ap->id);
+					$ma->id_carpeta=$request->input('idb');
 				//$ma->nuc=$request->input('nuc');
-				$ma->confirmado=true;
-				$ma->save();
-				DB::commit();
+					$ma->confirmado=true;
+					$ma->save();
+					DB::commit();
 				}catch(Exception $e){
 					DB::rollBack();
-					$errors= "error ".$e;
-					return false;
+					return "error ".$e;
 				}
 			}
+			return "guardado";
 		}
+		return "no existe";
 	}
 	// url:"/api/SetConfirmMulti",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:["idvar_persona"],id_carpeta:"id_carpeta",nuc,"nuc"
 	public function SetConfirmMulti(Request $request){
