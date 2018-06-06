@@ -17,12 +17,21 @@ class PersonaMoralController extends Controller{
 	}
  
 	public function addPersonaMoral(PersonaMoralRequest $request){
+		
+		if($request->input('idpersonamoral')){
+			if($request->input('idvarpersonamoral')){				
+				DB::update('update persona_moral set nombre=:name,fechaCreacion=:fechaConst,rfc=:rfc  where id=:id', ['name'=>$request->input('nombre'),'fechaConst'=>$request->input('fechaConstitucion'),'rfc'=>$request->input('rfc'),'id'=>$request->input('idpersonamoral')]);
+				DB::update('update variables_persona_moral set telefono=:tel,representanteLegal=:repres  where id=:id', ['tel'=>$request->input('telefono'),'repres'=>$request->input('representanteLegal'),'id'=>$request->input('idvarpersonamoral')]);
+				return ["status"=>"accept"];
+			}
+		}
+			
 		DB::beginTransaction();
 		try{
-			$moral=new PersonaMoralModel();
+			$moral=new PersonaMoralModel();						
 			$moral->nombre=$request->input('nombre');		
 			$moral->fechaCreacion=$request->input('fechaConstitucion');
-			$moral->rfc=$request->input('rfc');
+			$moral->rfc=$request->input('rfc');	
 			$moral->save();
 			$idMoral = $moral->id;
 			$variablesMoral=new VariablesPersonaMoral();
@@ -50,7 +59,7 @@ class PersonaMoralController extends Controller{
 			DB::rollBack();
 			throw $e;
             return back()->withInput();
-		}
+		}	
 	}
 	
 	public function rfcMoral(Request $request){
