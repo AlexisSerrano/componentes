@@ -57,7 +57,9 @@ import swal from 'sweetalert2'
                 fechaConstitucionV:'',
                 rfcV:'',
                 telefonoV:'',
-                representanteLegalV:''
+                representanteLegalV:'',                
+                idPersonaMoral:'',
+                idVarPersonaMoral:''
             }
         },
         props:{
@@ -83,7 +85,8 @@ import swal from 'sweetalert2'
                         }).then(response => {
                             this.personaExiste=response.data
                             if(this.personaExiste!=''){
-                                console.log(this.personaExiste.ids)
+                                console.log("Empresa(idEmpresa):"+this.personaExiste.ids.idEmpresa);                                
+                                console.log("Empresa(idVarEmpresa):"+this.personaExiste.ids.idVariablesPersona);                                
                                 swal({
                                     title: 'Persona moral encontrada!',
                                     text: 'Ésta persona moral ya fue registrada anteriormente',
@@ -92,6 +95,8 @@ import swal from 'sweetalert2'
                                 })
                                 this.telefono = this.personaExiste.telefono
                                 this.representanteLegal = this.personaExiste.representanteLegal
+                                this.idPersonaMoral=this.personaExiste.ids.idEmpresa
+                                this.idVarPersonaMoral=this.personaExiste.ids.idVariablesPersona
                             }
                         })
                     });
@@ -103,7 +108,7 @@ import swal from 'sweetalert2'
                         this.CrearEmpresa();
                         this.CleanFields();
                         return;
-                    }
+                    } 
                     swal({
                         title: 'Guardado incorrecto!',
                         text: 'Ésta empresa no fue posible guardarla',
@@ -122,13 +127,16 @@ import swal from 'sweetalert2'
             },
             CrearEmpresa: function(){
                 var urlCrearMoral = '/addPersonaMoral';
-                    axios.post(urlCrearMoral,{
+                    axios.post(urlCrearMoral,{                        
                         nombre: this.nombre.toUpperCase(),
                         fechaConstitucion: this.fechaConstitucion,
                         rfc:this.rfc.toUpperCase(),
                         telefono: this.telefono,
                         representanteLegal: this.representanteLegal.toUpperCase(),
-                        sistema: this.sistema
+                        sistema: this.sistema,
+                        idpersonamoral: this.idPersonaMoral,
+                        idvarpersonamoral:this.idVarPersonaMoral
+
                     })
                     .then (response =>{
                         console.log(response.data)
