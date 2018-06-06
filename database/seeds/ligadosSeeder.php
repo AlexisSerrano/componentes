@@ -165,7 +165,7 @@ class ligadosSeeder extends Seeder
             //QRR
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>12,"config"=>
             '{'.
-                '"nombres":{"default":"QUIEN RESULTE RESPONSABLE",rules":{'.
+                '"nombres":{"default":"QUIEN RESULTE RESPONSABLE","rules":{'.
                     '"required":false'.
                 '}},'.
                 '"primerAp":{"rules":{'.
@@ -387,7 +387,7 @@ class ligadosSeeder extends Seeder
             //QRR
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>3,"config"=>
             '{'.
-                '"nombres":{"default":"QUIEN RESULTE RESPONSABLE",rules":{'.
+                '"nombres":{"default":"QUIEN RESULTE RESPONSABLE","rules":{'.
                     '"required":false'.
                 '}},'.
                 '"primerAp":{"rules":{'.
