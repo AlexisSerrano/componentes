@@ -86,7 +86,7 @@ class ligadosSeeder extends Seeder
                 '}},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '}}'.
             '}'],
             //CONOCIDO
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>11,"config"=>
@@ -160,7 +160,7 @@ class ligadosSeeder extends Seeder
                 '}},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '}}'.
             '}'],
             //QRR
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>12,"config"=>
@@ -234,7 +234,7 @@ class ligadosSeeder extends Seeder
                 '}},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '}}'.
             '}'],
             //COMPARECENCIA
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>1,"config"=>
@@ -308,7 +308,7 @@ class ligadosSeeder extends Seeder
                 '}},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '}}'.
             '}'],
             //CONOCIDO
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>2,"config"=>
@@ -382,7 +382,7 @@ class ligadosSeeder extends Seeder
                 '}},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '}}'.
             '}'],
             //QRR
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>3,"config"=>
@@ -456,7 +456,7 @@ class ligadosSeeder extends Seeder
                 '}},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '}}'.
             '}'],
         ]);
     }
