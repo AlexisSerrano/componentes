@@ -54327,6 +54327,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rendata__ = __webpack_require__(52);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -54886,7 +54888,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
 
         isexits: function isexits(value, defaultv) {
-            return value == undefined ? defaultv : value;
+            switch (value) {
+                case undefined:
+                    return defaultv;
+                case null:
+                    return defaultv;
+                default:
+                    switch (typeof value === 'undefined' ? 'undefined' : _typeof(value)) {
+                        case 'string':
+                            return value.trim().length > 0 ? value : defaultv;
+                        default:
+                            return value;
+                    }
+            }
         },
         crearPersona: function crearPersona() {
             var _objREST,
