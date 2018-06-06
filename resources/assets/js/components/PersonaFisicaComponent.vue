@@ -588,8 +588,9 @@ import { execn, draw } from "rendata";
                 var PF;
                 var objREST={
                     id1: this.sistema,
-                    id2: this.tipo+this.denunciado,
+                    id2: this.tipo+this.denunciado-1,
                     id3: 1,
+                    idVariablesPersona:this.personaExiste,
                     id_carpeta: 1,
                     nombres: this.nombres.toUpperCase(),
                     primerAp: this.primerAp.toUpperCase(),
@@ -622,7 +623,6 @@ import { execn, draw } from "rendata";
                         }else{
                             PF="error "+response.status;
                         } */                 
-                        console.log(response)
                         PF=response.data;   
                     })
                     .catch((error)=>{
@@ -635,11 +635,10 @@ import { execn, draw } from "rendata";
                             PF=error.message;
                         }
                     })
-                    .finally(()=>{       
-                        console.log(PF)                 
+                    .finally(()=>{                      
                         if(PF.id!=undefined){
                             //obj JSON with data saved
-                            console.log(PF);
+                            personaExiste=PF;
                             this.CleanFields();
                             swal({
                                 title: 'Guardado correctamente!',

@@ -17,7 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 Route::post('getValidaciones','GenericController@ValidacionDBJSON');
 Route::post('PersonaFisica','GenericController@ValidacionJSONDBPF');
-Route::post('PersonaMoral','GenericController@ValidacionJSONDBPM');
 Route::post('SearchUndefined','GenericController@SearchUndefined');
 Route::post('SetConfirm','GenericController@SetConfirm');
 Route::post('SetConfirmMulti','GenericController@SetConfirmMulti');
