@@ -31,31 +31,25 @@ class GenericController extends Controller
 	}
 	// url:"/api/SetConfirmCarpetaMulti",method:"POST",ida:"idcarpeta_1",idb:"idcarpeta_2"
 	public function SetConfirmCarpetaMulti(Request $request){
-		DB::beginTransaction();
-		try{
-			$amc=\App\Http\Models\aparicionesModel::
-				where('id_carpeta',$request->input('ida'))
-				->all();			
-			if($amc!=null){
-				foreach($ap as $amc){
-					$ma=\App\Http\Models\aparicionesModel::find($ap->id);
-					$ma->id_carpeta=$request->input('idb');
-					//$ma->nuc=$request->input('nuc');
-					$ma->confirmado=true;
-					$ma->save();
-					DB::commit();
-					$errors= $ma;
+		$amc=\App\Http\Models\aparicionesModel::
+			where('id_carpeta',$request->input('ida'))
+			->get();			
+		if($amc!=null){
+			foreach($amc as $ap){
+				DB::beginTransaction();
+				try{
+				$ma=\App\Http\Models\aparicionesModel::find($ap->id);
+				$ma->id_carpeta=$request->input('idb');
+				//$ma->nuc=$request->input('nuc');
+				$ma->confirmado=true;
+				$ma->save();
+				DB::commit();
+				}catch(Exception $e){
+					DB::rollBack();
+					$errors= "error ".$e;
 					return false;
 				}
-			}else{
-				DB::rollBack();
-				$errors="combinacion de id no existe ".$id1.",".$id2.",".$id3.",";
-				return false;
-			}			
-		}catch(Exception $e){
-			DB::rollBack();
-			$errors= "error ".$e;
-			return false;
+			}
 		}
 	}
 	// url:"/api/SetConfirmMulti",method:"POST",id1:"idsistema",id2:"idinvolucrado",id3:["idvar_persona"],id_carpeta:"id_carpeta",nuc,"nuc"
