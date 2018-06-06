@@ -2,39 +2,39 @@
 <div class="container mt-3">
     <form>
         <div class="form-row">
-            <div class="form-group col-md-8">
+            <div class="form-group">
                 <label for="telefonos">Telefonos <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalTelefonos">+</span></label>
                 <div class="row">
-                    <div v-for="t in telefonos" :key="t.id" class="col-md-3 col-md-offset-1 ">
-                        <span  class="btn-group" >
-                            <span class="btn btn-outline-success">{{t.valor }}</span>
-                            <span class="btn btn-outline-danger" v-on:click="delatet(t)"> x</span>
+                    <div v-for="t in telefonos" :key="t.id" class="col-sm" style="margin-bottom:5px; margin-right:-10px">
+                        <span  class="btn-group " >
+                            <span class="btn btn-secondary btn-sm">{{t.valor }}</span>
+                            <span class="btn btn-danger btn-sm" v-on:click="delatet(t)"> x</span>
                         </span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group">
                 <label for="correos">Correos <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalCorreos">+</span></label>
                 <div class="row">
-                    <div v-for="t in correos" :key="t.id" class="col-md-3 col-md-offset-1 ">
+                    <div v-for="t in correos" :key="t.id" class="col-sm" style="margin-bottom:5px; margin-right:-10px">
                         <span  class="btn-group" >
-                            <span class="btn btn-outline-success">{{t.valor }}</span>
-                            <span class="btn btn-outline-danger" v-on:click="delatet(t)"> x</span>
+                            <span class="btn btn-secondary btn-sm">{{t.valor }}</span>
+                            <span class="btn btn-danger btn-sm" v-on:click="delatet(t)"> x</span>
                         </span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group">
                 <label for="redes">Redes Sociales <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalRedes">+</span></label>
                 <div class="row">
-                    <div v-for="t in redes" :key="t.id" class="col-md-3 col-md-offset-1 ">
+                    <div v-for="t in redes" :key="t.id" class="col-sm" style="margin-bottom:5px; margin-right:-10px">
                         <span  class="btn-group" >
-                            <span class="btn btn-outline-success">{{t.valor }}</span>
-                            <span class="btn btn-outline-danger" v-on:click="delatet(t)"> x</span>
+                            <span class="btn btn-secondary btn-sm">{{t.valor }}</span>
+                            <span class="btn btn-danger btn-sm" v-on:click="delatet(t)"> x</span>
                         </span>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-5">
                                 <label for="tipoTelefono">Tipo</label>
                                 <v-select :options="tipoTelefonos" v-model="tipoTelefono" name="tipoTelefono" id="tipoTelefono" label="tipo" :class="{ 'border border-danger rounded': errors.has('tipoTelefono') }" aria-required="true"></v-select>
                             </div>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-5">
                                 <label for="tipoCorreo">Tipo</label>
                                 <v-select :options="tipoCorreos" v-model="tipoCorreo" name="tipoCorreo" id="tipoCorreo" label="tipo"></v-select>
                             </div>
@@ -107,7 +107,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-5">
                                 <label for="tipoRedes">Tipo</label>
                                 <v-select :options="tipoRedes" v-model="tipoRed" name="tipoRed" id="tipoRed" label="tipo"></v-select>
                             </div>
@@ -216,22 +216,6 @@ export default{
                 })
             });
         },
-        delatet:function(t){
-            let del=false;
-            axios.post('api/deldc',{id:t.id})
-            .then((resopnce)=>{
-                console.log(resopnce);
-                del=true;
-            })
-            .finally(()=>{
-                    if(del){
-                        let tn=this.telefonos.indexOf(t);
-                        if(tn>-1){
-                            this.telefonos.splice(tn,1);
-                        }
-                    }
-            });           
-        },
         creardcc: function(){
             var urlCrear = '/api/adddc';
             axios.post(urlCrear,{
@@ -284,6 +268,22 @@ export default{
                 confirmButtonText: 'Ok'
                 })
             });
+        },
+        delatet:function(t){
+            let del=false;
+            axios.post('api/deldc',{id:t.id})
+            .then((resopnce)=>{
+                console.log(resopnce);
+                del=true;
+            })
+            .finally(()=>{
+                    if(del){
+                        let tn=this.telefonos.indexOf(t);
+                        if(tn>-1){
+                            this.telefonos.splice(tn,1);
+                        }
+                    }
+            });           
         },
         limpiaCampos() {
             this.data,

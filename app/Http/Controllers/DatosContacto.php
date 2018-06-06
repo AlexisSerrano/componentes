@@ -9,7 +9,7 @@ class DatosContacto extends Controller
 {
     //
     public function deldc(Request $request){
-            return response()->json(DB::table('datos_contacto')
+        return response()->json(DB::table('datos_contacto')
         ->where('id',$request->input('id'))
         ->update(['habilitado'=>false])
         );

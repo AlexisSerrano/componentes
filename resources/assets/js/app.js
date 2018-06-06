@@ -36,3 +36,7 @@ Vue.component('datoslaborales',require('./components/DatosLaboralesComponent.vue
 const app = new Vue({
     el: '#app'
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
