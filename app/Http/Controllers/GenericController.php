@@ -75,8 +75,8 @@ class GenericController extends Controller{
 		if(HelpController::JSONDBValidation($model,$request->input('id1'),$request->input('id2'),$request->input('id3'),$errors)){
 			$vpm=\App\Http\Models\VariablesPersona::find($request->input('idVariablesPersona'));
 			$idpersona=$request->input('id');
-			if($vpm!=null){
-				$idpersona=$vpn->idPersona;
+			if(isset($vpm->items)){
+				$idpersona=$vpm->idPersona;
 			}
 			$PM=new \App\Http\Models\PersonaModel();
 			$pm=$PM::where('id',$idpersona)->first();
@@ -103,7 +103,7 @@ class GenericController extends Controller{
 			if(!isset($PM->id)){
 				return "Error guardando o actualizando persona";
 			}			
-			if($vpm!=null){
+			if(isset($vpm->items)){
 				$VPM=$vpm;
 			}else{
 				$VPM=new \App\Http\Models\VariablesPersona();
@@ -131,8 +131,8 @@ class GenericController extends Controller{
 				$am=new \App\Http\Models\aparicionesModel();
 				$am->idvar_persona=$VPM->id;
 				$am->id_carpeta=$request->input('id_carpeta');
-				$am->id_sistema=$request->input('id2');
-				$am->id_involucrado=$request->input('id1');
+				$am->id_sistema=$request->input('id1');
+				$am->id_involucrado=$request->input('id2');
 				$am->nuc=01234;
 				$am->confirmado=false;
 				$am->esEmpresa=false;
@@ -141,7 +141,7 @@ class GenericController extends Controller{
 			if(!isset($am->id)){
 				return "Error en el último paso";
 			}
-			return $am->idvar_persona;
+			return \Response::json($am->idvar_persona);
 		}else{
 			return $errors;
 		}

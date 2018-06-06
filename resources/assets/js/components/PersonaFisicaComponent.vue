@@ -623,6 +623,7 @@ import { execn, draw } from "rendata";
                         }else{
                             PF="error "+response.status;
                         } */                 
+                        console.log(PF);
                         PF=response.data;   
                     })
                     .catch((error)=>{
