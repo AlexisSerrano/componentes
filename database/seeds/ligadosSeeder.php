@@ -10,11 +10,86 @@ class ligadosSeeder extends Seeder
      */
     public function run()
     {
-        //1,1,10 = comparecencia COMPLETO
-        //1,1,11 = conocido PARCIAL
-        //1,1,12 = QRR NULL
+        //1,1,4  = Victima u ofendido (UIPJ)           1,2,4  = Victima u ofendico (UAT)
+        //1,1,10 = comparecencia COMPLETO (UIPJ)       1,2,1 = coparecencia COMPLETO (UAT)
+        //1,1,11 = conocido PARCIAL (UIPJ)             1,2,2 = conocido PARCIAL (UAT)
+        //1,1,12 = QRR NULL (UIPJ)                     1,2,3 = QRR NULL (UAT)
         DB::table('ligados')->insert([
-            //COMPARECENCIA
+            //VICTIMA U OFENDIDO UIPJ
+            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>4,"config"=>
+            '{'.
+                '"nombres":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"primerAp":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"segundoAp":{"rules":{'.
+                    '"required":false'.
+                '}},'.
+                '"rfc":{"rules":{'.
+                    '"required":true,'.
+                    '"rfc":true'.
+                '}},'.
+                '"curp":{"rules":{'.
+                    '"required":true,'.
+                    '"curp":true'.
+                '}},'.
+                '"fechaNacimiento":{"rules":{'.
+                    '"required":true,'.
+                    '"date":true'.
+                '},"default":"1990-01-01"},'.
+                '"edad":{"rules":{'.
+                    '"required":false,'.
+                    '"number":true'.
+                '}},'.
+                '"idNacionalidad":{"rules":{'.
+                    '"required":false'.
+                '}},'.
+                '"idEdoOrigen":{"rules":{'.
+                    '"required":false'.
+                '}},'.
+                '"idMunicipioOrigen":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"sexo":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idEtnia":{"rules":{'.
+                    '"required":false'.
+                '}},'.
+                '"idLengua":{"rules":{'.
+                    '"required":false'.
+                '}},'.
+                '"motivoEstancia":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idOcupacion":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idEstadoCivil":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idReligion":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idEscolaridad":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"docIdentificacion":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"numDocIdentificacion":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"alias":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idInterprete":{"rules":{'.
+                    '"required":false'.
+                '}}'.
+            '}'],
+            //COMPARECENCIA UIPJ
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>10,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
@@ -88,7 +163,7 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}}'.
             '}'],
-            //CONOCIDO
+            //CONOCIDO UIPJ
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>11,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
@@ -162,7 +237,7 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}}'.
             '}'],
-            //QRR
+            //QRR UIPJ
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>12,"config"=>
             '{'.
                 '"nombres":{"default":"QUIEN RESULTE RESPONSABLE","rules":{'.
@@ -236,7 +311,81 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}}'.
             '}'],
-            //COMPARECENCIA
+            //VICTIMA U OFENDIDO UAT
+            ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>4,"config"=>
+            '{'.
+                '"nombres":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"primerAp":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"segundoAp":{"rules":{'.
+                    '"required":false'.
+                '}},'.
+                '"rfc":{"rules":{'.
+                    '"required":true,'.
+                    '"rfc":true'.
+                '}},'.
+                '"curp":{"rules":{'.
+                    '"required":true,'.
+                    '"curp":true'.
+                '}},'.
+                '"fechaNacimiento":{"rules":{'.
+                    '"required":true,'.
+                    '"date":true'.
+                '},"default":"1990-01-01"},'.
+                '"edad":{"rules":{'.
+                    '"required":false,'.
+                    '"number":true'.
+                '}},'.
+                '"idNacionalidad":{"rules":{'.
+                    '"required":false'.
+                '}},'.
+                '"idEdoOrigen":{"rules":{'.
+                    '"required":false'.
+                '}},'.
+                '"idMunicipioOrigen":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"sexo":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idEtnia":{"rules":{'.
+                    '"required":false'.
+                '}},'.
+                '"idLengua":{"rules":{'.
+                    '"required":false'.
+                '}},'.
+                '"motivoEstancia":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idOcupacion":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idEstadoCivil":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idReligion":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idEscolaridad":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"docIdentificacion":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"numDocIdentificacion":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"alias":{"rules":{'.
+                    '"required":true'.
+                '}},'.
+                '"idInterprete":{"rules":{'.
+                    '"required":false'.
+                '}}'.
+            '}'],
+            //COMPARECENCIA UAT
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>1,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
@@ -310,7 +459,7 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}}'.
             '}'],
-            //CONOCIDO
+            //CONOCIDO UAT
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>2,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
@@ -384,7 +533,7 @@ class ligadosSeeder extends Seeder
                     '"required":false'.
                 '}}'.
             '}'],
-            //QRR
+            //QRR UAT
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>3,"config"=>
             '{'.
                 '"nombres":{"default":"QUIEN RESULTE RESPONSABLE","rules":{'.
