@@ -15825,6 +15825,10 @@ var app = new Vue({
   el: '#app'
 });
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
 /***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -54882,45 +54886,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             return value == undefined ? defaultv : value;
         },
         crearPersona: function crearPersona() {
-            var _this16 = this;
+            var _objREST,
+                _this16 = this;
 
             var PF;
-            if (this.denunciado != 2 && this.denunciado != 3) {
-                var _objREST;
-
-                var objREST = (_objREST = {
-                    id1: this.sistema,
-                    id2: this.tipo,
-                    id3: 1,
-                    id_carpeta: 1,
-                    nombres: this.nombres.toUpperCase(),
-                    primerAp: this.primerAp.toUpperCase(),
-                    segundoAp: this.segundoAp.toUpperCase(),
-                    fechaNacimiento: this.fechaNacimiento,
-                    edad: this.edad,
-                    sexo: this.isexits(this.sexo, { id: 0 }).id,
-                    rfc: this.rfc.toUpperCase(),
-                    curp: this.curp.toUpperCase(),
-                    idNacionalidad: this.isexits(this.nacionalidad, { id: 0 }).id,
-                    idMunicipioOrigen: this.isexits(this.municipio, { id: 0 }).id,
-                    idEtnia: this.isexits(this.etnia, { id: 0 }).id,
-                    idLengua: this.isexits(this.lengua, { id: 0 }).id,
-                    idInterprete: this.isexits(this.interprete, { id: 0 }).id
-                }, _defineProperty(_objREST, 'idInterprete', 1), _defineProperty(_objREST, 'motivoEstancia', this.motivoEstancia.toUpperCase()), _defineProperty(_objREST, 'idOcupacion', this.isexits(this.ocupacion, { id: 0 }).id), _defineProperty(_objREST, 'idEstadoCivil', this.isexits(this.estadoCivil, { id: 0 }).id), _defineProperty(_objREST, 'idEscolaridad', this.isexits(this.escolaridad, { id: 0 }).id), _defineProperty(_objREST, 'idReligion', this.isexits(this.religion, { id: 0 }).id), _defineProperty(_objREST, 'docIdentificacion', this.isexits(this.identificacion, { id: 0 }).id), _defineProperty(_objREST, 'numDocIdentificacion', this.numIdentificacion.toUpperCase()), _defineProperty(_objREST, 'alias', this.alias.toUpperCase()), _objREST);
-            } else if (this.denunciado == 2) {
-                var objREST = {
-                    id1: this.sistema,
-                    id2: this.tipo,
-                    id3: 1,
-                    id_carpeta: 1,
-                    nombres: this.nombres.toUpperCase(),
-                    primerAp: this.primerAp.toUpperCase(),
-                    alias: this.alias.toUpperCase()
-                };
-            } else if (this.denunciado == 3) {
-                console.log("Quien resulte responsable");
-                return;
-            }
+            var objREST = (_objREST = {
+                id1: this.sistema,
+                id2: parseInt(this.tipo) + parseInt(this.denunciado) - 1,
+                id3: 1,
+                idVariablesPersona: this.personaExiste,
+                id_carpeta: 1,
+                nombres: this.nombres.toUpperCase(),
+                primerAp: this.primerAp.toUpperCase(),
+                segundoAp: this.segundoAp.toUpperCase(),
+                fechaNacimiento: this.fechaNacimiento,
+                edad: this.edad,
+                sexo: this.isexits(this.sexo, { id: 0 }).id,
+                rfc: this.rfc.toUpperCase(),
+                curp: this.curp.toUpperCase(),
+                idNacionalidad: this.isexits(this.nacionalidad, { id: 0 }).id,
+                idMunicipioOrigen: this.isexits(this.municipio, { id: 0 }).id,
+                idEtnia: this.isexits(this.etnia, { id: 0 }).id,
+                idLengua: this.isexits(this.lengua, { id: 0 }).id,
+                idInterprete: this.isexits(this.interprete, { id: 0 }).id
+            }, _defineProperty(_objREST, 'idInterprete', 1), _defineProperty(_objREST, 'motivoEstancia', this.motivoEstancia.toUpperCase()), _defineProperty(_objREST, 'idOcupacion', this.isexits(this.ocupacion, { id: 0 }).id), _defineProperty(_objREST, 'idEstadoCivil', this.isexits(this.estadoCivil, { id: 0 }).id), _defineProperty(_objREST, 'idEscolaridad', this.isexits(this.escolaridad, { id: 0 }).id), _defineProperty(_objREST, 'idReligion', this.isexits(this.religion, { id: 0 }).id), _defineProperty(_objREST, 'docIdentificacion', this.isexits(this.identificacion, { id: 0 }).id), _defineProperty(_objREST, 'numDocIdentificacion', this.numIdentificacion.toUpperCase()), _defineProperty(_objREST, 'alias', this.alias.toUpperCase()), _objREST);
             axios.post('/api/PersonaFisica', objREST).then(function (response) {
                 /*console.log(response)
                 if(response.status==200){
@@ -54928,7 +54917,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }else{
                     PF="error "+response.status;
                 } */
-                console.log(response);
                 PF = response.data;
             }).catch(function (error) {
                 //console.log(error);
@@ -54940,10 +54928,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     PF = error.message;
                 }
             }).finally(function () {
-                console.log(PF);
                 if (PF.id != undefined) {
                     //obj JSON with data saved
-                    console.log(PF);
+                    personaExiste = PF;
                     _this16.CleanFields();
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                         title: 'Guardado correctamente!',
@@ -59480,24 +59467,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             });
         },
-        delatet: function delatet(t) {
-            var _this6 = this;
-
-            var del = false;
-            axios.post('api/deldc', { id: t.id }).then(function (resopnce) {
-                console.log(resopnce);
-                del = true;
-            }).finally(function () {
-                if (del) {
-                    var tn = _this6.telefonos.indexOf(t);
-                    if (tn > -1) {
-                        _this6.telefonos.splice(tn, 1);
-                    }
-                }
-            });
-        },
         creardcc: function creardcc() {
-            var _this7 = this;
+            var _this6 = this;
 
             var urlCrear = '/api/adddc';
             axios.post(urlCrear, {
@@ -59505,8 +59476,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 tipo: this.tipoCorreo.id,
                 valor: this.tCorreo
             }).then(function (response) {
-                _this7.correos.push({ id: response.data, valor: _this7.tCorreo });
-                _this7.limpiaCampos();
+                _this6.correos.push({ id: response.data, valor: _this6.tCorreo });
+                _this6.limpiaCampos();
                 $('#ModalCorreos').modal('hide');
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado correctamente!',
@@ -59525,7 +59496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         creardcr: function creardcr() {
-            var _this8 = this;
+            var _this7 = this;
 
             var urlCrear = '/api/adddc';
             axios.post(urlCrear, {
@@ -59533,8 +59504,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 tipo: this.tipoRed.id,
                 valor: this.tRed
             }).then(function (response) {
-                _this8.correos.push({ "id": response.data, "valor": _this8.tRed });
-                _this8.limpiaCampos();
+                _this7.correos.push({ "id": response.data, "valor": _this7.tRed });
+                _this7.limpiaCampos();
                 $('#ModalRedes').modal('hide');
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: 'Guardado correctamente!',
@@ -59550,6 +59521,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
+            });
+        },
+        delatet: function delatet(t) {
+            var _this8 = this;
+
+            var del = false;
+            axios.post('api/deldc', { id: t.id }).then(function (resopnce) {
+                console.log(resopnce);
+                del = true;
+            }).finally(function () {
+                if (del) {
+                    var tn = _this8.telefonos.indexOf(t);
+                    if (tn > -1) {
+                        _this8.telefonos.splice(tn, 1);
+                    }
+                }
             });
         },
         limpiaCampos: function limpiaCampos() {
@@ -59569,7 +59556,7 @@ var render = function() {
   return _c("div", { staticClass: "container mt-3" }, [
     _c("form", [
       _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "form-group col-md-8" }, [
+        _c("div", { staticClass: "form-group" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -59578,17 +59565,24 @@ var render = function() {
             _vm._l(_vm.telefonos, function(t) {
               return _c(
                 "div",
-                { key: t.id, staticClass: "col-md-3 col-md-offset-1 " },
+                {
+                  key: t.id,
+                  staticClass: "col-sm",
+                  staticStyle: {
+                    "margin-bottom": "5px",
+                    "margin-right": "-10px"
+                  }
+                },
                 [
-                  _c("span", { staticClass: "btn-group" }, [
-                    _c("span", { staticClass: "btn btn-outline-success" }, [
+                  _c("span", { staticClass: "btn-group " }, [
+                    _c("span", { staticClass: "btn btn-secondary btn-sm" }, [
                       _vm._v(_vm._s(t.valor))
                     ]),
                     _vm._v(" "),
                     _c(
                       "span",
                       {
-                        staticClass: "btn btn-outline-danger",
+                        staticClass: "btn btn-danger btn-sm",
                         on: {
                           click: function($event) {
                             _vm.delatet(t)
@@ -59606,7 +59600,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
           _vm._m(1),
           _vm._v(" "),
           _c(
@@ -59615,17 +59609,24 @@ var render = function() {
             _vm._l(_vm.correos, function(t) {
               return _c(
                 "div",
-                { key: t.id, staticClass: "col-md-3 col-md-offset-1 " },
+                {
+                  key: t.id,
+                  staticClass: "col-sm",
+                  staticStyle: {
+                    "margin-bottom": "5px",
+                    "margin-right": "-10px"
+                  }
+                },
                 [
                   _c("span", { staticClass: "btn-group" }, [
-                    _c("span", { staticClass: "btn btn-outline-success" }, [
+                    _c("span", { staticClass: "btn btn-secondary btn-sm" }, [
                       _vm._v(_vm._s(t.valor))
                     ]),
                     _vm._v(" "),
                     _c(
                       "span",
                       {
-                        staticClass: "btn btn-outline-danger",
+                        staticClass: "btn btn-danger btn-sm",
                         on: {
                           click: function($event) {
                             _vm.delatet(t)
@@ -59643,7 +59644,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
           _vm._m(2),
           _vm._v(" "),
           _c(
@@ -59652,17 +59653,24 @@ var render = function() {
             _vm._l(_vm.redes, function(t) {
               return _c(
                 "div",
-                { key: t.id, staticClass: "col-md-3 col-md-offset-1 " },
+                {
+                  key: t.id,
+                  staticClass: "col-sm",
+                  staticStyle: {
+                    "margin-bottom": "5px",
+                    "margin-right": "-10px"
+                  }
+                },
                 [
                   _c("span", { staticClass: "btn-group" }, [
-                    _c("span", { staticClass: "btn btn-outline-success" }, [
+                    _c("span", { staticClass: "btn btn-secondary btn-sm" }, [
                       _vm._v(_vm._s(t.valor))
                     ]),
                     _vm._v(" "),
                     _c(
                       "span",
                       {
-                        staticClass: "btn btn-outline-danger",
+                        staticClass: "btn btn-danger btn-sm",
                         on: {
                           click: function($event) {
                             _vm.delatet(t)
@@ -59710,7 +59718,7 @@ var render = function() {
                     _c("div", { staticClass: "form-row" }, [
                       _c(
                         "div",
-                        { staticClass: "form-group col-md-4" },
+                        { staticClass: "form-group col-md-5" },
                         [
                           _c("label", { attrs: { for: "tipoTelefono" } }, [
                             _vm._v("Tipo")
@@ -59827,7 +59835,7 @@ var render = function() {
                     _c("div", { staticClass: "form-row" }, [
                       _c(
                         "div",
-                        { staticClass: "form-group col-md-4" },
+                        { staticClass: "form-group col-md-5" },
                         [
                           _c("label", { attrs: { for: "tipoCorreo" } }, [
                             _vm._v("Tipo")
@@ -59937,7 +59945,7 @@ var render = function() {
                     _c("div", { staticClass: "form-row" }, [
                       _c(
                         "div",
-                        { staticClass: "form-group col-md-4" },
+                        { staticClass: "form-group col-md-5" },
                         [
                           _c("label", { attrs: { for: "tipoRedes" } }, [
                             _vm._v("Tipo")

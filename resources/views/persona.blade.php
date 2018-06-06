@@ -11,8 +11,8 @@
   </head>
     <div id="app">
         <!--UAT-->
-        <persona :sistema="2" :tipo="1"></persona>
-        <!--UIPJ <persona :sistema="1" :tipo="10"></persona>-->
+        <persona :sistema="1" :tipo="10"></persona>
+        <!--UIPJ <persona :sistema="2" :tipo="1"></persona>-->
     </div>
   </body> 
     <script src="{{asset('js/app.js')}}"></script>
