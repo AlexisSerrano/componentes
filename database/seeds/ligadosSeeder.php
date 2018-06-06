@@ -89,7 +89,7 @@ class ligadosSeeder extends Seeder
                 '}},'.
             '}'],
             //CONOCIDO
-            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>10,"config"=>
+            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>11,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
@@ -163,7 +163,7 @@ class ligadosSeeder extends Seeder
                 '}},'.
             '}'],
             //QRR
-            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>10,"config"=>
+            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>12,"config"=>
             '{'.
                 '"nombres":{"default":"QUIEN RESULTE RESPONSABLE",rules":{'.
                     '"required":false'.
