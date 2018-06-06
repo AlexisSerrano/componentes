@@ -30,7 +30,7 @@ class DatosLaboralesController extends Controller
         $datosLaborales->telefono=$request->input('telefono');
         $datosLaborales->telefonoTrabajo=$request->input('telefonoTrabajo');
         $datosLaborales->lugarTrabajo=$request->input('lugarTrabajo');
-        // $datosLaborales->save();
+        $datosLaborales->save();
         return $datosLaborales->id;
     }
 }
