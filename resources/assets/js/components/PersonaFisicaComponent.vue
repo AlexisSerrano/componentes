@@ -586,49 +586,35 @@ import { execn, draw } from "rendata";
             },
             crearPersona: function(){
                 var PF;
-                if(this.denunciado!=2 && this.denunciado!=3){
-                     var objREST={
-                        id1: this.sistema,
-                        id2: this.tipo,
-                        id3: 1,
-                        id_carpeta: 1,
-                        nombres: this.nombres.toUpperCase(),
-                        primerAp: this.primerAp.toUpperCase(),
-                        segundoAp: this.segundoAp.toUpperCase(),
-                        fechaNacimiento: this.fechaNacimiento,
-                        edad: this.edad,
-                        sexo: this.isexits(this.sexo,{id:0}).id,
-                        rfc:this.rfc.toUpperCase(),
-                        curp: this.curp.toUpperCase(),
-                        idNacionalidad: this.isexits(this.nacionalidad,{id:0}).id,
-                        idMunicipioOrigen: this.isexits(this.municipio,{id:0}).id,
-                        idEtnia: this.isexits(this.etnia,{id:0}).id,
-                        idLengua: this.isexits(this.lengua,{id:0}).id,
-                        idInterprete: this.isexits(this.interprete,{id:0}).id,
-                        idInterprete: 1,
-                        motivoEstancia: this.motivoEstancia.toUpperCase(),
-                        idOcupacion: this.isexits(this.ocupacion,{id:0}).id,
-                        idEstadoCivil: this.isexits(this.estadoCivil,{id:0}).id,
-                        idEscolaridad: this.isexits(this.escolaridad,{id:0}).id,
-                        idReligion: this.isexits(this.religion,{id:0}).id,
-                        docIdentificacion: this.isexits(this.identificacion,{id:0}).id,
-                        numDocIdentificacion: this.numIdentificacion.toUpperCase(),
-                        alias: this.alias.toUpperCase(),
-                    };
-                }else if(this.denunciado==2){
-                     var objREST={
-                        id1: this.sistema,
-                        id2: this.tipo,
-                        id3: 1,
-                        id_carpeta: 1,
-                        nombres: this.nombres.toUpperCase(),
-                        primerAp: this.primerAp.toUpperCase(),
-                        alias: this.alias.toUpperCase(),
-                    };
-                }else if(this.denunciado==3){
-                    console.log("Quien resulte responsable")
-                    return;
-                }
+                var objREST={
+                    id1: this.sistema,
+                    id2: parseInt(this.tipo)+parseInt(this.denunciado)-1,
+                    id3: 1,
+                    idVariablesPersona:this.personaExiste,
+                    id_carpeta: 1,
+                    nombres: this.nombres.toUpperCase(),
+                    primerAp: this.primerAp.toUpperCase(),
+                    segundoAp: this.segundoAp.toUpperCase(),
+                    fechaNacimiento: this.fechaNacimiento,
+                    edad: this.edad,
+                    sexo: this.isexits(this.sexo,{id:0}).id,
+                    rfc:this.rfc.toUpperCase(),
+                    curp: this.curp.toUpperCase(),
+                    idNacionalidad: this.isexits(this.nacionalidad,{id:0}).id,
+                    idMunicipioOrigen: this.isexits(this.municipio,{id:0}).id,
+                    idEtnia: this.isexits(this.etnia,{id:0}).id,
+                    idLengua: this.isexits(this.lengua,{id:0}).id,
+                    idInterprete: this.isexits(this.interprete,{id:0}).id,
+                    idInterprete: 1,
+                    motivoEstancia: this.motivoEstancia.toUpperCase(),
+                    idOcupacion: this.isexits(this.ocupacion,{id:0}).id,
+                    idEstadoCivil: this.isexits(this.estadoCivil,{id:0}).id,
+                    idEscolaridad: this.isexits(this.escolaridad,{id:0}).id,
+                    idReligion: this.isexits(this.religion,{id:0}).id,
+                    docIdentificacion: this.isexits(this.identificacion,{id:0}).id,
+                    numDocIdentificacion: this.numIdentificacion.toUpperCase(),
+                    alias: this.alias.toUpperCase(),
+                };
                     axios.post('/api/PersonaFisica',objREST)
                     .then((response)=>{
                         /*console.log(response)
@@ -637,24 +623,22 @@ import { execn, draw } from "rendata";
                         }else{
                             PF="error "+response.status;
                         } */                 
-                        console.log(response)
                         PF=response.data;   
                     })
                     .catch((error)=>{
-                        //console.log(error);
+                        
                          if (error.response) {
-                            PF=error.response.data;
+                            PF=error.response.data.message;
                         } else if (error.request) {
                             PF=error.request;
                         } else {
                             PF=error.message;
                         }
                     })
-                    .finally(()=>{       
-                        console.log(PF)                 
+                    .finally(()=>{                      
                         if(PF.id!=undefined){
                             //obj JSON with data saved
-                            console.log(PF);
+                            personaExiste=PF;
                             this.CleanFields();
                             swal({
                                 title: 'Guardado correctamente!',
@@ -662,7 +646,8 @@ import { execn, draw } from "rendata";
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })
-                        }else{
+                        }else{           
+                            console.log(PF)                 ;
                             swal({
                                 title: 'Errores de confirmación',
                                 html: PF,

@@ -18,12 +18,12 @@ class CreatePersonasTable extends Migration
              $table->string('nombres', 50)->nullable();
              $table->string('primerAp', 50)->nullable();
              $table->string('segundoAp', 50)->nullable();
-             $table->dateTime('fechaNacimiento')->default("1900-01-01");
-             $table->string('rfc', 20)->default("AAAA000101");
+             $table->dateTime('fechaNacimiento')->nullable()->default("1900-01-01");
+             $table->string('rfc', 20)->nullable()->default("AAAA000101");
              //$table->string('curp', 20)->unique()->nullable();
              $table->string('curp', 20)->nullable();
-             $table->string('sexo', 20)->default("SIN INFORMACION");
-             $table->integer('idNacionalidad')->unsigned()->default(132);
+             $table->string('sexo', 20)->nullable()->default("SIN INFORMACION");
+             $table->integer('idNacionalidad')->nullable()->unsigned()->default(132);
              $table->integer('idEtnia')->unsigned()->default(13);
              $table->integer('idLengua')->unsigned()->default(69);
              $table->integer('idMunicipioOrigen')->unsigned()->default(2496);

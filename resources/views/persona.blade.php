@@ -10,15 +10,10 @@
 
   </head>
     <div id="app">
-        <persona :sistema="1" :tipo="4"></persona>
-        <!-- <button id="btn2">click</button> -->
+        <!--UAT-->
+        <persona :sistema="1" :tipo="10"></persona>
+        <!--UIPJ <persona :sistema="2" :tipo="1"></persona>-->
     </div>
   </body> 
-
     <script src="{{asset('js/app.js')}}"></script>
-    <!-- <script>
-      $( "#btn2" ).click(function() {
-        console.log($("#pruebavue").text());
-      });
-    </script> -->
 </html>
