@@ -22,7 +22,7 @@ class PersonaMoralController extends Controller{
 			if($request->input('idvarpersonamoral')){				
 				DB::update('update persona_moral set nombre=:name,fechaCreacion=:fechaConst,rfc=:rfc  where id=:id', ['name'=>$request->input('nombre'),'fechaConst'=>$request->input('fechaConstitucion'),'rfc'=>$request->input('rfc'),'id'=>$request->input('idpersonamoral')]);
 				DB::update('update variables_persona_moral set telefono=:tel,representanteLegal=:repres  where id=:id', ['tel'=>$request->input('telefono'),'repres'=>$request->input('representanteLegal'),'id'=>$request->input('idvarpersonamoral')]);
-				return ["status"=>"accept"];
+				return ["idpersona"=>$request->input('idvarpersonamoral')];
 			}
 		}
 			

@@ -32,6 +32,9 @@
                     <span v-if="errors.has('Representante Legal') || representanteLegalV" class="text-danger">{{ errors.first('Representante Legal') || representanteLegalV[0] }}</span>
                 </div>
             </div>
+            <div>
+                <input type="hidden" v-model="idVarPersonaMoral" id="idvarpermoral">             
+            </div>
             <div class="form-row mt-3">
                 <div class="form-group col-md-5">
                     <button type="submit" class="btn mr-1">Guardar</button>
@@ -84,9 +87,7 @@ import swal from 'sweetalert2'
                             rfc: this.rfc
                         }).then(response => {
                             this.personaExiste=response.data
-                            if(this.personaExiste!=''){
-                                console.log("Empresa(idEmpresa):"+this.personaExiste.ids.idEmpresa);                                
-                                console.log("Empresa(idVarEmpresa):"+this.personaExiste.ids.idVariablesPersona);                                
+                            if(this.personaExiste!=''){                                
                                 swal({
                                     title: 'Persona moral encontrada!',
                                     text: 'Ésta persona moral ya fue registrada anteriormente',
@@ -136,10 +137,9 @@ import swal from 'sweetalert2'
                         sistema: this.sistema,
                         idpersonamoral: this.idPersonaMoral,
                         idvarpersonamoral:this.idVarPersonaMoral
-
                     })
                     .then (response =>{
-                        console.log(response.data)
+                        this.idVarPersonaMoral=response.data.idpersona                                                
                         swal({
                             title: 'Guardado correctamente!',
                             text: 'Ésta empresa fue guardada exitosamente',

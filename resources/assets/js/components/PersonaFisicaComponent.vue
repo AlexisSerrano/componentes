@@ -585,7 +585,19 @@ import { execn, draw } from "rendata";
                 this.$validator.reset();
             },
             isexits:function(value,defaultv){
-                return value==undefined?defaultv:value;
+                switch(value){
+                    case undefined:
+                        return defaultv
+                    case null:
+                        return defaultv
+                    default:
+                        switch(typeof value){
+                            case 'string':
+                                return value.trim().length>0?value:defaultv;
+                            default:
+                                return value;
+                        }
+                }
             },
             crearPersona: function(){
                 var PF;
