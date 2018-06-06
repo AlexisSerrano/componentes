@@ -588,7 +588,7 @@ import { execn, draw } from "rendata";
                 var PF;
                 var objREST={
                     id1: this.sistema,
-                    id2: this.tipo+this.denunciado-1,
+                    id2: parseInt(this.tipo)+parseInt(this.denunciado)-1,
                     id3: 1,
                     idVariablesPersona:this.personaExiste,
                     id_carpeta: 1,
