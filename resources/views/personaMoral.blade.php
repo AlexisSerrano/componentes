@@ -9,16 +9,17 @@
     <link href="{{asset('css/app.css')}}" rel="stylesheet" />  
 
   </head>
+  <body>
     <div id="app">
-        <personamoral></personamoral>
-        <!-- <button id="btn2">click</button> -->
-    </div>
+        <personamoral></personamoral>        
+    </div>    
+    <button id="btn2">console.log idvarpersonamoral</button>
   </body> 
 
     <script src="{{asset('js/app.js')}}"></script>
-    <!-- <script>
+    <script>
       $( "#btn2" ).click(function() {
-        console.log($("#pruebavue").text());
+        console.log($("#idvarpermoral").val());
       });
-    </script> -->
+    </script>
 </html>
