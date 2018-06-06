@@ -24,9 +24,9 @@ class CreatePersonasTable extends Migration
              $table->string('curp', 20)->nullable();
              $table->string('sexo', 20)->nullable()->default("SIN INFORMACION");
              $table->integer('idNacionalidad')->nullable()->unsigned()->default(132);
-             $table->integer('idEtnia')->unsigned()->default(13);
-             $table->integer('idLengua')->unsigned()->default(69);
-             $table->integer('idMunicipioOrigen')->unsigned()->default(2496);
+             $table->integer('idEtnia')->nullable()->unsigned()->default(13);
+             $table->integer('idLengua')->nullable()->unsigned()->default(69);
+             $table->integer('idMunicipioOrigen')->nullable()->unsigned()->default(2496);
 
              $table->foreign('idNacionalidad')->references('id')->on('cat_nacionalidad')->onDelete('cascade');
              $table->foreign('idEtnia')->references('id')->on('cat_etnia')->onDelete('cascade');

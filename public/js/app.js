@@ -54631,6 +54631,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         tipo: {
             default: false
+        },
+        edit: {
+            default: false
         }
     },
     mounted: function mounted() {
@@ -54894,7 +54897,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 id1: this.sistema,
                 id2: parseInt(this.tipo) + parseInt(this.denunciado) - 1,
                 id3: 1,
-                idVariablesPersona: this.personaExiste,
+                idVariablesPersona: this.personaExiste.idvar_persona,
                 id_carpeta: 1,
                 nombres: this.nombres.toUpperCase(),
                 primerAp: this.primerAp.toUpperCase(),
@@ -54910,6 +54913,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 idLengua: this.isexits(this.lengua, { id: 0 }).id,
                 idInterprete: this.isexits(this.interprete, { id: 0 }).id
             }, _defineProperty(_objREST, 'idInterprete', 1), _defineProperty(_objREST, 'motivoEstancia', this.motivoEstancia.toUpperCase()), _defineProperty(_objREST, 'idOcupacion', this.isexits(this.ocupacion, { id: 0 }).id), _defineProperty(_objREST, 'idEstadoCivil', this.isexits(this.estadoCivil, { id: 0 }).id), _defineProperty(_objREST, 'idEscolaridad', this.isexits(this.escolaridad, { id: 0 }).id), _defineProperty(_objREST, 'idReligion', this.isexits(this.religion, { id: 0 }).id), _defineProperty(_objREST, 'docIdentificacion', this.isexits(this.identificacion, { id: 0 }).id), _defineProperty(_objREST, 'numDocIdentificacion', this.numIdentificacion.toUpperCase()), _defineProperty(_objREST, 'alias', this.alias.toUpperCase()), _objREST);
+            console.log(objREST);
             axios.post('/api/PersonaFisica', objREST).then(function (response) {
                 /*console.log(response)
                 if(response.status==200){
@@ -54919,7 +54923,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 } */
                 PF = response.data;
             }).catch(function (error) {
-
                 if (error.response) {
                     PF = error.response.data.message;
                 } else if (error.request) {
@@ -54930,8 +54933,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }).finally(function () {
                 if (PF.id != undefined) {
                     //obj JSON with data saved
-                    personaExiste = PF;
-                    _this16.CleanFields();
+                    if (_this16.edit) {
+                        _this16.personaExiste.idvar_persona = PF.idvar_persona;
+                    } else {
+                        _this16.CleanFields();
+                    }
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                         title: 'Guardado correctamente!',
                         text: 'Ésta persona fue guardada exitosamente',
@@ -54939,7 +54945,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                         confirmButtonText: 'Ok'
                     });
                 } else {
-                    console.log(PF);
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                         title: 'Errores de confirmación',
                         html: PF,
@@ -55384,6 +55389,9 @@ var render = function() {
                                 checked: _vm._q(_vm.denunciado, "3")
                               },
                               on: {
+                                click: function($event) {
+                                  _vm.CleanFields()
+                                },
                                 change: function($event) {
                                   _vm.denunciado = "3"
                                 }
@@ -55425,6 +55433,9 @@ var render = function() {
                                 checked: _vm._q(_vm.denunciado, "2")
                               },
                               on: {
+                                click: function($event) {
+                                  _vm.CleanFields()
+                                },
                                 change: function($event) {
                                   _vm.denunciado = "2"
                                 }
@@ -55466,6 +55477,9 @@ var render = function() {
                                 checked: _vm._q(_vm.denunciado, "1")
                               },
                               on: {
+                                click: function($event) {
+                                  _vm.CleanFields()
+                                },
                                 change: function($event) {
                                   _vm.denunciado = "1"
                                 }
@@ -57787,7 +57801,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             fechaConstitucionV: '',
             rfcV: '',
             telefonoV: '',
-            representanteLegalV: ''
+            representanteLegalV: '',
+            idPersonaMoral: '',
+            idVarPersonaMoral: ''
         };
     },
 
@@ -57816,7 +57832,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }).then(function (response) {
                         _this.personaExiste = response.data;
                         if (_this.personaExiste != '') {
-                            console.log(_this.personaExiste.ids);
+                            console.log("Empresa(idEmpresa):" + _this.personaExiste.ids.idEmpresa);
+                            console.log("Empresa(idVarEmpresa):" + _this.personaExiste.ids.idVariablesPersona);
                             __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                                 title: 'Persona moral encontrada!',
                                 text: 'Ésta persona moral ya fue registrada anteriormente',
@@ -57825,6 +57842,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             });
                             _this.telefono = _this.personaExiste.telefono;
                             _this.representanteLegal = _this.personaExiste.representanteLegal;
+                            _this.idPersonaMoral = _this.personaExiste.ids.idEmpresa;
+                            _this.idVarPersonaMoral = _this.personaExiste.ids.idVariablesPersona;
                         }
                     });
                 });
@@ -57861,7 +57880,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 rfc: this.rfc.toUpperCase(),
                 telefono: this.telefono,
                 representanteLegal: this.representanteLegal.toUpperCase(),
-                sistema: this.sistema
+                sistema: this.sistema,
+                idpersonamoral: this.idPersonaMoral,
+                idvarpersonamoral: this.idVarPersonaMoral
+
             }).then(function (response) {
                 console.log(response.data);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({

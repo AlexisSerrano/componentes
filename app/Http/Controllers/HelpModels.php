@@ -183,8 +183,9 @@ class HelpModels
                     $jsonobj[$name]['shape']='line';                                  
                 }
                 if($jsonobj[$name]['shape']=='array'){
-                    if($element==null){
+                    if($element==null){                        
                         HelpModels::MatchJSONModel($name,$jsonobj,null,$fields,$errors);
+                        $jsonobj[$name]=null;
                     }
                     $pos=$jsonobj[$name]['pos'];
                     $index=0;
@@ -193,7 +194,12 @@ class HelpModels
                         $index++;
                     }
                 }else{
-                    HelpModels::MatchJSONModel($name,$jsonobj,$element,$fields,$errors);
+                    if($element==null){                        
+                        HelpModels::MatchJSONModel($name,$jsonobj,null,$fields,$errors);
+                        $model[$name]=null;
+                    }else{
+                        HelpModels::MatchJSONModel($name,$jsonobj,$element,$fields,$errors);
+                    }
                 }
              /*### FAST VALIDATION, ONLY DETECT 1 ERROR
              if($fields>0){

@@ -34,15 +34,15 @@
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label" for="QRR" style="padding-right: 5px">QRR</label>
-                            <input class="form-check-input" type="radio" v-model="denunciado" id="QRR" value="3">
+                            <input class="form-check-input" type="radio" v-model="denunciado" id="QRR" value="3" v-on:click="CleanFields()">
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label" for="conocido" style="padding-right: 5px">Conocido</label>
-                            <input class="form-check-input" type="radio" v-model="denunciado" id="conocido" value="2">
+                            <input class="form-check-input" type="radio" v-model="denunciado" id="conocido" value="2" v-on:click="CleanFields()">
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label" for="comparecencia" style="padding-right: 5px">Comparecencia</label>
-                            <input class="form-check-input" type="radio" v-model="denunciado" id="comparecencia" value="1">
+                            <input class="form-check-input" type="radio" v-model="denunciado" id="comparecencia" value="1" v-on:click="CleanFields()">
                         </div>                        
                     </div>
                 </div>
@@ -298,6 +298,9 @@ import { execn, draw } from "rendata";
                 default:false
             },
             tipo: {
+                default:false
+            },
+            edit:{
                 default:false
             }
         },
@@ -590,7 +593,7 @@ import { execn, draw } from "rendata";
                     id1: this.sistema,
                     id2: parseInt(this.tipo)+parseInt(this.denunciado)-1,
                     id3: 1,
-                    idVariablesPersona:this.personaExiste,
+                    idVariablesPersona:this.personaExiste.idvar_persona,
                     id_carpeta: 1,
                     nombres: this.nombres.toUpperCase(),
                     primerAp: this.primerAp.toUpperCase(),
@@ -615,6 +618,7 @@ import { execn, draw } from "rendata";
                     numDocIdentificacion: this.numIdentificacion.toUpperCase(),
                     alias: this.alias.toUpperCase(),
                 };
+                console.log(objREST)
                     axios.post('/api/PersonaFisica',objREST)
                     .then((response)=>{
                         /*console.log(response)
@@ -622,12 +626,10 @@ import { execn, draw } from "rendata";
                             PF=response.data;
                         }else{
                             PF="error "+response.status;
-                        } */                 
-                        console.log(PF);
+                        } */            
                         PF=response.data;   
                     })
-                    .catch((error)=>{
-                        
+                    .catch((error)=>{                        
                          if (error.response) {
                             PF=error.response.data.message;
                         } else if (error.request) {
@@ -639,16 +641,18 @@ import { execn, draw } from "rendata";
                     .finally(()=>{                      
                         if(PF.id!=undefined){
                             //obj JSON with data saved
-                            personaExiste=PF;
-                            this.CleanFields();
+                            if(this.edit){
+                                this.personaExiste.idvar_persona=PF.idvar_persona;
+                            }else{
+                                this.CleanFields();
+                            }
                             swal({
                                 title: 'Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })
-                        }else{           
-                            console.log(PF)                 ;
+                        }else{                   
                             swal({
                                 title: 'Errores de confirmación',
                                 html: PF,

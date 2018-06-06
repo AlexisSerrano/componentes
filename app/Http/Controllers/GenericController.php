@@ -88,17 +88,17 @@ class GenericController extends Controller{
 				$PM=new \App\Http\Models\PersonaModel();
 			}
 			unset($pm);
-			$PM->nombres=$request->input('nombres');
-			$PM->primerAp=$request->input('primerAp');
-			$PM->segundoAp=$request->input('segundoAp');		
-			$PM->rfc=$request->input('rfc');
-			$PM->curp=$request->input('curp');
-			$PM->fechaNacimiento=$request->input('fechaNacimiento');
-			$PM->idNacionalidad=$request->input('idNacionalidad');
-			$PM->idMunicipioOrigen=$request->input('idMunicipioOrigen');
-			$PM->sexo=$request->input('sexo');
-			$PM->idEtnia=$request->input('idEtnia');
-			$PM->idLengua=$request->input('idLengua');					
+			$PM->nombres=$model['nombres'];
+			$PM->primerAp=$model['primerAp'];
+			$PM->segundoAp=$model['segundoAp'];		
+			$PM->rfc=$model['rfc'];
+			$PM->curp=$model['curp'];
+			$PM->fechaNacimiento=$model['fechaNacimiento'];
+			$PM->idNacionalidad=$model['idNacionalidad'];
+			$PM->idMunicipioOrigen=$model['idMunicipioOrigen'];
+			$PM->sexo=$model['sexo'];
+			$PM->idEtnia=$model['idEtnia'];
+			$PM->idLengua=$model['idLengua'];					
 			$PM->save();
 			if(!isset($PM->id)){
 				return "Error guardando o actualizando persona";
@@ -110,16 +110,16 @@ class GenericController extends Controller{
 			}
 			unset($vpm);
 			$VPM->idPersona=$PM->id;
-			$VPM->edad=$request->input('edad');
-			$VPM->motivoEstancia=$request->input('motivoEstancia');
-			$VPM->idOcupacion=$request->input('idOcupacion');
-			$VPM->idEstadoCivil=$request->input('idEstadoCivil');
-			$VPM->idReligion=$request->input('idReligion');
-			$VPM->idEscolaridad=$request->input('idEscolaridad');
-			$VPM->docIdentificacion=$request->input('docIdentificacion');
-			$VPM->numDocIdentificacion=$request->input('numDocIdentificacion');
-			$VPM->idInterprete=$request->input('idInterprete');
-			$VPM->alias=$request->input('alias');
+			$VPM->edad=$model['edad'];
+			$VPM->motivoEstancia=$model['motivoEstancia'];
+			$VPM->idOcupacion=$model['idOcupacion'];
+			$VPM->idEstadoCivil=$model['idEstadoCivil'];
+			$VPM->idReligion=$model['idReligion'];
+			$VPM->idEscolaridad=$model['idEscolaridad'];
+			$VPM->docIdentificacion=$model['docIdentificacion'];
+			$VPM->numDocIdentificacion=$model['numDocIdentificacion'];
+			$VPM->idInterprete=$model['idInterprete'];
+			$VPM->alias=$model['alias'];
 			$VPM->save();
 			if(!isset($VPM->id)){
 				return "Error guardando o actualizando variables persona";
@@ -130,9 +130,9 @@ class GenericController extends Controller{
 			if($am==null){
 				$am=new \App\Http\Models\aparicionesModel();
 				$am->idvar_persona=$VPM->id;
-				$am->id_carpeta=$request->input('id_carpeta');
-				$am->id_sistema=$request->input('id1');
-				$am->id_involucrado=$request->input('id2');
+				$am->id_carpeta=$model['id_carpeta'];
+				$am->id_sistema=$model['id1'];
+				$am->id_involucrado=$model['id2'];
 				$am->nuc=01234;
 				$am->confirmado=false;
 				$am->esEmpresa=false;
@@ -141,7 +141,7 @@ class GenericController extends Controller{
 			if(!isset($am->id)){
 				return "Error en el último paso";
 			}
-			return \Response::json($am->idvar_persona);
+			return $am;
 		}else{
 			return $errors;
 		}
