@@ -119,6 +119,24 @@ class PersonaController extends Controller{
 		return response()->json($data);
 	}
 
+	public function getCatalogos(){
+		$data = array(
+		'nacionalidades' => PersonaController::getNacionalidades(),
+		'estados' => PersonaController::getEstados(),
+		'etnias' => PersonaController::getEtnias(),
+		'lenguas' => PersonaController::getLenguas(),
+		'sexos' => PersonaController::getSexos(),
+		'ocupaciones' => PersonaController::getOcupaciones(),
+		'estadosciviles' => PersonaController::getEstadosCiviles(),
+		'escolaridades' => PersonaController::getEscolaridades(),
+		'religiones' => PersonaController::getReligiones(),
+		'identificaciones' => PersonaController::getIdentificaciones(),
+		'interpretes' => PersonaController::getInterpretes()
+		//'validaciones' => PersonaController::getValidaciones()
+		);
+		return response()->json($data);
+	}
+
     public function getNacionalidades(){
         $nacionalidades=NacionalidadesModel::orderBy('nombre', 'ASC')
 	    ->select('nombre','id')->get();

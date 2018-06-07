@@ -294,6 +294,9 @@ import { execn, draw } from "rendata";
                 validaciones:[],
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
+                url:'http://localhost/componentes/public'
+                // url:'http://componentes.oo'
+
             }
         },
 
@@ -310,23 +313,28 @@ import { execn, draw } from "rendata";
             }
         },
         mounted: function(){
-           this.getNacionalidades();
-           this.getEstados();
-           this.getEtnias();
-           this.getLenguas();
-           this.getSexos();
-           this.getOcupaciones();
-           this.getEstadosCiviles();
-           this.getEscolaridades();
-           this.getReligiones();
-           this.getIdentificaciones();
-           this.getInterpretes();
-           this.getValidaciones();                                
+            this.getCatalogos();                           
         },
         methods:{
+            getCatalogos: function(){
+                var urlCatalogos = this.url+'/getCatalogos';
+                axios.get(urlCatalogos).then(response => {
+                    this.nacionalidades = response.data['nacionalidades'].original
+                    this.estados = response.data['estados'].original
+                    this.etnias = response.data['etnias'].original
+                    this.lenguas = response.data['lenguas'].original
+                    this.sexos = response.data['sexos'].original
+                    this.ocupaciones = response.data['ocupaciones'].original
+                    this.estadosCiviles = response.data['estadosciviles'].original
+                    this.escolaridades = response.data['escolaridades'].original
+                    this.religiones = response.data['religiones'].original
+                    this.identificaciones = response.data['identificaciones'].original
+                    this.interpretes = response.data['interpretes'].original
+                });
+            },
             searchPersona: function(){
                 if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!=''){
-                    var urlRfcFisico = '/rfcFisico';
+                    var urlRfcFisico = this.url+'/rfcFisico';
                     axios.post(urlRfcFisico,{
                         nombres: this.nombres,
                         primerAp: this.primerAp,
@@ -334,7 +342,7 @@ import { execn, draw } from "rendata";
                         fechaNacimiento: this.fechaNacimiento
                     }).then(response =>{
                         this.rfc = response.data.res
-                        var urlBuscarPersona = '/searchPersonaFisica';
+                        var urlBuscarPersona = this.url+'/searchPersonaFisica';
                         axios.post(urlBuscarPersona,{
                             rfc: this.rfc
                         }).then(response => {
@@ -373,22 +381,10 @@ import { execn, draw } from "rendata";
                     });
                 }
             },
-            getNacionalidades: function(){
-                var urlNacionalidades = '/getNacionalidades';
-                axios.get(urlNacionalidades).then(response => {
-                    this.nacionalidades = response.data
-                });
-            },
-            getEstados: function(){
-                var urlEstados = '/getEstados';
-                axios.get(urlEstados).then(response => {
-                    this.estados = response.data
-                });
-            },
             getMunicipios: function(){
                 if(this.estado!=null){
                     // this.municipio=null
-                    var urlMunicipios = '/getMunicipios/'+this.estado.id;
+                    var urlMunicipios = this.url+'/getMunicipios/'+this.estado.id;
                     axios.get(urlMunicipios).then(response => {
                         this.municipios = response.data
                     });
@@ -397,60 +393,6 @@ import { execn, draw } from "rendata";
                     // this.municipio=null,
                     this.municipios=[]
                 }
-            },
-            getEtnias: function(){
-                var urlEtnias = '/getEtnias';
-                axios.get(urlEtnias).then(response => {
-                    this.etnias = response.data
-                });
-            },
-            getLenguas: function(){
-                var urlLenguas = '/getLenguas';
-                axios.get(urlLenguas).then(response => {
-                    this.lenguas = response.data
-                });
-            },
-            getInterpretes: function(){
-                var urlInterpretes = '/getInterpretes';
-                axios.get(urlInterpretes).then(response => {
-                    this.interpretes = response.data
-                });
-            },
-            getSexos: function(){
-                var urlSexos = '/getSexos';
-                axios.get(urlSexos).then(response => {
-                    this.sexos = response.data
-                });
-            },
-            getOcupaciones: function(){
-                var urlOcupaciones = '/getOcupaciones';
-                axios.get(urlOcupaciones).then(response => {
-                    this.ocupaciones = response.data
-                });
-            },
-            getEstadosCiviles: function(){
-                var urlEstadosCiviles = '/getEstadosCiviles';
-                axios.get(urlEstadosCiviles).then(response => {
-                    this.estadosCiviles = response.data
-                });
-            },
-            getEscolaridades: function(){
-                var urlEscolaridades = '/getEscolaridades';
-                axios.get(urlEscolaridades).then(response => {
-                    this.escolaridades = response.data
-                });
-            },
-            getReligiones: function(){
-                var urlReligiones = '/getReligiones';
-                axios.get(urlReligiones).then(response => {
-                    this.religiones = response.data
-                });
-            },
-            getIdentificaciones: function(){
-                var urlIdentificaciones = '/getIdentificaciones';
-                axios.get(urlIdentificaciones).then(response => {
-                    this.identificaciones = response.data
-                });
             },
             generarCurp: function(){
                 var sex='';
@@ -518,7 +460,7 @@ import { execn, draw } from "rendata";
                 }
             },
             getValidaciones: function(){
-                var urlValidaciones = '/api/getValidaciones';
+                var urlValidaciones = this.url+'/api/getValidaciones';
                 axios.post(urlValidaciones, {
                     id1: this.sistema,
                     id2: this.tipo,
@@ -641,7 +583,7 @@ import { execn, draw } from "rendata";
                     alias: this.alias.toUpperCase(),
                 };
                 console.log(objREST)
-                    axios.post('/api/PersonaFisica',objREST)
+                    axios.post(this.url+'/api/PersonaFisica',objREST)
                     .then((response)=>{
                         /*console.log(response)
                         if(response.status==200){
@@ -698,7 +640,7 @@ import { execn, draw } from "rendata";
                 return
             }
             let dt = {
-                url: "/api/SearchUndefined",
+                url: this.url+"/api/SearchUndefined",
                 params: {
                 columns: [
                     {name:"idPersona",show:false},

@@ -59,3 +59,8 @@ Route::get('dt', function () {
 Route::get('datoscontactos', function(){
     return view('DatosContactos');
 });
+
+
+
+
+Route::get('getCatalogos','PersonaController@getCatalogos');
