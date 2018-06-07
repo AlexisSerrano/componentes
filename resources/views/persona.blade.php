@@ -9,11 +9,18 @@
     <link href="{{asset('css/app.css')}}" rel="stylesheet" />  
 
   </head>
+  <body>
     <div id="app">
         <!--UAT-->
         <persona :sistema="1" :tipo="10"></persona>
         <!--UIPJ <persona :sistema="2" :tipo="1"></persona>-->
     </div>
+    <!--<button id="btn">console.log idvarpersona</button>-->
   </body> 
     <script src="{{asset('js/app.js')}}"></script>
+    <script>
+     /* $("#btn").click(function(){
+        console.log($("#idvarpersona").val());
+      });*/
+    </script>
 </html>

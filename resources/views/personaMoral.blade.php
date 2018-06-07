@@ -13,13 +13,13 @@
     <div id="app">
         <personamoral></personamoral>        
     </div>    
-    <button id="btn2">console.log idvarpersonamoral</button>
+    <!--<button id="btn2">console.log idvarpersonamoral</button>-->
   </body> 
 
     <script src="{{asset('js/app.js')}}"></script>
     <script>
-      $( "#btn2" ).click(function() {
+      /*$( "#btn2" ).click(function() {
         console.log($("#idvarpermoral").val());
-      });
+      });*/
     </script>
 </html>
