@@ -801,5 +801,8 @@ input{
 ::placeholder{
     text-transform: none
 }
-
+.dropdown-toggle{
+    height: 36px;
+    overflow: hidden;
+}
 </style>
