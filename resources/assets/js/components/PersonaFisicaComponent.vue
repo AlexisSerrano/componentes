@@ -605,7 +605,7 @@ import { execn, draw } from "rendata";
                 }
             },
             crearPersona: function(){
-                if(denunciado==3){
+                if(this.denunciado==3){
                     this.nombres = this.qrr
                 }
                 var PF;
