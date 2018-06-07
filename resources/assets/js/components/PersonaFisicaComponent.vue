@@ -210,6 +210,11 @@
 
                 </div>
             </div>
+
+            <div>
+                <input type="hidden" v-model="personaExiste.idvar_persona" id="idvarpersona">              
+            </div>
+
             <div class="form-row mt-3">
                 <div class="form-group col-md-5">
                     <button v-if="(denunciado!=false) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" type="submit" class="btn mr-1">Guardar</button>
@@ -652,9 +657,11 @@ import { execn, draw } from "rendata";
                     })
                     .finally(()=>{                      
                         if(PF.id!=undefined){
+                            this.personaExiste.idvar_persona=PF.idvar_persona;
+                            console.log("idvarpersona:"+this.personaExiste.idvar_persona); 
                             //obj JSON with data saved
                             if(this.edit){
-                                this.personaExiste.idvar_persona=PF.idvar_persona;
+                                this.personaExiste.idvar_persona=PF.idvar_persona;                                 
                             }else{
                                 this.CleanFields();
                             }
