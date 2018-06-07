@@ -243,7 +243,7 @@ import { execn, draw } from "rendata";
                 escolaridades: [],
                 religiones: [],
                 identificaciones: [],
-                personaExiste:'',
+                personaExiste:[],
                 nombres: '',
                 primerAp: '',
                 segundoAp: '',
@@ -294,8 +294,9 @@ import { execn, draw } from "rendata";
                 validaciones:[],
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
-                url:'http://localhost/componentes/public'
+                //url:'http://localhost/componentes/public'
                 // url:'http://componentes.oo'
+                url:''
 
             }
         },
@@ -603,7 +604,8 @@ import { execn, draw } from "rendata";
                     .finally(()=>{                      
                         if(PF.id!=undefined){
                             this.personaExiste.idvar_persona=PF.idvar_persona;
-                            console.log("idvarpersona:"+this.personaExiste.idvar_persona); 
+                            $('#idvarpersona').val(this.personaExiste.idvar_persona);
+                           // console.log("idvarpersona:"+this.personaExiste.idvar_persona); 
                             //obj JSON with data saved
                             if(this.edit){
                                 this.personaExiste.idvar_persona=PF.idvar_persona;                                 
