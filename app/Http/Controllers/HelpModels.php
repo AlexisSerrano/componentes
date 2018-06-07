@@ -198,7 +198,12 @@ class HelpModels
                 }else{
                     if($element==null){                        
                         HelpModels::MatchJSONModel($name,$jsonobj,null,$fields,$errors);
-                        $model[$name]=null;
+                        //$model[$name]=null;
+                        if(isset($jsonobj[$name]['default'])){
+                            $model[$name]=$jsonobj[$name]['default'];                                  
+                        }else{
+                            $model[$name]=null;
+                        }
                     }else{
                         HelpModels::MatchJSONModel($name,$jsonobj,$element,$fields,$errors);
                     }
