@@ -4,31 +4,31 @@
         <form v-on:submit.prevent="validateBeforeSubmit">
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') || nombreV}" id="nombre" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <label class="col-form-label col-form-label-sm" for="nombre">Nombre</label>
+                    <input  class="form-control form-control-sm" type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') || nombreV}" id="nombre" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona">
                     <span v-if="errors.has('nombre') || nombreV" class="text-danger">{{ errors.first('nombre') || nombreV[0] }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="fechaConstitucion">Fecha de constitución</label>
-                    <input type="date" class="form-control" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="Fecha de Constitucion"  v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Constitucion') || fechaConstitucionV}" @blur="searchPersona">
+                    <label class="col-form-label col-form-label-sm" for="fechaConstitucion">Fecha de constitución</label>
+                    <input class="form-control form-control-sm" type="date" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="Fecha de Constitucion"  v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Constitucion') || fechaConstitucionV}" @blur="searchPersona">
                     <span v-show="errors.has('Fecha de Constitucion') || fechaConstitucionV" class="text-danger">{{ errors.first('Fecha de Constitucion') || fechaConstitucionV }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="rfc">R.F.C</label>
-                    <input type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') || rfcV}" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required|size:12'" autocomplete="off">
+                    <label class="col-form-label col-form-label-sm" for="rfc">R.F.C</label>
+                    <input class="form-control form-control-sm" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') || rfcV}" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required|size:12'" autocomplete="off">
                     <span v-if="errors.has('rfc') || rfcV" class="text-danger">{{ errors.first('rfc') || rfcV[0] }}</span>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="telefono">Teléfono</label>
-                    <input type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('telefono') || telefonoV }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'required|numeric'" autocomplete="off">
+                    <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
+                    <input class="form-control form-control-sm" type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('telefono') || telefonoV }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'required|numeric'" autocomplete="off">
                     <span v-if="errors.has('telefono') || telefonoV" class="text-danger">{{ errors.first('telefono') || telefonoV[0] }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="representanteLegal">Representante legal</label>
-                    <input type="text" name="representanteLegal" data-vv-name="Representante Legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Representante Legal') || representanteLegalV }" id="representanteLegal" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
+                    <label class="col-form-label col-form-label-sm" for="representanteLegal">Representante legal</label>
+                    <input class="form-control form-control-sm" type="text" name="representanteLegal" data-vv-name="Representante Legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Representante Legal') || representanteLegalV }" id="representanteLegal" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
                     <span v-if="errors.has('Representante Legal') || representanteLegalV" class="text-danger">{{ errors.first('Representante Legal') || representanteLegalV[0] }}</span>
                 </div>
             </div>
@@ -37,7 +37,7 @@
             </div>
             <div class="form-row mt-3">
                 <div class="form-group col-md-5">
-                    <button type="submit" class="btn mr-1">Guardar</button>
+                    <button type="submit" class="btn btn-primary mr-1">Guardar</button>
                 </div>
             </div>
             <!-- <h1>{{personaExiste}}</h1> -->
@@ -166,32 +166,7 @@ import swal from 'sweetalert2'
     }
 </script>
 <style>
-.select{
-    font-family: inherit
-}
-.form-control:focus {
-  color: #6d6d6d;
-  background-color: #fff;
-  border-color: #828282;
-  outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);
-}
-button{
-    background-color: #424242;
-    border-color: #424242;
-    color: white;
-}
-h5{
-    color: #138c13;
-}
-.icons{
-    height: 1rem;
-    margin-bottom: 3px;
-}
 input{
     text-transform: uppercase
-}
-::placeholder{
-    text-transform: none
 }
 </style>

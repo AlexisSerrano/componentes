@@ -41163,7 +41163,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\nh5{\r\n    color: #138c13;\n}\n.icons{\r\n    height: 1rem;\r\n    margin-bottom: 3px;\n}\ninput{\r\n    text-transform: uppercase\n}\n::-webkit-input-placeholder{\r\n    text-transform: none\n}\n:-ms-input-placeholder{\r\n    text-transform: none\n}\n::-ms-input-placeholder{\r\n    text-transform: none\n}\n::placeholder{\r\n    text-transform: none\n}\n.dropdown-toggle{\r\n    height: 36px;\r\n    overflow: hidden;\n}\r\n", ""]);
+exports.push([module.i, "\n.dropdown-toggle{\r\n    height: 36px;\r\n    overflow: hidden;\n}\ninput{\r\n    text-transform: uppercase\n}\ninput.form-control{\r\n    width: 100% !important;\n}\n.dropdown{\r\n    font-family: inherit;\r\n    font-size: .875rem;\n}\r\n", ""]);
 
 // exports
 
@@ -42189,7 +42189,8 @@ var render = function() {
                             _c(
                               "label",
                               {
-                                staticClass: "form-check-label",
+                                staticClass:
+                                  "form-check-label col-form-label col-form-label-sm",
                                 staticStyle: { "padding-right": "5px" },
                                 attrs: { for: "QRR" }
                               },
@@ -42229,7 +42230,8 @@ var render = function() {
                             _c(
                               "label",
                               {
-                                staticClass: "form-check-label",
+                                staticClass:
+                                  "form-check-label col-form-label col-form-label-sm",
                                 staticStyle: { "padding-right": "5px" },
                                 attrs: { for: "conocido" }
                               },
@@ -42273,7 +42275,8 @@ var render = function() {
                             _c(
                               "label",
                               {
-                                staticClass: "form-check-label",
+                                staticClass:
+                                  "form-check-label col-form-label col-form-label-sm",
                                 staticStyle: { "padding-right": "5px" },
                                 attrs: { for: "comparecencia" }
                               },
@@ -42320,9 +42323,14 @@ var render = function() {
               _vm.denunciado == 2 ||
               (_vm.tipo != 1 && _vm.tipo != 10)
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "nombres" } }, [
-                      _vm._v("Nombres")
-                    ]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "nombres" }
+                      },
+                      [_vm._v("Nombres")]
+                    ),
                     _vm._v(" "),
                     _vm.nombresV == 1
                       ? _c("input", {
@@ -42342,7 +42350,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has("nombres")
                           },
                           attrs: {
@@ -42374,7 +42382,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has("nombres")
                           },
                           attrs: {
@@ -42411,9 +42419,14 @@ var render = function() {
               _vm._v(" "),
               _vm.denunciado == 3
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "nombres" } }, [
-                      _vm._v("Nombres")
-                    ]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "nombres" }
+                      },
+                      [_vm._v("Nombres")]
+                    ),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -42424,7 +42437,7 @@ var render = function() {
                           expression: "qrr"
                         }
                       ],
-                      staticClass: "form-control",
+                      staticClass: "form-control form-control-sm",
                       attrs: { type: "text", readonly: "" },
                       domProps: { value: _vm.qrr },
                       on: {
@@ -42443,9 +42456,14 @@ var render = function() {
               _vm.denunciado == 2 ||
               (_vm.tipo != 1 && _vm.tipo != 10)
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "primerAp" } }, [
-                      _vm._v("Primer apellido")
-                    ]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "primerAp" }
+                      },
+                      [_vm._v("Primer apellido")]
+                    ),
                     _vm._v(" "),
                     _vm.primerApV == 1
                       ? _c("input", {
@@ -42465,7 +42483,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
                               "Primer apellido"
                             )
@@ -42500,7 +42518,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
                               "Primer apellido"
                             )
@@ -42535,9 +42553,14 @@ var render = function() {
               _vm._v(" "),
               _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "segundoAp" } }, [
-                      _vm._v("Segundo apellido")
-                    ]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "segundoAp" }
+                      },
+                      [_vm._v("Segundo apellido")]
+                    ),
                     _vm._v(" "),
                     _vm.segundoApV == 1
                       ? _c("input", {
@@ -42557,7 +42580,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
                               "Segundo apellido"
                             )
@@ -42592,7 +42615,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
                               "Segundo Apellido"
                             )
@@ -42633,7 +42656,14 @@ var render = function() {
                 _vm.tipo == 11 &&
                 _vm.tipo == 12)
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "alias" } }, [_vm._v("Alias")]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "alias" }
+                      },
+                      [_vm._v("Alias")]
+                    ),
                     _vm._v(" "),
                     _vm.aliasV == 1
                       ? _c("input", {
@@ -42653,7 +42683,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has("Alias")
                           },
                           attrs: {
@@ -42688,7 +42718,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has("alias")
                           },
                           attrs: {
@@ -42724,9 +42754,14 @@ var render = function() {
             _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
               ? _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "fechaNacimiento" } }, [
-                      _vm._v("Fecha de nacimiento")
-                    ]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "fechaNacimiento" }
+                      },
+                      [_vm._v("Fecha de nacimiento")]
+                    ),
                     _vm._v(" "),
                     _vm.fechaNacimientoV == 1
                       ? _c("input", {
@@ -42744,7 +42779,7 @@ var render = function() {
                               expression: "'required'"
                             }
                           ],
-                          staticClass: "form-control",
+                          staticClass: "form-control form-control-sm",
                           class: {
                             "border border-danger": _vm.errors.has(
                               "Fecha de nacimiento"
@@ -42781,7 +42816,7 @@ var render = function() {
                               expression: "fechaNacimiento"
                             }
                           ],
-                          staticClass: "form-control",
+                          staticClass: "form-control form-control-sm",
                           class: {
                             "border border-danger": _vm.errors.has(
                               "Fecha de nacimiento"
@@ -42828,7 +42863,14 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "rfc" } }, [_vm._v("RFC")]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "rfc" }
+                      },
+                      [_vm._v("RFC")]
+                    ),
                     _vm._v(" "),
                     _vm.rfcV == 1
                       ? _c("input", {
@@ -42848,7 +42890,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has("RFC")
                           },
                           attrs: {
@@ -42880,7 +42922,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has("RFC")
                           },
                           attrs: {
@@ -42909,7 +42951,14 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-2" }, [
-                    _c("label", { attrs: { for: "edad" } }, [_vm._v("Edad")]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "edad" }
+                      },
+                      [_vm._v("Edad")]
+                    ),
                     _vm._v(" "),
                     _vm.edadV == 1
                       ? _c("input", {
@@ -42929,7 +42978,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has("edad")
                           },
                           attrs: {
@@ -42962,7 +43011,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has("edad")
                           },
                           attrs: {
@@ -42996,9 +43045,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-2" },
                     [
-                      _c("label", { attrs: { for: "sexos" } }, [
-                        _vm._v("Sexo")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "sexos" }
+                        },
+                        [_vm._v("Sexo")]
+                      ),
                       _vm._v(" "),
                       _vm.sexoV == 1
                         ? _c("v-select", {
@@ -43076,7 +43130,14 @@ var render = function() {
             _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
               ? _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "curp" } }, [_vm._v("CURP")]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "curp" }
+                      },
+                      [_vm._v("CURP")]
+                    ),
                     _vm._v(" "),
                     _vm.curpV == 1
                       ? _c("input", {
@@ -43096,7 +43157,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has("CURP")
                           },
                           attrs: {
@@ -43128,7 +43189,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has("CURP")
                           },
                           attrs: {
@@ -43161,9 +43222,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "nacionalidad" } }, [
-                        _vm._v("Nacionalidad")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "nacionalidad" }
+                        },
+                        [_vm._v("Nacionalidad")]
+                      ),
                       _vm._v(" "),
                       _vm.nacionalidadV == 1
                         ? _c("v-select", {
@@ -43240,9 +43306,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "estado" } }, [
-                        _vm._v("Entidad federativa de origen")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "estado" }
+                        },
+                        [_vm._v("Entidad federativa de origen")]
+                      ),
                       _vm._v(" "),
                       _vm.estadoV == 1
                         ? _c("v-select", {
@@ -43336,9 +43407,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "municipio" } }, [
-                        _vm._v("Municipio de origen")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "municipio" }
+                        },
+                        [_vm._v("Municipio de origen")]
+                      ),
                       _vm._v(" "),
                       _vm.municipioV == 1
                         ? _c("v-select", {
@@ -43419,9 +43495,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "etnia" } }, [
-                        _vm._v("Etnia")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "etnia" }
+                        },
+                        [_vm._v("Etnia")]
+                      ),
                       _vm._v(" "),
                       _vm.etniaV == 1
                         ? _c("v-select", {
@@ -43500,9 +43581,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "lengua" } }, [
-                        _vm._v("Lengua")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "lengua" }
+                        },
+                        [_vm._v("Lengua")]
+                      ),
                       _vm._v(" "),
                       _vm.lenguaV == 1
                         ? _c("v-select", {
@@ -43583,9 +43669,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "interprete" } }, [
-                        _vm._v("Intérprete")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "interprete" }
+                        },
+                        [_vm._v("Intérprete")]
+                      ),
                       _vm._v(" "),
                       _vm.interpreteV == 1
                         ? _c("v-select", {
@@ -43657,9 +43748,14 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "motivoEstancia" } }, [
-                      _vm._v("Motivo de estancia")
-                    ]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "motivoEstancia" }
+                      },
+                      [_vm._v("Motivo de estancia")]
+                    ),
                     _vm._v(" "),
                     _vm.motivoEstanciaV == 1
                       ? _c("input", {
@@ -43679,7 +43775,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
                               "Motivo de estancia"
                             )
@@ -43713,7 +43809,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
                               "Motivo de estancia"
                             )
@@ -43747,9 +43843,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "ocupacion" } }, [
-                        _vm._v("Ocupación")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "ocupacion" }
+                        },
+                        [_vm._v("Ocupación")]
+                      ),
                       _vm._v(" "),
                       _vm.ocupacionV == 1
                         ? _c("v-select", {
@@ -43828,9 +43929,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "estadoCivil" } }, [
-                        _vm._v("Estado civil")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "estadoCivil" }
+                        },
+                        [_vm._v("Estado civil")]
+                      ),
                       _vm._v(" "),
                       _vm.estadoCivilV == 1
                         ? _c("v-select", {
@@ -43906,9 +44012,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "escolaridad" } }, [
-                        _vm._v("Escolaridad")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "escolaridad" }
+                        },
+                        [_vm._v("Escolaridad")]
+                      ),
                       _vm._v(" "),
                       _vm.escolaridadV == 1
                         ? _c("v-select", {
@@ -43983,9 +44094,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "religion" } }, [
-                        _vm._v("Religión")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "religion" }
+                        },
+                        [_vm._v("Religión")]
+                      ),
                       _vm._v(" "),
                       _vm.religionV == 1
                         ? _c("v-select", {
@@ -44064,9 +44180,14 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c("label", { attrs: { for: "identificacion" } }, [
-                        _vm._v("Identificación")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "identificacion" }
+                        },
+                        [_vm._v("Identificación")]
+                      ),
                       _vm._v(" "),
                       _vm.identificacionV == 1
                         ? _c("v-select", {
@@ -44138,9 +44259,14 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "numIdentificacion" } }, [
-                      _vm._v("Número de identifación")
-                    ]),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "numIdentificacion" }
+                      },
+                      [_vm._v("Número de identifación")]
+                    ),
                     _vm._v(" "),
                     _vm.numIdentificacionV == 1
                       ? _c("input", {
@@ -44160,7 +44286,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
                               "Número de identificación"
                             )
@@ -44194,7 +44320,7 @@ var render = function() {
                           ],
                           class: {
                             input: true,
-                            "form-control": true,
+                            "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
                               "Número de identificación"
                             )
@@ -44234,9 +44360,14 @@ var render = function() {
                     _vm.tipo == 11 &&
                     _vm.tipo == 12)
                     ? _c("div", { staticClass: "form-group col-md-4" }, [
-                        _c("label", { attrs: { for: "alias" } }, [
-                          _vm._v("Alias")
-                        ]),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-form-label col-form-label-sm",
+                            attrs: { for: "alias" }
+                          },
+                          [_vm._v("Alias")]
+                        ),
                         _vm._v(" "),
                         _c("div", { staticClass: "row-gruop" }, [
                           _vm.aliasV == 1
@@ -44257,7 +44388,7 @@ var render = function() {
                                 ],
                                 class: {
                                   input: true,
-                                  "form-control": true,
+                                  "form-control form-control-sm": true,
                                   "border border-danger": _vm.errors.has(
                                     "Alias"
                                   )
@@ -44295,7 +44426,7 @@ var render = function() {
                                 ],
                                 class: {
                                   input: true,
-                                  "form-control": true,
+                                  "form-control form-control-sm": true,
                                   "border border-danger": _vm.errors.has(
                                     "alias"
                                   )
@@ -44377,7 +44508,10 @@ var render = function() {
                 _vm.denunciado != false || (_vm.tipo != 1 && _vm.tipo != 10)
                   ? _c(
                       "button",
-                      { staticClass: "btn mr-1", attrs: { type: "submit" } },
+                      {
+                        staticClass: "btn btn-primary mr-1",
+                        attrs: { type: "submit" }
+                      },
                       [_vm._v("Guardar")]
                     )
                   : _vm._e()
@@ -44520,7 +44654,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\nh5{\r\n    color: #138c13;\n}\n.icons{\r\n    height: 1rem;\r\n    margin-bottom: 3px;\n}\ninput{\r\n    text-transform: uppercase\n}\n::-webkit-input-placeholder{\r\n    text-transform: none\n}\n:-ms-input-placeholder{\r\n    text-transform: none\n}\n::-ms-input-placeholder{\r\n    text-transform: none\n}\n::placeholder{\r\n    text-transform: none\n}\r\n", ""]);
+exports.push([module.i, "\ninput{\r\n    text-transform: uppercase\n}\r\n", ""]);
 
 // exports
 
@@ -44720,7 +44854,14 @@ var render = function() {
       [
         _c("div", { staticClass: "form-row" }, [
           _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "nombre" } }, [_vm._v("Nombre")]),
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "nombre" }
+              },
+              [_vm._v("Nombre")]
+            ),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -44737,6 +44878,7 @@ var render = function() {
                   expression: "'required'"
                 }
               ],
+              staticClass: "form-control form-control-sm",
               class: {
                 input: true,
                 "form-control": true,
@@ -44769,9 +44911,14 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "fechaConstitucion" } }, [
-              _vm._v("Fecha de constitución")
-            ]),
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "fechaConstitucion" }
+              },
+              [_vm._v("Fecha de constitución")]
+            ),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -44788,7 +44935,7 @@ var render = function() {
                   expression: "'required'"
                 }
               ],
-              staticClass: "form-control",
+              staticClass: "form-control form-control-sm",
               class: {
                 "border border-danger":
                   _vm.errors.has("Fecha de Constitucion") ||
@@ -44840,7 +44987,14 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "rfc" } }, [_vm._v("R.F.C")]),
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "rfc" }
+              },
+              [_vm._v("R.F.C")]
+            ),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -44857,6 +45011,7 @@ var render = function() {
                   expression: "'required|size:12'"
                 }
               ],
+              staticClass: "form-control form-control-sm",
               class: {
                 input: true,
                 "form-control": true,
@@ -44890,7 +45045,14 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "form-row" }, [
           _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "telefono" } }, [_vm._v("Teléfono")]),
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "telefono" }
+              },
+              [_vm._v("Teléfono")]
+            ),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -44907,6 +45069,7 @@ var render = function() {
                   expression: "'required|numeric'"
                 }
               ],
+              staticClass: "form-control form-control-sm",
               class: {
                 input: true,
                 "form-control": true,
@@ -44941,9 +45104,14 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "representanteLegal" } }, [
-              _vm._v("Representante legal")
-            ]),
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "representanteLegal" }
+              },
+              [_vm._v("Representante legal")]
+            ),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -44960,6 +45128,7 @@ var render = function() {
                   expression: "'required'"
                 }
               ],
+              staticClass: "form-control form-control-sm",
               class: {
                 input: true,
                 "form-control": true,
@@ -45034,9 +45203,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-row mt-3" }, [
       _c("div", { staticClass: "form-group col-md-5" }, [
-        _c("button", { staticClass: "btn mr-1", attrs: { type: "submit" } }, [
-          _vm._v("Guardar")
-        ])
+        _c(
+          "button",
+          { staticClass: "btn btn-primary mr-1", attrs: { type: "submit" } },
+          [_vm._v("Guardar")]
+        )
       ])
     ])
   }
@@ -45166,7 +45337,8 @@ var render = function() {
                   _c(
                     "label",
                     {
-                      staticClass: "form-check-label",
+                      staticClass:
+                        "form-check-label col-form-label col-form-label-sm",
                       staticStyle: { "padding-right": "5px" },
                       attrs: { for: "personaFisica" }
                     },
@@ -45197,7 +45369,8 @@ var render = function() {
                   _c(
                     "label",
                     {
-                      staticClass: "form-check-label",
+                      staticClass:
+                        "form-check-label col-form-label col-form-label-sm",
                       staticStyle: { "padding-right": "5px" },
                       attrs: { for: "personaMoral" }
                     },
