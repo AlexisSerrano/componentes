@@ -29,7 +29,7 @@
              </div>
          </div> -->
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm">
-            <div class="form-row" v-if="tipo ==2 || tipo==3 || tipo==4 || tipo==10 || tipo==11 || tipo==12">
+            <div class="form-row" v-if="tipo==1 || tipo==10">
                 <div class="form-group col-md-6">
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div v-if="(denunciado==1 || denunciado==2) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" class="form-group col-md-4">
+                <div v-if="(denunciado==1 || denunciado==2) || (tipo !=1 && tipo!=10)" class="form-group col-md-4">
                     <label for="nombres">Nombres</label>
                     <input v-if="nombresV == 1" type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
                     <input v-else type="text" name="nombres" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombres') }" id="nombres" v-model="nombres" placeholder="Ingrese el nombre" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp()">
@@ -58,13 +58,13 @@
                     <label for="nombres">Nombres</label>
                     <input type="text" class=form-control v-model="qrr" readonly>
                 </div>
-                <div v-if="(denunciado==1 || denunciado==2) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" class="form-group col-md-4">
+                <div v-if="(denunciado==1 || denunciado==2) || (tipo !=1 && tipo!=10)" class="form-group col-md-4">
                     <label for="primerAp">Primer apellido</label>
                     <input v-if="primerApV == 1" type="text" name="primerAp" data-vv-name="Primer apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Primer apellido') }" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="'required'" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
                     <input v-else type="text" name="primerAp" data-vv-name="Primer Apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Primer apellido') }" id="primerAp" v-model="primerAp" placeholder="Ingrese el primer apellido" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
                     <span v-if="errors.has('Primer apellido')" class="text-danger">{{ errors.first('Primer apellido') }}</span>
                 </div>
-                <div v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" class="form-group col-md-4">
+                <div v-if="(denunciado==1) || (tipo !=1 && tipo!=10)" class="form-group col-md-4">
                     <label for="segundoAp">Segundo apellido</label>
                     <input v-if="segundoApV == 1" type="text" name="segundoAp" data-vv-name="Segundo apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Segundo apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="'required'" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
                     <input v-else type="text" name="segundoAp" data-vv-name="Segundo apellido" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Segundo Apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-           <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
+           <div class="form-row" v-if="(denunciado==1) || (tipo !=1 && tipo!=10)">
                 <div class="form-group col-md-4">
                     <label for="fechaNacimiento">Fecha de nacimiento</label>
                     <input v-if="fechaNacimientoV == 1" type="date" class="form-control" id="fechaNacimiento" v-model="fechaNacimiento" name="fechaNacimiento" data-vv-name="Fecha de nacimiento" v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de nacimiento')}" @blur="searchPersona" v-on:blur="generarCurp(),generarEdad()">
@@ -104,7 +104,7 @@
                     <span v-show="errors.has('Sexo')" class="text-danger">{{ errors.first('Sexo') }}</span>
                 </div>
             </div>
-            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
+            <div class="form-row" v-if="(denunciado==1) || (tipo !=1 && tipo!=10)">
                 <div class="form-group col-md-4">
                     <label for="curp">CURP</label>
                     <input v-if="curpV == 1" type="text" name="curp" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('CURP') }" id="curp" v-model="curp" placeholder="Ingrese el CURP" v-validate="'required'" autocomplete="off" data-vv-name="CURP">
@@ -124,7 +124,7 @@
                     <span v-show="errors.has('Entidad federativa de origen')" class="text-danger">{{ errors.first('Entidad federativa de origen') }}</span>
                 </div>
             </div>
-            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
+            <div class="form-row" v-if="(denunciado==1) || (tipo !=1 && tipo!=10)">
                 <div class="form-group col-md-4">
                     <label for="municipio">Municipio de origen</label>    
                     <v-select v-if="municipioV == 1" :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('Municipio de origen') }" placeholder="Seleccione un municipio de origen" data-vv-name="Municipio de origen"></v-select>
@@ -145,7 +145,7 @@
                 </div>
             </div>
 
-            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
+            <div class="form-row" v-if="(denunciado==1) || (tipo !=1 && tipo!=10)">
                 <div class="form-group col-md-4">
                     <label for="interprete">Intérprete</label>    
                     <v-select v-if="interpreteV == 1" :options="interpretes" label="nombre" v-model="interprete" name="interprete" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('interprete') }" placeholder="Seleccione un interprete"></v-select>
@@ -165,7 +165,7 @@
                     <span v-show="errors.has('ocupacion')" class="text-danger">{{ errors.first('ocupacion') }}</span>
                 </div>
             </div>
-            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
+            <div class="form-row" v-if="(denunciado==1) || (tipo !=1 && tipo!=10)">
                 <div class="form-group col-md-4">
                     <label for="estadoCivil">Estado civil</label>    
                     <v-select v-if="estadoCivilV == 1" :options="estadosCiviles" label="nombre" v-model="estadoCivil" name="estadoCivil" data-vv-name="Estado Civil" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('Estado Civil') }" placeholder="Seleccione un estado civil"></v-select>
@@ -186,7 +186,7 @@
                 </div>
             </div>
 
-            <div class="form-row" v-if="(denunciado==1) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)">
+            <div class="form-row" v-if="(denunciado==1) || (tipo !=1 && tipo!=10)">
                 <div class="form-group col-md-4">
                     <label for="identificacion">Identificación</label>    
                     <v-select v-if="identificacionV == 1" :options="identificaciones" label="documento" v-model="identificacion" name="identificacion" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('identificacion') }" placeholder="Seleccione una identificación"></v-select>
@@ -217,7 +217,7 @@
 
             <div class="form-row mt-3">
                 <div class="form-group col-md-5">
-                    <button v-if="(denunciado!=false) || (tipo !=2 && tipo!=3 && tipo!=4 && tipo!=10 && tipo!=11 && tipo!=12)" type="submit" class="btn mr-1">Guardar</button>
+                    <button v-if="(denunciado!=false) || (tipo !=1 && tipo!=10)" type="submit" class="btn mr-1">Guardar</button>
                 </div>
             </div>
         </form>

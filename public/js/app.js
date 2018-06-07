@@ -55345,12 +55345,7 @@ var render = function() {
             }
           },
           [
-            _vm.tipo == 2 ||
-            _vm.tipo == 3 ||
-            _vm.tipo == 4 ||
-            _vm.tipo == 10 ||
-            _vm.tipo == 11 ||
-            _vm.tipo == 12
+            _vm.tipo == 1 || _vm.tipo == 10
               ? _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "form-group col-md-6" }, [
                     _c(
@@ -55496,12 +55491,7 @@ var render = function() {
             _c("div", { staticClass: "form-row" }, [
               _vm.denunciado == 1 ||
               _vm.denunciado == 2 ||
-              (_vm.tipo != 2 &&
-                _vm.tipo != 3 &&
-                _vm.tipo != 4 &&
-                _vm.tipo != 10 &&
-                _vm.tipo != 11 &&
-                _vm.tipo != 12)
+              (_vm.tipo != 1 && _vm.tipo != 10)
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c("label", { attrs: { for: "nombres" } }, [
                       _vm._v("Nombres")
@@ -55624,12 +55614,7 @@ var render = function() {
               _vm._v(" "),
               _vm.denunciado == 1 ||
               _vm.denunciado == 2 ||
-              (_vm.tipo != 2 &&
-                _vm.tipo != 3 &&
-                _vm.tipo != 4 &&
-                _vm.tipo != 10 &&
-                _vm.tipo != 11 &&
-                _vm.tipo != 12)
+              (_vm.tipo != 1 && _vm.tipo != 10)
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c("label", { attrs: { for: "primerAp" } }, [
                       _vm._v("Primer apellido")
@@ -55721,13 +55706,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.denunciado == 1 ||
-              (_vm.tipo != 2 &&
-                _vm.tipo != 3 &&
-                _vm.tipo != 4 &&
-                _vm.tipo != 10 &&
-                _vm.tipo != 11 &&
-                _vm.tipo != 12)
+              _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c("label", { attrs: { for: "segundoAp" } }, [
                       _vm._v("Segundo apellido")
@@ -55915,13 +55894,7 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _vm.denunciado == 1 ||
-            (_vm.tipo != 2 &&
-              _vm.tipo != 3 &&
-              _vm.tipo != 4 &&
-              _vm.tipo != 10 &&
-              _vm.tipo != 11 &&
-              _vm.tipo != 12)
+            _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
               ? _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "form-group col-md-4" }, [
                     _c("label", { attrs: { for: "fechaNacimiento" } }, [
@@ -56273,13 +56246,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.denunciado == 1 ||
-            (_vm.tipo != 2 &&
-              _vm.tipo != 3 &&
-              _vm.tipo != 4 &&
-              _vm.tipo != 10 &&
-              _vm.tipo != 11 &&
-              _vm.tipo != 12)
+            _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
               ? _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "form-group col-md-4" }, [
                     _c("label", { attrs: { for: "curp" } }, [_vm._v("CURP")]),
@@ -56536,13 +56503,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.denunciado == 1 ||
-            (_vm.tipo != 2 &&
-              _vm.tipo != 3 &&
-              _vm.tipo != 4 &&
-              _vm.tipo != 10 &&
-              _vm.tipo != 11 &&
-              _vm.tipo != 12)
+            _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
               ? _c("div", { staticClass: "form-row" }, [
                   _c(
                     "div",
@@ -56789,13 +56750,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.denunciado == 1 ||
-            (_vm.tipo != 2 &&
-              _vm.tipo != 3 &&
-              _vm.tipo != 4 &&
-              _vm.tipo != 10 &&
-              _vm.tipo != 11 &&
-              _vm.tipo != 12)
+            _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
               ? _c("div", { staticClass: "form-row" }, [
                   _c(
                     "div",
@@ -57040,13 +56995,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.denunciado == 1 ||
-            (_vm.tipo != 2 &&
-              _vm.tipo != 3 &&
-              _vm.tipo != 4 &&
-              _vm.tipo != 10 &&
-              _vm.tipo != 11 &&
-              _vm.tipo != 12)
+            _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
               ? _c("div", { staticClass: "form-row" }, [
                   _c(
                     "div",
@@ -57282,13 +57231,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.denunciado == 1 ||
-            (_vm.tipo != 2 &&
-              _vm.tipo != 3 &&
-              _vm.tipo != 4 &&
-              _vm.tipo != 10 &&
-              _vm.tipo != 11 &&
-              _vm.tipo != 12)
+            _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
               ? _c("div", { staticClass: "form-row" }, [
                   _c(
                     "div",
@@ -57604,13 +57547,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "form-row mt-3" }, [
               _c("div", { staticClass: "form-group col-md-5" }, [
-                _vm.denunciado != false ||
-                (_vm.tipo != 2 &&
-                  _vm.tipo != 3 &&
-                  _vm.tipo != 4 &&
-                  _vm.tipo != 10 &&
-                  _vm.tipo != 11 &&
-                  _vm.tipo != 12)
+                _vm.denunciado != false || (_vm.tipo != 1 && _vm.tipo != 10)
                   ? _c(
                       "button",
                       { staticClass: "btn mr-1", attrs: { type: "submit" } },
