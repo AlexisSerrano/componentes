@@ -73,74 +73,52 @@ class GenericController extends Controller{
 		//BUILD VARSMODEL ANY		
 		$model=$request->all();
 		if(HelpController::JSONDBValidation($model,$request->input('id1'),$request->input('id2'),$request->input('id3'),$errors)){
-			$vpm=\App\Http\Models\VariablesPersona::find($request->input('idVariablesPersona'));
-			$idpersona=$request->input('id');
-			if(isset($vpm->items)){
-				$idpersona=$vpm->idPersona;
+			$vpm=new \App\Http\Models\VariablesPersona();
+			if($request->input('idVariablesPersona')!=null){
+				$vpm->id=$request->input('idVariablesPersona');
 			}
-			$PM=new \App\Http\Models\PersonaModel();
-			$pm=$PM::where('id',$idpersona)->first();
-			//->orWhere('curp',$request->input('curp'))
-			//->first();
-			if($pm!=null){
-				$PM=\App\Http\Models\PersonaModel::find($pm->id);				
+			$pm=new \App\Http\Models\PersonaModel();
+			if(HelpModels::IsExits($vpm)==1){
+					$pm->id=$vpm->idPersona;
 			}else{
-				$PM=new \App\Http\Models\PersonaModel();
+					$pm->nombres=$model['nombres'];
+					$pm->primerAp=$model['primerAp'];
+					$pm->segundoAp=$model['segundoAp'];		
+					$pm->rfc=$model['rfc'];
+					$pm->curp=$model['curp'];
+					$pm->fechaNacimiento=$model['fechaNacimiento'];
+					$pm->idNacionalidad=$model['idNacionalidad'];
+					$pm->idMunicipioOrigen=$model['idMunicipioOrigen'];
+					$pm->sexo=$model['sexo'];
+					$pm->idEtnia=$model['idEtnia'];
+					$pm->idLengua=$model['idLengua'];					
+					//nuevo registro para pm (probable pm)					
+					$vpm->edad=$model['edad'];
+					$vpm->motivoEstancia=$model['motivoEstancia'];
+					$vpm->idOcupacion=$model['idOcupacion'];
+					$vpm->idEstadoCivil=$model['idEstadoCivil'];
+					$vpm->idReligion=$model['idReligion'];
+					$vpm->idEscolaridad=$model['idEscolaridad'];
+					$vpm->docIdentificacion=$model['docIdentificacion'];
+					$vpm->numDocIdentificacion=$model['numDocIdentificacion'];
+					$vpm->idInterprete=$model['idInterprete'];
+					$vpm->alias=$model['alias'];
+					HelpModels::IsExits($pm);
+					HelpModels::IsExits($vpm);					
+					$pm->save();
+					$vpm->idPersona=$pm->id;
+					$vpm->save();
 			}
-			unset($pm);
-			$PM->nombres=$model['nombres'];
-			$PM->primerAp=$model['primerAp'];
-			$PM->segundoAp=$model['segundoAp'];		
-			$PM->rfc=$model['rfc'];
-			$PM->curp=$model['curp'];
-			$PM->fechaNacimiento=$model['fechaNacimiento'];
-			$PM->idNacionalidad=$model['idNacionalidad'];
-			$PM->idMunicipioOrigen=$model['idMunicipioOrigen'];
-			$PM->sexo=$model['sexo'];
-			$PM->idEtnia=$model['idEtnia'];
-			$PM->idLengua=$model['idLengua'];					
-			$PM->save();
-			if(!isset($PM->id)){
-				return "Error guardando o actualizando persona";
-			}			
-			if(isset($vpm->items)){
-				$VPM=$vpm;
-			}else{
-				$VPM=new \App\Http\Models\VariablesPersona();
-			}
-			unset($vpm);
-			$VPM->idPersona=$PM->id;
-			$VPM->edad=$model['edad'];
-			$VPM->motivoEstancia=$model['motivoEstancia'];
-			$VPM->idOcupacion=$model['idOcupacion'];
-			$VPM->idEstadoCivil=$model['idEstadoCivil'];
-			$VPM->idReligion=$model['idReligion'];
-			$VPM->idEscolaridad=$model['idEscolaridad'];
-			$VPM->docIdentificacion=$model['docIdentificacion'];
-			$VPM->numDocIdentificacion=$model['numDocIdentificacion'];
-			$VPM->idInterprete=$model['idInterprete'];
-			$VPM->alias=$model['alias'];
-			$VPM->save();
-			if(!isset($VPM->id)){
-				return "Error guardando o actualizando variables persona";
-			}
-			unset($PM);
-			$AM=new \App\Http\Models\aparicionesModel();
-			$am=$AM::where('idvar_persona',$VPM->id)->first();
-			if($am==null){
-				$am=new \App\Http\Models\aparicionesModel();
-				$am->idvar_persona=$VPM->id;
-				$am->id_carpeta=$model['id_carpeta'];
-				$am->id_sistema=$model['id1'];
-				$am->id_involucrado=$model['id2'];
-				$am->nuc=01234;
-				$am->confirmado=false;
-				$am->esEmpresa=false;
-				$am->save();					
-			}			
-			if(!isset($am->id)){
-				return "Error en el último paso";
-			}
+			$am=new \App\Http\Models\aparicionesModel();
+			$am->idvar_persona=$vpm->id;
+			$am->id_carpeta=$model['id_carpeta'];
+			$am->id_sistema=$model['id1'];
+			$am->id_involucrado=$model['id2'];
+			$am->nuc=01234;
+			$am->confirmado=false;
+			$am->esEmpresa=false;
+			HelpModels::IsExits($am,['id_sistema','id_carpeta','idvar_persona']);
+			$am->save();
 			return $am;
 		}else{
 			return $errors;

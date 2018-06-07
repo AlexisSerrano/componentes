@@ -3,22 +3,36 @@ namespace App\Http\Controllers;
 use  Illuminate\Support\Facades\DB;
 class HelpModels
 {
-    public static function IsExitsSave(&$model,$id="id"){                
+    public static function IsExits(&$model,$filters=[],$id="id"){                
         $ma=$model->toArray();
         if(isset($ma[$id])){
-            $model=$model::find($res[$id]);
-            $model->save();
-            return true;
+            $model=$model::find($ma[$id]);
+            if(isset($model->items)){
+                return 1;
+            }
+            //$model->save();
+            return 2;
         }
-        $wheres=[];
-        foreach($ma as $key=>$element){
-            $wheres[]=[$key,$element];
-        }
+        $wheres=[];        
+            if(count($filters)>0){
+                foreach($ma as $key=>$element){
+                    if(isset($filters[$key])){
+                        $wheres[]=[$key,$element];
+                    }
+                }
+            }else{
+                foreach($ma as $key=>$element){
+                    $wheres[]=[$key,$element];
+                }
+            }
         $res=$model::where($wheres)->first();
         if($res==null){
-            $model=$res;            
-            $model->save();
-            return false;
+            //$model=$res;            
+            //$model->save();
+            return 3;
+        }else{
+            return 4;
+            //$model=$model::find($ma[$id]);
         }
     }
     public static function GetJSONDB($id1,$id2,$id3){
