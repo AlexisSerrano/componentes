@@ -117,7 +117,7 @@ class GenericController extends Controller{
 			$am->nuc=01234;
 			$am->confirmado=false;
 			$am->esEmpresa=false;
-			HelpModels::IsExits($am,['id_sistema','id_carpeta','idvar_persona']);
+			HelpModels::IsExits($am,['id_sistema'=>0,'id_carpeta'=>0,'idvar_persona'=>0]);
 			$am->save();
 			return $am;
 		}else{

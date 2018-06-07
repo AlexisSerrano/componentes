@@ -13,6 +13,9 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'addDomicilio',
-        'addPersona'
+        'addPersona',
+        'rfcFisico',
+        'api/PersonaFisica',
+        'searchPersonaFisica'
     ];
 }

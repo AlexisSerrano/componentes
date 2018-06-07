@@ -16,13 +16,17 @@ class HelpModels
         $wheres=[];        
             if(count($filters)>0){
                 foreach($ma as $key=>$element){
-                    if(isset($filters[$key])){
-                        $wheres[]=[$key,$element];
+                    if($element!=null){
+                        if(isset($filters[$key])){
+                            $wheres[]=[$key,$element];
+                        }
                     }
                 }
             }else{
                 foreach($ma as $key=>$element){
-                    $wheres[]=[$key,$element];
+                    if($element!=null){
+                        $wheres[]=[$key,$element];
+                    }
                 }
             }
         $res=$model::where($wheres)->first();
@@ -31,6 +35,7 @@ class HelpModels
             //$model->save();
             return 3;
         }else{
+            $model=$model::find($res->id);
             return 4;
             //$model=$model::find($ma[$id]);
         }
