@@ -605,6 +605,9 @@ import { execn, draw } from "rendata";
                 }
             },
             crearPersona: function(){
+                if(denunciado==3){
+                    this.nombres = this.qrr
+                }
                 var PF;
                 var objREST={
                     id1: this.sistema,
