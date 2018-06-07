@@ -243,7 +243,7 @@ import { execn, draw } from "rendata";
                 escolaridades: [],
                 religiones: [],
                 identificaciones: [],
-                personaExiste:[],
+                personaExiste:'',
                 nombres: '',
                 primerAp: '',
                 segundoAp: '',
@@ -530,8 +530,6 @@ import { execn, draw } from "rendata";
                 this.numIdentificacion='',
                 this.alias='',
                 this.$validator.reset();
-                this.personaExiste=[];
-                
             },
             isexits:function(value,defaultv){
                 switch(value){
