@@ -83,7 +83,7 @@ class ligadosSeeder extends Seeder
                     '"required":true'.
                 '},"default":1234567890},'.
                 '"alias":{"rules":{'.
-                    '"required":true'.
+                    '"required":false'.
                 '},"default":"WIL"},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
@@ -248,7 +248,7 @@ class ligadosSeeder extends Seeder
                 '},"default":"BURGOS"},'.
                 '"segundoAp":{"rules":{'.
                     '"required":false'.
-                '},"default":"BURGOS"},'.
+                '},"default":"MORALES"},'.
                 '"rfc":{"rules":{'.
                     '"required":false,'.
                     '"rfc":true'.
@@ -379,7 +379,7 @@ class ligadosSeeder extends Seeder
                     '"required":true'.
                 '},"default":1234567890},'.
                 '"alias":{"rules":{'.
-                    '"required":true'.
+                    '"required":false'.
                 '},"default":"WIL"},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
@@ -544,7 +544,7 @@ class ligadosSeeder extends Seeder
                 '},"default":"BURGOS"},'.
                 '"segundoAp":{"rules":{'.
                     '"required":false'.
-                '},"default":"BURGOS"},'.
+                '},"default":"MORALES"},'.
                 '"rfc":{"rules":{'.
                     '"required":false,'.
                     '"rfc":true'.

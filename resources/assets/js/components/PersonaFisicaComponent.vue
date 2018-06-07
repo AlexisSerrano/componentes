@@ -551,6 +551,9 @@ import { execn, draw } from "rendata";
                 if(this.denunciado==3){
                     this.nombres = this.qrr
                 }
+                if(this.tipo==4){
+                    this.denunciado = 1
+                }
                 var PF;
                 var objREST={
                     id1: this.sistema,
@@ -582,6 +585,9 @@ import { execn, draw } from "rendata";
                     alias: this.alias.toUpperCase(),
                 };
                 console.log(objREST)
+                //console.log("this.tipo: "+this.tipo)
+                //console.log("this.denunciado: "+this.denunciado)
+                //console.log("TOT: "+(parseInt(this.tipo)+parseInt(this.denunciado)-1))
                     axios.post(this.url+'/api/PersonaFisica',objREST)
                     .then((response)=>{
                         /*console.log(response)

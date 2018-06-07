@@ -12,7 +12,7 @@
   <body>
     <div id="app">
         <!--UAT-->
-        <persona :sistema="1" :tipo="10"></persona>
+        <persona :sistema="2" :tipo="4"></persona>
         <!--UIPJ <persona :sistema="2" :tipo="1"></persona>-->
     </div>
     <!--<button id="btn">console.log idvarpersona</button>-->
