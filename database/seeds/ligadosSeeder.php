@@ -20,21 +20,21 @@ class ligadosSeeder extends Seeder
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"WILBERT"},'.
                 '"primerAp":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"BURGOS"},'.
                 '"segundoAp":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"MORALES"},'.
                 '"rfc":{"rules":{'.
                     '"required":true,'.
                     '"rfc":true'.
-                '}},'.
+                '},"default":"BUMW9503306M6"},'.
                 '"curp":{"rules":{'.
                     '"required":true,'.
                     '"curp":true'.
-                '}},'.
+                '},"default":"BUMW950330HVZRRL03"},'.
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
@@ -42,73 +42,73 @@ class ligadosSeeder extends Seeder
                 '"edad":{"rules":{'.
                     '"required":false,'.
                     '"number":true'.
-                '}},'.
+                '},"default":23},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEdoOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":30},'.
                 '"idMunicipioOrigen":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":87},'.
                 '"sexo":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"idEtnia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idLengua":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":70},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"TRABAJO"},'.
                 '"idOcupacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":2300},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"idReligion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"idEscolaridad":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":8},'.
                 '"docIdentificacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"numDocIdentificacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1234567890},'.
                 '"alias":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"WIL"},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}}'.
+                '},"default":1}'.
             '}'],
             //COMPARECENCIA UIPJ
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>10,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"WILBERT"},'.
                 '"primerAp":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"BURGOS"},'.
                 '"segundoAp":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"MORALES"},'.
                 '"rfc":{"rules":{'.
                     '"required":true,'.
                     '"rfc":true'.
-                '}},'.
+                '},"default":"BUMW9503306M6"},'.
                 '"curp":{"rules":{'.
                     '"required":true,'.
                     '"curp":true'.
-                '}},'.
+                '},"default":"BUMW950330HVZRRL03"},'.
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
@@ -116,73 +116,73 @@ class ligadosSeeder extends Seeder
                 '"edad":{"rules":{'.
                     '"required":false,'.
                     '"number":true'.
-                '}},'.
+                '},"default":23},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEdoOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":30},'.
                 '"idMunicipioOrigen":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":87},'.
                 '"sexo":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":3},'.
                 '"idEtnia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idLengua":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":70},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"TRABAJO"},'.
                 '"idOcupacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":2300},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"idReligion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"idEscolaridad":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":8},'.
                 '"docIdentificacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"numDocIdentificacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1234567890},'.
                 '"alias":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"MUÑECO"},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}}'.
+                '},"default":1}'.
             '}'],
             //CONOCIDO UIPJ
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>11,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"WILBERT"},'.
                 '"primerAp":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"BURGOS"},'.
                 '"segundoAp":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"MORALES"},'.
                 '"rfc":{"rules":{'.
                     '"required":false,'.
                     '"rfc":true'.
-                '}},'.
+                '},"default":"BUMW9503306M6"},'.
                 '"curp":{"rules":{'.
                     '"required":false,'.
                     '"curp":true'.
-                '}},'.
+                '},"default":"BUMW950330HVZRRL03"},'.
                 '"fechaNacimiento":{"rules":{'.
                     '"required":false,'.
                     '"date":true'.
@@ -190,52 +190,52 @@ class ligadosSeeder extends Seeder
                 '"edad":{"rules":{'.
                     '"required":false,'.
                     '"number":true'.
-                '}},'.
+                '},"default":23},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEdoOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":30},'.
                 '"idMunicipioOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":87},'.
                 '"sexo":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEtnia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idLengua":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":70},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"TRABAJO"},'.
                 '"idOcupacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":2300},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idReligion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEscolaridad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":8},'.
                 '"docIdentificacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"numDocIdentificacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1234567890},'.
                 '"alias":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"WIL"},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}}'.
+                '},"default":1}'.
             '}'],
             //QRR UIPJ
             ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>12,"config"=>
@@ -245,18 +245,18 @@ class ligadosSeeder extends Seeder
                 '}},'.
                 '"primerAp":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"BURGOS"},'.
                 '"segundoAp":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"BURGOS"},'.
                 '"rfc":{"rules":{'.
                     '"required":false,'.
                     '"rfc":true'.
-                '}},'.
+                '},"default":"BUMW9503306M6"},'.
                 '"curp":{"rules":{'.
                     '"required":false,'.
                     '"curp":true'.
-                '}},'.
+                '},"default":"BUMW950330HVZRRL03"},'.
                 '"fechaNacimiento":{"rules":{'.
                     '"required":false,'.
                     '"date":true'.
@@ -264,73 +264,73 @@ class ligadosSeeder extends Seeder
                 '"edad":{"rules":{'.
                     '"required":false,'.
                     '"number":true'.
-                '}},'.
+                '},"default":23},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEdoOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":30},'.
                 '"idMunicipioOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":87},'.
                 '"sexo":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEtnia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idLengua":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":70},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"TRABAJO"},'.
                 '"idOcupacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":2300},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idReligion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEscolaridad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":8},'.
                 '"docIdentificacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"numDocIdentificacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1234567890},'.
                 '"alias":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"WIL"},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}}'.
+                '},"default":1}'.
             '}'],
             //VICTIMA U OFENDIDO UAT
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>4,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"WILBERT"},'.
                 '"primerAp":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"BURGOS"},'.
                 '"segundoAp":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"MORALES"},'.
                 '"rfc":{"rules":{'.
                     '"required":true,'.
                     '"rfc":true'.
-                '}},'.
+                '},"default":"BUMW9503306M6"},'.
                 '"curp":{"rules":{'.
                     '"required":true,'.
                     '"curp":true'.
-                '}},'.
+                '},"default":"BUMW950330HVZRRL03"},'.
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
@@ -338,73 +338,73 @@ class ligadosSeeder extends Seeder
                 '"edad":{"rules":{'.
                     '"required":false,'.
                     '"number":true'.
-                '}},'.
+                '},"default":23},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEdoOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":30},'.
                 '"idMunicipioOrigen":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":87},'.
                 '"sexo":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"idEtnia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idLengua":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":70},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"TRABAJO"},'.
                 '"idOcupacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":2300},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"idReligion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"idEscolaridad":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":8},'.
                 '"docIdentificacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"numDocIdentificacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1234567890},'.
                 '"alias":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"WIL"},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}}'.
+                '},"default":1}'.
             '}'],
             //COMPARECENCIA UAT
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>1,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"WILBERT"},'.
                 '"primerAp":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"BURGOS"},'.
                 '"segundoAp":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"MORALES"},'.
                 '"rfc":{"rules":{'.
                     '"required":true,'.
                     '"rfc":true'.
-                '}},'.
+                '},"default":"BUMW9503306M6"},'.
                 '"curp":{"rules":{'.
                     '"required":true,'.
                     '"curp":true'.
-                '}},'.
+                '},"default":"BUMW950330HVZRRL03"},'.
                 '"fechaNacimiento":{"rules":{'.
                     '"required":true,'.
                     '"date":true'.
@@ -412,73 +412,73 @@ class ligadosSeeder extends Seeder
                 '"edad":{"rules":{'.
                     '"required":false,'.
                     '"number":true'.
-                '}},'.
+                '},"default":23},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEdoOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":30},'.
                 '"idMunicipioOrigen":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":87},'.
                 '"sexo":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":3},'.
                 '"idEtnia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idLengua":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":70},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"TRABAJO"},'.
                 '"idOcupacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":2300},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"idReligion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"idEscolaridad":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":8},'.
                 '"docIdentificacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1},'.
                 '"numDocIdentificacion":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":1234567890},'.
                 '"alias":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"MUÑECO"},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}}'.
+                '},"default":1}'.
             '}'],
             //CONOCIDO UAT
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>2,"config"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"WILBERT"},'.
                 '"primerAp":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"BURGOS"},'.
                 '"segundoAp":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"MORALES"},'.
                 '"rfc":{"rules":{'.
                     '"required":false,'.
                     '"rfc":true'.
-                '}},'.
+                '},"default":"BUMW9503306M6"},'.
                 '"curp":{"rules":{'.
                     '"required":false,'.
                     '"curp":true'.
-                '}},'.
+                '},"default":"BUMW950330HVZRRL03"},'.
                 '"fechaNacimiento":{"rules":{'.
                     '"required":false,'.
                     '"date":true'.
@@ -486,52 +486,52 @@ class ligadosSeeder extends Seeder
                 '"edad":{"rules":{'.
                     '"required":false,'.
                     '"number":true'.
-                '}},'.
+                '},"default":23},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEdoOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":30},'.
                 '"idMunicipioOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":87},'.
                 '"sexo":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEtnia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idLengua":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":70},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"TRABAJO"},'.
                 '"idOcupacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":2300},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idReligion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEscolaridad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":8},'.
                 '"docIdentificacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"numDocIdentificacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1234567890},'.
                 '"alias":{"rules":{'.
                     '"required":true'.
-                '}},'.
+                '},"default":"WIL"},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}}'.
+                '},"default":1}'.
             '}'],
             //QRR UAT
             ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>3,"config"=>
@@ -541,18 +541,18 @@ class ligadosSeeder extends Seeder
                 '}},'.
                 '"primerAp":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"BURGOS"},'.
                 '"segundoAp":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"BURGOS"},'.
                 '"rfc":{"rules":{'.
                     '"required":false,'.
                     '"rfc":true'.
-                '}},'.
+                '},"default":"BUMW9503306M6"},'.
                 '"curp":{"rules":{'.
                     '"required":false,'.
                     '"curp":true'.
-                '}},'.
+                '},"default":"BUMW950330HVZRRL03"},'.
                 '"fechaNacimiento":{"rules":{'.
                     '"required":false,'.
                     '"date":true'.
@@ -560,52 +560,52 @@ class ligadosSeeder extends Seeder
                 '"edad":{"rules":{'.
                     '"required":false,'.
                     '"number":true'.
-                '}},'.
+                '},"default":23},'.
                 '"idNacionalidad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEdoOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":30},'.
                 '"idMunicipioOrigen":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":87},'.
                 '"sexo":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEtnia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idLengua":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":70},'.
                 '"motivoEstancia":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"TRABAJO"},'.
                 '"idOcupacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":2300},'.
                 '"idEstadoCivil":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idReligion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"idEscolaridad":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":8},'.
                 '"docIdentificacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1},'.
                 '"numDocIdentificacion":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":1234567890},'.
                 '"alias":{"rules":{'.
                     '"required":false'.
-                '}},'.
+                '},"default":"WIL"},'.
                 '"idInterprete":{"rules":{'.
                     '"required":false'.
-                '}}'.
+                '},"default":1}'.
             '}'],
         ]);
     }
