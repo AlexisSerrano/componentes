@@ -63,7 +63,7 @@ import swal from 'sweetalert2'
                 representanteLegalV:'',                
                 idPersonaMoral:'',
                 idVarPersonaMoral:'',
-                url:'http://localhost/componentes/public'
+                url:''
             }
         },
         props:{

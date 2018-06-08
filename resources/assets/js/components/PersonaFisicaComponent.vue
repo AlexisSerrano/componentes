@@ -73,7 +73,7 @@
                <div v-if="(denunciado==2) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="alias">Alias</label>                    
                     <div class="row-gruop">
-                        <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="search()" style="width:12em;">
+                        <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="alias" v-on:blur="search()" style="width:12em;">
                         <input v-else type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="search()" style="width:12em;">                                                          
                         <div style="cursor:pointer"> <span class="badge badge-dark" id="match" v-on:click="search(1)"></span></div>
                     </div>
@@ -90,9 +90,9 @@
                 </div>
                 <div class="form-group col-md-1">
                     <label class="col-form-label col-form-label-sm" for="edad">Edad</label>
-                    <input v-if="edadV == 1" type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') }" id="edad" v-model="edad" placeholder="Edad" v-validate="'required'" data-vv-name="Edad">
-                    <input v-else type="number"  min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') }" id="edad" v-model="edad" placeholder="Edad" data-vv-name="Edad">
-                    <span v-if="errors.has('Edad')" class="text-danger">{{ errors.first('Edad') }}</span>
+                    <input v-if="edadV == 1" type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') }" id="edad" v-model="edad" placeholder="Edad" v-validate="'required'" data-vv-name="edad">
+                    <input v-else type="number"  min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') }" id="edad" v-model="edad" placeholder="Edad" data-vv-name="edad">
+                    <span v-if="errors.has('edad')" class="text-danger">{{ errors.first('edad') }}</span>
                 </div>
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="sexos">Sexo</label>    
@@ -103,9 +103,9 @@
 
                 <div class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="estado">Entidad federativa de origen</label>    
-                    <v-select v-if="estadoV == 1" :options="estados" label="nombre" data-vv-name="Entidad federativa de origen" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('Entidad federativa de origen') }" placeholder="Seleccione una entidad federativa de origen"></v-select>
-                    <v-select v-else :options="estados" label="nombre" data-vv-name="Entidad federativa de origen" v-model="estado" name="estado" @input="getMunicipios" :class="{ 'border border-danger rounded': errors.has('Entidad federativa de origen') }" placeholder="Seleccione una entidad federativa de origen"></v-select>
-                    <span v-show="errors.has('Entidad federativa de origen')" class="text-danger">{{ errors.first('Entidad federativa de origen') }}</span>
+                    <v-select v-if="estadoV == 1" :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') }" placeholder="Seleccione una entidad federativa de origen"></v-select>
+                    <v-select v-else :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" name="estado" @input="getMunicipios" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') }" placeholder="Seleccione una entidad federativa de origen"></v-select>
+                    <span v-show="errors.has('entidad federativa de origen')" class="text-danger">{{ errors.first('entidad federativa de origen') }}</span>
                 </div>
             </div>
             <div class="form-row" v-if="(denunciado==1) || (tipo !=1 && tipo!=10)">
