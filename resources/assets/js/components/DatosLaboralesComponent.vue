@@ -3,10 +3,25 @@
         <form v-on:submit.prevent="validateBeforeSubmit">
             <div class="form-row">
                 <div class="form-group col-md-4">
+                    <label for="lugarTrabajo">Lugar de trabajo</label>
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Lugar de Trabajo') || lugarTrabajoV}" id="lugarTrabajo" data-vv-name="Lugar de Trabajo" name="lugarTrabajo" v-validate="'required'" v-model="lugarTrabajo" placeholder="Ingrese el lugar de trabajo" autocomplete="off">
+                    <span v-if="errors.has('Lugar de Trabajo') || lugarTrabajoV" class="text-danger">{{ errors.first('Lugar de Trabajo') || lugarTrabajoV[0]}}</span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('telefono') || telefonoV}" id="telefono" name="telefono" v-validate="'required|numeric'" v-model="telefono" placeholder="Ingrese el teléfono"  autocomplete="off">
+                    <span v-if="errors.has('telefono') || telefonoV" class="text-danger">{{ errors.first('telefono') || telefonoV[0]}}</span>
+                </div>
+
+                <div class="form-group col-md-4">
                     <label for="estado">Entidad federativa</label>    
                     <v-select :options="estados" label="nombre" data-vv-name="entidad federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('entidad federativa') }" placeholder="Seleccione una entidad federativa"></v-select>
                     <span v-show="errors.has('entidad federativa')" class="text-danger">{{ errors.first('entidad federativa') }}</span>
                 </div>
+
+            </div>
+            <div class="form-row">                
                 <div class="form-group col-md-4">
                     <label for="municipio">Municipio</label>  
                     <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || municipioV}" placeholder="Seleccione un municipio"></v-select>
@@ -17,15 +32,15 @@
                     <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') || localidadV}" placeholder="Seleccione una localidad"></v-select>
                     <span v-show="errors.has('localidad')|| localidadV" class="text-danger">{{ errors.first('localidad') || localidadV[0]}}</span>
                 </div>
-            </div>
-
-
-            <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="cp">Código postal</label>    
                     <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias"  v-validate="'required'" data-vv-name="código postal" :class="{ 'border border-danger': errors.has('código postal') }" placeholder="Seleccione un código postal"></v-select>
                     <span v-show="errors.has('código postal')" class="text-danger">{{ errors.first('código postal') }}</span>
                 </div>
+            </div>
+
+
+            <div class="form-row">                
                 <div class="form-group col-md-4">
                     <label for="colonia">Colonia</label>    
                     <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia"  v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia')|| coloniaV }" placeholder="Seleccione una colonia"></v-select>
@@ -36,36 +51,26 @@
                     <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('calle') || calleV}" id="calle" name="calle" v-validate="'required'" v-model="calle" placeholder="Ingrese la calle"  autocomplete="off">
                     <span v-if="errors.has('calle') || calleV" class="text-danger">{{ errors.first('calle') || calleV[0]}}</span>
                 </div>
-            </div>
-
-            <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="numExterno">Número externo</label>
                     <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('número externo') || numExternoV}" id="numExterno" data-vv-name="número externo" name="numExterno" v-validate="'required'" v-model="numExterno" placeholder="Ingrese el número externo"  autocomplete="off">
                     <span v-if="errors.has('número externo') || numExternoV" class="text-danger">{{ errors.first('número externo') || numExternoV[0]}}</span>
                 </div>
+            </div>
+
+            <div class="form-row">                
                 <div class="form-group col-md-4">
                     <label for="numInterno">Número interno</label>
                     <input type="text" class="input form-control" id="numInterno" name="numInterno" v-model="numInterno" placeholder="Ingrese el número interno" autocomplete="off">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="telefono">Teléfono</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('teléfono') || telefonoV}" data-vv-name="teléfono" id="telefono" name="telefono" v-validate="'required|numeric'" v-model="telefono" placeholder="Ingrese el teléfono"  autocomplete="off">
-                    <span v-if="errors.has('teléfono') || telefonoV" class="text-danger">{{ errors.first('teléfono') || telefonoV[0]}}</span>
-                </div>
+                </div>                
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="lugarTrabajo">Lugar de trabajo</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('lugar de trabajo') || lugarTrabajoV}" id="lugarTrabajo" data-vv-name="lugar de trabajo" name="lugarTrabajo" v-validate="'required'" v-model="lugarTrabajo" placeholder="Ingrese el lugar de trabajo" autocomplete="off">
-                    <span v-if="errors.has('lugar de trabajo') || lugarTrabajoV" class="text-danger">{{ errors.first('lugar de trabajo') || lugarTrabajoV[0]}}</span>
-                </div>
-                <div class="form-group col-md-4">
+            <div class="form-row">                
+                <!--<div class="form-group col-md-4">
                     <label for="telefonoTrabajo">Teléfono de trabajo</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('teléfono de trabajo') || telefonoTrabajoV}" id="telefonoTrabajo" data-vv-name="teléfono de trabajo" name="telefonoTrabajo" v-validate="'required|numeric'" v-model="telefonoTrabajo" placeholder="Ingrese el teléfono de trabajo" autocomplete="off">
-                    <span v-if="errors.has('teléfono de trabajo') || telefonoTrabajoV" class="text-danger">{{ errors.first('teléfono de trabajo') || telefonoTrabajoV[0]}}</span>
-                </div>
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Télefono de Trabajo') || telefonoTrabajoV}" id="telefonoTrabajo" data-vv-name="Télefono de Trabajo" name="telefonoTrabajo" v-validate="'required|numeric'" v-model="telefonoTrabajo" placeholder="Ingrese el teléfono de trabajo" autocomplete="off">
+                    <span v-if="errors.has('Télefono de Trabajo') || telefonoTrabajoV" class="text-danger">{{ errors.first('Télefono de Trabajo') || telefonoTrabajoV[0]}}</span>
+                </div>-->
             </div>
 
             <!-- <h1>{{(estado!=null)?estado.id:estado}}</h1> -->

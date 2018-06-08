@@ -60,6 +60,10 @@ Route::get('datoscontactos', function(){
     return view('DatosContactos');
 });
 
+Route::get('resumen', function(){
+    return view('resumen');
+});
+
 
 
 
