@@ -148,7 +148,7 @@ export default{
             tipoRed:null,
             tipoRedes:[],
             tRed:'',
-            idPersona:1
+            idPersona:3
         }
     },
     mounted: function () {
@@ -191,6 +191,15 @@ export default{
             });
         },
         creardct: function(){
+            let pass=true;
+            for(let tel of this.telefonos){
+                console.log(tel.valor,this.numero)
+                if(tel.valor==this.numero){
+                    pass=false;
+                    break;
+                }
+            }
+            if(pass){
             var urlCrear = '/api/adddc';
             axios.post(urlCrear,{
                 idPersona:this.idPersona,
@@ -206,8 +215,7 @@ export default{
                     type: 'success',
                     confirmButtonText: 'Ok'
                 })
-            }).catch((error)=>{
-                console.log(error);
+            }).catch((error)=>{                
                 swal({
                 title: 'Guardado incorrecto!',
                 text: 'La dirección telefónica es imposible de guardar',
@@ -215,6 +223,14 @@ export default{
                 confirmButtonText: 'Ok'
                 })
             });
+            }else{
+                swal({
+                title: 'Guardado incorrecto!',
+                text: 'telefono ya existe',
+                type: 'error',
+                confirmButtonText: 'Ok'
+                })
+            }
         },
         creardcc: function(){
             var urlCrear = '/api/adddc';
