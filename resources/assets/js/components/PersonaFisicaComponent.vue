@@ -3,7 +3,7 @@
 
         <!-- Modal -->
        <div class="modal fade" id="myModal" role="dialog">
-           <div class="modal-dialog">
+           <div class="modal-dialog modal-lg">
            
            <!-- Modal content-->
            <div class="modal-content">
@@ -70,10 +70,13 @@
                     <input v-else type="text" name="segundoAp" data-vv-name="Segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Segundo Apellido') }" id="segundoAp" v-model="segundoAp" placeholder="Ingrese el segundo apellido" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
                     <span v-if="errors.has('Segundo apellido')" class="text-danger">{{ errors.first('Segundo apellido') }}</span>
                 </div>
-                <div v-if="(denunciado==2) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
+               <div v-if="(denunciado==2) || (tipo ==2 && tipo==3 && tipo==4 && tipo==10 && tipo==11 && tipo==12)" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="alias">Alias</label>                    
-                    <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="search()">
-                    <input v-else type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="search()" >                    
+                    <div class="row-gruop">
+                        <input v-if="aliasV == 1" type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off" data-vv-name="Alias" v-on:blur="search()" style="width:12em;">
+                        <input v-else type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias') }" id="alias" v-model="alias" placeholder="Ingrese el alias" autocomplete="off" v-on:blur="search()" style="width:12em;">                                                          
+                        <div style="cursor:pointer"> <span class="badge badge-dark" id="match" v-on:click="search(1)"></span></div>
+                    </div>
                     <span v-if="errors.has('Alias')" class="text-danger">{{ errors.first('Alias') }}</span>
                 </div>
             </div>
@@ -682,7 +685,7 @@ import { execn, draw } from "rendata";
             title: "Opciones",
             links: [
                 {
-                text: "consola",
+                text: "Cragar datos",
                 func: function(obj) {
                     console.log(obj);
                 }
