@@ -13,15 +13,15 @@ class datos_contacto_tipos extends Seeder
     {
         //
         DB::table('datos_contacto_tipos')->insert([
-            ['sub'=>'red','tipo'=>'linkedin'],
-            ['sub'=>'red','tipo'=>'facebook'],
-            ['sub'=>'red','tipo'=>'twitrer'],
-            ['sub'=>'telefono','tipo'=>'casa'],
-            ['sub'=>'telefono','tipo'=>'trabajo'],
-            ['sub'=>'telefono','tipo'=>'mobil'],
-            ['sub'=>'telefono','tipo'=>'fax'],
-            ['sub'=>'correo','tipo'=>'personal'],
-            ['sub'=>'correo','tipo'=>'laboral']
+            ['sub'=>'red','tipo'=>'Linkedin'],
+            ['sub'=>'red','tipo'=>'Facebook'],
+            ['sub'=>'red','tipo'=>'Twitter'],
+            ['sub'=>'telefono','tipo'=>'Casa'],
+            ['sub'=>'telefono','tipo'=>'Trabajo'],
+            ['sub'=>'telefono','tipo'=>'Movil'],
+            ['sub'=>'telefono','tipo'=>'Fax'],
+            ['sub'=>'correo','tipo'=>'Personal'],
+            ['sub'=>'correo','tipo'=>'Laboral']
         ]);
     }
 }
