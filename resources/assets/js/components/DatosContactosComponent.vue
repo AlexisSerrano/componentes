@@ -3,7 +3,7 @@
     <form>
         <div class="form-row">
             <div class="form-group">
-                <label for="telefonos">Telefonos <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalTelefonos">+</span></label>
+                <label for="telefonos">Teléfonos <span type="button" class="badge badge-secondary" style="cursor:pointer" data-toggle="modal" data-target="#ModalTelefonos">+</span></label>
                 <div class="row">
                     <div v-for="t in telefonos" :key="t.id" class="col-sm" style="margin-bottom:5px; margin-right:-10px">
                         <span  class="btn-group " >
@@ -201,16 +201,16 @@ export default{
                 this.limpiaCampos()
                 $('#ModalTelefonos').modal('hide');
                 swal({
-                    title: 'Guardado correctamente!',
-                    text: 'Dirección telefónica agregada exitosamente',
+                    title: '¡Guardado correctamente!',
+                    text: 'Dirección telefónica agregada exitosamente.',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 })
             }).catch((error)=>{
                 console.log(error);
                 swal({
-                title: 'Guardado incorrecto!',
-                text: 'La dirección telefónica es imposible de guardar',
+                title: '¡Guardado incorrecto!',
+                text: 'La dirección telefónica es imposible de guardar.',
                 type: 'error',
                 confirmButtonText: 'Ok'
                 })
@@ -227,8 +227,8 @@ export default{
                 this.limpiaCampos();
                 $('#ModalCorreos').modal('hide');
                 swal({
-                    title: 'Guardado correctamente!',
-                    text: 'Correo electrónico agregado exitosamente',
+                    title: '¡Guardado correctamente!',
+                    text: 'Correo electrónico agregado exitosamente.',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 })
@@ -236,8 +236,8 @@ export default{
             }).catch((error)=>{
                 console.log(error.data);
                 swal({
-                title: 'Guardado incorrecto!',
-                text: 'El correo electrónico es imposible de agregar',
+                title: '¡Guardado incorrecto!',
+                text: 'El correo electrónico es imposible de agregar.',
                 type: 'error',
                 confirmButtonText: 'Ok'
                 })
@@ -254,16 +254,16 @@ export default{
                 this.limpiaCampos();
                 $('#ModalRedes').modal('hide');
                 swal({
-                    title: 'Guardado correctamente!',
-                    text: 'Red social agregado exitosamente',
+                    title: '¡Guardado correctamente!',
+                    text: 'Red social agregado exitosamente.',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
             }).catch((error)=>{
                 console.log(error.response.data.errors);
                 swal({
-                title: 'Guardado incorrecto!',
-                text: 'La red social es imposible de agregar',
+                title: '¡Guardado incorrecto!',
+                text: 'La red social es imposible de agregar.',
                 type: 'error',
                 confirmButtonText: 'Ok'
                 })

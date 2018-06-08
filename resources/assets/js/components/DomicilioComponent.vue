@@ -4,8 +4,8 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="estado">Entidad federativa</label>    
-                    <v-select :options="estados" label="nombre" data-vv-name="Entidad Federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('Entidad Federativa') }" placeholder="Seleccione una entidad federativa"></v-select>
-                    <span v-show="errors.has('Entidad Federativa')" class="text-danger">{{ errors.first('Entidad Federativa') }}</span>
+                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('entidad federativa') }" placeholder="Seleccione una entidad federativa"></v-select>
+                    <span v-show="errors.has('entidad federativa')" class="text-danger">{{ errors.first('entidad federativa') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="municipio">Municipio</label>  
@@ -23,8 +23,8 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="cp">Código postal</label>    
-                    <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias"  v-validate="'required'" data-vv-name="codigo postal" :class="{ 'border border-danger': errors.has('codigo postal') }" placeholder="Seleccione un código postal"></v-select>
-                    <span v-show="errors.has('codigo postal')" class="text-danger">{{ errors.first('codigo postal') }}</span>
+                    <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias"  v-validate="'required'" data-vv-name="código postal" :class="{ 'border border-danger': errors.has('código postal') }" placeholder="Seleccione un código postal"></v-select>
+                    <span v-show="errors.has('código postal')" class="text-danger">{{ errors.first('código postal') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="colonia">Colonia</label>    
@@ -41,8 +41,8 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="numExterno">Número externo</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Numero Externo') || numExternoV}" id="numExterno" data-vv-name="Numero Externo" name="numExterno" v-validate="'required'" v-model="numExterno" placeholder="Ingrese el número externo"  autocomplete="off">
-                    <span v-if="errors.has('Numero Externo') || numExternoV" class="text-danger">{{ errors.first('Numero Externo') || numExternoV[0]}}</span>
+                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('número externo') || numExternoV}" id="numExterno" data-vv-name="número externo" name="numExterno" v-validate="'required'" v-model="numExterno" placeholder="Ingrese el número externo"  autocomplete="off">
+                    <span v-if="errors.has('número externo') || numExternoV" class="text-danger">{{ errors.first('número externo') || numExternoV[0]}}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="numInterno">Número interno</label>
@@ -179,8 +179,8 @@ import swal from 'sweetalert2'
                         return;
                     }
                     swal({
-                        title: 'Guardado Incorrecto!',
-                        text: 'Éste domicilio no fue posible guardarse',
+                        title: '¡Guardado Incorrecto!',
+                        text: 'Éste domicilio no fue posible guardarse.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     })
@@ -200,8 +200,8 @@ import swal from 'sweetalert2'
                 }).then((response)=>{
                     console.log(response.data)
                     swal({
-                        title: 'Guardado Correctamente!',
-                        text: 'Éste domicilio fue guardado exitosamente',
+                        title: '¡Guardado Correctamente!',
+                        text: 'Éste domicilio fue guardado exitosamente.',
                         type: 'success',
                         confirmButtonText: 'Ok'
                     }).catch((error)=>{
@@ -212,8 +212,8 @@ import swal from 'sweetalert2'
                         this.calleV = error.response.data.errors.calle,
                         this.numExternoV = error.response.data.errors.numExterno
                         swal({
-                            title: 'Guardado Incorrecto!',
-                            text: 'Éste domicilio no fue posible guardarse',
+                            title: '¡Guardado Incorrecto!',
+                            text: 'Éste domicilio no fue posible guardarse.',
                             type: 'error',
                             confirmButtonText: 'Ok'
                         })

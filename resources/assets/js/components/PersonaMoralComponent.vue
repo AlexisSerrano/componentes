@@ -10,26 +10,26 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="fechaConstitucion">Fecha de constitución</label>
-                    <input class="form-control form-control-sm" type="date" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="Fecha de Constitucion"  v-validate="'required'" :class="{ 'border border-danger': errors.has('Fecha de Constitucion') || fechaConstitucionV}" @blur="searchPersona">
-                    <span v-show="errors.has('Fecha de Constitucion') || fechaConstitucionV" class="text-danger">{{ errors.first('Fecha de Constitucion') || fechaConstitucionV }}</span>
+                    <input class="form-control form-control-sm" type="date" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="fecha de constitución"  v-validate="'required'" :class="{ 'border border-danger': errors.has('fecha de constitución') || fechaConstitucionV}" @blur="searchPersona">
+                    <span v-show="errors.has('fecha de constitución') || fechaConstitucionV" class="text-danger">{{ errors.first('fecha de constitución') || fechaConstitucionV }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="rfc">R.F.C</label>
-                    <input class="form-control form-control-sm" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('rfc') || rfcV}" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required|size:12'" autocomplete="off">
-                    <span v-if="errors.has('rfc') || rfcV" class="text-danger">{{ errors.first('rfc') || rfcV[0] }}</span>
+                    <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
+                    <input class="form-control form-control-sm" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('RFC') || rfcV}" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required|size:12'" autocomplete="off" data-vv-name="RFC">
+                    <span v-if="errors.has('RFC') || rfcV" class="text-danger">{{ errors.first('RFC') || rfcV[0] }}</span>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
-                    <input class="form-control form-control-sm" type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('telefono') || telefonoV }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'required|numeric'" autocomplete="off">
-                    <span v-if="errors.has('telefono') || telefonoV" class="text-danger">{{ errors.first('telefono') || telefonoV[0] }}</span>
+                    <input class="form-control form-control-sm" type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('teléfono') || telefonoV }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'required|numeric'" autocomplete="off" data-vv-name="teléfono">
+                    <span v-if="errors.has('teléfono') || telefonoV" class="text-danger">{{ errors.first('teléfono') || telefonoV[0] }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="representanteLegal">Representante legal</label>
-                    <input class="form-control form-control-sm" type="text" name="representanteLegal" data-vv-name="Representante Legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('Representante Legal') || representanteLegalV }" id="representanteLegal" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
-                    <span v-if="errors.has('Representante Legal') || representanteLegalV" class="text-danger">{{ errors.first('Representante Legal') || representanteLegalV[0] }}</span>
+                    <input class="form-control form-control-sm" type="text" name="representanteLegal" data-vv-name="representante legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('representante legal') || representanteLegalV }" id="representanteLegal" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
+                    <span v-if="errors.has('representante legal') || representanteLegalV" class="text-danger">{{ errors.first('representante legal') || representanteLegalV[0] }}</span>
                 </div>
             </div>
             <div>
@@ -90,8 +90,8 @@ import swal from 'sweetalert2'
                             this.personaExiste=response.data
                             if(this.personaExiste!=''){                                
                                 swal({
-                                    title: 'Persona moral encontrada!',
-                                    text: 'Ésta persona moral ya fue registrada anteriormente',
+                                    title: '¡Persona moral encontrada!',
+                                    text: 'Ésta persona moral ya fue registrada anteriormente.',
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
@@ -112,8 +112,8 @@ import swal from 'sweetalert2'
                         return;
                     } 
                     swal({
-                        title: 'Guardado incorrecto!',
-                        text: 'Ésta empresa no fue posible guardarla',
+                        title: '¡Guardado incorrecto!',
+                        text: 'Ésta empresa no fue posible guardarla.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     })
@@ -142,8 +142,8 @@ import swal from 'sweetalert2'
                     .then (response =>{
                         this.idVarPersonaMoral=response.data.idpersona                                                
                         swal({
-                            title: 'Guardado correctamente!',
-                            text: 'Ésta empresa fue guardada exitosamente',
+                            title: '¡Guardado correctamente!',
+                            text: 'Ésta empresa fue guardada exitosamente.',
                             type: 'success',
                             confirmButtonText: 'Ok'
                         })
@@ -155,8 +155,8 @@ import swal from 'sweetalert2'
                         this.telefonoV = error.response.data.errors.telefono,
                         this.representanteLegalV = error.response.data.errors.representanteLegal
                         swal({
-                        title: 'Guardado incorrecto!',
-                        text: 'Ésta persona moral no fue posible guardarla',
+                        title: '¡Guardado incorrecto!',
+                        text: 'Ésta persona moral no fue posible guardarla.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                         })
