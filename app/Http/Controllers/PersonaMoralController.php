@@ -86,10 +86,6 @@ class PersonaMoralController extends Controller{
 			$personaExiste2=VariablesPersonaMoral::orderBy('id','DESC')
 			->where('idPersona',$personaExiste->id)
 			->select('telefono','representanteLegal','id')->first();
-			$ids=array(
-				'idEmpresa'=>$personaExiste->id,
-				'idVariablesPersona'=>$personaExiste2->id
-			);
 			$data = array(
 				'nombre'=>$personaExiste->nombre,
 				'fechaCreacion'=>$personaExiste->fechaCreacion,
@@ -97,7 +93,8 @@ class PersonaMoralController extends Controller{
 				'id'=>$personaExiste->id,
 				'telefono'=>$personaExiste2->telefono,
 				'representanteLegal'=>$personaExiste2->representanteLegal,
-				'ids'=>$ids
+				'idPersonaMoral'=>$personaExiste->id,
+				'idVarPersonaMoral'=>$personaExiste2->id
 			);
 		}else{
 			$data = array(

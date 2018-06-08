@@ -1,48 +1,45 @@
 <template>
-    <div class="container mt-3">
+    <form v-on:submit.prevent="validateBeforeSubmit">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label class="col-form-label col-form-label-sm" for="nombre">Nombre</label>
+                <input  class="form-control form-control-sm" type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') || nombreV}" id="nombre" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                <span v-if="errors.has('nombre') || nombreV" class="text-danger">{{ errors.first('nombre') || nombreV[0] }}</span>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-form-label col-form-label-sm" for="fechaConstitucion">Fecha de constitución</label>
+                <input class="form-control form-control-sm" type="date" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="fecha de constitución"  v-validate="'required'" :class="{ 'border border-danger': errors.has('fecha de constitución') || fechaConstitucionV}" @blur="searchPersona">
+                <span v-show="errors.has('fecha de constitución') || fechaConstitucionV" class="text-danger">{{ errors.first('fecha de constitución') || fechaConstitucionV }}</span>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
+                <input class="form-control form-control-sm" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('RFC') || rfcV}" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required|size:12'" autocomplete="off" data-vv-name="RFC">
+                <span v-if="errors.has('RFC') || rfcV" class="text-danger">{{ errors.first('RFC') || rfcV[0] }}</span>
+            </div>
+        </div>
 
-        <form v-on:submit.prevent="validateBeforeSubmit">
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="nombre">Nombre</label>
-                    <input  class="form-control form-control-sm" type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') || nombreV}" id="nombre" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona">
-                    <span v-if="errors.has('nombre') || nombreV" class="text-danger">{{ errors.first('nombre') || nombreV[0] }}</span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="fechaConstitucion">Fecha de constitución</label>
-                    <input class="form-control form-control-sm" type="date" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="fecha de constitución"  v-validate="'required'" :class="{ 'border border-danger': errors.has('fecha de constitución') || fechaConstitucionV}" @blur="searchPersona">
-                    <span v-show="errors.has('fecha de constitución') || fechaConstitucionV" class="text-danger">{{ errors.first('fecha de constitución') || fechaConstitucionV }}</span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
-                    <input class="form-control form-control-sm" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('RFC') || rfcV}" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required|size:12'" autocomplete="off" data-vv-name="RFC">
-                    <span v-if="errors.has('RFC') || rfcV" class="text-danger">{{ errors.first('RFC') || rfcV[0] }}</span>
-                </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
+                <input class="form-control form-control-sm" type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('teléfono') || telefonoV }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'required|numeric'" autocomplete="off" data-vv-name="teléfono">
+                <span v-if="errors.has('teléfono') || telefonoV" class="text-danger">{{ errors.first('teléfono') || telefonoV[0] }}</span>
             </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
-                    <input class="form-control form-control-sm" type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('teléfono') || telefonoV }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'required|numeric'" autocomplete="off" data-vv-name="teléfono">
-                    <span v-if="errors.has('teléfono') || telefonoV" class="text-danger">{{ errors.first('teléfono') || telefonoV[0] }}</span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="representanteLegal">Representante legal</label>
-                    <input class="form-control form-control-sm" type="text" name="representanteLegal" data-vv-name="representante legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('representante legal') || representanteLegalV }" id="representanteLegal" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
-                    <span v-if="errors.has('representante legal') || representanteLegalV" class="text-danger">{{ errors.first('representante legal') || representanteLegalV[0] }}</span>
-                </div>
+            <div class="form-group col-md-4">
+                <label class="col-form-label col-form-label-sm" for="representanteLegal">Representante legal</label>
+                <input class="form-control form-control-sm" type="text" name="representanteLegal" data-vv-name="representante legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('representante legal') || representanteLegalV }" id="representanteLegal" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
+                <span v-if="errors.has('representante legal') || representanteLegalV" class="text-danger">{{ errors.first('representante legal') || representanteLegalV[0] }}</span>
             </div>
-            <div>
-                <input type="hidden" v-model="idVarPersonaMoral" id="idvarpermoral">             
+        </div>
+        <div>
+            <input type="hidden" v-model="idVarPersonaMoral" id="idvarpermoral">             
+        </div>
+        <div class="form-row mt-3">
+            <div class="form-group col-md-5">
+                <button type="submit" class="btn btn-primary mr-1">Guardar</button>
             </div>
-            <div class="form-row mt-3">
-                <div class="form-group col-md-5">
-                    <button type="submit" class="btn btn-primary mr-1">Guardar</button>
-                </div>
-            </div>
-            <!-- <h1>{{personaExiste}}</h1> -->
-        </form>
-    </div>
+        </div>
+        <!-- <h1>{{personaExiste}}</h1> -->
+    </form>
 </template>
 
 <script>
@@ -63,7 +60,7 @@ import swal from 'sweetalert2'
                 representanteLegalV:'',                
                 idPersonaMoral:'',
                 idVarPersonaMoral:'',
-                url:''
+                url:'http://localhost/componentes/public/api'
             }
         },
         props:{
@@ -87,6 +84,7 @@ import swal from 'sweetalert2'
                         axios.post(urlBuscarPersona,{
                             rfc: this.rfc
                         }).then(response => {
+                            console.log(response.data)
                             this.personaExiste=response.data
                             if(this.personaExiste!=''){                                
                                 swal({
@@ -95,10 +93,9 @@ import swal from 'sweetalert2'
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
+                                this.idVarPersonaMoral=this.personaExiste.idVarPersonaMoral                                                
                                 this.telefono = this.personaExiste.telefono
                                 this.representanteLegal = this.personaExiste.representanteLegal
-                                this.idPersonaMoral=this.personaExiste.ids.idEmpresa
-                                this.idVarPersonaMoral=this.personaExiste.ids.idVariablesPersona
                             }
                         })
                     });
@@ -140,7 +137,8 @@ import swal from 'sweetalert2'
                         idvarpersonamoral:this.idVarPersonaMoral
                     })
                     .then (response =>{
-                        this.idVarPersonaMoral=response.data.idpersona                                                
+                        console.log(response.data)
+                        this.idVarPersonaMoral=response.data.idVariablesPersonaMoral                                                
                         swal({
                             title: '¡Guardado correctamente!',
                             text: 'Ésta empresa fue guardada exitosamente.',

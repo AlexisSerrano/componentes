@@ -23,3 +23,16 @@ Route::post('SetConfirmMulti','GenericController@SetConfirmMulti');
 Route::post('SetConfirmCarpetaMulti','GenericController@SetConfirmCarpetaMulti');
 Route::post('adddc','DatosContacto@adddc');
 Route::post('deldc','DatosContacto@deldc');
+
+
+
+/*Persona fisica*/
+Route::get('getCatalogos','PersonaController@getCatalogos');
+Route::post('rfcFisico','PersonaController@rfcFisico');
+Route::post('searchPersonaFisica','PersonaController@searchPersona');
+Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
+
+/*Persona fisica*/
+Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');
+Route::post('searchPersonaMoral','PersonaMoralController@searchPersona');
+Route::post('rfcMoral','PersonaMoralController@rfcMoral');

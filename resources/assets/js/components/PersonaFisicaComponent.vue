@@ -1,6 +1,5 @@
 <template>
-    <div class="container"> 
-
+    <div> 
         <!-- Modal -->
        <div class="modal fade" id="myModal" role="dialog">
            <div class="modal-dialog modal-lg">
@@ -298,9 +297,9 @@ import { execn, draw } from "rendata";
                 validaciones:[],
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
-                //url:'http://localhost/componentes/public'
+                url:'http://localhost/componentes/public/api',
                 // url:'http://componentes.oo'
-                url:''
+                //url:''
 
             }
         },
@@ -465,7 +464,7 @@ import { execn, draw } from "rendata";
                 }
             },
             getValidaciones: function(){
-                var urlValidaciones = this.url+'/api/getValidaciones';
+                var urlValidaciones = this.url+'/getValidaciones';
                 axios.post(urlValidaciones, {
                     id1: this.sistema,
                     id2: this.tipo,
@@ -592,7 +591,7 @@ import { execn, draw } from "rendata";
                 //console.log("this.tipo: "+this.tipo)
                 //console.log("this.denunciado: "+this.denunciado)
                 //console.log("TOT: "+(parseInt(this.tipo)+parseInt(this.denunciado)-1))
-                    axios.post(this.url+'/api/PersonaFisica',objREST)
+                    axios.post(this.url+'/PersonaFisica',objREST)
                     .then((response)=>{
                         /*console.log(response)
                         if(response.status==200){
@@ -650,7 +649,7 @@ import { execn, draw } from "rendata";
                 return
             }
             let dt = {
-                url: this.url+"/api/SearchUndefined",
+                url: this.url+"/SearchUndefined",
                 params: {
                 columns: [
                     {name:"idPersona",show:false},

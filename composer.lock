@@ -2623,12 +2623,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NainLobato/rfc.git",
-                "reference": "13a9a2a379050b3755de98fbdfa035a6423b1d54"
+                "reference": "e3baca30663e4ad1e8cf5a1c64eacd533a3fb582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NainLobato/rfc/zipball/13a9a2a379050b3755de98fbdfa035a6423b1d54",
-                "reference": "13a9a2a379050b3755de98fbdfa035a6423b1d54",
+                "url": "https://api.github.com/repos/NainLobato/rfc/zipball/e3baca30663e4ad1e8cf5a1c64eacd533a3fb582",
+                "reference": "e3baca30663e4ad1e8cf5a1c64eacd533a3fb582",
                 "shasum": ""
             },
             "require": {
@@ -2657,7 +2657,7 @@
                 "rfc",
                 "rfc mexico"
             ],
-            "time": "2018-05-29T12:43:53+00:00"
+            "time": "2018-06-07T17:53:39+00:00"
         },
         {
             "name": "nunomaduro/collision",

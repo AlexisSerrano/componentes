@@ -15435,10 +15435,12 @@ module.exports = Cancel;
  	curp.js
  	Función para generar el CURP, de acuerdo a las especificaciones oficiales.
  	Se puede usar con node.js y directamente en el navegador.
- 		INSTALACION:
+ 
+ 	INSTALACION:
  	Navegador : <script src="curp.js"></script>
  	Node.js   : var generaCurp = require('curp');
- 		MODO DE USO:
+ 
+ 	MODO DE USO:
  	var curp = generaCurp({
  		nombre            : 'Juan',
  		apellido_paterno  : 'Perez',
@@ -15447,6 +15449,7 @@ module.exports = Cancel;
  		estado            : 'DF',
  		fecha_nacimiento  : [31, 1, 1981]
  	});
+ 
  
  	Licencia: MIT ( http://opensource.org/licenses/MIT )
  */
@@ -55742,6 +55745,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -55812,9 +55817,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             validaciones: [],
             denunciado: false,
             qrr: "QUIEN RESULTE RESPONSABLE",
-            //url:'http://localhost/componentes/public'
+            url: 'http://localhost/componentes/public/api'
             // url:'http://componentes.oo'
-            url: ''
+            //url:''
 
         };
     },
@@ -55873,8 +55878,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                         _this2.personaExiste = response.data;
                         if (_this2.personaExiste != '') {
                             __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                                title: 'Persona Encontrada!',
-                                text: 'Ésta persona ya fue registrada anteriormente',
+                                title: '¡Persona Encontrada!',
+                                text: 'Ésta persona ya fue registrada anteriormente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
@@ -55969,7 +55974,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         getValidaciones: function getValidaciones() {
             var _this4 = this;
 
-            var urlValidaciones = this.url + '/api/getValidaciones';
+            var urlValidaciones = this.url + '/getValidaciones';
             axios.post(urlValidaciones, {
                 id1: this.sistema,
                 id2: this.tipo,
@@ -55989,8 +55994,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                    title: 'Guardado incorrecto!',
-                    text: 'Ésta persona no fue posible guardarla',
+                    title: '¡Guardado incorrecto!',
+                    text: 'Ésta persona no fue posible guardarla.',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
@@ -56050,7 +56055,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             //console.log("this.tipo: "+this.tipo)
             //console.log("this.denunciado: "+this.denunciado)
             //console.log("TOT: "+(parseInt(this.tipo)+parseInt(this.denunciado)-1))
-            axios.post(this.url + '/api/PersonaFisica', objREST).then(function (response) {
+            axios.post(this.url + '/PersonaFisica', objREST).then(function (response) {
                 /*console.log(response)
                 if(response.status==200){
                     PF=response.data;
@@ -56078,14 +56083,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                         _this6.CleanFields();
                     }
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                        title: 'Guardado correctamente!',
-                        text: 'Ésta persona fue guardada exitosamente',
+                        title: '¡Guardado correctamente!',
+                        text: 'Ésta persona fue guardada exitosamente.',
                         type: 'success',
                         confirmButtonText: 'Ok'
                     });
                 } else {
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                        title: 'Errores de confirmación',
+                        title: 'Errores de confirmación.',
                         html: PF,
                         type: 'error',
                         confirmButtonText: 'Ok'
@@ -56105,7 +56110,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return;
             }
             var dt = {
-                url: this.url + "/api/SearchUndefined",
+                url: this.url + "/SearchUndefined",
                 params: {
                     columns: [{ name: "idPersona", show: false }, { name: "idvar_persona", show: false }, { name: "nombres", show: true, replace: "Nombres" }, { name: "primerAp", show: true, replace: "Primer apellido" }, { name: "segundoAp", show: true, replace: "Segundo apellido" }, { name: "fechaNacimiento", show: true, replace: "Fecha nacimiento" }, { name: "rfc", show: true, replace: "RFC" }, { name: "curp", show: true, replace: "CURP" }, { name: "sexo", show: true, replace: "Sexo" }, { name: "nacionalidad", show: true, replace: "Nacionalidad" }, { name: "etnia", show: true, replace: "Etnia" }, { name: "municipioOrigen", show: true, replace: "Municipio origen" }, { name: "edad", show: true, replace: "Edad" }, { name: "motivoEstancia", show: true, replace: "Motivo estancia" }, { name: "ocupacion", show: true, replace: "Ocupacion" }, { name: "estadoCivil", show: true, replace: "Estado civil" }, { name: "escolaridad", show: true, replace: "Escolaridad" }, { name: "religion", show: true, replace: "Religión" }, { name: "docIdentificacion", show: true, replace: "Doc identificación" }, { name: "numDocIdentificacion", show: true, replace: "Num doc identif." }, { name: "idDomicilioTrabajo", show: false, replace: "idDomicilio" }, { name: "alias", show: true, replace: "Alias" }],
                     tablename: "persona_completa_actual",
@@ -56115,7 +56120,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 options: {
                     title: "Opciones",
                     links: [{
-                        text: "consola",
+                        text: "Cragar datos",
                         func: function func(obj) {
                             console.log(obj);
                         }
@@ -56465,7 +56470,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", [
     _vm._m(0),
     _vm._v(" "),
     _vm.mostrarForm
@@ -56793,13 +56798,13 @@ var render = function() {
                             input: true,
                             "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
-                              "Primer apellido"
+                              "primer apellido"
                             )
                           },
                           attrs: {
                             type: "text",
                             name: "primerAp",
-                            "data-vv-name": "Primer apellido",
+                            "data-vv-name": "primer apellido",
                             id: "primerAp",
                             placeholder: "Ingrese el primer apellido",
                             autocomplete: "off"
@@ -56828,13 +56833,13 @@ var render = function() {
                             input: true,
                             "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
-                              "Primer apellido"
+                              "primer apellido"
                             )
                           },
                           attrs: {
                             type: "text",
                             name: "primerAp",
-                            "data-vv-name": "Primer Apellido",
+                            "data-vv-name": "primer Apellido",
                             id: "primerAp",
                             placeholder: "Ingrese el primer apellido",
                             autocomplete: "off"
@@ -56851,9 +56856,9 @@ var render = function() {
                           }
                         }),
                     _vm._v(" "),
-                    _vm.errors.has("Primer apellido")
+                    _vm.errors.has("primer apellido")
                       ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.first("Primer apellido")))
+                          _vm._v(_vm._s(_vm.errors.first("primer apellido")))
                         ])
                       : _vm._e()
                   ])
@@ -56890,13 +56895,13 @@ var render = function() {
                             input: true,
                             "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
-                              "Segundo apellido"
+                              "segundo apellido"
                             )
                           },
                           attrs: {
                             type: "text",
                             name: "segundoAp",
-                            "data-vv-name": "Segundo apellido",
+                            "data-vv-name": "segundo apellido",
                             id: "segundoAp",
                             placeholder: "Ingrese el segundo apellido",
                             autocomplete: "off"
@@ -56925,7 +56930,7 @@ var render = function() {
                             input: true,
                             "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
-                              "Segundo Apellido"
+                              "segundo Apellido"
                             )
                           },
                           attrs: {
@@ -56948,9 +56953,9 @@ var render = function() {
                           }
                         }),
                     _vm._v(" "),
-                    _vm.errors.has("Segundo apellido")
+                    _vm.errors.has("segundo apellido")
                       ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.first("Segundo apellido")))
+                          _vm._v(_vm._s(_vm.errors.first("segundo apellido")))
                         ])
                       : _vm._e()
                   ])
@@ -56973,82 +56978,98 @@ var render = function() {
                       [_vm._v("Alias")]
                     ),
                     _vm._v(" "),
-                    _vm.aliasV == 1
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.alias,
-                              expression: "alias"
-                            },
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "required",
-                              expression: "'required'"
-                            }
-                          ],
-                          class: {
-                            input: true,
-                            "form-control form-control-sm": true,
-                            "border border-danger": _vm.errors.has("Alias")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "alias",
-                            id: "alias",
-                            placeholder: "Ingrese el alias",
-                            autocomplete: "off",
-                            "data-vv-name": "Alias"
-                          },
-                          domProps: { value: _vm.alias },
-                          on: {
-                            blur: function($event) {
-                              _vm.search()
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                    _c("div", { staticClass: "row-gruop" }, [
+                      _vm.aliasV == 1
+                        ? _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.alias,
+                                expression: "alias"
+                              },
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "required",
+                                expression: "'required'"
                               }
-                              _vm.alias = $event.target.value
+                            ],
+                            class: {
+                              input: true,
+                              "form-control form-control-sm": true,
+                              "border border-danger": _vm.errors.has("alias")
+                            },
+                            staticStyle: { width: "12em" },
+                            attrs: {
+                              type: "text",
+                              name: "alias",
+                              id: "alias",
+                              placeholder: "Ingrese el alias",
+                              autocomplete: "off",
+                              "data-vv-name": "alias"
+                            },
+                            domProps: { value: _vm.alias },
+                            on: {
+                              blur: function($event) {
+                                _vm.search()
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.alias = $event.target.value
+                              }
+                            }
+                          })
+                        : _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.alias,
+                                expression: "alias"
+                              }
+                            ],
+                            class: {
+                              input: true,
+                              "form-control form-control-sm": true,
+                              "border border-danger": _vm.errors.has("alias")
+                            },
+                            staticStyle: { width: "12em" },
+                            attrs: {
+                              type: "text",
+                              name: "alias",
+                              id: "alias",
+                              placeholder: "Ingrese el alias",
+                              autocomplete: "off"
+                            },
+                            domProps: { value: _vm.alias },
+                            on: {
+                              blur: function($event) {
+                                _vm.search()
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.alias = $event.target.value
+                              }
+                            }
+                          }),
+                      _vm._v(" "),
+                      _c("div", { staticStyle: { cursor: "pointer" } }, [
+                        _c("span", {
+                          staticClass: "badge badge-dark",
+                          attrs: { id: "match" },
+                          on: {
+                            click: function($event) {
+                              _vm.search(1)
                             }
                           }
                         })
-                      : _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.alias,
-                              expression: "alias"
-                            }
-                          ],
-                          class: {
-                            input: true,
-                            "form-control form-control-sm": true,
-                            "border border-danger": _vm.errors.has("alias")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "alias",
-                            id: "alias",
-                            placeholder: "Ingrese el alias",
-                            autocomplete: "off"
-                          },
-                          domProps: { value: _vm.alias },
-                          on: {
-                            blur: function($event) {
-                              _vm.search()
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.alias = $event.target.value
-                            }
-                          }
-                        }),
+                      ])
+                    ]),
                     _vm._v(" "),
                     _vm.errors.has("Alias")
                       ? _c("span", { staticClass: "text-danger" }, [
@@ -57090,14 +57111,14 @@ var render = function() {
                           staticClass: "form-control form-control-sm",
                           class: {
                             "border border-danger": _vm.errors.has(
-                              "Fecha de nacimiento"
+                              "fecha de nacimiento"
                             )
                           },
                           attrs: {
                             type: "date",
                             id: "fechaNacimiento",
                             name: "fechaNacimiento",
-                            "data-vv-name": "Fecha de nacimiento"
+                            "data-vv-name": "fecha de nacimiento"
                           },
                           domProps: { value: _vm.fechaNacimiento },
                           on: {
@@ -57127,14 +57148,14 @@ var render = function() {
                           staticClass: "form-control form-control-sm",
                           class: {
                             "border border-danger": _vm.errors.has(
-                              "Fecha de nacimiento"
+                              "fecha de nacimiento"
                             )
                           },
                           attrs: {
                             type: "date",
                             id: "fechaNacimiento",
                             name: "fechaNacimiento",
-                            "data-vv-name": "Fecha de nacimiento"
+                            "data-vv-name": "fecha de nacimiento"
                           },
                           domProps: { value: _vm.fechaNacimiento },
                           on: {
@@ -57160,13 +57181,13 @@ var render = function() {
                           {
                             name: "show",
                             rawName: "v-show",
-                            value: _vm.errors.has("Fecha de nacimiento"),
-                            expression: "errors.has('Fecha de nacimiento')"
+                            value: _vm.errors.has("fecha de nacimiento"),
+                            expression: "errors.has('fecha de nacimiento')"
                           }
                         ],
                         staticClass: "text-danger"
                       },
-                      [_vm._v(_vm._s(_vm.errors.first("Fecha de nacimiento")))]
+                      [_vm._v(_vm._s(_vm.errors.first("fecha de nacimiento")))]
                     )
                   ]),
                   _vm._v(" "),
@@ -57208,7 +57229,7 @@ var render = function() {
                             name: "edad",
                             id: "edad",
                             placeholder: "Edad",
-                            "data-vv-name": "Edad"
+                            "data-vv-name": "edad"
                           },
                           domProps: { value: _vm.edad },
                           on: {
@@ -57241,7 +57262,7 @@ var render = function() {
                             name: "edad",
                             id: "edad",
                             placeholder: "Edad",
-                            "data-vv-name": "Edad"
+                            "data-vv-name": "edad"
                           },
                           domProps: { value: _vm.edad },
                           on: {
@@ -57254,9 +57275,9 @@ var render = function() {
                           }
                         }),
                     _vm._v(" "),
-                    _vm.errors.has("Edad")
+                    _vm.errors.has("edad")
                       ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.first("Edad")))
+                          _vm._v(_vm._s(_vm.errors.first("edad")))
                         ])
                       : _vm._e()
                   ]),
@@ -57286,7 +57307,7 @@ var render = function() {
                             ],
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Sexo"
+                                "sexo"
                               )
                             },
                             attrs: {
@@ -57294,7 +57315,7 @@ var render = function() {
                               label: "nombre",
                               name: "sexo",
                               placeholder: "Seleccione un sexo",
-                              "data-vv-name": "Sexo"
+                              "data-vv-name": "sexo"
                             },
                             model: {
                               value: _vm.sexo,
@@ -57307,7 +57328,7 @@ var render = function() {
                         : _c("v-select", {
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Sexo"
+                                "sexo"
                               )
                             },
                             attrs: {
@@ -57315,7 +57336,7 @@ var render = function() {
                               label: "nombre",
                               name: "sexo",
                               placeholder: "Seleccione un sexo",
-                              "data-vv-name": "Sexo"
+                              "data-vv-name": "sexo"
                             },
                             model: {
                               value: _vm.sexo,
@@ -57333,13 +57354,13 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.errors.has("Sexo"),
-                              expression: "errors.has('Sexo')"
+                              value: _vm.errors.has("sexo"),
+                              expression: "errors.has('sexo')"
                             }
                           ],
                           staticClass: "text-danger"
                         },
-                        [_vm._v(_vm._s(_vm.errors.first("Sexo")))]
+                        [_vm._v(_vm._s(_vm.errors.first("sexo")))]
                       )
                     ],
                     1
@@ -57370,13 +57391,13 @@ var render = function() {
                             ],
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Entidad federativa de origen"
+                                "entidad federativa de origen"
                               )
                             },
                             attrs: {
                               options: _vm.estados,
                               label: "nombre",
-                              "data-vv-name": "Entidad federativa de origen",
+                              "data-vv-name": "entidad federativa de origen",
                               name: "estado",
                               placeholder:
                                 "Seleccione una entidad federativa de origen"
@@ -57393,13 +57414,13 @@ var render = function() {
                         : _c("v-select", {
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Entidad federativa de origen"
+                                "entidad federativa de origen"
                               )
                             },
                             attrs: {
                               options: _vm.estados,
                               label: "nombre",
-                              "data-vv-name": "Entidad federativa de origen",
+                              "data-vv-name": "entidad federativa de origen",
                               name: "estado",
                               placeholder:
                                 "Seleccione una entidad federativa de origen"
@@ -57422,10 +57443,10 @@ var render = function() {
                               name: "show",
                               rawName: "v-show",
                               value: _vm.errors.has(
-                                "Entidad federativa de origen"
+                                "entidad federativa de origen"
                               ),
                               expression:
-                                "errors.has('Entidad federativa de origen')"
+                                "errors.has('entidad federativa de origen')"
                             }
                           ],
                           staticClass: "text-danger"
@@ -57433,7 +57454,7 @@ var render = function() {
                         [
                           _vm._v(
                             _vm._s(
-                              _vm.errors.first("Entidad federativa de origen")
+                              _vm.errors.first("entidad federativa de origen")
                             )
                           )
                         ]
@@ -57648,7 +57669,7 @@ var render = function() {
                             ],
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Nacionalidad"
+                                "nacionalidad"
                               )
                             },
                             attrs: {
@@ -57656,7 +57677,7 @@ var render = function() {
                               label: "nombre",
                               name: "nacionalidad",
                               placeholder: "Seleccione una nacionalidad",
-                              "data-vv-name": "Nacionalidad"
+                              "data-vv-name": "nacionalidad"
                             },
                             model: {
                               value: _vm.nacionalidad,
@@ -57669,7 +57690,7 @@ var render = function() {
                         : _c("v-select", {
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Nacionalidad"
+                                "nacionalidad"
                               )
                             },
                             attrs: {
@@ -57677,7 +57698,7 @@ var render = function() {
                               label: "nombre",
                               name: "nacionalidad",
                               placeholder: "Seleccione una nacionalidad",
-                              "data-vv-name": "Nacionalidad"
+                              "data-vv-name": "nacionalidad"
                             },
                             model: {
                               value: _vm.nacionalidad,
@@ -57695,13 +57716,13 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.errors.has("Nacionalidad"),
-                              expression: "errors.has('Nacionalidad')"
+                              value: _vm.errors.has("nacionalidad"),
+                              expression: "errors.has('nacionalidad')"
                             }
                           ],
                           staticClass: "text-danger"
                         },
-                        [_vm._v(_vm._s(_vm.errors.first("Nacionalidad")))]
+                        [_vm._v(_vm._s(_vm.errors.first("nacionalidad")))]
                       )
                     ],
                     1
@@ -57736,7 +57757,7 @@ var render = function() {
                             ],
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Municipio de origen"
+                                "municipio de origen"
                               )
                             },
                             attrs: {
@@ -57744,7 +57765,7 @@ var render = function() {
                               label: "nombre",
                               name: "municipio",
                               placeholder: "Seleccione un municipio de origen",
-                              "data-vv-name": "Municipio de origen"
+                              "data-vv-name": "municipio de origen"
                             },
                             model: {
                               value: _vm.municipio,
@@ -57757,7 +57778,7 @@ var render = function() {
                         : _c("v-select", {
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Municipio de origen"
+                                "municipio de origen"
                               )
                             },
                             attrs: {
@@ -57765,7 +57786,7 @@ var render = function() {
                               label: "nombre",
                               name: "municipio",
                               placeholder: "Seleccione un municipio de origen",
-                              "data-vv-name": "Municipio de origen"
+                              "data-vv-name": "municipio de origen"
                             },
                             model: {
                               value: _vm.municipio,
@@ -57783,15 +57804,15 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.errors.has("Municipio de origen"),
-                              expression: "errors.has('Municipio de origen')"
+                              value: _vm.errors.has("municipio de origen"),
+                              expression: "errors.has('municipio de origen')"
                             }
                           ],
                           staticClass: "text-danger"
                         },
                         [
                           _vm._v(
-                            _vm._s(_vm.errors.first("Municipio de origen"))
+                            _vm._s(_vm.errors.first("municipio de origen"))
                           )
                         ]
                       )
@@ -57825,7 +57846,7 @@ var render = function() {
                             staticClass: "select",
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Etnia"
+                                "etnia"
                               )
                             },
                             attrs: {
@@ -57833,7 +57854,7 @@ var render = function() {
                               options: _vm.etnias,
                               name: "etnia",
                               placeholder: "Seleccione una etnia",
-                              "data-vv-name": "Etnia"
+                              "data-vv-name": "etnia"
                             },
                             model: {
                               value: _vm.etnia,
@@ -57847,7 +57868,7 @@ var render = function() {
                             staticClass: "select",
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Etnia"
+                                "etnia"
                               )
                             },
                             attrs: {
@@ -57855,7 +57876,7 @@ var render = function() {
                               options: _vm.etnias,
                               name: "etnia",
                               placeholder: "Seleccione una etnia",
-                              "data-vv-name": "Etnia"
+                              "data-vv-name": "etnia"
                             },
                             model: {
                               value: _vm.etnia,
@@ -57873,13 +57894,13 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.errors.has("Etnia"),
-                              expression: "errors.has('Etnia')"
+                              value: _vm.errors.has("etnia"),
+                              expression: "errors.has('etnia')"
                             }
                           ],
                           staticClass: "text-danger"
                         },
-                        [_vm._v(_vm._s(_vm.errors.first("Etnia")))]
+                        [_vm._v(_vm._s(_vm.errors.first("etnia")))]
                       )
                     ],
                     1
@@ -57998,7 +58019,7 @@ var render = function() {
                             ],
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "interprete"
+                                "intérprete"
                               )
                             },
                             attrs: {
@@ -58018,14 +58039,14 @@ var render = function() {
                         : _c("v-select", {
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "interprete"
+                                "intérprete"
                               )
                             },
                             attrs: {
                               options: _vm.interpretes,
                               label: "nombre",
                               name: "interprete",
-                              placeholder: "Seleccione un interprete"
+                              placeholder: "Seleccione un intérprete"
                             },
                             model: {
                               value: _vm.interprete,
@@ -58043,13 +58064,13 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.errors.has("interprete"),
-                              expression: "errors.has('interprete')"
+                              value: _vm.errors.has("intérprete"),
+                              expression: "errors.has('intérprete')"
                             }
                           ],
                           staticClass: "text-danger"
                         },
-                        [_vm._v(_vm._s(_vm.errors.first("interprete")))]
+                        [_vm._v(_vm._s(_vm.errors.first("intérprete")))]
                       )
                     ],
                     1
@@ -58085,13 +58106,13 @@ var render = function() {
                             input: true,
                             "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
-                              "Motivo de estancia"
+                              "motivo de estancia"
                             )
                           },
                           attrs: {
                             type: "text",
                             name: "motivoEstancia",
-                            "data-vv-name": "Motivo de estancia",
+                            "data-vv-name": "motivo de estancia",
                             id: "motivoEstancia",
                             placeholder: "Ingrese el motivo de estancia",
                             autocomplete: "off"
@@ -58119,7 +58140,7 @@ var render = function() {
                             input: true,
                             "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
-                              "Motivo de estancia"
+                              "motivo de estancia"
                             )
                           },
                           attrs: {
@@ -58140,9 +58161,9 @@ var render = function() {
                           }
                         }),
                     _vm._v(" "),
-                    _vm.errors.has("Motivo de estancia")
+                    _vm.errors.has("motivo de estancia")
                       ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.first("Motivo de estancia")))
+                          _vm._v(_vm._s(_vm.errors.first("motivo de estancia")))
                         ])
                       : _vm._e()
                   ]),
@@ -58172,7 +58193,7 @@ var render = function() {
                             ],
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "ocupacion"
+                                "ocupación"
                               )
                             },
                             attrs: {
@@ -58192,7 +58213,7 @@ var render = function() {
                         : _c("v-select", {
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "ocupacion"
+                                "ocupación"
                               )
                             },
                             attrs: {
@@ -58217,13 +58238,13 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.errors.has("ocupacion"),
-                              expression: "errors.has('ocupacion')"
+                              value: _vm.errors.has("ocupación"),
+                              expression: "errors.has('ocupación')"
                             }
                           ],
                           staticClass: "text-danger"
                         },
-                        [_vm._v(_vm._s(_vm.errors.first("ocupacion")))]
+                        [_vm._v(_vm._s(_vm.errors.first("ocupación")))]
                       )
                     ],
                     1
@@ -58258,14 +58279,14 @@ var render = function() {
                             ],
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Estado Civil"
+                                "estado civil"
                               )
                             },
                             attrs: {
                               options: _vm.estadosCiviles,
                               label: "nombre",
                               name: "estadoCivil",
-                              "data-vv-name": "Estado Civil",
+                              "data-vv-name": "estado civil",
                               placeholder: "Seleccione un estado civil"
                             },
                             model: {
@@ -58279,7 +58300,7 @@ var render = function() {
                         : _c("v-select", {
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "Estado Civil"
+                                "estado civil"
                               )
                             },
                             attrs: {
@@ -58304,13 +58325,13 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.errors.has("Estado Civil"),
-                              expression: "errors.has('Estado Civil')"
+                              value: _vm.errors.has("estado civil"),
+                              expression: "errors.has('estado civil')"
                             }
                           ],
                           staticClass: "text-danger"
                         },
-                        [_vm._v(_vm._s(_vm.errors.first("Estado Civil")))]
+                        [_vm._v(_vm._s(_vm.errors.first("estado civil")))]
                       )
                     ],
                     1
@@ -58423,7 +58444,7 @@ var render = function() {
                             ],
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "religion"
+                                "religión"
                               )
                             },
                             attrs: {
@@ -58443,7 +58464,7 @@ var render = function() {
                         : _c("v-select", {
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "religion"
+                                "religión"
                               )
                             },
                             attrs: {
@@ -58468,13 +58489,13 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.errors.has("religion"),
-                              expression: "errors.has('religion')"
+                              value: _vm.errors.has("religión"),
+                              expression: "errors.has('religión')"
                             }
                           ],
                           staticClass: "text-danger"
                         },
-                        [_vm._v(_vm._s(_vm.errors.first("religion")))]
+                        [_vm._v(_vm._s(_vm.errors.first("religión")))]
                       )
                     ],
                     1
@@ -58509,7 +58530,7 @@ var render = function() {
                             ],
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "identificacion"
+                                "identificación"
                               )
                             },
                             attrs: {
@@ -58529,13 +58550,13 @@ var render = function() {
                         : _c("v-select", {
                             class: {
                               "border border-danger rounded": _vm.errors.has(
-                                "identificacion"
+                                "identificación"
                               )
                             },
                             attrs: {
                               options: _vm.identificaciones,
                               label: "documento",
-                              name: "identificacion",
+                              name: "identificación",
                               placeholder: "Seleccione una identificación"
                             },
                             model: {
@@ -58554,13 +58575,13 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.errors.has("identificacion"),
-                              expression: "errors.has('identificacion')"
+                              value: _vm.errors.has("identificación"),
+                              expression: "errors.has('identificación')"
                             }
                           ],
                           staticClass: "text-danger"
                         },
-                        [_vm._v(_vm._s(_vm.errors.first("identificacion")))]
+                        [_vm._v(_vm._s(_vm.errors.first("identificación")))]
                       )
                     ],
                     1
@@ -58596,13 +58617,13 @@ var render = function() {
                             input: true,
                             "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
-                              "Número de identificación"
+                              "número de identificación"
                             )
                           },
                           attrs: {
                             type: "text",
                             name: "numIdentificacion",
-                            "data-vv-name": "Número de identificación",
+                            "data-vv-name": "número de identificación",
                             id: "numIdentificacion",
                             placeholder: "Ingrese el número de identificación",
                             autocomplete: "off"
@@ -58630,7 +58651,7 @@ var render = function() {
                             input: true,
                             "form-control form-control-sm": true,
                             "border border-danger": _vm.errors.has(
-                              "Número de identificación"
+                              "número de identificación"
                             )
                           },
                           attrs: {
@@ -58651,10 +58672,10 @@ var render = function() {
                           }
                         }),
                     _vm._v(" "),
-                    _vm.errors.has("Número de identificación")
+                    _vm.errors.has("número de identificación")
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            _vm._s(_vm.errors.first("Número de identificación"))
+                            _vm._s(_vm.errors.first("número de identificación"))
                           )
                         ])
                       : _vm._e()
@@ -58698,7 +58719,7 @@ var render = function() {
                                   input: true,
                                   "form-control form-control-sm": true,
                                   "border border-danger": _vm.errors.has(
-                                    "Alias"
+                                    "alias"
                                   )
                                 },
                                 staticStyle: { width: "12em" },
@@ -58708,7 +58729,7 @@ var render = function() {
                                   id: "alias",
                                   placeholder: "Ingrese el alias",
                                   autocomplete: "off",
-                                  "data-vv-name": "Alias"
+                                  "data-vv-name": "alias"
                                 },
                                 domProps: { value: _vm.alias },
                                 on: {
@@ -58839,7 +58860,7 @@ var staticRenderFns = [
       "div",
       { staticClass: "modal fade", attrs: { id: "myModal", role: "dialog" } },
       [
-        _c("div", { staticClass: "modal-dialog" }, [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
             _c("div", { staticClass: "modal-header" }, [
               _c("h5", [_vm._v("Coincidencias con el alias")])
@@ -59019,9 +59040,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -59040,7 +59058,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             representanteLegalV: '',
             idPersonaMoral: '',
             idVarPersonaMoral: '',
-            url: 'http://localhost/componentes/public'
+            url: 'http://localhost/componentes/public/api'
         };
     },
 
@@ -59067,18 +59085,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     axios.post(urlBuscarPersona, {
                         rfc: _this.rfc
                     }).then(function (response) {
+                        console.log(response.data);
                         _this.personaExiste = response.data;
                         if (_this.personaExiste != '') {
                             __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                                title: 'Persona moral encontrada!',
-                                text: 'Ésta persona moral ya fue registrada anteriormente',
+                                title: '¡Persona moral encontrada!',
+                                text: 'Ésta persona moral ya fue registrada anteriormente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
+                            _this.idVarPersonaMoral = _this.personaExiste.idVarPersonaMoral;
                             _this.telefono = _this.personaExiste.telefono;
                             _this.representanteLegal = _this.personaExiste.representanteLegal;
-                            _this.idPersonaMoral = _this.personaExiste.ids.idEmpresa;
-                            _this.idVarPersonaMoral = _this.personaExiste.ids.idVariablesPersona;
                         }
                     });
                 });
@@ -59094,8 +59112,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado incorrecto!',
-                    text: 'Ésta empresa no fue posible guardarla',
+                    title: '¡Guardado incorrecto!',
+                    text: 'Ésta empresa no fue posible guardarla.',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
@@ -59119,10 +59137,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 idpersonamoral: this.idPersonaMoral,
                 idvarpersonamoral: this.idVarPersonaMoral
             }).then(function (response) {
-                _this3.idVarPersonaMoral = response.data.idpersona;
+                console.log(response.data);
+                _this3.idVarPersonaMoral = response.data.idVariablesPersonaMoral;
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado correctamente!',
-                    text: 'Ésta empresa fue guardada exitosamente',
+                    title: '¡Guardado correctamente!',
+                    text: 'Ésta empresa fue guardada exitosamente.',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
@@ -59130,8 +59149,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error.response.data.errors);
                 _this3.nombreV = error.response.data.errors.nombre, _this3.fechaConstitucionV = error.response.data.errors.fechaConstitucion, _this3.rfcV = error.response.data.errors.rfc, _this3.telefonoV = error.response.data.errors.telefono, _this3.representanteLegalV = error.response.data.errors.representanteLegal;
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado incorrecto!',
-                    text: 'Ésta persona moral no fue posible guardarla',
+                    title: '¡Guardado incorrecto!',
+                    text: 'Ésta persona moral no fue posible guardarla.',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
@@ -59148,361 +59167,358 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mt-3" }, [
-    _c(
-      "form",
-      {
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.validateBeforeSubmit($event)
-          }
+  return _c(
+    "form",
+    {
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.validateBeforeSubmit($event)
         }
-      },
-      [
-        _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-form-label col-form-label-sm",
-                attrs: { for: "nombre" }
-              },
-              [_vm._v("Nombre")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.nombre,
-                  expression: "nombre"
-                },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "form-control form-control-sm",
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger": _vm.errors.has("nombre") || _vm.nombreV
-              },
-              attrs: {
-                type: "text",
-                name: "nombre",
-                id: "nombre",
-                placeholder: "Ingrese el nombre",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.nombre },
-              on: {
-                blur: _vm.searchPersona,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.nombre = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors.has("nombre") || _vm.nombreV
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.first("nombre") || _vm.nombreV[0]))
-                ])
-              : _vm._e()
-          ]),
+      }
+    },
+    [
+      _c("div", { staticClass: "form-row" }, [
+        _c("div", { staticClass: "form-group col-md-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "col-form-label col-form-label-sm",
+              attrs: { for: "nombre" }
+            },
+            [_vm._v("Nombre")]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-form-label col-form-label-sm",
-                attrs: { for: "fechaConstitucion" }
-              },
-              [_vm._v("Fecha de constitución")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.fechaConstitucion,
-                  expression: "fechaConstitucion"
-                },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "form-control form-control-sm",
-              class: {
-                "border border-danger":
-                  _vm.errors.has("Fecha de Constitucion") ||
-                  _vm.fechaConstitucionV
-              },
-              attrs: {
-                type: "date",
-                id: "fechaConstitucion",
-                name: "fechaConstitucion",
-                "data-vv-name": "Fecha de Constitucion"
-              },
-              domProps: { value: _vm.fechaConstitucion },
-              on: {
-                blur: _vm.searchPersona,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.fechaConstitucion = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "span",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value:
-                      _vm.errors.has("Fecha de Constitucion") ||
-                      _vm.fechaConstitucionV,
-                    expression:
-                      "errors.has('Fecha de Constitucion') || fechaConstitucionV"
-                  }
-                ],
-                staticClass: "text-danger"
-              },
-              [
-                _vm._v(
-                  _vm._s(
-                    _vm.errors.first("Fecha de Constitucion") ||
-                      _vm.fechaConstitucionV
-                  )
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-form-label col-form-label-sm",
-                attrs: { for: "rfc" }
-              },
-              [_vm._v("R.F.C")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.rfc,
-                  expression: "rfc"
-                },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|size:12",
-                  expression: "'required|size:12'"
-                }
-              ],
-              staticClass: "form-control form-control-sm",
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger": _vm.errors.has("rfc") || _vm.rfcV
-              },
-              attrs: {
-                type: "text",
-                name: "rfc",
-                id: "rfc",
-                placeholder: "Ingrese el rfc",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.rfc },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.rfc = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors.has("rfc") || _vm.rfcV
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.first("rfc") || _vm.rfcV[0]))
-                ])
-              : _vm._e()
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-form-label col-form-label-sm",
-                attrs: { for: "telefono" }
-              },
-              [_vm._v("Teléfono")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.telefono,
-                  expression: "telefono"
-                },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|numeric",
-                  expression: "'required|numeric'"
-                }
-              ],
-              staticClass: "form-control form-control-sm",
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger":
-                  _vm.errors.has("telefono") || _vm.telefonoV
-              },
-              attrs: {
-                type: "text",
-                name: "telefono",
-                id: "telefono",
-                placeholder: "Ingrese el telefono",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.telefono },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.telefono = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors.has("telefono") || _vm.telefonoV
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(
-                    _vm._s(_vm.errors.first("telefono") || _vm.telefonoV[0])
-                  )
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-form-label col-form-label-sm",
-                attrs: { for: "representanteLegal" }
-              },
-              [_vm._v("Representante legal")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.representanteLegal,
-                  expression: "representanteLegal"
-                },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "form-control form-control-sm",
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger":
-                  _vm.errors.has("Representante Legal") ||
-                  _vm.representanteLegalV
-              },
-              attrs: {
-                type: "text",
-                name: "representanteLegal",
-                "data-vv-name": "Representante Legal",
-                id: "representanteLegal",
-                placeholder: "Ingrese el representante legal",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.representanteLegal },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.representanteLegal = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors.has("Representante Legal") || _vm.representanteLegalV
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.errors.first("Representante Legal") ||
-                        _vm.representanteLegalV[0]
-                    )
-                  )
-                ])
-              : _vm._e()
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
           _c("input", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.idVarPersonaMoral,
-                expression: "idVarPersonaMoral"
+                value: _vm.nombre,
+                expression: "nombre"
+              },
+              {
+                name: "validate",
+                rawName: "v-validate",
+                value: "required",
+                expression: "'required'"
               }
             ],
-            attrs: { type: "hidden", id: "idvarpermoral" },
-            domProps: { value: _vm.idVarPersonaMoral },
+            staticClass: "form-control form-control-sm",
+            class: {
+              input: true,
+              "form-control": true,
+              "border border-danger": _vm.errors.has("nombre") || _vm.nombreV
+            },
+            attrs: {
+              type: "text",
+              name: "nombre",
+              id: "nombre",
+              placeholder: "Ingrese el nombre",
+              autocomplete: "off"
+            },
+            domProps: { value: _vm.nombre },
+            on: {
+              blur: _vm.searchPersona,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.nombre = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.has("nombre") || _vm.nombreV
+            ? _c("span", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.first("nombre") || _vm.nombreV[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "col-form-label col-form-label-sm",
+              attrs: { for: "fechaConstitucion" }
+            },
+            [_vm._v("Fecha de constitución")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fechaConstitucion,
+                expression: "fechaConstitucion"
+              },
+              {
+                name: "validate",
+                rawName: "v-validate",
+                value: "required",
+                expression: "'required'"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            class: {
+              "border border-danger":
+                _vm.errors.has("fecha de constitución") ||
+                _vm.fechaConstitucionV
+            },
+            attrs: {
+              type: "date",
+              id: "fechaConstitucion",
+              name: "fechaConstitucion",
+              "data-vv-name": "fecha de constitución"
+            },
+            domProps: { value: _vm.fechaConstitucion },
+            on: {
+              blur: _vm.searchPersona,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.fechaConstitucion = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.errors.has("fecha de constitución") ||
+                    _vm.fechaConstitucionV,
+                  expression:
+                    "errors.has('fecha de constitución') || fechaConstitucionV"
+                }
+              ],
+              staticClass: "text-danger"
+            },
+            [
+              _vm._v(
+                _vm._s(
+                  _vm.errors.first("fecha de constitución") ||
+                    _vm.fechaConstitucionV
+                )
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "col-form-label col-form-label-sm",
+              attrs: { for: "rfc" }
+            },
+            [_vm._v("RFC")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.rfc,
+                expression: "rfc"
+              },
+              {
+                name: "validate",
+                rawName: "v-validate",
+                value: "required|size:12",
+                expression: "'required|size:12'"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            class: {
+              input: true,
+              "form-control": true,
+              "border border-danger": _vm.errors.has("RFC") || _vm.rfcV
+            },
+            attrs: {
+              type: "text",
+              name: "rfc",
+              id: "rfc",
+              placeholder: "Ingrese el rfc",
+              autocomplete: "off",
+              "data-vv-name": "RFC"
+            },
+            domProps: { value: _vm.rfc },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.idVarPersonaMoral = $event.target.value
+                _vm.rfc = $event.target.value
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.errors.has("RFC") || _vm.rfcV
+            ? _c("span", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.first("RFC") || _vm.rfcV[0]))
+              ])
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-row" }, [
+        _c("div", { staticClass: "form-group col-md-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "col-form-label col-form-label-sm",
+              attrs: { for: "telefono" }
+            },
+            [_vm._v("Teléfono")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.telefono,
+                expression: "telefono"
+              },
+              {
+                name: "validate",
+                rawName: "v-validate",
+                value: "required|numeric",
+                expression: "'required|numeric'"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            class: {
+              input: true,
+              "form-control": true,
+              "border border-danger":
+                _vm.errors.has("teléfono") || _vm.telefonoV
+            },
+            attrs: {
+              type: "text",
+              name: "telefono",
+              id: "telefono",
+              placeholder: "Ingrese el telefono",
+              autocomplete: "off",
+              "data-vv-name": "teléfono"
+            },
+            domProps: { value: _vm.telefono },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.telefono = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.has("teléfono") || _vm.telefonoV
+            ? _c("span", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.first("teléfono") || _vm.telefonoV[0]))
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
-        _vm._m(0)
-      ]
-    )
-  ])
+        _c("div", { staticClass: "form-group col-md-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "col-form-label col-form-label-sm",
+              attrs: { for: "representanteLegal" }
+            },
+            [_vm._v("Representante legal")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.representanteLegal,
+                expression: "representanteLegal"
+              },
+              {
+                name: "validate",
+                rawName: "v-validate",
+                value: "required",
+                expression: "'required'"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            class: {
+              input: true,
+              "form-control": true,
+              "border border-danger":
+                _vm.errors.has("representante legal") || _vm.representanteLegalV
+            },
+            attrs: {
+              type: "text",
+              name: "representanteLegal",
+              "data-vv-name": "representante legal",
+              id: "representanteLegal",
+              placeholder: "Ingrese el representante legal",
+              autocomplete: "off"
+            },
+            domProps: { value: _vm.representanteLegal },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.representanteLegal = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.has("representante legal") || _vm.representanteLegalV
+            ? _c("span", { staticClass: "text-danger" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.errors.first("representante legal") ||
+                      _vm.representanteLegalV[0]
+                  )
+                )
+              ])
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.idVarPersonaMoral,
+              expression: "idVarPersonaMoral"
+            }
+          ],
+          attrs: { type: "hidden", id: "idvarpermoral" },
+          domProps: { value: _vm.idVarPersonaMoral },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.idVarPersonaMoral = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -59603,8 +59619,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -59634,79 +59648,77 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("div", { staticClass: "container mt-3" }, [
-        _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c(
-              "div",
-              { staticClass: "form-check", staticStyle: { padding: "0" } },
-              [
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass:
-                        "form-check-label col-form-label col-form-label-sm",
-                      staticStyle: { "padding-right": "5px" },
-                      attrs: { for: "personaFisica" }
-                    },
-                    [_vm._v("Persona física")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.persona,
-                        expression: "persona"
-                      }
-                    ],
-                    staticClass: "form-check-input",
-                    attrs: { type: "radio", id: "personaFisica", value: "1" },
-                    domProps: { checked: _vm._q(_vm.persona, "1") },
-                    on: {
-                      change: function($event) {
-                        _vm.persona = "1"
-                      }
-                    }
-                  })
-                ]),
+      _c("div", { staticClass: "form-row" }, [
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c(
+            "div",
+            { staticClass: "form-check", staticStyle: { padding: "0" } },
+            [
+              _c("div", { staticClass: "form-check form-check-inline" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass:
+                      "form-check-label col-form-label col-form-label-sm",
+                    staticStyle: { "padding-right": "5px" },
+                    attrs: { for: "personaFisica" }
+                  },
+                  [_vm._v("Persona física")]
+                ),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _c(
-                    "label",
+                _c("input", {
+                  directives: [
                     {
-                      staticClass:
-                        "form-check-label col-form-label col-form-label-sm",
-                      staticStyle: { "padding-right": "5px" },
-                      attrs: { for: "personaMoral" }
-                    },
-                    [_vm._v("Persona moral")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.persona,
-                        expression: "persona"
-                      }
-                    ],
-                    staticClass: "form-check-input",
-                    attrs: { type: "radio", id: "personaMoral", value: "2" },
-                    domProps: { checked: _vm._q(_vm.persona, "2") },
-                    on: {
-                      change: function($event) {
-                        _vm.persona = "2"
-                      }
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.persona,
+                      expression: "persona"
                     }
-                  })
-                ])
-              ]
-            )
-          ])
+                  ],
+                  staticClass: "form-check-input",
+                  attrs: { type: "radio", id: "personaFisica", value: "1" },
+                  domProps: { checked: _vm._q(_vm.persona, "1") },
+                  on: {
+                    change: function($event) {
+                      _vm.persona = "1"
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-check form-check-inline" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass:
+                      "form-check-label col-form-label col-form-label-sm",
+                    staticStyle: { "padding-right": "5px" },
+                    attrs: { for: "personaMoral" }
+                  },
+                  [_vm._v("Persona moral")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.persona,
+                      expression: "persona"
+                    }
+                  ],
+                  staticClass: "form-check-input",
+                  attrs: { type: "radio", id: "personaMoral", value: "2" },
+                  domProps: { checked: _vm._q(_vm.persona, "2") },
+                  on: {
+                    change: function($event) {
+                      _vm.persona = "2"
+                    }
+                  }
+                })
+              ])
+            ]
+          )
         ])
       ]),
       _vm._v(" "),
@@ -59819,7 +59831,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.select{\n    font-family: inherit\n}\n.form-control:focus {\n  color: #6d6d6d;\n  background-color: #fff;\n  border-color: #828282;\n  outline: 0;\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\n    background-color: #424242;\n    border-color: #424242;\n    color: white;\n}\ninput{\n    text-transform: uppercase\n}\n::-webkit-input-placeholder{\n    text-transform: none\n}\n:-ms-input-placeholder{\n    text-transform: none\n}\n::-ms-input-placeholder{\n    text-transform: none\n}\n::placeholder{\n    text-transform: none\n}\n", ""]);
+exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\ninput{\r\n    text-transform: uppercase\n}\n::-webkit-input-placeholder{\r\n    text-transform: none\n}\n:-ms-input-placeholder{\r\n    text-transform: none\n}\n::-ms-input-placeholder{\r\n    text-transform: none\n}\n::placeholder{\r\n    text-transform: none\n}\r\n", ""]);
 
 // exports
 
@@ -59995,8 +60007,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado Incorrecto!',
-                    text: 'Éste domicilio no fue posible guardarse',
+                    title: '¡Guardado Incorrecto!',
+                    text: 'Éste domicilio no fue posible guardarse.',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
@@ -60019,16 +60031,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 console.log(response.data);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado Correctamente!',
-                    text: 'Éste domicilio fue guardado exitosamente',
+                    title: '¡Guardado Correctamente!',
+                    text: 'Éste domicilio fue guardado exitosamente.',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 }).catch(function (error) {
                     console.log(error.response.data.errors);
                     _this7.municipioV = error.response.data.errors.municipio, _this7.localidadV = error.response.data.errors.localidad, _this7.coloniaV = error.response.data.errors.colonia, _this7.calleV = error.response.data.errors.calle, _this7.numExternoV = error.response.data.errors.numExterno;
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                        title: 'Guardado Incorrecto!',
-                        text: 'Éste domicilio no fue posible guardarse',
+                        title: '¡Guardado Incorrecto!',
+                        text: 'Éste domicilio no fue posible guardarse.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     });
@@ -60077,12 +60089,12 @@ var render = function() {
                   }
                 ],
                 class: {
-                  "border border-danger": _vm.errors.has("Entidad Federativa")
+                  "border border-danger": _vm.errors.has("entidad federativa")
                 },
                 attrs: {
                   options: _vm.estados,
                   label: "nombre",
-                  "data-vv-name": "Entidad Federativa",
+                  "data-vv-name": "entidad federativa",
                   name: "estado",
                   placeholder: "Seleccione una entidad federativa"
                 },
@@ -60103,13 +60115,13 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("Entidad Federativa"),
-                      expression: "errors.has('Entidad Federativa')"
+                      value: _vm.errors.has("entidad federativa"),
+                      expression: "errors.has('entidad federativa')"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("Entidad Federativa")))]
+                [_vm._v(_vm._s(_vm.errors.first("entidad federativa")))]
               )
             ],
             1
@@ -60253,13 +60265,13 @@ var render = function() {
                   }
                 ],
                 class: {
-                  "border border-danger": _vm.errors.has("codigo postal")
+                  "border border-danger": _vm.errors.has("código postal")
                 },
                 attrs: {
                   options: _vm.cp,
                   label: "codigoPostal",
                   name: "codigo_postal",
-                  "data-vv-name": "codigo postal",
+                  "data-vv-name": "código postal",
                   placeholder: "Seleccione un código postal"
                 },
                 on: { input: _vm.getColonias },
@@ -60279,13 +60291,13 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("codigo postal"),
-                      expression: "errors.has('codigo postal')"
+                      value: _vm.errors.has("código postal"),
+                      expression: "errors.has('código postal')"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("codigo postal")))]
+                [_vm._v(_vm._s(_vm.errors.first("código postal")))]
               )
             ],
             1
@@ -60418,12 +60430,12 @@ var render = function() {
                 input: true,
                 "form-control": true,
                 "border border-danger":
-                  _vm.errors.has("Numero Externo") || _vm.numExternoV
+                  _vm.errors.has("número externo") || _vm.numExternoV
               },
               attrs: {
                 type: "text",
                 id: "numExterno",
-                "data-vv-name": "Numero Externo",
+                "data-vv-name": "número externo",
                 name: "numExterno",
                 placeholder: "Ingrese el número externo",
                 autocomplete: "off"
@@ -60439,11 +60451,11 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.errors.has("Numero Externo") || _vm.numExternoV
+            _vm.errors.has("número externo") || _vm.numExternoV
               ? _c("span", { staticClass: "text-danger" }, [
                   _vm._v(
                     _vm._s(
-                      _vm.errors.first("Numero Externo") || _vm.numExternoV[0]
+                      _vm.errors.first("número externo") || _vm.numExternoV[0]
                     )
                   )
                 ])
@@ -60802,15 +60814,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this5.limpiaCampos();
                     $('#ModalTelefonos').modal('hide');
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                        title: 'Guardado correctamente!',
-                        text: 'Dirección telefónica agregada exitosamente',
+                        title: '¡Guardado correctamente!',
+                        text: 'Dirección telefónica agregada exitosamente.',
                         type: 'success',
                         confirmButtonText: 'Ok'
                     });
                 }).catch(function (error) {
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                        title: 'Guardado incorrecto!',
-                        text: 'La dirección telefónica es imposible de guardar',
+                        title: '¡Guardado incorrecto!',
+                        text: 'La dirección telefónica es imposible de guardar.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     });
@@ -60837,16 +60849,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this6.limpiaCampos();
                 $('#ModalCorreos').modal('hide');
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado correctamente!',
-                    text: 'Correo electrónico agregado exitosamente',
+                    title: '¡Guardado correctamente!',
+                    text: 'Correo electrónico agregado exitosamente.',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
             }).catch(function (error) {
                 console.log(error.data);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado incorrecto!',
-                    text: 'El correo electrónico es imposible de agregar',
+                    title: '¡Guardado incorrecto!',
+                    text: 'El correo electrónico es imposible de agregar.',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
@@ -60865,16 +60877,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this7.limpiaCampos();
                 $('#ModalRedes').modal('hide');
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado correctamente!',
-                    text: 'Red social agregado exitosamente',
+                    title: '¡Guardado correctamente!',
+                    text: 'Red social agregado exitosamente.',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
             }).catch(function (error) {
                 console.log(error.response.data.errors);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado incorrecto!',
-                    text: 'La red social es imposible de agregar',
+                    title: '¡Guardado incorrecto!',
+                    text: 'La red social es imposible de agregar.',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
@@ -61389,7 +61401,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "telefonos" } }, [
-      _vm._v("Telefonos "),
+      _vm._v("Teléfonos "),
       _c(
         "span",
         {
@@ -61634,7 +61646,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.select{\n    font-family: inherit\n}\n.form-control:focus {\n  color: #6d6d6d;\n  background-color: #fff;\n  border-color: #828282;\n  outline: 0;\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\n    background-color: #424242;\n    border-color: #424242;\n    color: white;\n}\ninput{\n    text-transform: uppercase\n}\n::-webkit-input-placeholder{\n    text-transform: none\n}\n:-ms-input-placeholder{\n    text-transform: none\n}\n::-ms-input-placeholder{\n    text-transform: none\n}\n::placeholder{\n    text-transform: none\n}\n", ""]);
+exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\ninput{\r\n    text-transform: uppercase\n}\n::-webkit-input-placeholder{\r\n    text-transform: none\n}\n:-ms-input-placeholder{\r\n    text-transform: none\n}\n::-ms-input-placeholder{\r\n    text-transform: none\n}\n::placeholder{\r\n    text-transform: none\n}\r\n", ""]);
 
 // exports
 
@@ -61647,6 +61659,11 @@ exports.push([module.i, "\n.select{\n    font-family: inherit\n}\n.form-control:
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -61835,8 +61852,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado Incorrecto!',
-                    text: 'Éste domicilio no fue posible guardarse',
+                    title: '¡Guardado Incorrecto!',
+                    text: 'Éste domicilio no fue posible guardarse.',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
@@ -61862,8 +61879,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 console.log(response.data);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: 'Guardado Correctamente!',
-                    text: 'Éste domicilio fue guardado exitosamente',
+                    title: '¡Guardado Correctamente!',
+                    text: 'Éste domicilio fue guardado exitosamente.',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 }).catch(function (error) {
@@ -61873,8 +61890,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this7.telefonoTrabajoV = error.response.data.errors.telefonoTrabajo;
                     _this7.lugarTrabajoV = error.response.data.errors.lugarTrabajo;
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                        title: 'Guardado Incorrecto!',
-                        text: 'Éste domicilio no fue posible guardarse',
+                        title: '¡Guardado Incorrecto!',
+                        text: 'Éste domicilio no fue posible guardarse.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     });
@@ -61905,6 +61922,115 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "form-row" }, [
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { attrs: { for: "lugarTrabajo" } }, [
+              _vm._v("Lugar de trabajo")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                },
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.lugarTrabajo,
+                  expression: "lugarTrabajo"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger":
+                  _vm.errors.has("lugar de trabajo") || _vm.lugarTrabajoV
+              },
+              attrs: {
+                type: "text",
+                id: "lugarTrabajo",
+                "data-vv-name": "lugar de trabajo",
+                name: "lugarTrabajo",
+                placeholder: "Ingrese el lugar de trabajo",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.lugarTrabajo },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.lugarTrabajo = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("lugar de trabajo") || _vm.lugarTrabajoV
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.errors.first("lugar de trabajo") ||
+                        _vm.lugarTrabajoV[0]
+                    )
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { attrs: { for: "telefono" } }, [_vm._v("Teléfono")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|numeric",
+                  expression: "'required|numeric'"
+                },
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.telefono,
+                  expression: "telefono"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger":
+                  _vm.errors.has("teléfono") || _vm.telefonoV
+              },
+              attrs: {
+                type: "text",
+                id: "telefono",
+                name: "telefono",
+                placeholder: "Ingrese el teléfono",
+                autocomplete: "off",
+                "data-vv-name": "teléfono"
+              },
+              domProps: { value: _vm.telefono },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.telefono = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("teléfono") || _vm.telefonoV
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(_vm.errors.first("teléfono") || _vm.telefonoV[0])
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "form-group col-md-4" },
@@ -61923,12 +62049,12 @@ var render = function() {
                   }
                 ],
                 class: {
-                  "border border-danger": _vm.errors.has("Entidad Federativa")
+                  "border border-danger": _vm.errors.has("entidad federativa")
                 },
                 attrs: {
                   options: _vm.estados,
                   label: "nombre",
-                  "data-vv-name": "Entidad Federativa",
+                  "data-vv-name": "entidad federativa",
                   name: "estado",
                   placeholder: "Seleccione una entidad federativa"
                 },
@@ -61949,18 +62075,20 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("Entidad Federativa"),
-                      expression: "errors.has('Entidad Federativa')"
+                      value: _vm.errors.has("entidad federativa"),
+                      expression: "errors.has('entidad federativa')"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("Entidad Federativa")))]
+                [_vm._v(_vm._s(_vm.errors.first("entidad federativa")))]
               )
             ],
             1
-          ),
-          _vm._v(" "),
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
           _c(
             "div",
             { staticClass: "form-group col-md-4" },
@@ -62079,10 +62207,8 @@ var render = function() {
               )
             ],
             1
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
+          ),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "form-group col-md-4" },
@@ -62099,13 +62225,13 @@ var render = function() {
                   }
                 ],
                 class: {
-                  "border border-danger": _vm.errors.has("codigo postal")
+                  "border border-danger": _vm.errors.has("código postal")
                 },
                 attrs: {
                   options: _vm.cp,
                   label: "codigoPostal",
                   name: "codigo_postal",
-                  "data-vv-name": "codigo postal",
+                  "data-vv-name": "código postal",
                   placeholder: "Seleccione un código postal"
                 },
                 on: { input: _vm.getColonias },
@@ -62125,18 +62251,20 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("codigo postal"),
-                      expression: "errors.has('codigo postal')"
+                      value: _vm.errors.has("código postal"),
+                      expression: "errors.has('código postal')"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("codigo postal")))]
+                [_vm._v(_vm._s(_vm.errors.first("código postal")))]
               )
             ],
             1
-          ),
-          _vm._v(" "),
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
           _c(
             "div",
             { staticClass: "form-group col-md-4" },
@@ -62236,10 +62364,8 @@ var render = function() {
                   _vm._v(_vm._s(_vm.errors.first("calle") || _vm.calleV[0]))
                 ])
               : _vm._e()
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
+          ]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-4" }, [
             _c("label", { attrs: { for: "numExterno" } }, [
               _vm._v("Número externo")
@@ -62264,12 +62390,12 @@ var render = function() {
                 input: true,
                 "form-control": true,
                 "border border-danger":
-                  _vm.errors.has("Numero Externo") || _vm.numExternoV
+                  _vm.errors.has("número externo") || _vm.numExternoV
               },
               attrs: {
                 type: "text",
                 id: "numExterno",
-                "data-vv-name": "Numero Externo",
+                "data-vv-name": "número externo",
                 name: "numExterno",
                 placeholder: "Ingrese el número externo",
                 autocomplete: "off"
@@ -62285,17 +62411,19 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.errors.has("Numero Externo") || _vm.numExternoV
+            _vm.errors.has("número externo") || _vm.numExternoV
               ? _c("span", { staticClass: "text-danger" }, [
                   _vm._v(
                     _vm._s(
-                      _vm.errors.first("Numero Externo") || _vm.numExternoV[0]
+                      _vm.errors.first("número externo") || _vm.numExternoV[0]
                     )
                   )
                 ])
               : _vm._e()
-          ]),
-          _vm._v(" "),
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
           _c("div", { staticClass: "form-group col-md-4" }, [
             _c("label", { attrs: { for: "numInterno" } }, [
               _vm._v("Número interno")
@@ -62328,175 +62456,10 @@ var render = function() {
                 }
               }
             })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "telefono" } }, [_vm._v("Teléfono")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|numeric",
-                  expression: "'required|numeric'"
-                },
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.telefono,
-                  expression: "telefono"
-                }
-              ],
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger":
-                  _vm.errors.has("telefono") || _vm.telefonoV
-              },
-              attrs: {
-                type: "text",
-                id: "telefono",
-                name: "telefono",
-                placeholder: "Ingrese el teléfono",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.telefono },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.telefono = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors.has("telefono") || _vm.telefonoV
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(
-                    _vm._s(_vm.errors.first("telefono") || _vm.telefonoV[0])
-                  )
-                ])
-              : _vm._e()
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "lugarTrabajo" } }, [
-              _vm._v("Lugar de trabajo")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                },
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.lugarTrabajo,
-                  expression: "lugarTrabajo"
-                }
-              ],
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger":
-                  _vm.errors.has("Lugar de Trabajo") || _vm.lugarTrabajoV
-              },
-              attrs: {
-                type: "text",
-                id: "lugarTrabajo",
-                "data-vv-name": "Lugar de Trabajo",
-                name: "lugarTrabajo",
-                placeholder: "Ingrese el lugar de trabajo",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.lugarTrabajo },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.lugarTrabajo = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors.has("Lugar de Trabajo") || _vm.lugarTrabajoV
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.errors.first("Lugar de Trabajo") ||
-                        _vm.lugarTrabajoV[0]
-                    )
-                  )
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "telefonoTrabajo" } }, [
-              _vm._v("Teléfono de trabajo")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|numeric",
-                  expression: "'required|numeric'"
-                },
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.telefonoTrabajo,
-                  expression: "telefonoTrabajo"
-                }
-              ],
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger":
-                  _vm.errors.has("Télefono de Trabajo") || _vm.telefonoTrabajoV
-              },
-              attrs: {
-                type: "text",
-                id: "telefonoTrabajo",
-                "data-vv-name": "Télefono de Trabajo",
-                name: "telefonoTrabajo",
-                placeholder: "Ingrese el teléfono de trabajo",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.telefonoTrabajo },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.telefonoTrabajo = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors.has("Télefono de Trabajo") || _vm.telefonoTrabajoV
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.errors.first("Télefono de Trabajo") ||
-                        _vm.telefonoTrabajoV[0]
-                    )
-                  )
-                ])
-              : _vm._e()
-          ])
-        ]),
+        _c("div", { staticClass: "form-row" }),
         _vm._v(" "),
         _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
           _vm._v("Guardar")

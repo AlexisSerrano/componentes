@@ -16,7 +16,6 @@ Route::post('addDatosLaborales','DatosLaboralesController@addDatosLaborales')->n
 
 /*URLS PARA EMPRESAS*/
 Route::get('/personaMoral','PersonaMoralController@index');
-Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');
 
 /*URLS PARA SELECTS PERSONAS */
 Route::get('getDatosPersonaTelefono','DatosContacto@getdctt');
@@ -27,7 +26,7 @@ Route::get('getDatosContactoCor/{idPersona}','DatosContacto@getdcc');
 Route::get('getDatosContactoRed/{idPersona}','DatosContacto@getdcr');
 
 Route::get('getNacionalidades','PersonaController@getNacionalidades');
-Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
+
 Route::get('getEtnias','PersonaController@getEtnias');
 Route::get('getLenguas','PersonaController@getLenguas');
 Route::get('getEstados','PersonaController@getEstados');
@@ -38,11 +37,8 @@ Route::get('getEscolaridades','PersonaController@getEscolaridades');
 Route::get('getReligiones','PersonaController@getReligiones');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
 Route::get('getInterpretes','PersonaController@getInterpretes');
-Route::post('searchPersonaFisica','PersonaController@searchPersona');
-Route::post('searchPersonaMoral','PersonaMoralController@searchPersona');
 Route::post('getValidaciones','PersonaController@getValidaciones');
-Route::post('rfcFisico','PersonaController@rfcFisico');
-Route::post('rfcMoral','PersonaMoralController@rfcMoral');
+
 
 /*URLS PARA SELECTS DOMICILIO */
 Route::get('getEstados2','DomicilioController@getEstados');
@@ -67,4 +63,3 @@ Route::get('resumen', function(){
 
 
 
-Route::get('getCatalogos','PersonaController@getCatalogos');

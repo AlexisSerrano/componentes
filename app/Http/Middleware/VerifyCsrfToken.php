@@ -12,10 +12,10 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'addDomicilio',
-        'addPersona',
-        'rfcFisico',
-        'api/PersonaFisica',
-        'searchPersonaFisica'
+        // 'addDomicilio',
+        // 'addPersona',
+        // 'rfcFisico',
+        // 'api/PersonaFisica',
+        // 'searchPersonaFisica'
     ];
 }
