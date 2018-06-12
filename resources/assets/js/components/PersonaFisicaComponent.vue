@@ -70,10 +70,16 @@
                 </div>
             </div>
             <div class="form-row" v-if="(denunciado==1) || (tipo !=1 && tipo!=10)">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
                     <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') }" v-model="rfc" placeholder="Ingrese el RFC" v-validate="rfcV" autocomplete="off">
                     <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="col-form-label col-form-label-sm" for="homoclave">Homoclave</label>
+                    <input v-if="rfcV == 1" type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') }" id="homoclave" v-model="homoclave" placeholder="Homoclave" v-validate="'required'" autocomplete="off" data-vv-name="homoclave">
+                    <input v-else type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') }" id="homoclave" v-model="homoclave" placeholder="Homoclave" autocomplete="off">
+                    <span v-if="errors.has('homoclave')" class="text-danger">{{ errors.first('homoclave') }}</span>
                 </div>
 
                 <div class="form-group col-md-4">
@@ -198,6 +204,7 @@ import { execn, draw } from "rendata";
                 edad: '',
                 sexo:'',
                 rfc:'',
+                homoclave:'',
                 curp: '',                
                 mostrarForm:true,
                 nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
@@ -240,10 +247,9 @@ import { execn, draw } from "rendata";
                 validaciones:[],
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
-                // url:'http://localhost/componentes/public/api',
-                // url:'http://componentes.oo'
-                url:'http://componentes.test/api'
-
+                url:'http://localhost/componentes/public/api',
+                //url:'http://componentes'
+                //url:''
             }
         },
 
@@ -284,8 +290,9 @@ import { execn, draw } from "rendata";
                         primerAp: this.primerAp,
                         segundoAp: this.segundoAp,
                         fechaNacimiento: this.fechaNacimiento
-                    }).then(response =>{
-                        this.rfc = response.data.res
+                    }).then(response =>{                                            
+                        this.rfc = response.data.res.slice(0, -3);                        
+                        this.homoclave=response.data.res.slice(-3);
                         var urlBuscarPersona = this.url+'/searchPersonaFisica';
                         axios.post(urlBuscarPersona,{
                             rfc: this.rfc
@@ -538,7 +545,7 @@ import { execn, draw } from "rendata";
                         }else{
                             PF="error "+response.status;
                         } */            
-                        PF=response.data;   
+                        PF=response.data;                        
                     })
                     .catch((error)=>{                        
                          if (error.response) {
@@ -549,8 +556,8 @@ import { execn, draw } from "rendata";
                             PF=error.message;
                         }
                     })
-                    .finally(()=>{                      
-                        if(PF.id!=undefined){
+                    .finally(()=>{
+                        if(PF.id!=undefined){                            
                             this.personaExiste.idvar_persona=PF.idvar_persona;
                             $('#idvarpersona').val(this.personaExiste.idvar_persona);
                            // console.log("idvarpersona:"+this.personaExiste.idvar_persona); 
