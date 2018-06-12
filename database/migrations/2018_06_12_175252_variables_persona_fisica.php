@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVariablesPersonaTable extends Migration
+class VariablesPersonaFisica extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVariablesPersonaTable extends Migration
      */
     public function up()
     {
-        Schema::create('variables_persona', function (Blueprint $table) {
+        Schema::create('variables_persona_fisica', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idPersona')->unsigned();
             $table->integer('edad')->nullable();
@@ -32,7 +32,7 @@ class CreateVariablesPersonaTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
+            $table->foreign('idPersona')->references('id')->on('persona_fisica')->onDelete('cascade');
             $table->foreign('idOcupacion')->references('id')->on('cat_ocupacion')->onDelete('cascade');
             $table->foreign('idEstadoCivil')->references('id')->on('cat_estado_civil')->onDelete('cascade');
             $table->foreign('idEscolaridad')->references('id')->on('cat_escolaridad')->onDelete('cascade');
@@ -49,6 +49,6 @@ class CreateVariablesPersonaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('variables_persona');
+        Schema::dropIfExists('variables_persona_fisica');
     }
 }

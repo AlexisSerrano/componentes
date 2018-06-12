@@ -1,10 +1,10 @@
 <?php
-//namespace fge\apis\migrations;
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateComponentesTable extends Migration
+class ViewVpersonaActual extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateComponentesTable extends Migration
      */
     public function up()
     {
-        Schema::create('componentes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre',100);
-            $table->string('descripcion',256);
-        });
+        //
+        DB::statement('create OR REPLACE view vpersona_actual as select idPersona,max(id) id from variables_persona_fisica where deleted_at is null group by idPersona;');
     }
 
     /**
@@ -27,6 +24,6 @@ class CreateComponentesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('componentes');
+        //
     }
 }

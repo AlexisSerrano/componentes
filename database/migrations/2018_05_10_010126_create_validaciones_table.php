@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInvolucradosTable extends Migration
+class CreateValidacionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateInvolucradosTable extends Migration
      */
     public function up()
     {
-        Schema::create('involucrados', function (Blueprint $table) {
+        Schema::create('validaciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre',100);
-            $table->string('descripcion',256);
+            $table->integer('sistema')->unsigned();
+            $table->integer('tipo')->unsigned();
+            $table->text('validaciones');                 
+            
+            $table->timestamps();
         });
     }
 
@@ -27,6 +30,6 @@ class CreateInvolucradosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('involucrados');
+        Schema::dropIfExists('validaciones');
     }
 }

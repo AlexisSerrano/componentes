@@ -21,7 +21,6 @@ class TableDatosContacto extends Migration
             $table->string('valor',200)->nullable()->default("SIN INFORMACION");
             $table->boolean('habilitado')->nullable()->default(true);
             $table->foreign('iddatostipo')->references('id')->on('datos_contacto_tipos')->onDelete('cascade');
-            $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
