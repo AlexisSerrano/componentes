@@ -55747,6 +55747,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -55774,6 +55780,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             edad: '',
             sexo: '',
             rfc: '',
+            homoclave: '',
             curp: '',
             // mostrarSearch:true,
             mostrarForm: true,
@@ -55818,9 +55825,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             denunciado: false,
             qrr: "QUIEN RESULTE RESPONSABLE",
             url: 'http://localhost/componentes/public/api'
-            // url:'http://componentes.oo'
+            //url:'http://componentes'
             //url:''
-
         };
     },
 
@@ -55870,7 +55876,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     segundoAp: this.segundoAp,
                     fechaNacimiento: this.fechaNacimiento
                 }).then(function (response) {
-                    _this2.rfc = response.data.res;
+                    _this2.rfc = response.data.res.slice(0, -3);
+                    _this2.homoclave = response.data.res.slice(-3);
                     var urlBuscarPersona = _this2.url + '/searchPersonaFisica';
                     axios.post(urlBuscarPersona, {
                         rfc: _this2.rfc
@@ -56120,8 +56127,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 options: {
                     title: "Opciones",
                     links: [{
-                        text: "Cragar datos",
+                        text: "Cargar datos",
                         func: function func(obj) {
+                            nombres.value = obj.nombres;
+                            primerAp.value = obj.primerAp;
+                            segundoAp.value = obj.segundoAp;
+                            //this.fechaNacimiento=obj.fechaNacimiento
+                            edad.value = obj.edad;
+                            //this.sexo=obj.sexo
+
+
                             console.log(obj);
                         }
                     }]
@@ -57467,7 +57482,7 @@ var render = function() {
             _vm._v(" "),
             _vm.denunciado == 1 || (_vm.tipo != 1 && _vm.tipo != 10)
               ? _c("div", { staticClass: "form-row" }, [
-                  _c("div", { staticClass: "form-group col-md-4" }, [
+                  _c("div", { staticClass: "form-group col-md-2" }, [
                     _c(
                       "label",
                       {
@@ -57551,6 +57566,94 @@ var render = function() {
                     _vm.errors.has("RFC")
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(_vm._s(_vm.errors.first("RFC")))
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-2" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "homoclave" }
+                      },
+                      [_vm._v("Homoclave")]
+                    ),
+                    _vm._v(" "),
+                    _vm.rfcV == 1
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.homoclave,
+                              expression: "homoclave"
+                            },
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          class: {
+                            input: true,
+                            "form-control form-control-sm": true,
+                            "border border-danger": _vm.errors.has("homoclave")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "homoclave",
+                            id: "homoclave",
+                            placeholder: "Homoclave",
+                            autocomplete: "off",
+                            "data-vv-name": "homoclave"
+                          },
+                          domProps: { value: _vm.homoclave },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.homoclave = $event.target.value
+                            }
+                          }
+                        })
+                      : _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.homoclave,
+                              expression: "homoclave"
+                            }
+                          ],
+                          class: {
+                            input: true,
+                            "form-control form-control-sm": true,
+                            "border border-danger": _vm.errors.has("homoclave")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "homoclave",
+                            id: "homoclave",
+                            placeholder: "Homoclave",
+                            autocomplete: "off"
+                          },
+                          domProps: { value: _vm.homoclave },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.homoclave = $event.target.value
+                            }
+                          }
+                        }),
+                    _vm._v(" "),
+                    _vm.errors.has("homoclave")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("homoclave")))
                         ])
                       : _vm._e()
                   ]),

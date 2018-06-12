@@ -114,7 +114,6 @@
                     <input v-else type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('RFC') }" id="rfc" v-model="rfc" placeholder="Ingrese el RFC" autocomplete="off">
                     <span v-if="errors.has('RFC')" class="text-danger">{{ errors.first('RFC') }}</span>
                 </div>
-
                 <div class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="homoclave">Homoclave</label>
                     <input v-if="rfcV == 1" type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') }" id="homoclave" v-model="homoclave" placeholder="Homoclave" v-validate="'required'" autocomplete="off" data-vv-name="homoclave">
