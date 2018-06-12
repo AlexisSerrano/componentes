@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="form-row">
+        <div class="form-row contenedor">
             <div class="form-group col-md-6">
                 <div class="form-check" style="padding: 0">
                     <div class="form-check form-check-inline">
@@ -36,3 +36,8 @@
         },
     }
 </script>
+<style>
+.contenedor{
+    height: 38px;
+}
+</style>
