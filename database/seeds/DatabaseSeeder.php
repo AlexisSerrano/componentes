@@ -51,10 +51,7 @@ class DatabaseSeeder extends Seeder
         
         $this->call(IdentificacionSeeder::class);
         
-        $this->call(componentesSeeder::class);
-        $this->call(involucradosSeeder::class);
-        $this->call(sistemasSeeder::class);
-        $this->call(ligadosSeeder::class);
+        $this->call(validacionesSeeder::class);
 
         $this->call(InterpreteSeeder::class);
 

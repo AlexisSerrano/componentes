@@ -20,8 +20,8 @@ class ViewPersonaCompletaActual extends Migration
         var.id idvar_persona,edad,motivoEstancia,idOcupacion,ocu.nombre ocupacion, idEstadoCivil,civ.nombre estadoCivil,idEscolaridad,esc.nombre escolaridad,
         idReligion, rel.nombre religion,idDomicilio,docIdentificacion,numDocIdentificacion,idInterprete,inte.nombre interprete,idDomicilioTrabajo,per.id idPersona
 
-        FROM variables_persona var 
-        left join personas per on var.idPersona=per.id
+        FROM variables_persona_fisica var 
+        left join persona_fisica per on var.idPersona=per.id
         left join cat_ocupacion ocu on var.idOcupacion=ocu.id
         left join cat_estado_civil civ on civ.id=var.idEstadoCivil
         left join cat_escolaridad esc on esc.id=var.idEscolaridad

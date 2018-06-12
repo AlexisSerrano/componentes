@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-class ligadosSeeder extends Seeder
+class validacionesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,9 +14,9 @@ class ligadosSeeder extends Seeder
         //1,1,10 = comparecencia COMPLETO (UIPJ)       1,2,1 = coparecencia COMPLETO (UAT)
         //1,1,11 = conocido PARCIAL (UIPJ)             1,2,2 = conocido PARCIAL (UAT)
         //1,1,12 = QRR NULL (UIPJ)                     1,2,3 = QRR NULL (UAT)
-        DB::table('ligados')->insert([
+        DB::table('validaciones')->insert([
             //VICTIMA U OFENDIDO UIPJ
-            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>4,"config"=>
+            ["sistema"=>1,"tipo"=>4,"validaciones"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
@@ -90,7 +90,7 @@ class ligadosSeeder extends Seeder
                 '},"default":1}'.
             '}'],
             //COMPARECENCIA UIPJ
-            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>10,"config"=>
+            ["idsistema"=>1,"idinvolucrado"=>10,"validaciones"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
@@ -164,7 +164,7 @@ class ligadosSeeder extends Seeder
                 '},"default":1}'.
             '}'],
             //CONOCIDO UIPJ
-            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>11,"config"=>
+            ["idsistema"=>1,"idinvolucrado"=>11,"validaciones"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
@@ -238,7 +238,7 @@ class ligadosSeeder extends Seeder
                 '},"default":1}'.
             '}'],
             //QRR UIPJ
-            ["idcomponente"=>1,"idsistema"=>1,"idinvolucrado"=>12,"config"=>
+            ["idsistema"=>1,"idinvolucrado"=>12,"validaciones"=>
             '{'.
                 '"nombres":{"default":"QUIEN RESULTE RESPONSABLE","rules":{'.
                     '"required":false'.
@@ -312,7 +312,7 @@ class ligadosSeeder extends Seeder
                 '},"default":1}'.
             '}'],
             //VICTIMA U OFENDIDO UAT
-            ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>4,"config"=>
+            ["idsistema"=>2,"idinvolucrado"=>4,"validaciones"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
@@ -386,7 +386,7 @@ class ligadosSeeder extends Seeder
                 '},"default":1}'.
             '}'],
             //COMPARECENCIA UAT
-            ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>1,"config"=>
+            ["idsistema"=>2,"idinvolucrado"=>1,"validaciones"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
@@ -460,7 +460,7 @@ class ligadosSeeder extends Seeder
                 '},"default":1}'.
             '}'],
             //CONOCIDO UAT
-            ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>2,"config"=>
+            ["idsistema"=>2,"idinvolucrado"=>2,"validaciones"=>
             '{'.
                 '"nombres":{"rules":{'.
                     '"required":true'.
@@ -534,7 +534,7 @@ class ligadosSeeder extends Seeder
                 '},"default":1}'.
             '}'],
             //QRR UAT
-            ["idcomponente"=>1,"idsistema"=>2,"idinvolucrado"=>3,"config"=>
+            ["idsistema"=>2,"idinvolucrado"=>3,"validaciones"=>
             '{'.
                 '"nombres":{"default":"QUIEN RESULTE RESPONSABLE","rules":{'.
                     '"required":false'.
