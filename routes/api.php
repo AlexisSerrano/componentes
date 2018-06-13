@@ -36,3 +36,13 @@ Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
 Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');
 Route::post('searchPersonaMoral','PersonaMoralController@searchPersona');
 Route::post('rfcMoral','PersonaMoralController@rfcMoral');
+
+/* Validaciones back personas en uat*/
+Route::post('abogadouat','ValidacionController@valAbogadoUAT');
+Route::post('autoridaduat','ValidacionController@valAutoridadUAT');
+Route::post('conocidouat','ValidacionController@valConocidoUAT');
+Route::post('denunciadofisicouat','ValidacionController@valDenunciadoFUAT');
+Route::post('denunciadomoraluat','ValidacionController@valDenunciadoMUAT');
+Route::post('denunciantefisicauat','ValidacionController@valDenuncianteFUAT');
+Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
+Route::get('getValidaciones/{tipo}/{sistema}','ValidacionController@getValidaciones');

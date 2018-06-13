@@ -15,10 +15,9 @@ class CreateValidacionesTable extends Migration
     {
         Schema::create('validaciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sistema')->unsigned();
-            $table->integer('tipo')->unsigned();
-            $table->text('validaciones');                 
-            
+            $table->string('sistema',20);
+            $table->string('tipo',20);
+            $table->text('validaciones');
             $table->timestamps();
         });
     }

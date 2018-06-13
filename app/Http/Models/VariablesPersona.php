@@ -17,10 +17,8 @@ class VariablesPersona extends Model
     
     public $fillable = [
         'id',
-        'idCarpeta',
         'idPersona',
         'edad',
-        'telefono',
         'motivoEstancia',
         'idOcupacion',
         'idEstadoCivil',
@@ -28,9 +26,10 @@ class VariablesPersona extends Model
         'idReligion',
         'idDomicilio',
         'docIdentificacion',
+        'idInterprete',
         'numDocIdentificacion',
-        'lugarTrabajo',
-        'idDomicilioTrabajo'
+        'idDomicilioTrabajo',
+        'alias'
     ];
 
     public function carpeta()
