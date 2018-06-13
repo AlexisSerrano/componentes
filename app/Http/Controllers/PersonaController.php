@@ -18,6 +18,7 @@ use App\Http\Models\CatIdentificacion;
 use App\Http\Models\InterpretesModel;
 use App\Http\Models\VariablesPersona;
 use App\Http\Models\DatosContacto;
+use App\Http\Models\Validaciones;
 use RFC\RfcBuilder;
 
 class PersonaController extends Controller{
@@ -119,7 +120,9 @@ class PersonaController extends Controller{
 		return response()->json($data);
 	}
 
-	public function getCatalogos(){
+	public function getCatalogos(Request $request){
+		$sistema = $request->sistema;
+        $tipo = $request->tipo;
 		$data = array(
 		'nacionalidades' => PersonaController::getNacionalidades(),
 		'estados' => PersonaController::getEstados(),
@@ -132,14 +135,12 @@ class PersonaController extends Controller{
 		'religiones' => PersonaController::getReligiones(),
 		'identificaciones' => PersonaController::getIdentificaciones(),
 		'interpretes' => PersonaController::getInterpretes(),
-		'validaciones' => PersonaController::getValidaciones()
+		'validaciones' => PersonaController::getValidaciones($sistema,$tipo)
 		);
 		return response()->json($data);
 	}
 	
-	public function getValidaciones(Request $request){
-        $sistema = $request->sistema;
-        $tipo = $request->tipo;
+	public function getValidaciones($sistema,$tipo){
         $validaciones = Validaciones::where('sistema',$sistema)->where('tipo',$tipo)->first();
         $val = json_decode($validaciones->validaciones);
         return response()->json($val);

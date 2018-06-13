@@ -14,15 +14,15 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-*/
-Route::post('getValidaciones','GenericController@ValidacionDBJSON');
-Route::post('PersonaFisica','GenericController@ValidacionJSONDBPF');
-Route::post('SearchUndefined','GenericController@SearchUndefined');
-Route::post('SetConfirm','GenericController@SetConfirm');
-Route::post('SetConfirmMulti','GenericController@SetConfirmMulti');
-Route::post('SetConfirmCarpetaMulti','GenericController@SetConfirmCarpetaMulti');
-Route::post('adddc','DatosContacto@adddc');
-Route::post('deldc','DatosContacto@deldc');
+// */
+// Route::post('getValidaciones','GenericController@ValidacionDBJSON');
+// Route::post('PersonaFisica','GenericController@ValidacionJSONDBPF');
+// Route::post('SearchUndefined','GenericController@SearchUndefined');
+// Route::post('SetConfirm','GenericController@SetConfirm');
+// Route::post('SetConfirmMulti','GenericController@SetConfirmMulti');
+// Route::post('SetConfirmCarpetaMulti','GenericController@SetConfirmCarpetaMulti');
+// Route::post('adddc','DatosContacto@adddc');
+// Route::post('deldc','DatosContacto@deldc');
 
 
 

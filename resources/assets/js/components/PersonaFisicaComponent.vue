@@ -2,29 +2,33 @@
     <div class="container-fluid"> 
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm">
 
-            <div class="form-row">
-                <div v-if="tipo!='qrr'" class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
-                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') }" v-model="nombres" placeholder="Ingrese el nombre" v-validate="nombresV" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
-                    <span v-if="errors.has('nombres')" class="text-danger">{{ errors.first('nombres') }}</span>
-                </div>
+            <div class="row">
                 <div v-if="tipo=='qrr'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
                     <input type="text" class="form-control form-control-sm" v-model="qrr" readonly>
                 </div>
-                <div v-if="tipo!='qrr'" class="form-group col-md-4">
+            </div>
+
+            <div class="form-row">
+                <div v-if="validaciones.nombres!='oculto'" class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
+                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') }" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
+                    <span v-if="errors.has('nombres')" class="text-danger">{{ errors.first('nombres') }}</span>
+                </div>
+
+                <div v-if="validaciones.primerAp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="primerAp">Primer apellido</label>
-                    <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') }" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="primerApV" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
+                    <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') }" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="validaciones.primerAp" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
                     <span v-if="errors.has('primer apellido')" class="text-danger">{{ errors.first('primer apellido') }}</span>
                 </div>
-                <div v-if="tipo!='qrr'" class="form-group col-md-4">
+                <div v-if="validaciones.segundoAp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="segundoAp">Segundo apellido</label>
-                    <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') }" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="segundoApV" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
+                    <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') }" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
                     <span v-if="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido') }}</span>
                 </div>
-               <div v-if="tipo=='conocido'" class="form-group col-md-4">
+               <div v-if="validaciones.alias!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="alias">Alias</label>                    
-                    <input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias') }" v-model="alias" placeholder="Ingrese el alias" v-validate="aliasV" autocomplete="off">
+                    <input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias') }" v-model="alias" placeholder="Ingrese el alias" v-validate="validaciones.alias" autocomplete="off">
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
 
@@ -33,25 +37,25 @@
 
 
 
-                <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-4">
+                <div v-if="validaciones.fechaNacimiento!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="fechaNacimiento">Fecha de nacimiento</label>
-                    <input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="fechaNacimientoV" :class="{ 'border border-danger': errors.has('fecha de nacimiento')}" @blur="searchPersona" v-on:blur="generarCurp(),generarEdad()">
+                    <input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="validaciones.fechaNacimiento" :class="{ 'border border-danger': errors.has('fecha de nacimiento')}" @blur="searchPersona" v-on:blur="generarCurp(),generarEdad()">
                     <span v-show="errors.has('fecha de nacimiento')" class="text-danger">{{ errors.first('fecha de nacimiento') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-1">
+                <div v-if="validaciones.edad!='oculto'" class="form-group col-md-1">
                     <label class="col-form-label col-form-label-sm" for="edad">Edad</label>
-                    <input type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') }" v-model="edad" placeholder="Edad" v-validate="edadV">
+                    <input type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') }" v-model="edad" placeholder="Edad" v-validate="validaciones.edad">
                     <span v-if="errors.has('edad')" class="text-danger">{{ errors.first('edad') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-3">
+                <div v-if="validaciones.sexo!='oculto'" class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="sexos">Sexo</label>    
-                    <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="sexoV" :class="{ 'border border-danger rounded': errors.has('sexo') }" placeholder="Seleccione un sexo" v-on:blur="generarCurp"></v-select>
+                    <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="validaciones.sexo" :class="{ 'border border-danger rounded': errors.has('sexo') }" placeholder="Seleccione un sexo" v-on:blur="generarCurp"></v-select>
                     <span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo') }}</span>
                 </div>
 
-                <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-4">
+                <div v-if="validaciones.idEstadoOrigen!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="estado">Entidad federativa de origen</label>    
-                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') }" placeholder="Seleccione una entidad federativa de origen" v-on:blur="generarCurp"></v-select>
+                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="validaciones.idEstadoOrigen" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') }" placeholder="Seleccione una entidad federativa de origen" v-on:blur="generarCurp"></v-select>
                     <span v-show="errors.has('entidad federativa de origen')" class="text-danger">{{ errors.first('entidad federativa de origen') }}</span>
                 </div>
 
@@ -59,99 +63,99 @@
 
 
 
-                <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-2">
+                <div v-if="validaciones.rfc!='oculto'" class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
-                    <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') }" v-model="rfc" placeholder="Ingrese el RFC" v-validate="rfcV" autocomplete="off">
+                    <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') }" v-model="rfc" placeholder="Ingrese el RFC" v-validate="validaciones.rfc" autocomplete="off">
                     <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-2">
+                <div v-if="validaciones.homo!='oculto'" class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="homoclave">Homoclave</label>
-                    <input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') }" v-model="homoclave" placeholder="Homoclave" v-validate="rfcV" autocomplete="off">
+                    <input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') }" v-model="homoclave" placeholder="Homoclave" v-validate="validaciones.homo" autocomplete="off">
                     <span v-if="errors.has('homoclave')" class="text-danger">{{ errors.first('homoclave') }}</span>
                 </div>
 
-                <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-4">
+                <div v-if="validaciones.curp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="curp">CURP</label>
-                    <input type="text" name="curp" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('curp') }" v-model="curp" placeholder="Ingrese el curp" v-validate="curpV" autocomplete="off">
+                    <input type="text" name="curp" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('curp') }" v-model="curp" placeholder="Ingrese el curp" v-validate="validaciones.curp" autocomplete="off">
                     <span v-if="errors.has('curp')" class="text-danger">{{ errors.first('curp') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido' && tipo!='abogado'" class="form-group col-md-4">
+                <div v-if="validaciones.idNacionalidad!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nacionalidad">Nacionalidad</label>    
-                    <v-select :options="nacionalidades" label="nombre" v-model="nacionalidad" name="nacionalidad" v-validate="nacionalidadV" :class="{ 'border border-danger rounded': errors.has('nacionalidad') }" placeholder="Seleccione una nacionalidad"></v-select>
+                    <v-select :options="nacionalidades" label="nombre" v-model="nacionalidad" name="nacionalidad" v-validate="validaciones.idNacionalidad" :class="{ 'border border-danger rounded': errors.has('nacionalidad') }" placeholder="Seleccione una nacionalidad"></v-select>
                     <span v-show="errors.has('nacionalidad')" class="text-danger">{{ errors.first('nacionalidad') }}</span>
                 </div>
 
 
 
 
-                <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-4">
+                <div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>    
-                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="municipioV" :class="{ 'border border-danger rounded': errors.has('municipio') }" placeholder="Seleccione un municipio de origen"></v-select>
+                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') }" placeholder="Seleccione un municipio de origen"></v-select>
                     <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido' && tipo!='abogado'" class="form-group col-md-4">
+                <div v-if="validaciones.idEtnia!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="etnia">Etnia</label>    
-                    <v-select label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="etniaV" :class="{ 'border border-danger rounded': errors.has('etnia') }" placeholder="Seleccione una etnia"></v-select>
+                    <v-select label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="validaciones.idEtnia" :class="{ 'border border-danger rounded': errors.has('etnia') }" placeholder="Seleccione una etnia"></v-select>
                     <span v-show="errors.has('etnia')" class="text-danger">{{ errors.first('etnia') }}</span> 
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido' && tipo!='abogado'" class="form-group col-md-4">
+                <div v-if="validaciones.idLengua!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="lengua">Lengua</label>    
-                    <v-select label="nombre" :options="lenguas" v-model="lengua" name="lengua" v-validate="lenguaV" :class="{ 'border border-danger rounded': errors.has('lengua') }" placeholder="Seleccione una lengua"></v-select>
+                    <v-select label="nombre" :options="lenguas" v-model="lengua" name="lengua" v-validate="validaciones.idLengua" :class="{ 'border border-danger rounded': errors.has('lengua') }" placeholder="Seleccione una lengua"></v-select>
                     <span v-show="errors.has('lengua')" class="text-danger">{{ errors.first('lengua') }}</span> 
                 </div>
 
 
 
 
-                <div v-if="tipo!='qrr' && tipo!='conocido' && tipo!='abogado'" class="form-group col-md-4">
+                <div v-if="validaciones.idInterprete!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="interprete">Intérprete</label>    
-                    <v-select :options="interpretes" label="nombre" v-model="interprete" name="intérprete" v-validate="interpreteV" :class="{ 'border border-danger rounded': errors.has('intérprete') }" placeholder="Seleccione un intérprete"></v-select>
+                    <v-select :options="interpretes" label="nombre" v-model="interprete" name="intérprete" v-validate="validaciones.idInterprete" :class="{ 'border border-danger rounded': errors.has('intérprete') }" placeholder="Seleccione un intérprete"></v-select>
                     <span v-show="errors.has('intérprete')" class="text-danger">{{ errors.first('intérprete') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido' && tipo!='abogado'" class="form-group col-md-4">
+                <div v-if="validaciones.motivoEstancia!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="motivoEstancia">Motivo de estancia</label>
-                    <input type="text" data-vv-name="motivo de estancia" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('motivo de estancia') }" v-model="motivoEstancia" placeholder="Ingrese el motivo de estancia" v-validate="motivoEstanciaV" autocomplete="off">
+                    <input type="text" data-vv-name="motivo de estancia" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('motivo de estancia') }" v-model="motivoEstancia" placeholder="Ingrese el motivo de estancia" v-validate="validaciones.motivoEstancia" autocomplete="off">
                     <span v-if="errors.has('motivo de estancia')" class="text-danger">{{ errors.first('motivo de estancia') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido' && tipo!='abogado'" class="form-group col-md-4">
+                <div v-if="validaciones.idOcupacion!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="ocupacion">Ocupación</label>    
-                    <v-select :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupacion" v-validate="ocupacionV" :class="{ 'border border-danger rounded': errors.has('ocupación') }" placeholder="Seleccione una ocupación"></v-select>
+                    <v-select :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupacion" v-validate="validaciones.idOcupacion" :class="{ 'border border-danger rounded': errors.has('ocupación') }" placeholder="Seleccione una ocupación"></v-select>
                     <span v-show="errors.has('ocupación')" class="text-danger">{{ errors.first('ocupación') }}</span>
                 </div>
 
 
 
 
-                <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-4">
+                <div v-if="validaciones.idEstadoCivil!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="estadoCivil">Estado civil</label>    
-                    <v-select :options="estadosCiviles" label="nombre" v-model="estadoCivil" data-vv-name="estado civil" v-validate="estadoCivilV" :class="{ 'border border-danger rounded': errors.has('estado civil') }" placeholder="Seleccione un estado civil"></v-select>
+                    <v-select :options="estadosCiviles" label="nombre" v-model="estadoCivil" data-vv-name="estado civil" v-validate="validaciones.idEstadoCivil" :class="{ 'border border-danger rounded': errors.has('estado civil') }" placeholder="Seleccione un estado civil"></v-select>
                     <span v-show="errors.has('estado civil')" class="text-danger">{{ errors.first('estado civil') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido' && tipo!='abogado'" class="form-group col-md-4">
+                <div v-if="validaciones.idEscolaridad!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="escolaridad">Escolaridad</label>    
-                    <v-select :options="escolaridades" label="nombre" v-model="escolaridad" name="escolaridad" v-validate="escolaridadV" :class="{ 'border border-danger rounded': errors.has('escolaridad') }" placeholder="Seleccione una escolaridad"></v-select>
+                    <v-select :options="escolaridades" label="nombre" v-model="escolaridad" name="escolaridad" v-validate="validaciones.idEscolaridad" :class="{ 'border border-danger rounded': errors.has('escolaridad') }" placeholder="Seleccione una escolaridad"></v-select>
                     <span v-show="errors.has('escolaridad')" class="text-danger">{{ errors.first('escolaridad') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido' && tipo!='abogado'" class="form-group col-md-4">
+                <div v-if="validaciones.idReligion!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="religion">Religión</label>    
-                    <v-select :options="religiones" label="nombre" v-model="religion" name="religion" v-validate="religionV" :class="{ 'border border-danger rounded': errors.has('religión') }" placeholder="Seleccione una religión"></v-select>
+                    <v-select :options="religiones" label="nombre" v-model="religion" name="religion" v-validate="validaciones.idReligion" :class="{ 'border border-danger rounded': errors.has('religión') }" placeholder="Seleccione una religión"></v-select>
                     <span v-show="errors.has('religión')" class="text-danger">{{ errors.first('religión') }}</span>
                 </div>
 
 
-                <div v-if="tipo!='qrr' && tipo!='conocido' && tipo!='abogado'" class="form-group col-md-4">
+                <div v-if="validaciones.docIdentificacion!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="identificacion">Identificación</label>    
-                    <v-select :options="identificaciones" label="documento" v-model="identificacion" name="identificacion" v-validate="identificacionV" :class="{ 'border border-danger rounded': errors.has('identificación') }" placeholder="Seleccione una identificación"></v-select>
+                    <v-select :options="identificaciones" label="documento" v-model="identificacion" name="identificacion" v-validate="validaciones.docIdentificacion" :class="{ 'border border-danger rounded': errors.has('identificación') }" placeholder="Seleccione una identificación"></v-select>
                     <span v-show="errors.has('identificación')" class="text-danger">{{ errors.first('identificación') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido' && tipo!='abogado'" class="form-group col-md-4">
+                <div v-if="validaciones.numDocIdentificacion!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="numIdentificacion">Número de identifación</label>
-                    <input type="text" data-vv-name="número de identificación" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('número de identificación') }" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" v-validate="numIdentificacionV" autocomplete="off">
+                    <input type="text" data-vv-name="número de identificación" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('número de identificación') }" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" v-validate="validaciones.numDocIdentificacion" autocomplete="off">
                     <span v-if="errors.has('número de identificación')" class="text-danger">{{ errors.first('número de identificación') }}</span>
                 </div>
-                <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-4">
+                <div v-if="validaciones.telefono!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="teléfono">Teléfono</label>
-                    <input type="text" name="teléfono" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('teléfono') }" v-model="telefono" placeholder="Ingrese el teléfono" v-validate="telefonoV" autocomplete="off">
+                    <input type="text" name="teléfono" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('teléfono') }" v-model="telefono" placeholder="Ingrese el teléfono" v-validate="validaciones.telefono" autocomplete="off">
                     <span v-if="errors.has('teléfono')" class="text-danger">{{ errors.first('teléfono') }}</span>
                 </div>
             </div>
@@ -217,36 +221,13 @@ import { execn, draw } from "rendata";
                 numIdentificacion:'',
                 alias:'',         
                 telefono:'',                       
-                nombresV:false,
-                primerApV:false,
-                segundoApV:false,
-                fechaNacimientoV:false,
-                edadV:false,
-                sexoV:false,
-                rfcV:false,
-                curpV:false,
-                nacionalidadV:false,
-                estadoV:false,
-                municipioV:false,
-                etniaV:false,
-                lenguaV:false,
-                interpreteV:false,
-                motivoEstanciaV:false,
-                ocupacionV:false,
-                estadoCivilV:false,
-                escolaridadV:false,
-                religionV:false,
-                identificacionV:false,
-                numIdentificacionV:false,
-                aliasV:false,
-                telefonoV:false,
                 validaciones:[],
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://localhost/componentes/public/api',
                 //url:'http://componentes.oo/api',
-                //url:'http://componentes'
-                url:'/api'
+                url:'http://componentes/api'
+                // url:'/api'
             }
         },
 
@@ -260,13 +241,15 @@ import { execn, draw } from "rendata";
             }
         },
         mounted: function(){
-            this.getCatalogos();              
-            this.getValidaciones();             
+            this.getCatalogos();
         },
         methods:{
             getCatalogos: function(){
                 var urlCatalogos = this.url+'/getCatalogos';
-                axios.get(urlCatalogos).then(response => {
+                axios.post(urlCatalogos, {
+                    sistema: this.sistema,
+                    tipo: this.tipo
+                }).then(response => {
                     this.nacionalidades = response.data['nacionalidades'].original
                     this.estados = response.data['estados'].original
                     this.etnias = response.data['etnias'].original
@@ -278,6 +261,7 @@ import { execn, draw } from "rendata";
                     this.religiones = response.data['religiones'].original
                     this.identificaciones = response.data['identificaciones'].original
                     this.interpretes = response.data['interpretes'].original
+                    this.validaciones = response.data['validaciones'].original
                 });
             },
             searchPersona: function(){
@@ -409,39 +393,6 @@ import { execn, draw } from "rendata";
                     }
                 }
             },
-            getValidaciones: function(){
-                var urlValidaciones = this.url+'/getValidaciones';
-                axios.post(urlValidaciones, {
-                    sistema: this.sistema,
-                    tipo: this.tipo
-                })
-                .then (response =>{
-                    this.validaciones = response.data
-                    // console.log(this.validaciones.nombres)
-                    this.nombresV= this.validaciones.nombres,
-                    this.primerApV=this.validaciones.primerAp,
-                    this.segundoApV=this.validaciones.segundoAp,
-                    this.fechaNacimientoV=this.validaciones.fechaNacimiento,
-                    this.rfcV=this.validaciones.rfc,
-                    this.curpV=this.validaciones.curp,
-                    this.sexoV=this.validaciones.sexo,
-                    this.nacionalidadV=this.validaciones.idNacionalidad,
-                    this.etniaV=this.validaciones.idEtnia,
-                    this.lenguaV=this.validaciones.idLengua,
-                    this.municipioV=this.validaciones.idMunicipioOrigen,
-                    this.edadV=this.validaciones.edad,
-                    this.motivoEstanciaV=this.validaciones.motivoEstancia,
-                    this.ocupacionV=this.validaciones.idOcupacion,
-                    this.estadoCivilV=this.validaciones.idEstadoCivil,
-                    this.escolaridadV=this.validaciones.idEscolaridad,
-                    this.religionV=this.validaciones.idReligion,
-                    this.identificacionV=this.validaciones.docIdentificacion,
-                    this.interpreteV=this.validaciones.idInterprete,
-                    this.numIdentificacionV=this.validaciones.numDocIdentificacion
-                    this.aliasV=this.validaciones.alias
-                    this.telefonoV=this.validaciones.telefono
-                });
-            },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
@@ -492,7 +443,7 @@ import { execn, draw } from "rendata";
                         edad:this.edad,
                         sexo:this.sexo.id,
                         rfc:this.rfc,
-                        homoclave:this.homoclave,
+                        homo:this.homoclave,
                         curp:this.curp,
                         nacionalidad:this.idNacionalidad.id,
                         municipio:this.idMunicipioOrigen.id,
@@ -506,7 +457,7 @@ import { execn, draw } from "rendata";
                         religion:this.idReligion.id,
                         identificacion:this.docIdentificacion.id,
                         numIdentificacion:this.numDocIdentificacion.toUpperCase(),
-                        alias:this.alias.toUpperCase(),
+                        // alias:this.alias.toUpperCase(),
                         telefono:this.telefono
                     };
                 axios.post(urlCrearPersona,data)
