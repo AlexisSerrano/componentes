@@ -26,7 +26,7 @@
                     <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') }" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
                     <span v-if="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido') }}</span>
                 </div>
-               <div v-if="validaciones.alias!='oculto'" class="form-group col-md-4">
+               <div v-if="validaciones.alias!='oculto' && tipo=='conocido'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="alias">Alias</label>                    
                     <input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias') }" v-model="alias" placeholder="Ingrese el alias" v-validate="validaciones.alias" autocomplete="off">
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
@@ -225,7 +225,7 @@ import { execn, draw } from "rendata";
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://componentes.oo/api',
-                url:'http://componentes/api'
+                url:'http://componentes.test/api'
                 // url:'/api'
             }
         },
@@ -261,6 +261,7 @@ import { execn, draw } from "rendata";
                     this.identificaciones = response.data['identificaciones'].original
                     this.interpretes = response.data['interpretes'].original
                     this.validaciones = response.data['validaciones'].original
+                    // console.log(this.validaciones.nombres)
                 });
             },
             searchPersona: function(){
@@ -444,18 +445,18 @@ import { execn, draw } from "rendata";
                         rfc:this.rfc,
                         homo:this.homoclave,
                         curp:this.curp,
-                        nacionalidad:this.idNacionalidad.id,
-                        municipio:this.idMunicipioOrigen.id,
-                        etnia:this.idEtnia.id,
-                        lengua:this.idLengua.id,
-                        interprete:this.idInterprete.id,
+                        nacionalidad:this.nacionalidad.id,
+                        municipio:this.municipio.id,
+                        etnia:this.etnia.id,
+                        lengua:this.lengua.id,
+                        interprete:this.interprete.id,
                         motivoEstancia:this.motivoEstancia.toUpperCase(),
-                        ocupacion:this.idOcupacion.id,
-                        estadoCivil:this.idEstadoCivil.id,
-                        escolaridad:this.idEscolaridad.id,
-                        religion:this.idReligion.id,
-                        identificacion:this.docIdentificacion.id,
-                        numIdentificacion:this.numDocIdentificacion.toUpperCase(),
+                        ocupacion:this.ocupacion.id,
+                        estadoCivil:this.estadoCivil.id,
+                        escolaridad:this.escolaridad.id,
+                        religion:this.religion.id,
+                        identificacion:this.identificacion.id,
+                        numIdentificacion:this.numIdentificacion.toUpperCase(),
                         // alias:this.alias.toUpperCase(),
                         telefono:this.telefono
                     };
