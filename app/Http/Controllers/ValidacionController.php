@@ -75,7 +75,6 @@ class ValidacionController extends Controller
             $variables->idInterprete = $request->interprete;
             $variables->numDocIdentificacion = $request->numIdentificacion;
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->alias = $request->alias;
             $variables->save();
             DB::commit();
 			return response()->json($variables->id);
@@ -154,13 +153,5 @@ class ValidacionController extends Controller
             DB::rollBack();
             return response()->json(false);
         }
-    }
-
-    public function getValidaciones(Request $request){
-        $sistema = $request->sistema;
-        $tipo = $request->tipo;
-        $validaciones = Validaciones::where('sistema',$sistema)->where('tipo',$tipo)->first();
-        $val = json_decode($validaciones->validaciones);
-        return response()->json($val);
     }
 }

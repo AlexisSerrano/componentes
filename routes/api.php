@@ -27,7 +27,7 @@ Route::post('deldc','DatosContacto@deldc');
 
 
 /*Persona fisica*/
-Route::get('getCatalogos','PersonaController@getCatalogos');
+Route::post('getCatalogos','PersonaController@getCatalogos');
 Route::post('rfcFisico','PersonaController@rfcFisico');
 Route::post('searchPersonaFisica','PersonaController@searchPersona');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
@@ -45,4 +45,4 @@ Route::post('denunciadofisicouat','ValidacionController@valDenunciadoFUAT');
 Route::post('denunciadomoraluat','ValidacionController@valDenunciadoMUAT');
 Route::post('denunciantefisicauat','ValidacionController@valDenuncianteFUAT');
 Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
-Route::post('getValidaciones','ValidacionController@getValidaciones');
+//Route::post('getValidaciones','ValidacionController@getValidaciones');

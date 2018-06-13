@@ -131,12 +131,20 @@ class PersonaController extends Controller{
 		'escolaridades' => PersonaController::getEscolaridades(),
 		'religiones' => PersonaController::getReligiones(),
 		'identificaciones' => PersonaController::getIdentificaciones(),
-		'interpretes' => PersonaController::getInterpretes()
-		//'validaciones' => PersonaController::getValidaciones()
+		'interpretes' => PersonaController::getInterpretes(),
+		'validaciones' => PersonaController::getValidaciones()
 		);
 		return response()->json($data);
 	}
-
+	
+	public function getValidaciones(Request $request){
+        $sistema = $request->sistema;
+        $tipo = $request->tipo;
+        $validaciones = Validaciones::where('sistema',$sistema)->where('tipo',$tipo)->first();
+        $val = json_decode($validaciones->validaciones);
+        return response()->json($val);
+	}
+	
     public function getNacionalidades(){
         $nacionalidades=NacionalidadesModel::orderBy('nombre', 'ASC')
 	    ->select('nombre','id')->get();
