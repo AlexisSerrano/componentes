@@ -16,29 +16,60 @@ class validacionesSeeder extends Seeder
         //1,1,12 = QRR NULL (UIPJ)                     1,2,3 = QRR NULL (UAT)
         DB::table('validaciones')->insert([
             //VICTIMA U OFENDIDO UIPJ
-            ["sistema"=>"uat","tipo"=>"autoridad","validaciones"=>'{
-                "nombres": "required",
-                "primerAp": "",
-                "segundoAp": "",
-                "telefono":"",
-                "fechaNacimiento": "required",
-                "idEstadoOrigen": "required",
-                "idMunicipioOrigen": "required",
-                "sexo": "required",
-                "curp": "",
-                "rfc": "",
-                "homo": "",
-                "idNacionalidad": "",
-                "idEtnia": "",
-                "idLengua": "",
-                "telefono": "",
-                "idOcupacion": "",
-                "idEstadoCivil": "",
-                "idReligion": "",
-                "idEscolaridad": "",
-                "docIdentificacion": "",
-                "numDocIdentificacion": ""
-               }'],
+            [
+                "sistema"=>"uat",
+                "tipo"=>"autoridad",
+                "validaciones"=>'{
+                    "nombres": "required",
+                    "primerAp": "",
+                    "segundoAp": "",
+                    "telefono":"",
+                    "fechaNacimiento": "required",
+                    "idEstadoOrigen": "required",
+                    "idMunicipioOrigen": "required",
+                    "sexo": "required",
+                    "curp": "",
+                    "rfc": "",
+                    "homo": "",
+                    "idNacionalidad": "",
+                    "idEtnia": "",
+                    "idLengua": "",
+                    "telefono": "",
+                    "idOcupacion": "",
+                    "idEstadoCivil": "",
+                    "idReligion": "",
+                    "idEscolaridad": "",
+                    "docIdentificacion": "",
+                    "numDocIdentificacion": ""
+               }'
+            ],
+            [
+                "sistema"=>"uat",
+                "tipo"=>"abogado",
+                "validaciones"=>'{
+                    "nombres": "required",
+                    "primerAp": "",
+                    "segundoAp": "",
+                    "telefono":"",
+                    "fechaNacimiento": "required",
+                    "idEstadoOrigen": "required",
+                    "idMunicipioOrigen": "required",
+                    "sexo": "required",
+                    "curp": "",
+                    "rfc": "",
+                    "homo": "",
+                    "idNacionalidad": "",
+                    "idEtnia": "",
+                    "idLengua": "",
+                    "telefono": "",
+                    "idOcupacion": "",
+                    "idEstadoCivil": "",
+                    "idReligion": "",
+                    "idEscolaridad": "",
+                    "docIdentificacion": "",
+                    "numDocIdentificacion": ""
+               }'
+            ]
         ]);
     }
 }

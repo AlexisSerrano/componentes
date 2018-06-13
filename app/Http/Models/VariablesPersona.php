@@ -7,7 +7,7 @@ use App;
 
 class VariablesPersona extends Model
 {
-    public $table = 'variables_persona';
+    public $table = 'variables_persona_fisica';
 
     /**
      * The attributes that are mass assignable.

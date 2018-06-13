@@ -7,7 +7,7 @@ use App;
 
 class PersonaModel extends Model
 {
-    protected $table = 'personas';
+    protected $table = 'persona_fisica';
 
     protected $fillable = [
         'id', 'nombres', 'primerAp', 'segundoAp', 'fechaNacimiento', 'rfc', 'curp', 'sexo', 'idNacionalidad', 'idEtnia', 'idLengua', 'idMunicipioOrigen'
