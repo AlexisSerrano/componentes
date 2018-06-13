@@ -62,4 +62,9 @@ Route::get('resumen', function(){
 
 
 
+/*PRUEBAS */
+Route::get('prueba', function(){
+    return view('pruebas');
+});
+
 
