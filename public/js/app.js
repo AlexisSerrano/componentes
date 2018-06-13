@@ -55777,14 +55777,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.getCatalogos();
-        this.getValidaciones();
+        //this.getValidaciones();             
     },
     methods: {
         getCatalogos: function getCatalogos() {
             var _this = this;
 
             var urlCatalogos = this.url + '/getCatalogos';
-            axios.get(urlCatalogos).then(function (response) {
+            axios.post(urlCatalogos, {
+                sistema: this.sistema,
+                tipo: this.tipo }).then(function (response) {
                 _this.nacionalidades = response.data['nacionalidades'].original;
                 _this.estados = response.data['estados'].original;
                 _this.etnias = response.data['etnias'].original;
@@ -55796,6 +55798,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.religiones = response.data['religiones'].original;
                 _this.identificaciones = response.data['identificaciones'].original;
                 _this.interpretes = response.data['interpretes'].original;
+                _this.validaciones = response.data['validaciones'].original;
             });
         },
         searchPersona: function searchPersona() {
@@ -55912,27 +55915,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }
         },
-        getValidaciones: function getValidaciones() {
-            var _this4 = this;
-
-            var urlValidaciones = this.url + '/getValidaciones';
-            axios.post(urlValidaciones, {
-                sistema: this.sistema,
-                tipo: this.tipo
-            }).then(function (response) {
-                _this4.validaciones = response.data;
-                // console.log(this.validaciones.nombres)
-                _this4.nombresV = _this4.validaciones.nombres, _this4.primerApV = _this4.validaciones.primerAp, _this4.segundoApV = _this4.validaciones.segundoAp, _this4.fechaNacimientoV = _this4.validaciones.fechaNacimiento, _this4.rfcV = _this4.validaciones.rfc, _this4.curpV = _this4.validaciones.curp, _this4.sexoV = _this4.validaciones.sexo, _this4.nacionalidadV = _this4.validaciones.idNacionalidad, _this4.etniaV = _this4.validaciones.idEtnia, _this4.lenguaV = _this4.validaciones.idLengua, _this4.municipioV = _this4.validaciones.idMunicipioOrigen, _this4.edadV = _this4.validaciones.edad, _this4.motivoEstanciaV = _this4.validaciones.motivoEstancia, _this4.ocupacionV = _this4.validaciones.idOcupacion, _this4.estadoCivilV = _this4.validaciones.idEstadoCivil, _this4.escolaridadV = _this4.validaciones.idEscolaridad, _this4.religionV = _this4.validaciones.idReligion, _this4.identificacionV = _this4.validaciones.docIdentificacion, _this4.interpreteV = _this4.validaciones.idInterprete, _this4.numIdentificacionV = _this4.validaciones.numDocIdentificacion;
-                _this4.aliasV = _this4.validaciones.alias;
-                _this4.telefonoV = _this4.validaciones.telefono;
-            });
-        },
+        // getValidaciones: function(){
+        //     var urlValidaciones = this.url+'/getValidaciones';
+        //     axios.post(urlValidaciones, {
+        //         sistema: this.sistema,
+        //         tipo: this.tipo
+        //     })
+        //     .then (response =>{
+        //         this.validaciones = response.data
+        //         // console.log(this.validaciones.nombres)
+        //         this.nombresV= this.validaciones.nombres,
+        //         this.primerApV=this.validaciones.primerAp,
+        //         this.segundoApV=this.validaciones.segundoAp,
+        //         this.fechaNacimientoV=this.validaciones.fechaNacimiento,
+        //         this.rfcV=this.validaciones.rfc,
+        //         this.curpV=this.validaciones.curp,
+        //         this.sexoV=this.validaciones.sexo,
+        //         this.nacionalidadV=this.validaciones.idNacionalidad,
+        //         this.etniaV=this.validaciones.idEtnia,
+        //         this.lenguaV=this.validaciones.idLengua,
+        //         this.municipioV=this.validaciones.idMunicipioOrigen,
+        //         this.edadV=this.validaciones.edad,
+        //         this.motivoEstanciaV=this.validaciones.motivoEstancia,
+        //         this.ocupacionV=this.validaciones.idOcupacion,
+        //         this.estadoCivilV=this.validaciones.idEstadoCivil,
+        //         this.escolaridadV=this.validaciones.idEscolaridad,
+        //         this.religionV=this.validaciones.idReligion,
+        //         this.identificacionV=this.validaciones.docIdentificacion,
+        //         this.interpreteV=this.validaciones.idInterprete,
+        //         this.numIdentificacionV=this.validaciones.numDocIdentificacion
+        //         this.aliasV=this.validaciones.alias
+        //         this.telefonoV=this.validaciones.telefono
+        //     });
+        // },
         validateBeforeSubmit: function validateBeforeSubmit() {
-            var _this5 = this;
+            var _this4 = this;
 
             this.$validator.validateAll().then(function (result) {
                 if (result) {
-                    _this5.crearPersona();
+                    _this4.crearPersona();
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({

@@ -12,7 +12,6 @@ use App\Http\Models\PersonaModel;
 use App\Http\Models\PersonaMoralModel;
 use App\Http\Models\VariablesPersona;
 use App\Http\Models\VariablesPersonaMoral;
-use App\Http\Models\Validaciones;
 
 use Illuminate\Http\Request;
 
