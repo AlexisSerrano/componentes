@@ -243,7 +243,7 @@ import { execn, draw } from "rendata";
                 validaciones:[],
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
-                url:'http://componentes.test/api',
+                url:'http://componentes.oo/api',
                 //url:'http://componentes'
                 //url:''
             }
