@@ -45,13 +45,13 @@
                 </div>
                 <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="sexos">Sexo</label>    
-                    <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="sexoV" :class="{ 'border border-danger rounded': errors.has('sexo') }" placeholder="Seleccione un sexo"></v-select>
+                    <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="sexoV" :class="{ 'border border-danger rounded': errors.has('sexo') }" placeholder="Seleccione un sexo" v-on:blur="generarCurp"></v-select>
                     <span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo') }}</span>
                 </div>
 
                 <div v-if="tipo!='qrr' && tipo!='conocido'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="estado">Entidad federativa de origen</label>    
-                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') }" placeholder="Seleccione una entidad federativa de origen"></v-select>
+                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') }" placeholder="Seleccione una entidad federativa de origen" v-on:blur="generarCurp"></v-select>
                     <span v-show="errors.has('entidad federativa de origen')" class="text-danger">{{ errors.first('entidad federativa de origen') }}</span>
                 </div>
 
@@ -243,9 +243,9 @@ import { execn, draw } from "rendata";
                 validaciones:[],
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
-                url:'http://componentes.oo/api',
+                //url:'http://componentes.oo/api',
                 //url:'http://componentes'
-                //url:''
+                url:'/api'
             }
         },
 
@@ -343,6 +343,7 @@ import { execn, draw } from "rendata";
                 }
             },
             generarCurp: function(){
+                console.log("generacurp");
                 var sex='';
                 var edoArray= ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'	];
                 var edo='';
@@ -370,7 +371,7 @@ import { execn, draw } from "rendata";
                         estado            : edo,
                         fecha_nacimiento  : [arr[2], arr[1], arr[0]]
                     });
-                    if(this.curp)
+                    if(curpAuto)
                         this.curp=curpAuto;
                 }
             },

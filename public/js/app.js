@@ -55759,9 +55759,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             validaciones: [],
             denunciado: false,
             qrr: "QUIEN RESULTE RESPONSABLE",
-            url: 'http://componentes.oo/api'
+            //url:'http://componentes.oo/api',
             //url:'http://componentes'
-            //url:''
+            url: '/api'
         };
     },
 
@@ -55848,6 +55848,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         generarCurp: function generarCurp() {
+            console.log("generacurp");
             var sex = '';
             var edoArray = ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'];
             var edo = '';
@@ -55875,7 +55876,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     estado: edo,
                     fecha_nacimiento: [arr[2], arr[1], arr[0]]
                 });
-                if (this.curp) this.curp = curpAuto;
+                if (curpAuto) this.curp = curpAuto;
             }
         },
         generarEdad: function generarEdad() {
@@ -56755,6 +56756,7 @@ var render = function() {
                           name: "sexo",
                           placeholder: "Seleccione un sexo"
                         },
+                        on: { blur: _vm.generarCurp },
                         model: {
                           value: _vm.sexo,
                           callback: function($$v) {
@@ -56819,7 +56821,7 @@ var render = function() {
                           placeholder:
                             "Seleccione una entidad federativa de origen"
                         },
-                        on: { input: _vm.getMunicipios },
+                        on: { input: _vm.getMunicipios, blur: _vm.generarCurp },
                         model: {
                           value: _vm.estado,
                           callback: function($$v) {

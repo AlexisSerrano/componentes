@@ -69,6 +69,87 @@ class validacionesSeeder extends Seeder
                     "docIdentificacion": "",
                     "numDocIdentificacion": ""
                }'
+            ],
+            [
+                "sistema"=>"uat",
+                "tipo"=>"conocido",
+                "validaciones"=>'{
+                    "nombres": "",
+                    "primerAp": "",
+                    "segundoAp": "",
+                    "telefono":"",
+                    "fechaNacimiento": "",
+                    "idEstadoOrigen": "",
+                    "idMunicipioOrigen": "",
+                    "sexo": "",
+                    "curp": "",
+                    "rfc": "",
+                    "homo": "",
+                    "idNacionalidad": "",
+                    "idEtnia": "",
+                    "idLengua": "",
+                    "telefono": "",
+                    "idOcupacion": "",
+                    "idEstadoCivil": "",
+                    "idReligion": "",
+                    "idEscolaridad": "",
+                    "docIdentificacion": "",
+                    "numDocIdentificacion": ""
+               }'
+            ],
+            [
+                "sistema"=>"uat",
+                "tipo"=>"denunciado",
+                "validaciones"=>'{
+                    "nombres": "required",
+                    "primerAp": "",
+                    "segundoAp": "",
+                    "telefono":"",
+                    "fechaNacimiento": "required",
+                    "idEstadoOrigen": "required",
+                    "idMunicipioOrigen": "required",
+                    "sexo": "required",
+                    "curp": "",
+                    "rfc": "",
+                    "homo": "",
+                    "idNacionalidad": "",
+                    "idEtnia": "",
+                    "idLengua": "",
+                    "telefono": "",
+                    "idOcupacion": "",
+                    "idEstadoCivil": "",
+                    "idReligion": "",
+                    "idEscolaridad": "",
+                    "docIdentificacion": "",
+                    "numDocIdentificacion": ""
+               }'
+            ],
+            [
+                "sistema"=>"uat",
+                "tipo"=>"denunciante",
+                "validaciones"=>'{
+                    "nombres": "required",
+                    "primerAp": "",
+                    "segundoAp": "",
+                    "telefono":"",
+                    "fechaNacimiento": "required",
+                    "idEstadoOrigen": "required",
+                    "idMunicipioOrigen": "required",
+                    "sexo": "required",
+                    "curp": "",
+                    "rfc": "",
+                    "homo": "",
+                    "idNacionalidad": "",
+                    "idEtnia": "",
+                    "idLengua": "",
+                    "telefono": "",
+                    "idOcupacion": "",
+                    "idEstadoCivil": "",
+                    "idReligion": "",
+                    "idEscolaridad": "",
+                    "docIdentificacion": "",
+                    "numDocIdentificacion": ""
+               }'
             ]
         ]);
     }
