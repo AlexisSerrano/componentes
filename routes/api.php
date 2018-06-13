@@ -45,4 +45,4 @@ Route::post('denunciadofisicouat','ValidacionController@valDenunciadoFUAT');
 Route::post('denunciadomoraluat','ValidacionController@valDenunciadoMUAT');
 Route::post('denunciantefisicauat','ValidacionController@valDenuncianteFUAT');
 Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
-Route::get('getValidaciones/{tipo}/{sistema}','ValidacionController@getValidaciones');
+Route::post('getValidaciones','ValidacionController@getValidaciones');

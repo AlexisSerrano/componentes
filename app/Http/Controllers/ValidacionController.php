@@ -156,7 +156,9 @@ class ValidacionController extends Controller
         }
     }
 
-    public function getValidaciones($tipo,$sistema){
+    public function getValidaciones(Request $request){
+        $sistema = $request->sistema;
+        $tipo = $request->tipo;
         $validaciones = Validaciones::where('sistema',$sistema)->where('tipo',$tipo);
         return response()->json($validaciones);
     }
