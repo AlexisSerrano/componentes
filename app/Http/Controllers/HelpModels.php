@@ -41,7 +41,7 @@ class HelpModels
         }
     }
     public static function GetJSONDB($id1,$id2,$id3){
-        $jsons=DB::table('ligados')
+        $jsons=DB::table('validaciones')
         ->where('idsistema',$id1) 
         ->where('idinvolucrado',$id2)
         ->where('idcomponente',$id3)

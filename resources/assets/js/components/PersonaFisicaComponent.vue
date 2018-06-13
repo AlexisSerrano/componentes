@@ -224,6 +224,7 @@ import { execn, draw } from "rendata";
                 validaciones:[],
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
+                //url:'http://localhost/componentes/public/api',
                 //url:'http://componentes.oo/api',
                 url:'http://componentes.test/api'
                 // url:'/api'
@@ -277,7 +278,7 @@ import { execn, draw } from "rendata";
                         this.homoclave=response.data.res.slice(-3);
                         var urlBuscarPersona = this.url+'/searchPersonaFisica';
                         axios.post(urlBuscarPersona,{
-                            rfc: this.rfc
+                             rfc: this.rfc+this.homoclave
                         }).then(response => {
                             this.personaExiste=response.data
                             if(this.personaExiste!=''){
@@ -332,7 +333,7 @@ import { execn, draw } from "rendata";
                 var sex='';
                 var edoArray= ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'	];
                 var edo='';
-                if( (this.sexo!=null)&&(this.sexo!=undefined) ) {
+                if( (this.sexo!=null)&&(this.sexo!=undefined)&&(this.sexo!='') ) {
                     switch (this.sexo.id){
                         case 1:
                             sex='H';
@@ -343,8 +344,7 @@ import { execn, draw } from "rendata";
                         default:
                             sex='';
                     }
-                }
-                if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!='' && this.estado!=null &&this.estado!='' && this.sexo!=undefined & this.sexo!=null){
+                    if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!='' && this.estado!=null &&this.estado!='' && this.sexo!=undefined & this.sexo!=null){
                     edo=edoArray[this.estado.id-1];
                     var fecha = this.fechaNacimiento;
                     var arr = fecha.split('-');
@@ -359,6 +359,7 @@ import { execn, draw } from "rendata";
                     if(curpAuto)
                         this.curp=curpAuto;
                 }
+                }                
             },
             generarEdad: function() {
                 var hoy = new Date();

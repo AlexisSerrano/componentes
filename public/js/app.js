@@ -55687,6 +55687,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -55733,35 +55737,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             numIdentificacion: '',
             alias: '',
             telefono: '',
-            nombresV: false,
-            primerApV: false,
-            segundoApV: false,
-            fechaNacimientoV: false,
-            edadV: false,
-            sexoV: false,
-            rfcV: false,
-            curpV: false,
-            nacionalidadV: false,
-            estadoV: false,
-            municipioV: false,
-            etniaV: false,
-            lenguaV: false,
-            interpreteV: false,
-            motivoEstanciaV: false,
-            ocupacionV: false,
-            estadoCivilV: false,
-            escolaridadV: false,
-            religionV: false,
-            identificacionV: false,
-            numIdentificacionV: false,
-            aliasV: false,
-            telefonoV: false,
             validaciones: [],
             denunciado: false,
             qrr: "QUIEN RESULTE RESPONSABLE",
+            //url:'http://localhost/componentes/public/api',
             //url:'http://componentes.oo/api',
-            //url:'http://componentes'
-            url: '/api'
+            url: 'http://componentes/api'
+            // url:'/api'
         };
     },
 
@@ -55777,7 +55759,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.getCatalogos();
-        //this.getValidaciones();             
     },
     methods: {
         getCatalogos: function getCatalogos() {
@@ -55786,7 +55767,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var urlCatalogos = this.url + '/getCatalogos';
             axios.post(urlCatalogos, {
                 sistema: this.sistema,
-                tipo: this.tipo }).then(function (response) {
+                tipo: this.tipo
+            }).then(function (response) {
                 _this.nacionalidades = response.data['nacionalidades'].original;
                 _this.estados = response.data['estados'].original;
                 _this.etnias = response.data['etnias'].original;
@@ -55816,7 +55798,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this2.homoclave = response.data.res.slice(-3);
                     var urlBuscarPersona = _this2.url + '/searchPersonaFisica';
                     axios.post(urlBuscarPersona, {
-                        rfc: _this2.rfc
+                        rfc: _this2.rfc + _this2.homoclave
                     }).then(function (response) {
                         _this2.personaExiste = response.data;
                         if (_this2.personaExiste != '') {
@@ -55855,7 +55837,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var sex = '';
             var edoArray = ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'];
             var edo = '';
-            if (this.sexo != null && this.sexo != undefined) {
+            if (this.sexo != null && this.sexo != undefined && this.sexo != '') {
                 switch (this.sexo.id) {
                     case 1:
                         sex = 'H';
@@ -55866,20 +55848,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     default:
                         sex = '';
                 }
-            }
-            if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '' && this.estado != null && this.estado != '' && this.sexo != undefined & this.sexo != null) {
-                edo = edoArray[this.estado.id - 1];
-                var fecha = this.fechaNacimiento;
-                var arr = fecha.split('-');
-                var curpAuto = __WEBPACK_IMPORTED_MODULE_0__curp___default()({
-                    nombre: this.nombres,
-                    apellido_paterno: this.primerAp,
-                    apellido_materno: this.segundoAp,
-                    sexo: sex,
-                    estado: edo,
-                    fecha_nacimiento: [arr[2], arr[1], arr[0]]
-                });
-                if (curpAuto) this.curp = curpAuto;
+                if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '' && this.estado != null && this.estado != '' && this.sexo != undefined & this.sexo != null) {
+                    edo = edoArray[this.estado.id - 1];
+                    var fecha = this.fechaNacimiento;
+                    var arr = fecha.split('-');
+                    var curpAuto = __WEBPACK_IMPORTED_MODULE_0__curp___default()({
+                        nombre: this.nombres,
+                        apellido_paterno: this.primerAp,
+                        apellido_materno: this.segundoAp,
+                        sexo: sex,
+                        estado: edo,
+                        fecha_nacimiento: [arr[2], arr[1], arr[0]]
+                    });
+                    if (curpAuto) this.curp = curpAuto;
+                }
             }
         },
         generarEdad: function generarEdad() {
@@ -55915,39 +55897,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }
         },
-        // getValidaciones: function(){
-        //     var urlValidaciones = this.url+'/getValidaciones';
-        //     axios.post(urlValidaciones, {
-        //         sistema: this.sistema,
-        //         tipo: this.tipo
-        //     })
-        //     .then (response =>{
-        //         this.validaciones = response.data
-        //         // console.log(this.validaciones.nombres)
-        //         this.nombresV= this.validaciones.nombres,
-        //         this.primerApV=this.validaciones.primerAp,
-        //         this.segundoApV=this.validaciones.segundoAp,
-        //         this.fechaNacimientoV=this.validaciones.fechaNacimiento,
-        //         this.rfcV=this.validaciones.rfc,
-        //         this.curpV=this.validaciones.curp,
-        //         this.sexoV=this.validaciones.sexo,
-        //         this.nacionalidadV=this.validaciones.idNacionalidad,
-        //         this.etniaV=this.validaciones.idEtnia,
-        //         this.lenguaV=this.validaciones.idLengua,
-        //         this.municipioV=this.validaciones.idMunicipioOrigen,
-        //         this.edadV=this.validaciones.edad,
-        //         this.motivoEstanciaV=this.validaciones.motivoEstancia,
-        //         this.ocupacionV=this.validaciones.idOcupacion,
-        //         this.estadoCivilV=this.validaciones.idEstadoCivil,
-        //         this.escolaridadV=this.validaciones.idEscolaridad,
-        //         this.religionV=this.validaciones.idReligion,
-        //         this.identificacionV=this.validaciones.docIdentificacion,
-        //         this.interpreteV=this.validaciones.idInterprete,
-        //         this.numIdentificacionV=this.validaciones.numDocIdentificacion
-        //         this.aliasV=this.validaciones.alias
-        //         this.telefonoV=this.validaciones.telefono
-        //     });
-        // },
         validateBeforeSubmit: function validateBeforeSubmit() {
             var _this4 = this;
 
@@ -55978,7 +55927,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 edad: this.edad,
                 sexo: this.sexo.id,
                 rfc: this.rfc,
-                homoclave: this.homoclave,
+                homo: this.homoclave,
                 curp: this.curp,
                 nacionalidad: this.idNacionalidad.id,
                 municipio: this.idMunicipioOrigen.id,
@@ -55992,7 +55941,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 religion: this.idReligion.id,
                 identificacion: this.docIdentificacion.id,
                 numIdentificacion: this.numDocIdentificacion.toUpperCase(),
-                alias: this.alias.toUpperCase(),
+                // alias:this.alias.toUpperCase(),
                 telefono: this.telefono
             };
             axios.post(urlCrearPersona, data).then(function (response) {
@@ -56350,64 +56299,7 @@ var render = function() {
             }
           },
           [
-            _c("div", { staticClass: "form-row" }, [
-              _vm.tipo != "qrr"
-                ? _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-form-label col-form-label-sm",
-                        attrs: { for: "nombres" }
-                      },
-                      [_vm._v("Nombres")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.nombres,
-                          expression: "nombres"
-                        },
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: _vm.nombresV,
-                          expression: "nombresV"
-                        }
-                      ],
-                      class: {
-                        input: true,
-                        "form-control form-control-sm": true,
-                        "border border-danger": _vm.errors.has("nombres")
-                      },
-                      attrs: {
-                        type: "text",
-                        name: "nombres",
-                        placeholder: "Ingrese el nombre",
-                        autocomplete: "off"
-                      },
-                      domProps: { value: _vm.nombres },
-                      on: {
-                        blur: [_vm.searchPersona, _vm.generarCurp],
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.nombres = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.has("nombres")
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.first("nombres")))
-                        ])
-                      : _vm._e()
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
               _vm.tipo == "qrr"
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c(
@@ -56441,9 +56333,68 @@ var render = function() {
                       }
                     })
                   ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row" }, [
+              _vm.validaciones.nombres != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "nombres" }
+                      },
+                      [_vm._v("Nombres")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.nombres,
+                          expression: "nombres"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.nombres,
+                          expression: "validaciones.nombres"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has("nombres")
+                      },
+                      attrs: {
+                        type: "text",
+                        name: "nombres",
+                        placeholder: "Ingrese el nombre",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.nombres },
+                      on: {
+                        blur: [_vm.searchPersona, _vm.generarCurp],
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.nombres = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("nombres")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("nombres")))
+                        ])
+                      : _vm._e()
+                  ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr"
+              _vm.validaciones.primerAp != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c(
                       "label",
@@ -56465,8 +56416,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.primerApV,
-                          expression: "primerApV"
+                          value: _vm.validaciones.primerAp,
+                          expression: "validaciones.primerAp"
                         }
                       ],
                       class: {
@@ -56502,7 +56453,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr"
+              _vm.validaciones.segundoAp != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c(
                       "label",
@@ -56524,8 +56475,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.segundoApV,
-                          expression: "segundoApV"
+                          value: _vm.validaciones.segundoAp,
+                          expression: "validaciones.segundoAp"
                         }
                       ],
                       class: {
@@ -56561,7 +56512,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo == "conocido"
+              _vm.validaciones.alias != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c(
                       "label",
@@ -56583,8 +56534,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.aliasV,
-                          expression: "aliasV"
+                          value: _vm.validaciones.alias,
+                          expression: "validaciones.alias"
                         }
                       ],
                       class: {
@@ -56617,7 +56568,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" && _vm.tipo != "conocido"
+              _vm.validaciones.fechaNacimiento != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c(
                       "label",
@@ -56639,8 +56590,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.fechaNacimientoV,
-                          expression: "fechaNacimientoV"
+                          value: _vm.validaciones.fechaNacimiento,
+                          expression: "validaciones.fechaNacimiento"
                         }
                       ],
                       staticClass: "form-control form-control-sm",
@@ -56688,7 +56639,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" && _vm.tipo != "conocido"
+              _vm.validaciones.edad != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-1" }, [
                     _c(
                       "label",
@@ -56710,8 +56661,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.edadV,
-                          expression: "edadV"
+                          value: _vm.validaciones.edad,
+                          expression: "validaciones.edad"
                         }
                       ],
                       class: {
@@ -56745,7 +56696,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" && _vm.tipo != "conocido"
+              _vm.validaciones.sexo != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-3" },
@@ -56764,8 +56715,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.sexoV,
-                            expression: "sexoV"
+                            value: _vm.validaciones.sexo,
+                            expression: "validaciones.sexo"
                           }
                         ],
                         class: {
@@ -56807,7 +56758,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" && _vm.tipo != "conocido"
+              _vm.validaciones.idEstadoOrigen != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -56826,8 +56777,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
+                            value: _vm.validaciones.idEstadoOrigen,
+                            expression: "validaciones.idEstadoOrigen"
                           }
                         ],
                         class: {
@@ -56881,7 +56832,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" && _vm.tipo != "conocido"
+              _vm.validaciones.rfc != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-2" }, [
                     _c(
                       "label",
@@ -56903,8 +56854,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.rfcV,
-                          expression: "rfcV"
+                          value: _vm.validaciones.rfc,
+                          expression: "validaciones.rfc"
                         }
                       ],
                       class: {
@@ -56937,7 +56888,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" && _vm.tipo != "conocido"
+              _vm.validaciones.homo != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-2" }, [
                     _c(
                       "label",
@@ -56959,8 +56910,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.rfcV,
-                          expression: "rfcV"
+                          value: _vm.validaciones.homo,
+                          expression: "validaciones.homo"
                         }
                       ],
                       class: {
@@ -56993,7 +56944,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" && _vm.tipo != "conocido"
+              _vm.validaciones.curp != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c(
                       "label",
@@ -57015,8 +56966,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.curpV,
-                          expression: "curpV"
+                          value: _vm.validaciones.curp,
+                          expression: "validaciones.curp"
                         }
                       ],
                       class: {
@@ -57049,9 +57000,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" &&
-              _vm.tipo != "conocido" &&
-              _vm.tipo != "abogado"
+              _vm.validaciones.idNacionalidad != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -57070,8 +57019,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.nacionalidadV,
-                            expression: "nacionalidadV"
+                            value: _vm.validaciones.idNacionalidad,
+                            expression: "validaciones.idNacionalidad"
                           }
                         ],
                         class: {
@@ -57114,7 +57063,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" && _vm.tipo != "conocido"
+              _vm.validaciones.idMunicipioOrigen != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -57133,8 +57082,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.municipioV,
-                            expression: "municipioV"
+                            value: _vm.validaciones.idMunicipioOrigen,
+                            expression: "validaciones.idMunicipioOrigen"
                           }
                         ],
                         class: {
@@ -57177,9 +57126,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" &&
-              _vm.tipo != "conocido" &&
-              _vm.tipo != "abogado"
+              _vm.validaciones.idEtnia != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -57198,8 +57145,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.etniaV,
-                            expression: "etniaV"
+                            value: _vm.validaciones.idEtnia,
+                            expression: "validaciones.idEtnia"
                           }
                         ],
                         class: {
@@ -57242,9 +57189,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" &&
-              _vm.tipo != "conocido" &&
-              _vm.tipo != "abogado"
+              _vm.validaciones.idLengua != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -57263,8 +57208,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.lenguaV,
-                            expression: "lenguaV"
+                            value: _vm.validaciones.idLengua,
+                            expression: "validaciones.idLengua"
                           }
                         ],
                         class: {
@@ -57307,9 +57252,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" &&
-              _vm.tipo != "conocido" &&
-              _vm.tipo != "abogado"
+              _vm.validaciones.idInterprete != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -57328,8 +57271,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.interpreteV,
-                            expression: "interpreteV"
+                            value: _vm.validaciones.idInterprete,
+                            expression: "validaciones.idInterprete"
                           }
                         ],
                         class: {
@@ -57372,9 +57315,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" &&
-              _vm.tipo != "conocido" &&
-              _vm.tipo != "abogado"
+              _vm.validaciones.motivoEstancia != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c(
                       "label",
@@ -57396,8 +57337,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.motivoEstanciaV,
-                          expression: "motivoEstanciaV"
+                          value: _vm.validaciones.motivoEstancia,
+                          expression: "validaciones.motivoEstancia"
                         }
                       ],
                       class: {
@@ -57432,9 +57373,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" &&
-              _vm.tipo != "conocido" &&
-              _vm.tipo != "abogado"
+              _vm.validaciones.idOcupacion != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -57453,8 +57392,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.ocupacionV,
-                            expression: "ocupacionV"
+                            value: _vm.validaciones.idOcupacion,
+                            expression: "validaciones.idOcupacion"
                           }
                         ],
                         class: {
@@ -57497,7 +57436,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" && _vm.tipo != "conocido"
+              _vm.validaciones.idEstadoCivil != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -57516,8 +57455,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.estadoCivilV,
-                            expression: "estadoCivilV"
+                            value: _vm.validaciones.idEstadoCivil,
+                            expression: "validaciones.idEstadoCivil"
                           }
                         ],
                         class: {
@@ -57560,9 +57499,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" &&
-              _vm.tipo != "conocido" &&
-              _vm.tipo != "abogado"
+              _vm.validaciones.idEscolaridad != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -57581,8 +57518,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.escolaridadV,
-                            expression: "escolaridadV"
+                            value: _vm.validaciones.idEscolaridad,
+                            expression: "validaciones.idEscolaridad"
                           }
                         ],
                         class: {
@@ -57625,9 +57562,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" &&
-              _vm.tipo != "conocido" &&
-              _vm.tipo != "abogado"
+              _vm.validaciones.idReligion != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -57646,8 +57581,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.religionV,
-                            expression: "religionV"
+                            value: _vm.validaciones.idReligion,
+                            expression: "validaciones.idReligion"
                           }
                         ],
                         class: {
@@ -57690,9 +57625,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" &&
-              _vm.tipo != "conocido" &&
-              _vm.tipo != "abogado"
+              _vm.validaciones.docIdentificacion != "oculto"
                 ? _c(
                     "div",
                     { staticClass: "form-group col-md-4" },
@@ -57711,8 +57644,8 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value: _vm.identificacionV,
-                            expression: "identificacionV"
+                            value: _vm.validaciones.docIdentificacion,
+                            expression: "validaciones.docIdentificacion"
                           }
                         ],
                         class: {
@@ -57755,9 +57688,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" &&
-              _vm.tipo != "conocido" &&
-              _vm.tipo != "abogado"
+              _vm.validaciones.numDocIdentificacion != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c(
                       "label",
@@ -57779,8 +57710,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.numIdentificacionV,
-                          expression: "numIdentificacionV"
+                          value: _vm.validaciones.numDocIdentificacion,
+                          expression: "validaciones.numDocIdentificacion"
                         }
                       ],
                       class: {
@@ -57817,7 +57748,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.tipo != "qrr" && _vm.tipo != "conocido"
+              _vm.validaciones.telefono != "oculto"
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c(
                       "label",
@@ -57839,8 +57770,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: _vm.telefonoV,
-                          expression: "telefonoV"
+                          value: _vm.validaciones.telefono,
+                          expression: "validaciones.telefono"
                         }
                       ],
                       class: {
