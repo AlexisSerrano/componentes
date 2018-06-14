@@ -46,7 +46,6 @@ class ValidacionController extends Controller
     }
 
     public function saveInputsFisica($request){
-        dd("ok");
         DB::beginTransaction();
         try{
             $persona =  new PersonaModel();
@@ -71,9 +70,9 @@ class ValidacionController extends Controller
             $variables->idEscolaridad = $request->idEscolaridad;
             $variables->idReligion = $request->idReligion;
             $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->docIdentificacion = $request->identificacion;
+            $variables->docIdentificacion = $request->docIdentificacion;
             $variables->idInterprete = $request->idInterprete;
-            $variables->numDocIdentificacion = $request->numIdentificacion;
+            $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
             DB::commit();
