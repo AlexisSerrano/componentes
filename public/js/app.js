@@ -55741,8 +55741,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             denunciado: false,
             qrr: "QUIEN RESULTE RESPONSABLE",
             //url:'http://localhost/componentes/public/api',
-            //url:'http://componentes.oo/api',
-            url: 'http://componentes/api'
+            url: 'http://componentes.oo/api'
+            //url:'http://componentes.test/api'
             // url:'/api'
         };
     },
@@ -55781,6 +55781,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.identificaciones = response.data['identificaciones'].original;
                 _this.interpretes = response.data['interpretes'].original;
                 _this.validaciones = response.data['validaciones'].original;
+                // console.log(this.validaciones.nombres)
             });
         },
         searchPersona: function searchPersona() {
@@ -55929,23 +55930,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 rfc: this.rfc,
                 homo: this.homoclave,
                 curp: this.curp,
-                nacionalidad: this.idNacionalidad.id,
-                municipio: this.idMunicipioOrigen.id,
-                etnia: this.idEtnia.id,
-                lengua: this.idLengua.id,
-                interprete: this.idInterprete.id,
+                nacionalidad: this.nacionalidad.id,
+                municipio: this.municipio.id,
+                etnia: this.etnia.id,
+                lengua: this.lengua.id,
+                interprete: this.interprete.id,
                 motivoEstancia: this.motivoEstancia.toUpperCase(),
-                ocupacion: this.idOcupacion.id,
-                estadoCivil: this.idEstadoCivil.id,
-                escolaridad: this.idEscolaridad.id,
-                religion: this.idReligion.id,
-                identificacion: this.docIdentificacion.id,
-                numIdentificacion: this.numDocIdentificacion.toUpperCase(),
+                ocupacion: this.ocupacion.id,
+                estadoCivil: this.estadoCivil.id,
+                escolaridad: this.escolaridad.id,
+                religion: this.religion.id,
+                identificacion: this.identificacion.id,
+                numIdentificacion: this.numIdentificacion.toUpperCase(),
                 // alias:this.alias.toUpperCase(),
                 telefono: this.telefono
             };
             axios.post(urlCrearPersona, data).then(function (response) {
-                console.log(response.data);
+                console.log(responses);
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                     title: '¡Guardado correctamente!',
                     text: 'Ésta empresa fue guardada exitosamente.',
@@ -56512,7 +56513,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.validaciones.alias != "oculto"
+              _vm.validaciones.alias != "oculto" && _vm.tipo == "conocido"
                 ? _c("div", { staticClass: "form-group col-md-4" }, [
                     _c(
                       "label",
