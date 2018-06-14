@@ -14,7 +14,7 @@ class PersonaFisicaSeeder extends Seeder
         DB::table('persona_fisica')->insert([
             [ 
                 'id' => 1, 
-                'nombres' => 'QUIEN RESULTE RESPNSABLE',
+                'nombres' => 'QUIEN RESULTE RESPONSABLE',
                 'primerAp' => '',
                 'segundoAp' => '',
                 'fechaNacimiento' => '1900-01-01',

@@ -147,7 +147,7 @@
                     <span v-show="errors.has('identificación')" class="text-danger">{{ errors.first('identificación') }}</span>
                 </div>
                 <div v-if="validaciones.numDocIdentificacion!='oculto'" class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="numIdentificacion">Número de identifación</label>
+                    <label class="col-form-label col-form-label-sm" for="numIdentificacion">Número de identificación</label>
                     <input type="text" data-vv-name="número de identificación" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('número de identificación') }" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" v-validate="validaciones.numDocIdentificacion" autocomplete="off">
                     <span v-if="errors.has('número de identificación')" class="text-danger">{{ errors.first('número de identificación') }}</span>
                 </div>
