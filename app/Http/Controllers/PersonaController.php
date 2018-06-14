@@ -19,6 +19,7 @@ use App\Http\Models\InterpretesModel;
 use App\Http\Models\VariablesPersona;
 use App\Http\Models\DatosContacto;
 use App\Http\Models\Validaciones;
+use App\Http\Models\aparicionesModel;
 use RFC\RfcBuilder;
 
 class PersonaController extends Controller{
@@ -233,8 +234,14 @@ class PersonaController extends Controller{
 
 	public function getvictimaofendido(Request $request){
 		$idCarpeta = $request->idCarpeta;
-		$tipoInvolucrado = $request->tipoInvlucrado;
-		$data=aparicionesModel::select('id','idVarPersona','nuc','esEmpresa')->where('idCarpeta',$idCarpeta)->andwhere('tipoInvolucrado',$tipoInvolucrado);
-		return $data;
+		$tipoInvolucrado = $request->tipoInvolucrado;
+		$data=DB::table('apariciones')->select('id','idVarPersona','nuc','esEmpresa')->where('idCarpeta',$idCarpeta)->where('tipoInvolucrado',$tipoInvolucrado)->get();							
+		foreach($data as $involucrado){
+			if($involucrado->esEmpresa==0){
+				$data2=DB::table('persona_fisica')->select('nombres','primerAp','edad','segundoAp','sexo','rfc','telefono','variables_persona_fisica.id')->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')->get();																							
+				return response()->json($data2);								
+			}
+		}
+		return response()->json($data);
 	}
 }
