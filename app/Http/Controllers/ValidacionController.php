@@ -12,6 +12,7 @@ use App\Http\Models\PersonaModel;
 use App\Http\Models\PersonaMoralModel;
 use App\Http\Models\VariablesPersona;
 use App\Http\Models\VariablesPersonaMoral;
+use DB;
 
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class ValidacionController extends Controller
     }
 
     public function valAutoridadUAT(AutoridadRequest $request){
-        ValidacionController::saveInputsFisica($request);
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
     }
 
     public function valConocidoUAT(ConocidoRequest $request){
@@ -46,6 +48,7 @@ class ValidacionController extends Controller
     }
 
     public function saveInputsFisica($request){
+        //echo $request->nombres;
         DB::beginTransaction();
         try{
             $persona =  new PersonaModel();
@@ -76,10 +79,10 @@ class ValidacionController extends Controller
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
             DB::commit();
-			return response()->json($variables->id);
+			return $variables->id;
         }catch (\PDOException $e){
             DB::rollBack();
-            return response()->json(false);
+            return false;
         }
     }
 

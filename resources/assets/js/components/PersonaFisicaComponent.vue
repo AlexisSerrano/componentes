@@ -221,8 +221,8 @@ import { execn, draw } from "rendata";
                 denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://localhost/componentes/public/api',
-                //url:'http://componentes.oo/api',
-                url:'http://componentes.test/api'
+                url:'http://componentes.oo/api',
+                //url:'http://componentes.test/api'
                 // url:'/api'
             }
         },
