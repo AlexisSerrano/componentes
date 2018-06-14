@@ -165,6 +165,36 @@ class validacionesSeeder extends Seeder
                     "idInterprete": "oculto",
                     "motivoEstancia": "oculto"
                }'
+            ],
+            [
+                "sistema"=>"uat",
+                "tipo"=>"qrr",
+                "validaciones"=>'{
+                    "nombres": "oculto",
+                    "primerAp": oculto,
+                    "segundoAp": oculto,
+                    "telefono":oculto,
+                    "fechaNacimiento": "oculto",
+                    "idEstadoOrigen": "oculto",
+                    "idMunicipioOrigen": "oculto",
+                    "sexo": "oculto",
+                    "curp": oculto,
+                    "rfc": oculto,
+                    "homo": oculto,
+                    "idNacionalidad": oculto,
+                    "idEtnia": oculto,
+                    "idLengua": oculto,
+                    "idOcupacion": oculto,
+                    "idEstadoCivil": oculto,
+                    "idReligion": oculto,
+                    "idEscolaridad": oculto,
+                    "docIdentificacion": oculto,
+                    "numDocIdentificacion": oculto,
+                    "edad": "oculto",
+                    "alias": "oculto",
+                    "idInterprete": "oculto",
+                    "motivoEstancia": "oculto"
+               }'
             ]
         ]);
     }
