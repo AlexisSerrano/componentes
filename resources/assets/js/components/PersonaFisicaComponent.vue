@@ -26,7 +26,7 @@
                     <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') }" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
                     <span v-if="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido') }}</span>
                 </div>
-               <div v-if="validaciones.alias!='oculto'" class="form-group col-md-4">
+               <div v-if="validaciones.alias!='oculto' && tipo=='conocido'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="alias">Alias</label>                    
                     <input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias') }" v-model="alias" placeholder="Ingrese el alias" v-validate="validaciones.alias" autocomplete="off">
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
@@ -226,7 +226,7 @@ import { execn, draw } from "rendata";
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://localhost/componentes/public/api',
                 //url:'http://componentes.oo/api',
-                url:'http://componentes/api'
+                url:'http://componentes.test/api'
                 // url:'/api'
             }
         },
@@ -262,6 +262,7 @@ import { execn, draw } from "rendata";
                     this.identificaciones = response.data['identificaciones'].original
                     this.interpretes = response.data['interpretes'].original
                     this.validaciones = response.data['validaciones'].original
+                    // console.log(this.validaciones.nombres)
                 });
             },
             searchPersona: function(){
@@ -328,11 +329,12 @@ import { execn, draw } from "rendata";
                 }
             },
             generarCurp: function(){
-                console.log("generacurp");
-                var sex='';
-                var edoArray= ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'	];
-                var edo='';
-                if( (this.sexo!=null)&&(this.sexo!=undefined)&&(this.sexo!='') ) {
+                this.curp='';
+                if( (this.sexo!=null)&&(this.sexo!=undefined)&&(this.sexo!='')&&(this.sexo.id!=3)) {
+                    // console.log("generacurp");
+                    var sex='';
+                    var edoArray= ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'	];
+                    var edo='';
                     switch (this.sexo.id){
                         case 1:
                             sex='H';
@@ -357,7 +359,7 @@ import { execn, draw } from "rendata";
                     });
                     if(curpAuto)
                         this.curp=curpAuto;
-                }
+                    }
                 }                
             },
             generarEdad: function() {
@@ -445,18 +447,19 @@ import { execn, draw } from "rendata";
                         rfc:this.rfc,
                         homo:this.homoclave,
                         curp:this.curp,
-                        nacionalidad:this.idNacionalidad.id,
-                        municipio:this.idMunicipioOrigen.id,
-                        etnia:this.idEtnia.id,
-                        lengua:this.idLengua.id,
-                        interprete:this.idInterprete.id,
+                        idNacionalidad:this.nacionalidad.id,
+                        idEstadoOrigen:this.estado.id,
+                        idMunicipioOrigen:this.municipio.id,
+                        idEtnia:this.etnia.id,
+                        idLengua:this.lengua.id,
+                        idInterprete:this.interprete.id,
                         motivoEstancia:this.motivoEstancia.toUpperCase(),
-                        ocupacion:this.idOcupacion.id,
-                        estadoCivil:this.idEstadoCivil.id,
-                        escolaridad:this.idEscolaridad.id,
-                        religion:this.idReligion.id,
-                        identificacion:this.docIdentificacion.id,
-                        numIdentificacion:this.numDocIdentificacion.toUpperCase(),
+                        idOcupacion:this.ocupacion.id,
+                        idEstadoCivil:this.estadoCivil.id,
+                        idEscolaridad:this.escolaridad.id,
+                        idReligion:this.religion.id,
+                        docIdentificacion:this.identificacion.id,
+                        numDocIdentificacion:this.numIdentificacion.toUpperCase(),
                         // alias:this.alias.toUpperCase(),
                         telefono:this.telefono
                     };
