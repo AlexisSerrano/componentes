@@ -9,6 +9,8 @@
                 </div>
             </div>
 
+
+
             <div class="form-row">
                 <div v-if="validaciones.nombres!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
@@ -31,9 +33,6 @@
                     <input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias') }" v-model="alias" placeholder="Ingrese el alias" v-validate="validaciones.alias" autocomplete="off">
                     <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
                 </div>
-
-
-
 
 
 
@@ -61,8 +60,6 @@
 
 
 
-
-
                 <div v-if="validaciones.rfc!='oculto'" class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
                     <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') }" v-model="rfc" placeholder="Ingrese el RFC" v-validate="validaciones.rfc" autocomplete="off">
@@ -87,7 +84,6 @@
 
 
 
-
                 <div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>    
                     <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') }" placeholder="Seleccione un municipio de origen"></v-select>
@@ -103,7 +99,6 @@
                     <v-select label="nombre" :options="lenguas" v-model="lengua" name="lengua" v-validate="validaciones.idLengua" :class="{ 'border border-danger rounded': errors.has('lengua') }" placeholder="Seleccione una lengua"></v-select>
                     <span v-show="errors.has('lengua')" class="text-danger">{{ errors.first('lengua') }}</span> 
                 </div>
-
 
 
 
@@ -125,7 +120,6 @@
 
 
 
-
                 <div v-if="validaciones.idEstadoCivil!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="estadoCivil">Estado civil</label>    
                     <v-select :options="estadosCiviles" label="nombre" v-model="estadoCivil" data-vv-name="estado civil" v-validate="validaciones.idEstadoCivil" :class="{ 'border border-danger rounded': errors.has('estado civil') }" placeholder="Seleccione un estado civil"></v-select>
@@ -141,6 +135,7 @@
                     <v-select :options="religiones" label="nombre" v-model="religion" name="religion" v-validate="validaciones.idReligion" :class="{ 'border border-danger rounded': errors.has('religión') }" placeholder="Seleccione una religión"></v-select>
                     <span v-show="errors.has('religión')" class="text-danger">{{ errors.first('religión') }}</span>
                 </div>
+
 
 
                 <div v-if="validaciones.docIdentificacion!='oculto'" class="form-group col-md-4">
@@ -159,6 +154,7 @@
                     <span v-if="errors.has('teléfono')" class="text-danger">{{ errors.first('teléfono') }}</span>
                 </div>
             </div>
+
 
 
                 <div>
@@ -262,7 +258,6 @@ import { execn, draw } from "rendata";
                     this.identificaciones = response.data['identificaciones'].original
                     this.interpretes = response.data['interpretes'].original
                     this.validaciones = response.data['validaciones'].original
-                    // console.log(this.validaciones.nombres)
                 });
             },
             searchPersona: function(){
@@ -463,12 +458,13 @@ import { execn, draw } from "rendata";
                         // alias:this.alias.toUpperCase(),
                         telefono:this.telefono
                     };
+                    console.log(this.estado.id)
                 axios.post(urlCrearPersona,data)
                 .then (response =>{
                     console.log(response.data)
                     swal({
                         title: '¡Guardado correctamente!',
-                        text: 'Ésta empresa fue guardada exitosamente.',
+                        text: 'Ésta persona fue guardada exitosamente.',
                         type: 'success',
                         confirmButtonText: 'Ok'
                     })
@@ -476,7 +472,7 @@ import { execn, draw } from "rendata";
                     console.log(error.response.data.errors);
                     swal({
                     title: '¡Guardado incorrecto!',
-                    text: 'Ésta persona moral no fue posible guardarla.',
+                    text: 'Ésta persona no fue posible guardarla.',
                     type: 'error',
                     confirmButtonText: 'Ok'
                     })

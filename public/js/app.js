@@ -55687,10 +55687,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -55781,7 +55777,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.identificaciones = response.data['identificaciones'].original;
                 _this.interpretes = response.data['interpretes'].original;
                 _this.validaciones = response.data['validaciones'].original;
-                // console.log(this.validaciones.nombres)
             });
         },
         searchPersona: function searchPersona() {
@@ -55947,11 +55942,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 // alias:this.alias.toUpperCase(),
                 telefono: this.telefono
             };
+            console.log(this.estado.id);
             axios.post(urlCrearPersona, data).then(function (response) {
                 console.log(response.data);
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                     title: '¡Guardado correctamente!',
-                    text: 'Ésta empresa fue guardada exitosamente.',
+                    text: 'Ésta persona fue guardada exitosamente.',
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
@@ -55959,7 +55955,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error.response.data.errors);
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                     title: '¡Guardado incorrecto!',
-                    text: 'Ésta persona moral no fue posible guardarla.',
+                    text: 'Ésta persona no fue posible guardarla.',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
