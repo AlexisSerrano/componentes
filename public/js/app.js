@@ -55942,36 +55942,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this5 = this;
 
             var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
-            var data = {
-                nombres: this.nombres.toUpperCase(),
-                primerAp: this.primerAp.toUpperCase(),
-                segundoAp: this.segundoAp.toUpperCase(),
-                fechaNacimiento: this.fechaNacimiento,
-                edad: this.edad,
-                sexo: this.sexo.id,
-                rfc: this.rfc,
-                homo: this.homoclave,
-                curp: this.curp,
-                idNacionalidad: this.nacionalidad.id,
-                idEstadoOrigen: this.estado.id,
-                idMunicipioOrigen: this.municipio.id,
-                idEtnia: this.etnia.id,
-                idLengua: this.lengua.id,
-                idInterprete: this.interprete.id,
-                motivoEstancia: this.motivoEstancia.toUpperCase(),
-                idOcupacion: this.ocupacion.id,
-                idEstadoCivil: this.estadoCivil.id,
-                idEscolaridad: this.escolaridad.id,
-                idReligion: this.religion.id,
-                docIdentificacion: this.identificacion.id,
-                numDocIdentificacion: this.numIdentificacion.toUpperCase(),
-                // alias:this.alias.toUpperCase(),
-                telefono: this.telefono,
-                idCarpeta: this.carpeta,
-                sistema: this.sistema,
-                tipo: this.tipo
-            };
-            console.log(data);
+            if (this.tipo == 'autoridad' || this.tipo == 'denunciado' || this.tipo == 'denunciante') {
+                var data = {
+                    nombres: this.nombres.toUpperCase(),
+                    primerAp: this.primerAp.toUpperCase(),
+                    segundoAp: this.segundoAp.toUpperCase(),
+                    fechaNacimiento: this.fechaNacimiento,
+                    edad: this.edad,
+                    sexo: this.sexo.id,
+                    rfc: this.rfc,
+                    homo: this.homoclave,
+                    curp: this.curp,
+                    idNacionalidad: this.nacionalidad.id,
+                    idEstadoOrigen: this.estado.id,
+                    idMunicipioOrigen: this.municipio.id,
+                    idEtnia: this.etnia.id,
+                    idLengua: this.lengua.id,
+                    idInterprete: this.interprete.id,
+                    motivoEstancia: this.motivoEstancia.toUpperCase(),
+                    idOcupacion: this.ocupacion.id,
+                    idEstadoCivil: this.estadoCivil.id,
+                    idEscolaridad: this.escolaridad.id,
+                    idReligion: this.religion.id,
+                    docIdentificacion: this.identificacion.id,
+                    numDocIdentificacion: this.numIdentificacion.toUpperCase(),
+                    telefono: this.telefono,
+                    idCarpeta: this.carpeta,
+                    sistema: this.sistema,
+                    tipo: this.tipo
+                };
+            } else if (this.tipo == 'conocido') {
+                var data = {
+                    nombres: this.nombres.toUpperCase(),
+                    primerAp: this.primerAp.toUpperCase(),
+                    segundoAp: this.segundoAp.toUpperCase(),
+                    alias: this.alias.toUpperCase()
+                };
+            } else if (this.tipo == 'qrr') {
+                __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                    title: '¡Guardado correctamente!',
+                    text: 'Ésta persona fue guardada exitosamente.',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                });
+                this.idPersona = 1;
+                return;
+            }
             axios.post(urlCrearPersona, data).then(function (response) {
                 console.log(response.data);
                 _this5.idPersona = response.data;
