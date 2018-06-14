@@ -56,23 +56,23 @@ class ValidacionController extends Controller
             $persona->rfc = $request->rfc.$request->homo;
             $persona->curp = $request->curp;
             $persona->sexo = $request->sexo;
-            $persona->idNacionalidad = $request->nacionalidad;
-            $persona->idEtnia = $request->etnia;
-            $persona->idLengua = $request->lengua;
-            $persona->idMunicipioOrigen = $request->municipio;
+            $persona->idNacionalidad = $request->idNacionalidad;
+            $persona->idEtnia = $request->idEtnia;
+            $persona->idLengua = $request->idLengua;
+            $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
             $persona->save();
             $variables =  new VariablesPersona();
             $variables->idPersona = $persona->id;
             $variables->edad = $request->edad;
             $variables->motivoEstancia = $request->motivoEstancia;
-            $variables->idOcupacion = $request->ocupacion;
-            $variables->idEstadoCivil = $request->estadoCivil;
-            $variables->idEscolaridad = $request->escolaridad;
-            $variables->idReligion = $request->religion;
+            $variables->idOcupacion = $request->idOcupacion;
+            $variables->idEstadoCivil = $request->idEstadoCivil;
+            $variables->idEscolaridad = $request->idEscolaridad;
+            $variables->idReligion = $request->idReligion;
             $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->docIdentificacion = $request->identificacion;
-            $variables->idInterprete = $request->interprete;
-            $variables->numDocIdentificacion = $request->numIdentificacion;
+            $variables->docIdentificacion = $request->docIdentificacion;
+            $variables->idInterprete = $request->idInterprete;
+            $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
             DB::commit();
@@ -94,11 +94,11 @@ class ValidacionController extends Controller
             $persona->rfc = $request->rfc.$request->homo;
             $persona->curp = $request->curp;
             $persona->sexo = $request->sexo;
-            $persona->idMunicipioOrigen = $request->municipio;
+            $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
             $persona->save();
             $variables =  new VariablesPersona();
             $variables->idPersona = $persona->id;
-            $variables->idEstadoCivil = $request->estadoCivil;
+            $variables->idEstadoCivil = $request->idEstadoCivil;
             $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
