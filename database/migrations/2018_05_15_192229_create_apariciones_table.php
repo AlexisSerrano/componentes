@@ -16,13 +16,11 @@ class CreateAparicionesTable extends Migration
         Schema::create('apariciones', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idVarPersona')->unsigned();
-            $table->integer('idCarpeta')->unsigned();
+            $table->string('idCarpeta',20);
             $table->string('sistema',20);
-            $table->integer('tipoInvolucrado')->nullable()->unsigned();
-            $table->timestamp('fechaCreacion')->useCurrent();
-            $table->string('nuc');
+            $table->string('tipoInvolucrado',20);
+            $table->string('nuc',50);
             $table->boolean('esEmpresa')->nullable()->default(false);
-
             $table->timestamps();
         });
     }
