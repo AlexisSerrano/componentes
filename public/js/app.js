@@ -55689,10 +55689,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -55740,6 +55736,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             alias: '',
             telefono: '',
             validaciones: [],
+            loader: false,
             qrr: "QUIEN RESULTE RESPONSABLE",
             //url:'http://localhost/componentes/public/api',
             // url:'http://componentes.oo/api',
@@ -55786,6 +55783,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.identificaciones = response.data['identificaciones'].original;
                 _this.interpretes = response.data['interpretes'].original;
                 _this.validaciones = response.data['validaciones'].original;
+                // var self=this;
+                // setTimeout(function(){ self.loader=false; }, 1500);
             });
         },
         searchPersona: function searchPersona() {
@@ -55995,1532 +55994,1551 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
-    _c(
-      "form",
-      {
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.validateBeforeSubmit($event)
-          }
-        }
-      },
-      [
-        _c("div", { staticClass: "row" }, [
-          _vm.tipo == "qrr"
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "nombres" }
-                  },
-                  [_vm._v("Nombres")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.qrr,
-                      expression: "qrr"
-                    }
-                  ],
-                  staticClass: "form-control form-control-sm",
-                  attrs: { type: "text", readonly: "" },
-                  domProps: { value: _vm.qrr },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.qrr = $event.target.value
-                    }
-                  }
-                })
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
-          _vm.validaciones.nombres != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "nombres" }
-                  },
-                  [_vm._v("Nombres")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.nombres,
-                      expression: "nombres"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.nombres,
-                      expression: "validaciones.nombres"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has("nombres")
-                  },
-                  attrs: {
-                    type: "text",
-                    name: "nombres",
-                    placeholder: "Ingrese el nombre",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.nombres },
-                  on: {
-                    blur: [_vm.searchPersona, _vm.generarCurp],
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.nombres = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("nombres")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.first("nombres")))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.primerAp != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "primerAp" }
-                  },
-                  [_vm._v("Primer apellido")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.primerAp,
-                      expression: "primerAp"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.primerAp,
-                      expression: "validaciones.primerAp"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has("primer apellido")
-                  },
-                  attrs: {
-                    type: "text",
-                    "data-vv-name": "primer apellido",
-                    placeholder: "Ingrese el primer apellido",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.primerAp },
-                  on: {
-                    blur: [_vm.searchPersona, _vm.generarCurp],
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.primerAp = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("primer apellido")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.first("primer apellido")))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.segundoAp != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "segundoAp" }
-                  },
-                  [_vm._v("Segundo apellido")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.segundoAp,
-                      expression: "segundoAp"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.segundoAp,
-                      expression: "validaciones.segundoAp"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has("segundo apellido")
-                  },
-                  attrs: {
-                    type: "text",
-                    "data-vv-name": "segundo apellido",
-                    placeholder: "Ingrese el segundo apellido",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.segundoAp },
-                  on: {
-                    blur: [_vm.searchPersona, _vm.generarCurp],
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.segundoAp = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("segundo apellido")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.first("segundo apellido")))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.alias != "oculto" && _vm.tipo == "conocido"
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "alias" }
-                  },
-                  [_vm._v("Alias")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.alias,
-                      expression: "alias"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.alias,
-                      expression: "validaciones.alias"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has("alias")
-                  },
-                  attrs: {
-                    type: "text",
-                    name: "alias",
-                    placeholder: "Ingrese el alias",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.alias },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.alias = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("alias")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.first("alias")))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.fechaNacimiento != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "fechaNacimiento" }
-                  },
-                  [_vm._v("Fecha de nacimiento")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.fechaNacimiento,
-                      expression: "fechaNacimiento"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.fechaNacimiento,
-                      expression: "validaciones.fechaNacimiento"
-                    }
-                  ],
-                  staticClass: "form-control form-control-sm",
-                  class: {
-                    "border border-danger": _vm.errors.has(
-                      "fecha de nacimiento"
-                    )
-                  },
-                  attrs: {
-                    type: "date",
-                    "data-vv-name": "fecha de nacimiento"
-                  },
-                  domProps: { value: _vm.fechaNacimiento },
-                  on: {
-                    blur: [
-                      _vm.searchPersona,
-                      function($event) {
-                        _vm.generarCurp(), _vm.generarEdad()
-                      }
-                    ],
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.fechaNacimiento = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("fecha de nacimiento"),
-                        expression: "errors.has('fecha de nacimiento')"
-                      }
-                    ],
-                    staticClass: "text-danger"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("fecha de nacimiento")))]
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.edad != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-1" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "edad" }
-                  },
-                  [_vm._v("Edad")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.edad,
-                      expression: "edad"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.edad,
-                      expression: "validaciones.edad"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has("edad")
-                  },
-                  attrs: {
-                    type: "number",
-                    min: "16",
-                    max: "150",
-                    name: "edad",
-                    placeholder: "Edad"
-                  },
-                  domProps: { value: _vm.edad },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.edad = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("edad")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.first("edad")))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.sexo != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "sexos" }
-                    },
-                    [_vm._v("Sexo")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.sexo,
-                        expression: "validaciones.sexo"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has("sexo")
-                    },
-                    attrs: {
-                      options: _vm.sexos,
-                      label: "nombre",
-                      name: "sexo",
-                      placeholder: "Seleccione un sexo"
-                    },
-                    on: { blur: _vm.generarCurp },
-                    model: {
-                      value: _vm.sexo,
-                      callback: function($$v) {
-                        _vm.sexo = $$v
-                      },
-                      expression: "sexo"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("sexo"),
-                          expression: "errors.has('sexo')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("sexo")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.idEstadoOrigen != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "estado" }
-                    },
-                    [_vm._v("Entidad federativa de origen")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.idEstadoOrigen,
-                        expression: "validaciones.idEstadoOrigen"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has(
-                        "entidad federativa de origen"
-                      )
-                    },
-                    attrs: {
-                      options: _vm.estados,
-                      label: "nombre",
-                      "data-vv-name": "entidad federativa de origen",
-                      placeholder: "Seleccione una entidad federativa de origen"
-                    },
-                    on: { input: _vm.getMunicipios, blur: _vm.generarCurp },
-                    model: {
-                      value: _vm.estado,
-                      callback: function($$v) {
-                        _vm.estado = $$v
-                      },
-                      expression: "estado"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("entidad federativa de origen"),
-                          expression:
-                            "errors.has('entidad federativa de origen')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [
-                      _vm._v(
-                        _vm._s(_vm.errors.first("entidad federativa de origen"))
-                      )
-                    ]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.rfc != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-2" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "rfc" }
-                  },
-                  [_vm._v("RFC")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.rfc,
-                      expression: "rfc"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.rfc,
-                      expression: "validaciones.rfc"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has("rfc")
-                  },
-                  attrs: {
-                    type: "text",
-                    name: "rfc",
-                    placeholder: "Ingrese el RFC",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.rfc },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.rfc = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("rfc")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.first("rfc")))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.homo != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-2" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "homoclave" }
-                  },
-                  [_vm._v("Homoclave")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.homoclave,
-                      expression: "homoclave"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.homo,
-                      expression: "validaciones.homo"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has("homoclave")
-                  },
-                  attrs: {
-                    type: "text",
-                    name: "homoclave",
-                    placeholder: "Homoclave",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.homoclave },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.homoclave = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("homoclave")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.first("homoclave")))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.curp != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "curp" }
-                  },
-                  [_vm._v("CURP")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.curp,
-                      expression: "curp"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.curp,
-                      expression: "validaciones.curp"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has("curp")
-                  },
-                  attrs: {
-                    type: "text",
-                    name: "curp",
-                    placeholder: "Ingrese el curp",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.curp },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.curp = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("curp")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.first("curp")))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.idNacionalidad != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "nacionalidad" }
-                    },
-                    [_vm._v("Nacionalidad")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.idNacionalidad,
-                        expression: "validaciones.idNacionalidad"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has(
-                        "nacionalidad"
-                      )
-                    },
-                    attrs: {
-                      options: _vm.nacionalidades,
-                      label: "nombre",
-                      name: "nacionalidad",
-                      placeholder: "Seleccione una nacionalidad"
-                    },
-                    model: {
-                      value: _vm.nacionalidad,
-                      callback: function($$v) {
-                        _vm.nacionalidad = $$v
-                      },
-                      expression: "nacionalidad"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("nacionalidad"),
-                          expression: "errors.has('nacionalidad')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("nacionalidad")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.idMunicipioOrigen != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "municipio" }
-                    },
-                    [_vm._v("Municipio de origen")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.idMunicipioOrigen,
-                        expression: "validaciones.idMunicipioOrigen"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has(
-                        "municipio"
-                      )
-                    },
-                    attrs: {
-                      options: _vm.municipios,
-                      label: "nombre",
-                      name: "municipio",
-                      placeholder: "Seleccione un municipio de origen"
-                    },
-                    model: {
-                      value: _vm.municipio,
-                      callback: function($$v) {
-                        _vm.municipio = $$v
-                      },
-                      expression: "municipio"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("municipio"),
-                          expression: "errors.has('municipio')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("municipio")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.idEtnia != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "etnia" }
-                    },
-                    [_vm._v("Etnia")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.idEtnia,
-                        expression: "validaciones.idEtnia"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has("etnia")
-                    },
-                    attrs: {
-                      label: "nombre",
-                      options: _vm.etnias,
-                      name: "etnia",
-                      placeholder: "Seleccione una etnia"
-                    },
-                    model: {
-                      value: _vm.etnia,
-                      callback: function($$v) {
-                        _vm.etnia = $$v
-                      },
-                      expression: "etnia"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("etnia"),
-                          expression: "errors.has('etnia')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("etnia")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.idLengua != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "lengua" }
-                    },
-                    [_vm._v("Lengua")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.idLengua,
-                        expression: "validaciones.idLengua"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has("lengua")
-                    },
-                    attrs: {
-                      label: "nombre",
-                      options: _vm.lenguas,
-                      name: "lengua",
-                      placeholder: "Seleccione una lengua"
-                    },
-                    model: {
-                      value: _vm.lengua,
-                      callback: function($$v) {
-                        _vm.lengua = $$v
-                      },
-                      expression: "lengua"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("lengua"),
-                          expression: "errors.has('lengua')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("lengua")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.idInterprete != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "interprete" }
-                    },
-                    [_vm._v("Intérprete")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.idInterprete,
-                        expression: "validaciones.idInterprete"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has(
-                        "intérprete"
-                      )
-                    },
-                    attrs: {
-                      options: _vm.interpretes,
-                      label: "nombre",
-                      name: "intérprete",
-                      placeholder: "Seleccione un intérprete"
-                    },
-                    model: {
-                      value: _vm.interprete,
-                      callback: function($$v) {
-                        _vm.interprete = $$v
-                      },
-                      expression: "interprete"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("intérprete"),
-                          expression: "errors.has('intérprete')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("intérprete")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.motivoEstancia != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "motivoEstancia" }
-                  },
-                  [_vm._v("Motivo de estancia")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.motivoEstancia,
-                      expression: "motivoEstancia"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.motivoEstancia,
-                      expression: "validaciones.motivoEstancia"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has("motivo de estancia")
-                  },
-                  attrs: {
-                    type: "text",
-                    "data-vv-name": "motivo de estancia",
-                    placeholder: "Ingrese el motivo de estancia",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.motivoEstancia },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.motivoEstancia = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("motivo de estancia")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.first("motivo de estancia")))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.idOcupacion != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "ocupacion" }
-                    },
-                    [_vm._v("Ocupación")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.idOcupacion,
-                        expression: "validaciones.idOcupacion"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has(
-                        "ocupación"
-                      )
-                    },
-                    attrs: {
-                      options: _vm.ocupaciones,
-                      label: "nombre",
-                      name: "ocupacion",
-                      placeholder: "Seleccione una ocupación"
-                    },
-                    model: {
-                      value: _vm.ocupacion,
-                      callback: function($$v) {
-                        _vm.ocupacion = $$v
-                      },
-                      expression: "ocupacion"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("ocupación"),
-                          expression: "errors.has('ocupación')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("ocupación")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.idEstadoCivil != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "estadoCivil" }
-                    },
-                    [_vm._v("Estado civil")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.idEstadoCivil,
-                        expression: "validaciones.idEstadoCivil"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has(
-                        "estado civil"
-                      )
-                    },
-                    attrs: {
-                      options: _vm.estadosCiviles,
-                      label: "nombre",
-                      "data-vv-name": "estado civil",
-                      placeholder: "Seleccione un estado civil"
-                    },
-                    model: {
-                      value: _vm.estadoCivil,
-                      callback: function($$v) {
-                        _vm.estadoCivil = $$v
-                      },
-                      expression: "estadoCivil"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("estado civil"),
-                          expression: "errors.has('estado civil')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("estado civil")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.idEscolaridad != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "escolaridad" }
-                    },
-                    [_vm._v("Escolaridad")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.idEscolaridad,
-                        expression: "validaciones.idEscolaridad"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has(
-                        "escolaridad"
-                      )
-                    },
-                    attrs: {
-                      options: _vm.escolaridades,
-                      label: "nombre",
-                      name: "escolaridad",
-                      placeholder: "Seleccione una escolaridad"
-                    },
-                    model: {
-                      value: _vm.escolaridad,
-                      callback: function($$v) {
-                        _vm.escolaridad = $$v
-                      },
-                      expression: "escolaridad"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("escolaridad"),
-                          expression: "errors.has('escolaridad')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("escolaridad")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.idReligion != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "religion" }
-                    },
-                    [_vm._v("Religión")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.idReligion,
-                        expression: "validaciones.idReligion"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has("religión")
-                    },
-                    attrs: {
-                      options: _vm.religiones,
-                      label: "nombre",
-                      name: "religion",
-                      placeholder: "Seleccione una religión"
-                    },
-                    model: {
-                      value: _vm.religion,
-                      callback: function($$v) {
-                        _vm.religion = $$v
-                      },
-                      expression: "religion"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("religión"),
-                          expression: "errors.has('religión')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("religión")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.docIdentificacion != "oculto"
-            ? _c(
-                "div",
-                { staticClass: "form-group col-md-4" },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "identificacion" }
-                    },
-                    [_vm._v("Identificación")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: _vm.validaciones.docIdentificacion,
-                        expression: "validaciones.docIdentificacion"
-                      }
-                    ],
-                    class: {
-                      "border border-danger rounded": _vm.errors.has(
-                        "identificación"
-                      )
-                    },
-                    attrs: {
-                      options: _vm.identificaciones,
-                      label: "documento",
-                      name: "identificacion",
-                      placeholder: "Seleccione una identificación"
-                    },
-                    model: {
-                      value: _vm.identificacion,
-                      callback: function($$v) {
-                        _vm.identificacion = $$v
-                      },
-                      expression: "identificacion"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("identificación"),
-                          expression: "errors.has('identificación')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("identificación")))]
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.numDocIdentificacion != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "numIdentificacion" }
-                  },
-                  [_vm._v("Número de identifación")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.numIdentificacion,
-                      expression: "numIdentificacion"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.numDocIdentificacion,
-                      expression: "validaciones.numDocIdentificacion"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has(
-                      "número de identificación"
-                    )
-                  },
-                  attrs: {
-                    type: "text",
-                    "data-vv-name": "número de identificación",
-                    placeholder: "Ingrese el número de identificación",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.numIdentificacion },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.numIdentificacion = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("número de identificación")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(
-                        _vm._s(_vm.errors.first("número de identificación"))
-                      )
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.validaciones.telefono != "oculto"
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "teléfono" }
-                  },
-                  [_vm._v("Teléfono")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.telefono,
-                      expression: "telefono"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: _vm.validaciones.telefono,
-                      expression: "validaciones.telefono"
-                    }
-                  ],
-                  class: {
-                    input: true,
-                    "form-control form-control-sm": true,
-                    "border border-danger": _vm.errors.has("teléfono")
-                  },
-                  attrs: {
-                    type: "text",
-                    name: "teléfono",
-                    placeholder: "Ingrese el teléfono",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.telefono },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.telefono = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.has("teléfono")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.first("teléfono")))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.idPersona,
-                expression: "idPersona"
-              }
-            ],
-            attrs: { type: "hidden", id: "idPersona" },
-            domProps: { value: _vm.idPersona },
+    _vm.loader != true
+      ? _c(
+          "form",
+          {
             on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.idPersona = $event.target.value
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.validateBeforeSubmit($event)
               }
             }
-          })
-        ]),
-        _vm._v(" "),
-        _vm._m(0)
-      ]
-    )
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _vm.tipo == "qrr"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "nombres" }
+                      },
+                      [_vm._v("Nombres")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.qrr,
+                          expression: "qrr"
+                        }
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      attrs: { type: "text", readonly: "" },
+                      domProps: { value: _vm.qrr },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.qrr = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row" }, [
+              _vm.validaciones.nombres != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "nombres" }
+                      },
+                      [_vm._v("Nombres")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.nombres,
+                          expression: "nombres"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.nombres,
+                          expression: "validaciones.nombres"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has("nombres")
+                      },
+                      attrs: {
+                        type: "text",
+                        name: "nombres",
+                        placeholder: "Ingrese el nombre",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.nombres },
+                      on: {
+                        blur: [_vm.searchPersona, _vm.generarCurp],
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.nombres = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("nombres")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("nombres")))
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.primerAp != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "primerAp" }
+                      },
+                      [_vm._v("Primer apellido")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.primerAp,
+                          expression: "primerAp"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.primerAp,
+                          expression: "validaciones.primerAp"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has(
+                          "primer apellido"
+                        )
+                      },
+                      attrs: {
+                        type: "text",
+                        "data-vv-name": "primer apellido",
+                        placeholder: "Ingrese el primer apellido",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.primerAp },
+                      on: {
+                        blur: [_vm.searchPersona, _vm.generarCurp],
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.primerAp = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("primer apellido")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("primer apellido")))
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.segundoAp != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "segundoAp" }
+                      },
+                      [_vm._v("Segundo apellido")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.segundoAp,
+                          expression: "segundoAp"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.segundoAp,
+                          expression: "validaciones.segundoAp"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has(
+                          "segundo apellido"
+                        )
+                      },
+                      attrs: {
+                        type: "text",
+                        "data-vv-name": "segundo apellido",
+                        placeholder: "Ingrese el segundo apellido",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.segundoAp },
+                      on: {
+                        blur: [_vm.searchPersona, _vm.generarCurp],
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.segundoAp = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("segundo apellido")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("segundo apellido")))
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.alias != "oculto" && _vm.tipo == "conocido"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "alias" }
+                      },
+                      [_vm._v("Alias")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.alias,
+                          expression: "alias"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.alias,
+                          expression: "validaciones.alias"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has("alias")
+                      },
+                      attrs: {
+                        type: "text",
+                        name: "alias",
+                        placeholder: "Ingrese el alias",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.alias },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.alias = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("alias")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("alias")))
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.fechaNacimiento != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "fechaNacimiento" }
+                      },
+                      [_vm._v("Fecha de nacimiento")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fechaNacimiento,
+                          expression: "fechaNacimiento"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.fechaNacimiento,
+                          expression: "validaciones.fechaNacimiento"
+                        }
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      class: {
+                        "border border-danger": _vm.errors.has(
+                          "fecha de nacimiento"
+                        )
+                      },
+                      attrs: {
+                        type: "date",
+                        "data-vv-name": "fecha de nacimiento"
+                      },
+                      domProps: { value: _vm.fechaNacimiento },
+                      on: {
+                        blur: [
+                          _vm.searchPersona,
+                          function($event) {
+                            _vm.generarCurp(), _vm.generarEdad()
+                          }
+                        ],
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.fechaNacimiento = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("fecha de nacimiento"),
+                            expression: "errors.has('fecha de nacimiento')"
+                          }
+                        ],
+                        staticClass: "text-danger"
+                      },
+                      [_vm._v(_vm._s(_vm.errors.first("fecha de nacimiento")))]
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.edad != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-1" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "edad" }
+                      },
+                      [_vm._v("Edad")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.edad,
+                          expression: "edad"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.edad,
+                          expression: "validaciones.edad"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has("edad")
+                      },
+                      attrs: {
+                        type: "number",
+                        min: "16",
+                        max: "150",
+                        name: "edad",
+                        placeholder: "Edad"
+                      },
+                      domProps: { value: _vm.edad },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.edad = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("edad")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("edad")))
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.sexo != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "sexos" }
+                        },
+                        [_vm._v("Sexo")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.sexo,
+                            expression: "validaciones.sexo"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has("sexo")
+                        },
+                        attrs: {
+                          options: _vm.sexos,
+                          label: "nombre",
+                          name: "sexo",
+                          placeholder: "Seleccione un sexo"
+                        },
+                        on: { blur: _vm.generarCurp },
+                        model: {
+                          value: _vm.sexo,
+                          callback: function($$v) {
+                            _vm.sexo = $$v
+                          },
+                          expression: "sexo"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("sexo"),
+                              expression: "errors.has('sexo')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("sexo")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.idEstadoOrigen != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "estado" }
+                        },
+                        [_vm._v("Entidad federativa de origen")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.idEstadoOrigen,
+                            expression: "validaciones.idEstadoOrigen"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "entidad federativa de origen"
+                          )
+                        },
+                        attrs: {
+                          options: _vm.estados,
+                          label: "nombre",
+                          "data-vv-name": "entidad federativa de origen",
+                          placeholder:
+                            "Seleccione una entidad federativa de origen"
+                        },
+                        on: { input: _vm.getMunicipios, blur: _vm.generarCurp },
+                        model: {
+                          value: _vm.estado,
+                          callback: function($$v) {
+                            _vm.estado = $$v
+                          },
+                          expression: "estado"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has(
+                                "entidad federativa de origen"
+                              ),
+                              expression:
+                                "errors.has('entidad federativa de origen')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.errors.first("entidad federativa de origen")
+                            )
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.rfc != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-2" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "rfc" }
+                      },
+                      [_vm._v("RFC")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.rfc,
+                          expression: "rfc"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.rfc,
+                          expression: "validaciones.rfc"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has("rfc")
+                      },
+                      attrs: {
+                        type: "text",
+                        name: "rfc",
+                        placeholder: "Ingrese el RFC",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.rfc },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.rfc = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("rfc")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("rfc")))
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.homo != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-2" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "homoclave" }
+                      },
+                      [_vm._v("Homoclave")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.homoclave,
+                          expression: "homoclave"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.homo,
+                          expression: "validaciones.homo"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has("homoclave")
+                      },
+                      attrs: {
+                        type: "text",
+                        name: "homoclave",
+                        placeholder: "Homoclave",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.homoclave },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.homoclave = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("homoclave")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("homoclave")))
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.curp != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "curp" }
+                      },
+                      [_vm._v("CURP")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.curp,
+                          expression: "curp"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.curp,
+                          expression: "validaciones.curp"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has("curp")
+                      },
+                      attrs: {
+                        type: "text",
+                        name: "curp",
+                        placeholder: "Ingrese el curp",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.curp },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.curp = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("curp")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("curp")))
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.idNacionalidad != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "nacionalidad" }
+                        },
+                        [_vm._v("Nacionalidad")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.idNacionalidad,
+                            expression: "validaciones.idNacionalidad"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "nacionalidad"
+                          )
+                        },
+                        attrs: {
+                          options: _vm.nacionalidades,
+                          label: "nombre",
+                          name: "nacionalidad",
+                          placeholder: "Seleccione una nacionalidad"
+                        },
+                        model: {
+                          value: _vm.nacionalidad,
+                          callback: function($$v) {
+                            _vm.nacionalidad = $$v
+                          },
+                          expression: "nacionalidad"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("nacionalidad"),
+                              expression: "errors.has('nacionalidad')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("nacionalidad")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.idMunicipioOrigen != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "municipio" }
+                        },
+                        [_vm._v("Municipio de origen")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.idMunicipioOrigen,
+                            expression: "validaciones.idMunicipioOrigen"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "municipio"
+                          )
+                        },
+                        attrs: {
+                          options: _vm.municipios,
+                          label: "nombre",
+                          name: "municipio",
+                          placeholder: "Seleccione un municipio de origen"
+                        },
+                        model: {
+                          value: _vm.municipio,
+                          callback: function($$v) {
+                            _vm.municipio = $$v
+                          },
+                          expression: "municipio"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("municipio"),
+                              expression: "errors.has('municipio')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("municipio")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.idEtnia != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "etnia" }
+                        },
+                        [_vm._v("Etnia")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.idEtnia,
+                            expression: "validaciones.idEtnia"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "etnia"
+                          )
+                        },
+                        attrs: {
+                          label: "nombre",
+                          options: _vm.etnias,
+                          name: "etnia",
+                          placeholder: "Seleccione una etnia"
+                        },
+                        model: {
+                          value: _vm.etnia,
+                          callback: function($$v) {
+                            _vm.etnia = $$v
+                          },
+                          expression: "etnia"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("etnia"),
+                              expression: "errors.has('etnia')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("etnia")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.idLengua != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "lengua" }
+                        },
+                        [_vm._v("Lengua")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.idLengua,
+                            expression: "validaciones.idLengua"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "lengua"
+                          )
+                        },
+                        attrs: {
+                          label: "nombre",
+                          options: _vm.lenguas,
+                          name: "lengua",
+                          placeholder: "Seleccione una lengua"
+                        },
+                        model: {
+                          value: _vm.lengua,
+                          callback: function($$v) {
+                            _vm.lengua = $$v
+                          },
+                          expression: "lengua"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("lengua"),
+                              expression: "errors.has('lengua')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("lengua")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.idInterprete != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "interprete" }
+                        },
+                        [_vm._v("Intérprete")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.idInterprete,
+                            expression: "validaciones.idInterprete"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "intérprete"
+                          )
+                        },
+                        attrs: {
+                          options: _vm.interpretes,
+                          label: "nombre",
+                          name: "intérprete",
+                          placeholder: "Seleccione un intérprete"
+                        },
+                        model: {
+                          value: _vm.interprete,
+                          callback: function($$v) {
+                            _vm.interprete = $$v
+                          },
+                          expression: "interprete"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("intérprete"),
+                              expression: "errors.has('intérprete')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("intérprete")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.motivoEstancia != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "motivoEstancia" }
+                      },
+                      [_vm._v("Motivo de estancia")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.motivoEstancia,
+                          expression: "motivoEstancia"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.motivoEstancia,
+                          expression: "validaciones.motivoEstancia"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has(
+                          "motivo de estancia"
+                        )
+                      },
+                      attrs: {
+                        type: "text",
+                        "data-vv-name": "motivo de estancia",
+                        placeholder: "Ingrese el motivo de estancia",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.motivoEstancia },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.motivoEstancia = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("motivo de estancia")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("motivo de estancia")))
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.idOcupacion != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "ocupacion" }
+                        },
+                        [_vm._v("Ocupación")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.idOcupacion,
+                            expression: "validaciones.idOcupacion"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "ocupación"
+                          )
+                        },
+                        attrs: {
+                          options: _vm.ocupaciones,
+                          label: "nombre",
+                          name: "ocupacion",
+                          placeholder: "Seleccione una ocupación"
+                        },
+                        model: {
+                          value: _vm.ocupacion,
+                          callback: function($$v) {
+                            _vm.ocupacion = $$v
+                          },
+                          expression: "ocupacion"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("ocupación"),
+                              expression: "errors.has('ocupación')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("ocupación")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.idEstadoCivil != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "estadoCivil" }
+                        },
+                        [_vm._v("Estado civil")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.idEstadoCivil,
+                            expression: "validaciones.idEstadoCivil"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "estado civil"
+                          )
+                        },
+                        attrs: {
+                          options: _vm.estadosCiviles,
+                          label: "nombre",
+                          "data-vv-name": "estado civil",
+                          placeholder: "Seleccione un estado civil"
+                        },
+                        model: {
+                          value: _vm.estadoCivil,
+                          callback: function($$v) {
+                            _vm.estadoCivil = $$v
+                          },
+                          expression: "estadoCivil"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("estado civil"),
+                              expression: "errors.has('estado civil')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("estado civil")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.idEscolaridad != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "escolaridad" }
+                        },
+                        [_vm._v("Escolaridad")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.idEscolaridad,
+                            expression: "validaciones.idEscolaridad"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "escolaridad"
+                          )
+                        },
+                        attrs: {
+                          options: _vm.escolaridades,
+                          label: "nombre",
+                          name: "escolaridad",
+                          placeholder: "Seleccione una escolaridad"
+                        },
+                        model: {
+                          value: _vm.escolaridad,
+                          callback: function($$v) {
+                            _vm.escolaridad = $$v
+                          },
+                          expression: "escolaridad"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("escolaridad"),
+                              expression: "errors.has('escolaridad')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("escolaridad")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.idReligion != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "religion" }
+                        },
+                        [_vm._v("Religión")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.idReligion,
+                            expression: "validaciones.idReligion"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "religión"
+                          )
+                        },
+                        attrs: {
+                          options: _vm.religiones,
+                          label: "nombre",
+                          name: "religion",
+                          placeholder: "Seleccione una religión"
+                        },
+                        model: {
+                          value: _vm.religion,
+                          callback: function($$v) {
+                            _vm.religion = $$v
+                          },
+                          expression: "religion"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("religión"),
+                              expression: "errors.has('religión')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("religión")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.docIdentificacion != "oculto"
+                ? _c(
+                    "div",
+                    { staticClass: "form-group col-md-4" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "identificacion" }
+                        },
+                        [_vm._v("Identificación")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: _vm.validaciones.docIdentificacion,
+                            expression: "validaciones.docIdentificacion"
+                          }
+                        ],
+                        class: {
+                          "border border-danger rounded": _vm.errors.has(
+                            "identificación"
+                          )
+                        },
+                        attrs: {
+                          options: _vm.identificaciones,
+                          label: "documento",
+                          name: "identificacion",
+                          placeholder: "Seleccione una identificación"
+                        },
+                        model: {
+                          value: _vm.identificacion,
+                          callback: function($$v) {
+                            _vm.identificacion = $$v
+                          },
+                          expression: "identificacion"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("identificación"),
+                              expression: "errors.has('identificación')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("identificación")))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.numDocIdentificacion != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "numIdentificacion" }
+                      },
+                      [_vm._v("Número de identifación")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.numIdentificacion,
+                          expression: "numIdentificacion"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.numDocIdentificacion,
+                          expression: "validaciones.numDocIdentificacion"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has(
+                          "número de identificación"
+                        )
+                      },
+                      attrs: {
+                        type: "text",
+                        "data-vv-name": "número de identificación",
+                        placeholder: "Ingrese el número de identificación",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.numIdentificacion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.numIdentificacion = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("número de identificación")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(
+                            _vm._s(_vm.errors.first("número de identificación"))
+                          )
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.validaciones.telefono != "oculto"
+                ? _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "teléfono" }
+                      },
+                      [_vm._v("Teléfono")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.telefono,
+                          expression: "telefono"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: _vm.validaciones.telefono,
+                          expression: "validaciones.telefono"
+                        }
+                      ],
+                      class: {
+                        input: true,
+                        "form-control form-control-sm": true,
+                        "border border-danger": _vm.errors.has("teléfono")
+                      },
+                      attrs: {
+                        type: "text",
+                        name: "teléfono",
+                        placeholder: "Ingrese el teléfono",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.telefono },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.telefono = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("teléfono")
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("teléfono")))
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.idPersona,
+                    expression: "idPersona"
+                  }
+                ],
+                attrs: { type: "hidden", id: "idPersona" },
+                domProps: { value: _vm.idPersona },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.idPersona = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _vm._m(0)
+          ]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
