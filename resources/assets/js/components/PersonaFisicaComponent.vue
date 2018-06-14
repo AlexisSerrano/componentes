@@ -2,7 +2,7 @@
 
     <div class="container-fluid"> 
         
-        <!-- <flower-spinner v-if="loader" :animation-duration="2500" :size="70" :color="'#828282'"/> -->
+        <spring-spinner v-if="loader" class="centrar" :animation-duration="1500" :size="60" :color="'#828282'"/>
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="loader!=true">
 
             <div class="row">
@@ -147,7 +147,7 @@
                     <span v-show="errors.has('identificación')" class="text-danger">{{ errors.first('identificación') }}</span>
                 </div>
                 <div v-if="validaciones.numDocIdentificacion!='oculto'" class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="numIdentificacion">Número de identifación</label>
+                    <label class="col-form-label col-form-label-sm" for="numIdentificacion">Número de identificación</label>
                     <input type="text" data-vv-name="número de identificación" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('número de identificación') }" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" v-validate="validaciones.numDocIdentificacion" autocomplete="off">
                     <span v-if="errors.has('número de identificación')" class="text-danger">{{ errors.first('número de identificación') }}</span>
                 </div>
@@ -177,7 +177,7 @@
 <script>
 import generaCurp from '../curp'
 import swal from 'sweetalert2'
-// import {FlowerSpinner} from 'epic-spinners'
+import { SpringSpinner } from 'epic-spinners'
 
     export default {
         data(){
@@ -221,7 +221,7 @@ import swal from 'sweetalert2'
                 alias:'',         
                 telefono:'',                       
                 validaciones:[],
-                loader:false,
+                loader:true,
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://localhost/componentes/public/api',
                 url:'http://componentes.oo/api',
@@ -242,7 +242,7 @@ import swal from 'sweetalert2'
                 default:''
             }
         },
-        // components: {FlowerSpinner},
+        components: {SpringSpinner},
         created: function(){
             this.getCatalogos();
         },
@@ -265,8 +265,8 @@ import swal from 'sweetalert2'
                     this.identificaciones = response.data['identificaciones'].original
                     this.interpretes = response.data['interpretes'].original
                     this.validaciones = response.data['validaciones'].original
-                    // var self=this;
-                    // setTimeout(function(){ self.loader=false; }, 1500);
+                    var self=this;
+                    setTimeout(function(){ self.loader=false; }, 1100);
                 });
             },
             searchPersona: function(){
@@ -515,5 +515,12 @@ input.form-control{
 .dropdown{
     font-family: inherit;
     font-size: .875rem;
+}
+.centrar{
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-left: -30px;
+    margin-top: -30px;
 }
 </style>
