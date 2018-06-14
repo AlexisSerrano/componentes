@@ -1,5 +1,12 @@
 <template>
+
     <div class="container-fluid"> 
+
+        <!-- <flower-spinner
+  :animation-duration="2500"
+  :size="70"
+  :color="'#ff1d5e'"
+/> -->
         <form v-on:submit.prevent="validateBeforeSubmit">
 
             <div class="row">
@@ -174,7 +181,8 @@
 <script>
 import generaCurp from '../curp'
 import swal from 'sweetalert2'
-import { execn, draw } from "rendata";
+// import {FlowerSpinner} from 'epic-spinners'
+
     export default {
         data(){
              return{
@@ -237,6 +245,7 @@ import { execn, draw } from "rendata";
                 default:''
             }
         },
+        // components: {FlowerSpinner},
         created: function(){
             this.getCatalogos();
         },
