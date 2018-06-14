@@ -12,6 +12,7 @@ use App\Http\Models\PersonaModel;
 use App\Http\Models\PersonaMoralModel;
 use App\Http\Models\VariablesPersona;
 use App\Http\Models\VariablesPersonaMoral;
+use App\Http\Models\aparicionesModel;
 use DB;
 
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ use Illuminate\Http\Request;
 class ValidacionController extends Controller
 {
     public function valAbogadoUAT(AbogadoRequest $request){
-        ValidacionController::saveInputsAbogadoFisica($request);
+        $idVariable = ValidacionController::saveInputsAbogadoFisica($request);
+        return response()->json($idVariable);
     }
 
     public function valAutoridadUAT(AutoridadRequest $request){
@@ -28,27 +30,31 @@ class ValidacionController extends Controller
     }
 
     public function valConocidoUAT(ConocidoRequest $request){
-        ValidacionController::saveInputsConocidoFisica($request);
+        $idVariable = ValidacionController::saveInputsConocidoFisica($request);
+        return response()->json($idVariable);
     }
 
     public function valDenunciadoFUAT(DenunciadoFisicaRequest $request){
-        ValidacionController::saveInputsFisica($request);
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
     }
 
     public function valDenunciadoMUAT(DenunciadoMoralRequest $request){
-        ValidacionController::saveInputsMoral($request);
+        $idVariable = ValidacionController::saveInputsMoral($request);
+        return response()->json($idVariable);
     }
 
     public function valDenuncianteFUAT(DenuncianteFisicaRequest $request){
-        ValidacionController::saveInputsFisica($request);
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
     }
 
     public function valDenuncianteMUAT(DenuncianteMoralRequest $request){
-        ValidacionController::saveInputsMoral($request);
+        $idVariable = ValidacionController::saveInputsMoral($request);
+        return response()->json($idVariable);
     }
 
     public function saveInputsFisica($request){
-        //echo $request->nombres;
         DB::beginTransaction();
         try{
             $persona =  new PersonaModel();
@@ -78,6 +84,15 @@ class ValidacionController extends Controller
             $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
+            $apariciones =  new aparicionesModel();
+            $apariciones->idVarPersona = $variables->id;
+            $apariciones->idCarpeta = 
+            $apariciones->sistema = $request->sistema;
+            $apariciones->tipoInvolucrado = $request->tipo;
+            $apariciones->fechaCreacion = 
+            $apariciones->nuc = 'xxxxx';
+            $apariciones->esEmpresa = 0;
+            $apariciones->save(); 
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -106,10 +121,10 @@ class ValidacionController extends Controller
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
             DB::commit();
-			return response()->json($variables->id);
+			return $variables->id;
         }catch (\PDOException $e){
             DB::rollBack();
-            return response()->json(false);
+            return false;
         }
     }
 
@@ -128,10 +143,10 @@ class ValidacionController extends Controller
             $variables->alias = $request->alias;
             $variables->save();
             DB::commit();
-			return response()->json($variables->id);
+			return $variables->id;
         }catch (\PDOException $e){
             DB::rollBack();
-            return response()->json(false);
+            return false;
         }
     }
 
@@ -150,10 +165,10 @@ class ValidacionController extends Controller
             $variables->representanteLegal = $request->representanteLegal;
             $variables->save();
             DB::commit();
-            return response()->json($variables->id);
+            return $variables->id;
         }catch (\PDOException $e){
             DB::rollBack();
-            return response()->json(false);
+            return false;
         }
     }
 }
