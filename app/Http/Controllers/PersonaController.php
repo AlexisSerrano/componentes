@@ -230,4 +230,11 @@ class PersonaController extends Controller{
 			->toString();
 		return ['res' => $rfc];
 	}
+
+	public function getvictimaofendido(Request $request){
+		$idCarpeta = $request->idCarpeta;
+		$tipoInvolucrado = $request->tipoInvlucrado;
+		$data=aparicionesModel::select('id','idVarPersona','nuc','esEmpresa')->where('idCarpeta',$idCarpeta)->andwhere('tipoInvolucrado',$tipoInvolucrado);
+		return $data;
+	}
 }

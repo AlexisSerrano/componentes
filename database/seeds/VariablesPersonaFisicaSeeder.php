@@ -23,7 +23,7 @@ class VariablesPersonaFisicaSeeder extends Seeder
                 'idEscolaridad' => 14,
                 'idReligion' => 29,
                 'idDomicilio' => 0,
-                'docIdentificacion' => '',
+                'docIdentificacion' => 14,
                 'idInterprete' => 0,
                 'numDocIdentificacion' => '',
                 'idDomicilioTrabajo' => 0,

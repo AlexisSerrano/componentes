@@ -31,6 +31,7 @@ Route::post('getCatalogos','PersonaController@getCatalogos');
 Route::post('rfcFisico','PersonaController@rfcFisico');
 Route::post('searchPersonaFisica','PersonaController@searchPersona');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
+Route::post('getVictimaOfendido','PersonaController@getvictimaofendido');
 
 /*Persona fisica*/
 Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');
