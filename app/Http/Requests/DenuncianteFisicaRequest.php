@@ -43,7 +43,6 @@ class DenuncianteFisicaRequest extends FormRequest
             'idEstadoCivil' => '',/*no requerido*/ 
             'idReligion' => '',/*no requerido*/ 
             'idEscolaridad' => '',/*no requerido*/ 
-            'docIdentificacion' => 'string|min:2|max:200',
             'numDocIdentificacion' => 'string|min:2|max:50'
         ];
     }
@@ -71,8 +70,6 @@ class DenuncianteFisicaRequest extends FormRequest
             'homo.size'=> 'La homoclave debe de tener como mínimo 3 caracteres',
             'telefono.numeric'=>'El Teléfono personal solo debe de contener números',
             'telefono.min'=>'El Teléfono personal debe de tener como mínimo 7 digitos',
-            'docIdentificacion.min'=> 'El documento de identificación debe de tener como mínimo 2',
-            'docIdentificacion.max'=> 'El documento de identificación debe de tener como máximo 200',
             'numDocIdentificacion.min'=> 'El Núm. de documento de identificación debe de tener como mínimo 2',
             'numDocIdentificacion.max'=> 'El Núm. de documento de identificación debe de tener como máximo 50'
         ];

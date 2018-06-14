@@ -465,7 +465,7 @@ import { execn, draw } from "rendata";
                     };
                 axios.post(urlCrearPersona,data)
                 .then (response =>{
-                    console.log(responses)
+                    console.log(response.data)
                     swal({
                         title: '¡Guardado correctamente!',
                         text: 'Ésta empresa fue guardada exitosamente.',

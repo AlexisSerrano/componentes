@@ -24,7 +24,7 @@ class VariablesPersonaFisica extends Migration
             $table->integer('idEscolaridad')->nullable()->unsigned()->default(14);
             $table->integer('idReligion')->nullable()->unsigned()->default(29);
             $table->integer('idDomicilio')->nullable()->unsigned()->default(0);
-            $table->string('docIdentificacion',50)->nullable()->default("SIN INFORMACION");
+            $table->integer('docIdentificacion')->nullable()->unsigned();
             $table->integer('idInterprete')->nullable()->unsigned()->default(0);
             $table->string('numDocIdentificacion',50)->nullable()->default("SIN INFORMACION");
             $table->integer('idDomicilioTrabajo')->nullable()->unsigned()->default(1);
@@ -34,10 +34,12 @@ class VariablesPersonaFisica extends Migration
             $table->softDeletes();
             
             $table->foreign('idPersona')->references('id')->on('persona_fisica')->onDelete('cascade');
-            $table->foreign('idOcupacion')->references('id')->on('cat_ocupacion')->onDelete('cascade');
-            $table->foreign('idEstadoCivil')->references('id')->on('cat_estado_civil')->onDelete('cascade');
-            $table->foreign('idEscolaridad')->references('id')->on('cat_escolaridad')->onDelete('cascade');
-            $table->foreign('idReligion')->references('id')->on('cat_religion')->onDelete('cascade');
+            $table->foreign('idOcupacion')->references('id')->on('cat_ocupacion')->onDelete('restrict');
+            $table->foreign('idEstadoCivil')->references('id')->on('cat_estado_civil')->onDelete('restrict');
+            $table->foreign('idEscolaridad')->references('id')->on('cat_escolaridad')->onDelete('restrict');
+            $table->foreign('idReligion')->references('id')->on('cat_religion')->onDelete('restrict');
+            $table->foreign('docIdentificacion')->references('id')->on('cat_identificacion')->onDelete('restrict');
+
             // $table->foreign('idDomicilio')->references('id')->on('domicilios')->onDelete('cascade');
             // $table->foreign('idDomicilioTrabajo')->references('id')->on('domicilios')->onDelete('cascade');
         });
