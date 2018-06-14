@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid"> 
-        <form v-on:submit.prevent="validateBeforeSubmit" v-if="mostrarForm">
+        <form v-on:submit.prevent="validateBeforeSubmit">
 
             <div class="row">
                 <div v-if="tipo=='qrr'" class="form-group col-md-4">
@@ -46,7 +46,7 @@
                     <input type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') }" v-model="edad" placeholder="Edad" v-validate="validaciones.edad">
                     <span v-if="errors.has('edad')" class="text-danger">{{ errors.first('edad') }}</span>
                 </div>
-                <div v-if="validaciones.sexo!='oculto'" class="form-group col-md-3">
+                <div v-if="validaciones.sexo!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="sexos">Sexo</label>    
                     <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="validaciones.sexo" :class="{ 'border border-danger rounded': errors.has('sexo') }" placeholder="Seleccione un sexo" v-on:blur="generarCurp"></v-select>
                     <span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo') }}</span>
@@ -158,7 +158,7 @@
 
 
                 <div>
-                    <input type="hidden" v-model="personaExiste.idvar_persona" id="idvarpersona">              
+                    <input type="hidden" v-model="idPersona" id="idPersona">              
                 </div>
 
                 <div class="form-row mt-3">
@@ -191,6 +191,7 @@ import { execn, draw } from "rendata";
                 religiones: [],
                 identificaciones: [],
                 personaExiste:[],
+                idPersona:'',
                 nombres: '',
                 primerAp: '',
                 segundoAp: '',
@@ -200,10 +201,8 @@ import { execn, draw } from "rendata";
                 rfc:'',
                 homoclave:'',
                 curp: '',                
-                mostrarForm:true,
                 nacionalidad:{ "nombre": "MEXICANA", "id": 1 },
                 estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
-                // estado:'',
                 municipio:null,
                 etnia:{ "nombre": "SIN INFORMACIÓN", "id": 13 },
                 lengua:{ "nombre": "SIN INFORMACIÓN", "id": 69 },
@@ -218,11 +217,10 @@ import { execn, draw } from "rendata";
                 alias:'',         
                 telefono:'',                       
                 validaciones:[],
-                denunciado:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://localhost/componentes/public/api',
-                url:'http://componentes.oo/api',
-                //url:'http://componentes.test/api'
+                // url:'http://componentes.oo/api',
+                url:'http://componentes.test/api'
                 // url:'/api'
             }
         },
@@ -234,9 +232,12 @@ import { execn, draw } from "rendata";
             },
             tipo: {
                 default:false
+            },
+            carpeta:{
+                default:''
             }
         },
-        mounted: function(){
+        created: function(){
             this.getCatalogos();
         },
         methods:{
@@ -456,12 +457,12 @@ import { execn, draw } from "rendata";
                         docIdentificacion:this.identificacion.id,
                         numDocIdentificacion:this.numIdentificacion.toUpperCase(),
                         // alias:this.alias.toUpperCase(),
-                        telefono:this.telefono
+                        telefono:this.telefono,
+                        idCarpeta:this.carpeta
                     };
-                    console.log(this.estado.id)
                 axios.post(urlCrearPersona,data)
                 .then (response =>{
-                    console.log(response.data)
+                    this.idPersona = response.data
                     swal({
                         title: '¡Guardado correctamente!',
                         text: 'Ésta persona fue guardada exitosamente.',
