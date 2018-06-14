@@ -461,7 +461,9 @@ import { execn, draw } from "rendata";
                         docIdentificacion:this.identificacion.id,
                         numDocIdentificacion:this.numIdentificacion.toUpperCase(),
                         // alias:this.alias.toUpperCase(),
-                        telefono:this.telefono
+                        telefono:this.telefono,
+                        sistema:this.sistema,
+                        tipo:this.tipo
                     };
                 axios.post(urlCrearPersona,data)
                 .then (response =>{
