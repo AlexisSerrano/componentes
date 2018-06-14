@@ -224,8 +224,8 @@ import { SpringSpinner } from 'epic-spinners'
                 loader:true,
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://localhost/componentes/public/api',
-                url:'http://componentes.oo/api',
-                //url:'http://componentes.test/api'
+                // url:'http://componentes.oo/api',
+                url:'http://componentes.test/api'
                 // url:'/api'
             }
         },
@@ -470,16 +470,27 @@ import { SpringSpinner } from 'epic-spinners'
                         sistema:this.sistema,
                         tipo:this.tipo
                     };
+                    console.log(data);
                 axios.post(urlCrearPersona,data)
                 .then (response =>{
                     console.log(response.data);
                     this.idPersona = response.data
-                    swal({
-                        title: '¡Guardado correctamente!',
-                        text: 'Ésta persona fue guardada exitosamente.',
-                        type: 'success',
-                        confirmButtonText: 'Ok'
-                    })
+                    if(idPersona){
+                        swal({
+                            title: '¡Guardado correctamente!',
+                            text: 'Ésta persona fue guardada exitosamente.',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        })
+                    }
+                    else{
+                        swal({
+                            title: '¡Guardado incorrecto!',
+                            text: 'Ésta persona no fue posible guardarla.',
+                            type: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    }
                 }).catch((error)=>{
                     console.log(error.response.data.errors);
                     swal({
@@ -497,6 +508,19 @@ import { SpringSpinner } from 'epic-spinners'
             },
             estado : function (val, oldval) {
                 this.generarCurp();
+            },
+            lengua:function(){
+                if(this.lengua!=null && this.lengua!=''){
+                    if(this.lengua.id!=69 && this.lengua.id!=70){
+                        this.validaciones.idInterprete ='';
+                    }
+                    else{
+                        this.validaciones.idInterprete='oculto';
+                    }
+                }
+                else{
+                    this.validaciones.idInterprete='oculto';
+                }
             }
         }
     }
