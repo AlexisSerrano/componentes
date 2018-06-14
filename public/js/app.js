@@ -55527,8 +55527,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_epic_spinners__ = __webpack_require__(54);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -56003,20 +56001,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             });
         }
     },
-    watch: _defineProperty({
+    watch: {
         sexo: function sexo(val, oldval) {
             this.generarCurp();
         },
         estado: function estado(val, oldval) {
             this.generarCurp();
-        }
-    }, 'sexo', function sexo() {
-        if (this.lengua != null && this.lengua != '') {
-            if (this.lengua.id != 69 && this.lengua != 70) {
-                this.validaciones.interprete = true;
+        },
+        lengua: function lengua() {
+            if (this.lengua != null && this.lengua != '') {
+                if (this.lengua.id != 69 && this.lengua.id != 70) {
+                    this.validaciones.idInterprete = '';
+                } else {
+                    this.validaciones.idInterprete = 'oculto';
+                }
+            } else {
+                this.validaciones.idInterprete = 'oculto';
             }
         }
-    })
+    }
 });
 
 /***/ }),

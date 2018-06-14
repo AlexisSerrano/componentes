@@ -509,11 +509,17 @@ import { SpringSpinner } from 'epic-spinners'
             estado : function (val, oldval) {
                 this.generarCurp();
             },
-            sexo:function(){
+            lengua:function(){
                 if(this.lengua!=null && this.lengua!=''){
-                    if(this.lengua.id!=69 && this.lengua!=70){
-                        this.validaciones.interprete =true;
+                    if(this.lengua.id!=69 && this.lengua.id!=70){
+                        this.validaciones.idInterprete ='';
                     }
+                    else{
+                        this.validaciones.idInterprete='oculto';
+                    }
+                }
+                else{
+                    this.validaciones.idInterprete='oculto';
                 }
             }
         }
