@@ -55,50 +55,51 @@ class ValidacionController extends Controller
     }
 
     public function saveInputsFisica($request){
-        DB::beginTransaction();
-        try{
-            $persona =  new PersonaModel();
-            $persona->nombres = $request->nombres;
-            $persona->primerAp = $request->primerAp;
-            $persona->segundoAp = $request->segundoAp;
-            $persona->fechaNacimiento = $request->fechaNacimiento;
-            $persona->rfc = $request->rfc.$request->homo;
-            $persona->curp = $request->curp;
-            $persona->sexo = $request->sexo;
-            $persona->idNacionalidad = $request->idNacionalidad;
-            $persona->idEtnia = $request->idEtnia;
-            $persona->idLengua = $request->idLengua;
-            $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
-            $persona->save();
-            $variables =  new VariablesPersona();
-            $variables->idPersona = $persona->id;
-            $variables->edad = $request->edad;
-            $variables->motivoEstancia = $request->motivoEstancia;
-            $variables->idOcupacion = $request->idOcupacion;
-            $variables->idEstadoCivil = $request->idEstadoCivil;
-            $variables->idEscolaridad = $request->idEscolaridad;
-            $variables->idReligion = $request->idReligion;
-            $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->docIdentificacion = $request->docIdentificacion;
-            $variables->idInterprete = $request->idInterprete;
-            $variables->numDocIdentificacion = $request->numDocIdentificacion;
-            $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->save();
-            $apariciones =  new aparicionesModel();
-            $apariciones->idVarPersona = $variables->id;
-            $apariciones->idCarpeta = 
-            $apariciones->sistema = $request->sistema;
-            $apariciones->tipoInvolucrado = $request->tipo;
-            $apariciones->fechaCreacion = 
-            $apariciones->nuc = 'xxxxx';
-            $apariciones->esEmpresa = 0;
-            $apariciones->save(); 
-            DB::commit();
-			return $variables->id;
-        }catch (\PDOException $e){
-            DB::rollBack();
-            return false;
-        }
+        echo $request->nombres;
+        // DB::beginTransaction();
+        // try{
+        //     $persona =  new PersonaModel();
+        //     $persona->nombres = $request->nombres;
+        //     $persona->primerAp = $request->primerAp;
+        //     $persona->segundoAp = $request->segundoAp;
+        //     $persona->fechaNacimiento = $request->fechaNacimiento;
+        //     $persona->rfc = $request->rfc.$request->homo;
+        //     $persona->curp = $request->curp;
+        //     $persona->sexo = $request->sexo;
+        //     $persona->idNacionalidad = $request->idNacionalidad;
+        //     $persona->idEtnia = $request->idEtnia;
+        //     $persona->idLengua = $request->idLengua;
+        //     $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
+        //     $persona->save();
+        //     $variables =  new VariablesPersona();
+        //     $variables->idPersona = $persona->id;
+        //     $variables->edad = $request->edad;
+        //     $variables->motivoEstancia = $request->motivoEstancia;
+        //     $variables->idOcupacion = $request->idOcupacion;
+        //     $variables->idEstadoCivil = $request->idEstadoCivil;
+        //     $variables->idEscolaridad = $request->idEscolaridad;
+        //     $variables->idReligion = $request->idReligion;
+        //     $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+        //     $variables->docIdentificacion = $request->docIdentificacion;
+        //     $variables->idInterprete = $request->idInterprete;
+        //     $variables->numDocIdentificacion = $request->numDocIdentificacion;
+        //     $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+        //     $variables->save();
+        //     $apariciones =  new aparicionesModel();
+        //     $apariciones->idVarPersona = $variables->id;
+        //     $apariciones->idCarpeta = $request->idCarpeta;
+        //     $apariciones->sistema = $request->sistema;
+        //     $apariciones->tipoInvolucrado = $request->tipo;
+        //     $apariciones->fechaCreacion = '2017-06-15';
+        //     $apariciones->nuc = 'xxxxx';
+        //     $apariciones->esEmpresa = 0;
+        //     $apariciones->save(); 
+        //     DB::commit();
+		// 	return $variables->id;
+        // }catch (\PDOException $e){
+        //     DB::rollBack();
+        //     return false;
+        // }
     }
 
     public function saveInputsAbogadoFisica($request){

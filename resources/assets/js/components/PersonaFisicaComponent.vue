@@ -227,8 +227,8 @@ import swal from 'sweetalert2'
                 validaciones:[],
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://localhost/componentes/public/api',
-                // url:'http://componentes.oo/api',
-                url:'http://componentes.test/api'
+                url:'http://componentes.oo/api',
+                //url:'http://componentes.test/api'
                 // url:'/api'
             }
         },
@@ -473,6 +473,7 @@ import swal from 'sweetalert2'
                     };
                 axios.post(urlCrearPersona,data)
                 .then (response =>{
+                    console.log(response.data);
                     this.idPersona = response.data
                     swal({
                         title: '¡Guardado correctamente!',
