@@ -1,13 +1,9 @@
 <template>
 
     <div class="container-fluid"> 
-
-        <!-- <flower-spinner
-  :animation-duration="2500"
-  :size="70"
-  :color="'#ff1d5e'"
-/> -->
-        <form v-on:submit.prevent="validateBeforeSubmit">
+        
+        <!-- <flower-spinner v-if="loader" :animation-duration="2500" :size="70" :color="'#828282'"/> -->
+        <form v-on:submit.prevent="validateBeforeSubmit" v-if="loader!=true">
 
             <div class="row">
                 <div v-if="tipo=='qrr'" class="form-group col-md-4">
@@ -225,6 +221,7 @@ import swal from 'sweetalert2'
                 alias:'',         
                 telefono:'',                       
                 validaciones:[],
+                loader:false,
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://localhost/componentes/public/api',
                 url:'http://componentes.oo/api',
@@ -268,6 +265,8 @@ import swal from 'sweetalert2'
                     this.identificaciones = response.data['identificaciones'].original
                     this.interpretes = response.data['interpretes'].original
                     this.validaciones = response.data['validaciones'].original
+                    // var self=this;
+                    // setTimeout(function(){ self.loader=false; }, 1500);
                 });
             },
             searchPersona: function(){
