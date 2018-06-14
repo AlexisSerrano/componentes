@@ -34,13 +34,16 @@ class validacionesSeeder extends Seeder
                     "idNacionalidad": "",
                     "idEtnia": "",
                     "idLengua": "",
-                    "telefono": "",
                     "idOcupacion": "",
                     "idEstadoCivil": "",
                     "idReligion": "",
                     "idEscolaridad": "",
                     "docIdentificacion": "",
-                    "numDocIdentificacion": ""
+                    "numDocIdentificacion": "",
+                    "edad": "oculto",
+                    "alias": "oculto",
+                    "idInterprete": "oculto",
+                    "motivoEstancia": "oculto"
                }'
             ],
             [
@@ -58,16 +61,19 @@ class validacionesSeeder extends Seeder
                     "curp": "",
                     "rfc": "",
                     "homo": "",
-                    "idNacionalidad": "",
-                    "idEtnia": "",
-                    "idLengua": "",
-                    "telefono": "",
-                    "idOcupacion": "",
+                    "idNacionalidad": "oculto",
+                    "idEtnia": "oculto",
+                    "idLengua": "oculto",
+                    "idOcupacion": "oculto",
                     "idEstadoCivil": "",
-                    "idReligion": "",
-                    "idEscolaridad": "",
-                    "docIdentificacion": "",
-                    "numDocIdentificacion": ""
+                    "idReligion": "oculto",
+                    "idEscolaridad": "oculto",
+                    "docIdentificacion": "oculto",
+                    "numDocIdentificacion": "oculto",
+                    "edad": "oculto",
+                    "alias": "oculto",
+                    "idInterprete": "oculto",
+                    "motivoEstancia": "oculto"
                }'
             ],
             [
@@ -77,24 +83,27 @@ class validacionesSeeder extends Seeder
                     "nombres": "",
                     "primerAp": "",
                     "segundoAp": "",
-                    "telefono":"",
-                    "fechaNacimiento": "",
-                    "idEstadoOrigen": "",
-                    "idMunicipioOrigen": "",
-                    "sexo": "",
-                    "curp": "",
-                    "rfc": "",
-                    "homo": "",
-                    "idNacionalidad": "",
-                    "idEtnia": "",
-                    "idLengua": "",
-                    "telefono": "",
-                    "idOcupacion": "",
-                    "idEstadoCivil": "",
-                    "idReligion": "",
-                    "idEscolaridad": "",
-                    "docIdentificacion": "",
-                    "numDocIdentificacion": ""
+                    "telefono":"oculto",
+                    "fechaNacimiento": "oculto",
+                    "idEstadoOrigen": "oculto",
+                    "idMunicipioOrigen": "oculto",
+                    "sexo": "oculto",
+                    "curp": "oculto",
+                    "rfc": "oculto",
+                    "homo": "oculto",
+                    "idNacionalidad": "oculto",
+                    "idEtnia": "oculto",
+                    "idLengua": "oculto",
+                    "idOcupacion": "oculto",
+                    "idEstadoCivil": "oculto",
+                    "idReligion": "oculto",
+                    "idEscolaridad": "oculto",
+                    "docIdentificacion": "oculto",
+                    "numDocIdentificacion": "oculto",
+                    "edad": "oculto",
+                    "alias": "",
+                    "idInterprete": "oculto",
+                    "motivoEstancia": "oculto"
                }'
             ],
             [
@@ -115,13 +124,16 @@ class validacionesSeeder extends Seeder
                     "idNacionalidad": "",
                     "idEtnia": "",
                     "idLengua": "",
-                    "telefono": "",
                     "idOcupacion": "",
                     "idEstadoCivil": "",
                     "idReligion": "",
                     "idEscolaridad": "",
                     "docIdentificacion": "",
-                    "numDocIdentificacion": ""
+                    "numDocIdentificacion": "",
+                    "edad": "oculto",
+                    "alias": "oculto",
+                    "idInterprete": "oculto",
+                    "motivoEstancia": "oculto"
                }'
             ],
             [
@@ -142,13 +154,16 @@ class validacionesSeeder extends Seeder
                     "idNacionalidad": "",
                     "idEtnia": "",
                     "idLengua": "",
-                    "telefono": "",
                     "idOcupacion": "",
                     "idEstadoCivil": "",
                     "idReligion": "",
                     "idEscolaridad": "",
                     "docIdentificacion": "",
-                    "numDocIdentificacion": ""
+                    "numDocIdentificacion": "",
+                    "edad": "oculto",
+                    "alias": "oculto",
+                    "idInterprete": "oculto",
+                    "motivoEstancia": "oculto"
                }'
             ]
         ]);
