@@ -441,6 +441,7 @@ import { SpringSpinner } from 'epic-spinners'
             },
             crearPersona: function(){
                 var urlCrearPersona = this.url+'/'+this.tipo+this.sistema;
+                if(this.tipo=='autoridad' || this.tipo=='denunciado' || this.tipo=='denunciante'){
                     var data = {
                         nombres:this.nombres.toUpperCase(),
                         primerAp:this.primerAp.toUpperCase(),
@@ -464,13 +465,30 @@ import { SpringSpinner } from 'epic-spinners'
                         idReligion:this.religion.id,
                         docIdentificacion:this.identificacion.id,
                         numDocIdentificacion:this.numIdentificacion.toUpperCase(),
-                        // alias:this.alias.toUpperCase(),
                         telefono:this.telefono,
                         idCarpeta:this.carpeta,
                         sistema:this.sistema,
                         tipo:this.tipo
                     };
-                    console.log(data);
+                }
+                else if(this.tipo=='conocido'){
+                    var data = {
+                        nombres:this.nombres.toUpperCase(),
+                        primerAp:this.primerAp.toUpperCase(),
+                        segundoAp:this.segundoAp.toUpperCase(),
+                        alias:this.alias.toUpperCase()
+                    };
+                }
+                else if (this.tipo=='qrr'){
+                    swal({
+                        title: '¡Guardado correctamente!',
+                        text: 'Ésta persona fue guardada exitosamente.',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    })    
+                    this.idPersona=1;       
+                    return        
+                }
                 axios.post(urlCrearPersona,data)
                 .then (response =>{
                     console.log(response.data);
