@@ -55944,7 +55944,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 numDocIdentificacion: this.numIdentificacion.toUpperCase(),
                 // alias:this.alias.toUpperCase(),
                 telefono: this.telefono,
-                idCarpeta: this.carpeta
+                idCarpeta: this.carpeta,
+                sistema: this.sistema,
+                tipo: this.tipo
             };
             axios.post(urlCrearPersona, data).then(function (response) {
                 _this5.idPersona = response.data;
