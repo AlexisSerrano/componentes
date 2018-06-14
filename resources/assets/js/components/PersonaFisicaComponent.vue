@@ -329,11 +329,12 @@ import { execn, draw } from "rendata";
                 }
             },
             generarCurp: function(){
-                console.log("generacurp");
-                var sex='';
-                var edoArray= ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'	];
-                var edo='';
-                if( (this.sexo!=null)&&(this.sexo!=undefined)&&(this.sexo!='') ) {
+                this.curp='';
+                if( (this.sexo!=null)&&(this.sexo!=undefined)&&(this.sexo!='')&&(this.sexo.id!=3)) {
+                    // console.log("generacurp");
+                    var sex='';
+                    var edoArray= ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'	];
+                    var edo='';
                     switch (this.sexo.id){
                         case 1:
                             sex='H';
@@ -358,7 +359,7 @@ import { execn, draw } from "rendata";
                     });
                     if(curpAuto)
                         this.curp=curpAuto;
-                }
+                    }
                 }                
             },
             generarEdad: function() {
@@ -446,18 +447,19 @@ import { execn, draw } from "rendata";
                         rfc:this.rfc,
                         homo:this.homoclave,
                         curp:this.curp,
-                        nacionalidad:this.nacionalidad.id,
-                        municipio:this.municipio.id,
-                        etnia:this.etnia.id,
-                        lengua:this.lengua.id,
-                        interprete:this.interprete.id,
+                        idNacionalidad:this.nacionalidad.id,
+                        idEstadoOrigen:this.estado.id,
+                        idMunicipioOrigen:this.municipio.id,
+                        idEtnia:this.etnia.id,
+                        idLengua:this.lengua.id,
+                        idInterprete:this.interprete.id,
                         motivoEstancia:this.motivoEstancia.toUpperCase(),
-                        ocupacion:this.ocupacion.id,
-                        estadoCivil:this.estadoCivil.id,
-                        escolaridad:this.escolaridad.id,
-                        religion:this.religion.id,
-                        identificacion:this.identificacion.id,
-                        numIdentificacion:this.numIdentificacion.toUpperCase(),
+                        idOcupacion:this.ocupacion.id,
+                        idEstadoCivil:this.estadoCivil.id,
+                        idEscolaridad:this.escolaridad.id,
+                        idReligion:this.religion.id,
+                        docIdentificacion:this.identificacion.id,
+                        numDocIdentificacion:this.numIdentificacion.toUpperCase(),
                         // alias:this.alias.toUpperCase(),
                         telefono:this.telefono
                     };
