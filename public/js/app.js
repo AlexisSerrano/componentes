@@ -55705,6 +55705,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -55754,6 +55778,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             alias: '',
             telefono: '',
             validaciones: [],
+            validacionesback: '',
             loader: true,
             qrr: "QUIEN RESULTE RESPONSABLE",
             //url:'http://localhost/componentes/public/api',
@@ -55832,9 +55857,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
-                            _this2.nombres = _this2.personaExiste.nombres, _this2.primerAp = _this2.personaExiste.primerAp, _this2.segundoAp = _this2.personaExiste.segundoAp,
-                            // this.fechaNacimiento=this.personaExiste.fechaNacimiento,
-                            _this2.edad = _this2.personaExiste.edad, _this2.sexo = _this2.personaExiste.sexo, _this2.rfc = _this2.personaExiste.rfc, _this2.curp = _this2.personaExiste.curp, _this2.nacionalidad = _this2.personaExiste.idNacionalidad, _this2.estado = _this2.personaExiste.idEstado;
+                            _this2.nombres = _this2.personaExiste.nombres, _this2.primerAp = _this2.personaExiste.primerAp, _this2.segundoAp = _this2.personaExiste.segundoAp, _this2.fechaNacimiento = _this2.personaExiste.fechaNacimiento.slice(0, -9), _this2.edad = _this2.personaExiste.edad, _this2.sexo = _this2.personaExiste.sexo, _this2.rfc = _this2.personaExiste.rfc.slice(0, -3), _this2.curp = _this2.personaExiste.curp, _this2.nacionalidad = _this2.personaExiste.idNacionalidad, _this2.estado = _this2.personaExiste.idEstado;
                             _this2.municipio = _this2.personaExiste.idMunicipioOrigen, _this2.etnia = _this2.personaExiste.idEtnia, _this2.lengua = _this2.personaExiste.idLengua, _this2.interprete = _this2.personaExiste.idInterprete, _this2.motivoEstancia = _this2.personaExiste.motivoEstancia, _this2.ocupacion = _this2.personaExiste.idOcupacion, _this2.estadoCivil = _this2.personaExiste.idEstadoCivil, _this2.escolaridad = _this2.personaExiste.idEscolaridad, _this2.religion = _this2.personaExiste.idReligion, _this2.identificacion = _this2.personaExiste.docIdentificacion, _this2.numIdentificacion = _this2.personaExiste.numDocIdentificacion;
                             _this2.alias = _this2.personaExiste.alias;
                         }
@@ -55964,7 +55987,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return;
             }
             axios.post(urlCrearPersona, data).then(function (response) {
-                console.log(response.data);
                 _this5.idPersona = response.data;
                 if (idPersona) {
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
@@ -55982,7 +56004,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                 }
             }).catch(function (error) {
-                console.log(error.response.data.errors);
+                _this5.validacionesback = error.response.data.errors;
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                     title: '¡Guardado incorrecto!',
                     text: 'Ésta persona no fue posible guardarla.',
@@ -60137,7 +60159,9 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has("nombres")
+                          "border border-danger":
+                            _vm.errors.has("nombres") ||
+                            this.validacionesback.nombres
                         },
                         attrs: {
                           type: "text",
@@ -60160,6 +60184,14 @@ var render = function() {
                       _vm.errors.has("nombres")
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(_vm._s(_vm.errors.first("nombres")))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.nombres
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              _vm._s(String(this.validacionesback.nombres))
+                            )
                           ])
                         : _vm._e()
                     ])
@@ -60194,9 +60226,9 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has(
-                            "primer apellido"
-                          )
+                          "border border-danger":
+                            _vm.errors.has("primer apellido") ||
+                            this.validacionesback.primerAp
                         },
                         attrs: {
                           type: "text",
@@ -60219,6 +60251,14 @@ var render = function() {
                       _vm.errors.has("primer apellido")
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(_vm._s(_vm.errors.first("primer apellido")))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.primerAp
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              _vm._s(String(this.validacionesback.primerAp))
+                            )
                           ])
                         : _vm._e()
                     ])
@@ -60253,9 +60293,9 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has(
-                            "segundo apellido"
-                          )
+                          "border border-danger":
+                            _vm.errors.has("segundo apellido") ||
+                            this.validacionesback.segundoAp
                         },
                         attrs: {
                           type: "text",
@@ -60278,6 +60318,14 @@ var render = function() {
                       _vm.errors.has("segundo apellido")
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(_vm._s(_vm.errors.first("segundo apellido")))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.segundoAp
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              _vm._s(String(this.validacionesback.segundoAp))
+                            )
                           ])
                         : _vm._e()
                     ])
@@ -60312,7 +60360,9 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has("alias")
+                          "border border-danger":
+                            _vm.errors.has("alias") ||
+                            this.validacionesback.alias
                         },
                         attrs: {
                           type: "text",
@@ -60334,6 +60384,12 @@ var render = function() {
                       _vm.errors.has("alias")
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(_vm._s(_vm.errors.first("alias")))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.alias
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(String(this.validacionesback.alias)))
                           ])
                         : _vm._e()
                     ])
@@ -60368,9 +60424,9 @@ var render = function() {
                         ],
                         staticClass: "form-control form-control-sm",
                         class: {
-                          "border border-danger": _vm.errors.has(
-                            "fecha de nacimiento"
-                          )
+                          "border border-danger":
+                            _vm.errors.has("fecha de nacimiento") ||
+                            this.validacionesback.fechaNacimiento
                         },
                         attrs: {
                           type: "date",
@@ -60411,6 +60467,29 @@ var render = function() {
                             _vm._s(_vm.errors.first("fecha de nacimiento"))
                           )
                         ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: this.validacionesback.fechaNacimiento,
+                              expression:
+                                "this.validacionesback.fechaNacimiento"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(
+                              String(this.validacionesback.fechaNacimiento)
+                            )
+                          )
+                        ]
                       )
                     ])
                   : _vm._e(),
@@ -60444,7 +60523,8 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has("edad")
+                          "border border-danger":
+                            _vm.errors.has("edad") || this.validacionesback.edad
                         },
                         attrs: {
                           type: "number",
@@ -60467,6 +60547,12 @@ var render = function() {
                       _vm.errors.has("edad")
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(_vm._s(_vm.errors.first("edad")))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.edad
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(String(this.validacionesback.edad)))
                           ])
                         : _vm._e()
                     ])
@@ -60496,9 +60582,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "sexo"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("sexo") ||
+                              this.validacionesback.sexo
                           },
                           attrs: {
                             options: _vm.sexos,
@@ -60530,6 +60616,22 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("sexo")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.sexo,
+                                expression: "this.validacionesback.sexo"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [_vm._v(_vm._s(String(this.validacionesback.sexo)))]
                         )
                       ],
                       1
@@ -60560,9 +60662,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "entidad federativa de origen"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("entidad federativa de origen") ||
+                              this.validacionesback.idEstadoOrigen
                           },
                           attrs: {
                             options: _vm.estados,
@@ -60607,6 +60709,29 @@ var render = function() {
                               )
                             )
                           ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.idEstadoOrigen,
+                                expression:
+                                  "this.validacionesback.idEstadoOrigen"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                String(this.validacionesback.idEstadoOrigen)
+                              )
+                            )
+                          ]
                         )
                       ],
                       1
@@ -60642,7 +60767,8 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has("rfc")
+                          "border border-danger":
+                            _vm.errors.has("rfc") || this.validacionesback.rfc
                         },
                         attrs: {
                           type: "text",
@@ -60664,6 +60790,12 @@ var render = function() {
                       _vm.errors.has("rfc")
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(_vm._s(_vm.errors.first("rfc")))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.rfc
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(String(this.validacionesback.rfc)))
                           ])
                         : _vm._e()
                     ])
@@ -60698,7 +60830,9 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has("homoclave")
+                          "border border-danger":
+                            _vm.errors.has("homoclave") ||
+                            this.validacionesback.homo
                         },
                         attrs: {
                           type: "text",
@@ -60720,6 +60854,12 @@ var render = function() {
                       _vm.errors.has("homoclave")
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(_vm._s(_vm.errors.first("homoclave")))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.homo
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(String(this.validacionesback.homo)))
                           ])
                         : _vm._e()
                     ])
@@ -60754,7 +60894,8 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has("curp")
+                          "border border-danger":
+                            _vm.errors.has("curp") || this.validacionesback.curp
                         },
                         attrs: {
                           type: "text",
@@ -60776,6 +60917,12 @@ var render = function() {
                       _vm.errors.has("curp")
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(_vm._s(_vm.errors.first("curp")))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.curp != undefined
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(String(this.validacionesback.curp)))
                           ])
                         : _vm._e()
                     ])
@@ -60805,9 +60952,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "nacionalidad"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("nacionalidad") ||
+                              this.validacionesback.idNacionalidad
                           },
                           attrs: {
                             options: _vm.nacionalidades,
@@ -60838,6 +60985,29 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("nacionalidad")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.idNacionalidad,
+                                expression:
+                                  "this.validacionesback.idNacionalidad"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                String(this.validacionesback.idNacionalidad)
+                              )
+                            )
+                          ]
                         )
                       ],
                       1
@@ -60868,9 +61038,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "municipio"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("municipio") ||
+                              this.validacionesback.idMunicipioOrigen
                           },
                           attrs: {
                             options: _vm.municipios,
@@ -60901,6 +61071,29 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("municipio")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.idMunicipioOrigen,
+                                expression:
+                                  "this.validacionesback.idMunicipioOrigen"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                String(this.validacionesback.idMunicipioOrigen)
+                              )
+                            )
+                          ]
                         )
                       ],
                       1
@@ -60931,9 +61124,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "etnia"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("etnia") ||
+                              this.validacionesback.idEtnia
                           },
                           attrs: {
                             label: "nombre",
@@ -60964,6 +61157,26 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("etnia")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.idEtnia,
+                                expression: "this.validacionesback.idEtnia"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(String(this.validacionesback.idEtnia))
+                            )
+                          ]
                         )
                       ],
                       1
@@ -60994,9 +61207,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "lengua"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("lengua") ||
+                              this.validacionesback.idLengua
                           },
                           attrs: {
                             label: "nombre",
@@ -61027,6 +61240,26 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("lengua")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.idLengua,
+                                expression: "this.validacionesback.idLengua"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(String(this.validacionesback.idLengua))
+                            )
+                          ]
                         )
                       ],
                       1
@@ -61057,9 +61290,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "intérprete"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("intérprete") ||
+                              this.validacionesback.idInterprete
                           },
                           attrs: {
                             options: _vm.interpretes,
@@ -61090,6 +61323,26 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("intérprete")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.idInterprete,
+                                expression: "this.validacionesback.idInterprete"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(String(this.validacionesback.idInterprete))
+                            )
+                          ]
                         )
                       ],
                       1
@@ -61125,9 +61378,9 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has(
-                            "motivo de estancia"
-                          )
+                          "border border-danger":
+                            _vm.errors.has("motivo de estancia") ||
+                            this.validacionesback.motivoEstancia
                         },
                         attrs: {
                           type: "text",
@@ -61150,6 +61403,16 @@ var render = function() {
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
                               _vm._s(_vm.errors.first("motivo de estancia"))
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.motivoEstancia
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              _vm._s(
+                                String(this.validacionesback.motivoEstancia)
+                              )
                             )
                           ])
                         : _vm._e()
@@ -61180,9 +61443,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "ocupación"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("ocupación") ||
+                              this.validacionesback.idOcupacion
                           },
                           attrs: {
                             options: _vm.ocupaciones,
@@ -61213,6 +61476,26 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("ocupación")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.idOcupacion,
+                                expression: "this.validacionesback.idOcupacion"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(String(this.validacionesback.idOcupacion))
+                            )
+                          ]
                         )
                       ],
                       1
@@ -61243,9 +61526,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "estado civil"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("estado civil") ||
+                              this.validacionesback.idEstadoCivil
                           },
                           attrs: {
                             options: _vm.estadosCiviles,
@@ -61276,6 +61559,29 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("estado civil")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.idEstadoCivil,
+                                expression:
+                                  "this.validacionesback.idEstadoCivil"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                String(this.validacionesback.idEstadoCivil)
+                              )
+                            )
+                          ]
                         )
                       ],
                       1
@@ -61306,9 +61612,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "escolaridad"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("escolaridad") ||
+                              this.validacionesback.idEscolaridad
                           },
                           attrs: {
                             options: _vm.escolaridades,
@@ -61339,6 +61645,29 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("escolaridad")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.idEscolaridad,
+                                expression:
+                                  "this.validacionesback.idEscolaridad"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                String(this.validacionesback.idEscolaridad)
+                              )
+                            )
+                          ]
                         )
                       ],
                       1
@@ -61369,9 +61698,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "religión"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("religión") ||
+                              this.validacionesback.idReligion
                           },
                           attrs: {
                             options: _vm.religiones,
@@ -61402,6 +61731,26 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("religión")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.idReligion,
+                                expression: "this.validacionesback.idReligion"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(String(this.validacionesback.idReligion))
+                            )
+                          ]
                         )
                       ],
                       1
@@ -61432,9 +61781,9 @@ var render = function() {
                             }
                           ],
                           class: {
-                            "border border-danger rounded": _vm.errors.has(
-                              "identificación"
-                            )
+                            "border border-danger rounded":
+                              _vm.errors.has("identificación") ||
+                              this.validacionesback.docIdentificacion
                           },
                           attrs: {
                             options: _vm.identificaciones,
@@ -61465,6 +61814,29 @@ var render = function() {
                             staticClass: "text-danger"
                           },
                           [_vm._v(_vm._s(_vm.errors.first("identificación")))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: this.validacionesback.docIdentificacion,
+                                expression:
+                                  "this.validacionesback.docIdentificacion"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                String(this.validacionesback.docIdentificacion)
+                              )
+                            )
+                          ]
                         )
                       ],
                       1
@@ -61500,9 +61872,9 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has(
-                            "número de identificación"
-                          )
+                          "border border-danger":
+                            _vm.errors.has("número de identificación") ||
+                            this.validacionesback.numDocIdentificacion
                         },
                         attrs: {
                           type: "text",
@@ -61526,6 +61898,18 @@ var render = function() {
                             _vm._v(
                               _vm._s(
                                 _vm.errors.first("número de identificación")
+                              )
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.numDocIdentificacion
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              _vm._s(
+                                String(
+                                  this.validacionesback.numDocIdentificacion
+                                )
                               )
                             )
                           ])
@@ -61562,7 +61946,9 @@ var render = function() {
                         class: {
                           input: true,
                           "form-control form-control-sm": true,
-                          "border border-danger": _vm.errors.has("teléfono")
+                          "border border-danger":
+                            _vm.errors.has("teléfono") ||
+                            this.validacionesback.telefono
                         },
                         attrs: {
                           type: "text",
@@ -61584,6 +61970,14 @@ var render = function() {
                       _vm.errors.has("teléfono")
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(_vm._s(_vm.errors.first("teléfono")))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.validacionesback.telefono
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              _vm._s(String(this.validacionesback.telefono))
+                            )
                           ])
                         : _vm._e()
                     ])

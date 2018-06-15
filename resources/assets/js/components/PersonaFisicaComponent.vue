@@ -17,144 +17,168 @@
             <div class="form-row">
                 <div v-if="validaciones.nombres!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
-                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') }" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
-                    <span v-if="errors.has('nombres')" class="text-danger">{{ errors.first('nombres') }}</span>
+                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
+                    <span v-if="errors.has('nombres')" class="text-danger">{{ errors.first('nombres')}}</span>
+                    <span v-if="this.validacionesback.nombres" class="text-danger">{{ String(this.validacionesback.nombres)}}</span>
                 </div>
 
                 <div v-if="validaciones.primerAp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="primerAp">Primer apellido</label>
-                    <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') }" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="validaciones.primerAp" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
-                    <span v-if="errors.has('primer apellido')" class="text-danger">{{ errors.first('primer apellido') }}</span>
+                    <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="validaciones.primerAp" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
+                    <span v-if="errors.has('primer apellido')" class="text-danger">{{ errors.first('primer apellido')}}</span>
+                    <span v-if="this.validacionesback.primerAp" class="text-danger">{{ String(this.validacionesback.primerAp)}}</span>
                 </div>
                 <div v-if="validaciones.segundoAp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="segundoAp">Segundo apellido</label>
-                    <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') }" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
-                    <span v-if="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido') }}</span>
+                    <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
+                    <span v-if="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido')}}</span>
+                    <span v-if="this.validacionesback.segundoAp" class="text-danger">{{ String(this.validacionesback.segundoAp)}}</span>
                 </div>
                <div v-if="validaciones.alias!='oculto' && tipo=='conocido'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="alias">Alias</label>                    
-                    <input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias') }" v-model="alias" placeholder="Ingrese el alias" v-validate="validaciones.alias" autocomplete="off">
-                    <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias') }}</span>
+                    <input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias')  || this.validacionesback.alias}" v-model="alias" placeholder="Ingrese el alias" v-validate="validaciones.alias" autocomplete="off">
+                    <span v-if="errors.has('alias')" class="text-danger">{{ errors.first('alias')}}</span>
+                    <span v-if="this.validacionesback.alias" class="text-danger">{{ String(this.validacionesback.alias)}}</span>
                 </div>
 
 
 
                 <div v-if="validaciones.fechaNacimiento!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="fechaNacimiento">Fecha de nacimiento</label>
-                    <input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="'date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de nacimiento')}" @blur="searchPersona" v-on:blur="generarCurp(),generarEdad()">
-                    <span v-show="errors.has('fecha de nacimiento')" class="text-danger">{{ errors.first('fecha de nacimiento') }}</span>
+                    <input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="'date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de nacimiento') || this.validacionesback.fechaNacimiento}" @blur="searchPersona" v-on:blur="generarCurp(),generarEdad()">
+                    <span v-show="errors.has('fecha de nacimiento')" class="text-danger">{{ errors.first('fecha de nacimiento')}}</span>
+                    <span v-show="this.validacionesback.fechaNacimiento" class="text-danger">{{ String(this.validacionesback.fechaNacimiento)}}</span>
                 </div>
                 <div v-if="validaciones.edad!='oculto'" class="form-group col-md-1">
                     <label class="col-form-label col-form-label-sm" for="edad">Edad</label>
-                    <input type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') }" v-model="edad" placeholder="Edad" v-validate="validaciones.edad">
-                    <span v-if="errors.has('edad')" class="text-danger">{{ errors.first('edad') }}</span>
+                    <input type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') || this.validacionesback.edad}" v-model="edad" placeholder="Edad" v-validate="validaciones.edad">
+                    <span v-if="errors.has('edad')" class="text-danger">{{ errors.first('edad')}}</span>
+                    <span v-if="this.validacionesback.edad" class="text-danger">{{ String(this.validacionesback.edad)}}</span>
                 </div>
                 <div v-if="validaciones.sexo!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="sexos">Sexo</label>    
-                    <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="validaciones.sexo" :class="{ 'border border-danger rounded': errors.has('sexo') }" placeholder="Seleccione un sexo" v-on:blur="generarCurp"></v-select>
-                    <span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo') }}</span>
+                    <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="validaciones.sexo" :class="{ 'border border-danger rounded': errors.has('sexo') || this.validacionesback.sexo}" placeholder="Seleccione un sexo" v-on:blur="generarCurp"></v-select>
+                    <span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo')}}</span>
+                    <span v-show="this.validacionesback.sexo" class="text-danger">{{ String(this.validacionesback.sexo)}}</span>
                 </div>
 
                 <div v-if="validaciones.idEstadoOrigen!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="estado">Entidad federativa de origen</label>    
-                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="validaciones.idEstadoOrigen" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') }" placeholder="Seleccione una entidad federativa de origen" v-on:blur="generarCurp"></v-select>
-                    <span v-show="errors.has('entidad federativa de origen')" class="text-danger">{{ errors.first('entidad federativa de origen') }}</span>
+                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="validaciones.idEstadoOrigen" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') || this.validacionesback.idEstadoOrigen }" placeholder="Seleccione una entidad federativa de origen" v-on:blur="generarCurp"></v-select>
+                    <span v-show="errors.has('entidad federativa de origen')" class="text-danger">{{ errors.first('entidad federativa de origen')}}</span>
+                    <span v-show="this.validacionesback.idEstadoOrigen" class="text-danger">{{ String(this.validacionesback.idEstadoOrigen)}}</span>
                 </div>
 
 
 
                 <div v-if="validaciones.rfc!='oculto'" class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
-                    <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') }" v-model="rfc" placeholder="Ingrese el RFC" v-validate="validaciones.rfc" autocomplete="off">
-                    <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc') }}</span>
+                    <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="validaciones.rfc" autocomplete="off">
+                    <span v-if="errors.has('rfc')" class="text-danger">{{ errors.first('rfc')}}</span>
+                    <span v-if="this.validacionesback.rfc" class="text-danger">{{ String(this.validacionesback.rfc)}}</span>
                 </div>
                 <div v-if="validaciones.homo!='oculto'" class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="homoclave">Homoclave</label>
-                    <input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') }" v-model="homoclave" placeholder="Homoclave" v-validate="validaciones.homo" autocomplete="off">
-                    <span v-if="errors.has('homoclave')" class="text-danger">{{ errors.first('homoclave') }}</span>
+                    <input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') || this.validacionesback.homo}" v-model="homoclave" placeholder="Homoclave" v-validate="validaciones.homo" autocomplete="off">
+                    <span v-if="errors.has('homoclave')" class="text-danger">{{ errors.first('homoclave')}}</span>
+                    <span v-if="this.validacionesback.homo" class="text-danger">{{ String(this.validacionesback.homo)}}</span>
                 </div>
 
                 <div v-if="validaciones.curp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="curp">CURP</label>
-                    <input type="text" name="curp" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('curp') }" v-model="curp" placeholder="Ingrese el curp" v-validate="validaciones.curp" autocomplete="off">
-                    <span v-if="errors.has('curp') ||  this.validacionesback.curp" class="text-danger">{{ errors.first('curp') }}{{ String(this.validacionesback.curp)}}</span>
+                    <input type="text" name="curp" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('curp') || this.validacionesback.curp}" v-model="curp" placeholder="Ingrese el curp" v-validate="validaciones.curp" autocomplete="off">
+                    <span v-if="errors.has('curp')" class="text-danger">{{ errors.first('curp') }}</span>
+                    <span v-if="this.validacionesback.curp!=undefined" class="text-danger">{{ String(this.validacionesback.curp)}}</span>
                 </div>
                 <div v-if="validaciones.idNacionalidad!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nacionalidad">Nacionalidad</label>    
-                    <v-select :options="nacionalidades" label="nombre" v-model="nacionalidad" name="nacionalidad" v-validate="validaciones.idNacionalidad" :class="{ 'border border-danger rounded': errors.has('nacionalidad') }" placeholder="Seleccione una nacionalidad"></v-select>
-                    <span v-show="errors.has('nacionalidad')" class="text-danger">{{ errors.first('nacionalidad') }}</span>
+                    <v-select :options="nacionalidades" label="nombre" v-model="nacionalidad" name="nacionalidad" v-validate="validaciones.idNacionalidad" :class="{ 'border border-danger rounded': errors.has('nacionalidad') || this.validacionesback.idNacionalidad}" placeholder="Seleccione una nacionalidad"></v-select>
+                    <span v-show="errors.has('nacionalidad')" class="text-danger">{{ errors.first('nacionalidad')}}</span>
+                    <span v-show="this.validacionesback.idNacionalidad" class="text-danger">{{ String(this.validacionesback.idNacionalidad)}}</span>
                 </div>
 
 
 
                 <div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>    
-                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') }" placeholder="Seleccione un municipio de origen"></v-select>
-                    <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio') }}</span>
+                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}" placeholder="Seleccione un municipio de origen"></v-select>
+                    <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
+                    <span v-show="this.validacionesback.idMunicipioOrigen" class="text-danger">{{ String(this.validacionesback.idMunicipioOrigen)}}</span>
                 </div>
                 <div v-if="validaciones.idEtnia!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="etnia">Etnia</label>    
-                    <v-select label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="validaciones.idEtnia" :class="{ 'border border-danger rounded': errors.has('etnia') }" placeholder="Seleccione una etnia"></v-select>
-                    <span v-show="errors.has('etnia')" class="text-danger">{{ errors.first('etnia') }}</span> 
+                    <v-select label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="validaciones.idEtnia" :class="{ 'border border-danger rounded': errors.has('etnia') || this.validacionesback.idEtnia}" placeholder="Seleccione una etnia"></v-select>
+                    <span v-show="errors.has('etnia')" class="text-danger">{{ errors.first('etnia')}}</span> 
+                    <span v-show="this.validacionesback.idEtnia" class="text-danger">{{ String(this.validacionesback.idEtnia)}}</span> 
                 </div>
                 <div v-if="validaciones.idLengua!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="lengua">Lengua</label>    
-                    <v-select label="nombre" :options="lenguas" v-model="lengua" name="lengua" v-validate="validaciones.idLengua" :class="{ 'border border-danger rounded': errors.has('lengua') }" placeholder="Seleccione una lengua"></v-select>
-                    <span v-show="errors.has('lengua')" class="text-danger">{{ errors.first('lengua') }}</span> 
+                    <v-select label="nombre" :options="lenguas" v-model="lengua" name="lengua" v-validate="validaciones.idLengua" :class="{ 'border border-danger rounded': errors.has('lengua') || this.validacionesback.idLengua}" placeholder="Seleccione una lengua"></v-select>
+                    <span v-show="errors.has('lengua')" class="text-danger">{{ errors.first('lengua')}}</span> 
+                    <span v-show="this.validacionesback.idLengua" class="text-danger">{{ String(this.validacionesback.idLengua)}}</span> 
                 </div>
 
 
 
                 <div v-if="validaciones.idInterprete!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="interprete">Intérprete</label>    
-                    <v-select :options="interpretes" label="nombre" v-model="interprete" name="intérprete" v-validate="validaciones.idInterprete" :class="{ 'border border-danger rounded': errors.has('intérprete') }" placeholder="Seleccione un intérprete"></v-select>
-                    <span v-show="errors.has('intérprete')" class="text-danger">{{ errors.first('intérprete') }}</span>
+                    <v-select :options="interpretes" label="nombre" v-model="interprete" name="intérprete" v-validate="validaciones.idInterprete" :class="{ 'border border-danger rounded': errors.has('intérprete') || this.validacionesback.idInterprete}" placeholder="Seleccione un intérprete"></v-select>
+                    <span v-show="errors.has('intérprete')" class="text-danger">{{ errors.first('intérprete')}}</span>
+                    <span v-show="this.validacionesback.idInterprete" class="text-danger">{{ String(this.validacionesback.idInterprete)}}</span>
                 </div>
                 <div v-if="validaciones.motivoEstancia!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="motivoEstancia">Motivo de estancia</label>
-                    <input type="text" data-vv-name="motivo de estancia" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('motivo de estancia') }" v-model="motivoEstancia" placeholder="Ingrese el motivo de estancia" v-validate="validaciones.motivoEstancia" autocomplete="off">
-                    <span v-if="errors.has('motivo de estancia')" class="text-danger">{{ errors.first('motivo de estancia') }}</span>
+                    <input type="text" data-vv-name="motivo de estancia" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('motivo de estancia') || this.validacionesback.motivoEstancia}" v-model="motivoEstancia" placeholder="Ingrese el motivo de estancia" v-validate="validaciones.motivoEstancia" autocomplete="off">
+                    <span v-if="errors.has('motivo de estancia')" class="text-danger">{{ errors.first('motivo de estancia')}}</span>
+                    <span v-if="this.validacionesback.motivoEstancia" class="text-danger">{{ String(this.validacionesback.motivoEstancia)}}</span>
                 </div>
                 <div v-if="validaciones.idOcupacion!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="ocupacion">Ocupación</label>    
-                    <v-select :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupacion" v-validate="validaciones.idOcupacion" :class="{ 'border border-danger rounded': errors.has('ocupación') }" placeholder="Seleccione una ocupación"></v-select>
-                    <span v-show="errors.has('ocupación')" class="text-danger">{{ errors.first('ocupación') }}</span>
+                    <v-select :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupacion" v-validate="validaciones.idOcupacion" :class="{ 'border border-danger rounded': errors.has('ocupación') || this.validacionesback.idOcupacion}" placeholder="Seleccione una ocupación"></v-select>
+                    <span v-show="errors.has('ocupación')" class="text-danger">{{ errors.first('ocupación')}}</span>
+                    <span v-show="this.validacionesback.idOcupacion" class="text-danger">{{ String(this.validacionesback.idOcupacion)}}</span>
                 </div>
 
 
 
                 <div v-if="validaciones.idEstadoCivil!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="estadoCivil">Estado civil</label>    
-                    <v-select :options="estadosCiviles" label="nombre" v-model="estadoCivil" data-vv-name="estado civil" v-validate="validaciones.idEstadoCivil" :class="{ 'border border-danger rounded': errors.has('estado civil') }" placeholder="Seleccione un estado civil"></v-select>
-                    <span v-show="errors.has('estado civil')" class="text-danger">{{ errors.first('estado civil') }}</span>
+                    <v-select :options="estadosCiviles" label="nombre" v-model="estadoCivil" data-vv-name="estado civil" v-validate="validaciones.idEstadoCivil" :class="{ 'border border-danger rounded': errors.has('estado civil') || this.validacionesback.idEstadoCivil}" placeholder="Seleccione un estado civil"></v-select>
+                    <span v-show="errors.has('estado civil')" class="text-danger">{{ errors.first('estado civil')}}</span>
+                    <span v-show="this.validacionesback.idEstadoCivil" class="text-danger">{{ String(this.validacionesback.idEstadoCivil)}}</span>
                 </div>
                 <div v-if="validaciones.idEscolaridad!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="escolaridad">Escolaridad</label>    
-                    <v-select :options="escolaridades" label="nombre" v-model="escolaridad" name="escolaridad" v-validate="validaciones.idEscolaridad" :class="{ 'border border-danger rounded': errors.has('escolaridad') }" placeholder="Seleccione una escolaridad"></v-select>
-                    <span v-show="errors.has('escolaridad')" class="text-danger">{{ errors.first('escolaridad') }}</span>
+                    <v-select :options="escolaridades" label="nombre" v-model="escolaridad" name="escolaridad" v-validate="validaciones.idEscolaridad" :class="{ 'border border-danger rounded': errors.has('escolaridad') || this.validacionesback.idEscolaridad}" placeholder="Seleccione una escolaridad"></v-select>
+                    <span v-show="errors.has('escolaridad')" class="text-danger">{{ errors.first('escolaridad')}}</span>
+                    <span v-show="this.validacionesback.idEscolaridad" class="text-danger">{{ String(this.validacionesback.idEscolaridad)}}</span>
                 </div>
                 <div v-if="validaciones.idReligion!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="religion">Religión</label>    
-                    <v-select :options="religiones" label="nombre" v-model="religion" name="religion" v-validate="validaciones.idReligion" :class="{ 'border border-danger rounded': errors.has('religión') }" placeholder="Seleccione una religión"></v-select>
-                    <span v-show="errors.has('religión')" class="text-danger">{{ errors.first('religión') }}</span>
+                    <v-select :options="religiones" label="nombre" v-model="religion" name="religion" v-validate="validaciones.idReligion" :class="{ 'border border-danger rounded': errors.has('religión') || this.validacionesback.idReligion}" placeholder="Seleccione una religión"></v-select>
+                    <span v-show="errors.has('religión')" class="text-danger">{{ errors.first('religión')}}</span>
+                    <span v-show="this.validacionesback.idReligion" class="text-danger">{{ String(this.validacionesback.idReligion)}}</span>
                 </div>
 
 
 
                 <div v-if="validaciones.docIdentificacion!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="identificacion">Identificación</label>    
-                    <v-select :options="identificaciones" label="documento" v-model="identificacion" name="identificacion" v-validate="validaciones.docIdentificacion" :class="{ 'border border-danger rounded': errors.has('identificación') }" placeholder="Seleccione una identificación"></v-select>
-                    <span v-show="errors.has('identificación')" class="text-danger">{{ errors.first('identificación') }}</span>
+                    <v-select :options="identificaciones" label="documento" v-model="identificacion" name="identificacion" v-validate="validaciones.docIdentificacion" :class="{ 'border border-danger rounded': errors.has('identificación') || this.validacionesback.docIdentificacion}" placeholder="Seleccione una identificación"></v-select>
+                    <span v-show="errors.has('identificación')" class="text-danger">{{ errors.first('identificación')}}</span>
+                    <span v-show="this.validacionesback.docIdentificacion" class="text-danger">{{ String(this.validacionesback.docIdentificacion)}}</span>
                 </div>
                 <div v-if="validaciones.numDocIdentificacion!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="numIdentificacion">Número de identificación</label>
-                    <input type="text" data-vv-name="número de identificación" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('número de identificación') }" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" v-validate="validaciones.numDocIdentificacion" autocomplete="off">
-                    <span v-if="errors.has('número de identificación')" class="text-danger">{{ errors.first('número de identificación') }}</span>
+                    <input type="text" data-vv-name="número de identificación" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('número de identificación') || this.validacionesback.numDocIdentificacion}" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" v-validate="validaciones.numDocIdentificacion" autocomplete="off">
+                    <span v-if="errors.has('número de identificación')" class="text-danger">{{ errors.first('número de identificación')}}</span>
+                    <span v-if="this.validacionesback.numDocIdentificacion" class="text-danger">{{ String(this.validacionesback.numDocIdentificacion)}}</span>
                 </div>
                 <div v-if="validaciones.telefono!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="teléfono">Teléfono</label>
-                    <input type="text" name="teléfono" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('teléfono') }" v-model="telefono" placeholder="Ingrese el teléfono" v-validate="validaciones.telefono" autocomplete="off">
-                    <span v-if="errors.has('teléfono')" class="text-danger">{{ errors.first('teléfono') }}</span>
+                    <input type="text" name="teléfono" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('teléfono') || this.validacionesback.telefono}" v-model="telefono" placeholder="Ingrese el teléfono" v-validate="validaciones.telefono" autocomplete="off">
+                    <span v-if="errors.has('teléfono')" class="text-danger">{{ errors.first('teléfono')}}</span>
+                    <span v-if="this.validacionesback.telefono" class="text-danger">{{ String(this.validacionesback.telefono)}}</span>
                 </div>
             </div>
 
@@ -227,8 +251,8 @@ import moment from 'moment'
                 loader:true,
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://localhost/componentes/public/api',
-                url:'http://componentes.oo/api',
-                //url:'http://componentes.test/api'
+                // url:'http://componentes.oo/api',
+                url:'http://componentes.test/api'
                 // url:'/api'
             }
         },
@@ -298,10 +322,10 @@ import moment from 'moment'
                                 this.nombres= this.personaExiste.nombres,
                                 this.primerAp=this.personaExiste.primerAp,
                                 this.segundoAp=this.personaExiste.segundoAp,
-                                // this.fechaNacimiento=this.personaExiste.fechaNacimiento,
+                                this.fechaNacimiento=this.personaExiste.fechaNacimiento.slice(0,-9),
                                 this.edad=this.personaExiste.edad,
                                 this.sexo=this.personaExiste.sexo,
-                                this.rfc=this.personaExiste.rfc,
+                                this.rfc=this.personaExiste.rfc.slice(0,-3),
                                 this.curp=this.personaExiste.curp,
                                 this.nacionalidad=this.personaExiste.idNacionalidad,
                                 this.estado=this.personaExiste.idEstado
@@ -484,36 +508,6 @@ import moment from 'moment'
                     }
                 }).catch((error)=>{
                     this.validacionesback = error.response.data.errors;
-                    // var campos = ["nombres", "primerAp", "segundoAp", "fechaNacimiento", "edad", "sexo", "rfc", "homo", "curp", "idNacionalidad",
-                    //  "idEstadoOrigen", "idMunicipioOrigen", "idEtnia", "idLengua", "idInterprete", "motivoEstancia", "idOcupacion", "idEstadoCivil",
-                    //  "idEscolaridad", "idReligion", "docIdentificacion", "numDocIdentificacion", "telefono", "idCarpeta", "sistema", "tipo"];
-                    // campos.forEach(
-                    //     function show(value) { 
-                    //         this.validacionesback = error.response.data.errors;
-                    //         console.log(this.validacionesback)
-                    //         if(prueba==undefined){
-                    //             console.log("sin error");
-                    //         }
-                    //         else{
-                    //             console.log("con error");
-                    //         }
-                    //         //console.log(error.response.data.errors.cu);
-                    //         // error.response.data.errors.value.forEach(
-                    //         //     function show(value) { console.log(value); }
-                    //         // );
-                    //     }
-                    // );
-                    
-                    // if(error.response.data.errors.sexo==undefined){
-                    //     console.log("indefinido");
-                    // }
-                    // else{
-                    //     console.log("definido");
-                    // }
-                    
-                    // error.response.data.errors.sexo.forEach(
-                    //     function show(value) { console.log(value); }
-                    // );
                     swal({
                     title: '¡Guardado incorrecto!',
                     text: 'Ésta persona no fue posible guardarla.',
