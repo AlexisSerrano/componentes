@@ -82,6 +82,7 @@ class ValidacionController extends Controller
             $variables->docIdentificacion = $request->docIdentificacion;
             $variables->idInterprete = $request->idInterprete;
             $variables->numDocIdentificacion = $request->numDocIdentificacion;
+            $variables->telefono = $request->telefono;
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
             $apariciones = new aparicionesModel();
@@ -118,6 +119,7 @@ class ValidacionController extends Controller
             $variables->idEstadoCivil = $request->idEstadoCivil;
             $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->telefono = $request->telefono;
             $variables->save();
             $apariciones = new aparicionesModel();
             $apariciones->idVarPersona = $variables->id;
