@@ -250,10 +250,10 @@ import moment from 'moment'
                 validacionesback:'',
                 loader:true,
                 qrr:"QUIEN RESULTE RESPONSABLE",
-                url:'http://localhost/componentes/public/api', 
+                // url:'http://localhost/componentes/public/api', 
                 // url:'http://componentes.oo/api',
                 // url:'http://componentes.test/api'
-                //url:'/api'
+                url:'/api'
             }
         },
 
@@ -340,7 +340,9 @@ import moment from 'moment'
                                 this.religion=this.personaExiste.idReligion,
                                 this.identificacion=this.personaExiste.docIdentificacion,
                                 this.numIdentificacion=this.personaExiste.numDocIdentificacion
-                                this.alias=this.personaExiste.alias
+                                this.alias=this.personaExiste.alias,
+                                this.telefono=this.personaExiste.telefono,
+                                this.idPersona = this.personaExiste.idPersona
                             }
                         })
                     });
@@ -508,7 +510,8 @@ import moment from 'moment'
                         telefono:this.telefono,
                         idCarpeta:this.carpeta,
                         sistema:this.sistema,
-                        tipo:this.tipo
+                        tipo:this.tipo,
+                        edad:this.edad
                     };
                 }
                 else if (this.tipo=='qrr'){
