@@ -18,7 +18,7 @@ class PersonaFisica extends Migration
              $table->string('nombres', 50)->nullable();
              $table->string('primerAp', 50)->nullable();
              $table->string('segundoAp', 50)->nullable();
-             $table->dateTime('fechaNacimiento')->nullable()->default("1900-01-01");
+             $table->date('fechaNacimiento')->nullable()->default("1900-01-01");
              $table->string('rfc', 20)->nullable()->default("AAAA000101");
              //$table->string('curp', 20)->unique()->nullable();
              $table->string('curp', 20)->nullable();

@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-use  Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Models\SexoModel;
@@ -24,21 +24,20 @@ use RFC\RfcBuilder;
 
 class PersonaController extends Controller{
 	public function index(){
-		$nacionalidades=NacionalidadesModel::orderBy('nombre', 'ASC')
-		->select('nombre','id')->get();
-		$municipios=catMunicipio::orderBy('nombre','ASC')
-		->select('nombre','id')->get();
-		$etnias=EtniaModel::orderBy('nombre','ASC')
-		->select('nombre','id')->get();
-		$lenguas=LenguasModel::orderBy('nombre','ASC')
-		->select('nombre','id')->get();
-		$estados=CatEstado::orderBy('nombre','ASC')
-		->select('nombre','id')->get();
-		return view("persona",compact("nacionalidades","municipios","etnias","lenguas","estados"));
+		return view("persona");
 	}
 
 	public function searchPersona(Request $request){
 		$persona = $request->rfc;
+		// $personaExiste = DB::table('persona_fisica')
+		// ->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
+		// ->where('rfc',$persona)
+		// ->orwhere('curp',$persona)
+		// ->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp','persona_fisica.id',
+		// 'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
+		// 'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
+		// 'variables_persona_fisica.numDocIdentificacion','variables_persona_fisica.alias')->first();
+
         $personaExiste=PersonaModel::orderBy('rfc', 'ASC')
 		->where('rfc',$persona)
 		->orwhere('curp',$persona)
@@ -214,10 +213,6 @@ class PersonaController extends Controller{
         return response()->json($interpretes);
 	}
 	
-	/* GET METHOD
-	public function getValidaciones($id1,$id2,$id3){
-		return HelpController::GetJSONDBValidation($id1,$id2,$id3);
-	}*/
 	public function rfcFisico(Request $request){
 		$fecha = $request->fechaNacimiento;
 		$partes = explode("-",$fecha);
