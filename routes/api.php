@@ -33,6 +33,9 @@ Route::post('searchPersonaFisica','PersonaController@searchPersona');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
 Route::post('getDenunciantesCarpeta','PersonaController@getDenunciantesCarpeta');
 Route::post('getInvestigadosCarpeta','PersonaController@getInvestigadosCarpeta');
+Route::post('getTestigosCarpeta','PersonaController@getTestigosCarpeta');
+Route::post('getAutoridadesCarpeta','PersonaController@getAutoridadesCarpeta');
+Route::post('getAbogadosCarpeta','PersonaController@getAbogadosCarpeta');
 
 /*Persona fisica*/
 Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');

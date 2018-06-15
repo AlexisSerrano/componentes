@@ -232,7 +232,7 @@ class PersonaController extends Controller{
 		$data=DB::table('apariciones')->select('id','idVarPersona','nuc','esEmpresa')->where('sistema',$sistema)->where('idCarpeta',$idCarpeta)->where('tipoInvolucrado',$tipoInvolucrado)->get();							
 		foreach($data as $involucrado){
 			if($involucrado->esEmpresa==0){
-				$data2=DB::table('persona_fisica')->select('variables_persona_fisica.id','nombres','primerAp','segundoAp','rfc','sexo','edad','telefono',DB::raw('0 AS esEmpresa'))->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')->where('variables_persona_fisica.id',$involucrado->idVarPersona)->get();
+				$data2=DB::table('persona_fisica')->select('variables_persona_fisica.id','nombres','primerAp','segundoAp','rfc','sexo','edad','telefono','docIdentificacion','numDocIdentificacion',DB::raw('0 AS esEmpresa'))->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')->where('variables_persona_fisica.id',$involucrado->idVarPersona)->get();
 			}else{
 				$data2=DB::table('persona_moral')->select('variables_persona_moral.id','nombre','rfc','telefono',DB::raw('1 AS esEmpresa'))->join('variables_persona_moral','variables_persona_moral.idPersona','=','persona_moral.id')->where('variables_persona_moral.id',$involucrado->idVarPersona)->get();
 			}
@@ -248,4 +248,17 @@ class PersonaController extends Controller{
 	public function getInvestigadosCarpeta(Request $request){
 		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"investigado");
 	}
+
+	public function getTestigosCarpeta(Request $request){
+		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"testigo");
+	}
+
+	public function getAutoridadesCarpeta(Request $request){
+		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"autoridad");
+	}
+
+	public function getAbogadosCarpeta(Request $request){
+		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"abogado");
+	}
+	
 }
