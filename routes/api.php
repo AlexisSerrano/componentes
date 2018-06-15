@@ -31,11 +31,6 @@ Route::post('getCatalogos','PersonaController@getCatalogos');
 Route::post('rfcFisico','PersonaController@rfcFisico');
 Route::post('searchPersonaFisica','PersonaController@searchPersona');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
-Route::post('getDenunciantesCarpeta','PersonaController@getDenunciantesCarpeta');
-Route::post('getInvestigadosCarpeta','PersonaController@getInvestigadosCarpeta'); 
-Route::post('getTestigosCarpeta','PersonaController@getTestigosCarpeta');
-Route::post('getAutoridadesCarpeta','PersonaController@getAutoridadesCarpeta');
-Route::post('getAbogadosCarpeta','PersonaController@getAbogadosCarpeta');
 
 /*Persona fisica*/
 Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');
@@ -51,3 +46,17 @@ Route::post('denunciadomoraluat','ValidacionController@valDenunciadoMUAT');
 Route::post('denunciantefisicauat','ValidacionController@valDenuncianteFUAT');
 Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
 //Route::post('getValidaciones','ValidacionController@getValidaciones');
+
+
+/*API UAT*/
+Route::post('getDenunciantesCarpeta','ApiControllerUAT@getDenunciantesCarpeta');
+Route::post('getInvestigadosCarpeta','ApiControllerUAT@getInvestigadosCarpeta'); 
+Route::post('getTestigosCarpeta','ApiControllerUAT@getTestigosCarpeta');
+Route::post('getAutoridadesCarpeta','ApiControllerUAT@getAutoridadesCarpeta');
+Route::post('getAbogadosCarpeta','ApiControllerUAT@getAbogadosCarpeta');
+/*ejemplo de peticion
+{
+  "api_token": "w37JtBFJQLbu4ADSsoMHphddWAPneAcwZyZmXpauaAHGHNMvPTvluyQOWnBl",
+  "idCarpeta": 1
+}
+*/
