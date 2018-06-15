@@ -168,7 +168,7 @@ class ValidacionController extends Controller
         }
     }
 
-    public function saveInputsMoral(){
+    public function saveInputsMoral($request){
         DB::beginTransaction();
         try{
             $persona =  new PersonaMoralModel();
