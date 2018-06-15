@@ -227,16 +227,25 @@ class PersonaController extends Controller{
 		return ['res' => $rfc];
 	}
 
-	public function getvictimaofendido(Request $request){
-		$idCarpeta = $request->idCarpeta;
-		$tipoInvolucrado = $request->tipoInvolucrado;
-		$data=DB::table('apariciones')->select('id','idVarPersona','nuc','esEmpresa')->where('idCarpeta',$idCarpeta)->where('tipoInvolucrado',$tipoInvolucrado)->get();							
+	private function getInvolucradosPorTipo(String $sistema,String $idCarpeta,String $tipoInvolucrado){
+		$result=[];
+		$data=DB::table('apariciones')->select('id','idVarPersona','nuc','esEmpresa')->where('sistema',$sistema)->where('idCarpeta',$idCarpeta)->where('tipoInvolucrado',$tipoInvolucrado)->get();							
 		foreach($data as $involucrado){
 			if($involucrado->esEmpresa==0){
-				$data2=DB::table('persona_fisica')->select('nombres','primerAp','edad','segundoAp','sexo','rfc','telefono','variables_persona_fisica.id')->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')->get();																							
-				return response()->json($data2);								
+				$data2=DB::table('persona_fisica')->select('variables_persona_fisica.id','nombres','primerAp','segundoAp','rfc','sexo','edad','telefono',DB::raw('0 AS esEmpresa'))->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')->where('variables_persona_fisica.id',$involucrado->idVarPersona)->get();
+			}else{
+				$data2=DB::table('persona_moral')->select('variables_persona_moral.id','nombre','rfc','telefono',DB::raw('1 AS esEmpresa'))->join('variables_persona_moral','variables_persona_moral.idPersona','=','persona_moral.id')->where('variables_persona_moral.id',$involucrado->idVarPersona)->get();
 			}
+			array_push($result,$data2);
 		}
-		return response()->json($data);
+		return response()->json($result);
+	}
+
+	public function getDenunciantesCarpeta(Request $request){
+		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"denunciante");
+	}
+
+	public function getInvestigadosCarpeta(Request $request){
+		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"investigado");
 	}
 }
