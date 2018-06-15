@@ -173,7 +173,7 @@ class ValidacionController extends Controller
         try{
             $persona =  new PersonaMoralModel();
             $persona->nombre = $request->nombre;
-            $persona->fechaCreacion = $request->fechaConstitucion;
+            $persona->fechaCreacion = $request->fechaCreacion;
             $persona->rfc = $request->rfc.$request->homo;
             $persona->save();
             $variables =  new VariablesPersonaMoral();
