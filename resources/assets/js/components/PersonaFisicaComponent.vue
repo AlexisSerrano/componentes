@@ -322,7 +322,7 @@ import moment from 'moment'
                                 this.nombres= this.personaExiste.nombres,
                                 this.primerAp=this.personaExiste.primerAp,
                                 this.segundoAp=this.personaExiste.segundoAp,
-                                this.fechaNacimiento=this.personaExiste.fechaNacimiento.slice(0,-9),
+                                this.fechaNacimiento=this.personaExiste.fechaNacimiento,
                                 this.edad=this.personaExiste.edad,
                                 this.sexo=this.personaExiste.sexo,
                                 this.rfc=this.personaExiste.rfc.slice(0,-3),
