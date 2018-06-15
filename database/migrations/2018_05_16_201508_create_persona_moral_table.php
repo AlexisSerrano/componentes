@@ -16,7 +16,7 @@ class CreatePersonaMoralTable extends Migration
         Schema::create('persona_moral', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->dateTime('fechaCreacion');
+            $table->date('fechaCreacion');
             $table->string('rfc');
             
             $table->timestamps();
