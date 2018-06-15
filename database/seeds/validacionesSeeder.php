@@ -10,12 +10,7 @@ class validacionesSeeder extends Seeder
      */
     public function run()
     {
-        //1,1,4  = Victima u ofendido (UIPJ)           1,2,4  = Victima u ofendico (UAT)
-        //1,1,10 = comparecencia COMPLETO (UIPJ)       1,2,1 = coparecencia COMPLETO (UAT)
-        //1,1,11 = conocido PARCIAL (UIPJ)             1,2,2 = conocido PARCIAL (UAT)
-        //1,1,12 = QRR NULL (UIPJ)                     1,2,3 = QRR NULL (UAT)
         DB::table('validaciones')->insert([
-            //VICTIMA U OFENDIDO UIPJ
             [
                 "sistema"=>"uat",
                 "tipo"=>"autoridad",
@@ -194,6 +189,28 @@ class validacionesSeeder extends Seeder
                     "alias": "oculto",
                     "idInterprete": "oculto",
                     "motivoEstancia": "oculto"
+               }'
+            ],
+            [
+                "sistema"=>"uat",
+                "tipo"=>"denunciantemoral",
+                "validaciones"=>'{
+                    "nombres": "required",
+                    "fecha_alta": "required",
+                    "rfc": "required",
+                    "homo": "required",
+                    "representante_legal": "required"
+               }'
+            ],
+            [
+                "sistema"=>"uat",
+                "tipo"=>"denunciadomoral",
+                "validaciones"=>'{
+                    "nombres": "required",
+                    "fecha_alta": "required",
+                    "rfc": "required",
+                    "homo": "required",
+                    "representante_legal": "required"
                }'
             ]
         ]);
