@@ -41,7 +41,7 @@
 
                 <div v-if="validaciones.fechaNacimiento!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="fechaNacimiento">Fecha de nacimiento</label>
-                    <input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="validaciones.fechaNacimiento" :class="{ 'border border-danger': errors.has('fecha de nacimiento')}" @blur="searchPersona" v-on:blur="generarCurp(),generarEdad()">
+                    <input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="'date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de nacimiento')}" @blur="searchPersona" v-on:blur="generarCurp(),generarEdad()">
                     <span v-show="errors.has('fecha de nacimiento')" class="text-danger">{{ errors.first('fecha de nacimiento') }}</span>
                 </div>
                 <div v-if="validaciones.edad!='oculto'" class="form-group col-md-1">
@@ -178,10 +178,12 @@
 import generaCurp from '../curp'
 import swal from 'sweetalert2'
 import { SpringSpinner } from 'epic-spinners'
+import moment from 'moment'
 
     export default {
         data(){
              return{
+                today: moment().format('YYYY-MM-DD'),
                 nacionalidades: [],
                 estados: [],
                 municipios: [],
@@ -335,7 +337,6 @@ import { SpringSpinner } from 'epic-spinners'
             generarCurp: function(){
                 this.curp='';
                 if( (this.sexo!=null)&&(this.sexo!=undefined)&&(this.sexo!='')&&(this.sexo.id!=3)) {
-                    // console.log("generacurp");
                     var sex='';
                     var edoArray= ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'	];
                     var edo='';
@@ -367,37 +368,9 @@ import { SpringSpinner } from 'epic-spinners'
                 }                
             },
             generarEdad: function() {
-                var hoy = new Date();
-                var fecha = new Date(this.fechaNacimiento);
-                var feArr = this.fechaNacimiento;
-                var fechaR = feArr.split('-');
-                var edad = ( hoy.getFullYear() - fechaR[0] );
-                if(isNaN( edad )){
-                    this.edad='';
-                }else{
-                    if( edad>=16 ){
-                        if( ( fechaR[2] == hoy.getDate() || (fechaR[2] <= hoy.getDate()) ) && ( fecha.getMonth() == hoy.getMonth() ) ){
-                            this.edad=edad;
-                            //console.log("PRIMER IF")
-                            //console.log("fechaR Dia:"+fechaR[2]+" Mes: "+hoy.getMonth()+" FECHA Dia: "+fecha.getDate()+" Mes: "+fecha.getMonth()+"")
-                        }else{
-                            if( ( (fechaR[2] >= hoy.getDate()) || (fechaR[2] < hoy.getDate()) ) && ( fecha.getMonth() >= hoy.getMonth() ) ){
-                                edad--;
-                                this.edad=edad;
-                                //console.log("SEGUNDO IF")
-                                //console.log("fechaR Dia:"+fechaR[2]+" Mes: "+hoy.getMonth()+" FECHA Dia: "+fecha.getDate()+" Mes: "+fecha.getMonth()+"")
-                            }else{
-                                if( ( (fechaR[2] <= hoy.getDate()) || (fechaR[2] >= hoy.getDate()) ) && ( fecha.getMonth() <= hoy.getMonth() ) ){
-                                    this.edad=edad;
-                                    //console.log("TERCER IF")
-                                    //console.log("fechaR Dia:"+fechaR[2]+" Mes: "+hoy.getMonth()+" FECHA Dia: "+fecha.getDate()+" Mes: "+fecha.getMonth()+"")
-                                }
-                            }
-                        }
-                    }else{
-                        this.edad=16;
-                    }
-                }
+                var fechaNacimiento = moment(this.fechaNacimiento);
+                var hoy = moment(this.today);
+                this.edad = hoy.diff(fechaNacimiento,'years');
             },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
