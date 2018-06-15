@@ -57,6 +57,9 @@ class DatabaseSeeder extends Seeder
         $this->call(InterpreteSeeder::class);
         $this->call(PersonaFisicaSeeder::class);
         $this->call(VariablesPersonaFisicaSeeder::class);
+
+        $this->call(UsersSeeder::class);
+        
     }
 }
 
