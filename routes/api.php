@@ -32,7 +32,7 @@ Route::post('rfcFisico','PersonaController@rfcFisico');
 Route::post('searchPersonaFisica','PersonaController@searchPersona');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
 Route::post('getDenunciantesCarpeta','PersonaController@getDenunciantesCarpeta');
-Route::post('getInvestigadosCarpeta','PersonaController@getInvestigadosCarpeta');
+Route::post('getInvestigadosCarpeta','PersonaController@getInvestigadosCarpeta'); 
 Route::post('getTestigosCarpeta','PersonaController@getTestigosCarpeta');
 Route::post('getAutoridadesCarpeta','PersonaController@getAutoridadesCarpeta');
 Route::post('getAbogadosCarpeta','PersonaController@getAbogadosCarpeta');

@@ -238,27 +238,76 @@ class PersonaController extends Controller{
 			}
 			array_push($result,$data2);
 		}
-		return response()->json($result);
+		//return response()->json($result);
+		return $result;
 	}
 
-	public function getDenunciantesCarpeta(Request $request){
-		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"denunciante");
+	public function getDenunciantesCarpeta(Request $request){						
+		if( ($request->sistema ==null) || ($request->idCarpeta == null)){
+			return ["Status"=>"Error","Mensaje"=>"Faltan datos de entrada"];
+		}
+		else{
+			$response=self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"denunciante");
+			if($response){
+				return  response()->json($response); 
+			}else{
+				return ["Status"=>"Accepted ","Mensaje"=>"Respuesta sin ningún contenido"];
+			}
+		}
 	}
 
 	public function getInvestigadosCarpeta(Request $request){
-		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"investigado");
+		if( ($request->sistema ==null) || ($request->idCarpeta == null)){
+			return ["Status"=>"Error","Mensaje"=>"Faltan datos de entrada"];
+		}else{
+			$response=self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"investigado");
+			if($response){
+				return response()->json($response);
+			}else{
+				return ["Status"=>"Accepted ","Mensaje"=>"Respuesta sin ningún contenido"];
+			}	
+		}
 	}
 
 	public function getTestigosCarpeta(Request $request){
-		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"testigo");
+		if( ($request->sistema ==null) || ($request->idCarpeta == null)){
+			return ["Status"=>"Error","Mensaje"=>"Faltan datos de entrada"];
+		}else{
+			$response=self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"testigo");
+			if($response){
+				return response()->json($response);
+			}else{
+				return ["Status"=>"Accepted ","Mensaje"=>"Respuesta sin ningún contenido"];
+			}			
+		}		
 	}
 
 	public function getAutoridadesCarpeta(Request $request){
-		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"autoridad");
+		if( ($request->sistema ==null) || ($request->idCarpeta == null)){
+			return ["Status"=>"Error","Mensaje"=>"Faltan datos de entrada"];
+		}else{
+			$response=self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"autoridad");
+			if($response){
+				return response()->json($response);
+			}else{
+				return ["Status"=>"Accepted ","Mensaje"=>"Respuesta sin ningún contenido"];
+			}			
+		}		
 	}
 
 	public function getAbogadosCarpeta(Request $request){
-		return self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"abogado");
+		if( ($request->sistema ==null) || ($request->idCarpeta == null)){
+			return ["Status"=>"Error","Mensaje"=>"Faltan datos de entrada"];
+		}else{
+			$response=self::getInvolucradosPorTipo($request->sistema,$request->idCarpeta,"abogado");
+			if($response){
+				return response()->json($response);
+			}else{
+				return ["Status"=>"Accepted ","Mensaje"=>"Respuesta sin ningún contenido"];
+			}			
+		}		
 	}
+
+
 	
 }
