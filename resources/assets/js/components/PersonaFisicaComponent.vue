@@ -57,7 +57,7 @@
                 </div>
                 <div v-if="validaciones.sexo!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="sexos">Sexo</label>    
-                    <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="validaciones.sexo" :class="{ 'border border-danger rounded': errors.has('sexo') || this.validacionesback.sexo}" placeholder="Seleccione un sexo" v-on:change="generarCurp"></v-select>
+                    <v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="validaciones.sexo" :class="{ 'border border-danger rounded': errors.has('sexo') || this.validacionesback.sexo}" placeholder="Seleccione un sexo" v-on:blur="generarCurp"></v-select>
                     <span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo')}}</span>
                     <span v-show="this.validacionesback.sexo!=undefined" class="text-danger">{{ String(this.validacionesback.sexo)}}</span>
                 </div>
@@ -253,7 +253,7 @@ import moment from 'moment'
                 url:'http://localhost/componentes/public/api', 
                 // url:'http://componentes.oo/api',
                 // url:'http://componentes.test/api'
-                url:'/api'
+                //url:'/api'
             }
         },
 
