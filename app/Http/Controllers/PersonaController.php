@@ -45,7 +45,7 @@ class PersonaController extends Controller{
 		if($personaExiste){
 			$personaExiste2=VariablesPersona::orderBy('id','DESC')
 			->where('idPersona',$personaExiste->id)
-			->select('edad','motivoEstancia','idOcupacion','idEstadoCivil','idEscolaridad','idReligion','idDomicilio','docIdentificacion','idInterprete','numDocIdentificacion','idDomicilioTrabajo','alias')->first();
+			->select('id','telefono','edad','motivoEstancia','idOcupacion','idEstadoCivil','idEscolaridad','idReligion','idDomicilio','docIdentificacion','idInterprete','numDocIdentificacion','idDomicilioTrabajo','alias')->first();
 			$nacionalidad=NacionalidadesModel::orderBy('id','Asc')
 			->where('id',$personaExiste->idNacionalidad)
 			->select('nombre','id')->first();
@@ -111,6 +111,8 @@ class PersonaController extends Controller{
 				'numDocIdentificacion'=>$personaExiste2->numDocIdentificacion,
 				'idDomicilioTrabajo'=>$personaExiste2->idDomicilioTrabajo,
 				'alias'=>$personaExiste2->alias,
+				'idPersona'=>$personaExiste2->id,
+				'telefono'=>$personaExiste2->telefono
 			);
 		}
 		else{
