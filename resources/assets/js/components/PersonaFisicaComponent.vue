@@ -77,7 +77,7 @@
                 <div v-if="validaciones.curp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="curp">CURP</label>
                     <input type="text" name="curp" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('curp') }" v-model="curp" placeholder="Ingrese el curp" v-validate="validaciones.curp" autocomplete="off">
-                    <span v-if="errors.has('curp')" class="text-danger">{{ errors.first('curp') }}</span>
+                    <span v-if="errors.has('curp') ||  this.validacionesback.curp" class="text-danger">{{ errors.first('curp') }}{{ String(this.validacionesback.curp)}}</span>
                 </div>
                 <div v-if="validaciones.idNacionalidad!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nacionalidad">Nacionalidad</label>    
@@ -223,11 +223,12 @@ import moment from 'moment'
                 alias:'',         
                 telefono:'',                       
                 validaciones:[],
+                validacionesback:'',
                 loader:true,
                 qrr:"QUIEN RESULTE RESPONSABLE",
                 //url:'http://localhost/componentes/public/api',
-                // url:'http://componentes.oo/api',
-                url:'http://componentes.test/api'
+                url:'http://componentes.oo/api',
+                //url:'http://componentes.test/api'
                 // url:'/api'
             }
         },
@@ -464,7 +465,6 @@ import moment from 'moment'
                 }
                 axios.post(urlCrearPersona,data)
                 .then (response =>{
-                    console.log(response.data);
                     this.idPersona = response.data
                     if(idPersona){
                         swal({
@@ -483,7 +483,37 @@ import moment from 'moment'
                         })
                     }
                 }).catch((error)=>{
-                    console.log(error.response.data.errors);
+                    this.validacionesback = error.response.data.errors;
+                    // var campos = ["nombres", "primerAp", "segundoAp", "fechaNacimiento", "edad", "sexo", "rfc", "homo", "curp", "idNacionalidad",
+                    //  "idEstadoOrigen", "idMunicipioOrigen", "idEtnia", "idLengua", "idInterprete", "motivoEstancia", "idOcupacion", "idEstadoCivil",
+                    //  "idEscolaridad", "idReligion", "docIdentificacion", "numDocIdentificacion", "telefono", "idCarpeta", "sistema", "tipo"];
+                    // campos.forEach(
+                    //     function show(value) { 
+                    //         this.validacionesback = error.response.data.errors;
+                    //         console.log(this.validacionesback)
+                    //         if(prueba==undefined){
+                    //             console.log("sin error");
+                    //         }
+                    //         else{
+                    //             console.log("con error");
+                    //         }
+                    //         //console.log(error.response.data.errors.cu);
+                    //         // error.response.data.errors.value.forEach(
+                    //         //     function show(value) { console.log(value); }
+                    //         // );
+                    //     }
+                    // );
+                    
+                    // if(error.response.data.errors.sexo==undefined){
+                    //     console.log("indefinido");
+                    // }
+                    // else{
+                    //     console.log("definido");
+                    // }
+                    
+                    // error.response.data.errors.sexo.forEach(
+                    //     function show(value) { console.log(value); }
+                    // );
                     swal({
                     title: '¡Guardado incorrecto!',
                     text: 'Ésta persona no fue posible guardarla.',
