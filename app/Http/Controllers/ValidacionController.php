@@ -120,6 +120,7 @@ class ValidacionController extends Controller
             $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->telefono = $request->telefono;
+            $variables->edad = $request->edad;
             $variables->save();
             $apariciones = new aparicionesModel();
             $apariciones->idVarPersona = $variables->id;
