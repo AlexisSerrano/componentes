@@ -72139,10 +72139,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             validacionesback: '',
             loader: true,
             qrr: "QUIEN RESULTE RESPONSABLE",
-            //url:'http://localhost/componentes/public/api',
+            url: 'http://localhost/componentes/public/api'
             // url:'http://componentes.oo/api',
             // url:'http://componentes.test/api'
-            url: '/api'
+            //url:'/api'
         };
     },
 
@@ -72297,6 +72297,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         crearPersona: function crearPersona() {
             var _this5 = this;
 
+            this.validacionesback = '';
             var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
             if (this.tipo == 'autoridad' || this.tipo == 'denunciado' || this.tipo == 'denunciante') {
                 var data = {
@@ -72333,7 +72334,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         nombres: this.nombres.toUpperCase(),
                         primerAp: this.primerAp.toUpperCase(),
                         segundoAp: this.segundoAp.toUpperCase(),
-                        alias: this.alias.toUpperCase()
+                        alias: this.alias.toUpperCase(),
+                        idCarpeta: this.carpeta,
+                        sistema: this.sistema,
+                        tipo: this.tipo
                     };
                 } else {
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
@@ -72344,6 +72348,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                     return;
                 }
+            } else if (this.tipo == 'abogado') {
+                var data = {
+                    nombres: this.nombres.toUpperCase(),
+                    primerAp: this.primerAp.toUpperCase(),
+                    segundoAp: this.segundoAp.toUpperCase(),
+                    fechaNacimiento: this.fechaNacimiento,
+                    sexo: this.sexo.id,
+                    idEstadoOrigen: this.estado.id,
+                    idMunicipioOrigen: this.municipio.id,
+                    rfc: this.rfc,
+                    homo: this.homoclave,
+                    curp: this.curp,
+                    idEstadoCivil: this.estadoCivil.id,
+                    telefono: this.telefono,
+                    idCarpeta: this.carpeta,
+                    sistema: this.sistema,
+                    tipo: this.tipo
+                };
             } else if (this.tipo == 'qrr') {
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                     title: '¡Guardado correctamente!',
@@ -72355,7 +72377,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return;
             }
             axios.post(urlCrearPersona, data).then(function (response) {
-                console.log(response);
                 _this5.idPersona = response.data;
                 if (idPersona) {
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
