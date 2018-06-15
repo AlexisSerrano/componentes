@@ -41,9 +41,9 @@ Route::post('rfcMoral','PersonaMoralController@rfcMoral');
 Route::post('abogadouat','ValidacionController@valAbogadoUAT');
 Route::post('autoridaduat','ValidacionController@valAutoridadUAT');
 Route::post('conocidouat','ValidacionController@valConocidoUAT');
-Route::post('denunciadofisicouat','ValidacionController@valDenunciadoFUAT');
+Route::post('denunciadouat','ValidacionController@valDenunciadoFUAT');
 Route::post('denunciadomoraluat','ValidacionController@valDenunciadoMUAT');
-Route::post('denunciantefisicauat','ValidacionController@valDenuncianteFUAT');
+Route::post('denuncianteuat','ValidacionController@valDenuncianteFUAT');
 Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
 //Route::post('getValidaciones','ValidacionController@getValidaciones');
 

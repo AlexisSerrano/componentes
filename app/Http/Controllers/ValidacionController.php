@@ -55,14 +55,6 @@ class ValidacionController extends Controller
     }
 
     public function saveInputsFisica($request){
-        // $apariciones = new aparicionesModel();
-        // $apariciones->idVarPersona = 6;
-        // $apariciones->idCarpeta = 1;
-        // $apariciones->sistema = $request->sistema;
-        // $apariciones->tipoInvolucrado = 1;
-        // $apariciones->nuc = 'xxxxx';
-        // $apariciones->esEmpresa = 0;
-        // $apariciones->save(); 
         DB::beginTransaction();
         try{
             $persona =  new PersonaModel();
@@ -127,6 +119,14 @@ class ValidacionController extends Controller
             $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
+            $apariciones = new aparicionesModel();
+            $apariciones->idVarPersona = $variables->id;
+            $apariciones->idCarpeta = $request->idCarpeta;
+            $apariciones->sistema = $request->sistema;
+            $apariciones->tipoInvolucrado = $request->tipo;
+            $apariciones->nuc = 'xxxxx';
+            $apariciones->esEmpresa = 0;
+            $apariciones->save(); 
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -149,6 +149,14 @@ class ValidacionController extends Controller
             $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->alias = $request->alias;
             $variables->save();
+            $apariciones = new aparicionesModel();
+            $apariciones->idVarPersona = $variables->id;
+            $apariciones->idCarpeta = $request->idCarpeta;
+            $apariciones->sistema = $request->sistema;
+            $apariciones->tipoInvolucrado = $request->tipo;
+            $apariciones->nuc = 'xxxxx';
+            $apariciones->esEmpresa = 0;
+            $apariciones->save(); 
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -171,6 +179,14 @@ class ValidacionController extends Controller
             $variables->telefono = $request->telefono;
             $variables->representanteLegal = $request->representanteLegal;
             $variables->save();
+            $apariciones = new aparicionesModel();
+            $apariciones->idVarPersona = $variables->id;
+            $apariciones->idCarpeta = $request->idCarpeta;
+            $apariciones->sistema = $request->sistema;
+            $apariciones->tipoInvolucrado = ($request->tipo=='denunciantemoral')?'denunciante':'denunciado';
+            $apariciones->nuc = 'xxxxx';
+            $apariciones->esEmpresa = 1;
+            $apariciones->save(); 
             DB::commit();
             return $variables->id;
         }catch (\PDOException $e){
