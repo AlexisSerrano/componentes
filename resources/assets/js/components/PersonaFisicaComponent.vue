@@ -438,6 +438,7 @@ import moment from 'moment'
                 this.$validator.reset();
             },
             crearPersona: function(){
+                this.validacionesback='';
                 var urlCrearPersona = this.url+'/'+this.tipo+this.sistema;
                 if(this.tipo=='autoridad' || this.tipo=='denunciado' || this.tipo=='denunciante'){
                     var data = {
@@ -475,7 +476,10 @@ import moment from 'moment'
                             nombres:this.nombres.toUpperCase(),
                             primerAp:this.primerAp.toUpperCase(),
                             segundoAp:this.segundoAp.toUpperCase(),
-                            alias:this.alias.toUpperCase()
+                            alias:this.alias.toUpperCase(),
+                            idCarpeta:this.carpeta,
+                            sistema:this.sistema,
+                            tipo:this.tipo
                         };
                     }
                     else{
@@ -487,6 +491,25 @@ import moment from 'moment'
                         })
                         return
                     }
+                }
+                else if(this.tipo == 'abogado'){
+                    var data = {
+                        nombres:this.nombres.toUpperCase(),
+                        primerAp:this.primerAp.toUpperCase(),
+                        segundoAp:this.segundoAp.toUpperCase(),
+                        fechaNacimiento:this.fechaNacimiento,
+                        sexo:this.sexo.id,
+                        idEstadoOrigen:this.estado.id,
+                        idMunicipioOrigen:this.municipio.id,
+                        rfc:this.rfc,
+                        homo:this.homoclave,
+                        curp:this.curp,
+                        idEstadoCivil:this.estadoCivil.id,
+                        telefono:this.telefono,
+                        idCarpeta:this.carpeta,
+                        sistema:this.sistema,
+                        tipo:this.tipo
+                    };
                 }
                 else if (this.tipo=='qrr'){
                     swal({
@@ -500,7 +523,6 @@ import moment from 'moment'
                 }
                 axios.post(urlCrearPersona,data)
                 .then (response =>{
-                    console.log(response)
                     this.idPersona = response.data
                     if(idPersona){
                         swal({
