@@ -49,11 +49,11 @@ Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
 
 
 /*API UAT*/
-Route::post('getDenunciantesCarpeta','ApiControllerUAT@getDenunciantesCarpeta');
-Route::post('getInvestigadosCarpeta','ApiControllerUAT@getInvestigadosCarpeta'); 
-Route::post('getTestigosCarpeta','ApiControllerUAT@getTestigosCarpeta');
-Route::post('getAutoridadesCarpeta','ApiControllerUAT@getAutoridadesCarpeta');
-Route::post('getAbogadosCarpeta','ApiControllerUAT@getAbogadosCarpeta');
+Route::post('getDenunciantesCarpetaUAT','ApiControllerUAT@getDenunciantesCarpeta');
+Route::post('getInvestigadosCarpetaUAT','ApiControllerUAT@getInvestigadosCarpeta'); 
+Route::post('getTestigosCarpetaUAT','ApiControllerUAT@getTestigosCarpeta');
+Route::post('getAutoridadesCarpetaUAT','ApiControllerUAT@getAutoridadesCarpeta');
+Route::post('getAbogadosCarpetaUAT','ApiControllerUAT@getAbogadosCarpeta');
 /*ejemplo de peticion
 {
   "api_token": "w37JtBFJQLbu4ADSsoMHphddWAPneAcwZyZmXpauaAHGHNMvPTvluyQOWnBl",
