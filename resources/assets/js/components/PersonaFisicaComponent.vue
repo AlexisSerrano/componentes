@@ -250,10 +250,10 @@ import moment from 'moment'
                 validacionesback:'',
                 loader:true,
                 qrr:"QUIEN RESULTE RESPONSABLE",
-                //url:'http://localhost/componentes/public/api',
+                url:'http://localhost/componentes/public/api', 
                 // url:'http://componentes.oo/api',
                 // url:'http://componentes.test/api'
-                url:'/api'
+                //url:'/api'
             }
         },
 
@@ -267,7 +267,7 @@ import moment from 'moment'
             },
             carpeta:{
                 default:''
-            }
+            } 
         },
         components: {SpringSpinner},
         created: function(){
