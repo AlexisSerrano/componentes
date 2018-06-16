@@ -190,28 +190,6 @@ class validacionesSeeder extends Seeder
                     "idInterprete": "oculto",
                     "motivoEstancia": "oculto"
                }'
-            ],
-            [
-                "sistema"=>"uat",
-                "tipo"=>"denunciantemoral",
-                "validaciones"=>'{
-                    "nombres": "required",
-                    "fecha_alta": "required",
-                    "rfc": "required",
-                    "homo": "required",
-                    "representante_legal": "required"
-               }'
-            ],
-            [
-                "sistema"=>"uat",
-                "tipo"=>"denunciadomoral",
-                "validaciones"=>'{
-                    "nombres": "required",
-                    "fecha_alta": "required",
-                    "rfc": "required",
-                    "homo": "required",
-                    "representante_legal": "required"
-               }'
             ]
         ]);
     }

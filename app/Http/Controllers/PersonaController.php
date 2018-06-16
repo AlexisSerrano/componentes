@@ -29,14 +29,16 @@ class PersonaController extends Controller{
 
 	public function searchPersona(Request $request){
 		$persona = $request->rfc;
-		// $personaExiste = DB::table('persona_fisica')
-		// ->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
-		// ->where('rfc',$persona)
-		// ->orwhere('curp',$persona)
-		// ->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp','persona_fisica.id',
-		// 'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
-		// 'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
-		// 'variables_persona_fisica.numDocIdentificacion','variables_persona_fisica.alias')->first();
+		$personaExisteP = DB::table('persona_fisica')
+		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
+		->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
+		->where('rfc',$persona)
+		->orwhere('curp',$persona)
+		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
+		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
+		'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
+		'variables_persona_fisica.numDocIdentificacion','variables_persona_fisica.alias','variables_persona_fisica.id',
+		'cat_nacionalidad.id as idNacionalidad','cat_nacionalidad.nombre as nombreNacionalidad')->first();
 
         $personaExiste=PersonaModel::orderBy('rfc', 'ASC')
 		->where('rfc',$persona)
@@ -86,21 +88,21 @@ class PersonaController extends Controller{
 			->where('id',$idEstado->idEstado)
 			->select('nombre','id')->first();
 			$data = array(
-				'nombres'=>$personaExiste->nombres,
-				'primerAp'=>$personaExiste->primerAp,
-				'segundoAp'=>$personaExiste->segundoAp,
-				'id'=>$personaExiste->id,
-				'fechaNacimiento'=>$personaExiste->fechaNacimiento,
-				'rfc'=>$personaExiste->rfc,
-				'curp'=>$personaExiste->curp,
+				'nombres'=>$personaExisteP->nombres,
+				'primerAp'=>$personaExisteP->primerAp,
+				'segundoAp'=>$personaExisteP->segundoAp,
+				'fechaNacimiento'=>$personaExisteP->fechaNacimiento,
+				'rfc'=>$personaExisteP->rfc,
+				'curp'=>$personaExisteP->curp,
 				'sexo'=>$sexo,
 				'idNacionalidad'=>$nacionalidad,
+				//'idNacionalidad' => (object)array($personaExisteP->nombreNacionalidad => $personaExisteP->idNacionalidad),
 				'idEtnia'=>$etnia,
 				'idLengua'=>$lengua,
 				'idMunicipioOrigen'=>$municipio,
 				'idEstado'=>$estado,
-				'edad'=>$personaExiste2->edad,
-				'motivoEstancia'=>$personaExiste2->motivoEstancia,
+				'edad'=>$personaExisteP->edad,
+				'motivoEstancia'=>$personaExisteP->motivoEstancia,
 				'idOcupacion'=>$ocupacion,
 				'idEstadoCivil'=>$estadoCivil,
 				'idEscolaridad'=>$escolaridad,
@@ -108,11 +110,11 @@ class PersonaController extends Controller{
 				'idDomicilio'=>$personaExiste2->idDomicilio,
 				'docIdentificacion'=>$identificacion,
 				'idInterprete'=>$interprete,
-				'numDocIdentificacion'=>$personaExiste2->numDocIdentificacion,
+				'numDocIdentificacion'=>$personaExisteP->numDocIdentificacion,
 				'idDomicilioTrabajo'=>$personaExiste2->idDomicilioTrabajo,
-				'alias'=>$personaExiste2->alias,
-				'idPersona'=>$personaExiste2->id,
-				'telefono'=>$personaExiste2->telefono
+				'alias'=>$personaExisteP->alias,
+				'idPersona'=>$personaExisteP->id,
+				'telefono'=>$personaExisteP->telefono
 			);
 		}
 		else{
