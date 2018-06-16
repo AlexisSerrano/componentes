@@ -161,6 +161,7 @@ import swal from 'sweetalert2'
                 this.$validator.reset();
             },
             CrearEmpresa: function(){
+                this.validacionesback='';
                 var urlCrearMoral = this.url+'/'+this.tipo+this.sistema;
                     axios.post(urlCrearMoral,{                        
                         nombre: this.nombre.toUpperCase(),

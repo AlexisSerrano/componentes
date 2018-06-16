@@ -41,11 +41,11 @@ Route::post('getValidaciones','PersonaController@getValidaciones');
 
 
 /*URLS PARA SELECTS DOMICILIO */
-Route::get('getEstados2','DomicilioController@getEstados');
-Route::get('getMunicipios2/{id}','DomicilioController@getMunicipios');
-Route::get('getLocalidades2/{id}','DomicilioController@getLocalidades');
-Route::get('getColonias2/{id}','DomicilioController@getColonias');
-Route::get('getCodigosPostales2/{id}','DomicilioController@getCodigosPostales');
+Route::get('getEstados','DomicilioController@getEstados');
+Route::get('getMunicipios/{id}','DomicilioController@getMunicipios');
+Route::get('getLocalidades/{id}','DomicilioController@getLocalidades');
+Route::get('getColonias/{id}','DomicilioController@getColonias');
+Route::get('getCodigosPostales/{id}','DomicilioController@getCodigosPostales');
 
 
 Route::get('dt', function () {

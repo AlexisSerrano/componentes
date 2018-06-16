@@ -78914,6 +78914,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         CrearEmpresa: function CrearEmpresa() {
             var _this3 = this;
 
+            this.validacionesback = '';
             var urlCrearMoral = this.url + '/' + this.tipo + this.sistema;
             axios.post(urlCrearMoral, {
                 nombre: this.nombre.toUpperCase(),
@@ -79588,6 +79589,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         tipo: {
             default: false
+        },
+        carpeta: {
+            default: false
         }
     }
 });
@@ -79786,7 +79790,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-control:focus {\r\n  color: #6d6d6d;\r\n  background-color: #fff;\r\n  border-color: #828282;\r\n  outline: 0;\r\n  -webkit-box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\r\n          box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);\n}\nbutton{\r\n    background-color: #424242;\r\n    border-color: #424242;\r\n    color: white;\n}\ninput{\r\n    text-transform: uppercase\n}\n::-webkit-input-placeholder{\r\n    text-transform: none\n}\n:-ms-input-placeholder{\r\n    text-transform: none\n}\n::-ms-input-placeholder{\r\n    text-transform: none\n}\n::placeholder{\r\n    text-transform: none\n}\r\n", ""]);
+exports.push([module.i, "\n.dropdown-toggle{\r\n    height: 36px;\r\n    overflow: hidden;\n}\ninput{\r\n    text-transform: uppercase\n}\ninput.form-control{\r\n    width: 100% !important;\n}\n.dropdown{\r\n    font-family: inherit;\r\n    font-size: .875rem;\n}\n.centrar{\r\n    position: absolute;\r\n    top:50%;\r\n    left:50%;\r\n    margin-left: -30px;\r\n    margin-top: -30px;\n}\r\n", ""]);
 
 // exports
 
@@ -79799,6 +79803,7 @@ exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-contro
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_epic_spinners__ = __webpack_require__(178);
 //
 //
 //
@@ -79856,6 +79861,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -79864,24 +79881,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             estado: { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
             municipio: null,
             localidad: null,
-            codigo_postal: null,
+            codigoPostal: null,
             colonia: null,
             estados: [],
             municipios: [],
             localidades: [],
-            cp: [],
+            codigosPostales: [],
             colonias: [],
             calle: '',
             numExterno: '',
             numInterno: '',
-            municipioV: '',
-            localidadV: '',
-            coloniaV: '',
-            calleV: '',
-            numExternoV: ''
+            validacionesback: '',
+            idDomicilio: '',
+            loader: true,
+            url: '/'
         };
     },
 
+    components: { SpringSpinner: __WEBPACK_IMPORTED_MODULE_1_epic_spinners__["a" /* SpringSpinner */] },
     mounted: function mounted() {
         this.getEstados();
     },
@@ -79889,58 +79906,62 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getEstados: function getEstados() {
             var _this = this;
 
-            var urlEstados = 'getEstados2';
+            var urlEstados = this.url + 'getEstados';
             axios.get(urlEstados).then(function (response) {
                 _this.estados = response.data;
+                var self = _this;
+                setTimeout(function () {
+                    self.loader = false;
+                }, 1100);
             });
         },
         getMunicipios: function getMunicipios() {
             var _this2 = this;
 
             if (this.estado != null) {
-                this.municipio = null, this.localidad = null, this.codigo_postal = null, this.colonia = null;
-                var urlMunicipios = 'getMunicipios2/' + this.estado.id;
+                this.municipio = null, this.localidad = null, this.codigoPostal = null, this.colonia = null;
+                var urlMunicipios = this.url + 'getMunicipios/' + this.estado.id;
                 axios.get(urlMunicipios).then(function (response) {
                     _this2.municipios = response.data;
                 });
             } else {
-                this.municipio = null, this.localidad = null, this.codigo_postal = null, this.colonia = null, this.municipios = [], this.localidades = [], this.cp = [], this.colonias = [];
+                this.municipio = null, this.localidad = null, this.codigoPostal = null, this.colonia = null, this.municipios = [], this.localidades = [], this.codigosPostales = [], this.colonias = [];
             }
         },
         getLocalidades: function getLocalidades() {
             var _this3 = this;
 
             if (this.municipio != null) {
-                this.localidad = null, this.codigo_postal = null, this.colonia = null;
-                var urlLocalidades = 'getLocalidades2/' + this.municipio.id;
+                this.localidad = null, this.codigoPostal = null, this.colonia = null;
+                var urlLocalidades = this.url + 'getLocalidades/' + this.municipio.id;
                 axios.get(urlLocalidades).then(function (response) {
                     _this3.localidades = response.data;
                 });
             } else {
-                this.localidad = null, this.codigo_postal = null, this.colonia = null, this.localidades = [], this.cp = [], this.colonias = [];
+                this.localidad = null, this.codigoPostal = null, this.colonia = null, this.localidades = [], this.codigosPostales = [], this.colonias = [];
             }
         },
         getCodigosPostales: function getCodigosPostales() {
             var _this4 = this;
 
             if (this.municipio != null) {
-                this.codigo_postal = null;
+                this.codigoPostal = null;
                 this.colonia = null;
-                var urlCodigosPostales = 'getCodigosPostales2/' + this.municipio.id;
+                var urlCodigosPostales = this.url + 'getCodigosPostales/' + this.municipio.id;
                 axios.get(urlCodigosPostales).then(function (response) {
-                    _this4.cp = response.data;
+                    _this4.codigosPostales = response.data;
                 });
             } else {
-                this.codigo_postal = null, this.colonia = null;
-                this.cp = [], this.colonias = [];
+                this.codigoPostal = null, this.colonia = null;
+                this.codigosPostales = [], this.colonias = [];
             }
         },
         getColonias: function getColonias() {
             var _this5 = this;
 
-            if (this.codigo_postal != null) {
+            if (this.codigoPostal != null) {
                 this.colonia = null;
-                var urlColonias = 'getColonias2/' + this.codigo_postal.id;
+                var urlColonias = this.url + 'getColonias/' + this.codigoPostal.id;
                 axios.get(urlColonias).then(function (response) {
                     _this5.colonias = response.data;
                 });
@@ -79949,7 +79970,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         CleanFields: function CleanFields() {
-            this.calle = '', this.numExterno = '', this.numInterno = '', this.estado = { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 }, this.municipio = null, this.localidad = null, this.codigo_postal = null, this.colonia = null;
+            this.calle = '', this.numExterno = '', this.numInterno = '', this.estado = { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 }, this.municipio = null, this.localidad = null, this.codigoPostal = null, this.colonia = null;
             this.$validator.reset();
         },
         validateBeforeSubmit: function validateBeforeSubmit() {
@@ -79958,7 +79979,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$validator.validateAll().then(function (result) {
                 if (result) {
                     _this6.crearDomicilio();
-                    _this6.CleanFields();
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -79973,18 +79993,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         crearDomicilio: function crearDomicilio() {
             var _this7 = this;
 
-            var urlDomicilio = 'addDomicilio';
+            this.validacionesback = '';
+            var urlDomicilio = this.url + 'addDomicilio';
             axios.post(urlDomicilio, {
                 estado: this.estado.id,
                 municipio: this.municipio.id,
                 localidad: this.localidad.id,
                 colonia: this.colonia.id,
-                codigo_postal: this.codigo_postal.id,
+                codigoPostal: this.codigoPostal.id,
                 calle: this.calle.toUpperCase(),
                 numExterno: this.numExterno.toUpperCase(),
                 numInterno: this.numInterno.toUpperCase()
             }).then(function (response) {
-                console.log(response.data);
+                _this7.idDomicilio = response.data;
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: '¡Guardado Correctamente!',
                     text: 'Éste domicilio fue guardado exitosamente.',
@@ -79992,7 +80013,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     confirmButtonText: 'Ok'
                 }).catch(function (error) {
                     console.log(error.response.data.errors);
-                    _this7.municipioV = error.response.data.errors.municipio, _this7.localidadV = error.response.data.errors.localidad, _this7.coloniaV = error.response.data.errors.colonia, _this7.calleV = error.response.data.errors.calle, _this7.numExternoV = error.response.data.errors.numExterno;
+                    _this7.validacionesback = error.response.data.errors;
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: '¡Guardado Incorrecto!',
                         text: 'Éste domicilio no fue posible guardarse.',
@@ -80013,451 +80034,572 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mt-3" }, [
-    _c(
-      "form",
-      {
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.validateBeforeSubmit($event)
-          }
-        }
-      },
-      [
-        _c("div", { staticClass: "form-row" }, [
-          _c(
-            "div",
-            { staticClass: "form-group col-md-4" },
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _vm.loader
+        ? _c("spring-spinner", {
+            staticClass: "centrar",
+            attrs: { "animation-duration": 1500, size: 60, color: "#828282" }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loader != true
+        ? _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.validateBeforeSubmit($event)
+                }
+              }
+            },
             [
-              _c("label", { attrs: { for: "estado" } }, [
-                _vm._v("Entidad federativa")
+              _c("div", { staticClass: "form-row" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group col-md-4" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "estado" }
+                      },
+                      [_vm._v("Entidad federativa")]
+                    ),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        }
+                      ],
+                      class: {
+                        "border border-danger":
+                          _vm.errors.has("entidad federativa") ||
+                          this.validacionesback.idEstado
+                      },
+                      attrs: {
+                        options: _vm.estados,
+                        label: "nombre",
+                        "data-vv-name": "entidad federativa",
+                        name: "estado",
+                        placeholder: "Seleccione una entidad federativa"
+                      },
+                      on: { input: _vm.getMunicipios },
+                      model: {
+                        value: _vm.estado,
+                        callback: function($$v) {
+                          _vm.estado = $$v
+                        },
+                        expression: "estado"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("entidad federativa"),
+                            expression: "errors.has('entidad federativa')"
+                          }
+                        ],
+                        staticClass: "text-danger"
+                      },
+                      [_vm._v(_vm._s(_vm.errors.first("entidad federativa")))]
+                    ),
+                    _vm._v(" "),
+                    this.validacionesback.idEstado != undefined
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(String(this.validacionesback.idEstado)))
+                        ])
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group col-md-4" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "municipio" }
+                      },
+                      [_vm._v("Municipio")]
+                    ),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        }
+                      ],
+                      class: {
+                        "border border-danger":
+                          _vm.errors.has("municipio") ||
+                          this.validacionesback.idMunicipio
+                      },
+                      attrs: {
+                        options: _vm.municipios,
+                        label: "nombre",
+                        name: "municipio",
+                        placeholder: "Seleccione un municipio"
+                      },
+                      on: { input: _vm.getLocalidades },
+                      model: {
+                        value: _vm.municipio,
+                        callback: function($$v) {
+                          _vm.municipio = $$v
+                        },
+                        expression: "municipio"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("municipio"),
+                            expression: "errors.has('municipio')"
+                          }
+                        ],
+                        staticClass: "text-danger"
+                      },
+                      [_vm._v(_vm._s(_vm.errors.first("municipio")))]
+                    ),
+                    _vm._v(" "),
+                    this.validacionesback.idMunicipio != undefined
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(
+                            _vm._s(String(this.validacionesback.idMunicipio))
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group col-md-4" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "localidad" }
+                      },
+                      [_vm._v("Localidad")]
+                    ),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        }
+                      ],
+                      class: {
+                        "border border-danger":
+                          _vm.errors.has("localidad") ||
+                          this.validacionesback.idLocalidad
+                      },
+                      attrs: {
+                        options: _vm.localidades,
+                        label: "nombre",
+                        name: "localidad",
+                        placeholder: "Seleccione una localidad"
+                      },
+                      on: { input: _vm.getCodigosPostales },
+                      model: {
+                        value: _vm.localidad,
+                        callback: function($$v) {
+                          _vm.localidad = $$v
+                        },
+                        expression: "localidad"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("localidad"),
+                            expression: "errors.has('localidad')"
+                          }
+                        ],
+                        staticClass: "text-danger"
+                      },
+                      [_vm._v(_vm._s(_vm.errors.first("localidad")))]
+                    ),
+                    _vm._v(" "),
+                    this.validacionesback.idLocalidad != undefined
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(
+                            _vm._s(String(this.validacionesback.idLocalidad))
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group col-md-4" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "codigoPostal" }
+                      },
+                      [_vm._v("Código postal")]
+                    ),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        }
+                      ],
+                      class: {
+                        "border border-danger":
+                          _vm.errors.has("código postal") ||
+                          this.validacionesback.idCodigoPostal
+                      },
+                      attrs: {
+                        options: _vm.codigosPostales,
+                        label: "codigoPostal",
+                        name: "codigoPostal",
+                        "data-vv-name": "código postal",
+                        placeholder: "Seleccione un código postal"
+                      },
+                      on: { input: _vm.getColonias },
+                      model: {
+                        value: _vm.codigoPostal,
+                        callback: function($$v) {
+                          _vm.codigoPostal = $$v
+                        },
+                        expression: "codigoPostal"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("código postal"),
+                            expression: "errors.has('código postal')"
+                          }
+                        ],
+                        staticClass: "text-danger"
+                      },
+                      [_vm._v(_vm._s(_vm.errors.first("código postal")))]
+                    ),
+                    _vm._v(" "),
+                    this.validacionesback.idCodigoPostal != undefined
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(
+                            _vm._s(String(this.validacionesback.idCodigoPostal))
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group col-md-4" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label col-form-label-sm",
+                        attrs: { for: "colonia" }
+                      },
+                      [_vm._v("Colonia")]
+                    ),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        }
+                      ],
+                      class: {
+                        "border border-danger":
+                          _vm.errors.has("colonia") ||
+                          this.validacionesback.idColonia
+                      },
+                      attrs: {
+                        options: _vm.colonias,
+                        label: "nombre",
+                        name: "colonia",
+                        placeholder: "Seleccione una colonia"
+                      },
+                      model: {
+                        value: _vm.colonia,
+                        callback: function($$v) {
+                          _vm.colonia = $$v
+                        },
+                        expression: "colonia"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("colonia"),
+                            expression: "errors.has('colonia')"
+                          }
+                        ],
+                        staticClass: "text-danger"
+                      },
+                      [_vm._v(_vm._s(_vm.errors.first("colonia")))]
+                    ),
+                    _vm._v(" "),
+                    this.validacionesback.idColonia != undefined
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v(
+                            _vm._s(String(this.validacionesback.idColonia))
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-4" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-form-label col-form-label-sm",
+                      attrs: { for: "calle" }
+                    },
+                    [_vm._v("Calle")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.calle,
+                        expression: "calle"
+                      },
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
+                    class: {
+                      input: true,
+                      "form-control form-control-sm": true,
+                      "border border-danger":
+                        _vm.errors.has("calle") || this.validacionesback.calle
+                    },
+                    attrs: {
+                      type: "text",
+                      name: "calle",
+                      placeholder: "Ingrese la calle",
+                      autocomplete: "off"
+                    },
+                    domProps: { value: _vm.calle },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.calle = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.errors.has("calle"),
+                          expression: "errors.has('calle')"
+                        }
+                      ],
+                      staticClass: "text-danger"
+                    },
+                    [_vm._v(_vm._s(_vm.errors.first("calle")))]
+                  ),
+                  _vm._v(" "),
+                  this.validacionesback.calle != undefined
+                    ? _c("span", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(String(this.validacionesback.calle)))
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-4" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-form-label col-form-label-sm",
+                      attrs: { for: "numExterno" }
+                    },
+                    [_vm._v("Número externo")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.numExterno,
+                        expression: "numExterno"
+                      },
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
+                    class: {
+                      input: true,
+                      "form-control form-control-sm": true,
+                      "border border-danger":
+                        _vm.errors.has("Número externo") ||
+                        this.validacionesback.numExterno
+                    },
+                    attrs: {
+                      type: "text",
+                      "data-vv-name": "Número externo",
+                      placeholder: "Ingrese el número externo",
+                      autocomplete: "off"
+                    },
+                    domProps: { value: _vm.numExterno },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.numExterno = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.errors.has("Número externo"),
+                          expression: "errors.has('Número externo')"
+                        }
+                      ],
+                      staticClass: "text-danger"
+                    },
+                    [_vm._v(_vm._s(_vm.errors.first("Número externo")))]
+                  ),
+                  _vm._v(" "),
+                  this.validacionesback.numExterno != undefined
+                    ? _c("span", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(String(this.validacionesback.numExterno)))
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-4" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-form-label col-form-label-sm",
+                      attrs: { for: "numInterno" }
+                    },
+                    [_vm._v("Número interno")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.numInterno,
+                        expression: "numInterno"
+                      }
+                    ],
+                    staticClass: "input form-control form-control-sm",
+                    attrs: {
+                      type: "text",
+                      name: "numInterno",
+                      placeholder: "Ingrese el número interno",
+                      autocomplete: "off"
+                    },
+                    domProps: { value: _vm.numInterno },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.numInterno = $event.target.value
+                      }
+                    }
+                  })
+                ])
               ]),
               _vm._v(" "),
-              _c("v-select", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
-                  }
-                ],
-                class: {
-                  "border border-danger": _vm.errors.has("entidad federativa")
-                },
-                attrs: {
-                  options: _vm.estados,
-                  label: "nombre",
-                  "data-vv-name": "entidad federativa",
-                  name: "estado",
-                  placeholder: "Seleccione una entidad federativa"
-                },
-                on: { input: _vm.getMunicipios },
-                model: {
-                  value: _vm.estado,
-                  callback: function($$v) {
-                    _vm.estado = $$v
-                  },
-                  expression: "estado"
-                }
-              }),
-              _vm._v(" "),
               _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("entidad federativa"),
-                      expression: "errors.has('entidad federativa')"
-                    }
-                  ],
-                  staticClass: "text-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("entidad federativa")))]
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                [_vm._v("Guardar")]
               )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group col-md-4" },
-            [
-              _c("label", { attrs: { for: "municipio" } }, [
-                _vm._v("Municipio")
-              ]),
-              _vm._v(" "),
-              _c("v-select", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
-                  }
-                ],
-                class: {
-                  "border border-danger":
-                    _vm.errors.has("municipio") || _vm.municipioV
-                },
-                attrs: {
-                  options: _vm.municipios,
-                  label: "nombre",
-                  name: "municipio",
-                  placeholder: "Seleccione un municipio"
-                },
-                on: { input: _vm.getLocalidades },
-                model: {
-                  value: _vm.municipio,
-                  callback: function($$v) {
-                    _vm.municipio = $$v
-                  },
-                  expression: "municipio"
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("municipio") || _vm.municipioV,
-                      expression: "errors.has('municipio') || municipioV"
-                    }
-                  ],
-                  staticClass: "text-danger"
-                },
-                [
-                  _vm._v(
-                    _vm._s(_vm.errors.first("municipio") || _vm.municipioV[0])
-                  )
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group col-md-4" },
-            [
-              _c("label", { attrs: { for: "localidad" } }, [
-                _vm._v("Localidad")
-              ]),
-              _vm._v(" "),
-              _c("v-select", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
-                  }
-                ],
-                class: {
-                  "border border-danger":
-                    _vm.errors.has("localidad") || _vm.localidadV
-                },
-                attrs: {
-                  options: _vm.localidades,
-                  label: "nombre",
-                  name: "localidad",
-                  placeholder: "Seleccione una localidad"
-                },
-                on: { input: _vm.getCodigosPostales },
-                model: {
-                  value: _vm.localidad,
-                  callback: function($$v) {
-                    _vm.localidad = $$v
-                  },
-                  expression: "localidad"
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("localidad") || _vm.localidadV,
-                      expression: "errors.has('localidad')|| localidadV"
-                    }
-                  ],
-                  staticClass: "text-danger"
-                },
-                [
-                  _vm._v(
-                    _vm._s(_vm.errors.first("localidad") || _vm.localidadV[0])
-                  )
-                ]
-              )
-            ],
-            1
+            ]
           )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
-          _c(
-            "div",
-            { staticClass: "form-group col-md-4" },
-            [
-              _c("label", { attrs: { for: "cp" } }, [_vm._v("Código postal")]),
-              _vm._v(" "),
-              _c("v-select", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
-                  }
-                ],
-                class: {
-                  "border border-danger": _vm.errors.has("código postal")
-                },
-                attrs: {
-                  options: _vm.cp,
-                  label: "codigoPostal",
-                  name: "codigo_postal",
-                  "data-vv-name": "código postal",
-                  placeholder: "Seleccione un código postal"
-                },
-                on: { input: _vm.getColonias },
-                model: {
-                  value: _vm.codigo_postal,
-                  callback: function($$v) {
-                    _vm.codigo_postal = $$v
-                  },
-                  expression: "codigo_postal"
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("código postal"),
-                      expression: "errors.has('código postal')"
-                    }
-                  ],
-                  staticClass: "text-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("código postal")))]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group col-md-4" },
-            [
-              _c("label", { attrs: { for: "colonia" } }, [_vm._v("Colonia")]),
-              _vm._v(" "),
-              _c("v-select", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required",
-                    expression: "'required'"
-                  }
-                ],
-                class: {
-                  "border border-danger":
-                    _vm.errors.has("colonia") || _vm.coloniaV
-                },
-                attrs: {
-                  options: _vm.colonias,
-                  label: "nombre",
-                  name: "colonia",
-                  placeholder: "Seleccione una colonia"
-                },
-                model: {
-                  value: _vm.colonia,
-                  callback: function($$v) {
-                    _vm.colonia = $$v
-                  },
-                  expression: "colonia"
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("colonia") || _vm.coloniaV,
-                      expression: "errors.has('colonia')|| coloniaV"
-                    }
-                  ],
-                  staticClass: "text-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("colonia") || _vm.coloniaV[0]))]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "calle" } }, [_vm._v("Calle")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                },
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.calle,
-                  expression: "calle"
-                }
-              ],
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger": _vm.errors.has("calle") || _vm.calleV
-              },
-              attrs: {
-                type: "text",
-                id: "calle",
-                name: "calle",
-                placeholder: "Ingrese la calle",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.calle },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.calle = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors.has("calle") || _vm.calleV
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.first("calle") || _vm.calleV[0]))
-                ])
-              : _vm._e()
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "numExterno" } }, [
-              _vm._v("Número externo")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                },
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.numExterno,
-                  expression: "numExterno"
-                }
-              ],
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger":
-                  _vm.errors.has("número externo") || _vm.numExternoV
-              },
-              attrs: {
-                type: "text",
-                id: "numExterno",
-                "data-vv-name": "número externo",
-                name: "numExterno",
-                placeholder: "Ingrese el número externo",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.numExterno },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.numExterno = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors.has("número externo") || _vm.numExternoV
-              ? _c("span", { staticClass: "text-danger" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.errors.first("número externo") || _vm.numExternoV[0]
-                    )
-                  )
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
-            _c("label", { attrs: { for: "numInterno" } }, [
-              _vm._v("Número interno")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.numInterno,
-                  expression: "numInterno"
-                }
-              ],
-              staticClass: "input form-control",
-              attrs: {
-                type: "text",
-                id: "numInterno",
-                name: "numInterno",
-                placeholder: "Ingrese el número interno",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.numInterno },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.numInterno = $event.target.value
-                }
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
-          _vm._v("Guardar")
-        ])
-      ]
-    )
-  ])
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

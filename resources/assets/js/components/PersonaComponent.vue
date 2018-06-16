@@ -32,6 +32,9 @@
             },
             tipo: {
                 default:false
+            },
+            carpeta:{
+                default:false
             }
         },
     }
