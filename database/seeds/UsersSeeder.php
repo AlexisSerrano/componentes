@@ -20,8 +20,8 @@ class UsersSeeder extends Seeder
                 'api_token' => 'w37JtBFJQLbu4ADSsoMHphddWAPneAcwZyZmXpauaAHGHNMvPTvluyQOWnBl',
                 'activo' => 1
             ],
-            [ '
-                id' => 2, 
+            [
+                'id' => 2, 
                 'nombre' => 'uipj',
                 'descripcion' => 'sistema uipj',
                 'api_token' => 'NbjzQOmydIOJle5gjNsGj3ELVHuTHgQMsYJAczeQ0OnbO96vpTPtuybKYae3',

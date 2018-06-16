@@ -72215,7 +72215,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
-                            _this2.nombres = _this2.personaExiste.nombres, _this2.primerAp = _this2.personaExiste.primerAp, _this2.segundoAp = _this2.personaExiste.segundoAp, _this2.fechaNacimiento = _this2.personaExiste.fechaNacimiento, _this2.edad = _this2.personaExiste.edad, _this2.sexo = _this2.personaExiste.sexo, _this2.rfc = _this2.personaExiste.rfc.slice(0, -3), _this2.curp = _this2.personaExiste.curp, _this2.nacionalidad = _this2.personaExiste.idNacionalidad, _this2.estado = _this2.personaExiste.idEstado;
+                            _this2.nombres = _this2.personaExiste.nombres, _this2.primerAp = _this2.personaExiste.primerAp, _this2.segundoAp = _this2.personaExiste.segundoAp, _this2.fechaNacimiento = _this2.personaExiste.fechaNacimiento, _this2.edad = _this2.personaExiste.edad, _this2.sexo = _this2.personaExiste.sexo, _this2.rfc = _this2.personaExiste.rfc.slice(0, -3), _this2.homoclave = _this2.personaExiste.rfc.slice(-3), _this2.curp = _this2.personaExiste.curp, _this2.nacionalidad = _this2.personaExiste.idNacionalidad, _this2.estado = _this2.personaExiste.idEstado;
                             _this2.municipio = _this2.personaExiste.idMunicipioOrigen, _this2.etnia = _this2.personaExiste.idEtnia, _this2.lengua = _this2.personaExiste.idLengua, _this2.interprete = _this2.personaExiste.idInterprete, _this2.motivoEstancia = _this2.personaExiste.motivoEstancia, _this2.ocupacion = _this2.personaExiste.idOcupacion, _this2.estadoCivil = _this2.personaExiste.idEstadoCivil, _this2.escolaridad = _this2.personaExiste.idEscolaridad, _this2.religion = _this2.personaExiste.idReligion, _this2.identificacion = _this2.personaExiste.docIdentificacion, _this2.numIdentificacion = _this2.personaExiste.numDocIdentificacion;
                             _this2.alias = _this2.personaExiste.alias, _this2.telefono = _this2.personaExiste.telefono, _this2.idPersona = _this2.personaExiste.idPersona;
                         }
@@ -76840,11 +76840,21 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("nombres")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.first("nombres")))
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("nombres"),
+                              expression: "errors.has('nombres')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("nombres")))]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.nombres != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -76907,11 +76917,21 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("primer apellido")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.first("primer apellido")))
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("primer apellido"),
+                              expression: "errors.has('primer apellido')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("primer apellido")))]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.primerAp != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -76974,11 +76994,21 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("segundo apellido")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.first("segundo apellido")))
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("segundo apellido"),
+                              expression: "errors.has('segundo apellido')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("segundo apellido")))]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.segundoAp != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -77040,11 +77070,21 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("alias")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.first("alias")))
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("alias"),
+                              expression: "errors.has('alias')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("alias")))]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.alias != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -77128,30 +77168,15 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value:
-                                this.validacionesback.fechaNacimiento !=
-                                undefined,
-                              expression:
-                                "this.validacionesback.fechaNacimiento!=undefined"
-                            }
-                          ],
-                          staticClass: "text-danger"
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(
-                              String(this.validacionesback.fechaNacimiento)
+                      this.validacionesback.fechaNacimiento != undefined
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              _vm._s(
+                                String(this.validacionesback.fechaNacimiento)
+                              )
                             )
-                          )
-                        ]
-                      )
+                          ])
+                        : _vm._e()
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -77205,11 +77230,21 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("edad")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.first("edad")))
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("edad"),
+                              expression: "errors.has('edad')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("edad")))]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.edad != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -77279,22 +77314,11 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("sexo")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: this.validacionesback.sexo != undefined,
-                                expression:
-                                  "this.validacionesback.sexo!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [_vm._v(_vm._s(String(this.validacionesback.sexo)))]
-                        )
+                        this.validacionesback.sexo != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(String(this.validacionesback.sexo)))
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -77373,30 +77397,15 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.idEstadoOrigen !=
-                                  undefined,
-                                expression:
-                                  "this.validacionesback.idEstadoOrigen!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(
-                                String(this.validacionesback.idEstadoOrigen)
+                        this.validacionesback.idEstadoOrigen != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(this.validacionesback.idEstadoOrigen)
+                                )
                               )
-                            )
-                          ]
-                        )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -77451,11 +77460,21 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("rfc")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.first("rfc")))
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("rfc"),
+                              expression: "errors.has('rfc')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("rfc")))]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.rfc != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -77515,11 +77534,21 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("homoclave")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.first("homoclave")))
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("homoclave"),
+                              expression: "errors.has('homoclave')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("homoclave")))]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.homo != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -77578,11 +77607,21 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("curp")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.first("curp")))
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("curp"),
+                              expression: "errors.has('curp')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("curp")))]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.curp != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -77651,30 +77690,15 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("nacionalidad")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.idNacionalidad !=
-                                  undefined,
-                                expression:
-                                  "this.validacionesback.idNacionalidad!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(
-                                String(this.validacionesback.idNacionalidad)
+                        this.validacionesback.idNacionalidad != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(this.validacionesback.idNacionalidad)
+                                )
                               )
-                            )
-                          ]
-                        )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -77739,30 +77763,17 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("municipio")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.idMunicipioOrigen !=
-                                  undefined,
-                                expression:
-                                  "this.validacionesback.idMunicipioOrigen!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(
-                                String(this.validacionesback.idMunicipioOrigen)
+                        this.validacionesback.idMunicipioOrigen != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(
+                                    this.validacionesback.idMunicipioOrigen
+                                  )
+                                )
                               )
-                            )
-                          ]
-                        )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -77827,27 +77838,13 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("etnia")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.idEtnia != undefined,
-                                expression:
-                                  "this.validacionesback.idEtnia!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(String(this.validacionesback.idEtnia))
-                            )
-                          ]
-                        )
+                        this.validacionesback.idEtnia != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(String(this.validacionesback.idEtnia))
+                              )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -77912,27 +77909,13 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("lengua")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.idLengua != undefined,
-                                expression:
-                                  "this.validacionesback.idLengua!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(String(this.validacionesback.idLengua))
-                            )
-                          ]
-                        )
+                        this.validacionesback.idLengua != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(String(this.validacionesback.idLengua))
+                              )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -77997,28 +77980,15 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("intérprete")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.idInterprete !=
-                                  undefined,
-                                expression:
-                                  "this.validacionesback.idInterprete!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(String(this.validacionesback.idInterprete))
-                            )
-                          ]
-                        )
+                        this.validacionesback.idInterprete != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(this.validacionesback.idInterprete)
+                                )
+                              )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -78074,13 +78044,21 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("motivo de estancia")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(
-                              _vm._s(_vm.errors.first("motivo de estancia"))
-                            )
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("motivo de estancia"),
+                              expression: "errors.has('motivo de estancia')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("motivo de estancia")))]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.motivoEstancia != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -78153,28 +78131,15 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("ocupación")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.idOcupacion !=
-                                  undefined,
-                                expression:
-                                  "this.validacionesback.idOcupacion!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(String(this.validacionesback.idOcupacion))
-                            )
-                          ]
-                        )
+                        this.validacionesback.idOcupacion != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(this.validacionesback.idOcupacion)
+                                )
+                              )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -78239,30 +78204,15 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("estado civil")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.idEstadoCivil !=
-                                  undefined,
-                                expression:
-                                  "this.validacionesback.idEstadoCivil!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(
-                                String(this.validacionesback.idEstadoCivil)
+                        this.validacionesback.idEstadoCivil != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(this.validacionesback.idEstadoCivil)
+                                )
                               )
-                            )
-                          ]
-                        )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -78327,30 +78277,15 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("escolaridad")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.idEscolaridad !=
-                                  undefined,
-                                expression:
-                                  "this.validacionesback.idEscolaridad!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(
-                                String(this.validacionesback.idEscolaridad)
+                        this.validacionesback.idEscolaridad != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(this.validacionesback.idEscolaridad)
+                                )
                               )
-                            )
-                          ]
-                        )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -78415,27 +78350,13 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("religión")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.idReligion != undefined,
-                                expression:
-                                  "this.validacionesback.idReligion!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(String(this.validacionesback.idReligion))
-                            )
-                          ]
-                        )
+                        this.validacionesback.idReligion != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(String(this.validacionesback.idReligion))
+                              )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -78500,30 +78421,17 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.errors.first("identificación")))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  this.validacionesback.docIdentificacion !=
-                                  undefined,
-                                expression:
-                                  "this.validacionesback.docIdentificacion!=undefined"
-                              }
-                            ],
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(
-                                String(this.validacionesback.docIdentificacion)
+                        this.validacionesback.docIdentificacion != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(
+                                    this.validacionesback.docIdentificacion
+                                  )
+                                )
                               )
-                            )
-                          ]
-                        )
+                            ])
+                          : _vm._e()
                       ],
                       1
                     )
@@ -78579,15 +78487,26 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("número de identificación")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(
-                              _vm._s(
-                                _vm.errors.first("número de identificación")
-                              )
-                            )
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("número de identificación"),
+                              expression:
+                                "errors.has('número de identificación')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(_vm.errors.first("número de identificación"))
+                          )
+                        ]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.numDocIdentificacion != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -78653,11 +78572,21 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.has("teléfono")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.first("teléfono")))
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("teléfono"),
+                              expression: "errors.has('teléfono')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("teléfono")))]
+                      ),
                       _vm._v(" "),
                       this.validacionesback.telefono != undefined
                         ? _c("span", { staticClass: "text-danger" }, [
@@ -78869,31 +78798,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             nombre: '',
-            fechaConstitucion: '',
+            fechaCreacion: '',
             rfc: '',
+            homoclave: '',
             telefono: '',
             representanteLegal: '',
             personaExiste: '',
-            nombreV: '',
-            fechaConstitucionV: '',
-            rfcV: '',
-            telefonoV: '',
-            representanteLegalV: '',
-            idPersonaMoral: '',
-            idVarPersonaMoral: '',
-            url: 'http://localhost/componentes/public/api'
+            idMoral: '',
+            validacionesback: '',
+            url: '/api'
         };
     },
 
     props: {
         sistema: {
             default: false
+        },
+        tipo: {
+            default: false
+        },
+        carpeta: {
+            default: ''
         }
     },
     mounted: function mounted() {
@@ -78903,18 +78856,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         searchPersona: function searchPersona() {
             var _this = this;
 
-            if (this.nombre != '' && this.fechaConstitucion != '') {
+            if (this.nombre != '' && this.fechaCreacion != '') {
+                if (this.nombre.length < 2) {
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Ingrese otro nombre!',
+                        text: 'Para calcular el rfc el nombre debe contener mas caracteres.',
+                        type: 'warning',
+                        confirmButtonText: 'Ok'
+                    });
+                    return;
+                }
                 var urlRfcMoral = this.url + '/rfcMoral';
                 axios.post(urlRfcMoral, {
                     nombre: this.nombre,
-                    fechaConstitucion: this.fechaConstitucion
+                    fechaCreacion: this.fechaCreacion
                 }).then(function (response) {
-                    _this.rfc = response.data.res;
+                    _this.rfc = response.data.res.slice(0, -3);
+                    _this.homoclave = response.data.res.slice(-3);
                     var urlBuscarPersona = _this.url + '/searchPersonaMoral';
                     axios.post(urlBuscarPersona, {
-                        rfc: _this.rfc
+                        rfc: _this.rfc + _this.homoclave
                     }).then(function (response) {
-                        console.log(response.data);
                         _this.personaExiste = response.data;
                         if (_this.personaExiste != '') {
                             __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -78923,9 +78885,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
-                            _this.idVarPersonaMoral = _this.personaExiste.idVarPersonaMoral;
-                            _this.telefono = _this.personaExiste.telefono;
-                            _this.representanteLegal = _this.personaExiste.representanteLegal;
+                            _this.telefono = _this.personaExiste.nombre, _this.fechaCreacion = _this.personaExiste.fechaCreacion, _this.rfc = _this.personaExiste.rfc.slice(0, -3), _this.homoclave = _this.personaExiste.rfc.slice(-3), _this.telefono = _this.personaExiste.telefono, _this.representanteLegal = _this.personaExiste.representanteLegal, _this.idMoral = _this.idMoral;
                         }
                     });
                 });
@@ -78937,7 +78897,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$validator.validateAll().then(function (result) {
                 if (result) {
                     _this2.CrearEmpresa();
-                    _this2.CleanFields();
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -78949,25 +78908,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         CleanFields: function CleanFields() {
-            this.nombre = '', this.fechaConstitucion = '', this.rfc = '', this.telefono = '', this.representanteLegal = '', this.$validator.reset();
+            this.nombre = '', this.fechaCreacion = '', this.rfc = '', this.telefono = '', this.representanteLegal = '', this.$validator.reset();
         },
 
         CrearEmpresa: function CrearEmpresa() {
             var _this3 = this;
 
-            var urlCrearMoral = this.url + '/addPersonaMoral';
+            var urlCrearMoral = this.url + '/' + this.tipo + this.sistema;
             axios.post(urlCrearMoral, {
                 nombre: this.nombre.toUpperCase(),
-                fechaConstitucion: this.fechaConstitucion,
-                rfc: this.rfc.toUpperCase(),
+                fechaCreacion: this.fechaCreacion,
+                rfc: this.rfc,
+                homo: this.homoclave,
                 telefono: this.telefono,
                 representanteLegal: this.representanteLegal.toUpperCase(),
                 sistema: this.sistema,
-                idpersonamoral: this.idPersonaMoral,
-                idvarpersonamoral: this.idVarPersonaMoral
+                tipo: this.tipo,
+                idCarpeta: this.carpeta
             }).then(function (response) {
-                console.log(response.data);
-                _this3.idVarPersonaMoral = response.data.idVariablesPersonaMoral;
+                _this3.idMoral = response.data;
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: '¡Guardado correctamente!',
                     text: 'Ésta empresa fue guardada exitosamente.',
@@ -78976,7 +78935,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }).catch(function (error) {
                 console.log(error.response.data.errors);
-                _this3.nombreV = error.response.data.errors.nombre, _this3.fechaConstitucionV = error.response.data.errors.fechaConstitucion, _this3.rfcV = error.response.data.errors.rfc, _this3.telefonoV = error.response.data.errors.telefono, _this3.representanteLegalV = error.response.data.errors.representanteLegal;
+                _this3.validacionesback = error.response.data.errors;
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: '¡Guardado incorrecto!',
                     text: 'Ésta persona moral no fue posible guardarla.',
@@ -78996,358 +78955,481 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.validateBeforeSubmit($event)
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.validateBeforeSubmit($event)
+          }
         }
-      }
-    },
-    [
-      _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "form-group col-md-4" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-form-label col-form-label-sm",
-              attrs: { for: "nombre" }
-            },
-            [_vm._v("Nombre")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
+      },
+      [
+        _c("div", { staticClass: "form-row" }, [
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c(
+              "label",
               {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.nombre,
-                expression: "nombre"
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "nombre" }
               },
-              {
-                name: "validate",
-                rawName: "v-validate",
-                value: "required",
-                expression: "'required'"
-              }
-            ],
-            staticClass: "form-control form-control-sm",
-            class: {
-              input: true,
-              "form-control": true,
-              "border border-danger": _vm.errors.has("nombre") || _vm.nombreV
-            },
-            attrs: {
-              type: "text",
-              name: "nombre",
-              id: "nombre",
-              placeholder: "Ingrese el nombre",
-              autocomplete: "off"
-            },
-            domProps: { value: _vm.nombre },
-            on: {
-              blur: _vm.searchPersona,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.nombre = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _vm.errors.has("nombre") || _vm.nombreV
-            ? _c("span", { staticClass: "text-danger" }, [
-                _vm._v(_vm._s(_vm.errors.first("nombre") || _vm.nombreV[0]))
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-4" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-form-label col-form-label-sm",
-              attrs: { for: "fechaConstitucion" }
-            },
-            [_vm._v("Fecha de constitución")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.fechaConstitucion,
-                expression: "fechaConstitucion"
-              },
-              {
-                name: "validate",
-                rawName: "v-validate",
-                value: "required",
-                expression: "'required'"
-              }
-            ],
-            staticClass: "form-control form-control-sm",
-            class: {
-              "border border-danger":
-                _vm.errors.has("fecha de constitución") ||
-                _vm.fechaConstitucionV
-            },
-            attrs: {
-              type: "date",
-              id: "fechaConstitucion",
-              name: "fechaConstitucion",
-              "data-vv-name": "fecha de constitución"
-            },
-            domProps: { value: _vm.fechaConstitucion },
-            on: {
-              blur: _vm.searchPersona,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.fechaConstitucion = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
+              [_vm._v("Nombre")]
+            ),
+            _vm._v(" "),
+            _c("input", {
               directives: [
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.errors.has("fecha de constitución") ||
-                    _vm.fechaConstitucionV,
-                  expression:
-                    "errors.has('fecha de constitución') || fechaConstitucionV"
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.nombre,
+                  expression: "nombre"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "",
+                  expression: "''"
                 }
               ],
-              staticClass: "text-danger"
-            },
-            [
-              _vm._v(
-                _vm._s(
-                  _vm.errors.first("fecha de constitución") ||
-                    _vm.fechaConstitucionV
-                )
-              )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-4" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-form-label col-form-label-sm",
-              attrs: { for: "rfc" }
-            },
-            [_vm._v("RFC")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.rfc,
-                expression: "rfc"
+              staticClass: "form-control form-control-sm",
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger":
+                  _vm.errors.has("nombre") || this.validacionesback.nombre
               },
-              {
-                name: "validate",
-                rawName: "v-validate",
-                value: "required|size:12",
-                expression: "'required|size:12'"
-              }
-            ],
-            staticClass: "form-control form-control-sm",
-            class: {
-              input: true,
-              "form-control": true,
-              "border border-danger": _vm.errors.has("RFC") || _vm.rfcV
-            },
-            attrs: {
-              type: "text",
-              name: "rfc",
-              id: "rfc",
-              placeholder: "Ingrese el rfc",
-              autocomplete: "off",
-              "data-vv-name": "RFC"
-            },
-            domProps: { value: _vm.rfc },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.rfc = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _vm.errors.has("RFC") || _vm.rfcV
-            ? _c("span", { staticClass: "text-danger" }, [
-                _vm._v(_vm._s(_vm.errors.first("RFC") || _vm.rfcV[0]))
-              ])
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "form-group col-md-4" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-form-label col-form-label-sm",
-              attrs: { for: "telefono" }
-            },
-            [_vm._v("Teléfono")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.telefono,
-                expression: "telefono"
+              attrs: {
+                type: "text",
+                name: "nombre",
+                placeholder: "Ingrese el nombre",
+                autocomplete: "off"
               },
-              {
-                name: "validate",
-                rawName: "v-validate",
-                value: "required|numeric",
-                expression: "'required|numeric'"
-              }
-            ],
-            staticClass: "form-control form-control-sm",
-            class: {
-              input: true,
-              "form-control": true,
-              "border border-danger":
-                _vm.errors.has("teléfono") || _vm.telefonoV
-            },
-            attrs: {
-              type: "text",
-              name: "telefono",
-              id: "telefono",
-              placeholder: "Ingrese el telefono",
-              autocomplete: "off",
-              "data-vv-name": "teléfono"
-            },
-            domProps: { value: _vm.telefono },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+              domProps: { value: _vm.nombre },
+              on: {
+                blur: _vm.searchPersona,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.nombre = $event.target.value
                 }
-                _vm.telefono = $event.target.value
               }
-            }
-          }),
-          _vm._v(" "),
-          _vm.errors.has("teléfono") || _vm.telefonoV
-            ? _c("span", { staticClass: "text-danger" }, [
-                _vm._v(_vm._s(_vm.errors.first("teléfono") || _vm.telefonoV[0]))
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-4" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-form-label col-form-label-sm",
-              attrs: { for: "representanteLegal" }
-            },
-            [_vm._v("Representante legal")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
               {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.representanteLegal,
-                expression: "representanteLegal"
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("nombre"),
+                    expression: "errors.has('nombre')"
+                  }
+                ],
+                staticClass: "text-danger"
               },
-              {
-                name: "validate",
-                rawName: "v-validate",
-                value: "required",
-                expression: "'required'"
-              }
-            ],
-            staticClass: "form-control form-control-sm",
-            class: {
-              input: true,
-              "form-control": true,
-              "border border-danger":
-                _vm.errors.has("representante legal") || _vm.representanteLegalV
-            },
-            attrs: {
-              type: "text",
-              name: "representanteLegal",
-              "data-vv-name": "representante legal",
-              id: "representanteLegal",
-              placeholder: "Ingrese el representante legal",
-              autocomplete: "off"
-            },
-            domProps: { value: _vm.representanteLegal },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.representanteLegal = $event.target.value
-              }
-            }
-          }),
+              [_vm._v(_vm._s(_vm.errors.first("nombre")))]
+            ),
+            _vm._v(" "),
+            this.validacionesback.nombre != undefined
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(String(this.validacionesback.nombre)))
+                ])
+              : _vm._e()
+          ]),
           _vm._v(" "),
-          _vm.errors.has("representante legal") || _vm.representanteLegalV
-            ? _c("span", { staticClass: "text-danger" }, [
-                _vm._v(
-                  _vm._s(
-                    _vm.errors.first("representante legal") ||
-                      _vm.representanteLegalV[0]
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "fechaCreacion" }
+              },
+              [_vm._v("Fecha de creación")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fechaCreacion,
+                  expression: "fechaCreacion"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              class: {
+                "border border-danger":
+                  _vm.errors.has("fecha de creación") ||
+                  this.validacionesback.fechaCreacion
+              },
+              attrs: {
+                type: "date",
+                name: "fechaCreacion",
+                "data-vv-name": "fecha de creación"
+              },
+              domProps: { value: _vm.fechaCreacion },
+              on: {
+                blur: _vm.searchPersona,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.fechaCreacion = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("fecha de creación"),
+                    expression: "errors.has('fecha de creación')"
+                  }
+                ],
+                staticClass: "text-danger"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("fecha de creación")))]
+            ),
+            _vm._v(" "),
+            this.validacionesback.fechaCreacion != undefined
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(String(this.validacionesback.fechaCreacion)))
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-2" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "rfc" }
+              },
+              [_vm._v("RFC")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.rfc,
+                  expression: "rfc"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control form-control-sm": true,
+                "border border-danger":
+                  _vm.errors.has("rfc") || this.validacionesback.rfc
+              },
+              attrs: {
+                type: "text",
+                name: "rfc",
+                placeholder: "Ingrese el RFC",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.rfc },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.rfc = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("rfc"),
+                    expression: "errors.has('rfc')"
+                  }
+                ],
+                staticClass: "text-danger"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("rfc")))]
+            ),
+            _vm._v(" "),
+            this.validacionesback.rfc != undefined
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(String(this.validacionesback.rfc)))
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-2" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "homoclave" }
+              },
+              [_vm._v("Homoclave")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.homoclave,
+                  expression: "homoclave"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control form-control-sm": true,
+                "border border-danger":
+                  _vm.errors.has("homoclave") || this.validacionesback.homo
+              },
+              attrs: {
+                type: "text",
+                name: "homoclave",
+                placeholder: "Homoclave",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.homoclave },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.homoclave = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("homoclave"),
+                    expression: "errors.has('homoclave')"
+                  }
+                ],
+                staticClass: "text-danger"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("homoclave")))]
+            ),
+            _vm._v(" "),
+            this.validacionesback.homo != undefined
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(String(this.validacionesback.homo)))
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "telefono" }
+              },
+              [_vm._v("Teléfono")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.telefono,
+                  expression: "telefono"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required|numeric",
+                  expression: "'required|numeric'"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger":
+                  _vm.errors.has("teléfono") || this.validacionesback.telefono
+              },
+              attrs: {
+                type: "text",
+                name: "teléfono",
+                placeholder: "Ingrese el teléfono",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.telefono },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.telefono = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("teléfono"),
+                    expression: "errors.has('teléfono')"
+                  }
+                ],
+                staticClass: "text-danger"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("teléfono")))]
+            ),
+            _vm._v(" "),
+            this.validacionesback.telefono != undefined
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(String(this.validacionesback.telefono)))
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "representanteLegal" }
+              },
+              [_vm._v("Representante legal")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.representanteLegal,
+                  expression: "representanteLegal"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger":
+                  _vm.errors.has("representante legal") ||
+                  this.validacionesback.representanteLegal
+              },
+              attrs: {
+                type: "text",
+                name: "representanteLegal",
+                "data-vv-name": "representante legal",
+                placeholder: "Ingrese el representante legal",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.representanteLegal },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.representanteLegal = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("representante legal"),
+                    expression: "errors.has('representante legal')"
+                  }
+                ],
+                staticClass: "text-danger"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("representante legal")))]
+            ),
+            _vm._v(" "),
+            this.validacionesback.representanteLegal != undefined
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(String(this.validacionesback.representanteLegal))
                   )
-                )
-              ])
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.idVarPersonaMoral,
-              expression: "idVarPersonaMoral"
-            }
-          ],
-          attrs: { type: "hidden", id: "idvarpermoral" },
-          domProps: { value: _vm.idVarPersonaMoral },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+                ])
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.idMoral,
+                expression: "idMoral"
               }
-              _vm.idVarPersonaMoral = $event.target.value
+            ],
+            attrs: { type: "hidden", id: "idMoral" },
+            domProps: { value: _vm.idMoral },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.idMoral = $event.target.value
+              }
             }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _vm._m(0)
-    ]
-  )
+          })
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {

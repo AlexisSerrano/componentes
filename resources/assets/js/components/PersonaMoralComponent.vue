@@ -1,45 +1,67 @@
 <template>
-    <form v-on:submit.prevent="validateBeforeSubmit">
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label class="col-form-label col-form-label-sm" for="nombre">Nombre</label>
-                <input  class="form-control form-control-sm" type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') || nombreV}" id="nombre" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="searchPersona">
-                <span v-if="errors.has('nombre') || nombreV" class="text-danger">{{ errors.first('nombre') || nombreV[0] }}</span>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="col-form-label col-form-label-sm" for="fechaConstitucion">Fecha de constitución</label>
-                <input class="form-control form-control-sm" type="date" id="fechaConstitucion" v-model="fechaConstitucion" name="fechaConstitucion" data-vv-name="fecha de constitución"  v-validate="'required'" :class="{ 'border border-danger': errors.has('fecha de constitución') || fechaConstitucionV}" @blur="searchPersona">
-                <span v-show="errors.has('fecha de constitución') || fechaConstitucionV" class="text-danger">{{ errors.first('fecha de constitución') || fechaConstitucionV }}</span>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
-                <input class="form-control form-control-sm" type="text" name="rfc" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('RFC') || rfcV}" id="rfc" v-model="rfc" placeholder="Ingrese el rfc" v-validate="'required|size:12'" autocomplete="off" data-vv-name="RFC">
-                <span v-if="errors.has('RFC') || rfcV" class="text-danger">{{ errors.first('RFC') || rfcV[0] }}</span>
-            </div>
-        </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
-                <input class="form-control form-control-sm" type="text" name="telefono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('teléfono') || telefonoV }" id="telefono" v-model="telefono" placeholder="Ingrese el telefono" v-validate="'required|numeric'" autocomplete="off" data-vv-name="teléfono">
-                <span v-if="errors.has('teléfono') || telefonoV" class="text-danger">{{ errors.first('teléfono') || telefonoV[0] }}</span>
+    <div class="container-fluid">
+
+        <form v-on:submit.prevent="validateBeforeSubmit">
+
+            <div class="form-row">
+
+                <div class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="nombre">Nombre</label>
+                    <input  class="form-control form-control-sm" type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') || this.validacionesback.nombre}" v-model="nombre" placeholder="Ingrese el nombre" v-validate="''" autocomplete="off" @blur="searchPersona">
+                    <span v-show="errors.has('nombre')" class="text-danger">{{ errors.first('nombre')}}</span>
+                    <span v-if="this.validacionesback.nombre!=undefined" class="text-danger">{{ String(this.validacionesback.nombre)}}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="fechaCreacion">Fecha de creación</label>
+                    <input class="form-control form-control-sm" type="date" v-model="fechaCreacion" name="fechaCreacion" data-vv-name="fecha de creación"  v-validate="'required'" :class="{ 'border border-danger': errors.has('fecha de creación') || this.validacionesback.fechaCreacion}" @blur="searchPersona">
+                    <span v-show="errors.has('fecha de creación')" class="text-danger">{{ errors.first('fecha de creación')}}</span>
+                    <span v-if="this.validacionesback.fechaCreacion!=undefined" class="text-danger">{{ String(this.validacionesback.fechaCreacion)}}</span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
+                    <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="'required'" autocomplete="off">
+                    <span v-show="errors.has('rfc')" class="text-danger">{{ errors.first('rfc')}}</span>
+                    <span v-if="this.validacionesback.rfc!=undefined" class="text-danger">{{ String(this.validacionesback.rfc)}}</span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="col-form-label col-form-label-sm" for="homoclave">Homoclave</label>
+                    <input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') || this.validacionesback.homo}" v-model="homoclave" placeholder="Homoclave" v-validate="'required'" autocomplete="off">
+                    <span v-show="errors.has('homoclave')" class="text-danger">{{ errors.first('homoclave')}}</span>
+                    <span v-if="this.validacionesback.homo!=undefined" class="text-danger">{{ String(this.validacionesback.homo)}}</span>
+                </div>
+
+
+
+                <div class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
+                    <input class="form-control form-control-sm" type="text" name="teléfono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('teléfono') || this.validacionesback.telefono}" v-model="telefono" placeholder="Ingrese el teléfono" v-validate="'required|numeric'" autocomplete="off">
+                    <span v-show="errors.has('teléfono')" class="text-danger">{{ errors.first('teléfono')}}</span>
+                    <span v-if="this.validacionesback.telefono!=undefined" class="text-danger">{{ String(this.validacionesback.telefono)}}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="representanteLegal">Representante legal</label>
+                    <input class="form-control form-control-sm" type="text" name="representanteLegal" data-vv-name="representante legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('representante legal') || this.validacionesback.representanteLegal}" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
+                    <span v-show="errors.has('representante legal')" class="text-danger">{{ errors.first('representante legal')}}</span>
+                    <span v-if="this.validacionesback.representanteLegal!=undefined" class="text-danger">{{ String(this.validacionesback.representanteLegal)}}</span>
+                </div>
+
             </div>
-            <div class="form-group col-md-4">
-                <label class="col-form-label col-form-label-sm" for="representanteLegal">Representante legal</label>
-                <input class="form-control form-control-sm" type="text" name="representanteLegal" data-vv-name="representante legal" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('representante legal') || representanteLegalV }" id="representanteLegal" v-model="representanteLegal" placeholder="Ingrese el representante legal" v-validate="'required'" autocomplete="off">
-                <span v-if="errors.has('representante legal') || representanteLegalV" class="text-danger">{{ errors.first('representante legal') || representanteLegalV[0] }}</span>
+
+            <div>
+                <input type="hidden" v-model="idMoral" id="idMoral">             
             </div>
-        </div>
-        <div>
-            <input type="hidden" v-model="idVarPersonaMoral" id="idvarpermoral">             
-        </div>
-        <div class="form-row mt-3">
-            <div class="form-group col-md-5">
-                <button type="submit" class="btn btn-primary mr-1">Guardar</button>
+
+
+
+            <div class="form-row mt-3">
+                <div class="form-group col-md-5">
+                    <button type="submit" class="btn btn-primary mr-1">Guardar</button>
+                </div>
             </div>
-        </div>
-        <!-- <h1>{{personaExiste}}</h1> -->
-    </form>
+
+        </form>
+    </div>
 </template>
 
 <script>
@@ -48,43 +70,54 @@ import swal from 'sweetalert2'
         data(){
              return{
                 nombre: '',
-                fechaConstitucion: '',
+                fechaCreacion: '',
                 rfc:'',
+                homoclave:'',
                 telefono:'',
                 representanteLegal:'',
-                personaExiste:'',
-                nombreV:'',
-                fechaConstitucionV:'',
-                rfcV:'',
-                telefonoV:'',
-                representanteLegalV:'',                
-                idPersonaMoral:'',
-                idVarPersonaMoral:'',
-                url:'http://localhost/componentes/public/api'
+                personaExiste:'',              
+                idMoral:'',
+                validacionesback:'',
+                url:'/api'
             }
         },
         props:{
             sistema: {
                 default:false
-            }
+            },
+            tipo: {
+                default:false
+            },
+            carpeta:{
+                default:''
+            } 
         },
         mounted: function(){
         //    this.getNacionalidades();
         },
         methods:{
             searchPersona: function(){
-                if(this.nombre!='' && this.fechaConstitucion!=''){
+                if(this.nombre!='' && this.fechaCreacion!=''){
+                    if(this.nombre.length<2){
+                        swal({
+                            title: '¡Ingrese otro nombre!',
+                            text: 'Para calcular el rfc el nombre debe contener mas caracteres.',
+                            type: 'warning',
+                            confirmButtonText: 'Ok'
+                        })
+                        return
+                    }
                     var urlRfcMoral = this.url+'/rfcMoral';
                     axios.post(urlRfcMoral,{
                         nombre: this.nombre,
-                        fechaConstitucion: this.fechaConstitucion
+                        fechaCreacion: this.fechaCreacion
                     }).then(response =>{
-                        this.rfc = response.data.res
+                        this.rfc = response.data.res.slice(0, -3);                        
+                        this.homoclave=response.data.res.slice(-3);
                         var urlBuscarPersona = this.url+'/searchPersonaMoral';
                         axios.post(urlBuscarPersona,{
-                            rfc: this.rfc
+                            rfc: this.rfc+this.homoclave
                         }).then(response => {
-                            console.log(response.data)
                             this.personaExiste=response.data
                             if(this.personaExiste!=''){                                
                                 swal({
@@ -93,9 +126,13 @@ import swal from 'sweetalert2'
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
-                                this.idVarPersonaMoral=this.personaExiste.idVarPersonaMoral                                                
-                                this.telefono = this.personaExiste.telefono
-                                this.representanteLegal = this.personaExiste.representanteLegal
+                                this.telefono = this.personaExiste.nombre,
+                                this.fechaCreacion = this.personaExiste.fechaCreacion,
+                                this.rfc=this.personaExiste.rfc.slice(0,-3),
+                                this.homoclave = this.personaExiste.rfc.slice(-3),
+                                this.telefono = this.personaExiste.telefono,
+                                this.representanteLegal = this.personaExiste.representanteLegal,
+                                this.idMoral = this.idMoral
                             }
                         })
                     });
@@ -105,7 +142,6 @@ import swal from 'sweetalert2'
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         this.CrearEmpresa();
-                        this.CleanFields();
                         return;
                     } 
                     swal({
@@ -118,27 +154,27 @@ import swal from 'sweetalert2'
             },
             CleanFields() {
                 this.nombre='',
-                this.fechaConstitucion='',
+                this.fechaCreacion='',
                 this.rfc='',
                 this.telefono='',
                 this.representanteLegal='',
                 this.$validator.reset();
             },
             CrearEmpresa: function(){
-                var urlCrearMoral = this.url+'/addPersonaMoral';
+                var urlCrearMoral = this.url+'/'+this.tipo+this.sistema;
                     axios.post(urlCrearMoral,{                        
                         nombre: this.nombre.toUpperCase(),
-                        fechaConstitucion: this.fechaConstitucion,
-                        rfc:this.rfc.toUpperCase(),
+                        fechaCreacion: this.fechaCreacion,
+                        rfc:this.rfc,
+                        homo:this.homoclave,
                         telefono: this.telefono,
                         representanteLegal: this.representanteLegal.toUpperCase(),
                         sistema: this.sistema,
-                        idpersonamoral: this.idPersonaMoral,
-                        idvarpersonamoral:this.idVarPersonaMoral
+                        tipo: this.tipo,
+                        idCarpeta:this.carpeta
                     })
                     .then (response =>{
-                        console.log(response.data)
-                        this.idVarPersonaMoral=response.data.idVariablesPersonaMoral                                                
+                        this.idMoral=response.data                                          
                         swal({
                             title: '¡Guardado correctamente!',
                             text: 'Ésta empresa fue guardada exitosamente.',
@@ -147,11 +183,7 @@ import swal from 'sweetalert2'
                         })
                     }).catch((error)=>{
                         console.log(error.response.data.errors);
-                        this.nombreV = error.response.data.errors.nombre,
-                        this.fechaConstitucionV = error.response.data.errors.fechaConstitucion,
-                        this.rfcV = error.response.data.errors.rfc,
-                        this.telefonoV = error.response.data.errors.telefono,
-                        this.representanteLegalV = error.response.data.errors.representanteLegal
+                        this.validacionesback = error.response.data.errors
                         swal({
                         title: '¡Guardado incorrecto!',
                         text: 'Ésta persona moral no fue posible guardarla.',

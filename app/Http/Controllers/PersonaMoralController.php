@@ -20,7 +20,7 @@ class PersonaMoralController extends Controller{
 		
 		if($request->input('idpersonamoral')){
 			if($request->input('idvarpersonamoral')){				
-				DB::update('update persona_moral set nombre=:name,fechaCreacion=:fechaConst,rfc=:rfc  where id=:id', ['name'=>$request->input('nombre'),'fechaConst'=>$request->input('fechaConstitucion'),'rfc'=>$request->input('rfc'),'id'=>$request->input('idpersonamoral')]);
+				DB::update('update persona_moral set nombre=:name,fechaCreacion=:fechaConst,rfc=:rfc  where id=:id', ['name'=>$request->input('nombre'),'fechaConst'=>$request->input('fechaCreacion'),'rfc'=>$request->input('rfc'),'id'=>$request->input('idpersonamoral')]);
 				DB::update('update variables_persona_moral set telefono=:tel,representanteLegal=:repres  where id=:id', ['tel'=>$request->input('telefono'),'repres'=>$request->input('representanteLegal'),'id'=>$request->input('idvarpersonamoral')]);
 				return ["idpersona"=>$request->input('idvarpersonamoral')];
 			}
@@ -30,7 +30,7 @@ class PersonaMoralController extends Controller{
 		try{
 			$moral=new PersonaMoralModel();						
 			$moral->nombre=$request->input('nombre');		
-			$moral->fechaCreacion=$request->input('fechaConstitucion');
+			$moral->fechaCreacion=$request->input('fechaCreacion');
 			$moral->rfc=$request->input('rfc');	
 			$moral->save();
 			$idMoral = $moral->id;
@@ -63,7 +63,7 @@ class PersonaMoralController extends Controller{
 	}
 	
 	public function rfcMoral(Request $request){
-		$fecha = $request->fechaConstitucion;
+		$fecha = $request->fechaCreacion;
 		$partes = explode("-",$fecha);
 		$nombre = $request->nombre;
 		$dia    = $partes[2];
@@ -90,11 +90,9 @@ class PersonaMoralController extends Controller{
 				'nombre'=>$personaExiste->nombre,
 				'fechaCreacion'=>$personaExiste->fechaCreacion,
 				'rfc'=>$personaExiste->rfc,
-				'id'=>$personaExiste->id,
+				'idMoral'=>$personaExiste2->id,
 				'telefono'=>$personaExiste2->telefono,
 				'representanteLegal'=>$personaExiste2->representanteLegal,
-				'idPersonaMoral'=>$personaExiste->id,
-				'idVarPersonaMoral'=>$personaExiste2->id
 			);
 		}else{
 			$data = array(
