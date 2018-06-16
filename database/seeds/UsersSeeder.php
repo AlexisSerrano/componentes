@@ -12,7 +12,6 @@ class UsersSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            //[ 'id' => 1, 'nombre' => 'uat','descripcion' => 'sistema uat','api_token' => str_random(60),'activo' => 1],
             [ 
                 'id' => 1, 
                 'nombre' => 'uat',
@@ -20,8 +19,8 @@ class UsersSeeder extends Seeder
                 'api_token' => 'w37JtBFJQLbu4ADSsoMHphddWAPneAcwZyZmXpauaAHGHNMvPTvluyQOWnBl',
                 'activo' => 1
             ],
-            [ '
-                id' => 2, 
+            [ 
+                'id' => 2, 
                 'nombre' => 'uipj',
                 'descripcion' => 'sistema uipj',
                 'api_token' => 'NbjzQOmydIOJle5gjNsGj3ELVHuTHgQMsYJAczeQ0OnbO96vpTPtuybKYae3',
