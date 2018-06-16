@@ -1,102 +1,115 @@
 <template>
-    <div class="container mt-3">
-        <form v-on:submit.prevent="validateBeforeSubmit">
+
+    <div class="container-fluid">
+
+        <spring-spinner v-if="loader" class="centrar" :animation-duration="1500" :size="60" :color="'#828282'"/>
+        <form v-on:submit.prevent="validateBeforeSubmit" v-if="loader!=true">
+            
             <div class="form-row">
+                
                 <div class="form-group col-md-4">
-                    <label for="estado">Entidad federativa</label>    
-                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('entidad federativa') }" placeholder="Seleccione una entidad federativa"></v-select>
+                    <label class="col-form-label col-form-label-sm" for="estado">Entidad federativa</label>    
+                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('entidad federativa') || this.validacionesback.idEstado}" placeholder="Seleccione una entidad federativa"></v-select>
                     <span v-show="errors.has('entidad federativa')" class="text-danger">{{ errors.first('entidad federativa') }}</span>
+                    <span v-if="this.validacionesback.idEstado!=undefined" class="text-danger">{{ String(this.validacionesback.idEstado)}}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="municipio">Municipio</label>  
-                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || municipioV}" placeholder="Seleccione un municipio"></v-select>
-                    <span v-show="errors.has('municipio') || municipioV" class="text-danger">{{ errors.first('municipio') || municipioV[0]}}</span>
+                    <label class="col-form-label col-form-label-sm" for="municipio">Municipio</label>  
+                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || this.validacionesback.idMunicipio}" placeholder="Seleccione un municipio"></v-select>
+                    <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
+                    <span v-if="this.validacionesback.idMunicipio!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipio)}}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="localidad">Localidad</label>    
-                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') || localidadV}" placeholder="Seleccione una localidad"></v-select>
-                    <span v-show="errors.has('localidad')|| localidadV" class="text-danger">{{ errors.first('localidad') || localidadV[0]}}</span>
+                    <label class="col-form-label col-form-label-sm" for="localidad">Localidad</label>    
+                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') || this.validacionesback.idLocalidad}" placeholder="Seleccione una localidad"></v-select>
+                    <span v-show="errors.has('localidad')" class="text-danger">{{ errors.first('localidad')}}</span>
+                    <span v-if="this.validacionesback.idLocalidad!=undefined" class="text-danger">{{ String(this.validacionesback.idLocalidad)}}</span>
                 </div>
-            </div>
 
 
-            <div class="form-row">
+
                 <div class="form-group col-md-4">
-                    <label for="cp">Código postal</label>    
-                    <v-select :options="cp" label="codigoPostal" v-model="codigo_postal" name="codigo_postal" @input="getColonias"  v-validate="'required'" data-vv-name="código postal" :class="{ 'border border-danger': errors.has('código postal') }" placeholder="Seleccione un código postal"></v-select>
+                    <label class="col-form-label col-form-label-sm" for="codigoPostal">Código postal</label>    
+                    <v-select :options="codigosPostales" label="codigoPostal" v-model="codigoPostal" name="codigoPostal" @input="getColonias"  v-validate="'required'" data-vv-name="código postal" :class="{ 'border border-danger': errors.has('código postal') || this.validacionesback.idCodigoPostal}" placeholder="Seleccione un código postal"></v-select>
                     <span v-show="errors.has('código postal')" class="text-danger">{{ errors.first('código postal') }}</span>
+                    <span v-if="this.validacionesback.idCodigoPostal!=undefined" class="text-danger">{{ String(this.validacionesback.idCodigoPostal)}}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="colonia">Colonia</label>    
-                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia"  v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia')|| coloniaV }" placeholder="Seleccione una colonia"></v-select>
-                    <span v-show="errors.has('colonia')|| coloniaV" class="text-danger">{{ errors.first('colonia') || coloniaV[0]}}</span>
+                    <label class="col-form-label col-form-label-sm" for="colonia">Colonia</label>    
+                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia"  v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') || this.validacionesback.idColonia}" placeholder="Seleccione una colonia"></v-select>
+                    <span v-show="errors.has('colonia')" class="text-danger">{{ errors.first('colonia')}}</span>
+                    <span v-if="this.validacionesback.idColonia!=undefined" class="text-danger">{{ String(this.validacionesback.idColonia)}}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="calle">Calle</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('calle') || calleV}" id="calle" name="calle" v-validate="'required'" v-model="calle" placeholder="Ingrese la calle"  autocomplete="off">
-                    <span v-if="errors.has('calle') || calleV" class="text-danger">{{ errors.first('calle') || calleV[0]}}</span>
+                    <label class="col-form-label col-form-label-sm" for="calle">Calle</label>
+                    <input type="text" name="calle" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('calle') || this.validacionesback.calle}" v-model="calle" placeholder="Ingrese la calle" v-validate="'required'" autocomplete="off">
+                    <span v-show="errors.has('calle')" class="text-danger">{{ errors.first('calle')}}</span>
+                    <span v-if="this.validacionesback.calle!=undefined" class="text-danger">{{ String(this.validacionesback.calle)}}</span>
                 </div>
-            </div>
 
-            <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="numExterno">Número externo</label>
-                    <input type="text" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('número externo') || numExternoV}" id="numExterno" data-vv-name="número externo" name="numExterno" v-validate="'required'" v-model="numExterno" placeholder="Ingrese el número externo"  autocomplete="off">
-                    <span v-if="errors.has('número externo') || numExternoV" class="text-danger">{{ errors.first('número externo') || numExternoV[0]}}</span>
+                    <label class="col-form-label col-form-label-sm" for="numExterno">Número externo</label>
+                    <input type="text" data-vv-name="Número externo" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Número externo') || this.validacionesback.numExterno}" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'" autocomplete="off">
+                    <span v-show="errors.has('Número externo')" class="text-danger">{{ errors.first('Número externo')}}</span>
+                    <span v-if="this.validacionesback.numExterno!=undefined" class="text-danger">{{ String(this.validacionesback.numExterno)}}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="numInterno">Número interno</label>
-                    <input type="text" class="input form-control" id="numInterno" name="numInterno" v-model="numInterno" placeholder="Ingrese el número interno" autocomplete="off">
+                    <label class="col-form-label col-form-label-sm" for="numInterno">Número interno</label>
+                    <input type="text" name="numInterno" class="input form-control form-control-sm" v-model="numInterno" placeholder="Ingrese el número interno" autocomplete="off">
                 </div>
+
             </div>
             <!-- <h1>{{(estado!=null)?estado.id:estado}}</h1> -->
-            <button type="submit" class="btn">Guardar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+
         </form>
     </div>
 </template>
 
 <script>
 import swal from 'sweetalert2'
+import { SpringSpinner } from 'epic-spinners'
     export default {
         data(){
             return{
                 estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
                 municipio:null,
                 localidad:null,
-                codigo_postal:null,
+                codigoPostal:null,
                 colonia:null,
                 estados: [],
                 municipios: [],
                 localidades: [],
-                cp: [],
+                codigosPostales: [],
                 colonias: [],
                 calle: '',
                 numExterno: '',
                 numInterno: '',
-                municipioV:'',
-                localidadV:'',
-                coloniaV:'',
-                calleV:'',
-                numExternoV:''
+                validacionesback:'',
+                idDomicilio:'',
+                loader:true,
+                url:'/'
             }
         },
+        components: {SpringSpinner},
         mounted: function () {
             this.getEstados()
         },
         methods:{
             getEstados: function(){
-                var urlEstados = 'getEstados2';
+                var urlEstados = this.url+'getEstados';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
-                });
+                    var self=this;
+                    setTimeout(function(){ self.loader=false; }, 1100);                });
             },
             getMunicipios: function(){
                 if(this.estado!=null){
                     this.municipio=null,
                     this.localidad=null,
-                    this.codigo_postal=null,
+                    this.codigoPostal=null,
                     this.colonia=null
-                    var urlMunicipios = 'getMunicipios2/'+this.estado.id;
+                    var urlMunicipios = this.url+'getMunicipios/'+this.estado.id;
                     axios.get(urlMunicipios).then(response => {
                         this.municipios = response.data
                     });
@@ -104,53 +117,53 @@ import swal from 'sweetalert2'
                 else{
                     this.municipio=null,
                     this.localidad=null,
-                    this.codigo_postal=null,
+                    this.codigoPostal=null,
                     this.colonia=null,
                     this.municipios=[],
                     this.localidades=[],
-                    this.cp=[],
+                    this.codigosPostales=[],
                     this.colonias=[]
                 }
             },
             getLocalidades: function(){
                 if(this.municipio!=null){
                     this.localidad=null,
-                    this.codigo_postal=null,
+                    this.codigoPostal=null,
                     this.colonia=null
-                    var urlLocalidades = 'getLocalidades2/'+this.municipio.id;
+                    var urlLocalidades = this.url+'getLocalidades/'+this.municipio.id;
                     axios.get(urlLocalidades).then(response => {
                         this.localidades = response.data
                     });
                 }
                 else{
                     this.localidad=null,
-                    this.codigo_postal=null,
+                    this.codigoPostal=null,
                     this.colonia=null,
                     this.localidades=[],
-                    this.cp=[],
+                    this.codigosPostales=[],
                     this.colonias=[]
                 }
             },
             getCodigosPostales: function(){
                 if(this.municipio!=null){
-                    this.codigo_postal=null
+                    this.codigoPostal=null
                     this.colonia=null
-                    var urlCodigosPostales = 'getCodigosPostales2/'+this.municipio.id;
+                    var urlCodigosPostales = this.url+'getCodigosPostales/'+this.municipio.id;
                     axios.get(urlCodigosPostales).then(response => {
-                        this.cp = response.data
+                        this.codigosPostales = response.data
                     });
                 }
                 else{
-                    this.codigo_postal=null,
+                    this.codigoPostal=null,
                     this.colonia=null
-                    this.cp=[],
+                    this.codigosPostales=[],
                     this.colonias=[]
                 }
             },
             getColonias: function(){
-                if(this.codigo_postal!=null){
+                if(this.codigoPostal!=null){
                     this.colonia=null
-                    var urlColonias = 'getColonias2/'+this.codigo_postal.id;
+                    var urlColonias = this.url+'getColonias/'+this.codigoPostal.id;
                     axios.get(urlColonias).then(response => {
                         this.colonias = response.data
                     });
@@ -167,7 +180,7 @@ import swal from 'sweetalert2'
                 this.estado={ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
                 this.municipio=null,
                 this.localidad=null,
-                this.codigo_postal=null,
+                this.codigoPostal=null,
                 this.colonia=null
                 this.$validator.reset();
             },
@@ -175,7 +188,6 @@ import swal from 'sweetalert2'
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         this.crearDomicilio();
-                        this.CleanFields();
                         return;
                     }
                     swal({
@@ -187,18 +199,19 @@ import swal from 'sweetalert2'
                 });
             },
             crearDomicilio: function(){
-                var urlDomicilio = 'addDomicilio';
+                this.validacionesback='';
+                var urlDomicilio = this.url+'addDomicilio';
                 axios.post(urlDomicilio,{
                     estado: this.estado.id,
                     municipio: this.municipio.id,
                     localidad: this.localidad.id,
                     colonia: this.colonia.id,
-                    codigo_postal: this.codigo_postal.id,
+                    codigoPostal: this.codigoPostal.id,
                     calle: this.calle.toUpperCase(),
                     numExterno: this.numExterno.toUpperCase(),
                     numInterno: this.numInterno.toUpperCase(),
                 }).then((response)=>{
-                    console.log(response.data)
+                    this.idDomicilio = response.data
                     swal({
                         title: '¡Guardado Correctamente!',
                         text: 'Éste domicilio fue guardado exitosamente.',
@@ -206,11 +219,7 @@ import swal from 'sweetalert2'
                         confirmButtonText: 'Ok'
                     }).catch((error)=>{
                         console.log(error.response.data.errors);
-                        this.municipioV = error.response.data.errors.municipio,
-                        this.localidadV = error.response.data.errors.localidad,
-                        this.coloniaV = error.response.data.errors.colonia,
-                        this.calleV = error.response.data.errors.calle,
-                        this.numExternoV = error.response.data.errors.numExterno
+                        this.validacionesback = error.response.data.errors
                         swal({
                             title: '¡Guardado Incorrecto!',
                             text: 'Éste domicilio no fue posible guardarse.',
@@ -224,25 +233,25 @@ import swal from 'sweetalert2'
     }
 </script>
 <style>
-.select{
-    font-family: inherit
-}
-.form-control:focus {
-  color: #6d6d6d;
-  background-color: #fff;
-  border-color: #828282;
-  outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(66, 66, 66, 0.25);
-}
-button{
-    background-color: #424242;
-    border-color: #424242;
-    color: white;
+.dropdown-toggle{
+    height: 36px;
+    overflow: hidden;
 }
 input{
     text-transform: uppercase
 }
-::placeholder{
-    text-transform: none
+input.form-control{
+    width: 100% !important;
+}
+.dropdown{
+    font-family: inherit;
+    font-size: .875rem;
+}
+.centrar{
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-left: -30px;
+    margin-top: -30px;
 }
 </style>
