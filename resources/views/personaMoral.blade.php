@@ -11,7 +11,7 @@
   </head>
   <body>
     <div id="app">
-        <personamoral></personamoral>        
+        <personamoral :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciadomoral'"></personamoral>        
     </div>    
     <!--<button id="btn2">console.log idvarpersonamoral</button>-->
   </body> 
