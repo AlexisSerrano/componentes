@@ -60,7 +60,9 @@ Route::get('resumen', function(){
     return view('resumen');
 });
 
-
+Route::get('registro', function(){
+    return view('registro');
+});
 
 /*PRUEBAS */
 Route::get('prueba', function(){
