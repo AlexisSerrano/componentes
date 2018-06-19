@@ -35,6 +35,7 @@ Vue.component('datoscontactos',require('./components/DatosContactosComponent.vue
 Vue.component('datoslaborales',require('./components/DatosLaboralesComponent.vue'));
 Vue.component('extrasinvestigado',require('./components/ExtrasInvestigadoComponent.vue'));
 Vue.component('extrasabogado',require('./components/ExtrasAbogadoComponent.vue'));
+Vue.component('extrasdenunciante',require('./components/ExtrasDenuncianteComponent.vue'));
 const app = new Vue({
     el: '#app'
 });
