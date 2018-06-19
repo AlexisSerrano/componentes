@@ -47,6 +47,9 @@ Route::get('getLocalidades/{id}','DomicilioController@getLocalidades');
 Route::get('getColonias/{id}','DomicilioController@getColonias');
 Route::get('getCodigosPostales/{id}','DomicilioController@getCodigosPostales');
 
+/*URLS COMPONENTES EXTRA*/
+Route::get('/extrasInvestigado','ExtrasInvestigadoController@index');
+
 
 Route::get('dt', function () {
     return view('DT');

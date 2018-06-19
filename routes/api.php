@@ -60,3 +60,5 @@ Route::post('getAbogadosCarpetaUAT','ApiControllerUAT@getAbogadosCarpeta');
   "idCarpeta": 1
 }
 */
+
+Route::post('getPuestos','ExtrasInvestigadoController@getPuestos');

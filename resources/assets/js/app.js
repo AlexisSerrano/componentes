@@ -33,6 +33,7 @@ Vue.component('persona', require('./components/personaComponent.vue'));
 Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
 Vue.component('datoscontactos',require('./components/DatosContactosComponent.vue'));
 Vue.component('datoslaborales',require('./components/DatosLaboralesComponent.vue'));
+Vue.component('extrasinvestigado',require('./components/ExtrasInvestigadoComponent.vue'));
 const app = new Vue({
     el: '#app'
 });
