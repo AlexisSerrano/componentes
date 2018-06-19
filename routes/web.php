@@ -49,6 +49,7 @@ Route::get('getCodigosPostales/{id}','DomicilioController@getCodigosPostales');
 
 /*URLS COMPONENTES EXTRA*/
 Route::get('/extrasInvestigado','ExtrasInvestigadoController@index');
+Route::get('/extrasAbogado','ExtrasAbogadoController@index');
 
 
 Route::get('dt', function () {
