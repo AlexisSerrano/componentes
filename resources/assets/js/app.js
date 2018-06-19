@@ -33,6 +33,7 @@ Vue.component('persona', require('./components/personaComponent.vue'));
 Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
 Vue.component('datoscontactos',require('./components/DatosContactosComponent.vue'));
 Vue.component('datoslaborales',require('./components/DatosLaboralesComponent.vue'));
+Vue.component('registro',require('./components/RegistroComponent.vue'));
 Vue.component('extrasinvestigado',require('./components/ExtrasInvestigadoComponent.vue'));
 Vue.component('extrasabogado',require('./components/ExtrasAbogadoComponent.vue'));
 Vue.component('extrasdenunciante',require('./components/ExtrasDenuncianteComponent.vue'));

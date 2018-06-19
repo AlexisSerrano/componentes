@@ -14,8 +14,8 @@
                 </div>
             </div>
         </div>
-        <personafisica v-if="persona==1" :sistema="sistema" :tipo="tipo"></personafisica>
-        <personamoral v-if="persona==2" :sistema="sistema"></personamoral>
+        <personafisica v-if="persona==1" :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciante'"></personafisica>
+        <personamoral v-if="persona==2" :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciantemoral'"></personamoral>   
     </div>
 </template>
 
