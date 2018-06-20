@@ -33,6 +33,17 @@ Vue.component('persona', require('./components/personaComponent.vue'));
 Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
 Vue.component('datoscontactos',require('./components/DatosContactosComponent.vue'));
 Vue.component('datoslaborales',require('./components/DatosLaboralesComponent.vue'));
+Vue.component('registrodenunciante',require('./components/RegistroDenuncianteComponent.vue'));
+Vue.component('registroabogado',require('./components/RegistroAbogadoComponent.vue'));
+Vue.component('registroautoridad',require('./components/RegistroAutoridadComponent.vue'));
+Vue.component('registrodenunciado',require('./components/RegistroDenunciadoComponent.vue'));
+Vue.component('denunciantefisico',require('./components/DenuncianteFisicoComponent.vue'));
+Vue.component('denunciantemoral',require('./components/DenuncianteMoralComponent.vue'));
+Vue.component('denunciadofisico',require('./components/DenunciadoFisicoComponent.vue'));
+Vue.component('denunciadomoral',require('./components/DenunciadoMoralComponent.vue'));
+Vue.component('extrasinvestigado',require('./components/ExtrasInvestigadoComponent.vue'));
+Vue.component('extrasabogado',require('./components/ExtrasAbogadoComponent.vue'));
+Vue.component('extrasdenunciante',require('./components/ExtrasDenuncianteComponent.vue'));
 const app = new Vue({
     el: '#app'
 });

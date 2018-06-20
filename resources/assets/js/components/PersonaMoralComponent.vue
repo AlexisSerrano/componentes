@@ -54,11 +54,11 @@
 
 
 
-            <div class="form-row mt-3">
+            <!-- <div class="form-row mt-3">
                 <div class="form-group col-md-5">
                     <button type="submit" class="btn btn-primary mr-1">Guardar</button>
                 </div>
-            </div>
+            </div> -->
 
         </form>
     </div>

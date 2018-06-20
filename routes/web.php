@@ -18,6 +18,10 @@ Route::get('getLocalidades/{id}','DomicilioController@getLocalidades');
 Route::get('getColonias/{id}','DomicilioController@getColonias');
 Route::get('getCodigosPostales/{id}','DomicilioController@getCodigosPostales');
 
+/*URLS COMPONENTES EXTRA*/
+Route::get('/extrasInvestigado','ExtrasInvestigadoController@index');
+Route::get('/extrasAbogado','ExtrasAbogadoController@index');
+Route::get('/extrasDenunciante','ExtrasDenuncianteController@index');
 
 Route::get('dt', function () {
     return view('DT');
@@ -25,6 +29,26 @@ Route::get('dt', function () {
 
 Route::get('datoscontactos', function(){
     return view('DatosContactos');
+});
+
+Route::get('resumen', function(){
+    return view('resumen');
+});
+
+Route::get('registroDenunciante', function(){
+    return view('registroDenunciante');
+});
+
+Route::get('registroAbogado', function(){
+    return view('registroAbogado');
+});
+
+Route::get('registroAutoridad', function(){
+    return view('registroAutoridad');
+});
+
+Route::get('registroDenunciado', function(){
+    return view('registroDenunciado');
 });
 
 /*PRUEBAS */

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <title>Domicilio</title>
+    <title>Registro Denunciado</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,7 +11,7 @@
   </head>
   <body>
 	    <div id="app">
-            <domicilio :tipo="''"></domicilio>
+            <registrodenunciado></registrodenunciado>
 	    </div>
   </body> 
 

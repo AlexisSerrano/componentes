@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <title>Persona</title>
+    <title>Datos Extras denunciante</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,7 +11,7 @@
   </head>
   <body>
     <div id="app">
-        <personamoral :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciadomoral'"></personamoral>        
+        <extrasdenunciante></extrasdenunciante>        
     </div>    
     <!--<button id="btn2">console.log idvarpersonamoral</button>-->
   </body> 

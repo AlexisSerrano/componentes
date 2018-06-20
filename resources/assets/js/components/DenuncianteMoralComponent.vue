@@ -1,0 +1,40 @@
+<template>
+    <div>
+        <!-- MENÚ -->
+        <div class="container-fluid">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="denunciante-personamoral-tab" data-toggle="pill" href="#pills-denunciante-personamoral" role="tab" aria-controls="pills-denunciante-personamoral" aria-selected="true">Datos Personales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="denunciante-domiciliomoral-tab" data-toggle="pill" href="#pills-denunciante-domiciliomoral" role="tab" aria-controls="pills-denunciante-domiciliomoral" aria-selected="false">Domicilio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="denunciante-notificacionesmoral-tab" data-toggle="pill" href="#pills-denunciante-notificacionesmoral" role="tab" aria-controls="#pills-denunciante-notificacionesmoral" aria-selected="false">Domicilio para notificaciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="denunciante-extramoral-tab" data-toggle="pill" href="#pills-denunciante-extramoral" role="tab" aria-controls="pills-denunciante-extramoral" aria-selected="false">Datos de la víctima u ofendido</a>
+                </li>
+            </ul>
+        </div>
+        <!-- MENÚ -->
+
+
+        <!-- OPCIONES -->
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-denunciante-personamoral" role="tabpanel" aria-labelledby="denunciante-personamoral-tab">
+                <personafisica :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciante'"></personafisica>
+            </div>
+            <div class="tab-pane fade" id="pills-denunciante-domiciliomoral" role="tabpanel" aria-labelledby="denunciante-domiciliomoral-tab">
+                <domicilio></domicilio>
+            </div>
+            <div class="tab-pane fade" id="pills-denunciante-notificacionesmoral" role="tabpanel" aria-labelledby="denunciante-notificacionesmoral-tab">
+                <domicilio :tipo="'contacto'"></domicilio>
+            </div>
+            <div class="tab-pane fade" id="pills-denunciante-extramoral" role="tabpanel-moral" aria-labelledby="denunciante-extramoral-tab">
+                <extrasdenunciante :sistema="'uat'"></extrasdenunciante>
+            </div>
+        </div>
+        <!-- OPCIONES -->
+    </div>
+</template>

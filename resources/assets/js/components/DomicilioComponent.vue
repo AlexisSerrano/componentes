@@ -47,6 +47,8 @@
                     <span v-if="this.validacionesback.calle!=undefined" class="text-danger">{{ String(this.validacionesback.calle)}}</span>
                 </div>
 
+
+
                 <div class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="numExterno">Número externo</label>
                     <input type="text" data-vv-name="Número externo" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Número externo') || this.validacionesback.numExterno}" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'" autocomplete="off">
@@ -57,10 +59,25 @@
                     <label class="col-form-label col-form-label-sm" for="numInterno">Número interno</label>
                     <input type="text" name="numInterno" class="input form-control form-control-sm" v-model="numInterno" placeholder="Ingrese el número interno" autocomplete="off">
                 </div>
+                <div v-if="this.tipo!=''" class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
+                    <input type="text" name="telefono" class="input form-control form-control-sm" v-model="telefono" placeholder="Ingrese el teléfono" autocomplete="off">
+                </div>
+
+
+
+                <div v-if="tipo=='trabajo'" class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="lugarTrabajo">Lugar de trabajo</label>
+                    <input type="text" name="lugarTrabajo" class="input form-control form-control-sm" v-model="lugarTrabajo" placeholder="Ingrese el lugar de trabajo" autocomplete="off">
+                </div>
+                <div v-if="tipo=='contacto'" class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="correo">Correo</label>
+                    <input type="text" name="correo" class="input form-control form-control-sm" v-model="correo" placeholder="Ingrese el correo" autocomplete="off">
+                </div>
 
             </div>
             <!-- <h1>{{(estado!=null)?estado.id:estado}}</h1> -->
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <!-- <button type="submit" class="btn btn-primary">Guardar</button> -->
 
         </form>
     </div>
@@ -88,7 +105,15 @@ import { SpringSpinner } from 'epic-spinners'
                 validacionesback:'',
                 idDomicilio:'',
                 loader:true,
+                telefono:'',
+                lugarTrabajo:'',
+                correo:'',
                 url:'/'
+            }
+        },
+        props:{
+            tipo:{
+                default:''
             }
         },
         components: {SpringSpinner},
@@ -201,16 +226,47 @@ import { SpringSpinner } from 'epic-spinners'
             crearDomicilio: function(){
                 this.validacionesback='';
                 var urlDomicilio = this.url+'addDomicilio';
-                axios.post(urlDomicilio,{
-                    estado: this.estado.id,
-                    municipio: this.municipio.id,
-                    localidad: this.localidad.id,
-                    colonia: this.colonia.id,
-                    codigoPostal: this.codigoPostal.id,
-                    calle: this.calle.toUpperCase(),
-                    numExterno: this.numExterno.toUpperCase(),
-                    numInterno: this.numInterno.toUpperCase(),
-                }).then((response)=>{
+                if(this.tipo==''){
+                    var data={
+                        estado: this.estado.id,
+                        municipio: this.municipio.id,
+                        localidad: this.localidad.id,
+                        colonia: this.colonia.id,
+                        codigoPostal: this.codigoPostal.id,
+                        calle: this.calle.toUpperCase(),
+                        numExterno: this.numExterno.toUpperCase(),
+                        numInterno: this.numInterno.toUpperCase()
+                    };
+                }
+                else if (this.tipo=='trabajo'){
+                    var data={
+                        estado: this.estado.id,
+                        municipio: this.municipio.id,
+                        localidad: this.localidad.id,
+                        colonia: this.colonia.id,
+                        codigoPostal: this.codigoPostal.id,
+                        calle: this.calle.toUpperCase(),
+                        numExterno: this.numExterno.toUpperCase(),
+                        numInterno: this.numInterno.toUpperCase(),
+                        telefonoTrabajo: this.telefono,
+                        lugarTrabajo: this.lugarTrabajo.toUpperCase()
+                    };
+                }
+                else if(this.tipo=='contacto'){
+                    var data={
+                        estado: this.estado.id,
+                        municipio: this.municipio.id,
+                        localidad: this.localidad.id,
+                        colonia: this.colonia.id,
+                        codigoPostal: this.codigoPostal.id,
+                        calle: this.calle.toUpperCase(),
+                        numExterno: this.numExterno.toUpperCase(),
+                        numInterno: this.numInterno.toUpperCase(),
+                        telefonoContacto: this.telefono,
+                        correoContacto: this.correo.toUpperCase()
+                    };
+                }
+                axios.post(urlDomicilio,data).then((response)=>{
                     this.idDomicilio = response.data
                     swal({
                         title: '¡Guardado Correctamente!',
