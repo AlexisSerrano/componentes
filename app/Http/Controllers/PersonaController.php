@@ -32,13 +32,21 @@ class PersonaController extends Controller{
 		$personaExisteP = DB::table('persona_fisica')
 		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
 		->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
+		->join('cat_etnia','cat_etnia.id','=','persona_fisica.idEtnia')
+		->join('cat_lengua','cat_lengua.id','=','persona_fisica.idLengua')
+		->join('cat_municipio','cat_municipio.id','=','persona_fisica.idMunicipioOrigen')
+		->join('cat_ocupacion', 'variables_persona_fisica.idOcupacion', '=', 'cat_ocupacion.id')
 		->where('rfc',$persona)
 		->orwhere('curp',$persona)
 		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
 		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
 		'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
 		'variables_persona_fisica.numDocIdentificacion','variables_persona_fisica.alias','variables_persona_fisica.id',
-		'cat_nacionalidad.id as idNacionalidad','cat_nacionalidad.nombre as nombreNacionalidad')->first();
+		'cat_nacionalidad.id as idNacionalidad','cat_nacionalidad.nombre as nombreNacionalidad',
+		'cat_etnia.id as idEtnia','cat_etnia.nombre as nombreEtnia',
+		'cat_lengua.id as idLengua','cat_lengua.nombre as nombreLengua',
+		'cat_municipio.id as idMunOrigen','cat_municipio.nombre as nombreMunOrigen',
+		'cat_ocupacion.id as idOcupacion','cat_ocupacion.nombre as nombreOcupacion')->first();
 
         $personaExiste=PersonaModel::orderBy('rfc', 'ASC')
 		->where('rfc',$persona)
@@ -48,18 +56,6 @@ class PersonaController extends Controller{
 			$personaExiste2=VariablesPersona::orderBy('id','DESC')
 			->where('idPersona',$personaExiste->id)
 			->select('id','telefono','edad','motivoEstancia','idOcupacion','idEstadoCivil','idEscolaridad','idReligion','idDomicilio','docIdentificacion','idInterprete','numDocIdentificacion','idDomicilioTrabajo','alias')->first();
-			$nacionalidad=NacionalidadesModel::orderBy('id','Asc')
-			->where('id',$personaExiste->idNacionalidad)
-			->select('nombre','id')->first();
-			$municipio=CatMunicipio::orderBy('id','Asc')
-			->where('id',$personaExiste->idMunicipioOrigen)
-			->select('nombre','id')->first();
-			$etnia=EtniaModel::orderBy('id','Asc')
-			->where('id',$personaExiste->idEtnia)
-			->select('nombre','id')->first();
-			$lengua=LenguasModel::orderBy('id','Asc')
-			->where('id',$personaExiste->idLengua)
-			->select('nombre','id')->first();
 			$estadoCivil=CatEstadoCivil::orderBy('id','Asc')
 			->where('id',$personaExiste2->idEstadoCivil)
 			->select('nombre','id')->first();
@@ -68,9 +64,6 @@ class PersonaController extends Controller{
 			->select('nombre','id')->first();
 			$religion=CatReligion::orderBy('id','Asc')
 			->where('id',$personaExiste2->idReligion)
-			->select('nombre','id')->first();
-			$ocupacion=CatOcupacion::orderBy('id','Asc')
-			->where('id',$personaExiste2->idOcupacion)
 			->select('nombre','id')->first();
 			$identificacion=CatIdentificacion::orderBy('id','Asc')
 			->where('id',$personaExiste2->docIdentificacion)
@@ -95,15 +88,14 @@ class PersonaController extends Controller{
 				'rfc'=>$personaExisteP->rfc,
 				'curp'=>$personaExisteP->curp,
 				'sexo'=>$sexo,
-				'idNacionalidad'=>$nacionalidad,
-				//'idNacionalidad' => (object)array($personaExisteP->nombreNacionalidad => $personaExisteP->idNacionalidad),
-				'idEtnia'=>$etnia,
-				'idLengua'=>$lengua,
-				'idMunicipioOrigen'=>$municipio,
+				'idNacionalidad' => array("nombre"=>$personaExisteP->nombreNacionalidad, "id"=>$personaExisteP->idNacionalidad),
+				'idEtnia'=>array("nombre"=>$personaExisteP->nombreEtnia, "id"=>$personaExisteP->idEtnia),
+				'idLengua'=>array("nombre"=>$personaExisteP->nombreLengua, "id"=>$personaExisteP->idLengua),
+				'idMunicipioOrigen'=>array("nombre"=>$personaExisteP->nombreMunOrigen, "id"=>$personaExisteP->idMunOrigen),
 				'idEstado'=>$estado,
 				'edad'=>$personaExisteP->edad,
 				'motivoEstancia'=>$personaExisteP->motivoEstancia,
-				'idOcupacion'=>$ocupacion,
+				'idOcupacion'=>array("nombre"=>$personaExisteP->nombreOcupacion, "id"=>$personaExisteP->idOcupacion),
 				'idEstadoCivil'=>$estadoCivil,
 				'idEscolaridad'=>$escolaridad,
 				'idReligion'=>$religion,
