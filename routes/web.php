@@ -22,6 +22,7 @@ Route::get('getCodigosPostales/{id}','DomicilioController@getCodigosPostales');
 Route::get('/extrasInvestigado','ExtrasInvestigadoController@index');
 Route::get('/extrasAbogado','ExtrasAbogadoController@index');
 Route::get('/extrasDenunciante','ExtrasDenuncianteController@index');
+Route::get('/extrasAutoridad','ExtrasAutoridadController@index');
 
 Route::get('dt', function () {
     return view('DT');
