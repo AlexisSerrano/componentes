@@ -32314,6 +32314,7 @@ Vue.component('denunciantefisico', __webpack_require__(309));
 Vue.component('denunciantemoral', __webpack_require__(325));
 Vue.component('extrasinvestigado', __webpack_require__(311));
 Vue.component('extrasabogado', __webpack_require__(316));
+Vue.component('extrasdenunciante', __webpack_require__(327));
 var app = new Vue({
   el: '#app'
 });
@@ -84480,6 +84481,361 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-0c000e36", module.exports)
+  }
+}
+
+/***/ }),
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(328)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(330)
+/* template */
+var __vue_template__ = __webpack_require__(331)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\ExtrasDenuncianteComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0115652d", Component.options)
+  } else {
+    hotAPI.reload("data-v-0115652d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(329);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("acda96a2", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0115652d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExtrasDenuncianteComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0115652d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExtrasDenuncianteComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 329 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\ninput{\r\n    text-transform: uppercase\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 330 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            identidadRes: '',
+            tipoSolicitante: '',
+            descripcionHechos: '',
+            ident: ['No', 'Si'],
+            validacionesback: [],
+            identidad: '',
+            //url:'/api'
+            url: 'http://localhost/componentes/public/api'
+        };
+    },
+
+    props: {
+        sistema: {
+            default: ''
+        }
+    },
+    created: function created() {
+        //            this.getPuestos();
+    },
+    methods: {
+        getPuestos: function getPuestos() {
+            var _this = this;
+
+            var urlPuestos = this.url + '/getPuestos';
+            axios.post(urlPuestos).then(function (response) {
+                _this.puestos = response.data;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.validateBeforeSubmit($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "form-row" }, [
+          _c(
+            "div",
+            { staticClass: "form-group col-md-3" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "col-form-label col-form-label-sm",
+                  attrs: { for: "identidad" }
+                },
+                [_vm._v(" Identidad resguardada ")]
+              ),
+              _vm._v(" "),
+              _c("v-select", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                class: {
+                  "border border-danger rounded": _vm.errors.has("identidad")
+                },
+                attrs: {
+                  options: _vm.ident,
+                  label: "nombre",
+                  name: "identidad",
+                  placeholder: "Seleccione"
+                },
+                model: {
+                  value: _vm.identidad,
+                  callback: function($$v) {
+                    _vm.identidad = $$v
+                  },
+                  expression: "identidad"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("identidad"),
+                      expression: "errors.has('identidad')"
+                    }
+                  ],
+                  staticClass: "text-danger"
+                },
+                [_vm._v(_vm._s(_vm.errors.first("identidad")))]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group col-md-3" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "col-form-label col-form-label-sm",
+                  attrs: { for: "identidad" }
+                },
+                [_vm._v(" Tipo de solicitante ")]
+              ),
+              _vm._v(" "),
+              _c("v-select", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                class: {
+                  "border border-danger rounded": _vm.errors.has("identidad")
+                },
+                attrs: {
+                  options: _vm.ident,
+                  label: "nombre",
+                  name: "identidad",
+                  placeholder: "Seleccione"
+                },
+                model: {
+                  value: _vm.identidad,
+                  callback: function($$v) {
+                    _vm.identidad = $$v
+                  },
+                  expression: "identidad"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("identidad"),
+                      expression: "errors.has('identidad')"
+                    }
+                  ],
+                  staticClass: "text-danger"
+                },
+                [_vm._v(_vm._s(_vm.errors.first("identidad")))]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { staticClass: "col-form-label-sm" }, [
+                _vm._v("Descripcion de los hechos")
+              ]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.descripcionHechos,
+                    expression: "descripcionHechos"
+                  }
+                ],
+                staticClass: "form-control form-control-sm",
+                attrs: {
+                  cols: "30",
+                  rows: "5",
+                  placeholder: "Ingrese la descripcón de los hechos"
+                },
+                domProps: { value: _vm.descripcionHechos },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.descripcionHechos = $event.target.value
+                  }
+                }
+              })
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0115652d", module.exports)
   }
 }
 
