@@ -64,8 +64,8 @@ Route::get('resumen', function(){
     return view('resumen');
 });
 
-Route::get('registro', function(){
-    return view('registro');
+Route::get('registroDenunciante', function(){
+    return view('registroDenunciante');
 });
 
 /*PRUEBAS */

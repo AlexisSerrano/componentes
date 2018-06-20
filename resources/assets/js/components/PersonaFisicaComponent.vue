@@ -525,34 +525,36 @@ import moment from 'moment'
                     this.idPersona=1;       
                     return        
                 }
-                axios.post(urlCrearPersona,data)
-                .then (response =>{
-                    this.idPersona = response.data
-                    if(idPersona){
+                if(data){
+                    axios.post(urlCrearPersona,data)
+                    .then (response =>{
+                        this.idPersona = response.data
+                        if(idPersona){
+                            swal({
+                                title: '¡Guardado correctamente!',
+                                text: 'Ésta persona fue guardada exitosamente.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                        else{
+                            swal({
+                                title: '¡Guardado incorrecto!',
+                                text: 'Ésta persona no fue posible guardarla.',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }).catch((error)=>{
+                        this.validacionesback = error.response.data.errors;
                         swal({
-                            title: '¡Guardado correctamente!',
-                            text: 'Ésta persona fue guardada exitosamente.',
-                            type: 'success',
-                            confirmButtonText: 'Ok'
+                        title: '¡Guardado incorrecto!',
+                        text: 'Ésta persona no fue posible guardarla.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
                         })
-                    }
-                    else{
-                        swal({
-                            title: '¡Guardado incorrecto!',
-                            text: 'Ésta persona no fue posible guardarla.',
-                            type: 'error',
-                            confirmButtonText: 'Ok'
-                        })
-                    }
-                }).catch((error)=>{
-                    this.validacionesback = error.response.data.errors;
-                    swal({
-                    title: '¡Guardado incorrecto!',
-                    text: 'Ésta persona no fue posible guardarla.',
-                    type: 'error',
-                    confirmButtonText: 'Ok'
-                    })
-                });
+                    });
+                }
             }
         },
        watch:{

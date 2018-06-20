@@ -5307,33 +5307,6 @@ module.exports = {
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -6472,6 +6445,33 @@ module.exports = g;
 "  100% {\n" +
 "    -webkit-transform: rotate(360deg);\n" +
 "            transform: rotate(360deg); } }");
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 7 */
@@ -9335,7 +9335,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(6)))
 
 /***/ }),
 /* 12 */
@@ -32261,7 +32261,7 @@ function actualizarCurp(curp) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(144);
-module.exports = __webpack_require__(309);
+module.exports = __webpack_require__(321);
 
 
 /***/ }),
@@ -32309,9 +32309,11 @@ Vue.component('persona', __webpack_require__(286));
 Vue.component('domicilio', __webpack_require__(291));
 Vue.component('datoscontactos', __webpack_require__(296));
 Vue.component('datoslaborales', __webpack_require__(299));
-Vue.component('registro', __webpack_require__(304));
-Vue.component('extrasinvestigado', __webpack_require__(313));
-Vue.component('extrasabogado', __webpack_require__(318));
+Vue.component('registrodenunciante', __webpack_require__(304));
+Vue.component('denunciantefisico', __webpack_require__(309));
+Vue.component('denunciantemoral', __webpack_require__(325));
+Vue.component('extrasinvestigado', __webpack_require__(311));
+Vue.component('extrasabogado', __webpack_require__(316));
 var app = new Vue({
   el: '#app'
 });
@@ -49485,7 +49487,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(10)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(10)(module)))
 
 /***/ }),
 /* 147 */
@@ -54602,7 +54604,7 @@ return Promise$1;
 
 //# sourceMappingURL=es6-promise.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(6)))
 
 /***/ }),
 /* 149 */
@@ -66456,7 +66458,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(169).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(169).setImmediate))
 
 /***/ }),
 /* 169 */
@@ -66526,7 +66528,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
 /* 170 */
@@ -66719,7 +66721,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(7)))
 
 /***/ }),
 /* 171 */
@@ -71974,7 +71976,7 @@ module.exports = function listToStyles (parentId, list) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__curp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_epic_spinners__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment__ = __webpack_require__(0);
@@ -72469,32 +72471,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.idPersona = 1;
                 return;
             }
-            axios.post(urlCrearPersona, data).then(function (response) {
-                _this5.idPersona = response.data;
-                if (idPersona) {
-                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                        title: '¡Guardado correctamente!',
-                        text: 'Ésta persona fue guardada exitosamente.',
-                        type: 'success',
-                        confirmButtonText: 'Ok'
-                    });
-                } else {
+            if (data) {
+                axios.post(urlCrearPersona, data).then(function (response) {
+                    _this5.idPersona = response.data;
+                    if (idPersona) {
+                        __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                            title: '¡Guardado correctamente!',
+                            text: 'Ésta persona fue guardada exitosamente.',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                    } else {
+                        __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                            title: '¡Guardado incorrecto!',
+                            text: 'Ésta persona no fue posible guardarla.',
+                            type: 'error',
+                            confirmButtonText: 'Ok'
+                        });
+                    }
+                }).catch(function (error) {
+                    _this5.validacionesback = error.response.data.errors;
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                         title: '¡Guardado incorrecto!',
                         text: 'Ésta persona no fue posible guardarla.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     });
-                }
-            }).catch(function (error) {
-                _this5.validacionesback = error.response.data.errors;
-                __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                    title: '¡Guardado incorrecto!',
-                    text: 'Ésta persona no fue posible guardarla.',
-                    type: 'error',
-                    confirmButtonText: 'Ok'
                 });
-            });
+            }
         }
     },
     watch: {
@@ -78755,7 +78759,7 @@ exports.push([module.i, "\ninput{\r\n    text-transform: uppercase\n}\r\n", ""])
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
 //
 //
@@ -79806,7 +79810,7 @@ exports.push([module.i, "\n.dropdown-toggle{\r\n    height: 36px;\r\n    overflo
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_epic_spinners__ = __webpack_require__(19);
 //
@@ -80843,7 +80847,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
 //
 //
@@ -81933,7 +81937,7 @@ exports.push([module.i, "\n.select{\r\n    font-family: inherit\n}\n.form-contro
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
 //
 //
@@ -82203,7 +82207,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6e16aaa3"
+var __vue_scopeId__ = "data-v-5ef7a986"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -82214,7 +82218,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\RegistroComponent.vue"
+Component.options.__file = "resources\\assets\\js\\components\\RegistroDenuncianteComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -82223,9 +82227,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6e16aaa3", Component.options)
+    hotAPI.createRecord("data-v-5ef7a986", Component.options)
   } else {
-    hotAPI.reload("data-v-6e16aaa3", Component.options)
+    hotAPI.reload("data-v-5ef7a986", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -82246,13 +82250,13 @@ var content = __webpack_require__(306);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("c5a3a9e0", content, false, {});
+var update = __webpack_require__(3)("2b71e3fe", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6e16aaa3\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RegistroComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6e16aaa3\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RegistroComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5ef7a986\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RegistroDenuncianteComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5ef7a986\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RegistroDenuncianteComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -82270,7 +82274,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -82281,41 +82285,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -82359,8 +82328,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
     _c(
       "div",
       { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
@@ -82458,7 +82425,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("personafisica", {
+            _c("denunciantefisico", {
               directives: [
                 {
                   name: "show",
@@ -82466,11 +82433,10 @@ var render = function() {
                   value: _vm.persona == 1,
                   expression: "persona==1"
                 }
-              ],
-              attrs: { sistema: "uat", carpeta: "xx", tipo: "denunciante" }
+              ]
             }),
             _vm._v(" "),
-            _c("personamoral", {
+            _c("denunciantemoral", {
               directives: [
                 {
                   name: "show",
@@ -82478,8 +82444,100 @@ var render = function() {
                   value: _vm.persona == 2,
                   expression: "persona==2"
                 }
-              ],
-              attrs: { sistema: "uat", carpeta: "xx", tipo: "denunciantemoral" }
+              ]
+            })
+          ],
+          1
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5ef7a986", module.exports)
+  }
+}
+
+/***/ }),
+/* 309 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(310)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\DenuncianteFisicoComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9ece0ab6", Component.options)
+  } else {
+    hotAPI.reload("data-v-9ece0ab6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 310 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade show active",
+            attrs: {
+              id: "pills-denunciante-personafisico",
+              role: "tabpanel",
+              "aria-labelledby": "denunciante-personafisico-tab"
+            }
+          },
+          [
+            _c("personafisica", {
+              attrs: { sistema: "uat", carpeta: "xx", tipo: "denunciante" }
             })
           ],
           1
@@ -82490,9 +82548,9 @@ var render = function() {
           {
             staticClass: "tab-pane fade",
             attrs: {
-              id: "pills-domicilio",
+              id: "pills-denunciante-domiciliofisico",
               role: "tabpanel",
-              "aria-labelledby": "pills-profile-tab"
+              "aria-labelledby": "denunciante-domiciliofisico-tab"
             }
           },
           [_c("domicilio")],
@@ -82504,9 +82562,9 @@ var render = function() {
           {
             staticClass: "tab-pane fade",
             attrs: {
-              id: "pills-trabajo",
+              id: "pills-denunciante-trabajofisico",
               role: "tabpanel",
-              "aria-labelledby": "pills-contact-tab"
+              "aria-labelledby": "denunciante-trabajofisico-tab"
             }
           },
           [_c("domicilio", { attrs: { tipo: "trabajo" } })],
@@ -82518,9 +82576,9 @@ var render = function() {
           {
             staticClass: "tab-pane fade",
             attrs: {
-              id: "pills-notificaciones",
+              id: "pills-denunciante-notificacionesfisico",
               role: "tabpanel",
-              "aria-labelledby": "pills-contact-tab"
+              "aria-labelledby": "denunciante-notificacionesfisico-tab"
             }
           },
           [_c("domicilio", { attrs: { tipo: "contacto" } })],
@@ -82532,12 +82590,13 @@ var render = function() {
           {
             staticClass: "tab-pane fade",
             attrs: {
-              id: "pills-extra",
-              role: "tabpanel",
-              "aria-labelledby": "pills-contact-tab"
+              id: "pills-denunciante-extrafisico",
+              role: "tabpanel-fisico",
+              "aria-labelledby": "denunciante-extrafisico-tab"
             }
           },
-          [_vm._v("...")]
+          [_c("extrasinvestigado", { attrs: { sistema: "uat" } })],
+          1
         )
       ]
     )
@@ -82562,15 +82621,15 @@ var staticRenderFns = [
               {
                 staticClass: "nav-link active",
                 attrs: {
-                  id: "pills-home-tab",
+                  id: "denunciante-personafisico-tab",
                   "data-toggle": "pill",
-                  href: "#pills-persona",
+                  href: "#pills-denunciante-personafisico",
                   role: "tab",
-                  "aria-controls": "pills-home",
+                  "aria-controls": "pills-denunciante-personafisico",
                   "aria-selected": "true"
                 }
               },
-              [_vm._v("Datos Laborales")]
+              [_vm._v("Datos Personales")]
             )
           ]),
           _vm._v(" "),
@@ -82580,11 +82639,11 @@ var staticRenderFns = [
               {
                 staticClass: "nav-link",
                 attrs: {
-                  id: "pills-profile-tab",
+                  id: "denunciante-domiciliofisico-tab",
                   "data-toggle": "pill",
-                  href: "#pills-domicilio",
+                  href: "#pills-denunciante-domiciliofisico",
                   role: "tab",
-                  "aria-controls": "pills-profile",
+                  "aria-controls": "pills-denunciante-domiciliofisico",
                   "aria-selected": "false"
                 }
               },
@@ -82598,11 +82657,11 @@ var staticRenderFns = [
               {
                 staticClass: "nav-link",
                 attrs: {
-                  id: "pills-contact-tab",
+                  id: "denunciante-trabajofisico-tab",
                   "data-toggle": "pill",
-                  href: "#pills-trabajo",
+                  href: "#pills-denunciante-trabajofisico",
                   role: "tab",
-                  "aria-controls": "pills-contact",
+                  "aria-controls": "pills-denunciante-trabajofisico",
                   "aria-selected": "false"
                 }
               },
@@ -82616,11 +82675,11 @@ var staticRenderFns = [
               {
                 staticClass: "nav-link",
                 attrs: {
-                  id: "pills-contact-tab",
+                  id: "denunciante-notificacionesfisico-tab",
                   "data-toggle": "pill",
-                  href: "#pills-notificaciones",
+                  href: "#pills-denunciante-notificacionesfisico",
                   role: "tab",
-                  "aria-controls": "pills-contact",
+                  "aria-controls": "#pills-denunciante-notificacionesfisico",
                   "aria-selected": "false"
                 }
               },
@@ -82634,11 +82693,11 @@ var staticRenderFns = [
               {
                 staticClass: "nav-link",
                 attrs: {
-                  id: "pills-contact-tab",
+                  id: "denunciante-extrafisico-tab",
                   "data-toggle": "pill",
-                  href: "#pills-extra",
+                  href: "#pills-denunciante-extrafisico",
                   role: "tab",
-                  "aria-controls": "pills-contact",
+                  "aria-controls": "pills-denunciante-extrafisico",
                   "aria-selected": "false"
                 }
               },
@@ -82655,33 +82714,24 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6e16aaa3", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-9ece0ab6", module.exports)
   }
 }
 
 /***/ }),
-/* 309 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(314)
+  __webpack_require__(312)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(316)
+var __vue_script__ = __webpack_require__(314)
 /* template */
-var __vue_template__ = __webpack_require__(317)
+var __vue_template__ = __webpack_require__(315)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -82720,13 +82770,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 314 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(315);
+var content = __webpack_require__(313);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -82746,7 +82796,7 @@ if(false) {
 }
 
 /***/ }),
-/* 315 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -82760,12 +82810,12 @@ exports.push([module.i, "\ninput{\r\n    text-transform: uppercase\n}\r\n", ""])
 
 
 /***/ }),
-/* 316 */
+/* 314 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
 //
 //
@@ -82909,7 +82959,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 317 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -83690,19 +83740,19 @@ if (false) {
 }
 
 /***/ }),
-/* 318 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(319)
+  __webpack_require__(317)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(321)
+var __vue_script__ = __webpack_require__(319)
 /* template */
-var __vue_template__ = __webpack_require__(322)
+var __vue_template__ = __webpack_require__(320)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -83741,13 +83791,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 319 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(320);
+var content = __webpack_require__(318);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -83767,7 +83817,7 @@ if(false) {
 }
 
 /***/ }),
-/* 320 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -83781,12 +83831,12 @@ exports.push([module.i, "\ninput{\r\n    text-transform: uppercase\n}\r\n", ""])
 
 
 /***/ }),
-/* 321 */
+/* 319 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
 //
 //
@@ -83874,7 +83924,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 322 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -84198,6 +84248,238 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-72b81024", module.exports)
+  }
+}
+
+/***/ }),
+/* 321 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(326)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\DenuncianteMoralComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0c000e36", Component.options)
+  } else {
+    hotAPI.reload("data-v-0c000e36", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 326 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade show active",
+            attrs: {
+              id: "pills-denunciante-personamoral",
+              role: "tabpanel",
+              "aria-labelledby": "denunciante-personamoral-tab"
+            }
+          },
+          [
+            _c("personafisica", {
+              attrs: { sistema: "uat", carpeta: "xx", tipo: "denunciante" }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-denunciante-domiciliomoral",
+              role: "tabpanel",
+              "aria-labelledby": "denunciante-domiciliomoral-tab"
+            }
+          },
+          [_c("domicilio")],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-denunciante-notificacionesmoral",
+              role: "tabpanel",
+              "aria-labelledby": "denunciante-notificacionesmoral-tab"
+            }
+          },
+          [_c("domicilio", { attrs: { tipo: "contacto" } })],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-denunciante-extramoral",
+              role: "tabpanel-moral",
+              "aria-labelledby": "denunciante-extramoral-tab"
+            }
+          },
+          [_c("extrasinvestigado", { attrs: { sistema: "uat" } })],
+          1
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "nav nav-pills mb-3",
+          attrs: { id: "pills-tab", role: "tablist" }
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link active",
+                attrs: {
+                  id: "denunciante-personamoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciante-personamoral",
+                  role: "tab",
+                  "aria-controls": "pills-denunciante-personamoral",
+                  "aria-selected": "true"
+                }
+              },
+              [_vm._v("Datos Personales")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "denunciante-domiciliomoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciante-domiciliomoral",
+                  role: "tab",
+                  "aria-controls": "pills-denunciante-domiciliomoral",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Domicilio")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "denunciante-notificacionesmoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciante-notificacionesmoral",
+                  role: "tab",
+                  "aria-controls": "#pills-denunciante-notificacionesmoral",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Domicilio para notificaciones")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "denunciante-extramoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciante-extramoral",
+                  role: "tab",
+                  "aria-controls": "pills-denunciante-extramoral",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Datos de la víctima u ofendido")]
+            )
+          ])
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0c000e36", module.exports)
   }
 }
 

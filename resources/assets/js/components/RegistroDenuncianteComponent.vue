@@ -1,6 +1,8 @@
 <template>
     <div>
-                <div class="form-row contenedor">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-persona" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="form-row container-fluid">
                     <div class="form-group col-md-6">
                         <div class="form-check" style="padding: 0">
                             <div class="form-check form-check-inline">
@@ -14,33 +16,23 @@
                         </div>
                     </div>
                 </div>
-                <personafisica v-if="persona==1" :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciante'"></personafisica>
-                <personamoral v-if="persona==2" :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciantemoral'"></personamoral>   
+                <denunciantefisico v-show="persona==1"></denunciantefisico>
+                <denunciantemoral v-show="persona==2" ></denunciantemoral>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        data(){
-             return{
-                persona:''
-            }
-        },
-        props:{
-            sistema: {
-                default:false
-            },
-            tipo: {
-                default:false
-            },
-            carpeta:{
-                default:false
+        data() {
+            return {
+                persona: ''
             }
         },
     }
 </script>
-<style>
-.contenedor{
-    height: 38px;
-}
+
+<style scoped>
+
 </style>
