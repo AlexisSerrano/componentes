@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Models\ExtraDenunciante;
+use App\Http\Controllers\Controller;
 
 class ExtrasDenuncianteController extends Controller
 {
@@ -34,8 +36,18 @@ class ExtrasDenuncianteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {        
+        $ExtraDenunciante = new ExtraDenunciante();
+        $ExtraDenunciante->idVariablesPersona = $request->idVariablesPersona;
+        $ExtraDenunciante->idNotificacion = $request->idNotificacion;
+        $ExtraDenunciante->idAbogado = $request->idAbogado;
+        $ExtraDenunciante->victima = $request->victima;
+        $ExtraDenunciante->reguardarIdentidad = $request->reguardarIdentidad;
+        $ExtraDenunciante->narracion = $request->narracion;        
+        $ExtraDenunciante->save();  
+        $id = $ExtraDenunciante->id;                
+        return response()->json($id);
+        
     }
 
     /**
