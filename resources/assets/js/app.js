@@ -42,6 +42,7 @@ Vue.component('denunciadomoral',require('./components/DenunciadoMoralComponent.v
 Vue.component('extrasinvestigado',require('./components/ExtrasInvestigadoComponent.vue'));
 Vue.component('extrasabogado',require('./components/ExtrasAbogadoComponent.vue'));
 Vue.component('extrasdenunciante',require('./components/ExtrasDenuncianteComponent.vue'));
+Vue.component('extrasautoridad',require('./components/ExtrasAutoridadComponent.vue'));
 const app = new Vue({
     el: '#app'
 });
