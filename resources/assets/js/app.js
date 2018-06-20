@@ -31,8 +31,6 @@ Vue.component('personafisica', require('./components/PersonaFisicaComponent.vue'
 Vue.component('personamoral', require('./components/PersonaMoralComponent.vue'));
 Vue.component('persona', require('./components/personaComponent.vue'));
 Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
-Vue.component('datoscontactos',require('./components/DatosContactosComponent.vue'));
-Vue.component('datoslaborales',require('./components/DatosLaboralesComponent.vue'));
 Vue.component('registrodenunciante',require('./components/RegistroDenuncianteComponent.vue'));
 Vue.component('registroabogado',require('./components/RegistroAbogadoComponent.vue'));
 Vue.component('registroautoridad',require('./components/RegistroAutoridadComponent.vue'));
