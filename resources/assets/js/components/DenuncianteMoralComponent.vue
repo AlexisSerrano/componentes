@@ -32,7 +32,7 @@
                 <domicilio :tipo="'contacto'"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-extramoral" role="tabpanel-moral" aria-labelledby="denunciante-extramoral-tab">
-                <extrasinvestigado :sistema="'uat'"></extrasinvestigado>
+                <extrasdenunciante :sistema="'uat'"></extrasdenunciante>
             </div>
         </div>
         <!-- OPCIONES -->

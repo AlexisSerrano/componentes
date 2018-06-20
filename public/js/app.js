@@ -32310,8 +32310,13 @@ Vue.component('domicilio', __webpack_require__(291));
 Vue.component('datoscontactos', __webpack_require__(296));
 Vue.component('datoslaborales', __webpack_require__(299));
 Vue.component('registrodenunciante', __webpack_require__(304));
+Vue.component('registroabogado', __webpack_require__(332));
+Vue.component('registroautoridad', __webpack_require__(334));
+Vue.component('registrodenunciado', __webpack_require__(336));
 Vue.component('denunciantefisico', __webpack_require__(309));
 Vue.component('denunciantemoral', __webpack_require__(325));
+Vue.component('denunciadofisico', __webpack_require__(341));
+Vue.component('denunciadomoral', __webpack_require__(343));
 Vue.component('extrasinvestigado', __webpack_require__(311));
 Vue.component('extrasabogado', __webpack_require__(316));
 Vue.component('extrasdenunciante', __webpack_require__(327));
@@ -72233,7 +72238,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             validaciones: [],
             validacionesback: '',
             loader: true,
-            qrr: "QUIEN RESULTE RESPONSABLE",
+            qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
             // url:'http://localhost/componentes/public/api', 
             // url:'http://componentes.oo/api',
             // url:'http://componentes.test/api'
@@ -78628,9 +78633,7 @@ var render = function() {
                     }
                   }
                 })
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
+              ])
             ]
           )
         : _vm._e()
@@ -78638,22 +78641,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row mt-3" }, [
-      _c("div", { staticClass: "form-group col-md-5" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary mr-1", attrs: { type: "submit" } },
-          [_vm._v("Guardar")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -79433,29 +79421,12 @@ var render = function() {
               }
             }
           })
-        ]),
-        _vm._v(" "),
-        _vm._m(0)
+        ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row mt-3" }, [
-      _c("div", { staticClass: "form-group col-md-5" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary mr-1", attrs: { type: "submit" } },
-          [_vm._v("Guardar")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -80771,13 +80742,7 @@ var render = function() {
                       })
                     ])
                   : _vm._e()
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                [_vm._v("Guardar")]
-              )
+              ])
             ]
           )
         : _vm._e()
@@ -82275,7 +82240,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -82286,7 +82251,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -82328,131 +82292,113 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
-      [
-        _c(
-          "div",
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("label", { staticClass: "col-form-label col-form-label-sm" }, [
+          _vm._v("Tipo de persona")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c(
+              "div",
+              { staticClass: "form-check", staticStyle: { padding: "0" } },
+              [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass:
+                        "form-check-label col-form-label col-form-label-sm",
+                      staticStyle: { "padding-right": "5px" },
+                      attrs: { for: "personaFisica" }
+                    },
+                    [_vm._v("Persona física")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.persona,
+                        expression: "persona"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { type: "radio", id: "personaFisica", value: "1" },
+                    domProps: { checked: _vm._q(_vm.persona, "1") },
+                    on: {
+                      change: function($event) {
+                        _vm.persona = "1"
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass:
+                        "form-check-label col-form-label col-form-label-sm",
+                      staticStyle: { "padding-right": "5px" },
+                      attrs: { for: "personaMoral" }
+                    },
+                    [_vm._v("Persona moral")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.persona,
+                        expression: "persona"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { type: "radio", id: "personaMoral", value: "2" },
+                    domProps: { checked: _vm._q(_vm.persona, "2") },
+                    on: {
+                      change: function($event) {
+                        _vm.persona = "2"
+                      }
+                    }
+                  })
+                ])
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("denunciantefisico", {
+        directives: [
           {
-            staticClass: "tab-pane fade show active",
-            attrs: {
-              id: "pills-persona",
-              role: "tabpanel",
-              "aria-labelledby": "pills-home-tab"
-            }
-          },
-          [
-            _c("div", { staticClass: "form-row container-fluid" }, [
-              _c("div", { staticClass: "form-group col-md-6" }, [
-                _c(
-                  "div",
-                  { staticClass: "form-check", staticStyle: { padding: "0" } },
-                  [
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "form-check-label col-form-label col-form-label-sm",
-                          staticStyle: { "padding-right": "5px" },
-                          attrs: { for: "personaFisica" }
-                        },
-                        [_vm._v("Persona física")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.persona,
-                            expression: "persona"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "personaFisica",
-                          value: "1"
-                        },
-                        domProps: { checked: _vm._q(_vm.persona, "1") },
-                        on: {
-                          change: function($event) {
-                            _vm.persona = "1"
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "form-check-label col-form-label col-form-label-sm",
-                          staticStyle: { "padding-right": "5px" },
-                          attrs: { for: "personaMoral" }
-                        },
-                        [_vm._v("Persona moral")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.persona,
-                            expression: "persona"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "personaMoral",
-                          value: "2"
-                        },
-                        domProps: { checked: _vm._q(_vm.persona, "2") },
-                        on: {
-                          change: function($event) {
-                            _vm.persona = "2"
-                          }
-                        }
-                      })
-                    ])
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("denunciantefisico", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.persona == 1,
-                  expression: "persona==1"
-                }
-              ]
-            }),
-            _vm._v(" "),
-            _c("denunciantemoral", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.persona == 2,
-                  expression: "persona==2"
-                }
-              ]
-            })
-          ],
-          1
-        )
-      ]
-    )
-  ])
+            name: "show",
+            rawName: "v-show",
+            value: _vm.persona == 1,
+            expression: "persona==1"
+          }
+        ]
+      }),
+      _vm._v(" "),
+      _c("denunciantemoral", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.persona == 2,
+            expression: "persona==2"
+          }
+        ]
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -82596,7 +82542,7 @@ var render = function() {
               "aria-labelledby": "denunciante-extrafisico-tab"
             }
           },
-          [_c("extrasinvestigado", { attrs: { sistema: "uat" } })],
+          [_c("extrasdenunciante", { attrs: { sistema: "uat" } })],
           1
         )
       ]
@@ -84379,7 +84325,7 @@ var render = function() {
               "aria-labelledby": "denunciante-extramoral-tab"
             }
           },
-          [_c("extrasinvestigado", { attrs: { sistema: "uat" } })],
+          [_c("extrasdenunciante", { attrs: { sistema: "uat" } })],
           1
         )
       ]
@@ -84836,6 +84782,1359 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-0115652d", module.exports)
+  }
+}
+
+/***/ }),
+/* 332 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(333)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\RegistroAbogadoComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-481c5e34", Component.options)
+  } else {
+    hotAPI.reload("data-v-481c5e34", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade show active",
+            attrs: {
+              id: "pills-abogado-persona",
+              role: "tabpanel",
+              "aria-labelledby": "abogado-persona-tab"
+            }
+          },
+          [
+            _c("personafisica", {
+              attrs: { sistema: "uat", carpeta: "xx", tipo: "abogado" }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-abogado-trabajo",
+              role: "tabpanel",
+              "aria-labelledby": "abogado-trabajo-tab"
+            }
+          },
+          [_c("domicilio", { attrs: { tipo: "trabajo" } })],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-abogado-extra",
+              role: "tabpanel-fisico",
+              "aria-labelledby": "abogado-extra-tab"
+            }
+          },
+          [_c("extrasabogado", { attrs: { sistema: "uat" } })],
+          1
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "nav nav-pills mb-3",
+          attrs: { id: "pills-tab", role: "tablist" }
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link active",
+                attrs: {
+                  id: "abogado-persona-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-abogado-persona",
+                  role: "tab",
+                  "aria-controls": "pills-abogado-persona",
+                  "aria-selected": "true"
+                }
+              },
+              [_vm._v("Datos Personales")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "abogado-trabajo-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-abogado-trabajo",
+                  role: "tab",
+                  "aria-controls": "pills-abogado-trabajo",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Datos del trabajo")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "abogado-extra-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-abogado-extra",
+                  role: "tab",
+                  "aria-controls": "pills-abogado-extra",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Datos del abogado")]
+            )
+          ])
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-481c5e34", module.exports)
+  }
+}
+
+/***/ }),
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(335)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\RegistroAutoridadComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0c015726", Component.options)
+  } else {
+    hotAPI.reload("data-v-0c015726", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade show active",
+            attrs: {
+              id: "pills-autoridad-persona",
+              role: "tabpanel",
+              "aria-labelledby": "autoridad-persona-tab"
+            }
+          },
+          [
+            _c("personafisica", {
+              attrs: { sistema: "uat", carpeta: "xx", tipo: "autoridad" }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-autoridad-domicilio",
+              role: "tabpanel",
+              "aria-labelledby": "autoridad-domicilio-tab"
+            }
+          },
+          [_c("domicilio")],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-autoridad-trabajo",
+              role: "tabpanel",
+              "aria-labelledby": "autoridad-trabajo-tab"
+            }
+          },
+          [_c("domicilio", { attrs: { tipo: "trabajo" } })],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-autoridad-extra",
+              role: "tabpanel-fisico",
+              "aria-labelledby": "autoridad-extra-tab"
+            }
+          },
+          [_c("extrasabogado", { attrs: { sistema: "uat" } })],
+          1
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "nav nav-pills mb-3",
+          attrs: { id: "pills-tab", role: "tablist" }
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link active",
+                attrs: {
+                  id: "autoridad-persona-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-autoridad-persona",
+                  role: "tab",
+                  "aria-controls": "pills-autoridad-persona",
+                  "aria-selected": "true"
+                }
+              },
+              [_vm._v("Datos Personales")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "autoridad-domicilio-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-autoridad-domicilio",
+                  role: "tab",
+                  "aria-controls": "pills-autoridad-domicilio",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Domicilio")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "autoridad-trabajo-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-autoridad-trabajo",
+                  role: "tab",
+                  "aria-controls": "pills-autoridad-trabajo",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Datos del trabajo")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "autoridad-extra-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-autoridad-extra",
+                  role: "tab",
+                  "aria-controls": "pills-autoridad-extra",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Datos de autoridad")]
+            )
+          ])
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0c015726", module.exports)
+  }
+}
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(337)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(339)
+/* template */
+var __vue_template__ = __webpack_require__(340)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-3f003623"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\RegistroDenunciadoComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3f003623", Component.options)
+  } else {
+    hotAPI.reload("data-v-3f003623", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(338);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("7cecf05f", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3f003623\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RegistroDenunciadoComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3f003623\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RegistroDenunciadoComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 339 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            persona: '',
+            denunciado: ''
+        };
+    },
+
+    watch: {
+        denunciado: function denunciado(newValue, oldValue) {
+            if (this.denunciado == 1 || this.denunciado == 2) {
+                this.persona = '';
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 340 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "form-row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm.denunciado == 3
+            ? _c("div", { staticClass: "col-6" }, [
+                _c(
+                  "label",
+                  { staticClass: "col-form-label col-form-label-sm" },
+                  [_vm._v("Tipo de persona")]
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c(
+              "div",
+              { staticClass: "form-check", staticStyle: { padding: "0" } },
+              [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass:
+                        "form-check-label col-form-label col-form-label-sm",
+                      staticStyle: { "padding-right": "5px" },
+                      attrs: { for: "qrr" }
+                    },
+                    [_vm._v("Q.R.R")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.denunciado,
+                        expression: "denunciado"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { type: "radio", id: "qrr", value: "1" },
+                    domProps: { checked: _vm._q(_vm.denunciado, "1") },
+                    on: {
+                      change: function($event) {
+                        _vm.denunciado = "1"
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass:
+                        "form-check-label col-form-label col-form-label-sm",
+                      staticStyle: { "padding-right": "5px" },
+                      attrs: { for: "conocido" }
+                    },
+                    [_vm._v("Conoce al denunciado")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.denunciado,
+                        expression: "denunciado"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { type: "radio", id: "conocido", value: "2" },
+                    domProps: { checked: _vm._q(_vm.denunciado, "2") },
+                    on: {
+                      change: function($event) {
+                        _vm.denunciado = "2"
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass:
+                        "form-check-label col-form-label col-form-label-sm",
+                      staticStyle: { "padding-right": "5px" },
+                      attrs: { for: "comparecencia" }
+                    },
+                    [_vm._v("Por comparecencia")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.denunciado,
+                        expression: "denunciado"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { type: "radio", id: "comparecencia", value: "3" },
+                    domProps: { checked: _vm._q(_vm.denunciado, "3") },
+                    on: {
+                      change: function($event) {
+                        _vm.denunciado = "3"
+                      }
+                    }
+                  })
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm.denunciado == 3
+            ? _c("div", { staticClass: "form-group col-md-6" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-check", staticStyle: { padding: "0" } },
+                  [
+                    _c("div", { staticClass: "form-check form-check-inline" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-check-label col-form-label col-form-label-sm",
+                          staticStyle: { "padding-right": "5px" },
+                          attrs: { for: "personaFisica" }
+                        },
+                        [_vm._v("Persona física")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.persona,
+                            expression: "persona"
+                          }
+                        ],
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "radio",
+                          id: "personaFisica",
+                          value: "1"
+                        },
+                        domProps: { checked: _vm._q(_vm.persona, "1") },
+                        on: {
+                          change: function($event) {
+                            _vm.persona = "1"
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-check form-check-inline" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-check-label col-form-label col-form-label-sm",
+                          staticStyle: { "padding-right": "5px" },
+                          attrs: { for: "personaMoral" }
+                        },
+                        [_vm._v("Persona moral")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.persona,
+                            expression: "persona"
+                          }
+                        ],
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "radio",
+                          id: "personaMoral",
+                          value: "2"
+                        },
+                        domProps: { checked: _vm._q(_vm.persona, "2") },
+                        on: {
+                          change: function($event) {
+                            _vm.persona = "2"
+                          }
+                        }
+                      })
+                    ])
+                  ]
+                )
+              ])
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c("personafisica", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.denunciado == 1,
+            expression: "denunciado==1"
+          }
+        ],
+        attrs: { sistema: "uat", carpeta: "xx", tipo: "qrr" }
+      }),
+      _vm._v(" "),
+      _c("personafisica", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.denunciado == 2,
+            expression: "denunciado==2"
+          }
+        ],
+        attrs: { sistema: "uat", carpeta: "xx", tipo: "conocido" }
+      }),
+      _vm._v(" "),
+      _c("domicilio", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.denunciado == 2,
+            expression: "denunciado==2"
+          }
+        ]
+      }),
+      _vm._v(" "),
+      _c("denunciadofisico", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.persona == 1,
+            expression: "persona==1"
+          }
+        ]
+      }),
+      _vm._v(" "),
+      _c("denunciadomoral", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.persona == 2,
+            expression: "persona==2"
+          }
+        ]
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6" }, [
+      _c("label", { staticClass: "col-form-label col-form-label-sm" }, [
+        _vm._v("Seleccione una opción")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3f003623", module.exports)
+  }
+}
+
+/***/ }),
+/* 341 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(342)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\DenunciadoFisicoComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3c06f391", Component.options)
+  } else {
+    hotAPI.reload("data-v-3c06f391", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 342 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade show active",
+            attrs: {
+              id: "pills-denunciado-personafisico",
+              role: "tabpanel",
+              "aria-labelledby": "denunciado-personafisico-tab"
+            }
+          },
+          [
+            _c("personafisica", {
+              attrs: { sistema: "uat", carpeta: "xx", tipo: "denunciado" }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-denunciado-domiciliofisico",
+              role: "tabpanel",
+              "aria-labelledby": "denunciado-domiciliofisico-tab"
+            }
+          },
+          [_c("domicilio")],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-denunciado-trabajofisico",
+              role: "tabpanel",
+              "aria-labelledby": "denunciado-trabajofisico-tab"
+            }
+          },
+          [_c("domicilio", { attrs: { tipo: "trabajo" } })],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-denunciado-notificacionesfisico",
+              role: "tabpanel",
+              "aria-labelledby": "denunciado-notificacionesfisico-tab"
+            }
+          },
+          [_c("domicilio", { attrs: { tipo: "contacto" } })],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-denunciado-extrafisico",
+              role: "tabpanel-fisico",
+              "aria-labelledby": "denunciado-extrafisico-tab"
+            }
+          },
+          [_c("extrasinvestigado", { attrs: { sistema: "uat" } })],
+          1
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "nav nav-pills mb-3",
+          attrs: { id: "pills-tab", role: "tablist" }
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link active",
+                attrs: {
+                  id: "denunciado-personafisico-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-personafisico",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-personafisico",
+                  "aria-selected": "true"
+                }
+              },
+              [_vm._v("Datos Personales")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "denunciado-domiciliofisico-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-domiciliofisico",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-domiciliofisico",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Domicilio")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "denunciado-trabajofisico-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-trabajofisico",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-trabajofisico",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Datos del trabajo")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "denunciado-notificacionesfisico-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-notificacionesfisico",
+                  role: "tab",
+                  "aria-controls": "#pills-denunciado-notificacionesfisico",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Domicilio para notificaciones")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "denunciado-extrafisico-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-extrafisico",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-extrafisico",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Datos del investigado")]
+            )
+          ])
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3c06f391", module.exports)
+  }
+}
+
+/***/ }),
+/* 343 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(344)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\DenunciadoMoralComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-348d9b0e", Component.options)
+  } else {
+    hotAPI.reload("data-v-348d9b0e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 344 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade show active",
+            attrs: {
+              id: "pills-denunciado-personamoral",
+              role: "tabpanel",
+              "aria-labelledby": "denunciado-personamoral-tab"
+            }
+          },
+          [
+            _c("personafisica", {
+              attrs: { sistema: "uat", carpeta: "xx", tipo: "denunciado" }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-denunciado-domiciliomoral",
+              role: "tabpanel",
+              "aria-labelledby": "denunciado-domiciliomoral-tab"
+            }
+          },
+          [_c("domicilio")],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-denunciado-notificacionesmoral",
+              role: "tabpanel",
+              "aria-labelledby": "denunciado-notificacionesmoral-tab"
+            }
+          },
+          [_c("domicilio", { attrs: { tipo: "contacto" } })],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-pane fade",
+            attrs: {
+              id: "pills-denunciado-extramoral",
+              role: "tabpanel-moral",
+              "aria-labelledby": "denunciado-extramoral-tab"
+            }
+          },
+          [_c("extrasinvestigado", { attrs: { sistema: "uat" } })],
+          1
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "nav nav-pills mb-3",
+          attrs: { id: "pills-tab", role: "tablist" }
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link active",
+                attrs: {
+                  id: "denunciado-personamoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-personamoral",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-personamoral",
+                  "aria-selected": "true"
+                }
+              },
+              [_vm._v("Datos Personales")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "denunciado-domiciliomoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-domiciliomoral",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-domiciliomoral",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Domicilio")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "denunciado-notificacionesmoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-notificacionesmoral",
+                  role: "tab",
+                  "aria-controls": "#pills-denunciado-notificacionesmoral",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Domicilio para notificaciones")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "denunciado-extramoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-extramoral",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-extramoral",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Datos del investigado")]
+            )
+          ])
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-348d9b0e", module.exports)
   }
 }
 

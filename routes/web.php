@@ -68,6 +68,18 @@ Route::get('registroDenunciante', function(){
     return view('registroDenunciante');
 });
 
+Route::get('registroAbogado', function(){
+    return view('registroAbogado');
+});
+
+Route::get('registroAutoridad', function(){
+    return view('registroAutoridad');
+});
+
+Route::get('registroDenunciado', function(){
+    return view('registroDenunciado');
+});
+
 /*PRUEBAS */
 Route::get('prueba', function(){
     return view('pruebas');

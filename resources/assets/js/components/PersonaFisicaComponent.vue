@@ -188,11 +188,11 @@
                     <input type="hidden" v-model="idPersona" id="idPersona">              
                 </div>
 
-                <div class="form-row mt-3">
+                <!-- <div class="form-row mt-3">
                     <div class="form-group col-md-5">
                         <button type="submit" class="btn btn-primary mr-1">Guardar</button>
                     </div>
-                </div>
+                </div> -->
 
         </form>
     </div>
@@ -249,7 +249,7 @@ import moment from 'moment'
                 validaciones:[],
                 validacionesback:'',
                 loader:true,
-                qrr:"QUIEN RESULTE RESPONSABLE",
+                qrr:"QUIEN O QUIENES RESULTEN RESPONSABLES",
                 // url:'http://localhost/componentes/public/api', 
                 // url:'http://componentes.oo/api',
                 // url:'http://componentes.test/api'

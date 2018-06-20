@@ -38,7 +38,7 @@
                 <domicilio :tipo="'contacto'"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciante-extrafisico-tab">
-                <extrasinvestigado :sistema="'uat'"></extrasinvestigado>
+                <extrasdenunciante :sistema="'uat'"></extrasdenunciante>
             </div>
         </div>
         <!-- OPCIONES -->
