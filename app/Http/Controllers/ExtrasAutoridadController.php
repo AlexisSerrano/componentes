@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Http\Models\ExtraAutoridad;
+use App\Http\Controllers\Controller;
 
 class ExtrasAutoridadController extends Controller
 {
@@ -33,8 +34,17 @@ class ExtrasAutoridadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {        
+        $ExtraAutoridad = new ExtraAutoridad();
+        $ExtraAutoridad->idVariablesPersona = $request->idVariablesPersona;
+        $ExtraAutoridad->antiguedad = $request->antiguedad;
+        $ExtraAutoridad->rango = $request->rango;
+        $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;
+        $ExtraAutoridad->narracion = $request->narracion;                
+        $ExtraAutoridad->save();  
+        $id = $ExtraAutoridad->id;                
+        return response()->json($id);        
+
     }
 
     /**
