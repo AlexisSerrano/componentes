@@ -62,11 +62,6 @@ import swal from 'sweetalert2'
                 url:'http://localhost/componentes/public/api'
             }
         },
-        props:{
-            sistema: {
-                default:''
-            }
-        },
         created: function(){
 //            this.getPuestos();
         },
@@ -76,6 +71,65 @@ import swal from 'sweetalert2'
                 axios.post(urlPuestos).then(response => {
                     this.puestos = response.data
                 });
+                
+            },
+            validateBeforeSubmit() {
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        this.guardarExtra();
+                        return;
+                    }
+                    swal({
+                        title: '¡Guardado incorrecto!',
+                        text: 'Error al guardar.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                });
+            },
+            guardarExtra: function(){  
+                var urlGuardarAbogado = this.url+'/guardarAbogado';                
+                var data = {
+                    idVariablesPersona:1,        
+                    idNotificacion:0,            
+                    idPuesto:(this.puesto!=''?this.puesto:9),
+                    alias:this.alias,
+                    personasBajoSuGuarda:this.dependientes,
+                    ingreso:this.ingreso,
+                    periodoIngreso:this.periodo,
+                    residenciaAnterior:this.residencia,
+                    perseguidoPenalmente:this.perseguido,              
+                    vestimenta:this.vestimenta,
+                    senasPartic:this.particulares,
+                    narracion:this.hechos,
+                    };
+                    axios.post(urlGuardarAbogado,data)
+                    .then (response =>{
+                        this.confirm = response.data
+                        if(this.confirm){
+                            swal({
+                                title: '¡Guardado correctamente!',
+                                text: 'Ésta persona fue guardada exitosamente.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                        else{
+                            swal({
+                                title: '¡Guardado incorrecto!',
+                                text: 'Error al guardar.',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }).catch((error)=>{                        
+                        swal({
+                        title: '¡Guardado incorrecto!',
+                        text: 'Ésta persona no fue posible guardarla.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                        })
+                    });
                 
             }
        }
