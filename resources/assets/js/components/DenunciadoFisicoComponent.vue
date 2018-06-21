@@ -26,7 +26,7 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-denunciado-personafisico" role="tabpanel" aria-labelledby="denunciado-personafisico-tab">
-                <personafisica :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciado'"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'denunciado'"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-domiciliofisico" role="tabpanel" aria-labelledby="denunciado-domiciliofisico-tab">
                 <domicilio></domicilio>
@@ -38,9 +38,22 @@
                 <domicilio :tipo="'contacto'"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciado-extrafisico-tab">
-                <extrasinvestigado :sistema="'uat'"></extrasinvestigado>
+                <extrasinvestigado :sistema="sistema"></extrasinvestigado>
             </div>
         </div>
         <!-- OPCIONES -->
     </div>
 </template>
+
+<script>
+    export default {
+        props: {
+            sistema: {
+                required:true
+            },
+            carpeta:{
+                required:true
+            }
+        },
+    }
+</script>

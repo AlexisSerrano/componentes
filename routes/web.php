@@ -24,37 +24,8 @@ Route::get('/extrasAbogado','ExtrasAbogadoController@index');
 Route::get('/extrasDenunciante','ExtrasDenuncianteController@index');
 Route::get('/extrasAutoridad','ExtrasAutoridadController@index');
 
-Route::get('dt', function () {
-    return view('DT');
-});
-
-Route::get('datoscontactos', function(){
-    return view('DatosContactos');
-});
-
-Route::get('resumen', function(){
-    return view('resumen');
-});
-
-Route::get('registroDenunciante', function(){
-    return view('registroDenunciante');
-});
-
-Route::get('registroAbogado', function(){
-    return view('registroAbogado');
-});
-
-Route::get('registroAutoridad', function(){
-    return view('registroAutoridad');
-});
-
-Route::get('registroDenunciado', function(){
-    return view('registroDenunciado');
-});
-
-/*PRUEBAS */
-Route::get('prueba', function(){
-    return view('pruebas');
+Route::get('registro', function(){
+    return view('registro');
 });
 
 

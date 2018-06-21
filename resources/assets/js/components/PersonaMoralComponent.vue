@@ -14,7 +14,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="fechaCreacion">Fecha de creación</label>
-                    <input class="form-control form-control-sm" type="date" v-model="fechaCreacion" name="fechaCreacion" data-vv-name="fecha de creación"  v-validate="'required'" :class="{ 'border border-danger': errors.has('fecha de creación') || this.validacionesback.fechaCreacion}" @blur="searchPersona">
+                    <input class="form-control form-control-sm" type="date" v-model="fechaCreacion" name="fechaCreacion" data-vv-name="fecha de creación" v-validate="'date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de creación') || this.validacionesback.fechaCreacion}" @blur="searchPersona">
                     <span v-show="errors.has('fecha de creación')" class="text-danger">{{ errors.first('fecha de creación')}}</span>
                     <span v-if="this.validacionesback.fechaCreacion!=undefined" class="text-danger">{{ String(this.validacionesback.fechaCreacion)}}</span>
                 </div>
@@ -54,11 +54,9 @@
 
 
 
-            <!-- <div class="form-row mt-3">
-                <div class="form-group col-md-5">
-                    <button type="submit" class="btn btn-primary mr-1">Guardar</button>
-                </div>
-            </div> -->
+
+            <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+
 
         </form>
     </div>
@@ -66,9 +64,11 @@
 
 <script>
 import swal from 'sweetalert2'
+import moment from 'moment'
     export default {
         data(){
              return{
+                today: moment().format('YYYY-MM-DD'),
                 nombre: '',
                 fechaCreacion: '',
                 rfc:'',

@@ -76,8 +76,7 @@
                 </div>
 
             </div>
-            <!-- <h1>{{(estado!=null)?estado.id:estado}}</h1> -->
-            <!-- <button type="submit" class="btn btn-primary">Guardar</button> -->
+            <button type="submit" class="btn btn-primary mt-2">Guardar</button>
 
         </form>
     </div>
