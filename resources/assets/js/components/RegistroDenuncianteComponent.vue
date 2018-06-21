@@ -17,8 +17,8 @@
                 </div>
             </div>
         </div>
-        <denunciantefisico v-show="persona==1"></denunciantefisico>
-        <denunciantemoral v-show="persona==2" ></denunciantemoral>
+        <denunciantefisico v-show="persona==1" :sistema="sistema" :carpeta="carpeta"></denunciantefisico>
+        <denunciantemoral v-show="persona==2" :sistema="sistema" :carpeta="carpeta"></denunciantemoral>
     </div>
 </template>
 
@@ -27,6 +27,14 @@
         data() {
             return {
                 persona: ''
+            }
+        },
+        props: {
+            sistema: {
+                required:true
+            },
+            carpeta:{
+                required:true
             }
         },
     }

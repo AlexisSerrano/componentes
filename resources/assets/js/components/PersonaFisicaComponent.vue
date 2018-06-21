@@ -184,15 +184,13 @@
 
 
 
-                <div>
-                    <input type="hidden" v-model="idPersona" id="idPersona">              
-                </div>
+            <div>
+                <input type="hidden" v-model="idPersona" id="idPersona">              
+            </div>
 
-                <!-- <div class="form-row mt-3">
-                    <div class="form-group col-md-5">
-                        <button type="submit" class="btn btn-primary mr-1">Guardar</button>
-                    </div>
-                </div> -->
+
+            <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+
 
         </form>
     </div>

@@ -39,10 +39,12 @@ Vue.component('denunciantefisico',require('./components/DenuncianteFisicoCompone
 Vue.component('denunciantemoral',require('./components/DenuncianteMoralComponent.vue'));
 Vue.component('denunciadofisico',require('./components/DenunciadoFisicoComponent.vue'));
 Vue.component('denunciadomoral',require('./components/DenunciadoMoralComponent.vue'));
+Vue.component('denunciadoconocido',require('./components/DenunciadoConocidoComponent.vue'));
 Vue.component('extrasinvestigado',require('./components/ExtrasInvestigadoComponent.vue'));
 Vue.component('extrasabogado',require('./components/ExtrasAbogadoComponent.vue'));
 Vue.component('extrasdenunciante',require('./components/ExtrasDenuncianteComponent.vue'));
 Vue.component('extrasautoridad',require('./components/ExtrasAutoridadComponent.vue'));
+Vue.component('registro',require('./components/RegistroComponent.vue'));
 const app = new Vue({
     el: '#app'
 });

@@ -23,7 +23,7 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-autoridad-persona" role="tabpanel" aria-labelledby="autoridad-persona-tab">
-                <personafisica :sistema="'uat'" :carpeta="'xx'" :tipo="'autoridad'"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'autoridad'"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-domicilio" role="tabpanel" aria-labelledby="autoridad-domicilio-tab">
                 <domicilio></domicilio>
@@ -32,9 +32,22 @@
                 <domicilio :tipo="'trabajo'"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-extra" role="tabpanel-fisico" aria-labelledby="autoridad-extra-tab">
-                <extrasabogado :sistema="'uat'"></extrasabogado>
+                <extrasautoridad :sistema="sistema"></extrasautoridad>
             </div>
         </div>
         <!-- OPCIONES -->
     </div>
 </template>
+
+<script>
+    export default {
+        props: {
+            sistema: {
+                required:true
+            },
+            carpeta:{
+                required:true
+            }
+        } 
+    }
+</script>
