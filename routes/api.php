@@ -49,3 +49,8 @@ Route::post('getAbogadosCarpetaUAT','ApiControllerUAT@getAbogadosCarpeta');
 */
 
 Route::post('getPuestos','ExtrasInvestigadoController@getPuestos');
+
+
+/* Guardado de extras */
+Route::post('/guardarDenunciante','ExtrasDenuncianteController@store');
+Route::post('/guardarInvestigado','ExtrasInvestigadoController@store');

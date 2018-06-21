@@ -40,11 +40,10 @@
                 </div>
             </div>
         </div>
-        <personafisica v-show="denunciado==1" :sistema="'uat'" :carpeta="'xx'" :tipo="'qrr'"></personafisica>
-        <personafisica v-show="denunciado==2" :sistema="'uat'" :carpeta="'xx'" :tipo="'conocido'"></personafisica>
-        <domicilio v-show="denunciado==2"></domicilio>
-        <denunciadofisico v-show="persona==1"></denunciadofisico>
-        <denunciadomoral v-show="persona==2" ></denunciadomoral>
+        <personafisica v-show="denunciado==1" :sistema="sistema" :carpeta="carpeta" :tipo="'qrr'"></personafisica>
+        <denunciadoconocido v-show="denunciado==2" :sistema="sistema" :carpeta="carpeta"></denunciadoconocido>
+        <denunciadofisico v-show="persona==1" :sistema="sistema" :carpeta="carpeta"></denunciadofisico>
+        <denunciadomoral v-show="persona==2" :sistema="sistema" :carpeta="carpeta"></denunciadomoral>
     </div>
 </template>
 
@@ -54,6 +53,14 @@
             return {
                 persona: '',
                 denunciado:''
+            }
+        },
+        props: {
+            sistema: {
+                required:true
+            },
+            carpeta:{
+                required:true
             }
         },
         watch: {

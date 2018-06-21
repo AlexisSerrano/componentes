@@ -20,15 +20,28 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-abogado-persona" role="tabpanel" aria-labelledby="abogado-persona-tab">
-                <personafisica :sistema="'uat'" :carpeta="'xx'" :tipo="'abogado'"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'abogado'"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-abogado-trabajo" role="tabpanel" aria-labelledby="abogado-trabajo-tab">
                 <domicilio :tipo="'trabajo'"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-abogado-extra" role="tabpanel-fisico" aria-labelledby="abogado-extra-tab">
-                <extrasabogado :sistema="'uat'"></extrasabogado>
+                <extrasabogado :sistema="sistema"></extrasabogado>
             </div>
         </div>
         <!-- OPCIONES -->
     </div>
 </template>
+
+<script>
+    export default {
+        props: {
+            sistema: {
+                required:true
+            },
+            carpeta:{
+                required:true
+            }
+        },
+    }
+</script>

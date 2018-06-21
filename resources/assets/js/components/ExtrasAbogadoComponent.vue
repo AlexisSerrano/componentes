@@ -9,14 +9,14 @@
 
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="tipo">Tipo</label>    
-                    <v-select :options="tipos" label="nombre" v-model="tipo" name="tipo" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('tipo')|| this.validacionesback.tipo}" placeholder="Seleccione un tipo" @input="gettipos"></v-select>
+                    <v-select :options="tipos" label="nombre" v-model="tipo" name="tipo" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('tipo')|| this.validacionesback.tipo}" placeholder="Seleccione un tipo"></v-select>
                     <span v-show="errors.has('tipo')" class="text-danger">{{ errors.first('tipo')}}</span>
                     <span v-if="this.validacionesback.tipo!=undefined" class="text-danger">{{ String(this.validacionesback.tipo)}}</span>
                 </div>
 
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="sector">Sector</label>    
-                    <v-select :options="sectores" label="nombre" v-model="sector" name="sector" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('sector')|| this.validacionesback.sector}" placeholder="Seleccione un sector" @input="getsectors"></v-select>
+                    <v-select :options="sectores" label="nombre" v-model="sector" name="sector" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('sector')|| this.validacionesback.sector}" placeholder="Seleccione un sector"></v-select>
                     <span v-show="errors.has('sector')" class="text-danger">{{ errors.first('sector')}}</span>
                     <span v-if="this.validacionesback.sector!=undefined" class="text-danger">{{ String(this.validacionesback.sector)}}</span>
                 </div>

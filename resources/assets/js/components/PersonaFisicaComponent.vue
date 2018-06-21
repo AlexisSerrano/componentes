@@ -12,8 +12,6 @@
                 </div>
             </div>
 
-
-
             <div class="form-row">
                 <div v-if="validaciones.nombres!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
@@ -184,15 +182,13 @@
 
 
 
-                <div>
-                    <input type="hidden" v-model="idPersona" id="idPersona">              
-                </div>
+            <div>
+                <input type="hidden" v-model="idPersona" id="idPersona">              
+            </div>
 
-                <!-- <div class="form-row mt-3">
-                    <div class="form-group col-md-5">
-                        <button type="submit" class="btn btn-primary mr-1">Guardar</button>
-                    </div>
-                </div> -->
+
+            <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+
 
         </form>
     </div>
@@ -203,7 +199,7 @@ import generaCurp from '../curp'
 import swal from 'sweetalert2'
 import { SpringSpinner } from 'epic-spinners'
 import moment from 'moment'
-
+import { mapState } from "vuex";
     export default {
         data(){
              return{
@@ -529,6 +525,7 @@ import moment from 'moment'
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
                         this.idPersona = response.data
+                        // this.$store.commit('asignarIdPersona',response.data)
                         if(idPersona){
                             swal({
                                 title: '¡Guardado correctamente!',
@@ -577,7 +574,8 @@ import moment from 'moment'
                     this.validaciones.idInterprete='oculto';
                 }
             }
-        }
+        },
+        computed:mapState(['idPersonaVuex'])
     }
 </script>
 <style>
