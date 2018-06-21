@@ -12,8 +12,6 @@
                 </div>
             </div>
 
-
-
             <div class="form-row">
                 <div v-if="validaciones.nombres!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
@@ -201,7 +199,7 @@ import generaCurp from '../curp'
 import swal from 'sweetalert2'
 import { SpringSpinner } from 'epic-spinners'
 import moment from 'moment'
-
+import { mapState } from "vuex";
     export default {
         data(){
              return{
@@ -527,6 +525,7 @@ import moment from 'moment'
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
                         this.idPersona = response.data
+                        // this.$store.commit('asignarIdPersona',response.data)
                         if(idPersona){
                             swal({
                                 title: '¡Guardado correctamente!',
@@ -575,7 +574,8 @@ import moment from 'moment'
                     this.validaciones.idInterprete='oculto';
                 }
             }
-        }
+        },
+        computed:mapState(['idPersonaVuex'])
     }
 </script>
 <style>

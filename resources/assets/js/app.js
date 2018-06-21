@@ -4,7 +4,6 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
 require('./curp');
 window.Vue = require('vue');
@@ -21,6 +20,10 @@ import VeeValidate, { Validator } from 'vee-validate';
 Validator.localize('es', es);
 Vue.use(VeeValidate);
 /*Vee-Validate*/
+
+/*Vuex*/
+import store from './store';
+/*Vuex*/
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -46,7 +49,8 @@ Vue.component('extrasdenunciante',require('./components/ExtrasDenuncianteCompone
 Vue.component('extrasautoridad',require('./components/ExtrasAutoridadComponent.vue'));
 Vue.component('registro',require('./components/RegistroComponent.vue'));
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store
 });
 
 $(function () {
