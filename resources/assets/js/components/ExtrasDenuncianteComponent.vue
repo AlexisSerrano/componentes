@@ -66,7 +66,7 @@ import swal from 'sweetalert2'
                     }
                     swal({
                         title: '¡Guardado incorrecto!',
-                        text: 'Éror al guardar.',
+                        text: 'Error al guardar.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     });
@@ -96,7 +96,7 @@ import swal from 'sweetalert2'
                         else{
                             swal({
                                 title: '¡Guardado incorrecto!',
-                                text: 'Éror al guardar.',
+                                text: 'Error al guardar.',
                                 type: 'error',
                                 confirmButtonText: 'Ok'
                             })
