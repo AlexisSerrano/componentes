@@ -22,16 +22,17 @@ class PersonaFisica extends Migration
              $table->string('rfc', 20)->nullable()->default("AAAA000101");
              //$table->string('curp', 20)->unique()->nullable();
              $table->string('curp', 20)->nullable();
-             $table->string('sexo', 20)->nullable()->default("SIN INFORMACION");
+             $table->integer('sexo')->nullable()->unsigned();
              $table->integer('idNacionalidad')->nullable()->unsigned()->default(132);
              $table->integer('idEtnia')->nullable()->unsigned()->default(13);
              $table->integer('idLengua')->nullable()->unsigned()->default(69);
              $table->integer('idMunicipioOrigen')->nullable()->unsigned()->default(2496);
 
-             $table->foreign('idNacionalidad')->references('id')->on('cat_nacionalidad')->onDelete('cascade');
-             $table->foreign('idEtnia')->references('id')->on('cat_etnia')->onDelete('cascade');
-             $table->foreign('idLengua')->references('id')->on('cat_lengua')->onDelete('cascade');
-             $table->foreign('idMunicipioOrigen')->references('id')->on('cat_municipio')->onDelete('cascade');
+             $table->foreign('idNacionalidad')->references('id')->on('cat_nacionalidad')->onDelete('restrict');
+             $table->foreign('idEtnia')->references('id')->on('cat_etnia')->onDelete('restrict');
+             $table->foreign('idLengua')->references('id')->on('cat_lengua')->onDelete('restrict');
+             $table->foreign('idMunicipioOrigen')->references('id')->on('cat_municipio')->onDelete('restrict');
+             $table->foreign('sexo')->references('id')->on('sexos')->onDelete('restrict');
 
             $table->timestamps();
             $table->softDeletes();

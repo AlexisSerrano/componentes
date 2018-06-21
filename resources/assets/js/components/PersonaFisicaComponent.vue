@@ -328,7 +328,7 @@ import moment from 'moment'
                                 this.rfc=this.personaExiste.rfc.slice(0,-3),
                                 this.homoclave = this.personaExiste.rfc.slice(-3),
                                 this.curp=this.personaExiste.curp,
-                        /**/    this.nacionalidad=this.personaExiste.idNacionalidad,
+                                this.nacionalidad=this.personaExiste.idNacionalidad,
                                 this.estado=this.personaExiste.idEstado
                                 this.municipio=this.personaExiste.idMunicipioOrigen,
                                 this.etnia=this.personaExiste.idEtnia,

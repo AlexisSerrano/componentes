@@ -32318,6 +32318,7 @@ Vue.component('denunciadomoral', __webpack_require__(316));
 Vue.component('extrasinvestigado', __webpack_require__(318));
 Vue.component('extrasabogado', __webpack_require__(323));
 Vue.component('extrasdenunciante', __webpack_require__(328));
+Vue.component('extrasautoridad', __webpack_require__(337));
 var app = new Vue({
   el: '#app'
 });
@@ -72313,8 +72314,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
-                            _this2.nombres = _this2.personaExiste.nombres, _this2.primerAp = _this2.personaExiste.primerAp, _this2.segundoAp = _this2.personaExiste.segundoAp, _this2.fechaNacimiento = _this2.personaExiste.fechaNacimiento, _this2.edad = _this2.personaExiste.edad, _this2.sexo = _this2.personaExiste.sexo, _this2.rfc = _this2.personaExiste.rfc.slice(0, -3), _this2.homoclave = _this2.personaExiste.rfc.slice(-3), _this2.curp = _this2.personaExiste.curp,
-                            /**/_this2.nacionalidad = _this2.personaExiste.idNacionalidad, _this2.estado = _this2.personaExiste.idEstado;
+                            _this2.nombres = _this2.personaExiste.nombres, _this2.primerAp = _this2.personaExiste.primerAp, _this2.segundoAp = _this2.personaExiste.segundoAp, _this2.fechaNacimiento = _this2.personaExiste.fechaNacimiento, _this2.edad = _this2.personaExiste.edad, _this2.sexo = _this2.personaExiste.sexo, _this2.rfc = _this2.personaExiste.rfc.slice(0, -3), _this2.homoclave = _this2.personaExiste.rfc.slice(-3), _this2.curp = _this2.personaExiste.curp, _this2.nacionalidad = _this2.personaExiste.idNacionalidad, _this2.estado = _this2.personaExiste.idEstado;
                             _this2.municipio = _this2.personaExiste.idMunicipioOrigen, _this2.etnia = _this2.personaExiste.idEtnia, _this2.lengua = _this2.personaExiste.idLengua, _this2.interprete = _this2.personaExiste.idInterprete, _this2.motivoEstancia = _this2.personaExiste.motivoEstancia, _this2.ocupacion = _this2.personaExiste.idOcupacion, _this2.estadoCivil = _this2.personaExiste.idEstadoCivil, _this2.escolaridad = _this2.personaExiste.idEscolaridad, _this2.religion = _this2.personaExiste.idReligion, _this2.identificacion = _this2.personaExiste.docIdentificacion, _this2.numIdentificacion = _this2.personaExiste.numDocIdentificacion;
                             _this2.alias = _this2.personaExiste.alias, _this2.telefono = _this2.personaExiste.telefono, _this2.idPersona = _this2.personaExiste.idPersona;
                         }
@@ -84509,21 +84509,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            identidadRes: '',
+            ident: ['No', 'Si'],
+            identidad: '',
+            solicitantes: ['Victima', 'Ofendido'],
             tipoSolicitante: '',
             descripcionHechos: '',
-            ident: ['No', 'Si'],
-            validacionesback: [],
-            identidad: '',
-            //url:'/api'
-            url: 'http://localhost/componentes/public/api'
+            validacionesback: []
         };
     },
 
@@ -84535,16 +84531,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         //            this.getPuestos();
     },
-    methods: {
-        getPuestos: function getPuestos() {
-            var _this = this;
-
-            var urlPuestos = this.url + '/getPuestos';
-            axios.post(urlPuestos).then(function (response) {
-                _this.puestos = response.data;
-            });
-        }
-    }
+    methods: {}
 });
 
 /***/ }),
@@ -84578,7 +84565,7 @@ var render = function() {
                   staticClass: "col-form-label col-form-label-sm",
                   attrs: { for: "identidad" }
                 },
-                [_vm._v(" Identidad resguardada ")]
+                [_vm._v("Identidad resguardada")]
               ),
               _vm._v(" "),
               _c("v-select", {
@@ -84591,13 +84578,13 @@ var render = function() {
                   }
                 ],
                 class: {
-                  "border border-danger rounded": _vm.errors.has("identidad")
+                  "border border-danger rounded":
+                    _vm.errors.has("identidad") || this.validacionesback.periodo
                 },
                 attrs: {
                   options: _vm.ident,
-                  label: "nombre",
-                  name: "identidad",
-                  placeholder: "Seleccione"
+                  label: "identidad",
+                  name: "identidad"
                 },
                 model: {
                   value: _vm.identidad,
@@ -84622,7 +84609,13 @@ var render = function() {
                   staticClass: "text-danger"
                 },
                 [_vm._v(_vm._s(_vm.errors.first("identidad")))]
-              )
+              ),
+              _vm._v(" "),
+              this.validacionesback.periodo != undefined
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(String(this.validacionesback.periodo)))
+                  ])
+                : _vm._e()
             ],
             1
           ),
@@ -84635,9 +84628,9 @@ var render = function() {
                 "label",
                 {
                   staticClass: "col-form-label col-form-label-sm",
-                  attrs: { for: "identidad" }
+                  attrs: { for: "tipoSolicitante" }
                 },
-                [_vm._v(" Tipo de solicitante ")]
+                [_vm._v("Tipo de solicitante")]
               ),
               _vm._v(" "),
               _c("v-select", {
@@ -84650,20 +84643,21 @@ var render = function() {
                   }
                 ],
                 class: {
-                  "border border-danger rounded": _vm.errors.has("identidad")
+                  "border border-danger rounded":
+                    _vm.errors.has("tipoSolicitante") ||
+                    this.validacionesback.periodo
                 },
                 attrs: {
-                  options: _vm.ident,
+                  options: _vm.solicitantes,
                   label: "nombre",
-                  name: "identidad",
-                  placeholder: "Seleccione"
+                  name: "tipoSolicitante"
                 },
                 model: {
-                  value: _vm.identidad,
+                  value: _vm.tipoSolicitante,
                   callback: function($$v) {
-                    _vm.identidad = $$v
+                    _vm.tipoSolicitante = $$v
                   },
-                  expression: "identidad"
+                  expression: "tipoSolicitante"
                 }
               }),
               _vm._v(" "),
@@ -84674,50 +84668,96 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("identidad"),
-                      expression: "errors.has('identidad')"
+                      value: _vm.errors.has("tipoSolicitante"),
+                      expression: "errors.has('tipoSolicitante')"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("identidad")))]
-              )
+                [_vm._v(_vm._s(_vm.errors.first("tipoSolicitante")))]
+              ),
+              _vm._v(" "),
+              this.validacionesback.periodo != undefined
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(String(this.validacionesback.periodo)))
+                  ])
+                : _vm._e()
             ],
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-12" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { staticClass: "col-form-label-sm" }, [
-                _vm._v("Descripcion de los hechos")
-              ]),
-              _vm._v(" "),
-              _c("textarea", {
+          _c("div", { staticClass: "form-group col-md-12" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "descripcionHechos" }
+              },
+              [_vm._v("Descripcion de los hechos")]
+            ),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.descripcionHechos,
+                  expression: "descripcionHechos"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              class: {
+                input: true,
+                "form-control": true,
+                "border border-danger":
+                  _vm.errors.has("descripcionHechos") ||
+                  this.validacionesback.particulares
+              },
+              attrs: {
+                cols: "30",
+                rows: "5",
+                name: "descripcionHechos",
+                placeholder: "Ingrese la descripcion de los hechos",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.descripcionHechos },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.descripcionHechos = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
                 directives: [
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.descripcionHechos,
-                    expression: "descripcionHechos"
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("descripcionHechos"),
+                    expression: "errors.has('descripcionHechos')"
                   }
                 ],
-                staticClass: "form-control form-control-sm",
-                attrs: {
-                  cols: "30",
-                  rows: "5",
-                  placeholder: "Ingrese la descripcón de los hechos"
-                },
-                domProps: { value: _vm.descripcionHechos },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.descripcionHechos = $event.target.value
-                  }
-                }
-              })
-            ])
+                staticClass: "text-danger"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("descripcionHechos")))]
+            ),
+            _vm._v(" "),
+            this.validacionesback.particulares != undefined
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(String(this.validacionesback.particulares)))
+                ])
+              : _vm._e()
           ])
         ])
       ]
@@ -84739,6 +84779,506 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(338)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(340)
+/* template */
+var __vue_template__ = __webpack_require__(341)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\ExtrasAutoridadComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-030f65d4", Component.options)
+  } else {
+    hotAPI.reload("data-v-030f65d4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(339);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("3f7e8cf3", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-030f65d4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExtrasAutoridadComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-030f65d4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExtrasAutoridadComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 339 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\ninput{\r\n    text-transform: uppercase\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 340 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            antiguedad: '',
+            rangos: ['CABO', 'COMANDANTE'],
+            rango: '',
+            horarioLaboral: '',
+            descripcionHechos: '',
+            validacionesback: []
+        };
+    },
+
+    props: {
+        sistema: {
+            default: ''
+        }
+    },
+    created: function created() {
+        //            this.getPuestos();
+    },
+    methods: {
+        getPuestos: function getPuestos() {
+            var _this = this;
+
+            var urlPuestos = this.url + '/getPuestos';
+            axios.post(urlPuestos).then(function (response) {
+                _this.puestos = response.data;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 341 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.validateBeforeSubmit($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "form-row" }, [
+          _c("div", { staticClass: "form-group col-md-3" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "antiguedad" }
+              },
+              [_vm._v("Antigüedad (Años)")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.antiguedad,
+                  expression: "antiguedad"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control form-control-sm": true,
+                "border border-danger":
+                  _vm.errors.has("antiguedad") ||
+                  this.validacionesback.antiguedad
+              },
+              attrs: {
+                type: "number",
+                min: "0",
+                name: "antiguedad",
+                step: "1",
+                placeholder: "Ingrese el horario laboral",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.antiguedad },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.antiguedad = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("antiguedad"),
+                    expression: "errors.has('antiguedad')"
+                  }
+                ],
+                staticClass: "text-danger"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("antiguedad")))]
+            ),
+            _vm._v(" "),
+            this.validacionesback.antiguedad != undefined
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(String(this.validacionesback.antiguedad)))
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group col-md-3" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "col-form-label col-form-label-sm",
+                  attrs: { for: "rango" }
+                },
+                [_vm._v("Rango")]
+              ),
+              _vm._v(" "),
+              _c("v-select", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  }
+                ],
+                class: {
+                  "border border-danger rounded":
+                    _vm.errors.has("rango") || this.validacionesback.rango
+                },
+                attrs: {
+                  options: _vm.rangos,
+                  label: "rango",
+                  name: "rango",
+                  placeholder: "Seleccione un rango"
+                },
+                model: {
+                  value: _vm.rango,
+                  callback: function($$v) {
+                    _vm.rango = $$v
+                  },
+                  expression: "rango"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("rango"),
+                      expression: "errors.has('rango')"
+                    }
+                  ],
+                  staticClass: "text-danger"
+                },
+                [_vm._v(_vm._s(_vm.errors.first("rango")))]
+              ),
+              _vm._v(" "),
+              this.validacionesback.rango != undefined
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(String(this.validacionesback.rango)))
+                  ])
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-3" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-form-label col-form-label-sm",
+                attrs: { for: "identidad" }
+              },
+              [_vm._v("Horario laboral")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.horarioLaboral,
+                  expression: "horarioLaboral"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: "required",
+                  expression: "'required'"
+                }
+              ],
+              class: {
+                input: true,
+                "form-control form-control-sm": true,
+                "border border-danger":
+                  _vm.errors.has("horarioLaboral") ||
+                  this.validacionesback.alias
+              },
+              attrs: {
+                type: "text",
+                name: "horarioLaboral",
+                placeholder: "Ingrese el horario laboral",
+                autocomplete: "off"
+              },
+              domProps: { value: _vm.horarioLaboral },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.horarioLaboral = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.errors.has("horarioLaboral"),
+                    expression: "errors.has('horarioLaboral')"
+                  }
+                ],
+                staticClass: "text-danger"
+              },
+              [_vm._v(_vm._s(_vm.errors.first("horarioLaboral")))]
+            ),
+            _vm._v(" "),
+            this.validacionesback.horarioLaboral != undefined
+              ? _c("span", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(String(this.validacionesback.horarioLaboral)))
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _vm.sistema == "uat"
+            ? _c("div", { staticClass: "form-group col-md-12" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "col-form-label col-form-label-sm",
+                    attrs: { for: "descripcionHechos" }
+                  },
+                  [_vm._v("Descripcion de hechos")]
+                ),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.descripcionHechos,
+                      expression: "descripcionHechos"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required",
+                      expression: "'required'"
+                    }
+                  ],
+                  staticClass: "form-control form-control-sm",
+                  class: {
+                    input: true,
+                    "form-control": true,
+                    "border border-danger":
+                      _vm.errors.has("descripcionHechos") ||
+                      this.validacionesback.particulares
+                  },
+                  attrs: {
+                    cols: "30",
+                    rows: "5",
+                    name: "descripcionHechos",
+                    placeholder: "Ingrese la descripcion de los hechos",
+                    autocomplete: "off"
+                  },
+                  domProps: { value: _vm.descripcionHechos },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.descripcionHechos = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("descripcionHechos"),
+                        expression: "errors.has('descripcionHechos')"
+                      }
+                    ],
+                    staticClass: "text-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("descripcionHechos")))]
+                ),
+                _vm._v(" "),
+                this.validacionesback.particulares != undefined
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(String(this.validacionesback.particulares)))
+                    ])
+                  : _vm._e()
+              ])
+            : _vm._e()
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-030f65d4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

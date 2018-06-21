@@ -13,7 +13,7 @@ class CreateDomiciliosTable extends Migration
      */
     public function up()
     {
-        Schema::create('domicilios', function (Blueprint $table) {
+        Schema::create('domicilio', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idEstado')->unsigned()->default(33);
             $table->integer('idMunicipio')->unsigned()->default(2497);

@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         
 //      $this->call(UsersTableSeeder::class);
-        $this->call(datos_contacto_tipos::class);
         $this->call(SexosSeeder::class);
 
         $this->call(EstadoSeeder::class);
@@ -55,6 +54,7 @@ class DatabaseSeeder extends Seeder
         $this->call(validacionesSeeder::class);
 
         $this->call(InterpreteSeeder::class);
+        $this->call(DomicilioSeeder::class);
         $this->call(PersonaFisicaSeeder::class);
         $this->call(VariablesPersonaFisicaSeeder::class);
 
