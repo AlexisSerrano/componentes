@@ -88,7 +88,7 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtra: function(){  
-                var urlGuardarAbogado = this.url+'/guardarAbogado';       
+                var urlGuardarAbogado = this.url+'/guardarExtrasAbogado';       
                 var data = {
                     idVariablesPersona:1,        
                     cedulaProf:this.cedula,            
