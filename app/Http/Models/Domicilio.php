@@ -7,7 +7,7 @@ use App;
 
 class Domicilio extends Model
 {
-    protected $table = 'domicilios';
+    protected $table = 'domicilio';
 
     protected $fillable = [
         'id', 'idMunicipio', 'idLocalidad', 'idColonia',  'calle', 'numExterno',  'numInterno',

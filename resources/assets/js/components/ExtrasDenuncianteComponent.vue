@@ -73,7 +73,7 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtra: function(){  
-                var urlGuardarDenunciante = this.url+'/guardarDenunciante';                
+                var urlGuardarDenunciante = this.url+'/guardarExtrasDenunciante';                 
                 var data = {
                     idVariablesPersona:1,                    
                     idNotificacion:1,

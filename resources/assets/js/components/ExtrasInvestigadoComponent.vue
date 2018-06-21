@@ -149,7 +149,7 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtra: function(){  
-                var urlGuardarInvestigado = this.url+'/guardarInvestigado';                
+                var urlGuardarInvestigado = this.url+'/guardarExtrasInvestigado';                
                 var data = {
                     idVariablesPersona:1,        
                     idNotificacion:0,            
