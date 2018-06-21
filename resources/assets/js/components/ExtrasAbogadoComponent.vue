@@ -88,21 +88,14 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtra: function(){  
-                var urlGuardarAbogado = this.url+'/guardarAbogado';                
+                var urlGuardarAbogado = this.url+'/guardarAbogado';       
                 var data = {
                     idVariablesPersona:1,        
-                    idNotificacion:0,            
-                    idPuesto:(this.puesto!=''?this.puesto:9),
-                    alias:this.alias,
-                    personasBajoSuGuarda:this.dependientes,
-                    ingreso:this.ingreso,
-                    periodoIngreso:this.periodo,
-                    residenciaAnterior:this.residencia,
-                    perseguidoPenalmente:this.perseguido,              
-                    vestimenta:this.vestimenta,
-                    senasPartic:this.particulares,
-                    narracion:this.hechos,
-                    };
+                    cedulaProf:this.cedula,            
+                    sector:this.sector,
+                    correo:this.correo,
+                    tipo:this.tipo,
+                };
                     axios.post(urlGuardarAbogado,data)
                     .then (response =>{
                         this.confirm = response.data

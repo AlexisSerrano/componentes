@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,15 +27,4 @@ class ExtraAbogado extends Model
     {
        return $this->belongsTo('app/Models/VariablesPersona');
     }
-    /*
-    public function extraDenunciante()
-    {
-       return $this->hasMany('app/Models/ExtraDenunciante');
-    }
-
-    public function extraDenunciado()
-    {
-       return $this->hasMany('app/Models/ExtraDenunciado');
-    }
-    */
 }
