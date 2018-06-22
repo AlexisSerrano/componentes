@@ -73,7 +73,7 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtra: function(){  
-                var urlGuardarDenunciante = this.url+'/guardarExtrasDenunciante';                 
+                var urlGuardarDenunciante = this.url+'/guardarExtrasDenunciante';                  
                 var data = {
                     idVariablesPersona:1,                    
                     idNotificacion:1,
@@ -92,6 +92,8 @@ import swal from 'sweetalert2'
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })
+                            //limpiarCampos
+                            this.limpiarCampos();
                         }
                         else{
                             swal({
@@ -110,6 +112,11 @@ import swal from 'sweetalert2'
                         })
                     });
                 
+            },
+            limpiarCampos:function(){
+                this.tipoSolicitante="";
+                this.descripcionHechos="";
+                this.identidad="";
             }
        }
     }

@@ -11,9 +11,4 @@ class ExtraAutoridad extends Model
     protected $fillable = [
         'id', 'idVariablesPersona', 'antiguedad', 'rango', 'horarioLaboral', 'narracion',
     ];
-
-    public function variablesPersona()
-    {
-        return $this->belongsTo('App\Models\VariablesPersona');
-    }
 }
