@@ -424,6 +424,7 @@ import { mapState } from "vuex";
                 this.edad='',
                 this.sexo=null,
                 this.rfc='',
+                this.homoclave='',
                 this.curp='',
                 this.motivoEstancia='',
                 this.ocupacion='',
@@ -524,8 +525,9 @@ import { mapState } from "vuex";
                 if(data){
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
-                        this.idPersona = response.data
-                        // this.$store.commit('asignarIdPersona',response.data)
+                        // this.idPersona = response.data
+                        this.$store.commit('asignarIdFisica',response.data)
+                        this.$store.commit('activeTabsFisica')
                         if(idPersona){
                             swal({
                                 title: '¡Guardado correctamente!',
@@ -555,13 +557,13 @@ import { mapState } from "vuex";
             }
         },
        watch:{
-            sexo : function (val, oldval) {
+            sexo() {
                 this.generarCurp();
             },
-            estado : function (val, oldval) {
+            estado() {
                 this.generarCurp();
             },
-            lengua:function(){
+            lengua(){
                 if(this.lengua!=null && this.lengua!=''){
                     if(this.lengua.id!=69 && this.lengua.id!=70){
                         this.validaciones.idInterprete ='';
@@ -573,9 +575,12 @@ import { mapState } from "vuex";
                 else{
                     this.validaciones.idInterprete='oculto';
                 }
+            },
+            idPersonaMoral() {
+                this.CleanFields();
             }
         },
-        computed:mapState(['idPersonaVuex'])
+        computed:mapState(['idPersonaFisica','idPersonaMoral'])
     }
 </script>
 <style>
