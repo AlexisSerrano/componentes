@@ -65,6 +65,7 @@
 <script>
 import swal from 'sweetalert2'
 import moment from 'moment'
+import { mapState } from "vuex";
     export default {
         data(){
              return{
@@ -156,6 +157,7 @@ import moment from 'moment'
                 this.nombre='',
                 this.fechaCreacion='',
                 this.rfc='',
+                this.homoclave='',
                 this.telefono='',
                 this.representanteLegal='',
                 this.$validator.reset();
@@ -175,7 +177,9 @@ import moment from 'moment'
                         idCarpeta:this.carpeta
                     })
                     .then (response =>{
-                        this.idMoral=response.data                                          
+                        // this.idMoral=response.data        
+                        this.$store.commit('asignarIdMoral',response.data)
+                        this.$store.commit('activeTabsMoral')
                         swal({
                             title: '¡Guardado correctamente!',
                             text: 'Ésta empresa fue guardada exitosamente.',
@@ -193,7 +197,13 @@ import moment from 'moment'
                         })
                     });
             }
-       }
+       },
+       watch: {
+            idPersonaFisica() {
+                this.CleanFields();
+            }
+       },
+       computed:mapState(['idPersonaFisica','idPersonaMoral'])
     }
 </script>
 <style>

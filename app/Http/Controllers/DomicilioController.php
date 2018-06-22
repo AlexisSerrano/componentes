@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Models\VariablesPersona;
 use App\Http\Models\CatEstado;
 use App\Http\Models\CatMunicipio;
 use App\Http\Models\CatLocalidad;
@@ -18,17 +18,20 @@ class DomicilioController extends Controller
         return view("domicilio");
 	}
 
-     public function addDomicilio(DomicilioRequest $request){
-        $domicilio=new Domicilio();
+    public function addDomicilio(DomicilioRequest $request){
         $domicilio->idMunicipio=$request->input('municipio');
         $domicilio->idLocalidad=$request->input('localidad');
         $domicilio->idColonia=$request->input('colonia');
         $domicilio->calle=$request->input('calle');
         $domicilio->numExterno=$request->input('numExterno');
         if($request->input('numInterno')!=null){
-        $domicilio->numInterno=$request->input('numInterno');
+            $domicilio->numInterno=$request->input('numInterno');
         }
         $domicilio->save();
+        if($request){
+
+        }
+        $varPersona = VariablesPersona::where('idPersona',$request->idPersona);
         return $domicilio->id;
     }
 
