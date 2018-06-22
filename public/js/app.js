@@ -86435,7 +86435,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tipoSolicitante: '',
             descripcionHechos: '',
             url: 'http://localhost/componentes/public/api',
-            confirm: ''
+            idreturn: ''
         };
     },
 
@@ -86453,7 +86453,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$validator.validateAll().then(function (result) {
                 if (result) {
-                    _this.guardarExtra();
+                    if (_this.idreturn == '') {
+                        _this.guardarExtra();
+                    } else {
+                        _this.updateExtra();
+                    }
+
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -86478,14 +86483,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 narracion: this.descripcionHechos
             };
             axios.post(urlGuardarDenunciante, data).then(function (response) {
-                _this2.confirm = response.data;
-                if (_this2.confirm) {
+                _this2.idreturn = response.data;
+                if (_this2.idreturn) {
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: '¡Guardado correctamente!',
                         text: 'Ésta persona fue guardada exitosamente.',
                         type: 'success',
                         confirmButtonText: 'Ok'
                     });
+                    //limpiarCampos                                                        
                 } else {
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: '¡Guardado incorrecto!',
@@ -86502,6 +86508,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     confirmButtonText: 'Ok'
                 });
             });
+        },
+        updateExtra: function updateExtra() {
+            var _this3 = this;
+
+            var urlGuardarDenunciante = this.url + '/updateExtrasDenunciante';
+            var data = {
+                idUpdate: this.idreturn,
+                //idVariablesPersona:1,                    
+                //idNotificacion:1,
+                //idAbogado:0,
+                victima: this.tipoSolicitante == "Victima" ? 1 : 0,
+                reguardarIdentidad: this.identidad,
+                narracion: this.descripcionHechos
+            };
+            axios.post(urlGuardarDenunciante, data).then(function (response) {
+                _this3.idreturn = response.data;
+                if (_this3.idreturn) {
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Actualizado correctamente!',
+                        text: 'Ésta persona fue guardada exitosamente.',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    });
+                    //limpiarCampos                                                        
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Guardado incorrecto!',
+                        text: 'Error al guardar.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            }).catch(function (error) {
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: '¡Guardado incorrecto!',
+                    text: 'No fue posible actualizar.',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        },
+        limpiarCampos: function limpiarCampos() {
+            this.tipoSolicitante = "";
+            this.descripcionHechos = "";
+            this.identidad = "";
         }
     }
 });
@@ -86918,10 +86969,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$validator.validateAll().then(function (result) {
                 if (result) {
                     _this.guardarExtraAutoridad();
-                    /*console.log("Antiguedad:" + this.antiguedad);
-                    console.log("Rango:" +this.rango);
-                    console.log("Horario laboral: "+this.horarioLaboral);
-                    console.log("Descripcion:" +this.descripcionHechos);*/
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -86933,19 +86980,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
 
-        guardar: function guardar() {
-            console.log("Guardando a la persona");
-        },
         guardarExtraAutoridad: function guardarExtraAutoridad() {
             var _this2 = this;
 
             var urlGuardarAutoridad = this.url + '/guardarExtrasAutoridad';
+            //console.log("Narracion de los hechos: "+this.descripcionHechos); 
+            var narracionHechos;
+            if (this.descripcionHechos == '') {
+                narracionHechos = "SIN INFORMACION";
+            } else {
+                narracionHechos = this.descripcionHechos;
+            }
             var data = {
                 idVariablesPersona: 1,
                 antiguedad: this.antiguedad,
                 rango: this.rango,
                 horarioLaboral: this.horarioLaboral,
-                narracion: this.descripcionHechos
+                narracion: narracionHechos
             };
             axios.post(urlGuardarAutoridad, data).then(function (response) {
                 _this2.confirm = response.data;
@@ -86956,6 +87007,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         type: 'success',
                         confirmButtonText: 'Ok'
                     });
+                    _this2.limpiarCampos();
+                    return;
                 } else {
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: '¡Guardado incorrecto!',
@@ -86972,6 +87025,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     confirmButtonText: 'Ok'
                 });
             });
+        },
+        limpiarCampos: function limpiarCampos() {
+            this.antiguedad = "";
+            this.rango = "";
+            this.horarioLaboral = "";
+            this.descripcionHechos = "";
         }
     }
 });
@@ -86997,7 +87056,7 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "form-group col-md-3" }, [
+          _c("div", { staticClass: "form-group col-md-4" }, [
             _c(
               "label",
               {
@@ -87064,7 +87123,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "form-group col-md-3" },
+            { staticClass: "form-group col-md-4" },
             [
               _c(
                 "label",
@@ -87121,7 +87180,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-3" }, [
+          _c("div", { staticClass: "form-group col-md-4" }, [
             _c(
               "label",
               {
@@ -87269,7 +87328,7 @@ var staticRenderFns = [
         _c(
           "button",
           { staticClass: "btn btn-primary mr-1", attrs: { type: "submit" } },
-          [_vm._v("Guardassr")]
+          [_vm._v("Guardar")]
         )
       ])
     ])

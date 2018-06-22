@@ -45,8 +45,8 @@ import swal from 'sweetalert2'
                 solicitantes:['Victima','Ofendido'],
                 tipoSolicitante:'',
                 descripcionHechos:'',                
-                url:'http://localhost/componentes/public/api',
-                confirm:''
+                url:'http://localhost/componentes/public/api',                
+                idreturn:''
             }
         },
         props:{
@@ -61,7 +61,12 @@ import swal from 'sweetalert2'
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.guardarExtra();
+                        if(this.idreturn==''){                            
+                            this.guardarExtra();
+                        }else{                                                      
+                            this.updateExtra();
+                        }
+                        
                         return;
                     }
                     swal({
@@ -84,16 +89,15 @@ import swal from 'sweetalert2'
                     };
                     axios.post(urlGuardarDenunciante,data)
                     .then (response =>{
-                        this.confirm = response.data
-                        if(this.confirm){
+                        this.idreturn = response.data;
+                        if(this.idreturn){                            
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })
-                            //limpiarCampos
-                            this.limpiarCampos();
+                            //limpiarCampos                                                        
                         }
                         else{
                             swal({
@@ -107,6 +111,47 @@ import swal from 'sweetalert2'
                         swal({
                         title: '¡Guardado incorrecto!',
                         text: 'Ésta persona no fue posible guardarla.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                        })
+                    });
+                
+            },
+            updateExtra: function(){  
+                var urlGuardarDenunciante = this.url+'/updateExtrasDenunciante';                  
+                var data = {
+                    idUpdate:this.idreturn,
+                    //idVariablesPersona:1,                    
+                    //idNotificacion:1,
+                    //idAbogado:0,
+                    victima: (this.tipoSolicitante=="Victima" ? 1 : 0),
+                    reguardarIdentidad:this.identidad,
+                    narracion: this.descripcionHechos
+                    };
+                    axios.post(urlGuardarDenunciante,data)
+                    .then (response =>{
+                        this.idreturn = response.data
+                        if(this.idreturn){                            
+                            swal({
+                                title: '¡Actualizado correctamente!',
+                                text: 'Ésta persona fue guardada exitosamente.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                            //limpiarCampos                                                        
+                        }
+                        else{
+                            swal({
+                                title: '¡Guardado incorrecto!',
+                                text: 'Error al guardar.',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }).catch((error)=>{                        
+                        swal({
+                        title: '¡Guardado incorrecto!',
+                        text: 'No fue posible actualizar.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                         })
