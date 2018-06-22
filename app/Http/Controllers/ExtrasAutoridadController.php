@@ -76,9 +76,17 @@ class ExtrasAutoridadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        
+       $ExtraAutoridad = ExtraAutoridad::find($request->idUpdate);            
+        $ExtraAutoridad->antiguedad = $request->antiguedad;
+        $ExtraAutoridad->rango = $request->rango;
+        $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;        
+        $ExtraAutoridad->narracion = $request->narracion;  
+        $ExtraAutoridad->save();     
+        $id = $ExtraAutoridad->id;                
+        return response()->json($id);
     }
 
     /**

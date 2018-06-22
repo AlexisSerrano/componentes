@@ -65,16 +65,16 @@ import swal from 'sweetalert2'
                             this.guardarExtra();
                         }else{                                                      
                             this.updateExtra();
-                        }
-                        
-                        return;
-                    }
-                    swal({
+                        }                                                
+                    }else{
+                        swal({
                         title: '¡Guardado incorrecto!',
                         text: 'Error al guardar.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     });
+                    }
+        
                 });
             },
             guardarExtra: function(){  
