@@ -27,7 +27,7 @@ class CreateExtraDenunciadoMoralTable extends Migration
             $table->integer('personasBajoSuGuarda')->default(0);
             $table->boolean('perseguidoPenalmente')->default(false);
             $table->string('vestimenta', 150)->default("SIN INFORMACION");
-            $table->string('narracion',2000)->default("SIN INFORMACION");
+            // $table->string('narracion',2000)->default("SIN INFORMACION");
 
             $table->foreign('idVariablesPersona')->references('id')->on('variables_persona_moral')->onDelete('cascade');
             $table->foreign('idNotificacion')->references('id')->on('notificacion')->onDelete('cascade');
