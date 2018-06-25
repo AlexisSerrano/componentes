@@ -8,7 +8,7 @@
     
     <div class="form-group col-md-4">
         <label class="col-form-label col-form-label-sm" for="antiguedad">Antigüedad (Años)</label>
-        <input type="number" min="0" name="antiguedad" step="1" :class="{'form-control form-control-sm':true, 'border border-danger': errors.has('antiguedad')}" v-model="antiguedad" placeholder="Ingrese el horario laboral" v-validate="'required'" autocomplete="off">
+        <input type="number" min="0" name="antiguedad" step="1" :class="{'form-control form-control-sm':true, 'border border-danger': errors.has('antiguedad')}" v-model="antiguedad" placeholder="Ingrese la antigüedad" v-validate="'required'" autocomplete="off">
         <span v-show="errors.has('antiguedad')" class="text-danger">{{ errors.first('antiguedad')}}</span>
         <!-- <span v-if="this.validacionesback.antiguedad!=undefined" class="text-danger">{{ String(this.validacionesback.antiguedad)}}</span>-->
     </div>
@@ -29,7 +29,7 @@
 
     <div v-if="sistema=='uat'" class="form-group col-md-12">
         <label class="col-form-label col-form-label-sm" for="descripcionHechos">Descripcion de hechos</label>
-        <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcionHechos" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcionHechos')}" v-model="descripcionHechos" placeholder="Ingrese la descripcion de los hechos" v-validate="'required'" autocomplete="off"></textarea>
+        <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcionHechos" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcionHechos')}" v-model="descripcionHechos" placeholder="Ingrese la descripción de los hechos" v-validate="'required'" autocomplete="off"></textarea>
         <span v-show="errors.has('descripcionHechos')" class="text-danger">{{ errors.first('descripcionHechos')}}</span>
         <!-- <span v-if="this.validacionesback.particulares!=undefined" class="text-danger">{{ String(this.validacionesback.particulares)}}</span>-->
     </div> 
@@ -100,8 +100,8 @@ import swal from 'sweetalert2'
                     idVariablesPersona:1,                    
                     antiguedad:this.antiguedad,
                     rango:this.rango,
-                    horarioLaboral: this.horarioLaboral,
-                    narracion:narracionHechos
+                    horarioLaboral: this.horarioLaboral.toUpperCase(),
+                    narracion:narracionHechos.toUpperCase()
                     };
                     axios.post(urlGuardarAutoridad,data)
                     .then (response =>{
@@ -146,8 +146,8 @@ import swal from 'sweetalert2'
                     //idVariablesPersona:1,                    
                     antiguedad:this.antiguedad,
                     rango:this.rango,
-                    horarioLaboral: this.horarioLaboral,
-                    narracion:narracionHechos
+                    horarioLaboral: this.horarioLaboral.toUpperCase(),
+                    narracion:narracionHechos.toUpperCase()
                     };
                     axios.post(urlGuardarAutoridad,data)
                     .then (response =>{
