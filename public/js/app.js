@@ -73230,13 +73230,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     // props: ['sistema','tipo'],
     props: {
         sistema: {
-            default: false
+            required: true
         },
         tipo: {
-            default: false
+            required: true
         },
         carpeta: {
-            default: ''
+            required: true
         }
     },
     components: { SpringSpinner: __WEBPACK_IMPORTED_MODULE_2_epic_spinners__["a" /* SpringSpinner */] },
@@ -80902,7 +80902,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     props: {
         tipo: {
-            default: ''
+            required: true
         },
         empresa: {
             required: true
@@ -81005,6 +81005,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.validacionesback = '';
             var urlDomicilio = this.url + 'addDomicilio';
+            if (this.empresa == true) {
+                var idPersona = this.$store.state.idPersonaFisica;
+            } else {
+                var idPersona = this.$store.state.idPersonaMoral;
+            }
             if (this.tipo == '') {
                 var data = {
                     estado: this.estado.id,
@@ -81014,7 +81019,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     codigoPostal: this.codigoPostal.id,
                     calle: this.calle.toUpperCase(),
                     numExterno: this.numExterno.toUpperCase(),
-                    numInterno: this.numInterno.toUpperCase()
+                    numInterno: this.numInterno.toUpperCase(),
+                    tipo: this.tipo,
+                    empresa: this.empresa,
+                    idPersona: idPersona
                 };
             } else if (this.tipo == 'trabajo') {
                 var data = {
@@ -81027,7 +81035,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     numExterno: this.numExterno.toUpperCase(),
                     numInterno: this.numInterno.toUpperCase(),
                     telefonoTrabajo: this.telefono,
-                    lugarTrabajo: this.lugarTrabajo.toUpperCase()
+                    lugarTrabajo: this.lugarTrabajo.toUpperCase(),
+                    tipo: this.tipo,
+                    empresa: this.empresa,
+                    idPersona: idPersona
                 };
             } else if (this.tipo == 'contacto') {
                 var data = {
@@ -81040,7 +81051,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     numExterno: this.numExterno.toUpperCase(),
                     numInterno: this.numInterno.toUpperCase(),
                     telefonoContacto: this.telefono,
-                    correoContacto: this.correo.toUpperCase()
+                    correoContacto: this.correo.toUpperCase(),
+                    tipo: this.tipo,
+                    empresa: this.empresa,
+                    idPersona: idPersona
                 };
             }
             axios.post(urlDomicilio, data).then(function (response) {

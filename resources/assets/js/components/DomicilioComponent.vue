@@ -112,7 +112,7 @@ import { SpringSpinner } from 'epic-spinners'
         },
         props:{
             tipo:{
-                default:''
+                required:true
             },
             empresa:{
                 required:true
@@ -228,6 +228,12 @@ import { SpringSpinner } from 'epic-spinners'
             crearDomicilio: function(){
                 this.validacionesback='';
                 var urlDomicilio = this.url+'addDomicilio';
+                if(this.empresa==true){
+                    var idPersona=this.$store.state.idPersonaFisica
+                }
+                else{
+                    var idPersona=this.$store.state.idPersonaMoral
+                }
                 if(this.tipo==''){
                     var data={
                         estado: this.estado.id,
@@ -237,7 +243,10 @@ import { SpringSpinner } from 'epic-spinners'
                         codigoPostal: this.codigoPostal.id,
                         calle: this.calle.toUpperCase(),
                         numExterno: this.numExterno.toUpperCase(),
-                        numInterno: this.numInterno.toUpperCase()
+                        numInterno: this.numInterno.toUpperCase(),
+                        tipo: this.tipo,
+                        empresa: this.empresa,
+                        idPersona: idPersona
                     };
                 }
                 else if (this.tipo=='trabajo'){
@@ -251,7 +260,10 @@ import { SpringSpinner } from 'epic-spinners'
                         numExterno: this.numExterno.toUpperCase(),
                         numInterno: this.numInterno.toUpperCase(),
                         telefonoTrabajo: this.telefono,
-                        lugarTrabajo: this.lugarTrabajo.toUpperCase()
+                        lugarTrabajo: this.lugarTrabajo.toUpperCase(),
+                        tipo: this.tipo,
+                        empresa: this.empresa,
+                        idPersona: idPersona
                     };
                 }
                 else if(this.tipo=='contacto'){
@@ -265,7 +277,10 @@ import { SpringSpinner } from 'epic-spinners'
                         numExterno: this.numExterno.toUpperCase(),
                         numInterno: this.numInterno.toUpperCase(),
                         telefonoContacto: this.telefono,
-                        correoContacto: this.correo.toUpperCase()
+                        correoContacto: this.correo.toUpperCase(),
+                        tipo: this.tipo,
+                        empresa: this.empresa,
+                        idPersona: idPersona
                     };
                 }
                 axios.post(urlDomicilio,data).then((response)=>{
