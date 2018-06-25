@@ -37,44 +37,44 @@
 
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="periodo">Periodo de ingreso</label>    
-                    <v-select :options="periodos" label="nombre" v-model="periodo" name="periodo" v-validate="validacionesback.periodo" :class="{ 'border border-danger rounded': errors.has('periodo') || this.validacionesback.periodo}" placeholder="Seleccione un periodo"></v-select>
+                    <v-select :options="periodos" label="nombre" v-model="periodo" name="periodo" v-validate="validacionesback.periodo" :class="{ 'border border-danger rounded': errors.has('periodo') || this.validacionesback.periodo}" placeholder="Seleccione un periodo" ></v-select>
                     <span v-show="errors.has('periodo')" class="text-danger">{{ errors.first('periodo')}}</span>
                     <span v-if="this.validacionesback.periodo!=undefined" class="text-danger">{{ String(this.validacionesback.periodo)}}</span>
                 </div>
 
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="residencia">Residencia anterior</label>
-                    <input  class="form-control form-control-sm" type="text" name="residencia" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('residencia') || this.validacionesback.residencia}" v-model="residencia" placeholder="Ingrese el residencia" v-validate="''" autocomplete="off" >
+                    <input  class="form-control form-control-sm" type="text" name="residencia" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('residencia') || this.validacionesback.residencia}" v-model="residencia" placeholder="Ingrese el residencia" v-validate="'required'" autocomplete="off" >
                     <span v-show="errors.has('residencia')" class="text-danger">{{ errors.first('residencia')}}</span>
                     <span v-if="this.validacionesback.residencia!=undefined" class="text-danger">{{ String(this.validacionesback.residencia)}}</span>
                 </div>
 
                 <div class="form-group col-md-3">
                     <div>
-                    <label class="col-form-label col-form-label-sm" for="residencia">¿Perseguido penalmente?</label>
+                        <label class="col-form-label col-form-label-sm" for="residencia">¿Perseguido penalmente?</label>
                     </div>
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label col-form-label col-form-label-sm" for="perseguidoSi" style="padding-right: 5px">Si</label>
-                            <input class="form-check-input" type="radio" v-model="perseguido" id="perseguidoSi" value="1">
+                            <input class="form-check-input" type="radio" v-model="perseguido" id="perseguidoSi" value="1" name="perseguido">
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label col-form-label col-form-label-sm" for="perseguidoNo" style="padding-right: 5px">No</label>
-                            <input class="form-check-input" type="radio" v-model="perseguido" id="perseguidoNo" value="2">
+                            <input class="form-check-input" type="radio" v-model="perseguido" id="perseguidoNo" value="0" name="perseguido" v-validate="'required'">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="vestimenta">Vestimenta</label>
-                    <input  class="form-control form-control-sm" type="text" name="vestimenta" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('vestimenta') || this.validacionesback.vestimenta}" v-model="vestimenta" placeholder="Ingrese la vestimenta" v-validate="''" autocomplete="off" >
+                    <input  class="form-control form-control-sm" type="text" name="vestimenta" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('vestimenta') || this.validacionesback.vestimenta}" v-model="vestimenta" placeholder="Ingrese la vestimenta" v-validate="'required'" autocomplete="off" >
                     <span v-show="errors.has('vestimenta')" class="text-danger">{{ errors.first('vestimenta')}}</span>
                     <span v-if="this.validacionesback.vestimenta!=undefined" class="text-danger">{{ String(this.validacionesback.vestimenta)}}</span>
                 </div>
 
                 <div class="form-group col-md-12">
                     <label class="col-form-label col-form-label-sm" for="particulares">Señas particulares</label>
-                    <textarea class="form-control form-control-sm" name="particulares" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('particulares') || this.validacionesback.particulares}" v-model="particulares" placeholder="Ingrese el particulares" v-validate="''" autocomplete="off"></textarea>
+                    <textarea class="form-control form-control-sm" name="particulares" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('particulares') || this.validacionesback.particulares}" v-model="particulares" placeholder="Ingrese el particulares" v-validate="'required'" autocomplete="off"></textarea>
                     <span v-show="errors.has('particulares')" class="text-danger">{{ errors.first('particulares')}}</span>
                     <span v-if="this.validacionesback.particulares!=undefined" class="text-danger">{{ String(this.validacionesback.particulares)}}</span>
                 </div>
@@ -108,9 +108,10 @@ import swal from 'sweetalert2'
                 periodo:'',
                 residencia:'',
                 perseguido:'',              
-                vestimenta:'',
-                particulares:'',
+                vestimenta:'SIN INFORMACIÓN',
+                particulares:'SIN INFORMACIÓN',
                 hechos:'',
+                idExtrasInvestigado:0,
                 validacionesback:[],
                 puestos:[],
                 periodos:['DIARIO','SEMANAL','QUINCENAL','MENSUAL'],
@@ -137,7 +138,10 @@ import swal from 'sweetalert2'
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.guardarExtra();
+                        if(this.idExtrasInvestigado>0)
+                            this.actualizarExtra();
+                        else
+                            this.guardarExtra();
                         return;
                     }
                     swal({
@@ -148,32 +152,34 @@ import swal from 'sweetalert2'
                     });
                 });
             },
-            guardarExtra: function(){  
+            guardarExtra: function(){
                 var urlGuardarInvestigado = this.url+'/guardarExtrasInvestigado';                
                 var data = {
                     idVariablesPersona:1,        
                     idNotificacion:0,            
                     idPuesto:(this.puesto!=''?this.puesto:9),
-                    alias:this.alias,
+                    alias:this.alias.toUpperCase(),
                     personasBajoSuGuarda:this.dependientes,
                     ingreso:this.ingreso,
                     periodoIngreso:this.periodo,
-                    residenciaAnterior:this.residencia,
+                    residenciaAnterior:this.residencia.toUpperCase(),
                     perseguidoPenalmente:this.perseguido,              
-                    vestimenta:this.vestimenta,
-                    senasPartic:this.particulares,
-                    narracion:this.hechos,
+                    vestimenta:this.vestimenta.toUpperCase(),
+                    senasPartic:this.particulares.toUpperCase(),
+                    narracion:this.hechos.toUpperCase(),
                     };
                     axios.post(urlGuardarInvestigado,data)
                     .then (response =>{
                         this.confirm = response.data
                         if(this.confirm){
+                            this.idExtrasInvestigado=this.confirm;
+                            //this.CleanFields();
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
-                            })
+                            });
                         }
                         else{
                             swal({
@@ -181,7 +187,7 @@ import swal from 'sweetalert2'
                                 text: 'Error al guardar.',
                                 type: 'error',
                                 confirmButtonText: 'Ok'
-                            })
+                            });
                         }
                     }).catch((error)=>{                        
                         swal({
@@ -189,15 +195,73 @@ import swal from 'sweetalert2'
                         text: 'Ésta persona no fue posible guardarla.',
                         type: 'error',
                         confirmButtonText: 'Ok'
-                        })
+                        });
                     });
-                
+            },
+            actualizarExtra: function(){
+                var urlGuardarInvestigado = this.url+'/actualizarExtrasInvestigado';                
+                var data = {
+                    id:this.idExtrasInvestigado,        
+                    idNotificacion:0,            
+                    idPuesto:(this.puesto!=''?this.puesto:9),
+                    alias:this.alias.toUpperCase(),
+                    personasBajoSuGuarda:this.dependientes,
+                    ingreso:this.ingreso,
+                    periodoIngreso:this.periodo,
+                    residenciaAnterior:this.residencia.toUpperCase(),
+                    perseguidoPenalmente:this.perseguido,              
+                    vestimenta:this.vestimenta.toUpperCase(),
+                    senasPartic:this.particulares.toUpperCase(),
+                    narracion:this.hechos.toUpperCase(),
+                    };
+                    axios.post(urlGuardarInvestigado,data)
+                    .then (response =>{
+                        this.confirm = response.data
+                        if(this.confirm){
+                            this.idExtrasInvestigado=this.confirm;
+                            //this.CleanFields();
+                            swal({
+                                title: '¡Guardado correctamente!',
+                                text: 'Ésta persona fue guardada exitosamente.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            });
+                        }
+                        else{
+                            swal({
+                                title: '¡Guardado incorrecto!',
+                                text: 'Error al guardar.',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            });
+                        }
+                    }).catch((error)=>{                        
+                        swal({
+                        title: '¡Guardado incorrecto!',
+                        text: 'Ésta persona no fue posible guardarla.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                        });
+                    });
+            },
+            CleanFields() {
+                this.puesto='',
+                this.alias='',
+                this.dependientes='',
+                this.ingreso='',
+                this.periodo='',
+                this.residencia='',
+                this.perseguido='',
+                this.vestimenta='',
+                this.particulares='',
+                this.hechos='',
+                this.$validator.reset();
             }
        }
     }
 </script>
 <style>
-input{
+input,textarea{
     text-transform: uppercase
 }
 </style>

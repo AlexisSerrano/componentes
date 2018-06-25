@@ -30,4 +30,22 @@ class ExtrasAbogadoController extends Controller
         return response()->json($id);
         
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {        
+        $extraAbogado = ExtraAbogado::find($request->id);
+        $extraAbogado->cedulaProf = $request->cedulaProf;        
+        $extraAbogado->sector = $request->sector;
+        $extraAbogado->correo = $request->correo;
+        $extraAbogado->tipo = $request->tipo;
+        $extraAbogado->save();  
+        $id = $extraAbogado->id;                
+        return response()->json($id);
+    }
 }
