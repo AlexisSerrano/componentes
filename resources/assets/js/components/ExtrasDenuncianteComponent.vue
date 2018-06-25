@@ -6,22 +6,22 @@
 <div class="form-row">
    <div class="form-group col-md-3">
         <label class="col-form-label col-form-label-sm" for="identidad">Identidad resguardada</label>    
-        <v-select :options="ident" label="identidad" v-model="identidad" name="identidad" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('identidad')}"></v-select>
+        <v-select :options="ident" label="identidad" v-model="identidad" name="identidad" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('identidad')}" placeholder="Seleccione identidad"></v-select>
         <span v-show="errors.has('identidad')" class="text-danger">{{ errors.first('identidad')}}</span>
         <!-- <span v-if="this.validacionesback.periodo!=undefined" class="text-danger">{{ String(this.validacionesback.periodo)}}</span> -->
     </div>
 
     <div class="form-group col-md-3">
-        <label class="col-form-label col-form-label-sm" for="tipoSolicitante">Tipo de solicitante</label>    
-        <v-select :options="solicitantes" label="nombre" v-model="tipoSolicitante" name="tipoSolicitante" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('tipoSolicitante')}" ></v-select>
-        <span v-show="errors.has('tipoSolicitante')" class="text-danger">{{ errors.first('tipoSolicitante')}}</span>
+        <label class="col-form-label col-form-label-sm" for="solicitante">Tipo de solicitante</label>    
+        <v-select :options="solicitantes" label="nombre" v-model="solicitante" name="solicitante" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('solicitante')}" placeholder="Seleccione tipo solicitante" ></v-select>
+        <span v-show="errors.has('solicitante')" class="text-danger">{{ errors.first('solicitante')}}</span>
         <!-- <span v-if="this.validacionesback.periodo!=undefined" class="text-danger">{{ String(this.validacionesback.periodo)}}</span> -->
     </div>
 
     <div class="form-group col-md-12">
-        <label class="col-form-label col-form-label-sm" for="descripcionHechos">Descripcion de los hechos</label>
-        <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcionHechos" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcionHechos')}" v-model="descripcionHechos" placeholder="Ingrese la descripcion de los hechos" v-validate="'required'" autocomplete="off"></textarea>
-        <span v-show="errors.has('descripcionHechos')" class="text-danger">{{ errors.first('descripcionHechos')}}</span>
+        <label class="col-form-label col-form-label-sm" for="descripcion">Descripcion de los hechos</label>
+        <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcion')}" v-model="descripcion" placeholder="Ingrese la descripcion de los hechos" v-validate="'required'" autocomplete="off"></textarea>
+        <span v-show="errors.has('descripcion')" class="text-danger">{{ errors.first('descripcion')}}</span>
         <!-- <span v-if="this.validacionesback.particulares!=undefined" class="text-danger">{{ String(this.validacionesback.particulares)}}</span> -->
     </div>
 
@@ -40,13 +40,13 @@ import swal from 'sweetalert2'
     export default {
         data(){
              return{                                                
-                ident:['No','Si'],
+                ident:['NO','SI'],
                 identidad:'',                
-                solicitantes:['Victima','Ofendido'],
-                tipoSolicitante:'',
-                descripcionHechos:'',                
-                url:'http://localhost/componentes/public/api',
-                confirm:''
+                solicitantes:['Víctima','Ofendido'],
+                solicitante:'',
+                descripcion:'',                
+                url:'http://localhost/componentes/public/api',                
+                idreturn:''
             }
         },
         props:{
@@ -61,15 +61,20 @@ import swal from 'sweetalert2'
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.guardarExtra();
-                        return;
-                    }
-                    swal({
+                        if(this.idreturn==''){                            
+                            this.guardarExtra();
+                        }else{                                                      
+                            this.updateExtra();
+                        }                                                
+                    }else{
+                        swal({
                         title: '¡Guardado incorrecto!',
                         text: 'Error al guardar.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                     });
+                    }
+        
                 });
             },
             guardarExtra: function(){  
@@ -78,22 +83,21 @@ import swal from 'sweetalert2'
                     idVariablesPersona:1,                    
                     idNotificacion:1,
                     idAbogado:0,
-                    victima: (this.tipoSolicitante=="Victima" ? 1 : 0),
+                    victima: (this.solicitante=="Victima" ? 1 : 0),
                     reguardarIdentidad:this.identidad,
-                    narracion: this.descripcionHechos
+                    narracion: this.descripcion.toUpperCase()
                     };
                     axios.post(urlGuardarDenunciante,data)
                     .then (response =>{
-                        this.confirm = response.data
-                        if(this.confirm){
+                        this.idreturn = response.data;
+                        if(this.idreturn){                            
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })
-                            //limpiarCampos
-                            this.limpiarCampos();
+                            //limpiarCampos                                                        
                         }
                         else{
                             swal({
@@ -113,9 +117,50 @@ import swal from 'sweetalert2'
                     });
                 
             },
+            updateExtra: function(){  
+                var urlGuardarDenunciante = this.url+'/updateExtrasDenunciante';                  
+                var data = {
+                    idUpdate:this.idreturn,
+                    //idVariablesPersona:1,                    
+                    //idNotificacion:1,
+                    //idAbogado:0,
+                    victima: (this.solicitante=="Victima" ? 1 : 0),
+                    reguardarIdentidad:this.identidad,
+                    narracion: this.descripcion.toUpperCase()
+                    };
+                    axios.post(urlGuardarDenunciante,data)
+                    .then (response =>{
+                        this.idreturn = response.data
+                        if(this.idreturn){                            
+                            swal({
+                                title: '¡Actualizado correctamente!',
+                                text: 'Ésta persona fue guardada exitosamente.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                            //limpiarCampos                                                        
+                        }
+                        else{
+                            swal({
+                                title: '¡Guardado incorrecto!',
+                                text: 'Error al guardar.',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }).catch((error)=>{                        
+                        swal({
+                        title: '¡Guardado incorrecto!',
+                        text: 'No fue posible actualizar.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                        })
+                    });
+                
+            },
             limpiarCampos:function(){
-                this.tipoSolicitante="";
-                this.descripcionHechos="";
+                this.solicitante="";
+                this.descripcion="";
                 this.identidad="";
             }
        }

@@ -20,39 +20,61 @@ use Illuminate\Http\Request;
 class ValidacionController extends Controller
 {
     public function valAbogadoUAT(AbogadoRequest $request){
-        $idVariable = ValidacionController::saveInputsAbogadoFisica($request);
+        if(isset($request->idPersona))
+            $idVariable = ValidacionController::updateInputsAbogadoFisica($request);
+        else
+            $idVariable = ValidacionController::saveInputsAbogadoFisica($request);
         return response()->json($idVariable);
     }
 
     public function valAutoridadUAT(AutoridadRequest $request){
-        $idVariable = ValidacionController::saveInputsFisica($request);
+        if(isset($request->idPersona))
+            $idVariable = ValidacionController::updateInputsFisica($request);
+        else
+            $idVariable = ValidacionController::saveInputsFisica($request);
         return response()->json($idVariable);
     }
 
     public function valConocidoUAT(ConocidoRequest $request){
-        $idVariable = ValidacionController::saveInputsConocidoFisica($request);
+        if(isset($request->idPersona))
+            $idVariable = ValidacionController::updateInputsConocidoFisica($request);
+        else
+            $idVariable = ValidacionController::saveInputsConocidoFisica($request);
         return response()->json($idVariable);
     }
 
     public function valDenunciadoFUAT(DenunciadoFisicaRequest $request){
-        $idVariable = ValidacionController::saveInputsFisica($request);
+        if(isset($request->idPersona))
+            $idVariable = ValidacionController::updateInputsFisica($request);
+        else
+            $idVariable = ValidacionController::saveInputsFisica($request);
         return response()->json($idVariable);
     }
 
     public function valDenunciadoMUAT(DenunciadoMoralRequest $request){
-        $idVariable = ValidacionController::saveInputsMoral($request);
+        if(isset($request->idPersona))
+            $idVariable = ValidacionController::updateInputsMoral($request);
+        else
+            $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
     }
 
     public function valDenuncianteFUAT(DenuncianteFisicaRequest $request){
-        $idVariable = ValidacionController::saveInputsFisica($request);
+        if(isset($request->idPersona))
+            $idVariable = ValidacionController::updateInputsFisica($request);
+        else
+            $idVariable = ValidacionController::saveInputsFisica($request);
         return response()->json($idVariable);
     }
 
     public function valDenuncianteMUAT(DenuncianteMoralRequest $request){
-        $idVariable = ValidacionController::saveInputsMoral($request);
+        if(isset($request->idPersona))
+            $idVariable = ValidacionController::updateInputsMoral($request);
+        else
+            $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
     }
+
 
     public function saveInputsFisica($request){
         DB::beginTransaction();
@@ -101,6 +123,45 @@ class ValidacionController extends Controller
         }
     }
 
+    public function updateInputsFisica($request){
+        DB::beginTransaction();
+        try{
+            
+            $variables =  VariablesPersona::find($request->idPersona);
+            $variables->edad = $request->edad;
+            $variables->motivoEstancia = $request->motivoEstancia;
+            $variables->idOcupacion = $request->idOcupacion;
+            $variables->idEstadoCivil = $request->idEstadoCivil;
+            $variables->idEscolaridad = $request->idEscolaridad;
+            $variables->idReligion = $request->idReligion;
+            $variables->docIdentificacion = $request->docIdentificacion;
+            $variables->idInterprete = $request->idInterprete;
+            $variables->numDocIdentificacion = $request->numDocIdentificacion;
+            $variables->telefono = $request->telefono;
+            $variables->save();
+
+            $persona = PersonaModel::find($variables->idPersona);
+            $persona->nombres = $request->nombres;
+            $persona->primerAp = $request->primerAp;
+            $persona->segundoAp = $request->segundoAp;
+            $persona->fechaNacimiento = $request->fechaNacimiento;
+            $persona->rfc = $request->rfc.$request->homo;
+            $persona->curp = $request->curp;
+            $persona->sexo = $request->sexo;
+            $persona->idNacionalidad = $request->idNacionalidad;
+            $persona->idEtnia = $request->idEtnia;
+            $persona->idLengua = $request->idLengua;
+            $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
+            $persona->save();
+            
+            DB::commit();
+			return $variables->id;
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
+    }
+
     public function saveInputsAbogadoFisica($request){
         DB::beginTransaction();
         try{
@@ -130,6 +191,34 @@ class ValidacionController extends Controller
             $apariciones->nuc = 'xxxxx';
             $apariciones->esEmpresa = 0;
             $apariciones->save(); 
+            DB::commit();
+			return $variables->id;
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function updateInputsAbogadoFisica($request){
+        DB::beginTransaction();
+        try{
+            $variables =  VariablesPersona::find($request->idPersona);
+            $variables->idEstadoCivil = $request->idEstadoCivil;
+            $variables->telefono = $request->telefono;
+            $variables->edad = $request->edad;
+            $variables->save();
+
+            $persona = PersonaModel::find($variables->idPersona);
+            $persona->nombres = $request->nombres;
+            $persona->primerAp = $request->primerAp;
+            $persona->segundoAp = $request->segundoAp;
+            $persona->fechaNacimiento = $request->fechaNacimiento;
+            $persona->rfc = $request->rfc.$request->homo;
+            $persona->curp = $request->curp;
+            $persona->sexo = $request->sexo;
+            $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
+            $persona->save();
+
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -168,6 +257,27 @@ class ValidacionController extends Controller
         }
     }
 
+    public function updateInputsConocidoFisica($request){
+        DB::beginTransaction();
+        try{
+            $variables =  VariablesPersona::find($request->idPersona);
+            $variables->alias = $request->alias;
+            $variables->save();
+
+            $persona = PersonaModel::find($variables->idPersona);
+            $persona->nombres = $request->nombres;
+            $persona->primerAp = $request->primerAp;
+            $persona->segundoAp = $request->segundoAp;
+            $persona->save();
+           
+            DB::commit();
+			return $variables->id;
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
+    }
+
     public function saveInputsMoral($request){
         DB::beginTransaction();
         try{
@@ -197,4 +307,28 @@ class ValidacionController extends Controller
             return false;
         }
     }
+
+    public function updateInputsMoral($request){
+        DB::beginTransaction();
+        try{
+
+            $variables = VariablesPersonaMoral::find($request->idPersona);
+            $variables->telefono = $request->telefono;
+            $variables->representanteLegal = $request->representanteLegal;
+            $variables->save();
+
+            $persona =  PersonaMoralModel::find($variables->idPersona);
+            $persona->nombre = $request->nombre;
+            $persona->fechaCreacion = $request->fechaCreacion;
+            $persona->rfc = $request->rfc.$request->homo;
+            $persona->save();
+            
+            DB::commit();
+            return $variables->id;
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
+    }
+
 }

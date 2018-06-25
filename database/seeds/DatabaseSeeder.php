@@ -59,10 +59,8 @@ class DatabaseSeeder extends Seeder
         $this->call(VariablesPersonaFisicaSeeder::class);
 
         $this->call(UsersSeeder::class);
-        $this->call(PuestosSeeder::class);
-
-        
-        
+        $this->call(TipoDeterminacionSeeder::class);
+        $this->call(EstatusCasoSeeder::class);
     }
 }
 

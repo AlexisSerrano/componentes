@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Models\ExtraDenunciante;
 use App\Http\Controllers\Controller;
@@ -79,9 +79,17 @@ class ExtrasDenuncianteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request)
+    {         
+      
+        $ExtraDenunciante = ExtraDenunciante::find($request->idUpdate);            
+        $ExtraDenunciante->victima = $request->victima;
+        $ExtraDenunciante->reguardarIdentidad = $request->reguardarIdentidad;
+        $ExtraDenunciante->narracion = $request->narracion;        
+        $ExtraDenunciante->save();     
+        $id = $ExtraDenunciante->id;                
+        return response()->json($id); 
+
     }
 
     /**

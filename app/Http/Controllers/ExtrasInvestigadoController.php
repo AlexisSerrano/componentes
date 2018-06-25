@@ -40,9 +40,34 @@ class ExtrasInvestigadoController extends Controller
         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
         $extraDenunciado->vestimenta = $request->vestimenta;
         $extraDenunciado->narracion = $request->narracion;
-        $extraDenunciado->save();  
+        $extraDenunciado->save();
         $id = $extraDenunciado->id;                
         return response()->json($id);
         
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {        
+        $extraDenunciado = ExtraDenunciado::find($request->id);
+        $extraDenunciado->idNotificacion = $request->idNotificacion;        
+        $extraDenunciado->idPuesto = $request->idPuesto;
+        $extraDenunciado->alias = $request->alias;
+        $extraDenunciado->senasPartic = $request->senasPartic;
+        $extraDenunciado->ingreso = $request->ingreso;
+        $extraDenunciado->periodoIngreso = $request->periodoIngreso;
+        $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
+        $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
+        $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
+        $extraDenunciado->vestimenta = $request->vestimenta;
+        $extraDenunciado->narracion = $request->narracion;
+        $extraDenunciado->save();  
+        $id = $extraDenunciado->id;                
+        return response()->json($id);
     }
 }

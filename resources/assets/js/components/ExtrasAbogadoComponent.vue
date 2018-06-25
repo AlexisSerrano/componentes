@@ -55,6 +55,7 @@ import swal from 'sweetalert2'
                 sector: '',
                 cedula:'',
                 correo:'',
+                idExtrasAbogado:0,
                 validacionesback:[],
                 tipos:['ASESOR JURIDICO', 'ABOGADO DEFENSOR'],
                 sectores:['PÚBLICO','PARTICULAR'],
@@ -62,21 +63,14 @@ import swal from 'sweetalert2'
                 url:'http://localhost/componentes/public/api'
             }
         },
-        created: function(){
-//            this.getPuestos();
-        },
         methods:{
-            getPuestos:function (){
-                var urlPuestos = this.url+'/getPuestos';
-                axios.post(urlPuestos).then(response => {
-                    this.puestos = response.data
-                });
-                
-            },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
-                    if (result) {
-                        this.guardarExtra();
+                   if (result) {
+                        if(this.idExtrasAbogado>0)
+                            this.actualizarExtra();
+                        else
+                            this.guardarExtra();
                         return;
                     }
                     swal({
@@ -87,11 +81,11 @@ import swal from 'sweetalert2'
                     });
                 });
             },
-            guardarExtra: function(){  
+            guardarExtra: function(){
                 var urlGuardarAbogado = this.url+'/guardarExtrasAbogado';       
                 var data = {
                     idVariablesPersona:1,        
-                    cedulaProf:this.cedula,            
+                    cedulaProf:this.cedula.toUpperCase(),
                     sector:this.sector,
                     correo:this.correo,
                     tipo:this.tipo,
@@ -100,12 +94,14 @@ import swal from 'sweetalert2'
                     .then (response =>{
                         this.confirm = response.data
                         if(this.confirm){
+                            this.idExtrasAbogado=this.confirm;
+                            //this.CleanFields(); 
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
-                            })
+                            });
                         }
                         else{
                             swal({
@@ -115,7 +111,7 @@ import swal from 'sweetalert2'
                                 confirmButtonText: 'Ok'
                             })
                         }
-                    }).catch((error)=>{                        
+                    }).catch((error)=>{    
                         swal({
                         title: '¡Guardado incorrecto!',
                         text: 'Ésta persona no fue posible guardarla.',
@@ -124,6 +120,52 @@ import swal from 'sweetalert2'
                         })
                     });
                 
+            },
+            actualizarExtra: function(){
+                var urlGuardarAbogado = this.url+'/actualizarExtrasAbogado';                
+                var data = {
+                    id:this.idExtrasAbogado,
+                    cedulaProf:this.cedula.toUpperCase(),
+                    sector:this.sector,
+                    correo:this.correo,
+                    tipo:this.tipo,
+                };
+                    axios.post(urlGuardarAbogado,data)
+                    .then (response =>{
+                        this.confirm = response.data
+                        if(this.confirm){
+                            this.idExtrasAbogado=this.confirm;
+                            //this.CleanFields();
+                            swal({
+                                title: '¡Guardado correctamente!',
+                                text: 'Ésta persona fue guardada exitosamente.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            });
+                        }
+                        else{
+                            swal({
+                                title: '¡Guardado incorrecto!',
+                                text: 'Error al guardar.',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            });
+                        }
+                    }).catch((error)=>{                        
+                        swal({
+                        title: '¡Guardado incorrecto!',
+                        text: 'Ésta persona no fue posible guardarla.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                        });
+                    });
+            },
+            CleanFields() {
+                this.cedula='',
+                this.sector='',
+                this.correo='',
+                this.tipo='',
+                this.$validator.reset();
             }
        }
     }
