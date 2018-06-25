@@ -26,7 +26,7 @@
                 <personamoral :sistema="sistema" :carpeta="carpeta" :tipo="'denunciantemoral'"></personamoral>
             </div>
             <div :class="pillsMoral1" id="pills-denunciante-domiciliomoral" role="tabpanel" aria-labelledby="denunciante-domiciliomoral-tab">
-                <domicilio :empresa="true"></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="true"></domicilio>
             </div>
             <div :class="pillsMoral2" id="pills-denunciante-notificacionesmoral" role="tabpanel" aria-labelledby="denunciante-notificacionesmoral-tab">
                 <domicilio :tipo="'contacto'" :empresa="true"></domicilio>

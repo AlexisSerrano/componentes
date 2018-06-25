@@ -26,10 +26,10 @@
                 <personamoral :sistema="sistema" :carpeta="carpeta" :tipo="'denunciadomoral'"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-domiciliomoral" role="tabpanel" aria-labelledby="denunciado-domiciliomoral-tab">
-                <domicilio></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="true"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-notificacionesmoral" role="tabpanel" aria-labelledby="denunciado-notificacionesmoral-tab">
-                <domicilio :tipo="'contacto'"></domicilio>
+                <domicilio :tipo="'contacto'" :empresa="true"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-extramoral" role="tabpanel-moral" aria-labelledby="denunciado-extramoral-tab">
                 <extrasinvestigado :sistema="sistema"></extrasinvestigado>

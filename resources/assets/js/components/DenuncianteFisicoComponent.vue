@@ -29,7 +29,7 @@
                 <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'denunciante'"></personafisica>
             </div>
             <div :class="pillsFisica1" id="pills-denunciante-domiciliofisico" role="tabpanel" aria-labelledby="denunciante-domiciliofisico-tab">
-                <domicilio :empresa="false"></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="false"></domicilio>
             </div>
             <div :class="pillsFisica2" id="pills-denunciante-trabajofisico" role="tabpanel" aria-labelledby="denunciante-trabajofisico-tab">
                 <domicilio :tipo="'trabajo'" :empresa="false"></domicilio>

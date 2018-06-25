@@ -83384,7 +83384,7 @@ var render = function() {
               "aria-labelledby": "denunciante-domiciliofisico-tab"
             }
           },
-          [_c("domicilio", { attrs: { empresa: false } })],
+          [_c("domicilio", { attrs: { tipo: "domicilio", empresa: false } })],
           1
         ),
         _vm._v(" "),
@@ -83739,7 +83739,7 @@ var render = function() {
               "aria-labelledby": "denunciante-domiciliomoral-tab"
             }
           },
-          [_c("domicilio", { attrs: { empresa: true } })],
+          [_c("domicilio", { attrs: { tipo: "domicilio", empresa: true } })],
           1
         ),
         _vm._v(" "),
@@ -83943,7 +83943,7 @@ var render = function() {
               "aria-labelledby": "denunciado-domiciliofisico-tab"
             }
           },
-          [_c("domicilio")],
+          [_c("domicilio", { attrs: { tipo: "domicilio", empresa: false } })],
           1
         ),
         _vm._v(" "),
@@ -83957,7 +83957,7 @@ var render = function() {
               "aria-labelledby": "denunciado-trabajofisico-tab"
             }
           },
-          [_c("domicilio", { attrs: { tipo: "trabajo" } })],
+          [_c("domicilio", { attrs: { tipo: "trabajo", empresa: false } })],
           1
         ),
         _vm._v(" "),
@@ -83971,7 +83971,7 @@ var render = function() {
               "aria-labelledby": "denunciado-notificacionesfisico-tab"
             }
           },
-          [_c("domicilio", { attrs: { tipo: "contacto" } })],
+          [_c("domicilio", { attrs: { tipo: "contacto", empresa: false } })],
           1
         ),
         _vm._v(" "),
@@ -84261,7 +84261,7 @@ var render = function() {
               "aria-labelledby": "denunciado-domiciliomoral-tab"
             }
           },
-          [_c("domicilio")],
+          [_c("domicilio", { attrs: { tipo: "domicilio", empresa: true } })],
           1
         ),
         _vm._v(" "),
@@ -84275,7 +84275,7 @@ var render = function() {
               "aria-labelledby": "denunciado-notificacionesmoral-tab"
             }
           },
-          [_c("domicilio", { attrs: { tipo: "contacto" } })],
+          [_c("domicilio", { attrs: { tipo: "contacto", empresa: true } })],
           1
         ),
         _vm._v(" "),

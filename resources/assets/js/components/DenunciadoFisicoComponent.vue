@@ -29,13 +29,13 @@
                 <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'denunciado'"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-domiciliofisico" role="tabpanel" aria-labelledby="denunciado-domiciliofisico-tab">
-                <domicilio></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="false"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-trabajofisico" role="tabpanel" aria-labelledby="denunciado-trabajofisico-tab">
-                <domicilio :tipo="'trabajo'"></domicilio>
+                <domicilio :tipo="'trabajo'" :empresa="false"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-notificacionesfisico" role="tabpanel" aria-labelledby="denunciado-notificacionesfisico-tab">
-                <domicilio :tipo="'contacto'"></domicilio>
+                <domicilio :tipo="'contacto'" :empresa="false"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciado-extrafisico-tab">
                 <extrasinvestigado :sistema="sistema"></extrasinvestigado>
