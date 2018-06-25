@@ -80,7 +80,7 @@
                 </div>
                 <div v-if="sistema=='uat'" class="form-group col-md-12">
                     <label class="col-form-label col-form-label-sm" for="hechos">Descripcón de los hechos</label>
-                    <textarea class="form-control form-control-sm" name="hechos" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('hechos') || this.validacionesback.hechos}" v-model="hechos" placeholder="Ingrese el hechos" v-validate="''" autocomplete="off" rows='5'></textarea>
+                    <textarea class="form-control form-control-sm" name="hechos" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('hechos') || this.validacionesback.hechos}" v-model="hechos" placeholder="Ingrese el hechos" v-validate="'required'" autocomplete="off" rows='5'></textarea>
                     <span v-show="errors.has('hechos')" class="text-danger">{{ errors.first('hechos')}}</span>
                     <span v-if="this.validacionesback.hechos!=undefined" class="text-danger">{{ String(this.validacionesback.hechos)}}</span>
                 </div>
