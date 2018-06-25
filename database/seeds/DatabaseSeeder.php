@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
         $this->call(validacionesSeeder::class);
 
         $this->call(InterpreteSeeder::class);
-        $this->call(DomicilioSeeder::class);
+        $this->call(DefaultsSeeder::class);
         $this->call(PersonaFisicaSeeder::class);
         $this->call(VariablesPersonaFisicaSeeder::class);
 

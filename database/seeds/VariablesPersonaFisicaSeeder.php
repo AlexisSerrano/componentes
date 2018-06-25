@@ -26,7 +26,8 @@ class VariablesPersonaFisicaSeeder extends Seeder
                 'docIdentificacion' => 14,
                 'idInterprete' => 0,
                 'numDocIdentificacion' => '',
-                'idDomicilioTrabajo' => 1
+                'idTrabajo' => 1,
+                'idNotificacion' => 1
             ]
 	    ]);
     }

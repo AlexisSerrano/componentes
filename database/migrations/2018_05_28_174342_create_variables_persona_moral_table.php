@@ -16,11 +16,13 @@ class CreateVariablesPersonaMoralTable extends Migration
         Schema::create('variables_persona_moral', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idPersona')->unsigned();
-            $table->integer('idDomicilio')->nullable()->unsigned()->default(0);
             $table->string('telefono',15)->nullable()->default("SIN INFORMACION");
             $table->string('representanteLegal',100)->nullable()->default("SIN INFORMACION");
+            $table->integer('idDomicilio')->nullable()->unsigned()->default(1);
+            $table->integer('idNotificacion')->nullable()->unsigned()->default(1);
             $table->timestamps();
             $table->foreign('idPersona')->references('id')->on('persona_moral')->onDelete('cascade');
+            $table->foreign('idNotificacion')->references('id')->on('notificacion')->onDelete('restrict');
         });
     }
 

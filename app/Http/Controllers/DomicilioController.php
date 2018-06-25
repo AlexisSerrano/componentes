@@ -32,6 +32,8 @@ class DomicilioController extends Controller
 
         }
         $varPersona = VariablesPersona::where('idPersona',$request->idPersona);
+        $varPersona->idDomicilio = $domicilio->id;
+        $varPersona->save();
         return $domicilio->id;
     }
 

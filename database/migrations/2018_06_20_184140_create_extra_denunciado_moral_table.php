@@ -16,7 +16,7 @@ class CreateExtraDenunciadoMoralTable extends Migration
         Schema::create('extra_denunciado_moral', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idVariablesPersona')->unsigned();
-            $table->integer('idNotificacion')->unsigned();
+            //$table->integer('idNotificacion')->unsigned();
             $table->integer('idPuesto')->unsigned()->default(9);
             $table->string('alias', 50)->default("SIN INFORMACION");
             $table->string('senasPartic', 150)->default("SIN INFORMACION");
@@ -30,7 +30,7 @@ class CreateExtraDenunciadoMoralTable extends Migration
             // $table->string('narracion',2000)->default("SIN INFORMACION");
 
             $table->foreign('idVariablesPersona')->references('id')->on('variables_persona_moral')->onDelete('cascade');
-            $table->foreign('idNotificacion')->references('id')->on('notificacion')->onDelete('cascade');
+            //$table->foreign('idNotificacion')->references('id')->on('notificacion')->onDelete('cascade');
             //$table->foreign('idPuesto')->references('id')->on('cat_puesto')->onDelete('cascade');
             $table->foreign('idAbogado')->references('id')->on('extra_abogado')->onDelete('cascade');
 
