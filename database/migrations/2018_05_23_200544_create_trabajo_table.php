@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotificacionTable extends Migration
+class CreateTrabajoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateNotificacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('notificacion', function (Blueprint $table) {
+        Schema::create('trabajo', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idDomicilio')->unsigned();
-            $table->string('correo', 100)->default("SIN INFORMACION");
+            $table->integer('idDomicilio')->unsigned()->default(1);
+            $table->string('lugar', 300)->default("SIN INFORMACION");
             $table->string('telefono', 15)->default("SIN INFORMACION");
             // $table->string('fax', 20)->default("SIN INFORMACION");
 
@@ -34,6 +34,6 @@ class CreateNotificacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notificacion');
+        Schema::dropIfExists('trabajo');
     }
 }
