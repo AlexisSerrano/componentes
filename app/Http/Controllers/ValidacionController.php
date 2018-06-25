@@ -105,7 +105,7 @@ class ValidacionController extends Controller
             $variables->idInterprete = $request->idInterprete;
             $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->telefono = $request->telefono;
-            $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
             $apariciones = new aparicionesModel();
             $apariciones->idVarPersona = $variables->id;
@@ -179,7 +179,7 @@ class ValidacionController extends Controller
             $variables->idPersona = $persona->id;
             $variables->idEstadoCivil = $request->idEstadoCivil;
             $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->telefono = $request->telefono;
             $variables->edad = $request->edad;
             $variables->save();
@@ -238,7 +238,7 @@ class ValidacionController extends Controller
             $variables =  new VariablesPersona();
             $variables->idPersona = $persona->id;
             $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->idDomicilioTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->alias = $request->alias;
             $variables->save();
             $apariciones = new aparicionesModel();
