@@ -21,13 +21,13 @@ class CreateAparicionesTable extends Migration
             $table->string('tipoInvolucrado',20);
             $table->string('nuc',50);
             $table->boolean('esEmpresa')->nullable()->default(false);
-            $table->integer('idTipoDeterminacion')->unsigned();
-            $table->integer('idStatusCarpeta')->unsigned();         
+            $table->integer('idTipoDeterminacion')->unsigned()->default(1);
+            //$table->integer('idStatusCarpeta')->unsigned();         
             $table->timestamps();
             $table->softDeletes();
 
-            /*$table->foreign('idTipoDeterminacion')->references('id')->on('idTipoDeterminacion')->onDelete('cascade');
-            $table->foreign('idStatusCarpeta')->references('id')->on('idStatusCarpeta')->onDelete('cascade');*/
+            $table->foreign('idTipoDeterminacion')->references('id')->on('cat_tipo_determinacion')->onDelete('restrict');
+            /*$table->foreign('idStatusCarpeta')->references('id')->on('idStatusCarpeta')->onDelete('cascade');*/
         });
     }
 
