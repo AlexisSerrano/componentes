@@ -179,7 +179,6 @@ import { mapState } from "vuex";
                     .then (response =>{
                         // this.idMoral=response.data        
                         this.$store.commit('asignarIdMoral',response.data)
-                        this.$store.commit('activeTabsMoral')
                         swal({
                             title: '¡Guardado correctamente!',
                             text: 'Ésta empresa fue guardada exitosamente.',

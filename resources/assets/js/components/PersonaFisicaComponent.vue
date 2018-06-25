@@ -527,7 +527,6 @@ import { mapState } from "vuex";
                     .then (response =>{
                         // this.idPersona = response.data
                         this.$store.commit('asignarIdFisica',response.data)
-                        this.$store.commit('activeTabsFisica')
                         if(idPersona){
                             swal({
                                 title: '¡Guardado correctamente!',
