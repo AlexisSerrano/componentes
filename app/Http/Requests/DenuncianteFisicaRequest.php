@@ -44,7 +44,7 @@ class DenuncianteFisicaRequest extends FormRequest
             'idEstadoCivil' => '',/*no requerido*/ 
             'idReligion' => '',/*no requerido*/ 
             'idEscolaridad' => '',/*no requerido*/ 
-            'numDocIdentificacion' => 'string|min:2|max:50'
+            'numDocIdentificacion' => 'nullable|string|min:2|max:50'
         ];
     }
 
