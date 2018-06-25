@@ -4574,7 +4574,7 @@
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
 /* 1 */
@@ -5002,7 +5002,7 @@ function applyToTag (styleElement, obj) {
 "use strict";
 
 
-var bind = __webpack_require__(13);
+var bind = __webpack_require__(14);
 var isBuffer = __webpack_require__(153);
 
 /*global toString:true*/
@@ -6475,6 +6475,951 @@ module.exports = g;
 
 /***/ }),
 /* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Store */
+/* unused harmony export install */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapState; });
+/* unused harmony export mapMutations */
+/* unused harmony export mapGetters */
+/* unused harmony export mapActions */
+/* unused harmony export createNamespacedHelpers */
+/**
+ * vuex v3.0.1
+ * (c) 2017 Evan You
+ * @license MIT
+ */
+var applyMixin = function (Vue) {
+  var version = Number(Vue.version.split('.')[0]);
+
+  if (version >= 2) {
+    Vue.mixin({ beforeCreate: vuexInit });
+  } else {
+    // override init and inject vuex init procedure
+    // for 1.x backwards compatibility.
+    var _init = Vue.prototype._init;
+    Vue.prototype._init = function (options) {
+      if ( options === void 0 ) options = {};
+
+      options.init = options.init
+        ? [vuexInit].concat(options.init)
+        : vuexInit;
+      _init.call(this, options);
+    };
+  }
+
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
+  function vuexInit () {
+    var options = this.$options;
+    // store injection
+    if (options.store) {
+      this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store;
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store;
+    }
+  }
+};
+
+var devtoolHook =
+  typeof window !== 'undefined' &&
+  window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
+function devtoolPlugin (store) {
+  if (!devtoolHook) { return }
+
+  store._devtoolHook = devtoolHook;
+
+  devtoolHook.emit('vuex:init', store);
+
+  devtoolHook.on('vuex:travel-to-state', function (targetState) {
+    store.replaceState(targetState);
+  });
+
+  store.subscribe(function (mutation, state) {
+    devtoolHook.emit('vuex:mutation', mutation, state);
+  });
+}
+
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+
+
+/**
+ * forEach for object
+ */
+function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
+}
+
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+function assert (condition, msg) {
+  if (!condition) { throw new Error(("[vuex] " + msg)) }
+}
+
+var Module = function Module (rawModule, runtime) {
+  this.runtime = runtime;
+  this._children = Object.create(null);
+  this._rawModule = rawModule;
+  var rawState = rawModule.state;
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+};
+
+var prototypeAccessors$1 = { namespaced: { configurable: true } };
+
+prototypeAccessors$1.namespaced.get = function () {
+  return !!this._rawModule.namespaced
+};
+
+Module.prototype.addChild = function addChild (key, module) {
+  this._children[key] = module;
+};
+
+Module.prototype.removeChild = function removeChild (key) {
+  delete this._children[key];
+};
+
+Module.prototype.getChild = function getChild (key) {
+  return this._children[key]
+};
+
+Module.prototype.update = function update (rawModule) {
+  this._rawModule.namespaced = rawModule.namespaced;
+  if (rawModule.actions) {
+    this._rawModule.actions = rawModule.actions;
+  }
+  if (rawModule.mutations) {
+    this._rawModule.mutations = rawModule.mutations;
+  }
+  if (rawModule.getters) {
+    this._rawModule.getters = rawModule.getters;
+  }
+};
+
+Module.prototype.forEachChild = function forEachChild (fn) {
+  forEachValue(this._children, fn);
+};
+
+Module.prototype.forEachGetter = function forEachGetter (fn) {
+  if (this._rawModule.getters) {
+    forEachValue(this._rawModule.getters, fn);
+  }
+};
+
+Module.prototype.forEachAction = function forEachAction (fn) {
+  if (this._rawModule.actions) {
+    forEachValue(this._rawModule.actions, fn);
+  }
+};
+
+Module.prototype.forEachMutation = function forEachMutation (fn) {
+  if (this._rawModule.mutations) {
+    forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Object.defineProperties( Module.prototype, prototypeAccessors$1 );
+
+var ModuleCollection = function ModuleCollection (rawRootModule) {
+  // register root module (Vuex.Store options)
+  this.register([], rawRootModule, false);
+};
+
+ModuleCollection.prototype.get = function get (path) {
+  return path.reduce(function (module, key) {
+    return module.getChild(key)
+  }, this.root)
+};
+
+ModuleCollection.prototype.getNamespace = function getNamespace (path) {
+  var module = this.root;
+  return path.reduce(function (namespace, key) {
+    module = module.getChild(key);
+    return namespace + (module.namespaced ? key + '/' : '')
+  }, '')
+};
+
+ModuleCollection.prototype.update = function update$1 (rawRootModule) {
+  update([], this.root, rawRootModule);
+};
+
+ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
+    var this$1 = this;
+    if ( runtime === void 0 ) runtime = true;
+
+  if (true) {
+    assertRawModule(path, rawModule);
+  }
+
+  var newModule = new Module(rawModule, runtime);
+  if (path.length === 0) {
+    this.root = newModule;
+  } else {
+    var parent = this.get(path.slice(0, -1));
+    parent.addChild(path[path.length - 1], newModule);
+  }
+
+  // register nested modules
+  if (rawModule.modules) {
+    forEachValue(rawModule.modules, function (rawChildModule, key) {
+      this$1.register(path.concat(key), rawChildModule, runtime);
+    });
+  }
+};
+
+ModuleCollection.prototype.unregister = function unregister (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+  if (!parent.getChild(key).runtime) { return }
+
+  parent.removeChild(key);
+};
+
+function update (path, targetModule, newModule) {
+  if (true) {
+    assertRawModule(path, newModule);
+  }
+
+  // update target module
+  targetModule.update(newModule);
+
+  // update nested modules
+  if (newModule.modules) {
+    for (var key in newModule.modules) {
+      if (!targetModule.getChild(key)) {
+        if (true) {
+          console.warn(
+            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
+            'manual reload is needed'
+          );
+        }
+        return
+      }
+      update(
+        path.concat(key),
+        targetModule.getChild(key),
+        newModule.modules[key]
+      );
+    }
+  }
+}
+
+var functionAssert = {
+  assert: function (value) { return typeof value === 'function'; },
+  expected: 'function'
+};
+
+var objectAssert = {
+  assert: function (value) { return typeof value === 'function' ||
+    (typeof value === 'object' && typeof value.handler === 'function'); },
+  expected: 'function or object with "handler" function'
+};
+
+var assertTypes = {
+  getters: functionAssert,
+  mutations: functionAssert,
+  actions: objectAssert
+};
+
+function assertRawModule (path, rawModule) {
+  Object.keys(assertTypes).forEach(function (key) {
+    if (!rawModule[key]) { return }
+
+    var assertOptions = assertTypes[key];
+
+    forEachValue(rawModule[key], function (value, type) {
+      assert(
+        assertOptions.assert(value),
+        makeAssertionMessage(path, key, type, value, assertOptions.expected)
+      );
+    });
+  });
+}
+
+function makeAssertionMessage (path, key, type, value, expected) {
+  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
+  if (path.length > 0) {
+    buf += " in module \"" + (path.join('.')) + "\"";
+  }
+  buf += " is " + (JSON.stringify(value)) + ".";
+  return buf
+}
+
+var Vue; // bind on install
+
+var Store = function Store (options) {
+  var this$1 = this;
+  if ( options === void 0 ) options = {};
+
+  // Auto install if it is not done yet and `window` has `Vue`.
+  // To allow users to avoid auto-installation in some cases,
+  // this code should be placed here. See #731
+  if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+  }
+
+  if (true) {
+    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
+    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+    assert(this instanceof Store, "Store must be called with the new operator.");
+  }
+
+  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
+  var strict = options.strict; if ( strict === void 0 ) strict = false;
+
+  var state = options.state; if ( state === void 0 ) state = {};
+  if (typeof state === 'function') {
+    state = state() || {};
+  }
+
+  // store internal state
+  this._committing = false;
+  this._actions = Object.create(null);
+  this._actionSubscribers = [];
+  this._mutations = Object.create(null);
+  this._wrappedGetters = Object.create(null);
+  this._modules = new ModuleCollection(options);
+  this._modulesNamespaceMap = Object.create(null);
+  this._subscribers = [];
+  this._watcherVM = new Vue();
+
+  // bind commit and dispatch to self
+  var store = this;
+  var ref = this;
+  var dispatch = ref.dispatch;
+  var commit = ref.commit;
+  this.dispatch = function boundDispatch (type, payload) {
+    return dispatch.call(store, type, payload)
+  };
+  this.commit = function boundCommit (type, payload, options) {
+    return commit.call(store, type, payload, options)
+  };
+
+  // strict mode
+  this.strict = strict;
+
+  // init root module.
+  // this also recursively registers all sub-modules
+  // and collects all module getters inside this._wrappedGetters
+  installModule(this, state, [], this._modules.root);
+
+  // initialize the store vm, which is responsible for the reactivity
+  // (also registers _wrappedGetters as computed properties)
+  resetStoreVM(this, state);
+
+  // apply plugins
+  plugins.forEach(function (plugin) { return plugin(this$1); });
+
+  if (Vue.config.devtools) {
+    devtoolPlugin(this);
+  }
+};
+
+var prototypeAccessors = { state: { configurable: true } };
+
+prototypeAccessors.state.get = function () {
+  return this._vm._data.$$state
+};
+
+prototypeAccessors.state.set = function (v) {
+  if (true) {
+    assert(false, "Use store.replaceState() to explicit replace store state.");
+  }
+};
+
+Store.prototype.commit = function commit (_type, _payload, _options) {
+    var this$1 = this;
+
+  // check object-style commit
+  var ref = unifyObjectStyle(_type, _payload, _options);
+    var type = ref.type;
+    var payload = ref.payload;
+    var options = ref.options;
+
+  var mutation = { type: type, payload: payload };
+  var entry = this._mutations[type];
+  if (!entry) {
+    if (true) {
+      console.error(("[vuex] unknown mutation type: " + type));
+    }
+    return
+  }
+  this._withCommit(function () {
+    entry.forEach(function commitIterator (handler) {
+      handler(payload);
+    });
+  });
+  this._subscribers.forEach(function (sub) { return sub(mutation, this$1.state); });
+
+  if (
+    "development" !== 'production' &&
+    options && options.silent
+  ) {
+    console.warn(
+      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
+      'Use the filter functionality in the vue-devtools'
+    );
+  }
+};
+
+Store.prototype.dispatch = function dispatch (_type, _payload) {
+    var this$1 = this;
+
+  // check object-style dispatch
+  var ref = unifyObjectStyle(_type, _payload);
+    var type = ref.type;
+    var payload = ref.payload;
+
+  var action = { type: type, payload: payload };
+  var entry = this._actions[type];
+  if (!entry) {
+    if (true) {
+      console.error(("[vuex] unknown action type: " + type));
+    }
+    return
+  }
+
+  this._actionSubscribers.forEach(function (sub) { return sub(action, this$1.state); });
+
+  return entry.length > 1
+    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
+    : entry[0](payload)
+};
+
+Store.prototype.subscribe = function subscribe (fn) {
+  return genericSubscribe(fn, this._subscribers)
+};
+
+Store.prototype.subscribeAction = function subscribeAction (fn) {
+  return genericSubscribe(fn, this._actionSubscribers)
+};
+
+Store.prototype.watch = function watch (getter, cb, options) {
+    var this$1 = this;
+
+  if (true) {
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
+  }
+  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
+};
+
+Store.prototype.replaceState = function replaceState (state) {
+    var this$1 = this;
+
+  this._withCommit(function () {
+    this$1._vm._data.$$state = state;
+  });
+};
+
+Store.prototype.registerModule = function registerModule (path, rawModule, options) {
+    if ( options === void 0 ) options = {};
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if (true) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+    assert(path.length > 0, 'cannot register the root module by using registerModule.');
+  }
+
+  this._modules.register(path, rawModule);
+  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
+  // reset store to update getters...
+  resetStoreVM(this, this.state);
+};
+
+Store.prototype.unregisterModule = function unregisterModule (path) {
+    var this$1 = this;
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if (true) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  this._modules.unregister(path);
+  this._withCommit(function () {
+    var parentState = getNestedState(this$1.state, path.slice(0, -1));
+    Vue.delete(parentState, path[path.length - 1]);
+  });
+  resetStore(this);
+};
+
+Store.prototype.hotUpdate = function hotUpdate (newOptions) {
+  this._modules.update(newOptions);
+  resetStore(this, true);
+};
+
+Store.prototype._withCommit = function _withCommit (fn) {
+  var committing = this._committing;
+  this._committing = true;
+  fn();
+  this._committing = committing;
+};
+
+Object.defineProperties( Store.prototype, prototypeAccessors );
+
+function genericSubscribe (fn, subs) {
+  if (subs.indexOf(fn) < 0) {
+    subs.push(fn);
+  }
+  return function () {
+    var i = subs.indexOf(fn);
+    if (i > -1) {
+      subs.splice(i, 1);
+    }
+  }
+}
+
+function resetStore (store, hot) {
+  store._actions = Object.create(null);
+  store._mutations = Object.create(null);
+  store._wrappedGetters = Object.create(null);
+  store._modulesNamespaceMap = Object.create(null);
+  var state = store.state;
+  // init all modules
+  installModule(store, state, [], store._modules.root, true);
+  // reset vm
+  resetStoreVM(store, state, hot);
+}
+
+function resetStoreVM (store, state, hot) {
+  var oldVm = store._vm;
+
+  // bind store public getters
+  store.getters = {};
+  var wrappedGetters = store._wrappedGetters;
+  var computed = {};
+  forEachValue(wrappedGetters, function (fn, key) {
+    // use computed to leverage its lazy-caching mechanism
+    computed[key] = function () { return fn(store); };
+    Object.defineProperty(store.getters, key, {
+      get: function () { return store._vm[key]; },
+      enumerable: true // for local getters
+    });
+  });
+
+  // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  store._vm = new Vue({
+    data: {
+      $$state: state
+    },
+    computed: computed
+  });
+  Vue.config.silent = silent;
+
+  // enable strict mode for new vm
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldVm) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(function () {
+        oldVm._data.$$state = null;
+      });
+    }
+    Vue.nextTick(function () { return oldVm.$destroy(); });
+  }
+}
+
+function installModule (store, rootState, path, module, hot) {
+  var isRoot = !path.length;
+  var namespace = store._modules.getNamespace(path);
+
+  // register in namespace map
+  if (module.namespaced) {
+    store._modulesNamespaceMap[namespace] = module;
+  }
+
+  // set state
+  if (!isRoot && !hot) {
+    var parentState = getNestedState(rootState, path.slice(0, -1));
+    var moduleName = path[path.length - 1];
+    store._withCommit(function () {
+      Vue.set(parentState, moduleName, module.state);
+    });
+  }
+
+  var local = module.context = makeLocalContext(store, namespace, path);
+
+  module.forEachMutation(function (mutation, key) {
+    var namespacedType = namespace + key;
+    registerMutation(store, namespacedType, mutation, local);
+  });
+
+  module.forEachAction(function (action, key) {
+    var type = action.root ? key : namespace + key;
+    var handler = action.handler || action;
+    registerAction(store, type, handler, local);
+  });
+
+  module.forEachGetter(function (getter, key) {
+    var namespacedType = namespace + key;
+    registerGetter(store, namespacedType, getter, local);
+  });
+
+  module.forEachChild(function (child, key) {
+    installModule(store, rootState, path.concat(key), child, hot);
+  });
+}
+
+/**
+ * make localized dispatch, commit, getters and state
+ * if there is no namespace, just use root ones
+ */
+function makeLocalContext (store, namespace, path) {
+  var noNamespace = namespace === '';
+
+  var local = {
+    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if ("development" !== 'production' && !store._actions[type]) {
+          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      return store.dispatch(type, payload)
+    },
+
+    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if ("development" !== 'production' && !store._mutations[type]) {
+          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      store.commit(type, payload, options);
+    }
+  };
+
+  // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? function () { return store.getters; }
+        : function () { return makeLocalGetters(store, namespace); }
+    },
+    state: {
+      get: function () { return getNestedState(store.state, path); }
+    }
+  });
+
+  return local
+}
+
+function makeLocalGetters (store, namespace) {
+  var gettersProxy = {};
+
+  var splitPos = namespace.length;
+  Object.keys(store.getters).forEach(function (type) {
+    // skip if the target getter is not match this namespace
+    if (type.slice(0, splitPos) !== namespace) { return }
+
+    // extract local getter type
+    var localType = type.slice(splitPos);
+
+    // Add a port to the getters proxy.
+    // Define as getter property because
+    // we do not want to evaluate the getters in this time.
+    Object.defineProperty(gettersProxy, localType, {
+      get: function () { return store.getters[type]; },
+      enumerable: true
+    });
+  });
+
+  return gettersProxy
+}
+
+function registerMutation (store, type, handler, local) {
+  var entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler (payload) {
+    handler.call(store, local.state, payload);
+  });
+}
+
+function registerAction (store, type, handler, local) {
+  var entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler (payload, cb) {
+    var res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload, cb);
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+    if (store._devtoolHook) {
+      return res.catch(function (err) {
+        store._devtoolHook.emit('vuex:error', err);
+        throw err
+      })
+    } else {
+      return res
+    }
+  });
+}
+
+function registerGetter (store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    if (true) {
+      console.error(("[vuex] duplicate getter key: " + type));
+    }
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      local.state, // local state
+      local.getters, // local getters
+      store.state, // root state
+      store.getters // root getters
+    )
+  };
+}
+
+function enableStrictMode (store) {
+  store._vm.$watch(function () { return this._data.$$state }, function () {
+    if (true) {
+      assert(store._committing, "Do not mutate vuex store state outside mutation handlers.");
+    }
+  }, { deep: true, sync: true });
+}
+
+function getNestedState (state, path) {
+  return path.length
+    ? path.reduce(function (state, key) { return state[key]; }, state)
+    : state
+}
+
+function unifyObjectStyle (type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload;
+    payload = type;
+    type = type.type;
+  }
+
+  if (true) {
+    assert(typeof type === 'string', ("Expects string as the type, but found " + (typeof type) + "."));
+  }
+
+  return { type: type, payload: payload, options: options }
+}
+
+function install (_Vue) {
+  if (Vue && _Vue === Vue) {
+    if (true) {
+      console.error(
+        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+      );
+    }
+    return
+  }
+  Vue = _Vue;
+  applyMixin(Vue);
+}
+
+var mapState = normalizeNamespace(function (namespace, states) {
+  var res = {};
+  normalizeMap(states).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedState () {
+      var state = this.$store.state;
+      var getters = this.$store.getters;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
+        if (!module) {
+          return
+        }
+        state = module.context.state;
+        getters = module.context.getters;
+      }
+      return typeof val === 'function'
+        ? val.call(this, state, getters)
+        : state[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+var mapMutations = normalizeNamespace(function (namespace, mutations) {
+  var res = {};
+  normalizeMap(mutations).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedMutation () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      var commit = this.$store.commit;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
+        if (!module) {
+          return
+        }
+        commit = module.context.commit;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [commit].concat(args))
+        : commit.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+var mapGetters = normalizeNamespace(function (namespace, getters) {
+  var res = {};
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    val = namespace + val;
+    res[key] = function mappedGetter () {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return
+      }
+      if ("development" !== 'production' && !(val in this.$store.getters)) {
+        console.error(("[vuex] unknown getter: " + val));
+        return
+      }
+      return this.$store.getters[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+var mapActions = normalizeNamespace(function (namespace, actions) {
+  var res = {};
+  normalizeMap(actions).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedAction () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      var dispatch = this.$store.dispatch;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
+        if (!module) {
+          return
+        }
+        dispatch = module.context.dispatch;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [dispatch].concat(args))
+        : dispatch.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+var createNamespacedHelpers = function (namespace) { return ({
+  mapState: mapState.bind(null, namespace),
+  mapGetters: mapGetters.bind(null, namespace),
+  mapMutations: mapMutations.bind(null, namespace),
+  mapActions: mapActions.bind(null, namespace)
+}); };
+
+function normalizeMap (map) {
+  return Array.isArray(map)
+    ? map.map(function (key) { return ({ key: key, val: key }); })
+    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
+}
+
+function normalizeNamespace (fn) {
+  return function (namespace, map) {
+    if (typeof namespace !== 'string') {
+      map = namespace;
+      namespace = '';
+    } else if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/';
+    }
+    return fn(namespace, map)
+  }
+}
+
+function getModuleByNamespace (store, helper, namespace) {
+  var module = store._modulesNamespaceMap[namespace];
+  if ("development" !== 'production' && !module) {
+    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
+  }
+  return module
+}
+
+var index_esm = {
+  Store: Store,
+  install: install,
+  version: '3.0.1',
+  mapState: mapState,
+  mapMutations: mapMutations,
+  mapGetters: mapGetters,
+  mapActions: mapActions,
+  createNamespacedHelpers: createNamespacedHelpers
+};
+
+
+/* harmony default export */ __webpack_exports__["a"] = (index_esm);
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -6664,7 +7609,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6687,10 +7632,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(14);
+    adapter = __webpack_require__(15);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(14);
+    adapter = __webpack_require__(15);
   }
   return adapter;
 }
@@ -6765,10 +7710,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6781,7 +7726,7 @@ module.exports = defaults;
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -6809,7 +7754,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9338,7 +10283,7 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(6)))
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -19709,7 +20654,7 @@ return jQuery;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19727,7 +20672,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19738,7 +20683,7 @@ var settle = __webpack_require__(156);
 var buildURL = __webpack_require__(158);
 var parseHeaders = __webpack_require__(159);
 var isURLSameOrigin = __webpack_require__(160);
-var createError = __webpack_require__(15);
+var createError = __webpack_require__(16);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(161);
 
 module.exports = function xhrAdapter(config) {
@@ -19914,7 +20859,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19939,7 +20884,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19951,7 +20896,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19977,7 +20922,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 /*jslint indent:2, regexp:true*/
@@ -20323,7 +21268,7 @@ function actualizarCurp(curp) {
 }
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31287,951 +32232,6 @@ Vue.compile = compileToFunctions;
 module.exports = Vue;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(170).setImmediate))
-
-/***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Store */
-/* unused harmony export install */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapState; });
-/* unused harmony export mapMutations */
-/* unused harmony export mapGetters */
-/* unused harmony export mapActions */
-/* unused harmony export createNamespacedHelpers */
-/**
- * vuex v3.0.1
- * (c) 2017 Evan You
- * @license MIT
- */
-var applyMixin = function (Vue) {
-  var version = Number(Vue.version.split('.')[0]);
-
-  if (version >= 2) {
-    Vue.mixin({ beforeCreate: vuexInit });
-  } else {
-    // override init and inject vuex init procedure
-    // for 1.x backwards compatibility.
-    var _init = Vue.prototype._init;
-    Vue.prototype._init = function (options) {
-      if ( options === void 0 ) options = {};
-
-      options.init = options.init
-        ? [vuexInit].concat(options.init)
-        : vuexInit;
-      _init.call(this, options);
-    };
-  }
-
-  /**
-   * Vuex init hook, injected into each instances init hooks list.
-   */
-
-  function vuexInit () {
-    var options = this.$options;
-    // store injection
-    if (options.store) {
-      this.$store = typeof options.store === 'function'
-        ? options.store()
-        : options.store;
-    } else if (options.parent && options.parent.$store) {
-      this.$store = options.parent.$store;
-    }
-  }
-};
-
-var devtoolHook =
-  typeof window !== 'undefined' &&
-  window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
-
-function devtoolPlugin (store) {
-  if (!devtoolHook) { return }
-
-  store._devtoolHook = devtoolHook;
-
-  devtoolHook.emit('vuex:init', store);
-
-  devtoolHook.on('vuex:travel-to-state', function (targetState) {
-    store.replaceState(targetState);
-  });
-
-  store.subscribe(function (mutation, state) {
-    devtoolHook.emit('vuex:mutation', mutation, state);
-  });
-}
-
-/**
- * Get the first item that pass the test
- * by second argument function
- *
- * @param {Array} list
- * @param {Function} f
- * @return {*}
- */
-/**
- * Deep copy the given object considering circular structure.
- * This function caches all nested objects and its copies.
- * If it detects circular structure, use cached copy to avoid infinite loop.
- *
- * @param {*} obj
- * @param {Array<Object>} cache
- * @return {*}
- */
-
-
-/**
- * forEach for object
- */
-function forEachValue (obj, fn) {
-  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
-}
-
-function isObject (obj) {
-  return obj !== null && typeof obj === 'object'
-}
-
-function isPromise (val) {
-  return val && typeof val.then === 'function'
-}
-
-function assert (condition, msg) {
-  if (!condition) { throw new Error(("[vuex] " + msg)) }
-}
-
-var Module = function Module (rawModule, runtime) {
-  this.runtime = runtime;
-  this._children = Object.create(null);
-  this._rawModule = rawModule;
-  var rawState = rawModule.state;
-  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
-};
-
-var prototypeAccessors$1 = { namespaced: { configurable: true } };
-
-prototypeAccessors$1.namespaced.get = function () {
-  return !!this._rawModule.namespaced
-};
-
-Module.prototype.addChild = function addChild (key, module) {
-  this._children[key] = module;
-};
-
-Module.prototype.removeChild = function removeChild (key) {
-  delete this._children[key];
-};
-
-Module.prototype.getChild = function getChild (key) {
-  return this._children[key]
-};
-
-Module.prototype.update = function update (rawModule) {
-  this._rawModule.namespaced = rawModule.namespaced;
-  if (rawModule.actions) {
-    this._rawModule.actions = rawModule.actions;
-  }
-  if (rawModule.mutations) {
-    this._rawModule.mutations = rawModule.mutations;
-  }
-  if (rawModule.getters) {
-    this._rawModule.getters = rawModule.getters;
-  }
-};
-
-Module.prototype.forEachChild = function forEachChild (fn) {
-  forEachValue(this._children, fn);
-};
-
-Module.prototype.forEachGetter = function forEachGetter (fn) {
-  if (this._rawModule.getters) {
-    forEachValue(this._rawModule.getters, fn);
-  }
-};
-
-Module.prototype.forEachAction = function forEachAction (fn) {
-  if (this._rawModule.actions) {
-    forEachValue(this._rawModule.actions, fn);
-  }
-};
-
-Module.prototype.forEachMutation = function forEachMutation (fn) {
-  if (this._rawModule.mutations) {
-    forEachValue(this._rawModule.mutations, fn);
-  }
-};
-
-Object.defineProperties( Module.prototype, prototypeAccessors$1 );
-
-var ModuleCollection = function ModuleCollection (rawRootModule) {
-  // register root module (Vuex.Store options)
-  this.register([], rawRootModule, false);
-};
-
-ModuleCollection.prototype.get = function get (path) {
-  return path.reduce(function (module, key) {
-    return module.getChild(key)
-  }, this.root)
-};
-
-ModuleCollection.prototype.getNamespace = function getNamespace (path) {
-  var module = this.root;
-  return path.reduce(function (namespace, key) {
-    module = module.getChild(key);
-    return namespace + (module.namespaced ? key + '/' : '')
-  }, '')
-};
-
-ModuleCollection.prototype.update = function update$1 (rawRootModule) {
-  update([], this.root, rawRootModule);
-};
-
-ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
-    var this$1 = this;
-    if ( runtime === void 0 ) runtime = true;
-
-  if (true) {
-    assertRawModule(path, rawModule);
-  }
-
-  var newModule = new Module(rawModule, runtime);
-  if (path.length === 0) {
-    this.root = newModule;
-  } else {
-    var parent = this.get(path.slice(0, -1));
-    parent.addChild(path[path.length - 1], newModule);
-  }
-
-  // register nested modules
-  if (rawModule.modules) {
-    forEachValue(rawModule.modules, function (rawChildModule, key) {
-      this$1.register(path.concat(key), rawChildModule, runtime);
-    });
-  }
-};
-
-ModuleCollection.prototype.unregister = function unregister (path) {
-  var parent = this.get(path.slice(0, -1));
-  var key = path[path.length - 1];
-  if (!parent.getChild(key).runtime) { return }
-
-  parent.removeChild(key);
-};
-
-function update (path, targetModule, newModule) {
-  if (true) {
-    assertRawModule(path, newModule);
-  }
-
-  // update target module
-  targetModule.update(newModule);
-
-  // update nested modules
-  if (newModule.modules) {
-    for (var key in newModule.modules) {
-      if (!targetModule.getChild(key)) {
-        if (true) {
-          console.warn(
-            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
-            'manual reload is needed'
-          );
-        }
-        return
-      }
-      update(
-        path.concat(key),
-        targetModule.getChild(key),
-        newModule.modules[key]
-      );
-    }
-  }
-}
-
-var functionAssert = {
-  assert: function (value) { return typeof value === 'function'; },
-  expected: 'function'
-};
-
-var objectAssert = {
-  assert: function (value) { return typeof value === 'function' ||
-    (typeof value === 'object' && typeof value.handler === 'function'); },
-  expected: 'function or object with "handler" function'
-};
-
-var assertTypes = {
-  getters: functionAssert,
-  mutations: functionAssert,
-  actions: objectAssert
-};
-
-function assertRawModule (path, rawModule) {
-  Object.keys(assertTypes).forEach(function (key) {
-    if (!rawModule[key]) { return }
-
-    var assertOptions = assertTypes[key];
-
-    forEachValue(rawModule[key], function (value, type) {
-      assert(
-        assertOptions.assert(value),
-        makeAssertionMessage(path, key, type, value, assertOptions.expected)
-      );
-    });
-  });
-}
-
-function makeAssertionMessage (path, key, type, value, expected) {
-  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
-  if (path.length > 0) {
-    buf += " in module \"" + (path.join('.')) + "\"";
-  }
-  buf += " is " + (JSON.stringify(value)) + ".";
-  return buf
-}
-
-var Vue; // bind on install
-
-var Store = function Store (options) {
-  var this$1 = this;
-  if ( options === void 0 ) options = {};
-
-  // Auto install if it is not done yet and `window` has `Vue`.
-  // To allow users to avoid auto-installation in some cases,
-  // this code should be placed here. See #731
-  if (!Vue && typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue);
-  }
-
-  if (true) {
-    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
-    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
-    assert(this instanceof Store, "Store must be called with the new operator.");
-  }
-
-  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
-  var strict = options.strict; if ( strict === void 0 ) strict = false;
-
-  var state = options.state; if ( state === void 0 ) state = {};
-  if (typeof state === 'function') {
-    state = state() || {};
-  }
-
-  // store internal state
-  this._committing = false;
-  this._actions = Object.create(null);
-  this._actionSubscribers = [];
-  this._mutations = Object.create(null);
-  this._wrappedGetters = Object.create(null);
-  this._modules = new ModuleCollection(options);
-  this._modulesNamespaceMap = Object.create(null);
-  this._subscribers = [];
-  this._watcherVM = new Vue();
-
-  // bind commit and dispatch to self
-  var store = this;
-  var ref = this;
-  var dispatch = ref.dispatch;
-  var commit = ref.commit;
-  this.dispatch = function boundDispatch (type, payload) {
-    return dispatch.call(store, type, payload)
-  };
-  this.commit = function boundCommit (type, payload, options) {
-    return commit.call(store, type, payload, options)
-  };
-
-  // strict mode
-  this.strict = strict;
-
-  // init root module.
-  // this also recursively registers all sub-modules
-  // and collects all module getters inside this._wrappedGetters
-  installModule(this, state, [], this._modules.root);
-
-  // initialize the store vm, which is responsible for the reactivity
-  // (also registers _wrappedGetters as computed properties)
-  resetStoreVM(this, state);
-
-  // apply plugins
-  plugins.forEach(function (plugin) { return plugin(this$1); });
-
-  if (Vue.config.devtools) {
-    devtoolPlugin(this);
-  }
-};
-
-var prototypeAccessors = { state: { configurable: true } };
-
-prototypeAccessors.state.get = function () {
-  return this._vm._data.$$state
-};
-
-prototypeAccessors.state.set = function (v) {
-  if (true) {
-    assert(false, "Use store.replaceState() to explicit replace store state.");
-  }
-};
-
-Store.prototype.commit = function commit (_type, _payload, _options) {
-    var this$1 = this;
-
-  // check object-style commit
-  var ref = unifyObjectStyle(_type, _payload, _options);
-    var type = ref.type;
-    var payload = ref.payload;
-    var options = ref.options;
-
-  var mutation = { type: type, payload: payload };
-  var entry = this._mutations[type];
-  if (!entry) {
-    if (true) {
-      console.error(("[vuex] unknown mutation type: " + type));
-    }
-    return
-  }
-  this._withCommit(function () {
-    entry.forEach(function commitIterator (handler) {
-      handler(payload);
-    });
-  });
-  this._subscribers.forEach(function (sub) { return sub(mutation, this$1.state); });
-
-  if (
-    "development" !== 'production' &&
-    options && options.silent
-  ) {
-    console.warn(
-      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
-      'Use the filter functionality in the vue-devtools'
-    );
-  }
-};
-
-Store.prototype.dispatch = function dispatch (_type, _payload) {
-    var this$1 = this;
-
-  // check object-style dispatch
-  var ref = unifyObjectStyle(_type, _payload);
-    var type = ref.type;
-    var payload = ref.payload;
-
-  var action = { type: type, payload: payload };
-  var entry = this._actions[type];
-  if (!entry) {
-    if (true) {
-      console.error(("[vuex] unknown action type: " + type));
-    }
-    return
-  }
-
-  this._actionSubscribers.forEach(function (sub) { return sub(action, this$1.state); });
-
-  return entry.length > 1
-    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
-    : entry[0](payload)
-};
-
-Store.prototype.subscribe = function subscribe (fn) {
-  return genericSubscribe(fn, this._subscribers)
-};
-
-Store.prototype.subscribeAction = function subscribeAction (fn) {
-  return genericSubscribe(fn, this._actionSubscribers)
-};
-
-Store.prototype.watch = function watch (getter, cb, options) {
-    var this$1 = this;
-
-  if (true) {
-    assert(typeof getter === 'function', "store.watch only accepts a function.");
-  }
-  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
-};
-
-Store.prototype.replaceState = function replaceState (state) {
-    var this$1 = this;
-
-  this._withCommit(function () {
-    this$1._vm._data.$$state = state;
-  });
-};
-
-Store.prototype.registerModule = function registerModule (path, rawModule, options) {
-    if ( options === void 0 ) options = {};
-
-  if (typeof path === 'string') { path = [path]; }
-
-  if (true) {
-    assert(Array.isArray(path), "module path must be a string or an Array.");
-    assert(path.length > 0, 'cannot register the root module by using registerModule.');
-  }
-
-  this._modules.register(path, rawModule);
-  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
-  // reset store to update getters...
-  resetStoreVM(this, this.state);
-};
-
-Store.prototype.unregisterModule = function unregisterModule (path) {
-    var this$1 = this;
-
-  if (typeof path === 'string') { path = [path]; }
-
-  if (true) {
-    assert(Array.isArray(path), "module path must be a string or an Array.");
-  }
-
-  this._modules.unregister(path);
-  this._withCommit(function () {
-    var parentState = getNestedState(this$1.state, path.slice(0, -1));
-    Vue.delete(parentState, path[path.length - 1]);
-  });
-  resetStore(this);
-};
-
-Store.prototype.hotUpdate = function hotUpdate (newOptions) {
-  this._modules.update(newOptions);
-  resetStore(this, true);
-};
-
-Store.prototype._withCommit = function _withCommit (fn) {
-  var committing = this._committing;
-  this._committing = true;
-  fn();
-  this._committing = committing;
-};
-
-Object.defineProperties( Store.prototype, prototypeAccessors );
-
-function genericSubscribe (fn, subs) {
-  if (subs.indexOf(fn) < 0) {
-    subs.push(fn);
-  }
-  return function () {
-    var i = subs.indexOf(fn);
-    if (i > -1) {
-      subs.splice(i, 1);
-    }
-  }
-}
-
-function resetStore (store, hot) {
-  store._actions = Object.create(null);
-  store._mutations = Object.create(null);
-  store._wrappedGetters = Object.create(null);
-  store._modulesNamespaceMap = Object.create(null);
-  var state = store.state;
-  // init all modules
-  installModule(store, state, [], store._modules.root, true);
-  // reset vm
-  resetStoreVM(store, state, hot);
-}
-
-function resetStoreVM (store, state, hot) {
-  var oldVm = store._vm;
-
-  // bind store public getters
-  store.getters = {};
-  var wrappedGetters = store._wrappedGetters;
-  var computed = {};
-  forEachValue(wrappedGetters, function (fn, key) {
-    // use computed to leverage its lazy-caching mechanism
-    computed[key] = function () { return fn(store); };
-    Object.defineProperty(store.getters, key, {
-      get: function () { return store._vm[key]; },
-      enumerable: true // for local getters
-    });
-  });
-
-  // use a Vue instance to store the state tree
-  // suppress warnings just in case the user has added
-  // some funky global mixins
-  var silent = Vue.config.silent;
-  Vue.config.silent = true;
-  store._vm = new Vue({
-    data: {
-      $$state: state
-    },
-    computed: computed
-  });
-  Vue.config.silent = silent;
-
-  // enable strict mode for new vm
-  if (store.strict) {
-    enableStrictMode(store);
-  }
-
-  if (oldVm) {
-    if (hot) {
-      // dispatch changes in all subscribed watchers
-      // to force getter re-evaluation for hot reloading.
-      store._withCommit(function () {
-        oldVm._data.$$state = null;
-      });
-    }
-    Vue.nextTick(function () { return oldVm.$destroy(); });
-  }
-}
-
-function installModule (store, rootState, path, module, hot) {
-  var isRoot = !path.length;
-  var namespace = store._modules.getNamespace(path);
-
-  // register in namespace map
-  if (module.namespaced) {
-    store._modulesNamespaceMap[namespace] = module;
-  }
-
-  // set state
-  if (!isRoot && !hot) {
-    var parentState = getNestedState(rootState, path.slice(0, -1));
-    var moduleName = path[path.length - 1];
-    store._withCommit(function () {
-      Vue.set(parentState, moduleName, module.state);
-    });
-  }
-
-  var local = module.context = makeLocalContext(store, namespace, path);
-
-  module.forEachMutation(function (mutation, key) {
-    var namespacedType = namespace + key;
-    registerMutation(store, namespacedType, mutation, local);
-  });
-
-  module.forEachAction(function (action, key) {
-    var type = action.root ? key : namespace + key;
-    var handler = action.handler || action;
-    registerAction(store, type, handler, local);
-  });
-
-  module.forEachGetter(function (getter, key) {
-    var namespacedType = namespace + key;
-    registerGetter(store, namespacedType, getter, local);
-  });
-
-  module.forEachChild(function (child, key) {
-    installModule(store, rootState, path.concat(key), child, hot);
-  });
-}
-
-/**
- * make localized dispatch, commit, getters and state
- * if there is no namespace, just use root ones
- */
-function makeLocalContext (store, namespace, path) {
-  var noNamespace = namespace === '';
-
-  var local = {
-    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
-      var args = unifyObjectStyle(_type, _payload, _options);
-      var payload = args.payload;
-      var options = args.options;
-      var type = args.type;
-
-      if (!options || !options.root) {
-        type = namespace + type;
-        if ("development" !== 'production' && !store._actions[type]) {
-          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
-          return
-        }
-      }
-
-      return store.dispatch(type, payload)
-    },
-
-    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
-      var args = unifyObjectStyle(_type, _payload, _options);
-      var payload = args.payload;
-      var options = args.options;
-      var type = args.type;
-
-      if (!options || !options.root) {
-        type = namespace + type;
-        if ("development" !== 'production' && !store._mutations[type]) {
-          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
-          return
-        }
-      }
-
-      store.commit(type, payload, options);
-    }
-  };
-
-  // getters and state object must be gotten lazily
-  // because they will be changed by vm update
-  Object.defineProperties(local, {
-    getters: {
-      get: noNamespace
-        ? function () { return store.getters; }
-        : function () { return makeLocalGetters(store, namespace); }
-    },
-    state: {
-      get: function () { return getNestedState(store.state, path); }
-    }
-  });
-
-  return local
-}
-
-function makeLocalGetters (store, namespace) {
-  var gettersProxy = {};
-
-  var splitPos = namespace.length;
-  Object.keys(store.getters).forEach(function (type) {
-    // skip if the target getter is not match this namespace
-    if (type.slice(0, splitPos) !== namespace) { return }
-
-    // extract local getter type
-    var localType = type.slice(splitPos);
-
-    // Add a port to the getters proxy.
-    // Define as getter property because
-    // we do not want to evaluate the getters in this time.
-    Object.defineProperty(gettersProxy, localType, {
-      get: function () { return store.getters[type]; },
-      enumerable: true
-    });
-  });
-
-  return gettersProxy
-}
-
-function registerMutation (store, type, handler, local) {
-  var entry = store._mutations[type] || (store._mutations[type] = []);
-  entry.push(function wrappedMutationHandler (payload) {
-    handler.call(store, local.state, payload);
-  });
-}
-
-function registerAction (store, type, handler, local) {
-  var entry = store._actions[type] || (store._actions[type] = []);
-  entry.push(function wrappedActionHandler (payload, cb) {
-    var res = handler.call(store, {
-      dispatch: local.dispatch,
-      commit: local.commit,
-      getters: local.getters,
-      state: local.state,
-      rootGetters: store.getters,
-      rootState: store.state
-    }, payload, cb);
-    if (!isPromise(res)) {
-      res = Promise.resolve(res);
-    }
-    if (store._devtoolHook) {
-      return res.catch(function (err) {
-        store._devtoolHook.emit('vuex:error', err);
-        throw err
-      })
-    } else {
-      return res
-    }
-  });
-}
-
-function registerGetter (store, type, rawGetter, local) {
-  if (store._wrappedGetters[type]) {
-    if (true) {
-      console.error(("[vuex] duplicate getter key: " + type));
-    }
-    return
-  }
-  store._wrappedGetters[type] = function wrappedGetter (store) {
-    return rawGetter(
-      local.state, // local state
-      local.getters, // local getters
-      store.state, // root state
-      store.getters // root getters
-    )
-  };
-}
-
-function enableStrictMode (store) {
-  store._vm.$watch(function () { return this._data.$$state }, function () {
-    if (true) {
-      assert(store._committing, "Do not mutate vuex store state outside mutation handlers.");
-    }
-  }, { deep: true, sync: true });
-}
-
-function getNestedState (state, path) {
-  return path.length
-    ? path.reduce(function (state, key) { return state[key]; }, state)
-    : state
-}
-
-function unifyObjectStyle (type, payload, options) {
-  if (isObject(type) && type.type) {
-    options = payload;
-    payload = type;
-    type = type.type;
-  }
-
-  if (true) {
-    assert(typeof type === 'string', ("Expects string as the type, but found " + (typeof type) + "."));
-  }
-
-  return { type: type, payload: payload, options: options }
-}
-
-function install (_Vue) {
-  if (Vue && _Vue === Vue) {
-    if (true) {
-      console.error(
-        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
-      );
-    }
-    return
-  }
-  Vue = _Vue;
-  applyMixin(Vue);
-}
-
-var mapState = normalizeNamespace(function (namespace, states) {
-  var res = {};
-  normalizeMap(states).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedState () {
-      var state = this.$store.state;
-      var getters = this.$store.getters;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
-        if (!module) {
-          return
-        }
-        state = module.context.state;
-        getters = module.context.getters;
-      }
-      return typeof val === 'function'
-        ? val.call(this, state, getters)
-        : state[val]
-    };
-    // mark vuex getter for devtools
-    res[key].vuex = true;
-  });
-  return res
-});
-
-var mapMutations = normalizeNamespace(function (namespace, mutations) {
-  var res = {};
-  normalizeMap(mutations).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedMutation () {
-      var args = [], len = arguments.length;
-      while ( len-- ) args[ len ] = arguments[ len ];
-
-      var commit = this.$store.commit;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
-        if (!module) {
-          return
-        }
-        commit = module.context.commit;
-      }
-      return typeof val === 'function'
-        ? val.apply(this, [commit].concat(args))
-        : commit.apply(this.$store, [val].concat(args))
-    };
-  });
-  return res
-});
-
-var mapGetters = normalizeNamespace(function (namespace, getters) {
-  var res = {};
-  normalizeMap(getters).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    val = namespace + val;
-    res[key] = function mappedGetter () {
-      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
-        return
-      }
-      if ("development" !== 'production' && !(val in this.$store.getters)) {
-        console.error(("[vuex] unknown getter: " + val));
-        return
-      }
-      return this.$store.getters[val]
-    };
-    // mark vuex getter for devtools
-    res[key].vuex = true;
-  });
-  return res
-});
-
-var mapActions = normalizeNamespace(function (namespace, actions) {
-  var res = {};
-  normalizeMap(actions).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedAction () {
-      var args = [], len = arguments.length;
-      while ( len-- ) args[ len ] = arguments[ len ];
-
-      var dispatch = this.$store.dispatch;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
-        if (!module) {
-          return
-        }
-        dispatch = module.context.dispatch;
-      }
-      return typeof val === 'function'
-        ? val.apply(this, [dispatch].concat(args))
-        : dispatch.apply(this.$store, [val].concat(args))
-    };
-  });
-  return res
-});
-
-var createNamespacedHelpers = function (namespace) { return ({
-  mapState: mapState.bind(null, namespace),
-  mapGetters: mapGetters.bind(null, namespace),
-  mapMutations: mapMutations.bind(null, namespace),
-  mapActions: mapActions.bind(null, namespace)
-}); };
-
-function normalizeMap (map) {
-  return Array.isArray(map)
-    ? map.map(function (key) { return ({ key: key, val: key }); })
-    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
-}
-
-function normalizeNamespace (fn) {
-  return function (namespace, map) {
-    if (typeof namespace !== 'string') {
-      map = namespace;
-      namespace = '';
-    } else if (namespace.charAt(namespace.length - 1) !== '/') {
-      namespace += '/';
-    }
-    return fn(namespace, map)
-  }
-}
-
-function getModuleByNamespace (store, helper, namespace) {
-  var module = store._modulesNamespaceMap[namespace];
-  if ("development" !== 'production' && !module) {
-    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
-  }
-  return module
-}
-
-var index_esm = {
-  Store: Store,
-  install: install,
-  version: '3.0.1',
-  mapState: mapState,
-  mapMutations: mapMutations,
-  mapGetters: mapGetters,
-  mapActions: mapActions,
-  createNamespacedHelpers: createNamespacedHelpers
-};
-
-
-/* harmony default export */ __webpack_exports__["a"] = (index_esm);
-
 
 /***/ }),
 /* 21 */
@@ -44194,8 +44194,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 __webpack_require__(147);
-__webpack_require__(18);
-window.Vue = __webpack_require__(19);
+__webpack_require__(19);
+window.Vue = __webpack_require__(20);
 
 /*Vue-Select*/
 
@@ -44251,7 +44251,7 @@ $(function () {
 
 
 window._ = __webpack_require__(148);
-window.Popper = __webpack_require__(11).default;
+window.Popper = __webpack_require__(12).default;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -44260,7 +44260,7 @@ window.Popper = __webpack_require__(11).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(12);
+  window.$ = window.jQuery = __webpack_require__(13);
 
   __webpack_require__(149);
 } catch (e) {}
@@ -61410,7 +61410,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(10)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(11)(module)))
 
 /***/ }),
 /* 149 */
@@ -61422,7 +61422,7 @@ if (token) {
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(12), __webpack_require__(11)) :
+   true ? factory(exports, __webpack_require__(13), __webpack_require__(12)) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
   (factory((global.bootstrap = {}),global.jQuery,global.Popper));
 }(this, (function (exports,$,Popper) { 'use strict';
@@ -66527,7 +66527,7 @@ return Promise$1;
 
 //# sourceMappingURL=es6-promise.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(6)))
 
 /***/ }),
 /* 151 */
@@ -66543,9 +66543,9 @@ module.exports = __webpack_require__(152);
 
 
 var utils = __webpack_require__(4);
-var bind = __webpack_require__(13);
+var bind = __webpack_require__(14);
 var Axios = __webpack_require__(154);
-var defaults = __webpack_require__(8);
+var defaults = __webpack_require__(9);
 
 /**
  * Create an instance of Axios
@@ -66578,9 +66578,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(17);
+axios.Cancel = __webpack_require__(18);
 axios.CancelToken = __webpack_require__(168);
-axios.isCancel = __webpack_require__(16);
+axios.isCancel = __webpack_require__(17);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -66628,7 +66628,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(8);
+var defaults = __webpack_require__(9);
 var utils = __webpack_require__(4);
 var InterceptorManager = __webpack_require__(163);
 var dispatchRequest = __webpack_require__(164);
@@ -66733,7 +66733,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(15);
+var createError = __webpack_require__(16);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -67166,8 +67166,8 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(4);
 var transformData = __webpack_require__(165);
-var isCancel = __webpack_require__(16);
-var defaults = __webpack_require__(8);
+var isCancel = __webpack_require__(17);
+var defaults = __webpack_require__(9);
 var isAbsoluteURL = __webpack_require__(166);
 var combineURLs = __webpack_require__(167);
 
@@ -67326,7 +67326,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(17);
+var Cancel = __webpack_require__(18);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -67678,7 +67678,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(8)))
 
 /***/ }),
 /* 172 */
@@ -72806,9 +72806,9 @@ var index_esm = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(7);
 
 
 
@@ -72817,15 +72817,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
         idPersonaFisica: '',
-        idPersonaMoral: '',
-        tabsFisica: 'nav-link disabled',
-        tabsMoral: 'nav-link disabled',
-        tabPrincipalFisica: 'nav-link active show',
-        tabPrincipalMoral: 'nav-link active show',
-        pillPrincipalFisica: 'tab-pane fade show active',
-        pillPrincipalMoral: 'tab-pane fade show active',
-        pillsFisica: 'tab-pane fade',
-        pillsMoral: 'tab-pane fade'
+        idPersonaMoral: ''
     },
     mutations: {
         asignarIdFisica: function asignarIdFisica(state, payload) {
@@ -72833,20 +72825,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         },
         asignarIdMoral: function asignarIdMoral(state, payload) {
             state.idPersonaMoral = payload;
-        },
-        activeTabsFisica: function activeTabsFisica(state) {
-            state.tabsFisica = 'nav-link';
-            state.tabsMoral = 'nav-link disabled';
-            state.tabPrincipalMoral = 'nav-link active show';
-            state.pillsMoral = 'tab-pane fade';
-            state.pillPrincipalMoral = 'tab-pane fade show active';
-        },
-        activeTabsMoral: function activeTabsMoral(state) {
-            state.tabsMoral = 'nav-link';
-            state.tabsFisica = 'nav-link disabled';
-            state.tabPrincipalFisica = 'nav-link active show';
-            state.pillsFisica = 'tab-pane fade';
-            state.pillPrincipalFisica = 'tab-pane fade show active';
         },
         ubicarTabsFisica: function ubicarTabsFisica(state) {
             state.tabPrincipalFisica = 'nav-link';
@@ -72991,19 +72969,14 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__curp__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_epic_spinners__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_moment__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(20);
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(7);
 //
 //
 //
@@ -73218,7 +73191,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             religiones: [],
             identificaciones: [],
             personaExiste: [],
-            idPersona: '',
             nombres: '',
             primerAp: '',
             segundoAp: '',
@@ -73247,7 +73219,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             validacionesback: '',
             loader: true,
             qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-            // url:'http://localhost/componentes/public/api', 
+            //  url:'http://localhost/componentes/public/api', 
             // url:'http://componentes.oo/api',
             // url:'http://componentes.test/api'
             url: '/api'
@@ -73301,7 +73273,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         searchPersona: function searchPersona() {
             var _this2 = this;
 
+            console.log("empezando busqueda");
+            if (this.rfc != '' && this.homoclave != '') {
+                var urlBuscarPersona = this.url + '/searchPersonaFisica';
+                axios.post(urlBuscarPersona, {
+                    rfc: this.rfc + this.homoclave
+                }).then(function (response) {
+                    _this2.personaExiste = response.data;
+                    if (_this2.personaExiste != '') {
+                        __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                            title: '¡Persona Encontrada!',
+                            text: 'Ésta persona ya fue registrada anteriormente.',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                        _this2.nombres = _this2.personaExiste.nombres, _this2.primerAp = _this2.personaExiste.primerAp, _this2.segundoAp = _this2.personaExiste.segundoAp, _this2.fechaNacimiento = _this2.personaExiste.fechaNacimiento, _this2.edad = _this2.personaExiste.edad, _this2.sexo = _this2.personaExiste.sexo, _this2.rfc = _this2.personaExiste.rfc.slice(0, -3), _this2.homoclave = _this2.personaExiste.rfc.slice(-3), _this2.curp = _this2.personaExiste.curp, _this2.nacionalidad = _this2.personaExiste.idNacionalidad, _this2.estado = _this2.personaExiste.idEstado;
+                        _this2.municipio = _this2.personaExiste.idMunicipioOrigen, _this2.etnia = _this2.personaExiste.idEtnia, _this2.lengua = _this2.personaExiste.idLengua, _this2.interprete = _this2.personaExiste.idInterprete, _this2.motivoEstancia = _this2.personaExiste.motivoEstancia, _this2.ocupacion = _this2.personaExiste.idOcupacion, _this2.estadoCivil = _this2.personaExiste.idEstadoCivil, _this2.escolaridad = _this2.personaExiste.idEscolaridad, _this2.religion = _this2.personaExiste.idReligion, _this2.identificacion = _this2.personaExiste.docIdentificacion, _this2.numIdentificacion = _this2.personaExiste.numDocIdentificacion;
+                        _this2.alias = _this2.personaExiste.alias, _this2.telefono = _this2.personaExiste.telefono, _this2.$store.commit('asignarIdFisica', _this2.personaExiste.idPersona);
+                    }
+                });
+            } else {
+                alert("Rfc aun no calculado");
+            }
+        },
+        calcularRfc: function calcularRfc() {
+            var _this3 = this;
+
             if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '') {
+                console.log("calculando rfc");
                 var urlRfcFisico = this.url + '/rfcFisico';
                 axios.post(urlRfcFisico, {
                     nombres: this.nombres,
@@ -73309,36 +73308,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     segundoAp: this.segundoAp,
                     fechaNacimiento: this.fechaNacimiento
                 }).then(function (response) {
-                    _this2.rfc = response.data.res.slice(0, -3);
-                    _this2.homoclave = response.data.res.slice(-3);
-                    var urlBuscarPersona = _this2.url + '/searchPersonaFisica';
-                    axios.post(urlBuscarPersona, {
-                        rfc: _this2.rfc + _this2.homoclave
-                    }).then(function (response) {
-                        _this2.personaExiste = response.data;
-                        if (_this2.personaExiste != '') {
-                            __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                                title: '¡Persona Encontrada!',
-                                text: 'Ésta persona ya fue registrada anteriormente.',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            });
-                            _this2.nombres = _this2.personaExiste.nombres, _this2.primerAp = _this2.personaExiste.primerAp, _this2.segundoAp = _this2.personaExiste.segundoAp, _this2.fechaNacimiento = _this2.personaExiste.fechaNacimiento, _this2.edad = _this2.personaExiste.edad, _this2.sexo = _this2.personaExiste.sexo, _this2.rfc = _this2.personaExiste.rfc.slice(0, -3), _this2.homoclave = _this2.personaExiste.rfc.slice(-3), _this2.curp = _this2.personaExiste.curp, _this2.nacionalidad = _this2.personaExiste.idNacionalidad, _this2.estado = _this2.personaExiste.idEstado;
-                            _this2.municipio = _this2.personaExiste.idMunicipioOrigen, _this2.etnia = _this2.personaExiste.idEtnia, _this2.lengua = _this2.personaExiste.idLengua, _this2.interprete = _this2.personaExiste.idInterprete, _this2.motivoEstancia = _this2.personaExiste.motivoEstancia, _this2.ocupacion = _this2.personaExiste.idOcupacion, _this2.estadoCivil = _this2.personaExiste.idEstadoCivil, _this2.escolaridad = _this2.personaExiste.idEscolaridad, _this2.religion = _this2.personaExiste.idReligion, _this2.identificacion = _this2.personaExiste.docIdentificacion, _this2.numIdentificacion = _this2.personaExiste.numDocIdentificacion;
-                            _this2.alias = _this2.personaExiste.alias, _this2.telefono = _this2.personaExiste.telefono, _this2.idPersona = _this2.personaExiste.idPersona;
-                        }
-                    });
+                    console.log("rfc correcto");
+                    _this3.rfc = response.data.res.slice(0, -3);
+                    _this3.homoclave = response.data.res.slice(-3);
+                    _this3.searchPersona();
                 });
             }
         },
+
         getMunicipios: function getMunicipios() {
-            var _this3 = this;
+            var _this4 = this;
 
             if (this.estado != null) {
                 // this.municipio=null
                 var urlMunicipios = this.url + '/getMunicipios/' + this.estado.id;
                 axios.get(urlMunicipios).then(function (response) {
-                    _this3.municipios = response.data;
+                    _this4.municipios = response.data;
                 });
             } else {
                 // this.municipio=null,
@@ -73383,11 +73368,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.edad = hoy.diff(fechaNacimiento, 'years');
         },
         validateBeforeSubmit: function validateBeforeSubmit() {
-            var _this4 = this;
+            var _this5 = this;
 
             this.$validator.validateAll().then(function (result) {
                 if (result) {
-                    _this4.crearPersona();
+                    _this5.crearPersona();
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
@@ -73403,7 +73388,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         crearPersona: function crearPersona() {
-            var _this5 = this;
+            var _this6 = this;
 
             this.validacionesback = '';
             var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
@@ -73482,15 +73467,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: 'success',
                     confirmButtonText: 'Ok'
                 });
-                this.idPersona = 1;
+                this.$store.commit('asignarIdFisica', 1);
                 return;
             }
             if (data) {
                 axios.post(urlCrearPersona, data).then(function (response) {
-                    // this.idPersona = response.data
-                    _this5.$store.commit('asignarIdFisica', response.data);
-                    _this5.$store.commit('activeTabsFisica');
-                    if (idPersona) {
+                    _this6.$store.commit('asignarIdFisica', response.data);
+                    if (_this6.$store.state.idPersonaFisica) {
                         __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                             title: '¡Guardado correctamente!',
                             text: 'Ésta persona fue guardada exitosamente.',
@@ -73506,7 +73489,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         });
                     }
                 }).catch(function (error) {
-                    _this5.validacionesback = error.response.data.errors;
+                    _this6.validacionesback = error.response.data.errors;
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                         title: '¡Guardado incorrecto!',
                         text: 'Ésta persona no fue posible guardarla.',
@@ -73829,7 +73812,7 @@ exports.push([module.i, "\n.pixel-spinner[data-v-de3ac38c], .pixel-spinner *[dat
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(10);
 //
 //
 //
@@ -74039,7 +74022,7 @@ exports.push([module.i, "\n.flower-spinner[data-v-40c4a772],  .flower-spinner *[
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(10);
 //
 //
 //
@@ -76778,7 +76761,7 @@ exports.push([module.i, "\n.spring-spinner[data-v-3fefc155], .spring-spinner *[d
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(10);
 //
 //
 //
@@ -77857,7 +77840,7 @@ var render = function() {
                         },
                         domProps: { value: _vm.nombres },
                         on: {
-                          blur: [_vm.searchPersona, _vm.generarCurp],
+                          blur: [_vm.calcularRfc, _vm.generarCurp],
                           input: function($event) {
                             if ($event.target.composing) {
                               return
@@ -77934,7 +77917,7 @@ var render = function() {
                         },
                         domProps: { value: _vm.primerAp },
                         on: {
-                          blur: [_vm.searchPersona, _vm.generarCurp],
+                          blur: [_vm.calcularRfc, _vm.generarCurp],
                           input: function($event) {
                             if ($event.target.composing) {
                               return
@@ -78011,7 +77994,7 @@ var render = function() {
                         },
                         domProps: { value: _vm.segundoAp },
                         on: {
-                          blur: [_vm.searchPersona, _vm.generarCurp],
+                          blur: [_vm.calcularRfc, _vm.generarCurp],
                           input: function($event) {
                             if ($event.target.composing) {
                               return
@@ -78161,7 +78144,7 @@ var render = function() {
                         domProps: { value: _vm.fechaNacimiento },
                         on: {
                           blur: [
-                            _vm.searchPersona,
+                            _vm.calcularRfc,
                             function($event) {
                               _vm.generarCurp(), _vm.generarEdad()
                             }
@@ -79626,29 +79609,6 @@ var render = function() {
                   : _vm._e()
               ]),
               _vm._v(" "),
-              _c("div", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.idPersona,
-                      expression: "idPersona"
-                    }
-                  ],
-                  attrs: { type: "hidden", id: "idPersona" },
-                  domProps: { value: _vm.idPersona },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.idPersona = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
               _c(
                 "button",
                 {
@@ -79775,7 +79735,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(7);
 //
 //
 //
@@ -79952,7 +79912,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 // this.idMoral=response.data        
                 _this3.$store.commit('asignarIdMoral', response.data);
-                _this3.$store.commit('activeTabsMoral');
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: '¡Guardado correctamente!',
                     text: 'Ésta empresa fue guardada exitosamente.',
@@ -83125,6 +83084,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(7);
 //
 //
 //
@@ -83173,7 +83133,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            tabPrincipalFisica: 'nav-link active show',
+            tabsFisica: 'nav-link disabled',
+            pillPrincipalFisica: 'tab-pane fade show active',
+            pillsFisica1: 'tab-pane fade',
+            pillsFisica2: 'tab-pane fade',
+            pillsFisica3: 'tab-pane fade',
+            pillsFisica4: 'tab-pane fade'
+
+        };
+    },
+
     props: {
         sistema: {
             required: true
@@ -83183,10 +83157,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        ubicacionTabsFisica: function ubicacionTabsFisica() {
-            this.$store.commit('ubicarTabsFisica');
+        ubicacionTabsFisica: function ubicacionTabsFisica(numeroTab) {
+            if (this.tabsFisica != 'nav-link disabled') {
+                this.tabPrincipalFisica = 'nav-link';
+                this.pillPrincipalFisica = 'tab-pane fade';
+                if (numeroTab == 1) {
+                    this.pillsFisica2 = 'tab-pane fade';
+                    this.pillsFisica3 = 'tab-pane fade';
+                    this.pillsFisica4 = 'tab-pane fade';
+                    this.pillsFisica1 = 'tab-pane fade show active';
+                } else if (numeroTab == 2) {
+                    this.pillsFisica1 = 'tab-pane fade';
+                    this.pillsFisica3 = 'tab-pane fade';
+                    this.pillsFisica4 = 'tab-pane fade';
+                    this.pillsFisica2 = 'tab-pane fade show active';
+                } else if (numeroTab == 3) {
+                    this.pillsFisica1 = 'tab-pane fade';
+                    this.pillsFisica2 = 'tab-pane fade';
+                    this.pillsFisica4 = 'tab-pane fade';
+                    this.pillsFisica3 = 'tab-pane fade show active';
+                } else if (numeroTab == 4) {
+                    this.pillsFisica1 = 'tab-pane fade';
+                    this.pillsFisica2 = 'tab-pane fade';
+                    this.pillsFisica3 = 'tab-pane fade';
+                    this.pillsFisica4 = 'tab-pane fade show active';
+                }
+            }
         }
-    }
+    },
+    watch: {
+        idPersonaFisica: function idPersonaFisica() {
+            this.tabsFisica = 'nav-link';
+        },
+        idPersonaMoral: function idPersonaMoral() {
+            this.tabsFisica = 'nav-link disabled';
+            this.tabPrincipalFisica = 'nav-link active show';
+            this.pillsFisica1 = 'tab-pane fade';
+            this.pillsFisica2 = 'tab-pane fade';
+            this.pillsFisica3 = 'tab-pane fade';
+            this.pillsFisica4 = 'tab-pane fade';
+            this.pillPrincipalFisica = 'tab-pane fade show active';
+        }
+    },
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral'])
 });
 
 /***/ }),
@@ -83210,7 +83223,7 @@ var render = function() {
             _c(
               "a",
               {
-                class: this.$store.state.tabPrincipalFisica,
+                class: _vm.tabPrincipalFisica,
                 attrs: {
                   id: "denunciante-personafisico-tab",
                   "data-toggle": "pill",
@@ -83228,7 +83241,7 @@ var render = function() {
             _c(
               "a",
               {
-                class: this.$store.state.tabsFisica,
+                class: _vm.tabsFisica,
                 attrs: {
                   id: "denunciante-domiciliofisico-tab",
                   "data-toggle": "pill",
@@ -83237,7 +83250,11 @@ var render = function() {
                   "aria-controls": "pills-denunciante-domiciliofisico",
                   "aria-selected": "false"
                 },
-                on: { click: _vm.ubicacionTabsFisica }
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsFisica(1)
+                  }
+                }
               },
               [_vm._v("Domicilio")]
             )
@@ -83247,7 +83264,7 @@ var render = function() {
             _c(
               "a",
               {
-                class: this.$store.state.tabsFisica,
+                class: _vm.tabsFisica,
                 attrs: {
                   id: "denunciante-trabajofisico-tab",
                   "data-toggle": "pill",
@@ -83256,7 +83273,11 @@ var render = function() {
                   "aria-controls": "pills-denunciante-trabajofisico",
                   "aria-selected": "false"
                 },
-                on: { click: _vm.ubicacionTabsFisica }
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsFisica(2)
+                  }
+                }
               },
               [_vm._v("Datos del trabajo")]
             )
@@ -83266,7 +83287,7 @@ var render = function() {
             _c(
               "a",
               {
-                class: this.$store.state.tabsFisica,
+                class: _vm.tabsFisica,
                 attrs: {
                   id: "denunciante-notificacionesfisico-tab",
                   "data-toggle": "pill",
@@ -83275,7 +83296,11 @@ var render = function() {
                   "aria-controls": "#pills-denunciante-notificacionesfisico",
                   "aria-selected": "false"
                 },
-                on: { click: _vm.ubicacionTabsFisica }
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsFisica(3)
+                  }
+                }
               },
               [_vm._v("Domicilio para notificaciones")]
             )
@@ -83285,7 +83310,7 @@ var render = function() {
             _c(
               "a",
               {
-                class: this.$store.state.tabsFisica,
+                class: _vm.tabsFisica,
                 attrs: {
                   id: "denunciante-extrafisico-tab",
                   "data-toggle": "pill",
@@ -83294,7 +83319,11 @@ var render = function() {
                   "aria-controls": "pills-denunciante-extrafisico",
                   "aria-selected": "false"
                 },
-                on: { click: _vm.ubicacionTabsFisica }
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsFisica(4)
+                  }
+                }
               },
               [_vm._v("Datos de la víctima u ofendido")]
             )
@@ -83310,7 +83339,7 @@ var render = function() {
         _c(
           "div",
           {
-            class: this.$store.state.pillPrincipalFisica,
+            class: _vm.pillPrincipalFisica,
             attrs: {
               id: "pills-denunciante-personafisico",
               role: "tabpanel",
@@ -83332,7 +83361,7 @@ var render = function() {
         _c(
           "div",
           {
-            class: this.$store.state.pillsFisica,
+            class: _vm.pillsFisica1,
             attrs: {
               id: "pills-denunciante-domiciliofisico",
               role: "tabpanel",
@@ -83346,7 +83375,7 @@ var render = function() {
         _c(
           "div",
           {
-            class: this.$store.state.pillsFisica,
+            class: _vm.pillsFisica2,
             attrs: {
               id: "pills-denunciante-trabajofisico",
               role: "tabpanel",
@@ -83360,7 +83389,7 @@ var render = function() {
         _c(
           "div",
           {
-            class: this.$store.state.pillsFisica,
+            class: _vm.pillsFisica3,
             attrs: {
               id: "pills-denunciante-notificacionesfisico",
               role: "tabpanel",
@@ -83374,7 +83403,7 @@ var render = function() {
         _c(
           "div",
           {
-            class: this.$store.state.pillsFisica,
+            class: _vm.pillsFisica4,
             attrs: {
               id: "pills-denunciante-extrafisico",
               role: "tabpanel-fisico",
@@ -83451,6 +83480,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(7);
 //
 //
 //
@@ -83492,7 +83522,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            tabPrincipalMoral: 'nav-link active show',
+            tabsMoral: 'nav-link disabled',
+            pillPrincipalMoral: 'tab-pane fade show active',
+            pillsMoral1: 'tab-pane fade',
+            pillsMoral2: 'tab-pane fade',
+            pillsMoral3: 'tab-pane fade'
+        };
+    },
+
     props: {
         sistema: {
             required: true
@@ -83502,10 +83544,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        ubicacionTabsMoral: function ubicacionTabsMoral() {
-            this.$store.commit('ubicarTabsMoral');
+        ubicacionTabsMoral: function ubicacionTabsMoral(numeroTab) {
+            if (this.tabsMoral != 'nav-link disabled') {
+                this.tabPrincipalMoral = 'nav-link';
+                this.pillPrincipalMoral = 'tab-pane fade';
+                if (numeroTab == 1) {
+                    this.pillsMoral2 = 'tab-pane fade';
+                    this.pillsMoral3 = 'tab-pane fade';
+                    this.pillsMoral1 = 'tab-pane fade show active';
+                } else if (numeroTab == 2) {
+                    this.pillsMoral1 = 'tab-pane fade';
+                    this.pillsMoral3 = 'tab-pane fade';
+                    this.pillsMoral2 = 'tab-pane fade show active';
+                } else if (numeroTab == 3) {
+                    this.pillsMoral1 = 'tab-pane fade';
+                    this.pillsMoral2 = 'tab-pane fade';
+                    this.pillsMoral3 = 'tab-pane fade show active';
+                }
+            }
         }
-    }
+    },
+    watch: {
+        idPersonaMoral: function idPersonaMoral() {
+            this.tabsMoral = 'nav-link';
+        },
+        idPersonaFisica: function idPersonaFisica() {
+            this.tabsMoral = 'nav-link disabled';
+            this.tabPrincipalMoral = 'nav-link active show';
+            this.pillsMoral1 = 'tab-pane fade';
+            this.pillsMoral2 = 'tab-pane fade';
+            this.pillsMoral3 = 'tab-pane fade';
+            this.pillPrincipalMoral = 'tab-pane fade show active';
+        }
+    },
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral'])
 });
 
 /***/ }),
@@ -83529,7 +83601,7 @@ var render = function() {
             _c(
               "a",
               {
-                class: this.$store.state.tabPrincipalMoral,
+                class: _vm.tabPrincipalMoral,
                 attrs: {
                   id: "denunciante-personamoral-tab",
                   "data-toggle": "pill",
@@ -83547,7 +83619,7 @@ var render = function() {
             _c(
               "a",
               {
-                class: this.$store.state.tabsMoral,
+                class: _vm.tabsMoral,
                 attrs: {
                   id: "denunciante-domiciliomoral-tab",
                   "data-toggle": "pill",
@@ -83556,7 +83628,11 @@ var render = function() {
                   "aria-controls": "pills-denunciante-domiciliomoral",
                   "aria-selected": "false"
                 },
-                on: { click: _vm.ubicacionTabsMoral }
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsMoral(1)
+                  }
+                }
               },
               [_vm._v("Domicilio")]
             )
@@ -83566,7 +83642,7 @@ var render = function() {
             _c(
               "a",
               {
-                class: this.$store.state.tabsMoral,
+                class: _vm.tabsMoral,
                 attrs: {
                   id: "denunciante-notificacionesmoral-tab",
                   "data-toggle": "pill",
@@ -83575,7 +83651,11 @@ var render = function() {
                   "aria-controls": "#pills-denunciante-notificacionesmoral",
                   "aria-selected": "false"
                 },
-                on: { click: _vm.ubicacionTabsMoral }
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsMoral(2)
+                  }
+                }
               },
               [_vm._v("Domicilio para notificaciones")]
             )
@@ -83585,7 +83665,7 @@ var render = function() {
             _c(
               "a",
               {
-                class: this.$store.state.tabsMoral,
+                class: _vm.tabsMoral,
                 attrs: {
                   id: "denunciante-extramoral-tab",
                   "data-toggle": "pill",
@@ -83594,7 +83674,11 @@ var render = function() {
                   "aria-controls": "pills-denunciante-extramoral",
                   "aria-selected": "false"
                 },
-                on: { click: _vm.ubicacionTabsMoral }
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsMoral(3)
+                  }
+                }
               },
               [_vm._v("Datos de la víctima u ofendido")]
             )
@@ -83610,7 +83694,7 @@ var render = function() {
         _c(
           "div",
           {
-            class: this.$store.state.pillPrincipalMoral,
+            class: _vm.pillPrincipalMoral,
             attrs: {
               id: "pills-denunciante-personamoral",
               role: "tabpanel",
@@ -83632,7 +83716,7 @@ var render = function() {
         _c(
           "div",
           {
-            class: this.$store.state.pillsMoral,
+            class: _vm.pillsMoral1,
             attrs: {
               id: "pills-denunciante-domiciliomoral",
               role: "tabpanel",
@@ -83646,7 +83730,7 @@ var render = function() {
         _c(
           "div",
           {
-            class: this.$store.state.pillsMoral,
+            class: _vm.pillsMoral2,
             attrs: {
               id: "pills-denunciante-notificacionesmoral",
               role: "tabpanel",
@@ -83660,7 +83744,7 @@ var render = function() {
         _c(
           "div",
           {
-            class: this.$store.state.pillsMoral,
+            class: _vm.pillsMoral3,
             attrs: {
               id: "pills-denunciante-extramoral",
               role: "tabpanel-moral",
@@ -84787,7 +84871,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\ninput{\r\n    text-transform: uppercase\n}\r\n", ""]);
+exports.push([module.i, "\ninput,textarea{\r\n    text-transform: uppercase\n}\r\n", ""]);
 
 // exports
 
@@ -84910,9 +84994,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             periodo: '',
             residencia: '',
             perseguido: '',
-            vestimenta: '',
-            particulares: '',
+            vestimenta: 'SIN INFORMACIÓN',
+            particulares: 'SIN INFORMACIÓN',
             hechos: '',
+            idExtrasInvestigado: 0,
             validacionesback: [],
             puestos: [],
             periodos: ['DIARIO', 'SEMANAL', 'QUINCENAL', 'MENSUAL'],
@@ -84943,7 +85028,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$validator.validateAll().then(function (result) {
                 if (result) {
-                    _this2.guardarExtra();
+                    if (_this2.idExtrasInvestigado > 0) _this2.actualizarExtra();else _this2.guardarExtra();
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -84963,19 +85048,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 idVariablesPersona: 1,
                 idNotificacion: 0,
                 idPuesto: this.puesto != '' ? this.puesto : 9,
-                alias: this.alias,
+                alias: this.alias.toUpperCase(),
                 personasBajoSuGuarda: this.dependientes,
                 ingreso: this.ingreso,
                 periodoIngreso: this.periodo,
-                residenciaAnterior: this.residencia,
+                residenciaAnterior: this.residencia.toUpperCase(),
                 perseguidoPenalmente: this.perseguido,
-                vestimenta: this.vestimenta,
-                senasPartic: this.particulares,
-                narracion: this.hechos
+                vestimenta: this.vestimenta.toUpperCase(),
+                senasPartic: this.particulares.toUpperCase(),
+                narracion: this.hechos.toUpperCase()
             };
             axios.post(urlGuardarInvestigado, data).then(function (response) {
                 _this3.confirm = response.data;
                 if (_this3.confirm) {
+                    _this3.idExtrasInvestigado = _this3.confirm;
+                    //this.CleanFields();
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: '¡Guardado correctamente!',
                         text: 'Ésta persona fue guardada exitosamente.',
@@ -84998,6 +85085,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     confirmButtonText: 'Ok'
                 });
             });
+        },
+        actualizarExtra: function actualizarExtra() {
+            var _this4 = this;
+
+            var urlGuardarInvestigado = this.url + '/actualizarExtrasInvestigado';
+            var data = {
+                id: this.idExtrasInvestigado,
+                idNotificacion: 0,
+                idPuesto: this.puesto != '' ? this.puesto : 9,
+                alias: this.alias.toUpperCase(),
+                personasBajoSuGuarda: this.dependientes,
+                ingreso: this.ingreso,
+                periodoIngreso: this.periodo,
+                residenciaAnterior: this.residencia.toUpperCase(),
+                perseguidoPenalmente: this.perseguido,
+                vestimenta: this.vestimenta.toUpperCase(),
+                senasPartic: this.particulares.toUpperCase(),
+                narracion: this.hechos.toUpperCase()
+            };
+            axios.post(urlGuardarInvestigado, data).then(function (response) {
+                _this4.confirm = response.data;
+                if (_this4.confirm) {
+                    _this4.idExtrasInvestigado = _this4.confirm;
+                    //this.CleanFields();
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Guardado correctamente!',
+                        text: 'Ésta persona fue guardada exitosamente.',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    });
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Guardado incorrecto!',
+                        text: 'Error al guardar.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            }).catch(function (error) {
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: '¡Guardado incorrecto!',
+                    text: 'Ésta persona no fue posible guardarla.',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        },
+        CleanFields: function CleanFields() {
+            this.puesto = '', this.alias = '', this.dependientes = '', this.ingreso = '', this.periodo = '', this.residencia = '', this.perseguido = '', this.vestimenta = '', this.particulares = '', this.hechos = '', this.$validator.reset();
         }
     }
 });
@@ -85392,8 +85528,8 @@ var render = function() {
                 {
                   name: "validate",
                   rawName: "v-validate",
-                  value: "",
-                  expression: "''"
+                  value: "required",
+                  expression: "'required'"
                 }
               ],
               staticClass: "form-control form-control-sm",
@@ -85473,7 +85609,12 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-check-input",
-                    attrs: { type: "radio", id: "perseguidoSi", value: "1" },
+                    attrs: {
+                      type: "radio",
+                      id: "perseguidoSi",
+                      value: "1",
+                      name: "perseguido"
+                    },
                     domProps: { checked: _vm._q(_vm.perseguido, "1") },
                     on: {
                       change: function($event) {
@@ -85502,14 +85643,25 @@ var render = function() {
                         rawName: "v-model",
                         value: _vm.perseguido,
                         expression: "perseguido"
+                      },
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
                       }
                     ],
                     staticClass: "form-check-input",
-                    attrs: { type: "radio", id: "perseguidoNo", value: "2" },
-                    domProps: { checked: _vm._q(_vm.perseguido, "2") },
+                    attrs: {
+                      type: "radio",
+                      id: "perseguidoNo",
+                      value: "0",
+                      name: "perseguido"
+                    },
+                    domProps: { checked: _vm._q(_vm.perseguido, "0") },
                     on: {
                       change: function($event) {
-                        _vm.perseguido = "2"
+                        _vm.perseguido = "0"
                       }
                     }
                   })
@@ -85539,8 +85691,8 @@ var render = function() {
                 {
                   name: "validate",
                   rawName: "v-validate",
-                  value: "",
-                  expression: "''"
+                  value: "required",
+                  expression: "'required'"
                 }
               ],
               staticClass: "form-control form-control-sm",
@@ -85612,8 +85764,8 @@ var render = function() {
                 {
                   name: "validate",
                   rawName: "v-validate",
-                  value: "",
-                  expression: "''"
+                  value: "required",
+                  expression: "'required'"
                 }
               ],
               staticClass: "form-control form-control-sm",
@@ -85685,8 +85837,8 @@ var render = function() {
                     {
                       name: "validate",
                       rawName: "v-validate",
-                      value: "",
-                      expression: "''"
+                      value: "required",
+                      expression: "'required'"
                     }
                   ],
                   staticClass: "form-control form-control-sm",
@@ -85939,6 +86091,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             sector: '',
             cedula: '',
             correo: '',
+            idExtrasAbogado: 0,
             validacionesback: [],
             tipos: ['ASESOR JURIDICO', 'ABOGADO DEFENSOR'],
             sectores: ['PÚBLICO', 'PARTICULAR'],
@@ -85947,24 +86100,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    created: function created() {
-        //            this.getPuestos();
-    },
     methods: {
-        getPuestos: function getPuestos() {
-            var _this = this;
-
-            var urlPuestos = this.url + '/getPuestos';
-            axios.post(urlPuestos).then(function (response) {
-                _this.puestos = response.data;
-            });
-        },
         validateBeforeSubmit: function validateBeforeSubmit() {
-            var _this2 = this;
+            var _this = this;
 
             this.$validator.validateAll().then(function (result) {
                 if (result) {
-                    _this2.guardarExtra();
+                    if (_this.idExtrasAbogado > 0) _this.actualizarExtra();else _this.guardarExtra();
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -85977,19 +86119,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         guardarExtra: function guardarExtra() {
-            var _this3 = this;
+            var _this2 = this;
 
             var urlGuardarAbogado = this.url + '/guardarExtrasAbogado';
             var data = {
                 idVariablesPersona: 1,
-                cedulaProf: this.cedula,
+                cedulaProf: this.cedula.toUpperCase(),
                 sector: this.sector,
                 correo: this.correo,
                 tipo: this.tipo
             };
             axios.post(urlGuardarAbogado, data).then(function (response) {
-                _this3.confirm = response.data;
-                if (_this3.confirm) {
+                _this2.confirm = response.data;
+                if (_this2.confirm) {
+                    _this2.idExtrasAbogado = _this2.confirm;
+                    //this.CleanFields(); 
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: '¡Guardado correctamente!',
                         text: 'Ésta persona fue guardada exitosamente.',
@@ -86012,6 +86156,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     confirmButtonText: 'Ok'
                 });
             });
+        },
+        actualizarExtra: function actualizarExtra() {
+            var _this3 = this;
+
+            var urlGuardarAbogado = this.url + '/actualizarExtrasAbogado';
+            var data = {
+                id: this.idExtrasAbogado,
+                cedulaProf: this.cedula.toUpperCase(),
+                sector: this.sector,
+                correo: this.correo,
+                tipo: this.tipo
+            };
+            axios.post(urlGuardarAbogado, data).then(function (response) {
+                _this3.confirm = response.data;
+                if (_this3.confirm) {
+                    _this3.idExtrasAbogado = _this3.confirm;
+                    //this.CleanFields();
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Guardado correctamente!',
+                        text: 'Ésta persona fue guardada exitosamente.',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    });
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Guardado incorrecto!',
+                        text: 'Error al guardar.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            }).catch(function (error) {
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: '¡Guardado incorrecto!',
+                    text: 'Ésta persona no fue posible guardarla.',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        },
+        CleanFields: function CleanFields() {
+            this.cedula = '', this.sector = '', this.correo = '', this.tipo = '', this.$validator.reset();
         }
     }
 });
@@ -86483,11 +86669,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            ident: ['No', 'Si'],
+            ident: ['NO', 'SI'],
             identidad: '',
-            solicitantes: ['Victima', 'Ofendido'],
-            tipoSolicitante: '',
-            descripcionHechos: '',
+            solicitantes: ['Víctima', 'Ofendido'],
+            solicitante: '',
+            descripcion: '',
             url: 'http://localhost/componentes/public/api',
             idreturn: ''
         };
@@ -86512,15 +86698,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     } else {
                         _this.updateExtra();
                     }
-
-                    return;
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Guardado incorrecto!',
+                        text: 'Error al guardar.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
                 }
-                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: '¡Guardado incorrecto!',
-                    text: 'Error al guardar.',
-                    type: 'error',
-                    confirmButtonText: 'Ok'
-                });
             });
         },
 
@@ -86532,9 +86717,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 idVariablesPersona: 1,
                 idNotificacion: 1,
                 idAbogado: 0,
-                victima: this.tipoSolicitante == "Victima" ? 1 : 0,
+                victima: this.solicitante == "Victima" ? 1 : 0,
                 reguardarIdentidad: this.identidad,
-                narracion: this.descripcionHechos
+                narracion: this.descripcion.toUpperCase()
             };
             axios.post(urlGuardarDenunciante, data).then(function (response) {
                 _this2.idreturn = response.data;
@@ -86572,9 +86757,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //idVariablesPersona:1,                    
                 //idNotificacion:1,
                 //idAbogado:0,
-                victima: this.tipoSolicitante == "Victima" ? 1 : 0,
+                victima: this.solicitante == "Victima" ? 1 : 0,
                 reguardarIdentidad: this.identidad,
-                narracion: this.descripcionHechos
+                narracion: this.descripcion.toUpperCase()
             };
             axios.post(urlGuardarDenunciante, data).then(function (response) {
                 _this3.idreturn = response.data;
@@ -86604,8 +86789,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         limpiarCampos: function limpiarCampos() {
-            this.tipoSolicitante = "";
-            this.descripcionHechos = "";
+            this.solicitante = "";
+            this.descripcion = "";
             this.identidad = "";
         }
     }
@@ -86660,7 +86845,8 @@ var render = function() {
                 attrs: {
                   options: _vm.ident,
                   label: "identidad",
-                  name: "identidad"
+                  name: "identidad",
+                  placeholder: "Seleccione identidad"
                 },
                 model: {
                   value: _vm.identidad,
@@ -86698,7 +86884,7 @@ var render = function() {
                 "label",
                 {
                   staticClass: "col-form-label col-form-label-sm",
-                  attrs: { for: "tipoSolicitante" }
+                  attrs: { for: "solicitante" }
                 },
                 [_vm._v("Tipo de solicitante")]
               ),
@@ -86713,21 +86899,20 @@ var render = function() {
                   }
                 ],
                 class: {
-                  "border border-danger rounded": _vm.errors.has(
-                    "tipoSolicitante"
-                  )
+                  "border border-danger rounded": _vm.errors.has("solicitante")
                 },
                 attrs: {
                   options: _vm.solicitantes,
                   label: "nombre",
-                  name: "tipoSolicitante"
+                  name: "solicitante",
+                  placeholder: "Seleccione tipo solicitante"
                 },
                 model: {
-                  value: _vm.tipoSolicitante,
+                  value: _vm.solicitante,
                   callback: function($$v) {
-                    _vm.tipoSolicitante = $$v
+                    _vm.solicitante = $$v
                   },
-                  expression: "tipoSolicitante"
+                  expression: "solicitante"
                 }
               }),
               _vm._v(" "),
@@ -86738,13 +86923,13 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.errors.has("tipoSolicitante"),
-                      expression: "errors.has('tipoSolicitante')"
+                      value: _vm.errors.has("solicitante"),
+                      expression: "errors.has('solicitante')"
                     }
                   ],
                   staticClass: "text-danger"
                 },
-                [_vm._v(_vm._s(_vm.errors.first("tipoSolicitante")))]
+                [_vm._v(_vm._s(_vm.errors.first("solicitante")))]
               )
             ],
             1
@@ -86755,7 +86940,7 @@ var render = function() {
               "label",
               {
                 staticClass: "col-form-label col-form-label-sm",
-                attrs: { for: "descripcionHechos" }
+                attrs: { for: "descripcion" }
               },
               [_vm._v("Descripcion de los hechos")]
             ),
@@ -86765,8 +86950,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.descripcionHechos,
-                  expression: "descripcionHechos"
+                  value: _vm.descripcion,
+                  expression: "descripcion"
                 },
                 {
                   name: "validate",
@@ -86779,22 +86964,22 @@ var render = function() {
               class: {
                 input: true,
                 "form-control": true,
-                "border border-danger": _vm.errors.has("descripcionHechos")
+                "border border-danger": _vm.errors.has("descripcion")
               },
               attrs: {
                 cols: "30",
                 rows: "5",
-                name: "descripcionHechos",
+                name: "descripcion",
                 placeholder: "Ingrese la descripcion de los hechos",
                 autocomplete: "off"
               },
-              domProps: { value: _vm.descripcionHechos },
+              domProps: { value: _vm.descripcion },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.descripcionHechos = $event.target.value
+                  _vm.descripcion = $event.target.value
                 }
               }
             }),
@@ -86806,13 +86991,13 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.errors.has("descripcionHechos"),
-                    expression: "errors.has('descripcionHechos')"
+                    value: _vm.errors.has("descripcion"),
+                    expression: "errors.has('descripcion')"
                   }
                 ],
                 staticClass: "text-danger"
               },
-              [_vm._v(_vm._s(_vm.errors.first("descripcionHechos")))]
+              [_vm._v(_vm._s(_vm.errors.first("descripcion")))]
             )
           ]),
           _vm._v(" "),
@@ -87004,7 +87189,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             horarioLaboral: '',
             descripcionHechos: '',
             validacionesback: [],
-            url: 'http://localhost/componentes/public/api'
+            url: 'http://localhost/componentes/public/api',
+            idreturn: ''
         };
     },
 
@@ -87022,15 +87208,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$validator.validateAll().then(function (result) {
                 if (result) {
-                    _this.guardarExtraAutoridad();
-                    return;
+                    if (_this.idreturn == '') {
+                        _this.guardarExtraAutoridad();
+                    } else {
+                        _this.updateExtraAutoridad();
+                    }
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Guardado incorrecto!',
+                        text: 'Error al guardar.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
                 }
-                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: '¡Guardado incorrecto!',
-                    text: 'Error al guardar.',
-                    type: 'error',
-                    confirmButtonText: 'Ok'
-                });
             });
         },
 
@@ -87038,7 +87228,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             var urlGuardarAutoridad = this.url + '/guardarExtrasAutoridad';
-            //console.log("Narracion de los hechos: "+this.descripcionHechos); 
             var narracionHechos;
             if (this.descripcionHechos == '') {
                 narracionHechos = "SIN INFORMACION";
@@ -87049,20 +87238,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 idVariablesPersona: 1,
                 antiguedad: this.antiguedad,
                 rango: this.rango,
-                horarioLaboral: this.horarioLaboral,
-                narracion: narracionHechos
+                horarioLaboral: this.horarioLaboral.toUpperCase(),
+                narracion: narracionHechos.toUpperCase()
             };
             axios.post(urlGuardarAutoridad, data).then(function (response) {
-                _this2.confirm = response.data;
-                if (_this2.confirm) {
+                _this2.idreturn = response.data;
+                if (_this2.idreturn) {
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: '¡Guardado correctamente!',
                         text: 'Ésta persona fue guardada exitosamente.',
                         type: 'success',
                         confirmButtonText: 'Ok'
                     });
-                    _this2.limpiarCampos();
-                    return;
+                    //limpiarCampos
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: 'Guardado Incorrecto!',
+                        text: 'Error al guardar.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            }).catch(function (error) {
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: '¡Guardado incorrecto!',
+                    text: 'Ésta persona no fue posible guardarla.',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        },
+        updateExtraAutoridad: function updateExtraAutoridad() {
+            var _this3 = this;
+
+            var urlGuardarAutoridad = this.url + '/updateExtrasAutoridad';
+            var narracionHechos;
+            if (this.descripcionHechos == '') {
+                narracionHechos = "SIN INFORMACION";
+            } else {
+                narracionHechos = this.descripcionHechos;
+            }
+            var data = {
+                idUpdate: this.idreturn,
+                //idVariablesPersona:1,                    
+                antiguedad: this.antiguedad,
+                rango: this.rango,
+                horarioLaboral: this.horarioLaboral.toUpperCase(),
+                narracion: narracionHechos.toUpperCase()
+            };
+            axios.post(urlGuardarAutoridad, data).then(function (response) {
+                _this3.idreturn = response.data;
+                if (_this3.idreturn) {
+                    console.log("Id actualizado:" + _this3.idreturn);
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Actualizado correctamente!',
+                        text: 'Ésta persona fue guardada exitosamente.',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    });
+                    //limpiarCampos                                                        
                 } else {
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: '¡Guardado incorrecto!',
@@ -87074,7 +87308,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: '¡Guardado incorrecto!',
-                    text: 'Ésta persona no fue posible guardarla.',
+                    text: 'No fue posible actualizar.',
                     type: 'error',
                     confirmButtonText: 'Ok'
                 });
@@ -87144,7 +87378,7 @@ var render = function() {
                 min: "0",
                 name: "antiguedad",
                 step: "1",
-                placeholder: "Ingrese el horario laboral",
+                placeholder: "Ingrese la antigüedad",
                 autocomplete: "off"
               },
               domProps: { value: _vm.antiguedad },
@@ -87334,7 +87568,7 @@ var render = function() {
                     cols: "30",
                     rows: "5",
                     name: "descripcionHechos",
-                    placeholder: "Ingrese la descripcion de los hechos",
+                    placeholder: "Ingrese la descripción de los hechos",
                     autocomplete: "off"
                   },
                   domProps: { value: _vm.descripcionHechos },

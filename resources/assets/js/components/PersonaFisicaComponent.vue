@@ -15,20 +15,20 @@
             <div class="form-row">
                 <div v-if="validaciones.nombres!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
-                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
+                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="calcularRfc" v-on:blur="generarCurp">
                     <span v-show="errors.has('nombres')" class="text-danger">{{ errors.first('nombres')}}</span>
                     <span v-if="this.validacionesback.nombres!=undefined" class="text-danger">{{ String(this.validacionesback.nombres)}}</span>
                 </div>
 
                 <div v-if="validaciones.primerAp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="primerAp">Primer apellido</label>
-                    <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="validaciones.primerAp" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
+                    <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc" v-on:blur="generarCurp">
                     <span v-show="errors.has('primer apellido')" class="text-danger">{{ errors.first('primer apellido')}}</span>
                     <span v-if="this.validacionesback.primerAp!=undefined" class="text-danger">{{ String(this.validacionesback.primerAp)}}</span>
                 </div>
                 <div v-if="validaciones.segundoAp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="segundoAp">Segundo apellido</label>
-                    <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="searchPersona" v-on:blur="generarCurp">
+                    <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc" v-on:blur="generarCurp">
                     <span v-show="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido')}}</span>
                     <span v-if="this.validacionesback.segundoAp!=undefined" class="text-danger">{{ String(this.validacionesback.segundoAp)}}</span>
                 </div>
@@ -43,7 +43,7 @@
 
                 <div v-if="validaciones.fechaNacimiento!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="fechaNacimiento">Fecha de nacimiento</label>
-                    <input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="'date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de nacimiento') || this.validacionesback.fechaNacimiento}" @blur="searchPersona" v-on:blur="generarCurp(),generarEdad()">
+                    <input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="'date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de nacimiento') || this.validacionesback.fechaNacimiento}" @blur="calcularRfc" v-on:blur="generarCurp(),generarEdad()">
                     <span v-show="errors.has('fecha de nacimiento')" class="text-danger">{{ errors.first('fecha de nacimiento')}}</span>
                     <span v-if="this.validacionesback.fechaNacimiento!=undefined" class="text-danger">{{ String(this.validacionesback.fechaNacimiento)}}</span>
                 </div>
@@ -182,11 +182,6 @@
 
 
 
-            <div>
-                <input type="hidden" v-model="idPersona" id="idPersona">              
-            </div>
-
-
             <button type="submit" class="btn btn-primary mt-2">Guardar</button>
 
 
@@ -217,7 +212,6 @@ import { mapState } from "vuex";
                 religiones: [],
                 identificaciones: [],
                 personaExiste:[],
-                idPersona:'',
                 nombres: '',
                 primerAp: '',
                 segundoAp: '',
@@ -246,10 +240,10 @@ import { mapState } from "vuex";
                 validacionesback:'',
                 loader:true,
                 qrr:"QUIEN O QUIENES RESULTEN RESPONSABLES",
-                 url:'http://localhost/componentes/public/api', 
+                //  url:'http://localhost/componentes/public/api', 
                 // url:'http://componentes.oo/api',
                 // url:'http://componentes.test/api'
-                //url:'/api'
+                url:'/api'
             }
         },
 
@@ -293,55 +287,66 @@ import { mapState } from "vuex";
                 });
             },
             searchPersona: function(){
+                console.log("empezando busqueda")                               
+                if(this.rfc!='' && this.homoclave!=''){
+                    var urlBuscarPersona = this.url+'/searchPersonaFisica';
+                    axios.post(urlBuscarPersona,{
+                            rfc: this.rfc+this.homoclave
+                    }).then(response => {
+                        this.personaExiste=response.data
+                        if(this.personaExiste!=''){
+                            swal({
+                                title: '¡Persona Encontrada!',
+                                text: 'Ésta persona ya fue registrada anteriormente.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                            this.nombres= this.personaExiste.nombres,
+                            this.primerAp=this.personaExiste.primerAp,
+                            this.segundoAp=this.personaExiste.segundoAp,
+                            this.fechaNacimiento=this.personaExiste.fechaNacimiento,
+                            this.edad=this.personaExiste.edad,
+                            this.sexo=this.personaExiste.sexo,
+                            this.rfc=this.personaExiste.rfc.slice(0,-3),
+                            this.homoclave = this.personaExiste.rfc.slice(-3),
+                            this.curp=this.personaExiste.curp,
+                            this.nacionalidad=this.personaExiste.idNacionalidad,
+                            this.estado=this.personaExiste.idEstado
+                            this.municipio=this.personaExiste.idMunicipioOrigen,
+                            this.etnia=this.personaExiste.idEtnia,
+                            this.lengua=this.personaExiste.idLengua,
+                            this.interprete=this.personaExiste.idInterprete,
+                            this.motivoEstancia=this.personaExiste.motivoEstancia,
+                            this.ocupacion=this.personaExiste.idOcupacion,
+                            this.estadoCivil=this.personaExiste.idEstadoCivil,
+                            this.escolaridad=this.personaExiste.idEscolaridad,
+                            this.religion=this.personaExiste.idReligion,
+                            this.identificacion=this.personaExiste.docIdentificacion,
+                            this.numIdentificacion=this.personaExiste.numDocIdentificacion
+                            this.alias=this.personaExiste.alias,
+                            this.telefono=this.personaExiste.telefono,
+                            this.$store.commit('asignarIdFisica',this.personaExiste.idPersona)       
+                        }
+                    });
+                }
+                else{
+                    alert("Rfc aun no calculado")
+                }
+            },
+            calcularRfc(){
                 if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!=''){
+                    console.log("calculando rfc")
                     var urlRfcFisico = this.url+'/rfcFisico';
                     axios.post(urlRfcFisico,{
                         nombres: this.nombres,
                         primerAp: this.primerAp,
                         segundoAp: this.segundoAp,
                         fechaNacimiento: this.fechaNacimiento
-                    }).then(response =>{                                            
+                    }).then(response =>{             
+                        console.log("rfc correcto")                               
                         this.rfc = response.data.res.slice(0, -3);                        
                         this.homoclave=response.data.res.slice(-3);
-                        var urlBuscarPersona = this.url+'/searchPersonaFisica';
-                        axios.post(urlBuscarPersona,{
-                             rfc: this.rfc+this.homoclave
-                        }).then(response => {
-                            this.personaExiste=response.data
-                            if(this.personaExiste!=''){
-                                swal({
-                                    title: '¡Persona Encontrada!',
-                                    text: 'Ésta persona ya fue registrada anteriormente.',
-                                    type: 'success',
-                                    confirmButtonText: 'Ok'
-                                })
-                                this.nombres= this.personaExiste.nombres,
-                                this.primerAp=this.personaExiste.primerAp,
-                                this.segundoAp=this.personaExiste.segundoAp,
-                                this.fechaNacimiento=this.personaExiste.fechaNacimiento,
-                                this.edad=this.personaExiste.edad,
-                                this.sexo=this.personaExiste.sexo,
-                                this.rfc=this.personaExiste.rfc.slice(0,-3),
-                                this.homoclave = this.personaExiste.rfc.slice(-3),
-                                this.curp=this.personaExiste.curp,
-                                this.nacionalidad=this.personaExiste.idNacionalidad,
-                                this.estado=this.personaExiste.idEstado
-                                this.municipio=this.personaExiste.idMunicipioOrigen,
-                                this.etnia=this.personaExiste.idEtnia,
-                                this.lengua=this.personaExiste.idLengua,
-                                this.interprete=this.personaExiste.idInterprete,
-                                this.motivoEstancia=this.personaExiste.motivoEstancia,
-                                this.ocupacion=this.personaExiste.idOcupacion,
-                                this.estadoCivil=this.personaExiste.idEstadoCivil,
-                                this.escolaridad=this.personaExiste.idEscolaridad,
-                                this.religion=this.personaExiste.idReligion,
-                                this.identificacion=this.personaExiste.docIdentificacion,
-                                this.numIdentificacion=this.personaExiste.numDocIdentificacion
-                                this.alias=this.personaExiste.alias,
-                                this.telefono=this.personaExiste.telefono,
-                                this.idPersona = this.personaExiste.idPersona
-                            }
-                        })
+                        this.searchPersona();
                     });
                 }
             },
@@ -519,15 +524,14 @@ import { mapState } from "vuex";
                         type: 'success',
                         confirmButtonText: 'Ok'
                     })    
-                    this.idPersona=1;       
+                    this.$store.commit('asignarIdFisica',1)       
                     return        
                 }
                 if(data){
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
-                        // this.idPersona = response.data
                         this.$store.commit('asignarIdFisica',response.data)
-                        if(idPersona){
+                        if(this.$store.state.idPersonaFisica){
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
