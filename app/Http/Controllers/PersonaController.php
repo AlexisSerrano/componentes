@@ -49,7 +49,7 @@ class PersonaController extends Controller{
 		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
 		'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
 		'variables_persona_fisica.numDocIdentificacion',/*'variables_persona_fisica.alias',*/'variables_persona_fisica.id',
-		'variables_persona_fisica.idDomicilio','variables_persona_fisica.idDomicilioTrabajo',
+		'variables_persona_fisica.idDomicilio','variables_persona_fisica.idTrabajo',
 		'cat_nacionalidad.id as idNacionalidad','cat_nacionalidad.nombre as nombreNacionalidad',
 		'cat_etnia.id as idEtnia','cat_etnia.nombre as nombreEtnia',
 		'cat_lengua.id as idLengua','cat_lengua.nombre as nombreLengua',
@@ -86,7 +86,7 @@ class PersonaController extends Controller{
 				'docIdentificacion'=>array("documento"=>$personaExisteP->documentoIdentificacion, "id"=>$personaExisteP->idIdentificacion),
 				'idInterprete'=>array("nombre"=>$personaExisteP->nombreInterprete, "id"=>$personaExisteP->idInterprete),
 				'numDocIdentificacion'=>$personaExisteP->numDocIdentificacion,
-				'idDomicilioTrabajo'=>$personaExisteP->idDomicilioTrabajo,
+				'idDomicilioTrabajo'=>$personaExisteP->idTrabajo,
 				//'alias'=>$personaExisteP->alias,
 				'idPersona'=>$personaExisteP->id,
 				'telefono'=>$personaExisteP->telefono

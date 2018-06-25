@@ -73273,8 +73273,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         searchPersona: function searchPersona() {
             var _this2 = this;
 
-            console.log("empezando busqueda");
-            if (this.rfc != '' && this.homoclave != '') {
+            if (this.rfc.length == 10 && this.homoclave.length == 3) {
                 var urlBuscarPersona = this.url + '/searchPersonaFisica';
                 axios.post(urlBuscarPersona, {
                     rfc: this.rfc + this.homoclave
@@ -73292,15 +73291,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         _this2.alias = _this2.personaExiste.alias, _this2.telefono = _this2.personaExiste.telefono, _this2.$store.commit('asignarIdFisica', _this2.personaExiste.idPersona);
                     }
                 });
-            } else {
-                alert("Rfc aun no calculado");
             }
         },
         calcularRfc: function calcularRfc() {
             var _this3 = this;
 
             if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '') {
-                console.log("calculando rfc");
                 var urlRfcFisico = this.url + '/rfcFisico';
                 axios.post(urlRfcFisico, {
                     nombres: this.nombres,
@@ -73308,7 +73304,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     segundoAp: this.segundoAp,
                     fechaNacimiento: this.fechaNacimiento
                 }).then(function (response) {
-                    console.log("rfc correcto");
                     _this3.rfc = response.data.res.slice(0, -3);
                     _this3.homoclave = response.data.res.slice(-3);
                     _this3.searchPersona();
@@ -77840,7 +77835,9 @@ var render = function() {
                         },
                         domProps: { value: _vm.nombres },
                         on: {
-                          blur: [_vm.calcularRfc, _vm.generarCurp],
+                          blur: function($event) {
+                            _vm.calcularRfc(), _vm.generarCurp()
+                          },
                           input: function($event) {
                             if ($event.target.composing) {
                               return
@@ -77917,7 +77914,9 @@ var render = function() {
                         },
                         domProps: { value: _vm.primerAp },
                         on: {
-                          blur: [_vm.calcularRfc, _vm.generarCurp],
+                          blur: function($event) {
+                            _vm.calcularRfc(), _vm.generarCurp()
+                          },
                           input: function($event) {
                             if ($event.target.composing) {
                               return
@@ -77994,7 +77993,9 @@ var render = function() {
                         },
                         domProps: { value: _vm.segundoAp },
                         on: {
-                          blur: [_vm.calcularRfc, _vm.generarCurp],
+                          blur: function($event) {
+                            _vm.calcularRfc(), _vm.generarCurp()
+                          },
                           input: function($event) {
                             if ($event.target.composing) {
                               return
@@ -78143,12 +78144,11 @@ var render = function() {
                         },
                         domProps: { value: _vm.fechaNacimiento },
                         on: {
-                          blur: [
-                            _vm.calcularRfc,
-                            function($event) {
-                              _vm.generarCurp(), _vm.generarEdad()
-                            }
-                          ],
+                          blur: function($event) {
+                            _vm.calcularRfc(),
+                              _vm.generarCurp(),
+                              _vm.generarEdad()
+                          },
                           input: function($event) {
                             if ($event.target.composing) {
                               return
@@ -78461,6 +78461,7 @@ var render = function() {
                         },
                         domProps: { value: _vm.rfc },
                         on: {
+                          blur: _vm.searchPersona,
                           input: function($event) {
                             if ($event.target.composing) {
                               return
@@ -78535,6 +78536,7 @@ var render = function() {
                         },
                         domProps: { value: _vm.homoclave },
                         on: {
+                          blur: _vm.searchPersona,
                           input: function($event) {
                             if ($event.target.composing) {
                               return
