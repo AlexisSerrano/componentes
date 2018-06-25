@@ -57,6 +57,7 @@ import swal from 'sweetalert2'
                 descripcionHechos:'',
                 validacionesback:[],
                 url:'http://localhost/componentes/public/api',
+                idreturn:''
             }
         },
         props:{
@@ -71,21 +72,25 @@ import swal from 'sweetalert2'
             validateBeforeSubmit(){
                this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.guardarExtraAutoridad();
-                        return;                        
-                    }
-                    swal({
+                        if(this.idreturn==''){                            
+                            this.guardarExtraAutoridad();
+                        }else{                                                                                  
+                            this.updateExtraAutoridad();
+                        }                       
+                    }else{
+                        swal({
                         title: '¡Guardado incorrecto!',
                         text: 'Error al guardar.',
                         type: 'error',
                         confirmButtonText: 'Ok'
-                    });
+                        });
+                    }
+                    
                 });
             },
             guardarExtraAutoridad: function(){   
-                var urlGuardarAutoridad = this.url+'/guardarExtrasAutoridad';
-                //console.log("Narracion de los hechos: "+this.descripcionHechos); 
-                var narracionHechos
+                var urlGuardarAutoridad = this.url+'/guardarExtrasAutoridad';                
+                var narracionHechos;
                 if(this.descripcionHechos==''){
                     narracionHechos="SIN INFORMACION";
                 }else{
@@ -100,16 +105,62 @@ import swal from 'sweetalert2'
                     };
                     axios.post(urlGuardarAutoridad,data)
                     .then (response =>{
-                        this.confirm = response.data
-                        if(this.confirm){
+                        this.idreturn = response.data;                                              
+                        if(this.idreturn){                            
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })
-                            this.limpiarCampos();
-                            return;
+                           //limpiarCampos
+                        }
+                        else{
+                            swal({
+                                title: 'Guardado Incorrecto!',
+                                text: 'Error al guardar.',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }).catch((error)=>{                        
+                        swal({
+                        title: '¡Guardado incorrecto!',
+                        text: 'Ésta persona no fue posible guardarla.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                        })
+                    });
+                
+            },
+            updateExtraAutoridad: function(){                  
+                var urlGuardarAutoridad = this.url+'/updateExtrasAutoridad';                  
+                var narracionHechos;
+                if(this.descripcionHechos==''){
+                    narracionHechos="SIN INFORMACION";
+                }else{
+                    narracionHechos=this.descripcionHechos;
+                }
+                var data = {
+                     idUpdate:this.idreturn,
+                    //idVariablesPersona:1,                    
+                    antiguedad:this.antiguedad,
+                    rango:this.rango,
+                    horarioLaboral: this.horarioLaboral,
+                    narracion:narracionHechos
+                    };
+                    axios.post(urlGuardarAutoridad,data)
+                    .then (response =>{
+                        this.idreturn = response.data
+                        if(this.idreturn){  
+                            console.log("Id actualizado:"+this.idreturn)                          
+                            swal({
+                                title: '¡Actualizado correctamente!',
+                                text: 'Ésta persona fue guardada exitosamente.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                            //limpiarCampos                                                        
                         }
                         else{
                             swal({
@@ -122,7 +173,7 @@ import swal from 'sweetalert2'
                     }).catch((error)=>{                        
                         swal({
                         title: '¡Guardado incorrecto!',
-                        text: 'Ésta persona no fue posible guardarla.',
+                        text: 'No fue posible actualizar.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                         })

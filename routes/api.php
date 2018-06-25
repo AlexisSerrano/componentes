@@ -58,3 +58,4 @@ Route::post('/guardarExtrasAbogado','ExtrasAbogadoController@store');
 Route::post('/guardarExtrasAutoridad','ExtrasAutoridadController@store');
 /* Update de extras */
 Route::post('/updateExtrasDenunciante','ExtrasDenuncianteController@update');
+Route::post('/updateExtrasAutoridad','ExtrasAutoridadController@update');
