@@ -21,7 +21,7 @@ class CreateAparicionesTable extends Migration
             $table->string('tipoInvolucrado',20);
             $table->string('nuc',50);
             $table->boolean('esEmpresa')->nullable()->default(false);
-            $table->integer('idTipoDeterminacion')->unsigned();
+            $table->integer('idTipoDeterminacion')->unsigned()->default(1);
             //$table->integer('idStatusCarpeta')->unsigned();         
             $table->timestamps();
             $table->softDeletes();
