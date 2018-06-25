@@ -250,14 +250,14 @@ import { mapState } from "vuex";
         // props: ['sistema','tipo'],
         props:{
             sistema: {
-                default:false
+                required:true
             },
             tipo: {
-                default:false
+                required:true
             },
             carpeta:{
-                default:''
-            } 
+                required:true
+            }
         },
         components: {SpringSpinner},
         created: function(){
