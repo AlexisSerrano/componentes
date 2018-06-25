@@ -113,6 +113,9 @@ import { SpringSpinner } from 'epic-spinners'
         props:{
             tipo:{
                 default:''
+            },
+            empresa:{
+                required:true
             }
         },
         components: {SpringSpinner},

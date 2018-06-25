@@ -5,11 +5,23 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        idPersonaVuex: ''
+        idPersonaFisica: '',
+        idPersonaMoral:'',
     },
     mutations: {
-        asignarIdPersona(state,payload) {
-            state.idPersonaVuex=payload
+        asignarIdFisica(state,payload) {
+            state.idPersonaFisica=payload
+        },
+        asignarIdMoral(state,payload) {
+            state.idPersonaMoral=payload
+        },
+        ubicarTabsFisica(state){
+            state.tabPrincipalFisica='nav-link'
+            state.pillPrincipalFisica='tab-pane fade'
+        },
+        ubicarTabsMoral(state){
+            state.tabPrincipalMoral='nav-link'
+            state.pillPrincipalMoral='tab-pane fade'
         }
     }
 })
