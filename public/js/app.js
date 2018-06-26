@@ -72818,7 +72818,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
         idPersonaFisica: '',
         idPersonaMoral: '',
-        tipoInvolucrado: ''
+        tipoInvolucrado: '',
+        idDomicilio: '',
+        idTrabajo: '',
+        idContacto: ''
     },
     mutations: {
         asignarIdFisica: function asignarIdFisica(state, payload) {
@@ -72835,6 +72838,15 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         ubicarTabsMoral: function ubicarTabsMoral(state) {
             state.tabPrincipalMoral = 'nav-link';
             state.pillPrincipalMoral = 'tab-pane fade';
+        },
+        asignarIdDomicilio: function asignarIdDomicilio(state, payload) {
+            if (payload.tipo == 'domicilio') {
+                state.idDomicilio = payload.idDomicilio;
+            } else if (payload.tipo == 'trabajo') {
+                state.idTrabajo == payload.idDomicilio;
+            } else if (payload.tipo == 'contacto') {
+                state.idContacto == payload.idDomicilio;
+            }
         }
     }
 });
@@ -73221,10 +73233,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             validacionesback: '',
             loader: true,
             qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-            url: 'http://localhost/componentes/public/api'
+            // url:'http://localhost/componentes/public/api', 
             // url:'http://componentes.oo/api',
             // url:'http://componentes.test/api'
-            //url:'/api'
+            url: '/api'
         };
     },
 
@@ -79832,7 +79844,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             personaExiste: '',
             idMoral: '',
             validacionesback: '',
-            url: 'http://localhost/componentes/public/api'
+            url: '/api'
         };
     },
 
@@ -81047,7 +81059,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     numInterno: this.numInterno.toUpperCase(),
                     tipo: this.tipo,
                     empresa: this.empresa,
-                    idPersona: idPersona
+                    idPersona: idPersona,
+                    claveDomicilio: this.$store.state.idDomicilio
                 };
             } else if (this.tipo == 'trabajo') {
                 var data = {
@@ -81063,7 +81076,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     lugarTrabajo: this.lugarTrabajo.toUpperCase(),
                     tipo: this.tipo,
                     empresa: this.empresa,
-                    idPersona: idPersona
+                    idPersona: idPersona,
+                    claveDomicilio: this.$store.state.idTrabajo
                 };
             } else if (this.tipo == 'contacto') {
                 var data = {
@@ -81079,13 +81093,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     correoContacto: this.correo.toUpperCase(),
                     tipo: this.tipo,
                     empresa: this.empresa,
-                    idPersona: idPersona
+                    idPersona: idPersona,
+                    claveDomicilio: this.$store.state.idContacto
                 };
             }
-            //console.log(data)
             axios.post(urlDomicilio, data).then(function (response) {
                 console.log(response);
-                _this7.idDomicilio = response.data;
+                _this7.$store.commit('asignarIdDomicilio', { tipo: _this7.tipo, idDomicilio: response.data });
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: '¡Guardado Correctamente!',
                     text: 'Éste domicilio fue guardado exitosamente.',
@@ -83454,7 +83468,11 @@ var render = function() {
               "aria-labelledby": "denunciante-extrafisico-tab"
             }
           },
-          [_c("extrasdenunciante", { attrs: { sistema: _vm.sistema } })],
+          [
+            _c("extrasdenunciante", {
+              attrs: { sistema: _vm.sistema, tipo: "fisico" }
+            })
+          ],
           1
         )
       ]
@@ -83797,7 +83815,11 @@ var render = function() {
               "aria-labelledby": "denunciante-extramoral-tab"
             }
           },
-          [_c("extrasdenunciante", { attrs: { sistema: _vm.sistema } })],
+          [
+            _c("extrasdenunciante", {
+              attrs: { sistema: _vm.sistema, tipo: "moral" }
+            })
+          ],
           1
         )
       ]
@@ -83991,7 +84013,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.pillPrincipalFisica = 'tab-pane fade show active';
         }
     },
-    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral', 'tipoInvolucrado'])
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral'])
 });
 
 /***/ }),
@@ -85212,6 +85234,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -85239,6 +85263,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: {
         sistema: {
             default: ''
+        },
+        tipo: {
+            required: true
         }
     },
     created: function created() {
@@ -85273,7 +85300,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         guardarExtra: function guardarExtra() {
             var _this3 = this;
 
-            var urlGuardarInvestigado = this.url + '/guardarExtrasInvestigado';
+            var urlGuardarInvestigado = this.url;
+            if (this.tipo == 'fisica') urlGuardarInvestigado += '/guardarExtrasInvestigadoFisico';else if (this.tipo == 'moral') urlGuardarInvestigado += '/guardarExtrasInvestigadoMoral';
             var data = {
                 idVariablesPersona: 1,
                 idNotificacion: 0,
@@ -85319,7 +85347,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         actualizarExtra: function actualizarExtra() {
             var _this4 = this;
 
-            var urlGuardarInvestigado = this.url + '/actualizarExtrasInvestigado';
+            var urlGuardarInvestigado = this.url;
+            if (this.tipo == 'fisica') urlGuardarInvestigado += '/actualizarExtrasInvestigadoFisico';else if (this.tipo == 'moral') urlGuardarInvestigado += '/actualizarExtrasInvestigadoMoral';
             var data = {
                 id: this.idExtrasInvestigado,
                 idNotificacion: 0,
@@ -86043,81 +86072,7 @@ var render = function() {
                   _vm._v(_vm._s(String(this.validacionesback.particulares)))
                 ])
               : _vm._e()
-          ]),
-          _vm._v(" "),
-          _vm.sistema == "uat"
-            ? _c("div", { staticClass: "form-group col-md-12" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "hechos" }
-                  },
-                  [_vm._v("Descripcón de los hechos")]
-                ),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.hechos,
-                      expression: "hechos"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "form-control form-control-sm",
-                  class: {
-                    input: true,
-                    "form-control": true,
-                    "border border-danger":
-                      _vm.errors.has("hechos") || this.validacionesback.hechos
-                  },
-                  attrs: {
-                    name: "hechos",
-                    placeholder: "Ingrese el hechos",
-                    autocomplete: "off",
-                    rows: "5"
-                  },
-                  domProps: { value: _vm.hechos },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.hechos = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("hechos"),
-                        expression: "errors.has('hechos')"
-                      }
-                    ],
-                    staticClass: "text-danger"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("hechos")))]
-                ),
-                _vm._v(" "),
-                this.validacionesback.hechos != undefined
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(String(this.validacionesback.hechos)))
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e()
+          ])
         ]),
         _vm._v(" "),
         _vm._m(1)
@@ -86910,8 +86865,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     props: {
-        sistema: {
-            default: ''
+        tipo: {
+            required: true
         }
     },
     created: function created() {
@@ -86942,14 +86897,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         guardarExtra: function guardarExtra() {
             var _this2 = this;
 
-            var urlGuardarDenunciante = this.url + '/guardarExtrasDenunciante';
+            if (this.tipo == 'fisica') {
+                var urlGuardarDenunciante = this.url + '/guardarExtrasDenuncianteFisico';
+            } else if (this.tipo == 'moral') {
+                var urlGuardarDenunciante = this.url + '/guardarExtrasDenuncianteMoral';
+            } else {
+                return;
+            }
             var data = {
                 idVariablesPersona: 1,
-                idNotificacion: 1,
-                idAbogado: 0,
-                victima: this.solicitante == "Victima" ? 1 : 0,
+                idAbogado: 1,
                 reguardarIdentidad: this.identidad,
-                narracion: this.descripcion.toUpperCase()
+                victima: this.solicitante == "Víctima" ? 1 : 0
             };
             axios.post(urlGuardarDenunciante, data).then(function (response) {
                 _this2.idreturn = response.data;
@@ -86981,22 +86940,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         updateExtra: function updateExtra() {
             var _this3 = this;
 
-            var urlGuardarDenunciante = this.url + '/updateExtrasDenunciante';
+            if (this.tipo == 'fisica') {
+                var urlGuardarDenunciante = this.url + '/updateExtrasDenuncianteFisico';
+            } else if (this.tipo == 'moral') {
+                var urlGuardarDenunciante = this.url + '/updateExtrasDenuncianteMoral';
+            } else {
+                return;
+            }
             var data = {
-                idUpdate: this.idreturn,
-                //idVariablesPersona:1,                    
-                //idNotificacion:1,
-                //idAbogado:0,
-                victima: this.solicitante == "Victima" ? 1 : 0,
+                idVariablesPersona: this.idreturn,
+                idAbogado: 1,
                 reguardarIdentidad: this.identidad,
-                narracion: this.descripcion.toUpperCase()
+                victima: this.solicitante == "Victima" ? 1 : 0
             };
             axios.post(urlGuardarDenunciante, data).then(function (response) {
                 _this3.idreturn = response.data;
                 if (_this3.idreturn) {
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: '¡Actualizado correctamente!',
-                        text: 'Ésta persona fue guardada exitosamente.',
+                        text: 'Ésta persona fue actualizada exitosamente.',
                         type: 'success',
                         confirmButtonText: 'Ok'
                     });
@@ -87164,72 +87126,6 @@ var render = function() {
             ],
             1
           ),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-12" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-form-label col-form-label-sm",
-                attrs: { for: "descripcion" }
-              },
-              [_vm._v("Descripcion de los hechos")]
-            ),
-            _vm._v(" "),
-            _c("textarea", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.descripcion,
-                  expression: "descripcion"
-                },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required",
-                  expression: "'required'"
-                }
-              ],
-              staticClass: "form-control form-control-sm",
-              class: {
-                input: true,
-                "form-control": true,
-                "border border-danger": _vm.errors.has("descripcion")
-              },
-              attrs: {
-                cols: "30",
-                rows: "5",
-                name: "descripcion",
-                placeholder: "Ingrese la descripcion de los hechos",
-                autocomplete: "off"
-              },
-              domProps: { value: _vm.descripcion },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.descripcion = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "span",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.errors.has("descripcion"),
-                    expression: "errors.has('descripcion')"
-                  }
-                ],
-                staticClass: "text-danger"
-              },
-              [_vm._v(_vm._s(_vm.errors.first("descripcion")))]
-            )
-          ]),
           _vm._v(" "),
           _vm._m(0)
         ])
@@ -87458,18 +87354,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             var urlGuardarAutoridad = this.url + '/guardarExtrasAutoridad';
-            var narracionHechos;
-            if (this.descripcionHechos == '') {
-                narracionHechos = "SIN INFORMACION";
-            } else {
-                narracionHechos = this.descripcionHechos;
-            }
             var data = {
                 idVariablesPersona: 1,
                 antiguedad: this.antiguedad,
                 rango: this.rango,
-                horarioLaboral: this.horarioLaboral.toUpperCase(),
-                narracion: narracionHechos.toUpperCase()
+                horarioLaboral: this.horarioLaboral.toUpperCase()
+                //narracion:narracionHechos.toUpperCase()
             };
             axios.post(urlGuardarAutoridad, data).then(function (response) {
                 _this2.idreturn = response.data;
@@ -87502,19 +87392,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             var urlGuardarAutoridad = this.url + '/updateExtrasAutoridad';
-            var narracionHechos;
-            if (this.descripcionHechos == '') {
-                narracionHechos = "SIN INFORMACION";
-            } else {
-                narracionHechos = this.descripcionHechos;
-            }
             var data = {
-                idUpdate: this.idreturn,
-                //idVariablesPersona:1,                    
+                idVariablesPersona: this.idreturn,
                 antiguedad: this.antiguedad,
                 rango: this.rango,
-                horarioLaboral: this.horarioLaboral.toUpperCase(),
-                narracion: narracionHechos.toUpperCase()
+                horarioLaboral: this.horarioLaboral.toUpperCase()
             };
             axios.post(urlGuardarAutoridad, data).then(function (response) {
                 _this3.idreturn = response.data;
@@ -87522,7 +87404,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log("Id actualizado:" + _this3.idreturn);
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                         title: '¡Actualizado correctamente!',
-                        text: 'Ésta persona fue guardada exitosamente.',
+                        text: 'Ésta persona fue actualizada exitosamente.',
                         type: 'success',
                         confirmButtonText: 'Ok'
                     });
@@ -87761,74 +87643,6 @@ var render = function() {
               [_vm._v(_vm._s(_vm.errors.first("horarioLaboral")))]
             )
           ]),
-          _vm._v(" "),
-          _vm.sistema == "uat"
-            ? _c("div", { staticClass: "form-group col-md-12" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "col-form-label col-form-label-sm",
-                    attrs: { for: "descripcionHechos" }
-                  },
-                  [_vm._v("Descripcion de hechos")]
-                ),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.descripcionHechos,
-                      expression: "descripcionHechos"
-                    },
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "form-control form-control-sm",
-                  class: {
-                    input: true,
-                    "form-control": true,
-                    "border border-danger": _vm.errors.has("descripcionHechos")
-                  },
-                  attrs: {
-                    cols: "30",
-                    rows: "5",
-                    name: "descripcionHechos",
-                    placeholder: "Ingrese la descripción de los hechos",
-                    autocomplete: "off"
-                  },
-                  domProps: { value: _vm.descripcionHechos },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.descripcionHechos = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("descripcionHechos"),
-                        expression: "errors.has('descripcionHechos')"
-                      }
-                    ],
-                    staticClass: "text-danger"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("descripcionHechos")))]
-                )
-              ])
-            : _vm._e(),
           _vm._v(" "),
           _vm._m(0)
         ])

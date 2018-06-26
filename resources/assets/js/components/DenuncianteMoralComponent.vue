@@ -32,7 +32,7 @@
                 <domicilio :tipo="'contacto'" :empresa="true"></domicilio>
             </div>
             <div :class="pillsMoral3" id="pills-denunciante-extramoral" role="tabpanel-moral" aria-labelledby="denunciante-extramoral-tab">
-                <extrasdenunciante :sistema="sistema"></extrasdenunciante>
+                <extrasdenunciante :sistema="sistema" :tipo="'moral'"></extrasdenunciante>
             </div>
         </div>
         <!-- OPCIONES -->

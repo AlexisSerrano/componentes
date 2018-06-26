@@ -38,7 +38,7 @@
                 <domicilio :tipo="'contacto'" :empresa="false"></domicilio>
             </div>
             <div :class="pillsFisica4" id="pills-denunciante-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciante-extrafisico-tab">
-                <extrasdenunciante :sistema="sistema"></extrasdenunciante>
+                <extrasdenunciante :sistema="sistema" :tipo="'fisico'"></extrasdenunciante>
             </div>
         </div>
         <!-- OPCIONES -->

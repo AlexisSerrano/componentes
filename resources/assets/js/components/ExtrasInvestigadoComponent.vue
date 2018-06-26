@@ -78,12 +78,14 @@
                     <span v-show="errors.has('particulares')" class="text-danger">{{ errors.first('particulares')}}</span>
                     <span v-if="this.validacionesback.particulares!=undefined" class="text-danger">{{ String(this.validacionesback.particulares)}}</span>
                 </div>
+                <!--
                 <div v-if="sistema=='uat'" class="form-group col-md-12">
                     <label class="col-form-label col-form-label-sm" for="hechos">Descripcón de los hechos</label>
                     <textarea class="form-control form-control-sm" name="hechos" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('hechos') || this.validacionesback.hechos}" v-model="hechos" placeholder="Ingrese el hechos" v-validate="'required'" autocomplete="off" rows='5'></textarea>
                     <span v-show="errors.has('hechos')" class="text-danger">{{ errors.first('hechos')}}</span>
                     <span v-if="this.validacionesback.hechos!=undefined" class="text-danger">{{ String(this.validacionesback.hechos)}}</span>
                 </div>
+                -->
             </div>
 
             <div class="form-row mt-3">
@@ -122,6 +124,9 @@ import swal from 'sweetalert2'
         props:{
             sistema: {
                 default:''
+            },
+            tipo:{
+                required:true
             }
         },
         created: function(){
@@ -153,7 +158,11 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtra: function(){
-                var urlGuardarInvestigado = this.url+'/guardarExtrasInvestigado';                
+                var urlGuardarInvestigado = this.url;
+                if(this.tipo=='fisica')
+                    urlGuardarInvestigado +='/guardarExtrasInvestigadoFisico';
+                else if(this.tipo=='moral')
+                    urlGuardarInvestigado +='/guardarExtrasInvestigadoMoral';
                 var data = {
                     idVariablesPersona:1,        
                     idNotificacion:0,            
@@ -199,7 +208,11 @@ import swal from 'sweetalert2'
                     });
             },
             actualizarExtra: function(){
-                var urlGuardarInvestigado = this.url+'/actualizarExtrasInvestigado';                
+                var urlGuardarInvestigado = this.url;
+                if(this.tipo=='fisica')
+                    urlGuardarInvestigado +='/actualizarExtrasInvestigadoFisico';
+                else if(this.tipo=='moral')
+                    urlGuardarInvestigado +='/actualizarExtrasInvestigadoMoral';
                 var data = {
                     id:this.idExtrasInvestigado,        
                     idNotificacion:0,            
