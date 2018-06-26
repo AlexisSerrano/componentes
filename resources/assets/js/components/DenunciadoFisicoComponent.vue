@@ -124,6 +124,6 @@ import { mapState } from "vuex";
                 this.pillPrincipalFisica='tab-pane fade show active'
             }
         },
-        computed:mapState(['idPersonaFisica','idPersonaMoral','tipoInvolucrado'])
+        computed:mapState(['idPersonaFisica','idPersonaMoral'])
     }
 </script>

@@ -240,10 +240,10 @@ import { mapState } from "vuex";
                 validacionesback:'',
                 loader:true,
                 qrr:"QUIEN O QUIENES RESULTEN RESPONSABLES",
-                url:'http://localhost/componentes/public/api', 
+                // url:'http://localhost/componentes/public/api', 
                 // url:'http://componentes.oo/api',
                 // url:'http://componentes.test/api'
-                //url:'/api'
+                url:'/api'
             }
         },
 
