@@ -72817,11 +72817,13 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
         idPersonaFisica: '',
-        idPersonaMoral: ''
+        idPersonaMoral: '',
+        tipoInvolucrado: ''
     },
     mutations: {
         asignarIdFisica: function asignarIdFisica(state, payload) {
-            state.idPersonaFisica = payload;
+            state.idPersonaFisica = payload.idPersona;
+            state.tipoInvolucrado = payload.tipo;
         },
         asignarIdMoral: function asignarIdMoral(state, payload) {
             state.idPersonaMoral = payload;
@@ -73467,7 +73469,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             if (data) {
                 axios.post(urlCrearPersona, data).then(function (response) {
-                    _this6.$store.commit('asignarIdFisica', response.data);
+                    _this6.$store.commit('asignarIdFisica', { idPersona: response.data, tipo: _this6.tipo });
                     if (_this6.$store.state.idPersonaFisica) {
                         __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                             title: '¡Guardado correctamente!',
@@ -73514,10 +73516,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         idPersonaMoral: function idPersonaMoral() {
-            this.CleanFields();
+            if (this.$store.state.idPersonaMoral != false) {
+                this.CleanFields();
+                // this.$store.commit('asignarIdFisica','')
+            }
         }
     },
-    computed: Object(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral'])
+    computed: Object(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral', 'tipoInvolucrado'])
 });
 
 /***/ }),
@@ -79841,6 +79846,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         searchPersona: function searchPersona() {
             var _this = this;
 
+            if (this.rfc.length == 9 && this.homoclave.length == 3) {
+                var urlBuscarPersona = this.url + '/searchPersonaMoral';
+                axios.post(urlBuscarPersona, {
+                    rfc: this.rfc + this.homoclave
+                }).then(function (response) {
+                    _this.personaExiste = response.data;
+                    if (_this.personaExiste != '') {
+                        __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                            title: '¡Persona moral encontrada!',
+                            text: 'Ésta persona moral ya fue registrada anteriormente.',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                        _this.nombre = _this.personaExiste.nombre, _this.fechaCreacion = _this.personaExiste.fechaCreacion, _this.rfc = _this.personaExiste.rfc.slice(0, -3), _this.homoclave = _this.personaExiste.rfc.slice(-3), _this.telefono = _this.personaExiste.telefono, _this.representanteLegal = _this.personaExiste.representanteLegal, _this.$store.commit('asignarIdMoral', _this.personaExiste.idMoral);
+                    }
+                });
+            }
+        },
+        calcularRfc: function calcularRfc() {
+            var _this2 = this;
+
             if (this.nombre != '' && this.fechaCreacion != '') {
                 if (this.nombre.length < 2) {
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -79856,32 +79882,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     nombre: this.nombre,
                     fechaCreacion: this.fechaCreacion
                 }).then(function (response) {
-                    _this.rfc = response.data.res.slice(0, -3);
-                    _this.homoclave = response.data.res.slice(-3);
-                    var urlBuscarPersona = _this.url + '/searchPersonaMoral';
-                    axios.post(urlBuscarPersona, {
-                        rfc: _this.rfc + _this.homoclave
-                    }).then(function (response) {
-                        _this.personaExiste = response.data;
-                        if (_this.personaExiste != '') {
-                            __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                                title: '¡Persona moral encontrada!',
-                                text: 'Ésta persona moral ya fue registrada anteriormente.',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            });
-                            _this.telefono = _this.personaExiste.nombre, _this.fechaCreacion = _this.personaExiste.fechaCreacion, _this.rfc = _this.personaExiste.rfc.slice(0, -3), _this.homoclave = _this.personaExiste.rfc.slice(-3), _this.telefono = _this.personaExiste.telefono, _this.representanteLegal = _this.personaExiste.representanteLegal, _this.idMoral = _this.idMoral;
-                        }
-                    });
+                    _this2.rfc = response.data.res.slice(0, -3);
+                    _this2.homoclave = response.data.res.slice(-3);
+                    _this2.searchPersona();
                 });
             }
         },
         validateBeforeSubmit: function validateBeforeSubmit() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.$validator.validateAll().then(function (result) {
                 if (result) {
-                    _this2.CrearEmpresa();
+                    _this3.CrearEmpresa();
                     return;
                 }
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -79897,7 +79909,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         CrearEmpresa: function CrearEmpresa() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.validacionesback = '';
             var urlCrearMoral = this.url + '/' + this.tipo + this.sistema;
@@ -79913,7 +79925,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 idCarpeta: this.carpeta
             }).then(function (response) {
                 // this.idMoral=response.data        
-                _this3.$store.commit('asignarIdMoral', response.data);
+                _this4.$store.commit('asignarIdMoral', response.data);
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: '¡Guardado correctamente!',
                     text: 'Ésta empresa fue guardada exitosamente.',
@@ -79922,7 +79934,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }).catch(function (error) {
                 console.log(error.response.data.errors);
-                _this3.validacionesback = error.response.data.errors;
+                _this4.validacionesback = error.response.data.errors;
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: '¡Guardado incorrecto!',
                     text: 'Ésta persona moral no fue posible guardarla.',
@@ -79934,7 +79946,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     watch: {
         idPersonaFisica: function idPersonaFisica() {
-            this.CleanFields();
+            if (this.$store.state.idPersonaFisica != false) {
+                this.CleanFields();
+                // this.$store.commit('asignarIdMoral','')
+            }
         }
     },
     computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral'])
@@ -80001,7 +80016,7 @@ var render = function() {
               },
               domProps: { value: _vm.nombre },
               on: {
-                blur: _vm.searchPersona,
+                blur: _vm.calcularRfc,
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -80072,7 +80087,7 @@ var render = function() {
               },
               domProps: { value: _vm.fechaCreacion },
               on: {
-                blur: _vm.searchPersona,
+                blur: _vm.calcularRfc,
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -80144,6 +80159,7 @@ var render = function() {
               },
               domProps: { value: _vm.rfc },
               on: {
+                blur: _vm.searchPersona,
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -80215,6 +80231,7 @@ var render = function() {
               },
               domProps: { value: _vm.homoclave },
               on: {
+                blur: _vm.searchPersona,
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -81010,7 +81027,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 var idPersona = this.$store.state.idPersonaMoral;
             }
-            if (this.tipo == '') {
+            if (this.tipo == 'domicilio') {
                 var data = {
                     estado: this.estado.id,
                     municipio: this.municipio.id,
@@ -81641,7 +81658,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                this.tipo != ""
+                this.tipo != "domicilio"
                   ? _c("div", { staticClass: "form-group col-md-4" }, [
                       _c(
                         "label",
@@ -83160,7 +83177,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             pillsFisica2: 'tab-pane fade',
             pillsFisica3: 'tab-pane fade',
             pillsFisica4: 'tab-pane fade'
-
         };
     },
 
@@ -83203,7 +83219,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     watch: {
         idPersonaFisica: function idPersonaFisica() {
-            this.tabsFisica = 'nav-link';
+            if (this.$store.state.idPersonaFisica != false) {
+                this.tabsFisica = 'nav-link';
+            }
         },
         idPersonaMoral: function idPersonaMoral() {
             this.tabsFisica = 'nav-link disabled';
@@ -83582,7 +83600,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     watch: {
         idPersonaMoral: function idPersonaMoral() {
-            this.tabsMoral = 'nav-link';
+            if (this.$store.state.idPersonaMoral != false) {
+                this.tabsMoral = 'nav-link';
+            }
         },
         idPersonaFisica: function idPersonaFisica() {
             this.tabsMoral = 'nav-link disabled';
@@ -83837,6 +83857,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(7);
 //
 //
 //
@@ -83885,7 +83906,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            tabPrincipalFisica: 'nav-link active show',
+            tabsFisica: 'nav-link disabled',
+            pillPrincipalFisica: 'tab-pane fade show active',
+            pillsFisica1: 'tab-pane fade',
+            pillsFisica2: 'tab-pane fade',
+            pillsFisica3: 'tab-pane fade',
+            pillsFisica4: 'tab-pane fade'
+        };
+    },
+
     props: {
         sistema: {
             required: true
@@ -83893,7 +83927,62 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         carpeta: {
             required: true
         }
-    }
+    },
+    methods: {
+        ubicacionTabsFisica: function ubicacionTabsFisica(numeroTab) {
+            if (this.tabsFisica != 'nav-link disabled') {
+                this.tabPrincipalFisica = 'nav-link';
+                this.pillPrincipalFisica = 'tab-pane fade';
+                if (numeroTab == 1) {
+                    this.pillsFisica2 = 'tab-pane fade';
+                    this.pillsFisica3 = 'tab-pane fade';
+                    this.pillsFisica4 = 'tab-pane fade';
+                    this.pillsFisica1 = 'tab-pane fade show active';
+                } else if (numeroTab == 2) {
+                    this.pillsFisica1 = 'tab-pane fade';
+                    this.pillsFisica3 = 'tab-pane fade';
+                    this.pillsFisica4 = 'tab-pane fade';
+                    this.pillsFisica2 = 'tab-pane fade show active';
+                } else if (numeroTab == 3) {
+                    this.pillsFisica1 = 'tab-pane fade';
+                    this.pillsFisica2 = 'tab-pane fade';
+                    this.pillsFisica4 = 'tab-pane fade';
+                    this.pillsFisica3 = 'tab-pane fade show active';
+                } else if (numeroTab == 4) {
+                    this.pillsFisica1 = 'tab-pane fade';
+                    this.pillsFisica2 = 'tab-pane fade';
+                    this.pillsFisica3 = 'tab-pane fade';
+                    this.pillsFisica4 = 'tab-pane fade show active';
+                }
+            }
+        }
+    },
+    watch: {
+        idPersonaFisica: function idPersonaFisica() {
+            if (this.$store.state.idPersonaFisica != false && this.$store.state.tipoInvolucrado != 'conocido') {
+                this.tabsFisica = 'nav-link';
+            }
+            if (this.$store.state.tipoInvolucrado == 'conocido') {
+                this.tabsFisica = 'nav-link disabled';
+                this.tabPrincipalFisica = 'nav-link active show';
+                this.pillsFisica1 = 'tab-pane fade';
+                this.pillsFisica2 = 'tab-pane fade';
+                this.pillsFisica3 = 'tab-pane fade';
+                this.pillsFisica4 = 'tab-pane fade';
+                this.pillPrincipalFisica = 'tab-pane fade show active';
+            }
+        },
+        idPersonaMoral: function idPersonaMoral() {
+            this.tabsFisica = 'nav-link disabled';
+            this.tabPrincipalFisica = 'nav-link active show';
+            this.pillsFisica1 = 'tab-pane fade';
+            this.pillsFisica2 = 'tab-pane fade';
+            this.pillsFisica3 = 'tab-pane fade';
+            this.pillsFisica4 = 'tab-pane fade';
+            this.pillPrincipalFisica = 'tab-pane fade show active';
+        }
+    },
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral', 'tipoInvolucrado'])
 });
 
 /***/ }),
@@ -83905,7 +83994,126 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "nav nav-pills mb-3",
+          attrs: { id: "pills-tab", role: "tablist" }
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabPrincipalFisica,
+                attrs: {
+                  id: "denunciado-personafisico-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-personafisico",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-personafisico",
+                  "aria-selected": "true"
+                }
+              },
+              [_vm._v("Datos Personales")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabsFisica,
+                attrs: {
+                  id: "denunciado-domiciliofisico-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-domiciliofisico",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-domiciliofisico",
+                  "aria-selected": "false"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsFisica(1)
+                  }
+                }
+              },
+              [_vm._v("Domicilio")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabsFisica,
+                attrs: {
+                  id: "denunciado-trabajofisico-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-trabajofisico",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-trabajofisico",
+                  "aria-selected": "false"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsFisica(2)
+                  }
+                }
+              },
+              [_vm._v("Datos del trabajo")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabsFisica,
+                attrs: {
+                  id: "denunciado-notificacionesfisico-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-notificacionesfisico",
+                  role: "tab",
+                  "aria-controls": "#pills-denunciado-notificacionesfisico",
+                  "aria-selected": "false"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsFisica(3)
+                  }
+                }
+              },
+              [_vm._v("Domicilio para notificaciones")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabsFisica,
+                attrs: {
+                  id: "denunciado-extrafisico-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-extrafisico",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-extrafisico",
+                  "aria-selected": "false"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsFisica(4)
+                  }
+                }
+              },
+              [_vm._v("Datos del investigado")]
+            )
+          ])
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -83914,7 +84122,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade show active",
+            class: _vm.pillPrincipalFisica,
             attrs: {
               id: "pills-denunciado-personafisico",
               role: "tabpanel",
@@ -83936,7 +84144,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade",
+            class: _vm.pillsFisica1,
             attrs: {
               id: "pills-denunciado-domiciliofisico",
               role: "tabpanel",
@@ -83950,7 +84158,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade",
+            class: _vm.pillsFisica2,
             attrs: {
               id: "pills-denunciado-trabajofisico",
               role: "tabpanel",
@@ -83964,7 +84172,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade",
+            class: _vm.pillsFisica3,
             attrs: {
               id: "pills-denunciado-notificacionesfisico",
               role: "tabpanel",
@@ -83978,7 +84186,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade",
+            class: _vm.pillsFisica4,
             attrs: {
               id: "pills-denunciado-extrafisico",
               role: "tabpanel-fisico",
@@ -83992,113 +84200,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid" }, [
-      _c(
-        "ul",
-        {
-          staticClass: "nav nav-pills mb-3",
-          attrs: { id: "pills-tab", role: "tablist" }
-        },
-        [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link active",
-                attrs: {
-                  id: "denunciado-personafisico-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-personafisico",
-                  role: "tab",
-                  "aria-controls": "pills-denunciado-personafisico",
-                  "aria-selected": "true"
-                }
-              },
-              [_vm._v("Datos Personales")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  id: "denunciado-domiciliofisico-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-domiciliofisico",
-                  role: "tab",
-                  "aria-controls": "pills-denunciado-domiciliofisico",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Domicilio")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  id: "denunciado-trabajofisico-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-trabajofisico",
-                  role: "tab",
-                  "aria-controls": "pills-denunciado-trabajofisico",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Datos del trabajo")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  id: "denunciado-notificacionesfisico-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-notificacionesfisico",
-                  role: "tab",
-                  "aria-controls": "#pills-denunciado-notificacionesfisico",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Domicilio para notificaciones")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  id: "denunciado-extrafisico-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-extrafisico",
-                  role: "tab",
-                  "aria-controls": "pills-denunciado-extrafisico",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Datos del investigado")]
-            )
-          ])
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -84161,6 +84263,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(7);
 //
 //
 //
@@ -84203,7 +84306,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            tabPrincipalMoral: 'nav-link active show',
+            tabsMoral: 'nav-link disabled',
+            pillPrincipalMoral: 'tab-pane fade show active',
+            pillsMoral1: 'tab-pane fade',
+            pillsMoral2: 'tab-pane fade',
+            pillsMoral3: 'tab-pane fade'
+        };
+    },
+
     props: {
         sistema: {
             required: true
@@ -84211,7 +84326,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         carpeta: {
             required: true
         }
-    }
+    },
+    methods: {
+        ubicacionTabsMoral: function ubicacionTabsMoral(numeroTab) {
+            if (this.tabsMoral != 'nav-link disabled') {
+                this.tabPrincipalMoral = 'nav-link';
+                this.pillPrincipalMoral = 'tab-pane fade';
+                if (numeroTab == 1) {
+                    this.pillsMoral2 = 'tab-pane fade';
+                    this.pillsMoral3 = 'tab-pane fade';
+                    this.pillsMoral1 = 'tab-pane fade show active';
+                } else if (numeroTab == 2) {
+                    this.pillsMoral1 = 'tab-pane fade';
+                    this.pillsMoral3 = 'tab-pane fade';
+                    this.pillsMoral2 = 'tab-pane fade show active';
+                } else if (numeroTab == 3) {
+                    this.pillsMoral1 = 'tab-pane fade';
+                    this.pillsMoral2 = 'tab-pane fade';
+                    this.pillsMoral3 = 'tab-pane fade show active';
+                }
+            }
+        }
+    },
+    watch: {
+        idPersonaMoral: function idPersonaMoral() {
+            if (this.$store.state.idPersonaMoral != false) {
+                this.tabsMoral = 'nav-link';
+            }
+        },
+        idPersonaFisica: function idPersonaFisica() {
+            this.tabsMoral = 'nav-link disabled';
+            this.tabPrincipalMoral = 'nav-link active show';
+            this.pillsMoral1 = 'tab-pane fade';
+            this.pillsMoral2 = 'tab-pane fade';
+            this.pillsMoral3 = 'tab-pane fade';
+            this.pillPrincipalMoral = 'tab-pane fade show active';
+        }
+    },
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral'])
 });
 
 /***/ }),
@@ -84223,7 +84375,103 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "nav nav-pills mb-3",
+          attrs: { id: "pills-tab", role: "tablist" }
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabPrincipalMoral,
+                attrs: {
+                  id: "denunciado-personamoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-personamoral",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-personamoral",
+                  "aria-selected": "true"
+                }
+              },
+              [_vm._v("Datos Personales")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabsMoral,
+                attrs: {
+                  id: "denunciado-domiciliomoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-domiciliomoral",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-domiciliomoral",
+                  "aria-selected": "false"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsMoral(1)
+                  }
+                }
+              },
+              [_vm._v("Domicilio")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabsMoral,
+                attrs: {
+                  id: "denunciado-notificacionesmoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-notificacionesmoral",
+                  role: "tab",
+                  "aria-controls": "#pills-denunciado-notificacionesmoral",
+                  "aria-selected": "false"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsMoral(2)
+                  }
+                }
+              },
+              [_vm._v("Domicilio para notificaciones")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabsMoral,
+                attrs: {
+                  id: "denunciado-extramoral-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-extramoral",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-extramoral",
+                  "aria-selected": "false"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsMoral(3)
+                  }
+                }
+              },
+              [_vm._v("Datos del investigado")]
+            )
+          ])
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -84232,7 +84480,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade show active",
+            class: _vm.pillPrincipalMoral,
             attrs: {
               id: "pills-denunciado-personamoral",
               role: "tabpanel",
@@ -84254,7 +84502,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade",
+            class: _vm.pillsMoral1,
             attrs: {
               id: "pills-denunciado-domiciliomoral",
               role: "tabpanel",
@@ -84268,7 +84516,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade",
+            class: _vm.pillsMoral2,
             attrs: {
               id: "pills-denunciado-notificacionesmoral",
               role: "tabpanel",
@@ -84282,7 +84530,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade",
+            class: _vm.pillsMoral3,
             attrs: {
               id: "pills-denunciado-extramoral",
               role: "tabpanel-moral",
@@ -84296,95 +84544,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid" }, [
-      _c(
-        "ul",
-        {
-          staticClass: "nav nav-pills mb-3",
-          attrs: { id: "pills-tab", role: "tablist" }
-        },
-        [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link active",
-                attrs: {
-                  id: "denunciado-personamoral-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-personamoral",
-                  role: "tab",
-                  "aria-controls": "pills-denunciado-personamoral",
-                  "aria-selected": "true"
-                }
-              },
-              [_vm._v("Datos Personales")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  id: "denunciado-domiciliomoral-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-domiciliomoral",
-                  role: "tab",
-                  "aria-controls": "pills-denunciado-domiciliomoral",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Domicilio")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  id: "denunciado-notificacionesmoral-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-notificacionesmoral",
-                  role: "tab",
-                  "aria-controls": "#pills-denunciado-notificacionesmoral",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Domicilio para notificaciones")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  id: "denunciado-extramoral-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-extramoral",
-                  role: "tab",
-                  "aria-controls": "pills-denunciado-extramoral",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Datos del investigado")]
-            )
-          ])
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -84447,8 +84607,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
 //
 //
 //
@@ -84493,13 +84654,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             particulares: '',
-            validacionesback: ''
+            validacionesback: '',
+            tabPrincipalConocido: 'nav-link active show',
+            tabsConocido: 'nav-link disabled',
+            pillPrincipalConocido: 'tab-pane fade show active',
+            pillsConocido1: 'tab-pane fade',
+            pillsConocido2: 'tab-pane fade'
         };
     },
 
@@ -84520,7 +84687,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this.crearExtra();
                     return;
                 }
-                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                     title: '¡Guardado Incorrecto!',
                     text: 'Los datos del investigado no fueron posible guardarse.',
                     type: 'error',
@@ -84536,7 +84703,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post(urlExtraConocido, {
                 particulares: this.particulares
             }).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                     title: '¡Guardado Correctamente!',
                     text: 'Los datos del investigado fueron guardados exitosamente.',
                     type: 'success',
@@ -84544,7 +84711,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }).catch(function (error) {
                     console.log(error.response.data.errors);
                     _this2.validacionesback = error.response.data.errors;
-                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
                         title: '¡Guardado Incorrecto!',
                         text: 'Los datos del investigado no fueron posible guardarse.',
                         type: 'error',
@@ -84552,8 +84719,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                 });
             });
+        },
+        ubicacionTabsConocido: function ubicacionTabsConocido(numeroTab) {
+            if (this.tabsConocido != 'nav-link disabled') {
+                this.tabPrincipalConocido = 'nav-link';
+                this.pillPrincipalConocido = 'tab-pane fade';
+                if (numeroTab == 1) {
+                    this.pillsConocido2 = 'tab-pane fade';
+                    this.pillsConocido1 = 'tab-pane fade show active';
+                } else if (numeroTab == 2) {
+                    this.pillsConocido1 = 'tab-pane fade';
+                    this.pillsConocido2 = 'tab-pane fade show active';
+                }
+            }
         }
-    }
+    },
+    watch: {
+        idPersonaFisica: function idPersonaFisica() {
+            if (this.$store.state.idPersonaFisica != false) {
+                this.tabsConocido = 'nav-link';
+            }
+        },
+        idPersonaMoral: function idPersonaMoral() {
+            this.tabsConocido = 'nav-link disabled';
+            this.tabPrincipalConocido = 'nav-link active show';
+            this.pillsConocido1 = 'tab-pane fade';
+            this.pillsConocido2 = 'tab-pane fade';
+            this.pillPrincipalConocido = 'tab-pane fade show active';
+        }
+    },
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral'])
 });
 
 /***/ }),
@@ -84565,7 +84760,80 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "nav nav-pills mb-3",
+          attrs: { id: "pills-tab", role: "tablist" }
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabPrincipalConocido,
+                attrs: {
+                  id: "denunciado-personaconocido-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-personaconocido",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-personaconocido",
+                  "aria-selected": "true"
+                }
+              },
+              [_vm._v("Datos Personales")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabsConocido,
+                attrs: {
+                  id: "denunciado-domicilioconocido-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-domicilioconocido",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-domicilioconocido",
+                  "aria-selected": "false"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsConocido(1)
+                  }
+                }
+              },
+              [_vm._v("Domicilio")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: _vm.tabsConocido,
+                attrs: {
+                  id: "denunciado-extraconocido-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-denunciado-extraconocido",
+                  role: "tab",
+                  "aria-controls": "pills-denunciado-extraconocido",
+                  "aria-selected": "false"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.ubicacionTabsConocido(2)
+                  }
+                }
+              },
+              [_vm._v("Datos del investigado")]
+            )
+          ])
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -84574,7 +84842,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade show active",
+            class: _vm.pillPrincipalConocido,
             attrs: {
               id: "pills-denunciado-personaconocido",
               role: "tabpanel",
@@ -84596,21 +84864,21 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "tab-pane fade",
+            class: _vm.pillsConocido1,
             attrs: {
               id: "pills-denunciado-domicilioconocido",
               role: "tabpanel",
               "aria-labelledby": "denunciado-domicilioconocido-tab"
             }
           },
-          [_c("domicilio")],
+          [_c("domicilio", { attrs: { tipo: "domicilio", empresa: false } })],
           1
         ),
         _vm._v(" "),
         _c(
           "div",
           {
-            staticClass: "tab-pane fade",
+            class: _vm.pillsConocido2,
             attrs: {
               id: "pills-denunciado-extraconocido",
               role: "tabpanel-conocido",
@@ -84721,77 +84989,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid" }, [
-      _c(
-        "ul",
-        {
-          staticClass: "nav nav-pills mb-3",
-          attrs: { id: "pills-tab", role: "tablist" }
-        },
-        [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link active",
-                attrs: {
-                  id: "denunciado-personaconocido-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-personaconocido",
-                  role: "tab",
-                  "aria-controls": "pills-denunciado-personaconocido",
-                  "aria-selected": "true"
-                }
-              },
-              [_vm._v("Datos Personales")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  id: "denunciado-domicilioconocido-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-domicilioconocido",
-                  role: "tab",
-                  "aria-controls": "pills-denunciado-domicilioconocido",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Domicilio")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  id: "denunciado-extraconocido-tab",
-                  "data-toggle": "pill",
-                  href: "#pills-denunciado-extraconocido",
-                  role: "tab",
-                  "aria-controls": "pills-denunciado-extraconocido",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Datos del investigado")]
-            )
-          ])
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

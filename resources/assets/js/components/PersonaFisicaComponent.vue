@@ -524,7 +524,7 @@ import { mapState } from "vuex";
                 if(data){
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
-                        this.$store.commit('asignarIdFisica',response.data)
+                        this.$store.commit('asignarIdFisica',{idPersona:response.data,tipo:this.tipo})
                         if(this.$store.state.idPersonaFisica){
                             swal({
                                 title: '¡Guardado correctamente!',
@@ -574,10 +574,20 @@ import { mapState } from "vuex";
                 }
             },
             idPersonaMoral() {
-                this.CleanFields();
-            }
+                if(this.$store.state.idPersonaMoral!=false){
+                    this.CleanFields();
+                    // this.$store.commit('asignarIdFisica','')
+                }
+            },
+            // tipoInvolucrado(newValue,oldValue){
+            //     if(oldValue=='conocido'){
+            //         if(this.tipo=='conocido'){
+            //             this.CleanFields();
+            //         }
+            //     }
+            // }
         },
-        computed:mapState(['idPersonaFisica','idPersonaMoral'])
+        computed:mapState(['idPersonaFisica','idPersonaMoral','tipoInvolucrado'])
     }
 </script>
 <style>
