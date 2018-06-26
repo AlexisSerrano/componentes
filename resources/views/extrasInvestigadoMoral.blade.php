@@ -11,7 +11,7 @@
   </head>
   <body>
     <div id="app">
-        <extrasinvestigado :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciadomoral'"></extrasinvestigado>        
+        <extrasinvestigado :sistema="'uat'" :tipo="'moral'"></extrasinvestigado>        
     </div>    
     <!--<button id="btn2">console.log idvarpersonamoral</button>-->
   </body> 

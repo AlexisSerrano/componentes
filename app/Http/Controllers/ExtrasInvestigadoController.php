@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Models\CatPuesto;
 use Illuminate\Http\Request;
-use App\Http\Models\ExtraDenunciado;
+use App\Http\Models\ExtraDenunciadoFisico;
+use App\Http\Models\ExtraDenunciadoMoral;
 
 
 class ExtrasInvestigadoController extends Controller
 {
-    public function index(){
-        return view("extrasInvestigado");
+    public function indexFisico(){
+        return view("extrasInvestigadoFisico");
+    }
+
+    public function indexMoral(){
+        return view("extrasInvestigadoMoral");
     }
     
     public function getPuestos(){
@@ -25,11 +30,10 @@ class ExtrasInvestigadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeFisico(Request $request)
     {        
-        $extraDenunciado = new ExtraDenunciado();
+        $extraDenunciado = new ExtraDenunciadoFisico();
         $extraDenunciado->idVariablesPersona = $request->idVariablesPersona;
-        $extraDenunciado->idNotificacion = $request->idNotificacion;        
         $extraDenunciado->idPuesto = $request->idPuesto;
         $extraDenunciado->alias = $request->alias;
         $extraDenunciado->senasPartic = $request->senasPartic;
@@ -39,7 +43,6 @@ class ExtrasInvestigadoController extends Controller
         $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
         $extraDenunciado->vestimenta = $request->vestimenta;
-        $extraDenunciado->narracion = $request->narracion;
         $extraDenunciado->save();
         $id = $extraDenunciado->id;                
         return response()->json($id);
@@ -52,10 +55,9 @@ class ExtrasInvestigadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function updateFisico(Request $request)
     {        
-        $extraDenunciado = ExtraDenunciado::find($request->id);
-        $extraDenunciado->idNotificacion = $request->idNotificacion;        
+        $extraDenunciado = ExtraDenunciadoFisico::find($request->id);
         $extraDenunciado->idPuesto = $request->idPuesto;
         $extraDenunciado->alias = $request->alias;
         $extraDenunciado->senasPartic = $request->senasPartic;
@@ -65,7 +67,48 @@ class ExtrasInvestigadoController extends Controller
         $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
         $extraDenunciado->vestimenta = $request->vestimenta;
-        $extraDenunciado->narracion = $request->narracion;
+        $extraDenunciado->save();  
+        $id = $extraDenunciado->id;                
+        return response()->json($id);
+    }
+
+    public function storeMoral(Request $request)
+    {        
+        $extraDenunciado = new ExtraDenunciadoMoral();
+        $extraDenunciado->idVariablesPersona = $request->idVariablesPersona;
+        $extraDenunciado->idPuesto = $request->idPuesto;
+        $extraDenunciado->alias = $request->alias;
+        $extraDenunciado->senasPartic = $request->senasPartic;
+        $extraDenunciado->ingreso = $request->ingreso;
+        $extraDenunciado->periodoIngreso = $request->periodoIngreso;
+        $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
+        $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
+        $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
+        $extraDenunciado->vestimenta = $request->vestimenta;
+        $extraDenunciado->save();
+        $id = $extraDenunciado->id;                
+        return response()->json($id);
+        
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateMoral(Request $request)
+    {        
+        $extraDenunciado = ExtraDenunciadoMoral::find($request->id);
+        $extraDenunciado->idPuesto = $request->idPuesto;
+        $extraDenunciado->alias = $request->alias;
+        $extraDenunciado->senasPartic = $request->senasPartic;
+        $extraDenunciado->ingreso = $request->ingreso;
+        $extraDenunciado->periodoIngreso = $request->periodoIngreso;
+        $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
+        $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
+        $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
+        $extraDenunciado->vestimenta = $request->vestimenta;
         $extraDenunciado->save();  
         $id = $extraDenunciado->id;                
         return response()->json($id);

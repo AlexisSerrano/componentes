@@ -4,14 +4,13 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ExtraDenunciado extends Model
+class ExtraDenunciadoMoral extends Model
 {
-    protected $table = 'extra_denunciado';
+    protected $table = 'extra_denunciado_moral';
 
     protected $fillable = [
         'id', 
         'idVariablesPersona', 
-        'idNotificacion', 
         'idPuesto', 
         'alias', 
         'senasPartic', 
@@ -21,7 +20,6 @@ class ExtraDenunciado extends Model
         'idAbogado', 
         'personasBajoSuGuarda', 
         'perseguidoPenalmente', 
-        'vestimenta', 
-        'narracion'
+        'vestimenta'
     ];
 }

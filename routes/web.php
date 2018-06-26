@@ -19,7 +19,8 @@ Route::get('getColonias/{id}','DomicilioController@getColonias');
 Route::get('getCodigosPostales/{id}','DomicilioController@getCodigosPostales');
 
 /*URLS COMPONENTES EXTRA*/
-Route::get('/extrasInvestigado','ExtrasInvestigadoController@index');
+Route::get('/extrasInvestigadoFisico','ExtrasInvestigadoController@indexFisico');
+Route::get('/extrasInvestigadoMoral','ExtrasInvestigadoController@indexMoral');
 Route::get('/extrasAbogado','ExtrasAbogadoController@index');
 Route::get('/extrasDenunciante','ExtrasDenuncianteController@index');
 Route::get('/extrasAutoridad','ExtrasAutoridadController@index');
