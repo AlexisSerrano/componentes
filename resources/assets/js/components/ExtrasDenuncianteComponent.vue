@@ -49,10 +49,10 @@ import swal from 'sweetalert2'
                 idreturn:''
             }
         },
-        props:{
-            sistema: {
-                default:''
-            }
+        props:{            
+            tipo: {
+                required:true
+            }          
         },
         created: function(){
 //            this.getPuestos();
@@ -77,14 +77,19 @@ import swal from 'sweetalert2'
         
                 });
             },
-            guardarExtra: function(){  
-                var urlGuardarDenunciante = this.url+'/guardarExtrasDenuncianteFisico';                  
-                //var urlGuardarDenunciante = this.url+'/guardarExtrasDenuncianteMoral';                  
+            guardarExtra: function(){
+                if(this.tipo=='fisica'){
+                    var urlGuardarDenunciante = this.url+'/guardarExtrasDenuncianteFisico';
+                }else if (this.tipo=='moral'){
+                    var urlGuardarDenunciante = this.url+'/guardarExtrasDenuncianteMoral';                  
+                }else{
+                    return;
+                }
                 var data = {
                     idVariablesPersona:1,                    
                     idAbogado:1,
                     reguardarIdentidad:this.identidad,
-                    victima: (this.solicitante=="Victima" ? 1 : 0)                                                                          
+                    victima: (this.solicitante=="Víctima" ? 1 : 0)                                                                          
                     };
                     axios.post(urlGuardarDenunciante,data)
                     .then (response =>{
@@ -116,9 +121,15 @@ import swal from 'sweetalert2'
                     });
                 
             },
-            updateExtra: function(){  
-                var urlGuardarDenunciante = this.url+'/updateExtrasDenuncianteFisico';                  
-                //var urlGuardarDenunciante = this.url+'/updateExtrasDenuncianteMoral';
+            updateExtra: function(){
+                
+                if(this.tipo=='fisica'){
+                    var urlGuardarDenunciante = this.url+'/updateExtrasDenuncianteFisico';
+                }else if (this.tipo=='moral'){
+                    var urlGuardarDenunciante = this.url+'/updateExtrasDenuncianteMoral';
+                }else{
+                    return;
+                }                                
                 var data = {
                     idVariablesPersona:this.idreturn,                    
                     idAbogado:1,
