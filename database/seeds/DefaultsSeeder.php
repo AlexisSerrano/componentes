@@ -37,6 +37,7 @@ class DefaultsSeeder extends Seeder
                 'correo' => 'SIN INFORMACIÓN',
                 'telefono' => 'SIN INFORMACIÓN'
             ]
-	    ]);
+        ]);
+
     }
 }

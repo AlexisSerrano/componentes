@@ -40,7 +40,7 @@ class ExtrasAutoridadController extends Controller
         $ExtraAutoridad->antiguedad = $request->antiguedad;
         $ExtraAutoridad->rango = $request->rango;
         $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;
-        $ExtraAutoridad->narracion = $request->narracion;                
+        //$ExtraAutoridad->narracion = $request->narracion;                
         $ExtraAutoridad->save();  
         $id = $ExtraAutoridad->id;                
         return response()->json($id);        
@@ -79,11 +79,10 @@ class ExtrasAutoridadController extends Controller
     public function update(Request $request)
     {
         
-       $ExtraAutoridad = ExtraAutoridad::find($request->idUpdate);            
+       $ExtraAutoridad = ExtraAutoridad::find($request->idVariablesPersona);        
         $ExtraAutoridad->antiguedad = $request->antiguedad;
         $ExtraAutoridad->rango = $request->rango;
-        $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;        
-        $ExtraAutoridad->narracion = $request->narracion;  
+        $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;                 
         $ExtraAutoridad->save();     
         $id = $ExtraAutoridad->id;                
         return response()->json($id);

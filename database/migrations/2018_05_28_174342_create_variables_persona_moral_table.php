@@ -21,6 +21,7 @@ class CreateVariablesPersonaMoralTable extends Migration
             $table->integer('idDomicilio')->nullable()->unsigned()->default(1);
             $table->integer('idNotificacion')->nullable()->unsigned()->default(1);
             $table->timestamps();
+            
             $table->foreign('idPersona')->references('id')->on('persona_moral')->onDelete('cascade');
             $table->foreign('idNotificacion')->references('id')->on('notificacion')->onDelete('restrict');
         });

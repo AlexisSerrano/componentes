@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Http\Models\ExtraDenunciante;
+use App\Http\Models\ExtraDenuncianteFisico;
+use App\Http\Models\ExtraDenuncianteMoral;
 use App\Http\Controllers\Controller;
 
 class ExtrasDenuncianteController extends Controller
@@ -35,15 +36,26 @@ class ExtrasDenuncianteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeExtraDenuncianteFisico(Request $request)
     {        
-        $ExtraDenunciante = new ExtraDenunciante();
-        $ExtraDenunciante->idVariablesPersona = $request->idVariablesPersona;
-        $ExtraDenunciante->idNotificacion = $request->idNotificacion;
+        $ExtraDenunciante = new ExtraDenuncianteFisico();
+        $ExtraDenunciante->idVariablesPersona = $request->idVariablesPersona;        
         $ExtraDenunciante->idAbogado = $request->idAbogado;
-        $ExtraDenunciante->victima = $request->victima;
-        $ExtraDenunciante->reguardarIdentidad = $request->reguardarIdentidad;
-        $ExtraDenunciante->narracion = $request->narracion;        
+        $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
+        $ExtraDenunciante->victima = $request->victima;        
+        $ExtraDenunciante->save();  
+        $id = $ExtraDenunciante->id;                
+        return response()->json($id);
+        
+    }
+
+    public function storeExtraDenuncianteMoral(Request $request)
+    {        
+        $ExtraDenunciante = new ExtraDenuncianteMoral();
+        $ExtraDenunciante->idVariablesPersona = $request->idVariablesPersona;        
+        $ExtraDenunciante->idAbogado = $request->idAbogado;
+        $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
+        $ExtraDenunciante->victima = $request->victima;      
         $ExtraDenunciante->save();  
         $id = $ExtraDenunciante->id;                
         return response()->json($id);
@@ -79,13 +91,24 @@ class ExtrasDenuncianteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function updateExtrasDenuncianteFisico(Request $request)
+    {               
+        $ExtraDenunciante = ExtraDenuncianteFisico::find($request->idVariablesPersona);            
+        $ExtraDenunciante->idAbogado= $request->idAbogado;
+        $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;
+        $ExtraDenunciante->victima = $request->victima;                
+        $ExtraDenunciante->save();     
+        $id = $ExtraDenunciante->id;                
+        return response()->json($id); 
+
+    }
+
+    public function updateExtrasDenuncianteMoral(Request $request)
     {         
-      
-        $ExtraDenunciante = ExtraDenunciante::find($request->idUpdate);            
-        $ExtraDenunciante->victima = $request->victima;
-        $ExtraDenunciante->reguardarIdentidad = $request->reguardarIdentidad;
-        $ExtraDenunciante->narracion = $request->narracion;        
+        $ExtraDenunciante = ExtraDenuncianteMoral::find($request->idVariablesPersona);            
+        $ExtraDenunciante->idAbogado= $request->idAbogado;
+        $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;
+        $ExtraDenunciante->victima = $request->victima;                
         $ExtraDenunciante->save();     
         $id = $ExtraDenunciante->id;                
         return response()->json($id); 

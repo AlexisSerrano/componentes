@@ -18,12 +18,12 @@
         <!-- <span v-if="this.validacionesback.periodo!=undefined" class="text-danger">{{ String(this.validacionesback.periodo)}}</span> -->
     </div>
 
-    <div class="form-group col-md-12">
+   <!-- <div class="form-group col-md-12">
         <label class="col-form-label col-form-label-sm" for="descripcion">Descripcion de los hechos</label>
         <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcion')}" v-model="descripcion" placeholder="Ingrese la descripcion de los hechos" v-validate="'required'" autocomplete="off"></textarea>
         <span v-show="errors.has('descripcion')" class="text-danger">{{ errors.first('descripcion')}}</span>
-        <!-- <span v-if="this.validacionesback.particulares!=undefined" class="text-danger">{{ String(this.validacionesback.particulares)}}</span> -->
-    </div>
+        <span v-if="this.validacionesback.particulares!=undefined" class="text-danger">{{ String(this.validacionesback.particulares)}}</span>
+    </div>-->
 
     <div class="form-row mt-3">
         <div class="form-group col-md-5">
@@ -78,14 +78,13 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtra: function(){  
-                var urlGuardarDenunciante = this.url+'/guardarExtrasDenunciante';                  
+                var urlGuardarDenunciante = this.url+'/guardarExtrasDenuncianteFisico';                  
+                //var urlGuardarDenunciante = this.url+'/guardarExtrasDenuncianteMoral';                  
                 var data = {
                     idVariablesPersona:1,                    
-                    idNotificacion:1,
-                    idAbogado:0,
-                    victima: (this.solicitante=="Victima" ? 1 : 0),
+                    idAbogado:1,
                     reguardarIdentidad:this.identidad,
-                    narracion: this.descripcion.toUpperCase()
+                    victima: (this.solicitante=="Victima" ? 1 : 0)                                                                          
                     };
                     axios.post(urlGuardarDenunciante,data)
                     .then (response =>{
@@ -118,15 +117,13 @@ import swal from 'sweetalert2'
                 
             },
             updateExtra: function(){  
-                var urlGuardarDenunciante = this.url+'/updateExtrasDenunciante';                  
+                var urlGuardarDenunciante = this.url+'/updateExtrasDenuncianteFisico';                  
+                //var urlGuardarDenunciante = this.url+'/updateExtrasDenuncianteMoral';
                 var data = {
-                    idUpdate:this.idreturn,
-                    //idVariablesPersona:1,                    
-                    //idNotificacion:1,
-                    //idAbogado:0,
-                    victima: (this.solicitante=="Victima" ? 1 : 0),
+                    idVariablesPersona:this.idreturn,                    
+                    idAbogado:1,
                     reguardarIdentidad:this.identidad,
-                    narracion: this.descripcion.toUpperCase()
+                    victima: (this.solicitante=="Victima" ? 1 : 0)                    
                     };
                     axios.post(urlGuardarDenunciante,data)
                     .then (response =>{
@@ -134,7 +131,7 @@ import swal from 'sweetalert2'
                         if(this.idreturn){                            
                             swal({
                                 title: '¡Actualizado correctamente!',
-                                text: 'Ésta persona fue guardada exitosamente.',
+                                text: 'Ésta persona fue actualizada exitosamente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })

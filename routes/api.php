@@ -52,12 +52,14 @@ Route::post('getPuestos','ExtrasInvestigadoController@getPuestos');
 
 
 /* Guardado de extras */
-Route::post('/guardarExtrasDenunciante','ExtrasDenuncianteController@store');
+Route::post('/guardarExtrasDenuncianteFisico','ExtrasDenuncianteController@storeExtraDenuncianteFisico');
+Route::post('/guardarExtrasDenuncianteMoral','ExtrasDenuncianteController@storeExtraDenuncianteMoral');
 Route::post('/guardarExtrasInvestigado','ExtrasInvestigadoController@store');
 Route::post('/guardarExtrasAbogado','ExtrasAbogadoController@store');
 Route::post('/guardarExtrasAutoridad','ExtrasAutoridadController@store');
 /* Update de extras */
-Route::post('/updateExtrasDenunciante','ExtrasDenuncianteController@update');
+Route::post('/updateExtrasDenuncianteFisico','ExtrasDenuncianteController@updateExtrasDenuncianteFisico');
+Route::post('/updateExtrasDenuncianteMoral','ExtrasDenuncianteController@updateExtrasDenuncianteMoral');
 Route::post('/actualizarExtrasInvestigado','ExtrasInvestigadoController@update');
 Route::post('/actualizarExtrasAbogado','ExtrasAbogadoController@update');
 Route::post('/updateExtrasAutoridad','ExtrasAutoridadController@update');

@@ -27,12 +27,12 @@
         <!-- <span v-if="this.validacionesback.horarioLaboral!=undefined" class="text-danger">{{ String(this.validacionesback.horarioLaboral)}}</span> -->
     </div>
 
-    <div v-if="sistema=='uat'" class="form-group col-md-12">
+    <!--<div v-if="sistema=='uat'" class="form-group col-md-12">
         <label class="col-form-label col-form-label-sm" for="descripcionHechos">Descripcion de hechos</label>
         <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcionHechos" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcionHechos')}" v-model="descripcionHechos" placeholder="Ingrese la descripción de los hechos" v-validate="'required'" autocomplete="off"></textarea>
         <span v-show="errors.has('descripcionHechos')" class="text-danger">{{ errors.first('descripcionHechos')}}</span>
-        <!-- <span v-if="this.validacionesback.particulares!=undefined" class="text-danger">{{ String(this.validacionesback.particulares)}}</span>-->
-    </div> 
+        <span v-if="this.validacionesback.particulares!=undefined" class="text-danger">{{ String(this.validacionesback.particulares)}}</span>
+    </div>--> 
 
     <div class="form-row mt-3">
         <div class="form-group col-md-5">
@@ -89,19 +89,13 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtraAutoridad: function(){   
-                var urlGuardarAutoridad = this.url+'/guardarExtrasAutoridad';                
-                var narracionHechos;
-                if(this.descripcionHechos==''){
-                    narracionHechos="SIN INFORMACION";
-                }else{
-                    narracionHechos=this.descripcionHechos;
-                }            
+                var urlGuardarAutoridad = this.url+'/guardarExtrasAutoridad';          
                 var data = {
                     idVariablesPersona:1,                    
                     antiguedad:this.antiguedad,
                     rango:this.rango,
                     horarioLaboral: this.horarioLaboral.toUpperCase(),
-                    narracion:narracionHechos.toUpperCase()
+                    //narracion:narracionHechos.toUpperCase()
                     };
                     axios.post(urlGuardarAutoridad,data)
                     .then (response =>{
@@ -135,19 +129,11 @@ import swal from 'sweetalert2'
             },
             updateExtraAutoridad: function(){                  
                 var urlGuardarAutoridad = this.url+'/updateExtrasAutoridad';                  
-                var narracionHechos;
-                if(this.descripcionHechos==''){
-                    narracionHechos="SIN INFORMACION";
-                }else{
-                    narracionHechos=this.descripcionHechos;
-                }
                 var data = {
-                     idUpdate:this.idreturn,
-                    //idVariablesPersona:1,                    
+                    idVariablesPersona:this.idreturn,
                     antiguedad:this.antiguedad,
                     rango:this.rango,
-                    horarioLaboral: this.horarioLaboral.toUpperCase(),
-                    narracion:narracionHechos.toUpperCase()
+                    horarioLaboral: this.horarioLaboral.toUpperCase(),                    
                     };
                     axios.post(urlGuardarAutoridad,data)
                     .then (response =>{
@@ -156,7 +142,7 @@ import swal from 'sweetalert2'
                             console.log("Id actualizado:"+this.idreturn)                          
                             swal({
                                 title: '¡Actualizado correctamente!',
-                                text: 'Ésta persona fue guardada exitosamente.',
+                                text: 'Ésta persona fue actualizada exitosamente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })
