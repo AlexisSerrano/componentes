@@ -20,11 +20,13 @@ Route::post('rfcFisico','PersonaController@rfcFisico');
 Route::post('searchPersonaFisica','PersonaController@searchPersona');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
 Route::post('getCatalogos','PersonaController@getCatalogos');
+Route::post('getDomiciliosPersonaFisica','PersonaController@getDomiciliosPersona');
 
 /*Persona moral*/
 Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');
 Route::post('searchPersonaMoral','PersonaMoralController@searchPersona');
 Route::post('rfcMoral','PersonaMoralController@rfcMoral');
+Route::post('getDomiciliosPersonaMoral','PersonaMoralController@getDomiciliosPersona');
 
 /* Validaciones back personas en uat*/
 Route::post('abogadouat','ValidacionController@valAbogadoUAT');
