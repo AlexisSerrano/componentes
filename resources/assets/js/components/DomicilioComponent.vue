@@ -228,7 +228,7 @@ import { SpringSpinner } from 'epic-spinners'
             crearDomicilio: function(){
                 this.validacionesback='';
                 var urlDomicilio = this.url+'addDomicilio';
-                if(this.empresa==true){
+                if(this.empresa==false){
                     var idPersona=this.$store.state.idPersonaFisica
                 }
                 else{
@@ -283,6 +283,7 @@ import { SpringSpinner } from 'epic-spinners'
                         idPersona: idPersona
                     };
                 }
+                console.log(data)
                 axios.post(urlDomicilio,data).then((response)=>{
                     console.log(data);
                     this.idDomicilio = response.data

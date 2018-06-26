@@ -81030,7 +81030,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.validacionesback = '';
             var urlDomicilio = this.url + 'addDomicilio';
-            if (this.empresa == true) {
+            if (this.empresa == false) {
                 var idPersona = this.$store.state.idPersonaFisica;
             } else {
                 var idPersona = this.$store.state.idPersonaMoral;
@@ -81082,6 +81082,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     idPersona: idPersona
                 };
             }
+            console.log(data);
             axios.post(urlDomicilio, data).then(function (response) {
                 console.log(data);
                 _this7.idDomicilio = response.data;
