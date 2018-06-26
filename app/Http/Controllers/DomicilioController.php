@@ -11,6 +11,7 @@ use App\Http\Models\CatMunicipio;
 use App\Http\Models\CatLocalidad;
 use App\Http\Models\CatColonia;
 use App\Http\Models\Domicilio;
+use App\Http\Models\Notificacion;
 use App\Http\Requests\DomicilioRequest;
 
 class DomicilioController extends Controller
@@ -23,10 +24,8 @@ class DomicilioController extends Controller
         // $request->tipo; //domicilio, trabajo o contacto
         // $request->empresa; //true o false, fisica o moral
         // $request->idPersona; // a quien se le asigna este domicilio
-
         // $request->telefonoTrabajo; //datos de domicilio trabajo
         // $request->lugarTrabajo; //datos de domicilio trabajo
-
         // $request->telefonoContacto; //datos de domicilio contacto
         // $request->correoContacto; //datos de domicilio contacto
         $domicilio = new Domicilio();
@@ -45,12 +44,18 @@ class DomicilioController extends Controller
                 $varPersona = VariablesPersonaMoral::find($request->idPersona);
                 $varPersona->idDomicilio = $domicilio->id;
                 $varPersona->save();
+                return $domicilio->id;
             }
             else if($request->tipo=='contacto'){
+                $notificacion = new Notificacion();
+                $notificacion->correo = $request->correoContacto;
+                $notificacion->telefono = $request->telefonoContacto;
+                $notificacion->idDomicilio = $domicilio->id;
+                
                 $varPersona = VariablesPersonaMoral::find($request->idPersona);
-                $varPersona->idNotificacion = $domicilio->id;
+                $varPersona->idNotificacion = $notificacion->id;
                 $varPersona->save();
-                //echo "empresa contacto";
+                return $notificacion->id;
             }
         }
         else{
@@ -58,15 +63,31 @@ class DomicilioController extends Controller
                 $varPersona = VariablesPersona::find($request->idPersona);
                 $varPersona->idDomicilio = $domicilio->id;
                 $varPersona->save();
+                return $domicilio->id;
             }
             else if($request->tipo=='trabajo'){
-                echo "persona trabajo";
+                $trabajo = new Trabajo();
+                $trabajo->lugar = $request->lugarTrabajo;
+                $trabajo->telefono = $request->telefonoTrabajo;
+                $trabajo->idDomicilio = $domicilio->id;
+                
+                $varPersona = VariablesPersona::find($request->idPersona);
+                $varPersona->idTrabajo = $trabajo->id;
+                $varPersona->save();
+                return $trabajo->id;
             }
             else if($request->tipo=='contacto'){
-                echo "persona contacto";
+                $notificacion = new Notificacion();
+                $notificacion->correo = $request->correoContacto;
+                $notificacion->telefono = $request->telefonoContacto;
+                $notificacion->idDomicilio = $domicilio->id;
+                
+                $varPersona = VariablesPersona::find($request->idPersona);
+                $varPersona->idNotificacion = $notificacion->id;
+                $varPersona->save();
+                return $notificacion->id;
             }
         }
-        //return $domicilio->id;
     }
 
     public function getEstados()
