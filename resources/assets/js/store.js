@@ -7,7 +7,10 @@ const store = new Vuex.Store({
     state: {
         idPersonaFisica: '',
         idPersonaMoral:'',
-        tipoInvolucrado:''
+        tipoInvolucrado:'',
+        idDomicilio:'',
+        idTrabajo:'',
+        idContacto:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -24,6 +27,17 @@ const store = new Vuex.Store({
         ubicarTabsMoral(state){
             state.tabPrincipalMoral='nav-link'
             state.pillPrincipalMoral='tab-pane fade'
+        },
+        asignarIdDomicilio(state,payload){
+            if(payload.tipo=='domicilio'){
+                state.idDomicilio=payload.idDomicilio
+            }
+            else if(payload.tipo=='trabajo'){
+                state.idTrabajo==payload.idDomicilio
+            }
+            else if(payload.tipo=='contacto'){
+                state.idContacto==payload.idDomicilio
+            }
         }
     }
 })
