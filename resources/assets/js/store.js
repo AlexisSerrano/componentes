@@ -15,7 +15,9 @@ const store = new Vuex.Store({
     mutations: {
         asignarIdFisica(state,payload) {
             state.idPersonaFisica=payload.idPersona
-            state.tipoInvolucrado=payload.tipo
+            if(payload.tipo){
+                state.tipoInvolucrado=payload.tipo
+            }
         },
         asignarIdMoral(state,payload) {
             state.idPersonaMoral=payload

@@ -79,7 +79,8 @@ import { mapState } from "vuex";
                 personaExiste:'',              
                 idMoral:'',
                 validacionesback:'',
-                url:'http://localhost/componentes/public/api'
+                // url:'http://localhost/componentes/public/api'
+                url:'/api'
             }
         },
         props:{
@@ -206,7 +207,7 @@ import { mapState } from "vuex";
             idPersonaFisica() {
                 if(this.$store.state.idPersonaFisica!=false){
                     this.CleanFields();
-                    // this.$store.commit('asignarIdMoral','')
+                    this.$store.commit('asignarIdMoral','')
                 }
             }
        },
