@@ -8,4 +8,9 @@ use App;
 class InterpretesModel extends Model
 {
     protected $table = 'cat_interprete';
+    protected $fillable = [
+        'id', 
+        'nombre', 
+        'dependencia'
+    ];
 }

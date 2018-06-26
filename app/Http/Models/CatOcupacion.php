@@ -8,12 +8,6 @@ use App;
 class CatOcupacion extends Model
 {
     public $table = 'cat_ocupacion';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     
     public $fillable = [
         'id',

@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App;
 
 
-class ExtraDenunciante extends Model
+class ExtraDenuncianteFisico extends Model
 {
-    public $table = 'extra_denunciante';
+    public $table = 'extra_denunciante_fisico';
 
     /**
      * The attributes that are mass assignable.
@@ -19,10 +19,8 @@ class ExtraDenunciante extends Model
     public $fillable = [
         'id',
         'idVariablesPersona',
-        'idNotificaciones',
         'idAbogado',
-        'victima',
-        'reguardarIdentidad',
-        'narracion'
+        'reguardarIdentidad',        
+        'victima'       
     ];
 }

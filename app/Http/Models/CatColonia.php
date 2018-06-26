@@ -10,7 +10,10 @@ class CatColonia extends Model
     protected $table = 'cat_colonia';
 
     protected $fillable = [
-        'id', 'idMunicipio', 'nombre','codigoPostal',
+        'id', 
+        'idMunicipio', 
+        'nombre',
+        'codigoPostal'
     ];
 
     protected $casts = [

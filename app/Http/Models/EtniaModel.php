@@ -8,4 +8,8 @@ use App;
 class EtniaModel extends Model
 {
     protected $table = 'cat_etnia';
+    protected $fillable = [
+        'id', 
+        'nombre'
+    ];
 }

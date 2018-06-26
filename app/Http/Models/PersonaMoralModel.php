@@ -9,5 +9,10 @@ class PersonaMoralModel extends Model
 {
     protected $table='persona_moral';
 
-    protected $fillable=['nombre','fechaCreacion','rfc'];   
+    protected $fillable=[
+        'id',
+        'nombre',
+        'fechaCreacion',
+        'rfc'
+    ];   
 }

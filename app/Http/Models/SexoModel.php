@@ -9,4 +9,8 @@ class SexoModel extends Model
 {
     //
     protected $table='sexos';
+    protected $fillable = [
+        'id', 
+        'nombre'
+    ];
 }

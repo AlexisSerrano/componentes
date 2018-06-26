@@ -211,12 +211,13 @@ class PersonaController extends Controller{
 		->join('apariciones','apariciones.idVarPersona','=','variables_persona_fisica.idPersona')
 		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
 		->select('variables_persona_fisica.idPersona as variablePersona','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as tipoDeterminacion')
-		->where('rfc','=',$request->rfc)->get();				
-		if($resp){
-			return response()->json($resp);	
+		->where('rfc','=',$request->rfc)->get();			
+		if(!$resp->isEmpty()){
+			return response()->json($resp);
 		}else{
-			return ["Status"=>"VACIO"]; 
-		}	
+			return ["Respuesta"=>"Sin información"]; 
+		}
+		
 	}
 
 	public function getDomiciliosPersona(Request $request){
