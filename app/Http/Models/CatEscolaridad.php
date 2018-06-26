@@ -7,12 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class CatEscolaridad extends Model
 {
     public $table = 'cat_escolaridad';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     
     public $fillable = [
         'id',

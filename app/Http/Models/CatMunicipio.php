@@ -8,15 +8,10 @@ use App;
 class CatMunicipio extends Model
 {
     public $table = 'cat_municipio';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     
     public $fillable = [
         'id',
+        'idMunicipio',
         'idEstado',
         'nombre'
     ];

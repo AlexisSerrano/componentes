@@ -10,6 +10,10 @@ class UserModel extends Model
     protected $table = 'users';
 
     protected $fillable = [
-        'nombre','descripcion'
+        'id',
+        'nombre',
+        'descripcion',
+        'api_token',
+        'activo'
     ];
 }

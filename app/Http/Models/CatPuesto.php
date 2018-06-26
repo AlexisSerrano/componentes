@@ -9,7 +9,8 @@ class CatPuesto extends Model
     protected $table = 'cat_puesto';
 
     protected $fillable = [
-        'id', 'nombre',
+        'id', 
+        'nombre'
     ];
     /*
     public function extraDenunciados(){

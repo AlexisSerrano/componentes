@@ -283,9 +283,9 @@ import { SpringSpinner } from 'epic-spinners'
                         idPersona: idPersona
                     };
                 }
-                console.log(data)
+                //console.log(data)
                 axios.post(urlDomicilio,data).then((response)=>{
-                    console.log(data);
+                    console.log(response);
                     this.idDomicilio = response.data
                     swal({
                         title: '¡Guardado Correctamente!',
