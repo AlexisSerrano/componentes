@@ -59,8 +59,7 @@ class DatabaseSeeder extends Seeder
         $this->call(VariablesPersonaFisicaSeeder::class);
 
         $this->call(UsersSeeder::class);
-        $this->call(TipoDeterminacionSeeder::class);
-        $this->call(EstatusCasoSeeder::class);
+        $this->call(TipoDeterminacionSeeder::class);        
         $this->call(extraAbogadoSeeder::class);
         $this->call(personaMoralSeeder::class);
         $this->call(variablesPersonaMoralSeeder::class);
