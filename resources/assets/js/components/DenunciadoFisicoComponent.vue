@@ -104,14 +104,14 @@ import { mapState } from "vuex";
                 if(this.$store.state.idPersonaFisica!=false && this.$store.state.tipoInvolucrado !='conocido'){
                     this.tabsFisica='nav-link'
                 }
-                if(this.$store.state.tipoInvolucrado=='conocido'){
-                        this.tabsFisica='nav-link disabled'
-                        this.tabPrincipalFisica='nav-link active show'
-                        this.pillsFisica1='tab-pane fade'
-                        this.pillsFisica2='tab-pane fade'
-                        this.pillsFisica3='tab-pane fade'
-                        this.pillsFisica4='tab-pane fade'
-                        this.pillPrincipalFisica='tab-pane fade show active'
+                else if(this.$store.state.tipoInvolucrado=='conocido'){
+                    this.tabsFisica='nav-link disabled'
+                    this.tabPrincipalFisica='nav-link active show'
+                    this.pillsFisica1='tab-pane fade'
+                    this.pillsFisica2='tab-pane fade'
+                    this.pillsFisica3='tab-pane fade'
+                    this.pillsFisica4='tab-pane fade'
+                    this.pillPrincipalFisica='tab-pane fade show active'
                 }
             },
             idPersonaMoral(){

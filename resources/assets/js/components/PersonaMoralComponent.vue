@@ -117,7 +117,7 @@ import { mapState } from "vuex";
                             this.homoclave = this.personaExiste.rfc.slice(-3),
                             this.telefono = this.personaExiste.telefono,
                             this.representanteLegal = this.personaExiste.representanteLegal,
-                            this.$store.commit('asignarIdMoral',this.personaExiste.idMoral)       
+                            this.$store.commit('asignarIdMoral',{idPersona:this.personaExiste.idMoral, tipo:this.tipo})       
                         }
                     });
                 }
