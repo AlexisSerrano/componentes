@@ -246,7 +246,8 @@ import { SpringSpinner } from 'epic-spinners'
                         numInterno: this.numInterno.toUpperCase(),
                         tipo: this.tipo,
                         empresa: this.empresa,
-                        idPersona: idPersona
+                        idPersona: idPersona,
+                        claveDomicilio: this.$store.state.idDomicilio
                     };
                 }
                 else if (this.tipo=='trabajo'){
@@ -263,7 +264,8 @@ import { SpringSpinner } from 'epic-spinners'
                         lugarTrabajo: this.lugarTrabajo.toUpperCase(),
                         tipo: this.tipo,
                         empresa: this.empresa,
-                        idPersona: idPersona
+                        idPersona: idPersona,
+                        claveDomicilio: this.$store.state.idTrabajo
                     };
                 }
                 else if(this.tipo=='contacto'){
@@ -280,13 +282,13 @@ import { SpringSpinner } from 'epic-spinners'
                         correoContacto: this.correo.toUpperCase(),
                         tipo: this.tipo,
                         empresa: this.empresa,
-                        idPersona: idPersona
+                        idPersona: idPersona,
+                        claveDomicilio: this.$store.state.idContacto
                     };
                 }
-                //console.log(data)
                 axios.post(urlDomicilio,data).then((response)=>{
                     console.log(response);
-                    this.idDomicilio = response.data
+                    this.$store.commit('asignarIdDomicilio',{tipo:this.tipo,idDomicilio:response.data})
                     swal({
                         title: '¡Guardado Correctamente!',
                         text: 'Éste domicilio fue guardado exitosamente.',

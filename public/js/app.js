@@ -72818,7 +72818,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
         idPersonaFisica: '',
         idPersonaMoral: '',
-        tipoInvolucrado: ''
+        tipoInvolucrado: '',
+        idDomicilio: '',
+        idTrabajo: '',
+        idContacto: ''
     },
     mutations: {
         asignarIdFisica: function asignarIdFisica(state, payload) {
@@ -72835,6 +72838,15 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         ubicarTabsMoral: function ubicarTabsMoral(state) {
             state.tabPrincipalMoral = 'nav-link';
             state.pillPrincipalMoral = 'tab-pane fade';
+        },
+        asignarIdDomicilio: function asignarIdDomicilio(state, payload) {
+            if (payload.tipo == 'domicilio') {
+                state.idDomicilio = payload.idDomicilio;
+            } else if (payload.tipo == 'trabajo') {
+                state.idTrabajo == payload.idDomicilio;
+            } else if (payload.tipo == 'contacto') {
+                state.idContacto == payload.idDomicilio;
+            }
         }
     }
 });
@@ -81047,7 +81059,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     numInterno: this.numInterno.toUpperCase(),
                     tipo: this.tipo,
                     empresa: this.empresa,
-                    idPersona: idPersona
+                    idPersona: idPersona,
+                    claveDomicilio: this.$store.state.idDomicilio
                 };
             } else if (this.tipo == 'trabajo') {
                 var data = {
@@ -81063,7 +81076,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     lugarTrabajo: this.lugarTrabajo.toUpperCase(),
                     tipo: this.tipo,
                     empresa: this.empresa,
-                    idPersona: idPersona
+                    idPersona: idPersona,
+                    claveDomicilio: this.$store.state.idTrabajo
                 };
             } else if (this.tipo == 'contacto') {
                 var data = {
@@ -81079,13 +81093,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     correoContacto: this.correo.toUpperCase(),
                     tipo: this.tipo,
                     empresa: this.empresa,
-                    idPersona: idPersona
+                    idPersona: idPersona,
+                    claveDomicilio: this.$store.state.idContacto
                 };
             }
-            //console.log(data)
             axios.post(urlDomicilio, data).then(function (response) {
                 console.log(response);
-                _this7.idDomicilio = response.data;
+                _this7.$store.commit('asignarIdDomicilio', { tipo: _this7.tipo, idDomicilio: response.data });
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: '¡Guardado Correctamente!',
                     text: 'Éste domicilio fue guardado exitosamente.',
