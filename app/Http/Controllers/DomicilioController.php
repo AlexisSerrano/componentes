@@ -18,23 +18,37 @@ class DomicilioController extends Controller
         return view("domicilio");
 	}
 
-    public function addDomicilio(DomicilioRequest $request){
-        $domicilio->idMunicipio=$request->input('municipio');
-        $domicilio->idLocalidad=$request->input('localidad');
-        $domicilio->idColonia=$request->input('colonia');
-        $domicilio->calle=$request->input('calle');
-        $domicilio->numExterno=$request->input('numExterno');
-        if($request->input('numInterno')!=null){
-            $domicilio->numInterno=$request->input('numInterno');
-        }
-        $domicilio->save();
-        if($request){
+    public function addDomicilio(Request $request){
+        return $request->municipio;
+        // $request->tipo; //domicilio, trabajo o contacto
+        // $request->empresa; //true o false, fisica o moral
+        // $request->idPersona; // a quien se le asigna este domicilio
 
-        }
-        $varPersona = VariablesPersona::where('idPersona',$request->idPersona);
-        $varPersona->idDomicilio = $domicilio->id;
-        $varPersona->save();
-        return $domicilio->id;
+        // $request->telefonoTrabajo; //datos de domicilio trabajo
+        // $request->lugarTrabajo; //datos de domicilio trabajo
+
+        // $request->telefonoContacto; //datos de domicilio contacto
+        // $request->correoContacto; //datos de domicilio contacto
+        // $domicilio = new Domicilio();
+        // $domicilio->idEstado=$request->input('estado');
+        // $domicilio->idMunicipio=$request->input('municipio');
+        // $domicilio->idLocalidad=$request->input('localidad');
+        // $domicilio->idColonia=$request->input('colonia');
+        // $domicilio->calle=$request->input('calle');
+        // $domicilio->numExterno=$request->input('numExterno');
+        // if($request->input('numInterno')!=null){
+        //     $domicilio->numInterno=$request->input('numInterno');
+        // }
+        // $domicilio->save();
+
+
+        // if($request){
+
+        // }
+        // $varPersona = VariablesPersona::where('idPersona',$request->idPersona);
+        // $varPersona->idDomicilio = $domicilio->id;
+        // $varPersona->save();
+        // return $domicilio->id;
     }
 
     public function getEstados()

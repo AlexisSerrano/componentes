@@ -10,7 +10,7 @@ class Domicilio extends Model
     protected $table = 'domicilio';
 
     protected $fillable = [
-        'id', 'idMunicipio', 'idLocalidad', 'idColonia',  'calle', 'numExterno',  'numInterno',
+        'id', 'idEstado', 'idMunicipio', 'idLocalidad', 'idColonia',  'calle', 'numExterno',  'numInterno',
     ];
 
     public function variablesPersonas()
