@@ -239,7 +239,6 @@ class ValidacionController extends Controller
             $variables->idPersona = $persona->id;
             $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->idTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->alias = $request->alias;
             $variables->save();
             $apariciones = new aparicionesModel();
             $apariciones->idVarPersona = $variables->id;
@@ -261,7 +260,7 @@ class ValidacionController extends Controller
         DB::beginTransaction();
         try{
             $variables =  VariablesPersona::find($request->idPersona);
-            $variables->alias = $request->alias;
+            $variables->alias = $request->alias;//ya no esta en variables persona, ahora esta solo en extras
             $variables->save();
 
             $persona = PersonaModel::find($variables->idPersona);
