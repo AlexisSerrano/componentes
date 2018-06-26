@@ -220,4 +220,84 @@ class PersonaController extends Controller{
 		
 	}
 
+	public function getDomiciliosPersona(Request $request){
+		$data=array();
+		$rfc = $request->rfc;
+
+		$data['rfc'] = $rfc;
+
+		$domicilio = DB::table('variables_persona_fisica as var')
+		->join('persona_fisica as per', 'per.id','=','var.idPersona')
+		->join('domicilio as dom', 'dom.id','=','var.idDomicilio')
+		->where('rfc',$rfc)
+		->select(
+			'dom.id as id','idEstado','idMunicipio','idLocalidad','calle','numExterno','numInterno'
+		)->first();
+
+        if($domicilio){
+			$dom = array(
+				'id'=>$domicilio->id,
+				'idEstado'=>$domicilio->idEstado,
+				'idMunicipio'=>$domicilio->idMunicipio,
+				'idLocalidad'=>$domicilio->idLocalidad,
+				'calle'=>$domicilio->calle,
+				'numExterno'=>$domicilio->numExterno,
+				'numInterno'=>$domicilio->numInterno
+			);
+			$data['domicilio'] = $dom;
+		}
+
+		$trabajo = DB::table('variables_persona_fisica as var')
+		->join('persona_fisica as per', 'per.id','var.idPersona')
+		->join('trabajo as tra', 'tra.id','var.idTrabajo')
+		->join('domicilio as dom', 'dom.id','tra.idDomicilio')		
+		->where('rfc',$rfc)
+		->select(
+			'tra.id as idTrabajo','lugar','tra.telefono','tra.idDomicilio','idEstado','idMunicipio','idLocalidad','calle','numExterno','numInterno'
+		)->first();
+
+        if($trabajo){
+			$dom = array(
+				'idTrabajo'=>$trabajo->idTrabajo,
+				'lugar'=>$trabajo->lugar,
+				'telefono'=>$trabajo->telefono,
+				'idDomicilio'=>$trabajo->idDomicilio,
+				'idEstado'=>$trabajo->idEstado,
+				'idMunicipio'=>$trabajo->idMunicipio,
+				'idLocalidad'=>$trabajo->idLocalidad,
+				'calle'=>$trabajo->calle,
+				'numExterno'=>$trabajo->numExterno,
+				'numInterno'=>$trabajo->numInterno
+			);
+			$data['trabajo'] = $dom;
+		}
+
+		$notificacion = DB::table('variables_persona_fisica as var')
+		->join('persona_fisica as per', 'per.id','=','var.idPersona')
+		->join('notificacion as noti', 'noti.id','=','var.idNotificacion')
+		->join('domicilio as dom', 'dom.id','=','noti.idDomicilio')		
+		->where('rfc',$rfc)
+		->select(
+			'noti.id as idNotificacion','correo','noti.telefono','noti.idDomicilio','idEstado','idMunicipio','idLocalidad','calle','numExterno','numInterno'
+		)->first();
+
+		if($notificacion){
+			$dom = array(
+				'idNotificacion'=>$notificacion->idNotificacion,
+				'correo'=>$notificacion->correo,
+				'telefono'=>$notificacion->telefono,
+				'idDomicilio'=>$notificacion->idDomicilio,
+				'idEstado'=>$notificacion->idEstado,
+				'idMunicipio'=>$notificacion->idMunicipio,
+				'idLocalidad'=>$notificacion->idLocalidad,
+				'calle'=>$notificacion->calle,
+				'numExterno'=>$notificacion->numExterno,
+				'numInterno'=>$notificacion->numInterno
+			);
+			$data['notificacion'] = $dom;
+		}
+		
+		return response()->json($data);
+	}
+
 }

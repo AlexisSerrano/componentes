@@ -8,4 +8,8 @@ use App;
 class LenguasModel extends Model
 {
     protected $table = 'cat_lengua';
+    protected $fillable = [
+        'id', 
+        'nombre'
+    ];
 }

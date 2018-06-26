@@ -8,18 +8,13 @@ use App;
 class VariablesPersonaMoral extends Model
 {
     public $table = 'variables_persona_moral';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     
     public $fillable = [
         'id',
         'idPersona',
         'telefono',
+        'representanteLegal',
         'idDomicilio',
-        'representanteLegal'
+        'idNotificacion'
     ];    
 }

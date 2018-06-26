@@ -8,12 +8,6 @@ use App;
 class NacionalidadesModel extends Model
 {
     public $table = 'cat_nacionalidad';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     
     public $fillable = [
         'id',

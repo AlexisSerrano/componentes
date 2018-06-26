@@ -10,7 +10,9 @@ class CatLocalidad extends Model
     protected $table = 'cat_localidad';
 
     protected $fillable = [
-        'id', 'idMunicipio', 'nombre',
+        'id', 
+        'idMunicipio', 
+        'nombre'
     ];
 
     public function municipio(){
