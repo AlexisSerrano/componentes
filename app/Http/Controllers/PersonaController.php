@@ -206,4 +206,17 @@ class PersonaController extends Controller{
 		return ['res' => $rfc];
 	}
 
+	public function buscarCarpetas(Request $request){		
+		$resp = DB::table('persona_fisica')->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')
+		->join('apariciones','apariciones.idVarPersona','=','variables_persona_fisica.idPersona')
+		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
+		->select('variables_persona_fisica.idPersona as variablePersona','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as tipoDeterminacion')
+		->where('rfc','=',$request->rfc)->get();				
+		if($resp){
+			return response()->json($resp);	
+		}else{
+			return ["Status"=>"VACIO"]; 
+		}	
+	}
+
 }

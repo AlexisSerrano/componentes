@@ -61,3 +61,11 @@ Route::post('/updateExtrasDenunciante','ExtrasDenuncianteController@update');
 Route::post('/actualizarExtrasInvestigado','ExtrasInvestigadoController@update');
 Route::post('/actualizarExtrasAbogado','ExtrasAbogadoController@update');
 Route::post('/updateExtrasAutoridad','ExtrasAutoridadController@update');
+
+
+
+
+
+
+/*Buscar en carpetas en la que está involucrada una persona*/
+Route::post('/buscarCarpetas','PersonaController@buscarCarpetas');
