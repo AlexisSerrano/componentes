@@ -7,10 +7,12 @@ const store = new Vuex.Store({
     state: {
         idPersonaFisica: '',
         idPersonaMoral:'',
+        tipoInvolucrado:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
-            state.idPersonaFisica=payload
+            state.idPersonaFisica=payload.idPersona
+            state.tipoInvolucrado=payload.tipo
         },
         asignarIdMoral(state,payload) {
             state.idPersonaMoral=payload

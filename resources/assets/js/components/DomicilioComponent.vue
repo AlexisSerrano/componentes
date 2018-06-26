@@ -59,7 +59,7 @@
                     <label class="col-form-label col-form-label-sm" for="numInterno">Número interno</label>
                     <input type="text" name="numInterno" class="input form-control form-control-sm" v-model="numInterno" placeholder="Ingrese el número interno" autocomplete="off">
                 </div>
-                <div v-if="this.tipo!=''" class="form-group col-md-4">
+                <div v-if="this.tipo!='domicilio'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
                     <input type="text" name="telefono" class="input form-control form-control-sm" v-model="telefono" placeholder="Ingrese el teléfono" autocomplete="off">
                 </div>
@@ -234,7 +234,7 @@ import { SpringSpinner } from 'epic-spinners'
                 else{
                     var idPersona=this.$store.state.idPersonaMoral
                 }
-                if(this.tipo==''){
+                if(this.tipo=='domicilio'){
                     var data={
                         estado: this.estado.id,
                         municipio: this.municipio.id,

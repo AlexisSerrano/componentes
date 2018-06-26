@@ -84,8 +84,9 @@ import { mapState } from "vuex";
         },
         watch: {
             idPersonaMoral() {
-                this.tabsMoral='nav-link'
-
+                if(this.$store.state.idPersonaMoral!=false){
+                    this.tabsMoral='nav-link'
+                }
             },
             idPersonaFisica() {
                 this.tabsMoral='nav-link disabled'
