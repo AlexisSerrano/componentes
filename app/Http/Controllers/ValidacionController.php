@@ -13,6 +13,7 @@ use App\Http\Models\PersonaMoralModel;
 use App\Http\Models\VariablesPersona;
 use App\Http\Models\VariablesPersonaMoral;
 use App\Http\Models\aparicionesModel;
+use App\Http\Models\ExtraDenunciado;
 use DB;
 
 use Illuminate\Http\Request;
@@ -240,6 +241,10 @@ class ValidacionController extends Controller
             $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->idTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
+            $extras = new ExtraDenunciado();
+            $extras->idVariablesPersona = $variables->id;
+            $extras->alias = $request->alias;
+            $extras->save();
             $apariciones = new aparicionesModel();
             $apariciones->idVarPersona = $variables->id;
             $apariciones->idCarpeta = $request->idCarpeta;

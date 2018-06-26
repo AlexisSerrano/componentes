@@ -57,7 +57,6 @@ import { mapState } from "vuex";
                 pillsFisica2:'tab-pane fade',
                 pillsFisica3:'tab-pane fade',
                 pillsFisica4:'tab-pane fade',
-                
             }
         },
         props: {
@@ -102,7 +101,9 @@ import { mapState } from "vuex";
         },
         watch: {
             idPersonaFisica() {
-                this.tabsFisica='nav-link'
+                if(this.$store.state.idPersonaFisica!=false){
+                    this.tabsFisica='nav-link'
+                }
             },
             idPersonaMoral(){
                 this.tabsFisica='nav-link disabled'

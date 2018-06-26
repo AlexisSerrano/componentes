@@ -12,7 +12,7 @@
   <body>
 	    <div id="app">
           <registro :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciante'"></registro>
-          {{-- <registro :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciado'"></registro> --}}
+          {{--  <registro :sistema="'uat'" :carpeta="'xx'" :tipo="'denunciado'"></registro>  --}}
           {{-- <registro :sistema="'uat'" :carpeta="'xx'" :tipo="'autoridad'"></registro> --}}
           {{-- <registro :sistema="'uat'" :carpeta="'xx'" :tipo="'abogado'"></registro> --}}
         </div>

@@ -293,6 +293,7 @@ import { mapState } from "vuex";
                             rfc: this.rfc+this.homoclave
                     }).then(response => {
                         this.personaExiste=response.data
+                        console.log(this.personaExiste)
                         if(this.personaExiste!=''){
                             swal({
                                 title: '¡Persona Encontrada!',
@@ -324,7 +325,7 @@ import { mapState } from "vuex";
                             this.numIdentificacion=this.personaExiste.numDocIdentificacion
                             this.alias=this.personaExiste.alias,
                             this.telefono=this.personaExiste.telefono,
-                            this.$store.commit('asignarIdFisica',this.personaExiste.idPersona)       
+                            this.$store.commit('asignarIdFisica',{idPersona:this.personaExiste.idPersona, tipo:this.tipo})       
                         }
                     });
                 }
@@ -524,7 +525,7 @@ import { mapState } from "vuex";
                 if(data){
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
-                        this.$store.commit('asignarIdFisica',response.data)
+                        this.$store.commit('asignarIdFisica',{idPersona:response.data,tipo:this.tipo})
                         if(this.$store.state.idPersonaFisica){
                             swal({
                                 title: '¡Guardado correctamente!',
@@ -574,10 +575,28 @@ import { mapState } from "vuex";
                 }
             },
             idPersonaMoral() {
-                this.CleanFields();
-            }
+                if(this.$store.state.idPersonaMoral!=false){
+                    this.CleanFields();
+                    // this.$store.commit('asignarIdFisica','')
+                }
+            },
+            idPersonaFisica(){
+                if(this.$store.state.tipoInvolucrado!='conocido'&& this.tipo=='conocido'){
+                    this.CleanFields();
+                }
+                else if(this.$store.state.tipoInvolucrado=='conocido' && this.tipo!='conocido'){
+                    this.CleanFields();
+                }
+            },
+            // tipoInvolucrado(newValue,oldValue){
+            //     if(oldValue=='conocido'){
+            //         if(this.tipo=='conocido'){
+            //             this.CleanFields();
+            //         }
+            //     }
+            // }
         },
-        computed:mapState(['idPersonaFisica','idPersonaMoral'])
+        computed:mapState(['idPersonaFisica','idPersonaMoral','tipoInvolucrado'])
     }
 </script>
 <style>
