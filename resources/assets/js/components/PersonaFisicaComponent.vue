@@ -182,7 +182,7 @@
 
 
 
-            <button type="submit" class="btn btn-primary mt-2">{{guardarModificar}}</button>
+            <button type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 
 
         </form>
@@ -592,7 +592,7 @@ import { mapState } from "vuex";
             }
         },
         computed: Object.assign({
-        guardarModificar(){
+        botonGuardarModificar(){
             if(this.$store.state.personaFisicaExiste==''){
                  return 'Guardar'
             }

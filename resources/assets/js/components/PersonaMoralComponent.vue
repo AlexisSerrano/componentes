@@ -54,7 +54,7 @@
 
 
 
-            <button type="submit" class="btn btn-primary mt-2">{{guardarModificar}}</button>
+            <button type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 
 
 
@@ -212,7 +212,7 @@ import { mapState } from "vuex";
             }
        },
        computed: Object.assign({
-         guardarModificar(){
+        botonGuardarModificar(){
              if(this.$store.state.personaMoralExiste==''){
                  return 'Guardar'
              }

@@ -76,7 +76,7 @@
                 </div>
 
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+            <button type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 
         </form>
     </div>
@@ -308,8 +308,35 @@ import { mapState } from "vuex";
                 })
             }
         },
-        computed: mapState(['idPersonaFisica','idPersonaMoral','personaExiste'])
-    }
+        computed: Object.assign({
+        botonGuardarModificar(){
+            if(this.empresa==false){
+                if(this.$store.state.tipoInvolucrado=='conocido'){
+                    if(this.tipo=='domicilio' && this.$store.state.idDomicilio!=''){return 'Modificar'}
+                    else if(this.tipo=='domicilio'  && this.$store.state.idDomicilio==''){return 'Guardar'}
+                    if(this.tipo=='trabajo' && this.$store.state.idTrabajo!=''){return 'Modificar'}
+                    else if(this.tipo=='trabajo'  && this.$store.state.idTrabajo==''){return 'Guardar'}
+                    if(this.tipo=='contacto' && this.$store.state.idContacto!=''){return 'Modificar'}
+                    else if(this.tipo=='contacto'  && this.$store.state.idContacto==''){return 'Guardar'}
+                }
+                else{
+                    if(this.tipo=='domicilio' && this.$store.state.idDomicilio!=''){return 'Modificar'}
+                    else if(this.tipo=='domicilio'  && this.$store.state.idDomicilio==''){return 'Guardar'}
+                    if(this.tipo=='trabajo' && this.$store.state.idTrabajo!=''){return 'Modificar'}
+                    else if(this.tipo=='trabajo'  && this.$store.state.idTrabajo==''){return 'Guardar'}
+                    if(this.tipo=='contacto' && this.$store.state.idContacto!=''){return 'Modificar'}
+                    else if(this.tipo=='contacto'  && this.$store.state.idContacto==''){return 'Guardar'}
+                }
+            }
+            else if(this.empresa==true){
+                if(this.tipo=='domicilio' && this.$store.state.idDomicilio!=''){return 'Modificar'}
+                else if(this.tipo=='domicilio'  && this.$store.state.idDomicilio==''){return 'Guardar'}
+                if(this.tipo=='contacto' && this.$store.state.idContacto!=''){return 'Modificar'}
+                else if(this.tipo=='contacto'  && this.$store.state.idContacto==''){return 'Guardar'}
+            }
+        }  
+        },mapState(['idPersonaFisica','idPersonaMoral']))
+        }
 </script>
 <style>
 .dropdown-toggle{
