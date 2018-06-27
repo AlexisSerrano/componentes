@@ -46,10 +46,10 @@ const store = new Vuex.Store({
                 state.idDomicilio=payload.idDomicilio
             }
             else if(payload.tipo=='trabajo'){
-                state.idTrabajo==payload.idDomicilio
+                state.idTrabajo=payload.idDomicilio
             }
             else if(payload.tipo=='contacto'){
-                state.idContacto==payload.idDomicilio
+                state.idContacto=payload.idDomicilio
             }
         },
     }

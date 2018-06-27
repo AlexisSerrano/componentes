@@ -72856,9 +72856,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             if (payload.tipo == 'domicilio') {
                 state.idDomicilio = payload.idDomicilio;
             } else if (payload.tipo == 'trabajo') {
-                state.idTrabajo == payload.idDomicilio;
+                state.idTrabajo = payload.idDomicilio;
             } else if (payload.tipo == 'contacto') {
-                state.idContacto == payload.idDomicilio;
+                state.idContacto = payload.idDomicilio;
             }
         }
     }
