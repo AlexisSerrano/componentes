@@ -38,7 +38,7 @@
                 <domicilio :tipo="'contacto'" :empresa="false"></domicilio>
             </div>
             <div :class="pillsFisica4" id="pills-denunciante-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciante-extrafisico-tab">
-                <extrasdenunciante :sistema="sistema" :tipo="'fisico'"></extrasdenunciante>
+                <extrasdenunciante :sistema="sistema" :tipo="'fisica'"></extrasdenunciante>
             </div>
         </div>
         <!-- OPCIONES -->
@@ -101,18 +101,20 @@ import { mapState } from "vuex";
         },
         watch: {
             idPersonaFisica() {
-                if(this.$store.state.idPersonaFisica!=false){
-                    this.tabsFisica='nav-link'
-                }
+            if(this.$store.state.idPersonaMoral==''){
+                this.tabsFisica='nav-link'
+            }
             },
             idPersonaMoral(){
-                this.tabsFisica='nav-link disabled'
-                this.tabPrincipalFisica='nav-link active show'
-                this.pillsFisica1='tab-pane fade'
-                this.pillsFisica2='tab-pane fade'
-                this.pillsFisica3='tab-pane fade'
-                this.pillsFisica4='tab-pane fade'
-                this.pillPrincipalFisica='tab-pane fade show active'
+                if(this.$store.state.idPersonaFisica==''){
+                    this.tabsFisica='nav-link disabled'
+                    this.tabPrincipalFisica='nav-link active show'
+                    this.pillsFisica1='tab-pane fade'
+                    this.pillsFisica2='tab-pane fade'
+                    this.pillsFisica3='tab-pane fade'
+                    this.pillsFisica4='tab-pane fade'
+                    this.pillPrincipalFisica='tab-pane fade show active'
+                }
             }
         },
         computed:mapState(['idPersonaFisica','idPersonaMoral'])

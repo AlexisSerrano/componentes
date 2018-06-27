@@ -10,7 +10,9 @@ const store = new Vuex.Store({
         tipoInvolucrado:'',
         idDomicilio:'',
         idTrabajo:'',
-        idContacto:''
+        idContacto:'',
+        personaFisicaExiste:'',
+        personaMoralExiste:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -18,9 +20,18 @@ const store = new Vuex.Store({
             if(payload.tipo){
                 state.tipoInvolucrado=payload.tipo
             }
+            state.idPersonaMoral=''
+            state.personaFisicaExiste=true
+            state.personaMoralExiste=false
         },
         asignarIdMoral(state,payload) {
-            state.idPersonaMoral=payload
+            state.idPersonaMoral=payload.idPersona
+            if(payload.tipo){
+                state.tipoInvolucrado=payload.tipo
+            }            
+            state.idPersonaFisica=''
+            state.personaMoralExiste=true
+            state.personaFisicaExiste=false
         },
         ubicarTabsFisica(state){
             state.tabPrincipalFisica='nav-link'
@@ -40,7 +51,7 @@ const store = new Vuex.Store({
             else if(payload.tipo=='contacto'){
                 state.idContacto==payload.idDomicilio
             }
-        }
+        },
     }
 })
 

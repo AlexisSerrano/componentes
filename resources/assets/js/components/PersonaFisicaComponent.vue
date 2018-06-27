@@ -182,7 +182,7 @@
 
 
 
-            <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+            <button type="submit" class="btn btn-primary mt-2">{{guardarModificar}}</button>
 
 
         </form>
@@ -467,7 +467,8 @@ import { mapState } from "vuex";
                         telefono:this.telefono,
                         idCarpeta:this.carpeta,
                         sistema:this.sistema,
-                        tipo:this.tipo
+                        tipo:this.tipo,
+                        idPersona:this.$store.state.idPersonaFisica
                     };
                 }
                 else if(this.tipo=='conocido'){
@@ -479,7 +480,8 @@ import { mapState } from "vuex";
                             alias:this.alias.toUpperCase(),
                             idCarpeta:this.carpeta,
                             sistema:this.sistema,
-                            tipo:this.tipo
+                            tipo:this.tipo,
+                            idPersona:this.$store.state.idPersonaFisica
                         };
                     }
                     else{
@@ -509,7 +511,8 @@ import { mapState } from "vuex";
                         idCarpeta:this.carpeta,
                         sistema:this.sistema,
                         tipo:this.tipo,
-                        edad:this.edad
+                        edad:this.edad,
+                        idPersona:this.$store.state.idPersonaFisica
                     };
                 }
                 else if (this.tipo=='qrr'){
@@ -575,9 +578,8 @@ import { mapState } from "vuex";
                 }
             },
             idPersonaMoral() {
-                if(this.$store.state.idPersonaMoral!=false){
+                if(this.$store.state.idPersonaMoral!=''){
                     this.CleanFields();
-                    this.$store.commit('asignarIdFisica',{idPersona:''})
                 }
             },
             idPersonaFisica(){
@@ -589,7 +591,16 @@ import { mapState } from "vuex";
                 }
             }
         },
-        computed:mapState(['idPersonaFisica','idPersonaMoral','tipoInvolucrado'])
+        computed: Object.assign({
+        guardarModificar(){
+            if(this.$store.state.personaFisicaExiste==''){
+                 return 'Guardar'
+            }
+            else{
+                 return 'Modificar'
+            }
+        }  
+        },mapState(['idPersonaFisica','idPersonaMoral']))
     }
 </script>
 <style>

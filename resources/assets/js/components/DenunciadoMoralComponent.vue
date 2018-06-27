@@ -32,7 +32,7 @@
                 <domicilio :tipo="'contacto'" :empresa="true"></domicilio>
             </div>
             <div :class="pillsMoral3" id="pills-denunciado-extramoral" role="tabpanel-moral" aria-labelledby="denunciado-extramoral-tab">
-                <extrasinvestigado :sistema="sistema"></extrasinvestigado>
+                <extrasinvestigado :sistema="sistema" :tipo="'moral'"></extrasinvestigado>
             </div>
         </div>
         <!-- OPCIONES -->
@@ -85,17 +85,17 @@ import { mapState } from "vuex";
         },
         watch: {
             idPersonaMoral() {
-                if(this.$store.state.idPersonaMoral!=false){
                     this.tabsMoral='nav-link'
-                }
             },
             idPersonaFisica() {
+                if(this.$store.state.idPersonaFisica!=''){
                 this.tabsMoral='nav-link disabled'
                 this.tabPrincipalMoral='nav-link active show'
                 this.pillsMoral1='tab-pane fade'
                 this.pillsMoral2='tab-pane fade'
                 this.pillsMoral3='tab-pane fade'
                 this.pillPrincipalMoral='tab-pane fade show active'
+                }
             }
         },
         computed:mapState(['idPersonaFisica','idPersonaMoral'])

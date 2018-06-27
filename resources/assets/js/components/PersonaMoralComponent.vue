@@ -54,8 +54,8 @@
 
 
 
+            <button type="submit" class="btn btn-primary mt-2">{{guardarModificar}}</button>
 
-            <button type="submit" class="btn btn-primary mt-2">Guardar</button>
 
 
         </form>
@@ -180,11 +180,12 @@ import { mapState } from "vuex";
                         representanteLegal: this.representanteLegal.toUpperCase(),
                         sistema: this.sistema,
                         tipo: this.tipo,
-                        idCarpeta:this.carpeta
+                        idCarpeta:this.carpeta,
+                        idPersona:this.$store.state.idPersonaMoral
                     })
                     .then (response =>{
                         // this.idMoral=response.data        
-                        this.$store.commit('asignarIdMoral',response.data)
+                        this.$store.commit('asignarIdMoral',{idPersona:response.data,tipo:this.tipo})
                         swal({
                             title: '¡Guardado correctamente!',
                             text: 'Ésta empresa fue guardada exitosamente.',
@@ -205,13 +206,22 @@ import { mapState } from "vuex";
        },
        watch: {
             idPersonaFisica() {
-                if(this.$store.state.idPersonaFisica!=false){
+                if(this.$store.state.idPersonaFisica!=''){
                     this.CleanFields();
-                    this.$store.commit('asignarIdMoral','')
                 }
             }
        },
-       computed:mapState(['idPersonaFisica','idPersonaMoral'])
+       computed: Object.assign({
+         guardarModificar(){
+             if(this.$store.state.personaMoralExiste==''){
+                 return 'Guardar'
+             }
+             else{
+                 return 'Modificar'
+             }
+         }  
+       },mapState(['idPersonaFisica','idPersonaMoral']))
+    //    computed:mapState(['idPersonaFisica','idPersonaMoral'])
     }
 </script>
 <style>

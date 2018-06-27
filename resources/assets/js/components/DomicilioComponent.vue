@@ -85,6 +85,7 @@
 <script>
 import swal from 'sweetalert2'
 import { SpringSpinner } from 'epic-spinners'
+import { mapState } from "vuex";
     export default {
         data(){
             return{
@@ -306,7 +307,8 @@ import { SpringSpinner } from 'epic-spinners'
                     })
                 })
             }
-       }
+        },
+        computed: mapState(['idPersonaFisica','idPersonaMoral','personaExiste'])
     }
 </script>
 <style>
