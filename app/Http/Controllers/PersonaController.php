@@ -207,6 +207,7 @@ class PersonaController extends Controller{
 	}
 
 	public function buscarCarpetas(Request $request){
+		
 
 		$resp = DB::table('persona_fisica')->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')
 		->join('apariciones','apariciones.idVarPersona','=','variables_persona_fisica.idPersona')
@@ -301,19 +302,16 @@ class PersonaController extends Controller{
 		return response()->json($data);
 	}
 
-	public function cambiarEstadoCarpeta(Request $request){		
-		$resp = DB::table('apariciones')
-			->where('idCarpeta', $request->idCarpeta)
-			->update(['idTipoDeterminacion'=>$request->idTipoDeterminacion]);
-
-		/*if($resp!=0){
-			return response()->json($data);
+	public function cambiarEstadoCarpeta(Request $request){						
+		$respuesta=aparicionesModel::where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)->first();		
+		if($respuesta){
+			$update = DB::table('apariciones')->
+            where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)
+            ->update(['idTipoDeterminacion' => $request->idTipoDeterminacion]);
+			return ["Valor antiguo"=>$respuesta->idTipoDeterminacion,"Valor actual"=>$request->idTipoDeterminacion];
 		}else{
-			return ["Status"=>"No hay coincidencias"];
-		}*/
-		return $resp;
-		
-		
+			return ["Response"=>" Sin datos"];
+		}				
 	}
 
 }

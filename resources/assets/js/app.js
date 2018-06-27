@@ -48,6 +48,8 @@ Vue.component('extrasabogado',require('./components/ExtrasAbogadoComponent.vue')
 Vue.component('extrasdenunciante',require('./components/ExtrasDenuncianteComponent.vue'));
 Vue.component('extrasautoridad',require('./components/ExtrasAutoridadComponent.vue'));
 Vue.component('registro',require('./components/RegistroComponent.vue'));
+Vue.component('carpetas',require('./components/carpetasLigadasComponent.vue'));
+
 const app = new Vue({
     el: '#app',
     store
