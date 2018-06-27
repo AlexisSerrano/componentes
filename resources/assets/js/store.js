@@ -23,6 +23,9 @@ const store = new Vuex.Store({
             state.idPersonaMoral=''
             state.personaFisicaExiste=true
             state.personaMoralExiste=false
+            state.idDomicilio=''
+            state.idTrabajo=''
+            state.idContacto=''
         },
         asignarIdMoral(state,payload) {
             state.idPersonaMoral=payload.idPersona
@@ -32,6 +35,9 @@ const store = new Vuex.Store({
             state.idPersonaFisica=''
             state.personaMoralExiste=true
             state.personaFisicaExiste=false
+            state.idDomicilio=''
+            state.idTrabajo=''
+            state.idContacto=''
         },
         ubicarTabsFisica(state){
             state.tabPrincipalFisica='nav-link'
