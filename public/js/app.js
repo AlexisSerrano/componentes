@@ -83280,7 +83280,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         idPersonaFisica: function idPersonaFisica() {
             if (this.$store.state.idPersonaMoral == '') {
-                this.tabsFisica = 'nav-link';
+                if (this.$store.state.idPersonaFisica != false) {
+                    this.tabsFisica = 'nav-link';
+                }
             }
         },
         idPersonaMoral: function idPersonaMoral() {
@@ -83667,7 +83669,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         idPersonaMoral: function idPersonaMoral() {
             if (this.$store.state.idPersonaFisica == '') {
-                this.tabsMoral = 'nav-link';
+                if (this.$store.state.idPersonaMoral != false) {
+                    this.tabsMoral = 'nav-link';
+                }
             }
         },
         idPersonaFisica: function idPersonaFisica() {
@@ -84031,9 +84035,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     watch: {
         idPersonaFisica: function idPersonaFisica() {
-            if (this.$store.state.idPersonaFisica != false && this.$store.state.tipoInvolucrado != 'conocido') {
-                this.tabsFisica = 'nav-link';
-            } else if (this.$store.state.tipoInvolucrado == 'conocido') {
+            if (this.$store.state.idPersonaMoral == '') {
+                if (this.$store.state.idPersonaFisica != false && this.$store.state.tipoInvolucrado != 'conocido') {
+                    this.tabsFisica = 'nav-link';
+                } else if (this.$store.state.tipoInvolucrado == 'conocido') {
+                    this.tabsFisica = 'nav-link disabled';
+                    this.tabPrincipalFisica = 'nav-link active show';
+                    this.pillsFisica1 = 'tab-pane fade';
+                    this.pillsFisica2 = 'tab-pane fade';
+                    this.pillsFisica3 = 'tab-pane fade';
+                    this.pillsFisica4 = 'tab-pane fade';
+                    this.pillPrincipalFisica = 'tab-pane fade show active';
+                }
+            }
+        },
+        idPersonaMoral: function idPersonaMoral() {
+            if (this.$store.state.idPersonaFisica == '') {
                 this.tabsFisica = 'nav-link disabled';
                 this.tabPrincipalFisica = 'nav-link active show';
                 this.pillsFisica1 = 'tab-pane fade';
@@ -84042,15 +84059,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.pillsFisica4 = 'tab-pane fade';
                 this.pillPrincipalFisica = 'tab-pane fade show active';
             }
-        },
-        idPersonaMoral: function idPersonaMoral() {
-            this.tabsFisica = 'nav-link disabled';
-            this.tabPrincipalFisica = 'nav-link active show';
-            this.pillsFisica1 = 'tab-pane fade';
-            this.pillsFisica2 = 'tab-pane fade';
-            this.pillsFisica3 = 'tab-pane fade';
-            this.pillsFisica4 = 'tab-pane fade';
-            this.pillPrincipalFisica = 'tab-pane fade show active';
         }
     },
     computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral'])
@@ -84425,10 +84433,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     watch: {
         idPersonaMoral: function idPersonaMoral() {
-            this.tabsMoral = 'nav-link';
+            if (this.$store.state.idPersonaFisica == '') {
+                if (this.$store.state.idPersonaMoral != false) {
+                    this.tabsMoral = 'nav-link';
+                }
+            }
         },
         idPersonaFisica: function idPersonaFisica() {
-            if (this.$store.state.idPersonaFisica != '') {
+            if (this.$store.state.idPersonaMoral == '') {
                 this.tabsMoral = 'nav-link disabled';
                 this.tabPrincipalMoral = 'nav-link active show';
                 this.pillsMoral1 = 'tab-pane fade';
@@ -84815,23 +84827,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     watch: {
         idPersonaFisica: function idPersonaFisica() {
-            if (this.$store.state.idPersonaFisica != false) {
-                this.tabsConocido = 'nav-link';
-                if (this.$store.state.tipoInvolucrado != 'conocido') {
-                    this.tabsConocido = 'nav-link disabled';
-                    this.tabPrincipalConocido = 'nav-link active show';
-                    this.pillsConocido1 = 'tab-pane fade';
-                    this.pillsConocido2 = 'tab-pane fade';
-                    this.pillPrincipalConocido = 'tab-pane fade show active';
+            if (this.$store.state.idPersonaMoral == '') {
+                if (this.$store.state.idPersonaFisica != false) {
+                    this.tabsConocido = 'nav-link';
+                    if (this.$store.state.tipoInvolucrado != 'conocido') {
+                        this.tabsConocido = 'nav-link disabled';
+                        this.tabPrincipalConocido = 'nav-link active show';
+                        this.pillsConocido1 = 'tab-pane fade';
+                        this.pillsConocido2 = 'tab-pane fade';
+                        this.pillPrincipalConocido = 'tab-pane fade show active';
+                    }
                 }
             }
         },
         idPersonaMoral: function idPersonaMoral() {
-            this.tabsConocido = 'nav-link disabled';
-            this.tabPrincipalConocido = 'nav-link active show';
-            this.pillsConocido1 = 'tab-pane fade';
-            this.pillsConocido2 = 'tab-pane fade';
-            this.pillPrincipalConocido = 'tab-pane fade show active';
+            if (this.$store.state.idPersonaFisica == '') {
+                this.tabsConocido = 'nav-link disabled';
+                this.tabPrincipalConocido = 'nav-link active show';
+                this.pillsConocido1 = 'tab-pane fade';
+                this.pillsConocido2 = 'tab-pane fade';
+                this.pillPrincipalConocido = 'tab-pane fade show active';
+            }
         }
     },
     computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral'])

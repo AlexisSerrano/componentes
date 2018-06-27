@@ -120,23 +120,27 @@ import swal from 'sweetalert2'
         },
         watch: {
             idPersonaFisica() {
-                if(this.$store.state.idPersonaFisica!=false){
-                    this.tabsConocido='nav-link'
-                    if(this.$store.state.tipoInvolucrado!='conocido'){
-                        this.tabsConocido='nav-link disabled'
-                        this.tabPrincipalConocido='nav-link active show'
-                        this.pillsConocido1='tab-pane fade'
-                        this.pillsConocido2='tab-pane fade'
-                        this.pillPrincipalConocido='tab-pane fade show active'
+                if(this.$store.state.idPersonaMoral==''){
+                    if(this.$store.state.idPersonaFisica!=false){
+                        this.tabsConocido='nav-link'
+                        if(this.$store.state.tipoInvolucrado!='conocido'){
+                            this.tabsConocido='nav-link disabled'
+                            this.tabPrincipalConocido='nav-link active show'
+                            this.pillsConocido1='tab-pane fade'
+                            this.pillsConocido2='tab-pane fade'
+                            this.pillPrincipalConocido='tab-pane fade show active'
+                        }
                     }
                 }
             },
             idPersonaMoral(){
-                this.tabsConocido='nav-link disabled'
-                this.tabPrincipalConocido='nav-link active show'
-                this.pillsConocido1='tab-pane fade'
-                this.pillsConocido2='tab-pane fade'
-                this.pillPrincipalConocido='tab-pane fade show active'
+                if(this.$store.state.idPersonaFisica==''){
+                    this.tabsConocido='nav-link disabled'
+                    this.tabPrincipalConocido='nav-link active show'
+                    this.pillsConocido1='tab-pane fade'
+                    this.pillsConocido2='tab-pane fade'
+                    this.pillPrincipalConocido='tab-pane fade show active'
+                }
             }
         },
         computed:mapState(['idPersonaFisica','idPersonaMoral'])

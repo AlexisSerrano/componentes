@@ -101,10 +101,23 @@ import { mapState } from "vuex";
         },
         watch: {
             idPersonaFisica() {
-                if(this.$store.state.idPersonaFisica!=false && this.$store.state.tipoInvolucrado !='conocido'){
-                    this.tabsFisica='nav-link'
+                if(this.$store.state.idPersonaMoral==''){
+                    if(this.$store.state.idPersonaFisica!=false && this.$store.state.tipoInvolucrado !='conocido'){
+                        this.tabsFisica='nav-link'
+                    }
+                    else if(this.$store.state.tipoInvolucrado=='conocido'){
+                        this.tabsFisica='nav-link disabled'
+                        this.tabPrincipalFisica='nav-link active show'
+                        this.pillsFisica1='tab-pane fade'
+                        this.pillsFisica2='tab-pane fade'
+                        this.pillsFisica3='tab-pane fade'
+                        this.pillsFisica4='tab-pane fade'
+                        this.pillPrincipalFisica='tab-pane fade show active'
+                    }
                 }
-                else if(this.$store.state.tipoInvolucrado=='conocido'){
+            },
+            idPersonaMoral(){
+                if(this.$store.state.idPersonaFisica==''){
                     this.tabsFisica='nav-link disabled'
                     this.tabPrincipalFisica='nav-link active show'
                     this.pillsFisica1='tab-pane fade'
@@ -113,15 +126,6 @@ import { mapState } from "vuex";
                     this.pillsFisica4='tab-pane fade'
                     this.pillPrincipalFisica='tab-pane fade show active'
                 }
-            },
-            idPersonaMoral(){
-                this.tabsFisica='nav-link disabled'
-                this.tabPrincipalFisica='nav-link active show'
-                this.pillsFisica1='tab-pane fade'
-                this.pillsFisica2='tab-pane fade'
-                this.pillsFisica3='tab-pane fade'
-                this.pillsFisica4='tab-pane fade'
-                this.pillPrincipalFisica='tab-pane fade show active'
             }
         },
         computed:mapState(['idPersonaFisica','idPersonaMoral'])

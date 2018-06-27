@@ -85,16 +85,20 @@ import { mapState } from "vuex";
         },
         watch: {
             idPersonaMoral() {
-                    this.tabsMoral='nav-link'
+                if(this.$store.state.idPersonaFisica==''){
+                    if(this.$store.state.idPersonaMoral!=false){
+                      this.tabsMoral='nav-link'
+                    }
+                }
             },
             idPersonaFisica() {
-                if(this.$store.state.idPersonaFisica!=''){
-                this.tabsMoral='nav-link disabled'
-                this.tabPrincipalMoral='nav-link active show'
-                this.pillsMoral1='tab-pane fade'
-                this.pillsMoral2='tab-pane fade'
-                this.pillsMoral3='tab-pane fade'
-                this.pillPrincipalMoral='tab-pane fade show active'
+                if(this.$store.state.idPersonaMoral==''){
+                    this.tabsMoral='nav-link disabled'
+                    this.tabPrincipalMoral='nav-link active show'
+                    this.pillsMoral1='tab-pane fade'
+                    this.pillsMoral2='tab-pane fade'
+                    this.pillsMoral3='tab-pane fade'
+                    this.pillPrincipalMoral='tab-pane fade show active'
                 }
             }
         },
