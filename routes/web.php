@@ -29,4 +29,7 @@ Route::get('registro', function(){
     return view('registro');
 });
 
+Route::get('carpetasLigadas', function(){
+    return view('carpetasLigadas');
+});
 

@@ -28,7 +28,9 @@ class PersonaController extends Controller{
 	}
 
 	public function searchPersona(Request $request){
-		$persona = $request->rfc;
+		$rfcCurp = $request->rfcCurp;
+		$tipoBusqueda = $request->tipoBusqueda;
+
 		$personaExisteP = DB::table('persona_fisica')
 		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
 		->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
@@ -43,8 +45,7 @@ class PersonaController extends Controller{
 		->join('sexos', 'persona_fisica.sexo', '=', 'sexos.id')
 		->join('cat_interprete', 'variables_persona_fisica.idInterprete', '=', 'cat_interprete.id')
 		->join('cat_estado', 'cat_municipio.idEstado', '=', 'cat_estado.id')
-		->where('rfc',$persona)
-		//->orwhere('curp',$persona)
+		->where($tipoBusqueda,$rfcCurp)
 		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
 		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
 		'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
@@ -61,7 +62,10 @@ class PersonaController extends Controller{
 		'cat_identificacion.id as idIdentificacion','cat_identificacion.documento as documentoIdentificacion',
 		'sexos.id as idSexo','sexos.nombre as nombreSexo',
 		'cat_interprete.id as idInterprete','cat_interprete.nombre as nombreInterprete',
-		'cat_estado.id as idEstado','cat_estado.nombre as nombreEstado')->first();
+		'cat_estado.id as idEstado','cat_estado.nombre as nombreEstado')
+		->orderBy('variables_persona_fisica.id','desc')
+		->first();
+		//echo $personaExisteP;
         if($personaExisteP){
 			$data = array(
 				'nombres'=>$personaExisteP->nombres,
@@ -206,21 +210,53 @@ class PersonaController extends Controller{
 		return ['res' => $rfc];
 	}
 
-	public function buscarCarpetas(Request $request){
-		
-
+	public function personaFisicaBuscarCarpetasRFC(Request $request){
+				
 		$resp = DB::table('persona_fisica')->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')
 		->join('apariciones','apariciones.idVarPersona','=','variables_persona_fisica.idPersona')
 		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
 		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp','persona_fisica.rfc','persona_fisica.curp','variables_persona_fisica.idPersona as variablePersona','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as tipoDeterminacion')
-		->where('rfc','=',$request->rfc)->get();			
+		->where('rfc','=',$request->rfc)->where('esEmpresa','=',0)->get();			
 		if(!$resp->isEmpty()){
 			return response()->json($resp);
 		}else{
-			return ["Respuesta"=>"Sin información"]; 
+			//return ["Respuesta"=>"Sin información"]; 
+			return ;
 		}
 		
 	}
+
+	public function personaFisicaBuscarCarpetasCURP(Request $request){
+		$resp = DB::table('persona_fisica')->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')
+		->join('apariciones','apariciones.idVarPersona','=','variables_persona_fisica.idPersona')
+		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
+		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp','persona_fisica.rfc','persona_fisica.curp','variables_persona_fisica.idPersona as variablePersona','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as tipoDeterminacion')
+		->where('curp','=',$request->curp)->where('esEmpresa','=',0)->get();			
+		if(!$resp->isEmpty()){
+			return response()->json($resp);
+		}else{
+			//return ["Respuesta"=>"Sin información"]; 
+			return;
+		}
+	}
+
+	
+	public function moralBuscarCarpetasRFC(Request $request){				
+		$resp = DB::table('persona_moral')->join('variables_persona_moral','variables_persona_moral.idPersona','=','persona_moral.id')
+		->join('apariciones','apariciones.idVarPersona','=','variables_persona_moral.idPersona')
+		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
+		->select('persona_moral.nombre','persona_moral.rfc','variables_persona_moral.idPersona as variablePersonaMoral','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as tipoDeterminacion')
+		->where('rfc','=',$request->rfc)->where('esEmpresa','=',1)->get();	
+		
+		if(!$resp->isEmpty()){
+			return response()->json($resp);
+		}else{
+			//return ["Respuesta"=>"Sin información"]; 			
+			return;
+		}
+	}
+
+
 
 	public function getDomiciliosPersona(Request $request){
 		$data=array();
@@ -305,13 +341,22 @@ class PersonaController extends Controller{
 	public function cambiarEstadoCarpeta(Request $request){						
 		$respuesta=aparicionesModel::where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)->first();		
 		if($respuesta){
-			$update = DB::table('apariciones')->
-            where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)
-            ->update(['idTipoDeterminacion' => $request->idTipoDeterminacion]);
-			return ["Valor antiguo"=>$respuesta->idTipoDeterminacion,"Valor actual"=>$request->idTipoDeterminacion];
+        	try{
+	            DB::beginTransaction();
+				$update = DB::table('apariciones')->
+            	where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)
+				->update(['idTipoDeterminacion' => $request->idTipoDeterminacion]);
+				$idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','UPDATE',$respuesta->id,['idTipoDeterminacion' => $respuesta->idTipoDeterminacion],['idTipoDeterminacion' => $request->idTipoDeterminacion]);
+				DB::commit();
+			}catch (Exception $e){
+				DB::rollback();
+				return response()->json(["ERROR"->$e->getMessage()]);
+			}
+				return ["Valor antiguo"=>$respuesta->idTipoDeterminacion,"Valor actual"=>$request->idTipoDeterminacion];
 		}else{
 			return ["Response"=>" Sin datos"];
 		}				
 	}
+
 
 }

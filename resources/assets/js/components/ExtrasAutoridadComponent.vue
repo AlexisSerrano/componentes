@@ -56,6 +56,7 @@ import swal from 'sweetalert2'
                 horarioLaboral:'',                                
                 descripcionHechos:'',
                 validacionesback:[],
+                systemUser:'TEST',
                 url:'http://localhost/componentes/public/api',
                 idreturn:''
             }
@@ -95,6 +96,8 @@ import swal from 'sweetalert2'
                     antiguedad:this.antiguedad,
                     rango:this.rango,
                     horarioLaboral: this.horarioLaboral.toUpperCase(),
+                    sistema:this.sistema.toUpperCase(),
+                    usuario:this.systemUser
                     //narracion:narracionHechos.toUpperCase()
                     };
                     axios.post(urlGuardarAutoridad,data)
@@ -133,7 +136,9 @@ import swal from 'sweetalert2'
                     idVariablesPersona:this.idreturn,
                     antiguedad:this.antiguedad,
                     rango:this.rango,
-                    horarioLaboral: this.horarioLaboral.toUpperCase(),                    
+                    horarioLaboral: this.horarioLaboral.toUpperCase(), 
+                    sistema:this.sistema.toUpperCase(),
+                    usuario:this.systemUser                   
                     };
                     axios.post(urlGuardarAutoridad,data)
                     .then (response =>{

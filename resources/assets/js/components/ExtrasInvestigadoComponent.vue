@@ -44,7 +44,7 @@
 
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="residencia">Residencia anterior</label>
-                    <input  class="form-control form-control-sm" type="text" name="residencia" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('residencia') || this.validacionesback.residencia}" v-model="residencia" placeholder="Ingrese el residencia" v-validate="'required'" autocomplete="off" >
+                    <input  class="form-control form-control-sm" type="text" name="residencia" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('residencia') || this.validacionesback.residencia}" v-model="residencia" placeholder="Ingrese la residencia" v-validate="'required'" autocomplete="off" >
                     <span v-show="errors.has('residencia')" class="text-danger">{{ errors.first('residencia')}}</span>
                     <span v-if="this.validacionesback.residencia!=undefined" class="text-danger">{{ String(this.validacionesback.residencia)}}</span>
                 </div>
@@ -78,16 +78,7 @@
                     <span v-show="errors.has('particulares')" class="text-danger">{{ errors.first('particulares')}}</span>
                     <span v-if="this.validacionesback.particulares!=undefined" class="text-danger">{{ String(this.validacionesback.particulares)}}</span>
                 </div>
-                <!--
-                <div v-if="sistema=='uat'" class="form-group col-md-12">
-                    <label class="col-form-label col-form-label-sm" for="hechos">Descripcón de los hechos</label>
-                    <textarea class="form-control form-control-sm" name="hechos" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('hechos') || this.validacionesback.hechos}" v-model="hechos" placeholder="Ingrese el hechos" v-validate="'required'" autocomplete="off" rows='5'></textarea>
-                    <span v-show="errors.has('hechos')" class="text-danger">{{ errors.first('hechos')}}</span>
-                    <span v-if="this.validacionesback.hechos!=undefined" class="text-danger">{{ String(this.validacionesback.hechos)}}</span>
-                </div>
-                -->
             </div>
-
             <div class="form-row mt-3">
                 <div class="form-group col-md-5">
                     <button type="submit" class="btn btn-primary mr-1">Guardar</button>
@@ -115,6 +106,7 @@ import swal from 'sweetalert2'
                 hechos:'',
                 idExtrasInvestigado:0,
                 validacionesback:[],
+                systemUser:'TEST',
                 puestos:[],
                 periodos:['DIARIO','SEMANAL','QUINCENAL','MENSUAL'],
                 //url:'/api'
@@ -175,7 +167,8 @@ import swal from 'sweetalert2'
                     perseguidoPenalmente:this.perseguido,              
                     vestimenta:this.vestimenta.toUpperCase(),
                     senasPartic:this.particulares.toUpperCase(),
-                    narracion:this.hechos.toUpperCase(),
+                    sistema:this.sistema.toUpperCase(),
+                    usuario:this.systemUser
                     };
                     axios.post(urlGuardarInvestigado,data)
                     .then (response =>{
@@ -225,7 +218,8 @@ import swal from 'sweetalert2'
                     perseguidoPenalmente:this.perseguido,              
                     vestimenta:this.vestimenta.toUpperCase(),
                     senasPartic:this.particulares.toUpperCase(),
-                    narracion:this.hechos.toUpperCase(),
+                    sistema:this.sistema.toUpperCase(),
+                    usuario:this.systemUser
                     };
                     axios.post(urlGuardarInvestigado,data)
                     .then (response =>{

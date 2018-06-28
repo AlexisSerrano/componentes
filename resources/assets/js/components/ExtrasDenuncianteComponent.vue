@@ -44,7 +44,8 @@ import swal from 'sweetalert2'
                 identidad:'',                
                 solicitantes:['Víctima','Ofendido'],
                 solicitante:'',
-                descripcion:'',                
+                descripcion:'',  
+                systemUser:'TEST',
                 url:'http://localhost/componentes/public/api',                
                 idreturn:''
             }
@@ -52,7 +53,10 @@ import swal from 'sweetalert2'
         props:{            
             tipo: {
                 required:true
-            }          
+            },
+            sistema: {
+                default:''
+            }        
         },
         created: function(){
 //            this.getPuestos();
@@ -89,7 +93,9 @@ import swal from 'sweetalert2'
                     idVariablesPersona:1,                    
                     idAbogado:1,
                     reguardarIdentidad:this.identidad,
-                    victima: (this.solicitante=="Víctima" ? 1 : 0)                                                                          
+                    victima: (this.solicitante=="Víctima" ? 1 : 0),
+                    sistema:this.sistema.toUpperCase(),
+                    usuario:this.systemUser                                                                       
                     };
                     axios.post(urlGuardarDenunciante,data)
                     .then (response =>{
@@ -134,7 +140,9 @@ import swal from 'sweetalert2'
                     idVariablesPersona:this.idreturn,                    
                     idAbogado:1,
                     reguardarIdentidad:this.identidad,
-                    victima: (this.solicitante=="Victima" ? 1 : 0)                    
+                    victima: (this.solicitante=="Victima" ? 1 : 0),
+                    sistema:this.sistema.toUpperCase(),
+                    usuario:this.systemUser                  
                     };
                     axios.post(urlGuardarDenunciante,data)
                     .then (response =>{

@@ -1,14 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Models\ExtraDenuncianteFisico;
 use App\Http\Models\ExtraDenuncianteMoral;
 use App\Http\Controllers\Controller;
-
+use BitracoraController;
+use DB;
 class ExtrasDenuncianteController extends Controller
 {
+    protected $log;
+
+    function __construct() {
+        $this->log=new BitacoraController();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,27 +44,45 @@ class ExtrasDenuncianteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function storeExtraDenuncianteFisico(Request $request)
-    {        
-        $ExtraDenunciante = new ExtraDenuncianteFisico();
-        $ExtraDenunciante->idVariablesPersona = $request->idVariablesPersona;        
-        $ExtraDenunciante->idAbogado = $request->idAbogado;
-        $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
-        $ExtraDenunciante->victima = $request->victima;        
-        $ExtraDenunciante->save();  
-        $id = $ExtraDenunciante->id;                
+    {    
+        $id=[];       
+        try{
+            DB::beginTransaction();    
+            $ExtraDenunciante = new ExtraDenuncianteFisico();
+            $ExtraDenunciante->idVariablesPersona = $request->idVariablesPersona;        
+            $ExtraDenunciante->idAbogado = $request->idAbogado;
+            $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
+            $ExtraDenunciante->victima = $request->victima;        
+            $ExtraDenunciante->save();  
+            $id = $ExtraDenunciante->id;  
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciante_fisico','INSERT',$id,null,$ExtraDenunciante);
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollback();
+            return response()->json(["ERROR"->$e->getMessage()]);
+        }                  
         return response()->json($id);
         
     }
 
     public function storeExtraDenuncianteMoral(Request $request)
-    {        
-        $ExtraDenunciante = new ExtraDenuncianteMoral();
-        $ExtraDenunciante->idVariablesPersona = $request->idVariablesPersona;        
-        $ExtraDenunciante->idAbogado = $request->idAbogado;
-        $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
-        $ExtraDenunciante->victima = $request->victima;      
-        $ExtraDenunciante->save();  
-        $id = $ExtraDenunciante->id;                
+    {       
+        $id=[];       
+        try{
+            DB::beginTransaction(); 
+            $ExtraDenunciante = new ExtraDenuncianteMoral();
+            $ExtraDenunciante->idVariablesPersona = $request->idVariablesPersona;        
+            $ExtraDenunciante->idAbogado = $request->idAbogado;
+            $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
+            $ExtraDenunciante->victima = $request->victima;      
+            $ExtraDenunciante->save();  
+            $id = $ExtraDenunciante->id;
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciante_moral','INSERT',$id,null,$ExtraDenunciante);
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollback();
+            return response()->json(["ERROR"->$e->getMessage()]);
+        }                         
         return response()->json($id);
         
     }
@@ -92,25 +117,45 @@ class ExtrasDenuncianteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function updateExtrasDenuncianteFisico(Request $request)
-    {               
-        $ExtraDenunciante = ExtraDenuncianteFisico::find($request->idVariablesPersona);            
-        $ExtraDenunciante->idAbogado= $request->idAbogado;
-        $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;
-        $ExtraDenunciante->victima = $request->victima;                
-        $ExtraDenunciante->save();     
-        $id = $ExtraDenunciante->id;                
+    {      
+        $id=[];       
+        try{
+            DB::beginTransaction();         
+            $ExtraDenunciante = ExtraDenuncianteFisico::find($request->idVariablesPersona);  
+            $antes=clone $ExtraDenunciante;          
+            $ExtraDenunciante->idAbogado= $request->idAbogado;
+            $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;
+            $ExtraDenunciante->victima = $request->victima;                
+            $ExtraDenunciante->save();     
+            $id = $ExtraDenunciante->id;                
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciante_fisico','UPDATE',$id,$antes,$ExtraDenunciante);
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollback();
+            return response()->json(["ERROR"->$e->getMessage()]);
+        }                     
         return response()->json($id); 
 
     }
 
     public function updateExtrasDenuncianteMoral(Request $request)
-    {         
-        $ExtraDenunciante = ExtraDenuncianteMoral::find($request->idVariablesPersona);            
-        $ExtraDenunciante->idAbogado= $request->idAbogado;
-        $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;
-        $ExtraDenunciante->victima = $request->victima;                
-        $ExtraDenunciante->save();     
-        $id = $ExtraDenunciante->id;                
+    {   
+        $id=[];       
+        try{
+            DB::beginTransaction();       
+            $ExtraDenunciante = ExtraDenuncianteMoral::find($request->idVariablesPersona);  
+            $antes=clone $ExtraDenunciante;            
+            $ExtraDenunciante->idAbogado= $request->idAbogado;
+            $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;
+            $ExtraDenunciante->victima = $request->victima;                
+            $ExtraDenunciante->save();     
+            $id = $ExtraDenunciante->id; 
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciante_moral','UPDATE',$id,$antes,$ExtraDenunciante);
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollback();
+            return response()->json(["ERROR"->$e->getMessage()]);
+        }                                   
         return response()->json($id); 
 
     }
