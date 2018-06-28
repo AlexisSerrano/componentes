@@ -44,7 +44,7 @@ class PersonaController extends Controller{
 		->join('cat_interprete', 'variables_persona_fisica.idInterprete', '=', 'cat_interprete.id')
 		->join('cat_estado', 'cat_municipio.idEstado', '=', 'cat_estado.id')
 		->where('rfc',$persona)
-		->orwhere('curp',$persona)
+		//->orwhere('curp',$persona)
 		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
 		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
 		'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
