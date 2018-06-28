@@ -14,9 +14,18 @@ use App\Http\Models\Domicilio;
 use App\Http\Models\Notificacion;
 use App\Http\Models\Trabajo;
 use App\Http\Requests\DomicilioRequest;
+use BitracoraController;
+use DB;
 
 class DomicilioController extends Controller
 {
+
+    protected $log;
+
+    function __construct() {
+        $this->log=new BitacoraController();
+    }
+
 	public function index(){
         return view("domicilio");
 	}
@@ -100,39 +109,90 @@ class DomicilioController extends Controller
     }
 
     public function domicilios(Request $request,$idDomicilio){
-        $domicilio = ($idDomicilio!==FALSE)?Domicilio::find($idDomicilio):new Domicilio();
-        $domicilio->idEstado=$request->input('estado');
-        $domicilio->idMunicipio=$request->input('municipio');
-        $domicilio->idLocalidad=$request->input('localidad');
-        $domicilio->idColonia=$request->input('colonia');
-        $domicilio->calle=$request->input('calle');
-        $domicilio->numExterno=$request->input('numExterno');
-        if($request->input('numInterno')!=null){
-            $domicilio->numInterno=$request->input('numInterno');
-        }
-        $domicilio->save();
+        try{
+            DB::beginTransaction();
+            //$domicilio = ($idDomicilio!==FALSE)?Domicilio::find($idDomicilio):new Domicilio();
+            if($idDomicilio!==FALSE){
+                $domicilio=Domicilio::find($idDomicilio);
+                $oper="UPDATE";
+                $antes= clone $domicilio;
+            }else{
+                $domicilio=new Domicilio();
+                $oper="INSERT";
+                $antes=null;
+            }
+            $domicilio->idEstado=$request->input('estado');
+            $domicilio->idMunicipio=$request->input('municipio');
+            $domicilio->idLocalidad=$request->input('localidad');
+            $domicilio->idColonia=$request->input('colonia');
+            $domicilio->calle=$request->input('calle');
+            $domicilio->numExterno=$request->input('numExterno');
+            if($request->input('numInterno')!=null){
+                $domicilio->numInterno=$request->input('numInterno');
+            }
+            $domicilio->save();
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'domicilio',$oper,$idDomicilio->id,$antes,$domicilio);
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollback();
+            return response()->json(["ERROR"->$e->getMessage()]);
+        }    
         return $domicilio->id;
     }
 
     public function notificaciones(Request $request,$idNotificacion,$idDomicilio){
-        $notificacion = ($idNotificacion!==FALSE)?Notificacion::find($idNotificacion):new Notificacion();
-        $notificacion->correo = $request->correoContacto;
-        $notificacion->telefono = $request->telefonoContacto;
-        if($idDomicilio!==FALSE){
-            $notificacion->idDomicilio = $idDomicilio;
-        } 
-        $notificacion->save();
+        //$notificacion = ($idNotificacion!==FALSE)?Notificacion::find($idNotificacion):new Notificacion();
+        try{
+            DB::beginTransaction();
+            if($idNotificacion!==FALSE){
+                $notificacion=Notificacion::find($idNotificacion);
+                $oper="UPDATE";
+                $antes= clone $notificacion;
+            }else{
+                $notificacion=new Notificacion();
+                $oper="INSERT";
+                $antes=null;
+            }
+            $notificacion->correo = $request->correoContacto;
+            $notificacion->telefono = $request->telefonoContacto;
+            if($idDomicilio!==FALSE){
+                $notificacion->idDomicilio = $idDomicilio;
+            } 
+            $notificacion->save();
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'notificacion',$oper,$notificacion->id,$antes,$domicilio);
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollback();
+            return response()->json(["ERROR"->$e->getMessage()]);
+        }    
         return $notificacion;
     }
 
     public function trabajos(Request $request,$idTrabajo,$idDomicilio){
-        $trabajo = ($idTrabajo!==FALSE)?Trabajo::find($idTrabajo):new Trabajo();
-        $trabajo->lugar = $request->lugarTrabajo;
-        $trabajo->telefono = $request->telefonoTrabajo;
-        if($idDomicilio!==FALSE){
-            $trabajo->idDomicilio = $idDomicilio;
-        } 
-        $trabajo->save();
+        //$trabajo = ($idTrabajo!==FALSE)?Trabajo::find($idTrabajo):new Trabajo();
+        try{
+            DB::beginTransaction();
+            if($idTrabajo!==FALSE){
+                $trabajo=Trabajo::find($idTrabajo);
+                $oper="UPDATE";
+                $antes= clone $idTrabajo;
+            }else{
+                $trabajo=new Trabajo();
+                $oper="INSERT";
+                $antes=null;
+            }
+            $trabajo->lugar = $request->lugarTrabajo;
+            $trabajo->telefono = $request->telefonoTrabajo;
+            if($idDomicilio!==FALSE){
+                $trabajo->idDomicilio = $idDomicilio;
+            } 
+            $trabajo->save();
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'trabajo',$oper,$trabajo->id,$antes,$domicilio);
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollback();
+            return response()->json(["ERROR"->$e->getMessage()]);
+        }   
         return $trabajo;
     }
 

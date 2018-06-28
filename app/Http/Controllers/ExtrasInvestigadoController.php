@@ -39,8 +39,7 @@ class ExtrasInvestigadoController extends Controller{
      */
     public function storeFisico(Request $request)
     {       
-       // $id=[];   
-       $idLog="";  
+       $id=[];       
         try{
             DB::beginTransaction();
             $extraDenunciado = new ExtraDenunciadoFisico();
@@ -56,7 +55,7 @@ class ExtrasInvestigadoController extends Controller{
             $extraDenunciado->vestimenta = $request->vestimenta;
             $extraDenunciado->save();
             $id = $extraDenunciado->id;
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_fisico','INSERT',$id,null,null);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_fisico','INSERT',$id,null,$extraDenunciado);
             DB::commit();
         }catch (Exception $e){
             DB::rollback();
@@ -79,7 +78,7 @@ class ExtrasInvestigadoController extends Controller{
         try{
             DB::beginTransaction();
             $extraDenunciado = ExtraDenunciadoFisico::find($request->id);
-            $antes=$extraDenunciado;
+            $antes=clone $extraDenunciado;
             $extraDenunciado->idPuesto = $request->idPuesto;
             $extraDenunciado->alias = $request->alias;
             $extraDenunciado->senasPartic = $request->senasPartic;
@@ -139,7 +138,7 @@ class ExtrasInvestigadoController extends Controller{
         try{
             DB::beginTransaction();        
             $extraDenunciado = ExtraDenunciadoMoral::find($request->id);
-            $antes=$extraDenunciado;
+            $antes=clone $extraDenunciado;
             $extraDenunciado->idPuesto = $request->idPuesto;
             $extraDenunciado->alias = $request->alias;
             $extraDenunciado->senasPartic = $request->senasPartic;
