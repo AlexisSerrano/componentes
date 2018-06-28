@@ -44236,6 +44236,8 @@ Vue.component('extrasabogado', __webpack_require__(334));
 Vue.component('extrasdenunciante', __webpack_require__(339));
 Vue.component('extrasautoridad', __webpack_require__(344));
 Vue.component('registro', __webpack_require__(349));
+Vue.component('carpetas', __webpack_require__(356));
+
 var app = new Vue({
   el: '#app',
   store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* default */]
@@ -72822,8 +72824,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         idDomicilio: '',
         idTrabajo: '',
         idContacto: '',
-        personaFisicaExiste: '',
-        personaMoralExiste: ''
+        fisicaEncontrada: '',
+        moralEncontrada: ''
     },
     mutations: {
         asignarIdFisica: function asignarIdFisica(state, payload) {
@@ -72831,9 +72833,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             if (payload.tipo) {
                 state.tipoInvolucrado = payload.tipo;
             }
+            if (payload.fisicaEncontrada) {
+                state.fisicaEncontrada = payload.fisicaEncontrada;
+            }
             state.idPersonaMoral = '';
-            state.personaFisicaExiste = true;
-            state.personaMoralExiste = false;
             state.idDomicilio = '';
             state.idTrabajo = '';
             state.idContacto = '';
@@ -72843,20 +72846,13 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             if (payload.tipo) {
                 state.tipoInvolucrado = payload.tipo;
             }
+            if (payload.moralEncontrada) {
+                state.moralEncontrada = payload.moralEncontrada;
+            }
             state.idPersonaFisica = '';
-            state.personaMoralExiste = true;
-            state.personaFisicaExiste = false;
             state.idDomicilio = '';
             state.idTrabajo = '';
             state.idContacto = '';
-        },
-        ubicarTabsFisica: function ubicarTabsFisica(state) {
-            state.tabPrincipalFisica = 'nav-link';
-            state.pillPrincipalFisica = 'tab-pane fade';
-        },
-        ubicarTabsMoral: function ubicarTabsMoral(state) {
-            state.tabPrincipalMoral = 'nav-link';
-            state.pillPrincipalMoral = 'tab-pane fade';
         },
         asignarIdDomicilio: function asignarIdDomicilio(state, payload) {
             if (payload.tipo == 'domicilio') {
@@ -73252,7 +73248,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             validacionesback: '',
             loader: true,
             qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-            // url:'http://localhost/componentes/public/api', 
+            //  url:'http://localhost/componentes/public/api', 
             // url:'http://componentes.oo/api',
             // url:'http://componentes.test/api'
             url: '/api'
@@ -73303,29 +73299,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }, 1100);
             });
         },
-        searchPersona: function searchPersona() {
+        searchPersona: function searchPersona(rfc_curp) {
             var _this2 = this;
 
-            if (this.rfc.length == 10 && this.homoclave.length == 3) {
-                var urlBuscarPersona = this.url + '/searchPersonaFisica';
-                axios.post(urlBuscarPersona, {
-                    rfc: this.rfc + this.homoclave
-                }).then(function (response) {
-                    _this2.personaExiste = response.data;
-                    console.log(_this2.personaExiste);
-                    if (_this2.personaExiste != '') {
-                        __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
-                            title: '¡Persona Encontrada!',
-                            text: 'Ésta persona ya fue registrada anteriormente.',
-                            type: 'success',
-                            confirmButtonText: 'Ok'
-                        });
-                        _this2.nombres = _this2.personaExiste.nombres, _this2.primerAp = _this2.personaExiste.primerAp, _this2.segundoAp = _this2.personaExiste.segundoAp, _this2.fechaNacimiento = _this2.personaExiste.fechaNacimiento, _this2.edad = _this2.personaExiste.edad, _this2.sexo = _this2.personaExiste.sexo, _this2.rfc = _this2.personaExiste.rfc.slice(0, -3), _this2.homoclave = _this2.personaExiste.rfc.slice(-3), _this2.curp = _this2.personaExiste.curp, _this2.nacionalidad = _this2.personaExiste.idNacionalidad, _this2.estado = _this2.personaExiste.idEstado;
-                        _this2.municipio = _this2.personaExiste.idMunicipioOrigen, _this2.etnia = _this2.personaExiste.idEtnia, _this2.lengua = _this2.personaExiste.idLengua, _this2.interprete = _this2.personaExiste.idInterprete, _this2.motivoEstancia = _this2.personaExiste.motivoEstancia, _this2.ocupacion = _this2.personaExiste.idOcupacion, _this2.estadoCivil = _this2.personaExiste.idEstadoCivil, _this2.escolaridad = _this2.personaExiste.idEscolaridad, _this2.religion = _this2.personaExiste.idReligion, _this2.identificacion = _this2.personaExiste.docIdentificacion, _this2.numIdentificacion = _this2.personaExiste.numDocIdentificacion;
-                        _this2.alias = _this2.personaExiste.alias, _this2.telefono = _this2.personaExiste.telefono, _this2.$store.commit('asignarIdFisica', { idPersona: _this2.personaExiste.idPersona, tipo: _this2.tipo });
-                    }
-                });
+            if (rfc_curp == 'rfc') {
+                if (this.rfc.length != 10 || this.homoclave.length != 3) {
+                    return;
+                } else {
+                    var rfcCurp = this.rfc + this.homoclave;
+                }
+            } else if (rfc_curp == 'curp') {
+                var rfcCurp = this.curp;
             }
+            var urlBuscarPersona = this.url + '/searchPersonaFisica';
+            axios.post(urlBuscarPersona, {
+                busqueda: rfc_curp,
+                rfcCurp: rfcCurp
+            }).then(function (response) {
+                _this2.personaExiste = response.data;
+                console.log(_this2.personaExiste);
+                if (_this2.personaExiste != '') {
+                    __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
+                        title: '¡Persona Encontrada!',
+                        text: 'Ésta persona ya fue registrada anteriormente.',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    });
+                    _this2.nombres = _this2.personaExiste.nombres, _this2.primerAp = _this2.personaExiste.primerAp, _this2.segundoAp = _this2.personaExiste.segundoAp, _this2.fechaNacimiento = _this2.personaExiste.fechaNacimiento, _this2.edad = _this2.personaExiste.edad, _this2.sexo = _this2.personaExiste.sexo, _this2.rfc = _this2.personaExiste.rfc.slice(0, -3), _this2.homoclave = _this2.personaExiste.rfc.slice(-3), _this2.curp = _this2.personaExiste.curp, _this2.nacionalidad = _this2.personaExiste.idNacionalidad, _this2.estado = _this2.personaExiste.idEstado;
+                    _this2.municipio = _this2.personaExiste.idMunicipioOrigen, _this2.etnia = _this2.personaExiste.idEtnia, _this2.lengua = _this2.personaExiste.idLengua, _this2.interprete = _this2.personaExiste.idInterprete, _this2.motivoEstancia = _this2.personaExiste.motivoEstancia, _this2.ocupacion = _this2.personaExiste.idOcupacion, _this2.estadoCivil = _this2.personaExiste.idEstadoCivil, _this2.escolaridad = _this2.personaExiste.idEscolaridad, _this2.religion = _this2.personaExiste.idReligion, _this2.identificacion = _this2.personaExiste.docIdentificacion, _this2.numIdentificacion = _this2.personaExiste.numDocIdentificacion;
+                    _this2.alias = _this2.personaExiste.alias, _this2.telefono = _this2.personaExiste.telefono, _this2.$store.commit('asignarIdFisica', { idPersona: _this2.personaExiste.idPersona, tipo: _this2.tipo, fisicaEncontrada: true });
+                }
+            });
         },
         calcularRfc: function calcularRfc() {
             var _this3 = this;
@@ -73340,7 +73344,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }).then(function (response) {
                     _this3.rfc = response.data.res.slice(0, -3);
                     _this3.homoclave = response.data.res.slice(-3);
-                    _this3.searchPersona();
+                    _this3.searchPersona('rfc');
                 });
             }
         },
@@ -73388,6 +73392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         fecha_nacimiento: [arr[2], arr[1], arr[0]]
                     });
                     if (curpAuto) this.curp = curpAuto;
+                    this.searchPersona('curp');
                 }
             }
         },
@@ -73565,7 +73570,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     computed: Object.assign({
         botonGuardarModificar: function botonGuardarModificar() {
-            if (this.$store.state.personaFisicaExiste == '') {
+            if (this.$store.state.idPersonaFisica == '') {
                 return 'Guardar';
             } else {
                 return 'Modificar';
@@ -79851,11 +79856,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -79871,7 +79871,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             telefono: '',
             representanteLegal: '',
             personaExiste: '',
-            idMoral: '',
             validacionesback: '',
             // url:'http://localhost/componentes/public/api'
             url: '/api'
@@ -79909,7 +79908,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             type: 'success',
                             confirmButtonText: 'Ok'
                         });
-                        _this.nombre = _this.personaExiste.nombre, _this.fechaCreacion = _this.personaExiste.fechaCreacion, _this.rfc = _this.personaExiste.rfc.slice(0, -3), _this.homoclave = _this.personaExiste.rfc.slice(-3), _this.telefono = _this.personaExiste.telefono, _this.representanteLegal = _this.personaExiste.representanteLegal, _this.$store.commit('asignarIdMoral', { idPersona: _this.personaExiste.idMoral, tipo: _this.tipo });
+                        _this.nombre = _this.personaExiste.nombre, _this.fechaCreacion = _this.personaExiste.fechaCreacion, _this.rfc = _this.personaExiste.rfc.slice(0, -3), _this.homoclave = _this.personaExiste.rfc.slice(-3), _this.telefono = _this.personaExiste.telefono, _this.representanteLegal = _this.personaExiste.representanteLegal, _this.$store.commit('asignarIdMoral', { idPersona: _this.personaExiste.idMoral, tipo: _this.tipo, moralEncontrada: true });
                     }
                 });
             }
@@ -79975,7 +79974,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 idCarpeta: this.carpeta,
                 idPersona: this.$store.state.idPersonaMoral
             }).then(function (response) {
-                // this.idMoral=response.data        
                 _this4.$store.commit('asignarIdMoral', { idPersona: response.data, tipo: _this4.tipo });
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
                     title: '¡Guardado correctamente!',
@@ -80004,7 +80002,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     computed: Object.assign({
         botonGuardarModificar: function botonGuardarModificar() {
-            if (this.$store.state.personaMoralExiste == '') {
+            if (this.$store.state.idPersonaMoral == '') {
                 return 'Guardar';
             } else {
                 return 'Modificar';
@@ -80472,29 +80470,6 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.idMoral,
-                expression: "idMoral"
-              }
-            ],
-            attrs: { type: "hidden", id: "idMoral" },
-            domProps: { value: _vm.idMoral },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.idMoral = $event.target.value
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
         _c(
           "button",
           { staticClass: "btn btn-primary mt-2", attrs: { type: "submit" } },
@@ -80948,6 +80923,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -80956,6 +80939,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             estado: { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+            notificacion: '',
+            notificaciones: [{ "nombre": "DOMICILIO CASA", "id": 1 }, { "nombre": "OTRO DOMICILIO", "id": 2 }],
             municipio: null,
             localidad: null,
             codigoPostal: null,
@@ -81159,6 +81144,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         }
     },
+    watch: {
+        fisicaEncontrada: function fisicaEncontrada() {
+            if (this.empresa == false) {
+                this.notificaciones = [{ "nombre": "DOMICILIO CASA", "id": 1 }, { "nombre": "OTRO DOMICILIO", "id": 2 }, { "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES", "id": 3 }];
+            }
+        },
+        moralEncontrada: function moralEncontrada() {
+            if (this.empresa == true) {
+                this.notificaciones = [{ "nombre": "DOMICILIO CASA", "id": 1 }, { "nombre": "OTRO DOMICILIO", "id": 2 }, { "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES", "id": 3 }];
+            }
+        }
+    },
     computed: Object.assign({
         botonGuardarModificar: function botonGuardarModificar() {
             if (this.empresa == false) {
@@ -81208,7 +81205,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }
         }
-    }, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral']))
+    }, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'moralEncontrada']))
 });
 
 /***/ }),
@@ -81243,535 +81240,601 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "form-row" }, [
-                _c(
-                  "div",
-                  { staticClass: "form-group col-md-4" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-form-label col-form-label-sm",
-                        attrs: { for: "estado" }
-                      },
-                      [_vm._v("Entidad federativa")]
-                    ),
-                    _vm._v(" "),
-                    _c("v-select", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
+                this.tipo == "contacto"
+                  ? _c(
+                      "div",
+                      { staticClass: "form-group col-md-4" },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-form-label col-form-label-sm",
+                            attrs: { for: "notificacion" }
+                          },
+                          [_vm._v("Domicilio")]
+                        ),
+                        _vm._v(" "),
+                        _c("v-select", {
+                          attrs: {
+                            options: _vm.notificaciones,
+                            label: "nombre",
+                            name: "notificacion",
+                            placeholder:
+                              "Seleccione el domicilio de notificaciones"
+                          },
+                          model: {
+                            value: _vm.notificacion,
+                            callback: function($$v) {
+                              _vm.notificacion = $$v
+                            },
+                            expression: "notificacion"
+                          }
+                        })
                       ],
-                      class: {
-                        "border border-danger":
-                          _vm.errors.has("entidad federativa") ||
-                          this.validacionesback.idEstado
-                      },
-                      attrs: {
-                        options: _vm.estados,
-                        label: "nombre",
-                        "data-vv-name": "entidad federativa",
-                        name: "estado",
-                        placeholder: "Seleccione una entidad federativa"
-                      },
-                      on: { input: _vm.getMunicipios },
-                      model: {
-                        value: _vm.estado,
-                        callback: function($$v) {
-                          _vm.estado = $$v
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                this.notificacion.id == 2 || this.tipo != "contacto"
+                  ? _c(
+                      "div",
+                      { staticClass: "form-group col-md-4" },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-form-label col-form-label-sm",
+                            attrs: { for: "estado" }
+                          },
+                          [_vm._v("Entidad federativa")]
+                        ),
+                        _vm._v(" "),
+                        _c("v-select", {
+                          directives: [
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          class: {
+                            "border border-danger":
+                              _vm.errors.has("entidad federativa") ||
+                              this.validacionesback.idEstado
+                          },
+                          attrs: {
+                            options: _vm.estados,
+                            label: "nombre",
+                            "data-vv-name": "entidad federativa",
+                            name: "estado",
+                            placeholder: "Seleccione una entidad federativa"
+                          },
+                          on: { input: _vm.getMunicipios },
+                          model: {
+                            value: _vm.estado,
+                            callback: function($$v) {
+                              _vm.estado = $$v
+                            },
+                            expression: "estado"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.errors.has("entidad federativa"),
+                                expression: "errors.has('entidad federativa')"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.errors.first("entidad federativa"))
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        this.validacionesback.idEstado != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(String(this.validacionesback.idEstado))
+                              )
+                            ])
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                this.notificacion.id == 2 || this.tipo != "contacto"
+                  ? _c(
+                      "div",
+                      { staticClass: "form-group col-md-4" },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-form-label col-form-label-sm",
+                            attrs: { for: "municipio" }
+                          },
+                          [_vm._v("Municipio")]
+                        ),
+                        _vm._v(" "),
+                        _c("v-select", {
+                          directives: [
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          class: {
+                            "border border-danger":
+                              _vm.errors.has("municipio") ||
+                              this.validacionesback.idMunicipio
+                          },
+                          attrs: {
+                            options: _vm.municipios,
+                            label: "nombre",
+                            name: "municipio",
+                            placeholder: "Seleccione un municipio"
+                          },
+                          on: { input: _vm.getLocalidades },
+                          model: {
+                            value: _vm.municipio,
+                            callback: function($$v) {
+                              _vm.municipio = $$v
+                            },
+                            expression: "municipio"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.errors.has("municipio"),
+                                expression: "errors.has('municipio')"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [_vm._v(_vm._s(_vm.errors.first("municipio")))]
+                        ),
+                        _vm._v(" "),
+                        this.validacionesback.idMunicipio != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(this.validacionesback.idMunicipio)
+                                )
+                              )
+                            ])
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                this.notificacion.id == 2 || this.tipo != "contacto"
+                  ? _c(
+                      "div",
+                      { staticClass: "form-group col-md-4" },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-form-label col-form-label-sm",
+                            attrs: { for: "localidad" }
+                          },
+                          [_vm._v("Localidad")]
+                        ),
+                        _vm._v(" "),
+                        _c("v-select", {
+                          directives: [
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          class: {
+                            "border border-danger":
+                              _vm.errors.has("localidad") ||
+                              this.validacionesback.idLocalidad
+                          },
+                          attrs: {
+                            options: _vm.localidades,
+                            label: "nombre",
+                            name: "localidad",
+                            placeholder: "Seleccione una localidad"
+                          },
+                          on: { input: _vm.getCodigosPostales },
+                          model: {
+                            value: _vm.localidad,
+                            callback: function($$v) {
+                              _vm.localidad = $$v
+                            },
+                            expression: "localidad"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.errors.has("localidad"),
+                                expression: "errors.has('localidad')"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [_vm._v(_vm._s(_vm.errors.first("localidad")))]
+                        ),
+                        _vm._v(" "),
+                        this.validacionesback.idLocalidad != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(this.validacionesback.idLocalidad)
+                                )
+                              )
+                            ])
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                this.notificacion.id == 2 || this.tipo != "contacto"
+                  ? _c(
+                      "div",
+                      { staticClass: "form-group col-md-4" },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-form-label col-form-label-sm",
+                            attrs: { for: "codigoPostal" }
+                          },
+                          [_vm._v("Código postal")]
+                        ),
+                        _vm._v(" "),
+                        _c("v-select", {
+                          directives: [
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          class: {
+                            "border border-danger":
+                              _vm.errors.has("código postal") ||
+                              this.validacionesback.idCodigoPostal
+                          },
+                          attrs: {
+                            options: _vm.codigosPostales,
+                            label: "codigoPostal",
+                            name: "codigoPostal",
+                            "data-vv-name": "código postal",
+                            placeholder: "Seleccione un código postal"
+                          },
+                          on: { input: _vm.getColonias },
+                          model: {
+                            value: _vm.codigoPostal,
+                            callback: function($$v) {
+                              _vm.codigoPostal = $$v
+                            },
+                            expression: "codigoPostal"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.errors.has("código postal"),
+                                expression: "errors.has('código postal')"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [_vm._v(_vm._s(_vm.errors.first("código postal")))]
+                        ),
+                        _vm._v(" "),
+                        this.validacionesback.idCodigoPostal != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  String(this.validacionesback.idCodigoPostal)
+                                )
+                              )
+                            ])
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                this.notificacion.id == 2 || this.tipo != "contacto"
+                  ? _c(
+                      "div",
+                      { staticClass: "form-group col-md-4" },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-form-label col-form-label-sm",
+                            attrs: { for: "colonia" }
+                          },
+                          [_vm._v("Colonia")]
+                        ),
+                        _vm._v(" "),
+                        _c("v-select", {
+                          directives: [
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
+                          class: {
+                            "border border-danger":
+                              _vm.errors.has("colonia") ||
+                              this.validacionesback.idColonia
+                          },
+                          attrs: {
+                            options: _vm.colonias,
+                            label: "nombre",
+                            name: "colonia",
+                            placeholder: "Seleccione una colonia"
+                          },
+                          model: {
+                            value: _vm.colonia,
+                            callback: function($$v) {
+                              _vm.colonia = $$v
+                            },
+                            expression: "colonia"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.errors.has("colonia"),
+                                expression: "errors.has('colonia')"
+                              }
+                            ],
+                            staticClass: "text-danger"
+                          },
+                          [_vm._v(_vm._s(_vm.errors.first("colonia")))]
+                        ),
+                        _vm._v(" "),
+                        this.validacionesback.idColonia != undefined
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(String(this.validacionesback.idColonia))
+                              )
+                            ])
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                this.notificacion.id == 2 || this.tipo != "contacto"
+                  ? _c("div", { staticClass: "form-group col-md-4" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "calle" }
                         },
-                        expression: "estado"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
+                        [_vm._v("Calle")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
                         directives: [
                           {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("entidad federativa"),
-                            expression: "errors.has('entidad federativa')"
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.calle,
+                            expression: "calle"
+                          },
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
                           }
                         ],
-                        staticClass: "text-danger"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("entidad federativa")))]
-                    ),
-                    _vm._v(" "),
-                    this.validacionesback.idEstado != undefined
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(String(this.validacionesback.idEstado)))
-                        ])
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group col-md-4" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-form-label col-form-label-sm",
-                        attrs: { for: "municipio" }
-                      },
-                      [_vm._v("Municipio")]
-                    ),
-                    _vm._v(" "),
-                    _c("v-select", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      class: {
-                        "border border-danger":
-                          _vm.errors.has("municipio") ||
-                          this.validacionesback.idMunicipio
-                      },
-                      attrs: {
-                        options: _vm.municipios,
-                        label: "nombre",
-                        name: "municipio",
-                        placeholder: "Seleccione un municipio"
-                      },
-                      on: { input: _vm.getLocalidades },
-                      model: {
-                        value: _vm.municipio,
-                        callback: function($$v) {
-                          _vm.municipio = $$v
+                        class: {
+                          input: true,
+                          "form-control form-control-sm": true,
+                          "border border-danger":
+                            _vm.errors.has("calle") ||
+                            this.validacionesback.calle
                         },
-                        expression: "municipio"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
+                        attrs: {
+                          type: "text",
+                          name: "calle",
+                          placeholder: "Ingrese la calle",
+                          autocomplete: "off"
+                        },
+                        domProps: { value: _vm.calle },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.calle = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("calle"),
+                              expression: "errors.has('calle')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("calle")))]
+                      ),
+                      _vm._v(" "),
+                      this.validacionesback.calle != undefined
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(String(this.validacionesback.calle)))
+                          ])
+                        : _vm._e()
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                this.notificacion.id == 2 || this.tipo != "contacto"
+                  ? _c("div", { staticClass: "form-group col-md-4" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "numExterno" }
+                        },
+                        [_vm._v("Número externo")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
                         directives: [
                           {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("municipio"),
-                            expression: "errors.has('municipio')"
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.numExterno,
+                            expression: "numExterno"
+                          },
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
                           }
                         ],
-                        staticClass: "text-danger"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("municipio")))]
-                    ),
-                    _vm._v(" "),
-                    this.validacionesback.idMunicipio != undefined
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            _vm._s(String(this.validacionesback.idMunicipio))
-                          )
-                        ])
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group col-md-4" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-form-label col-form-label-sm",
-                        attrs: { for: "localidad" }
-                      },
-                      [_vm._v("Localidad")]
-                    ),
-                    _vm._v(" "),
-                    _c("v-select", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      class: {
-                        "border border-danger":
-                          _vm.errors.has("localidad") ||
-                          this.validacionesback.idLocalidad
-                      },
-                      attrs: {
-                        options: _vm.localidades,
-                        label: "nombre",
-                        name: "localidad",
-                        placeholder: "Seleccione una localidad"
-                      },
-                      on: { input: _vm.getCodigosPostales },
-                      model: {
-                        value: _vm.localidad,
-                        callback: function($$v) {
-                          _vm.localidad = $$v
+                        class: {
+                          input: true,
+                          "form-control form-control-sm": true,
+                          "border border-danger":
+                            _vm.errors.has("Número externo") ||
+                            this.validacionesback.numExterno
                         },
-                        expression: "localidad"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
+                        attrs: {
+                          type: "text",
+                          "data-vv-name": "Número externo",
+                          placeholder: "Ingrese el número externo",
+                          autocomplete: "off"
+                        },
+                        domProps: { value: _vm.numExterno },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.numExterno = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("Número externo"),
+                              expression: "errors.has('Número externo')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("Número externo")))]
+                      ),
+                      _vm._v(" "),
+                      this.validacionesback.numExterno != undefined
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              _vm._s(String(this.validacionesback.numExterno))
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                this.notificacion.id == 2 || this.tipo != "contacto"
+                  ? _c("div", { staticClass: "form-group col-md-4" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label col-form-label-sm",
+                          attrs: { for: "numInterno" }
+                        },
+                        [_vm._v("Número interno")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
                         directives: [
                           {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("localidad"),
-                            expression: "errors.has('localidad')"
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.numInterno,
+                            expression: "numInterno"
                           }
                         ],
-                        staticClass: "text-danger"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("localidad")))]
-                    ),
-                    _vm._v(" "),
-                    this.validacionesback.idLocalidad != undefined
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            _vm._s(String(this.validacionesback.idLocalidad))
-                          )
-                        ])
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group col-md-4" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-form-label col-form-label-sm",
-                        attrs: { for: "codigoPostal" }
-                      },
-                      [_vm._v("Código postal")]
-                    ),
-                    _vm._v(" "),
-                    _c("v-select", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      class: {
-                        "border border-danger":
-                          _vm.errors.has("código postal") ||
-                          this.validacionesback.idCodigoPostal
-                      },
-                      attrs: {
-                        options: _vm.codigosPostales,
-                        label: "codigoPostal",
-                        name: "codigoPostal",
-                        "data-vv-name": "código postal",
-                        placeholder: "Seleccione un código postal"
-                      },
-                      on: { input: _vm.getColonias },
-                      model: {
-                        value: _vm.codigoPostal,
-                        callback: function($$v) {
-                          _vm.codigoPostal = $$v
+                        staticClass: "input form-control form-control-sm",
+                        attrs: {
+                          type: "text",
+                          name: "numInterno",
+                          placeholder: "Ingrese el número interno",
+                          autocomplete: "off"
                         },
-                        expression: "codigoPostal"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("código postal"),
-                            expression: "errors.has('código postal')"
+                        domProps: { value: _vm.numInterno },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.numInterno = $event.target.value
                           }
-                        ],
-                        staticClass: "text-danger"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("código postal")))]
-                    ),
-                    _vm._v(" "),
-                    this.validacionesback.idCodigoPostal != undefined
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            _vm._s(String(this.validacionesback.idCodigoPostal))
-                          )
-                        ])
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group col-md-4" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-form-label col-form-label-sm",
-                        attrs: { for: "colonia" }
-                      },
-                      [_vm._v("Colonia")]
-                    ),
-                    _vm._v(" "),
-                    _c("v-select", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
                         }
-                      ],
-                      class: {
-                        "border border-danger":
-                          _vm.errors.has("colonia") ||
-                          this.validacionesback.idColonia
-                      },
-                      attrs: {
-                        options: _vm.colonias,
-                        label: "nombre",
-                        name: "colonia",
-                        placeholder: "Seleccione una colonia"
-                      },
-                      model: {
-                        value: _vm.colonia,
-                        callback: function($$v) {
-                          _vm.colonia = $$v
-                        },
-                        expression: "colonia"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("colonia"),
-                            expression: "errors.has('colonia')"
-                          }
-                        ],
-                        staticClass: "text-danger"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("colonia")))]
-                    ),
-                    _vm._v(" "),
-                    this.validacionesback.idColonia != undefined
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            _vm._s(String(this.validacionesback.idColonia))
-                          )
-                        ])
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group col-md-4" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "calle" }
-                    },
-                    [_vm._v("Calle")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.calle,
-                        expression: "calle"
-                      },
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required",
-                        expression: "'required'"
-                      }
-                    ],
-                    class: {
-                      input: true,
-                      "form-control form-control-sm": true,
-                      "border border-danger":
-                        _vm.errors.has("calle") || this.validacionesback.calle
-                    },
-                    attrs: {
-                      type: "text",
-                      name: "calle",
-                      placeholder: "Ingrese la calle",
-                      autocomplete: "off"
-                    },
-                    domProps: { value: _vm.calle },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.calle = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("calle"),
-                          expression: "errors.has('calle')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("calle")))]
-                  ),
-                  _vm._v(" "),
-                  this.validacionesback.calle != undefined
-                    ? _c("span", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(String(this.validacionesback.calle)))
-                      ])
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group col-md-4" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "numExterno" }
-                    },
-                    [_vm._v("Número externo")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.numExterno,
-                        expression: "numExterno"
-                      },
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required",
-                        expression: "'required'"
-                      }
-                    ],
-                    class: {
-                      input: true,
-                      "form-control form-control-sm": true,
-                      "border border-danger":
-                        _vm.errors.has("Número externo") ||
-                        this.validacionesback.numExterno
-                    },
-                    attrs: {
-                      type: "text",
-                      "data-vv-name": "Número externo",
-                      placeholder: "Ingrese el número externo",
-                      autocomplete: "off"
-                    },
-                    domProps: { value: _vm.numExterno },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.numExterno = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("Número externo"),
-                          expression: "errors.has('Número externo')"
-                        }
-                      ],
-                      staticClass: "text-danger"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("Número externo")))]
-                  ),
-                  _vm._v(" "),
-                  this.validacionesback.numExterno != undefined
-                    ? _c("span", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(String(this.validacionesback.numExterno)))
-                      ])
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group col-md-4" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-form-label col-form-label-sm",
-                      attrs: { for: "numInterno" }
-                    },
-                    [_vm._v("Número interno")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.numInterno,
-                        expression: "numInterno"
-                      }
-                    ],
-                    staticClass: "input form-control form-control-sm",
-                    attrs: {
-                      type: "text",
-                      name: "numInterno",
-                      placeholder: "Ingrese el número interno",
-                      autocomplete: "off"
-                    },
-                    domProps: { value: _vm.numInterno },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.numInterno = $event.target.value
-                      }
-                    }
-                  })
-                ]),
+                      })
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 this.tipo != "domicilio"
                   ? _c("div", { staticClass: "form-group col-md-4" }, [
@@ -81871,9 +81934,19 @@ var render = function() {
                             rawName: "v-model",
                             value: _vm.correo,
                             expression: "correo"
+                          },
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "email",
+                            expression: "'email'"
                           }
                         ],
-                        staticClass: "input form-control form-control-sm",
+                        class: {
+                          input: true,
+                          "form-control form-control-sm": true,
+                          "border border-danger": _vm.errors.has("correo")
+                        },
                         attrs: {
                           type: "text",
                           name: "correo",
@@ -81889,7 +81962,23 @@ var render = function() {
                             _vm.correo = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("correo"),
+                              expression: "errors.has('correo')"
+                            }
+                          ],
+                          staticClass: "text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("correo")))]
+                      )
                     ])
                   : _vm._e()
               ]),
@@ -87925,6 +88014,399 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(357)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(359)
+/* template */
+var __vue_template__ = __webpack_require__(360)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\carpetasLigadasComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-377c05d2", Component.options)
+  } else {
+    hotAPI.reload("data-v-377c05d2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 357 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(358);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("7b4d4866", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-377c05d2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./carpetasLigadasComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-377c05d2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./carpetasLigadasComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 358 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.dropdown-toggle{\r\n    height: 36px;\r\n    overflow: hidden;\n}\ninput{\r\n    text-transform: uppercase\n}\ninput.form-control{\r\n    width: 100% !important;\n}\n.dropdown{\r\n    font-family: inherit;\r\n    font-size: .875rem;\n}\n.centrar{\r\n    position: absolute;\r\n    top:50%;\r\n    left:50%;\r\n    margin-left: -30px;\r\n    margin-top: -30px;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 359 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_epic_spinners__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(5);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            estado: { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+            municipio: null,
+            localidad: null,
+            codigoPostal: null,
+            colonia: null,
+            estados: [],
+            municipios: [],
+            localidades: [],
+            codigosPostales: [],
+            colonias: [],
+            calle: '',
+            numExterno: '',
+            numInterno: '',
+            validacionesback: '',
+            idDomicilio: '',
+            loader: true,
+            telefono: '',
+            lugarTrabajo: '',
+            correo: '',
+            url: '/'
+        };
+    },
+
+    props: {
+        tipo: {
+            required: true
+        },
+        empresa: {
+            required: true
+        }
+    },
+    components: { SpringSpinner: __WEBPACK_IMPORTED_MODULE_1_epic_spinners__["a" /* SpringSpinner */] },
+    mounted: function mounted() {
+        this.getEstados();
+    },
+    methods: {
+        getEstados: function getEstados() {
+            var _this = this;
+
+            var urlEstados = this.url + 'getEstados';
+            axios.get(urlEstados).then(function (response) {
+                _this.estados = response.data;
+                var self = _this;
+                setTimeout(function () {
+                    self.loader = false;
+                }, 1100);
+            });
+        },
+        getMunicipios: function getMunicipios() {
+            var _this2 = this;
+
+            if (this.estado != null) {
+                this.municipio = null, this.localidad = null, this.codigoPostal = null, this.colonia = null;
+                var urlMunicipios = this.url + 'getMunicipios/' + this.estado.id;
+                axios.get(urlMunicipios).then(function (response) {
+                    _this2.municipios = response.data;
+                });
+            } else {
+                this.municipio = null, this.localidad = null, this.codigoPostal = null, this.colonia = null, this.municipios = [], this.localidades = [], this.codigosPostales = [], this.colonias = [];
+            }
+        },
+        getLocalidades: function getLocalidades() {
+            var _this3 = this;
+
+            if (this.municipio != null) {
+                this.localidad = null, this.codigoPostal = null, this.colonia = null;
+                var urlLocalidades = this.url + 'getLocalidades/' + this.municipio.id;
+                axios.get(urlLocalidades).then(function (response) {
+                    _this3.localidades = response.data;
+                });
+            } else {
+                this.localidad = null, this.codigoPostal = null, this.colonia = null, this.localidades = [], this.codigosPostales = [], this.colonias = [];
+            }
+        },
+        getCodigosPostales: function getCodigosPostales() {
+            var _this4 = this;
+
+            if (this.municipio != null) {
+                this.codigoPostal = null;
+                this.colonia = null;
+                var urlCodigosPostales = this.url + 'getCodigosPostales/' + this.municipio.id;
+                axios.get(urlCodigosPostales).then(function (response) {
+                    _this4.codigosPostales = response.data;
+                });
+            } else {
+                this.codigoPostal = null, this.colonia = null;
+                this.codigosPostales = [], this.colonias = [];
+            }
+        },
+        getColonias: function getColonias() {
+            var _this5 = this;
+
+            if (this.codigoPostal != null) {
+                this.colonia = null;
+                var urlColonias = this.url + 'getColonias/' + this.codigoPostal.id;
+                axios.get(urlColonias).then(function (response) {
+                    _this5.colonias = response.data;
+                });
+            } else {
+                this.colonia = null, this.colonias = [];
+            }
+        },
+        CleanFields: function CleanFields() {
+            this.calle = '', this.numExterno = '', this.numInterno = '', this.estado = { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 }, this.municipio = null, this.localidad = null, this.codigoPostal = null, this.colonia = null;
+            this.$validator.reset();
+        },
+        validateBeforeSubmit: function validateBeforeSubmit() {
+            var _this6 = this;
+
+            this.$validator.validateAll().then(function (result) {
+                if (result) {
+                    _this6.crearDomicilio();
+                    return;
+                }
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: '¡Guardado Incorrecto!',
+                    text: 'Éste domicilio no fue posible guardarse.',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            });
+        },
+
+        crearDomicilio: function crearDomicilio() {
+            var _this7 = this;
+
+            this.validacionesback = '';
+            var urlDomicilio = this.url + 'addDomicilio';
+            if (this.empresa == false) {
+                var idPersona = this.$store.state.idPersonaFisica;
+            } else {
+                var idPersona = this.$store.state.idPersonaMoral;
+            }
+            if (this.tipo == 'domicilio') {
+                var data = {
+                    estado: this.estado.id,
+                    municipio: this.municipio.id,
+                    localidad: this.localidad.id,
+                    colonia: this.colonia.id,
+                    codigoPostal: this.codigoPostal.id,
+                    calle: this.calle.toUpperCase(),
+                    numExterno: this.numExterno.toUpperCase(),
+                    numInterno: this.numInterno.toUpperCase(),
+                    tipo: this.tipo,
+                    empresa: this.empresa,
+                    idPersona: idPersona,
+                    claveDomicilio: this.$store.state.idDomicilio
+                };
+            } else if (this.tipo == 'trabajo') {
+                var data = {
+                    estado: this.estado.id,
+                    municipio: this.municipio.id,
+                    localidad: this.localidad.id,
+                    colonia: this.colonia.id,
+                    codigoPostal: this.codigoPostal.id,
+                    calle: this.calle.toUpperCase(),
+                    numExterno: this.numExterno.toUpperCase(),
+                    numInterno: this.numInterno.toUpperCase(),
+                    telefonoTrabajo: this.telefono,
+                    lugarTrabajo: this.lugarTrabajo.toUpperCase(),
+                    tipo: this.tipo,
+                    empresa: this.empresa,
+                    idPersona: idPersona,
+                    claveDomicilio: this.$store.state.idTrabajo
+                };
+            } else if (this.tipo == 'contacto') {
+                var data = {
+                    estado: this.estado.id,
+                    municipio: this.municipio.id,
+                    localidad: this.localidad.id,
+                    colonia: this.colonia.id,
+                    codigoPostal: this.codigoPostal.id,
+                    calle: this.calle.toUpperCase(),
+                    numExterno: this.numExterno.toUpperCase(),
+                    numInterno: this.numInterno.toUpperCase(),
+                    telefonoContacto: this.telefono,
+                    correoContacto: this.correo.toUpperCase(),
+                    tipo: this.tipo,
+                    empresa: this.empresa,
+                    idPersona: idPersona,
+                    claveDomicilio: this.$store.state.idContacto
+                };
+            }
+            axios.post(urlDomicilio, data).then(function (response) {
+                console.log(response);
+                _this7.$store.commit('asignarIdDomicilio', { tipo: _this7.tipo, idDomicilio: response.data });
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                    title: '¡Guardado Correctamente!',
+                    text: 'Éste domicilio fue guardado exitosamente.',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                }).catch(function (error) {
+                    console.log(error.response.data.errors);
+                    _this7.validacionesback = error.response.data.errors;
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                        title: '¡Guardado Incorrecto!',
+                        text: 'Éste domicilio no fue posible guardarse.',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                });
+            });
+        }
+    },
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral', 'personaExiste'])
+});
+
+/***/ }),
+/* 360 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _vm.loader
+        ? _c("spring-spinner", {
+            staticClass: "centrar",
+            attrs: { "animation-duration": 1500, size: 60, color: "#828282" }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loader != true
+        ? _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.validateBeforeSubmit($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "form-row" }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("Guardar")]
+              )
+            ]
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-377c05d2", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

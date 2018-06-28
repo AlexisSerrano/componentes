@@ -240,10 +240,10 @@ import { mapState } from "vuex";
                 validacionesback:'',
                 loader:true,
                 qrr:"QUIEN O QUIENES RESULTEN RESPONSABLES",
-                 url:'http://localhost/componentes/public/api', 
+                //  url:'http://localhost/componentes/public/api', 
                 // url:'http://componentes.oo/api',
                 // url:'http://componentes.test/api'
-                //url:'/api'
+                url:'/api'
             }
         },
 
@@ -286,49 +286,55 @@ import { mapState } from "vuex";
                     setTimeout(function(){ self.loader=false; }, 1100);
                 });
             },
-            searchPersona: function(){
-                if(this.rfc.length==10 && this.homoclave.length==3){
-                    var urlBuscarPersona = this.url+'/searchPersonaFisica';
-                    axios.post(urlBuscarPersona,{
-                            rfc: this.rfc+this.homoclave
-                    }).then(response => {
-                        this.personaExiste=response.data
-                        console.log(this.personaExiste)
-                        if(this.personaExiste!=''){
-                            swal({
-                                title: '¡Persona Encontrada!',
-                                text: 'Ésta persona ya fue registrada anteriormente.',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            })
-                            this.nombres= this.personaExiste.nombres,
-                            this.primerAp=this.personaExiste.primerAp,
-                            this.segundoAp=this.personaExiste.segundoAp,
-                            this.fechaNacimiento=this.personaExiste.fechaNacimiento,
-                            this.edad=this.personaExiste.edad,
-                            this.sexo=this.personaExiste.sexo,
-                            this.rfc=this.personaExiste.rfc.slice(0,-3),
-                            this.homoclave = this.personaExiste.rfc.slice(-3),
-                            this.curp=this.personaExiste.curp,
-                            this.nacionalidad=this.personaExiste.idNacionalidad,
-                            this.estado=this.personaExiste.idEstado
-                            this.municipio=this.personaExiste.idMunicipioOrigen,
-                            this.etnia=this.personaExiste.idEtnia,
-                            this.lengua=this.personaExiste.idLengua,
-                            this.interprete=this.personaExiste.idInterprete,
-                            this.motivoEstancia=this.personaExiste.motivoEstancia,
-                            this.ocupacion=this.personaExiste.idOcupacion,
-                            this.estadoCivil=this.personaExiste.idEstadoCivil,
-                            this.escolaridad=this.personaExiste.idEscolaridad,
-                            this.religion=this.personaExiste.idReligion,
-                            this.identificacion=this.personaExiste.docIdentificacion,
-                            this.numIdentificacion=this.personaExiste.numDocIdentificacion
-                            this.alias=this.personaExiste.alias,
-                            this.telefono=this.personaExiste.telefono,
-                            this.$store.commit('asignarIdFisica',{idPersona:this.personaExiste.idPersona, tipo:this.tipo})       
-                        }
-                    });
+            searchPersona: function(rfc_curp){
+                if(rfc_curp=='rfc'){
+                    if(this.rfc.length!=10 || this.homoclave.length!=3){return}
+                    else{var rfcCurp=this.rfc+this.homoclave}
                 }
+                else if(rfc_curp=='curp'){
+                    var rfcCurp=this.curp
+                }
+                var urlBuscarPersona = this.url+'/searchPersonaFisica';
+                axios.post(urlBuscarPersona,{
+                        busqueda:rfc_curp,
+                        rfcCurp: rfcCurp
+                }).then(response => {
+                    this.personaExiste=response.data
+                    console.log(this.personaExiste)
+                    if(this.personaExiste!=''){
+                        swal({
+                            title: '¡Persona Encontrada!',
+                            text: 'Ésta persona ya fue registrada anteriormente.',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        })
+                        this.nombres= this.personaExiste.nombres,
+                        this.primerAp=this.personaExiste.primerAp,
+                        this.segundoAp=this.personaExiste.segundoAp,
+                        this.fechaNacimiento=this.personaExiste.fechaNacimiento,
+                        this.edad=this.personaExiste.edad,
+                        this.sexo=this.personaExiste.sexo,
+                        this.rfc=this.personaExiste.rfc.slice(0,-3),
+                        this.homoclave = this.personaExiste.rfc.slice(-3),
+                        this.curp=this.personaExiste.curp,
+                        this.nacionalidad=this.personaExiste.idNacionalidad,
+                        this.estado=this.personaExiste.idEstado
+                        this.municipio=this.personaExiste.idMunicipioOrigen,
+                        this.etnia=this.personaExiste.idEtnia,
+                        this.lengua=this.personaExiste.idLengua,
+                        this.interprete=this.personaExiste.idInterprete,
+                        this.motivoEstancia=this.personaExiste.motivoEstancia,
+                        this.ocupacion=this.personaExiste.idOcupacion,
+                        this.estadoCivil=this.personaExiste.idEstadoCivil,
+                        this.escolaridad=this.personaExiste.idEscolaridad,
+                        this.religion=this.personaExiste.idReligion,
+                        this.identificacion=this.personaExiste.docIdentificacion,
+                        this.numIdentificacion=this.personaExiste.numDocIdentificacion
+                        this.alias=this.personaExiste.alias,
+                        this.telefono=this.personaExiste.telefono,
+                        this.$store.commit('asignarIdFisica',{idPersona:this.personaExiste.idPersona, tipo:this.tipo, fisicaEncontrada:true})       
+                    }
+                });
             },
             calcularRfc(){
                 if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!=''){
@@ -341,7 +347,7 @@ import { mapState } from "vuex";
                     }).then(response =>{             
                         this.rfc = response.data.res.slice(0, -3);                        
                         this.homoclave=response.data.res.slice(-3);
-                        this.searchPersona();
+                        this.searchPersona('rfc');
                     });
                 }
             },
@@ -388,6 +394,7 @@ import { mapState } from "vuex";
                     });
                     if(curpAuto)
                         this.curp=curpAuto;
+                        this.searchPersona('curp');
                     }
                 }                
             },
@@ -593,7 +600,7 @@ import { mapState } from "vuex";
         },
         computed: Object.assign({
         botonGuardarModificar(){
-            if(this.$store.state.personaFisicaExiste==''){
+            if(this.$store.state.idPersonaFisica==''){
                  return 'Guardar'
             }
             else{
