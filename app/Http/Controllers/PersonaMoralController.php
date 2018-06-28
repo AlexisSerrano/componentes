@@ -38,7 +38,9 @@ class PersonaMoralController extends Controller{
 		->where('rfc',$persona)
 		->select('persona_moral.nombre','persona_moral.fechaCreacion','persona_moral.rfc',
 		'variables_persona_moral.telefono','variables_persona_moral.representanteLegal',
-		'variables_persona_moral.id')->first();
+		'variables_persona_moral.id')
+		->orderBy('variables_persona_moral.id','desc')
+		->first();
 		if($personaExiste){
 			$data = array(
 				'nombre'=>$personaExiste->nombre,

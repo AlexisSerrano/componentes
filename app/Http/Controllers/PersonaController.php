@@ -28,7 +28,8 @@ class PersonaController extends Controller{
 	}
 
 	public function searchPersona(Request $request){
-		$persona = $request->rfc;
+		$rfc = $request->rfc;
+
 		$personaExisteP = DB::table('persona_fisica')
 		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
 		->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
@@ -43,7 +44,7 @@ class PersonaController extends Controller{
 		->join('sexos', 'persona_fisica.sexo', '=', 'sexos.id')
 		->join('cat_interprete', 'variables_persona_fisica.idInterprete', '=', 'cat_interprete.id')
 		->join('cat_estado', 'cat_municipio.idEstado', '=', 'cat_estado.id')
-		->where('rfc',$persona)
+		->where('rfc',$rfc)
 		//->orwhere('curp',$persona)
 		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
 		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
@@ -61,7 +62,10 @@ class PersonaController extends Controller{
 		'cat_identificacion.id as idIdentificacion','cat_identificacion.documento as documentoIdentificacion',
 		'sexos.id as idSexo','sexos.nombre as nombreSexo',
 		'cat_interprete.id as idInterprete','cat_interprete.nombre as nombreInterprete',
-		'cat_estado.id as idEstado','cat_estado.nombre as nombreEstado')->first();
+		'cat_estado.id as idEstado','cat_estado.nombre as nombreEstado')
+		->orderBy('variables_persona_fisica.id','desc')
+		->first();
+		//echo $personaExisteP;
         if($personaExisteP){
 			$data = array(
 				'nombres'=>$personaExisteP->nombres,

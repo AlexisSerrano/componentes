@@ -17,14 +17,14 @@ class VariablesPersonaFisica extends Migration
             $table->increments('id');
             $table->integer('idPersona')->unsigned();
             $table->integer('edad')->nullable();
-            $table->string('telefono',15)->nullable()->default("SIN INFORMACION");
+            $table->string('telefono',15)->nullable();
             $table->string('motivoEstancia',200)->nullable()->default("SIN INFORMACION");
             $table->integer('idOcupacion')->nullable()->unsigned()->default(2941);
             $table->integer('idEstadoCivil')->nullable()->unsigned()->default(7);
             $table->integer('idEscolaridad')->nullable()->unsigned()->default(14);
             $table->integer('idReligion')->nullable()->unsigned()->default(29);
-            $table->integer('docIdentificacion')->nullable()->unsigned();
-            $table->integer('idInterprete')->nullable()->unsigned()->default(0);
+            $table->integer('docIdentificacion')->nullable()->unsigned()->default(14);;
+            $table->integer('idInterprete')->nullable()->unsigned()->default(1);
             $table->string('numDocIdentificacion',50)->nullable()->default("SIN INFORMACION");
             // $table->string('lugarTrabajo',50)->default("SIN INFORMACION");
             // $table->string('telefonoTrabajo',15)->default("SIN INFORMACION");
