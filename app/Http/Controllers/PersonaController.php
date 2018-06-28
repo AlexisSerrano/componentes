@@ -267,17 +267,24 @@ class PersonaController extends Controller{
 		$domicilio = DB::table('variables_persona_fisica as var')
 		->join('persona_fisica as per', 'per.id','=','var.idPersona')
 		->join('domicilio as dom', 'dom.id','=','var.idDomicilio')
+		->join('cat_estado as edo', 'edo.id','=','dom.idEstado')
+		->join('cat_municipio as mun', 'mun.id','=','dom.idMunicipio')
+		->join('cat_localidad as loc', 'loc.id','=','dom.idLocalidad')
+		->join('cat_colonia as col', 'col.id','=','dom.idColonia')
 		->where('rfc',$rfc)
 		->select(
-			'dom.id as id','idEstado','idMunicipio','idLocalidad','calle','numExterno','numInterno'
+			'dom.id as id','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia','col.nombre as descColonia',
+			'edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad','col.codigoPostal'
 		)->first();
 
         if($domicilio){
 			$dom = array(
 				'id'=>$domicilio->id,
-				'idEstado'=>$domicilio->idEstado,
-				'idMunicipio'=>$domicilio->idMunicipio,
-				'idLocalidad'=>$domicilio->idLocalidad,
+				'idEstado'=>array("nombre"=>$domicilio->descEstado, "id"=>$domicilio->idEstado),
+				'idMunicipio'=>array("nombre"=>$domicilio->descMunicipio, "id"=>$domicilio->idMunicipio),
+				'idLocalidad'=>array("nombre"=>$domicilio->descLocalidad, "id"=>$domicilio->idLocalidad),
+				'idColonia'=>array("nombre"=>$domicilio->descColonia, "id"=>$domicilio->idColonia),
+				'codigoPostal'=>$domicilio->codigoPostal,
 				'calle'=>$domicilio->calle,
 				'numExterno'=>$domicilio->numExterno,
 				'numInterno'=>$domicilio->numInterno
@@ -288,10 +295,15 @@ class PersonaController extends Controller{
 		$trabajo = DB::table('variables_persona_fisica as var')
 		->join('persona_fisica as per', 'per.id','var.idPersona')
 		->join('trabajo as tra', 'tra.id','var.idTrabajo')
-		->join('domicilio as dom', 'dom.id','tra.idDomicilio')		
+		->join('domicilio as dom', 'dom.id','tra.idDomicilio')	
+		->join('cat_estado as edo', 'edo.id','=','dom.idEstado')
+		->join('cat_municipio as mun', 'mun.id','=','dom.idMunicipio')
+		->join('cat_localidad as loc', 'loc.id','=','dom.idLocalidad')
+		->join('cat_colonia as col', 'col.id','=','dom.idColonia')	
 		->where('rfc',$rfc)
 		->select(
-			'tra.id as idTrabajo','lugar','tra.telefono','tra.idDomicilio','idEstado','idMunicipio','idLocalidad','calle','numExterno','numInterno'
+			'tra.id as idTrabajo','lugar','tra.telefono','tra.idDomicilio','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia','col.nombre as descColonia',
+			'edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad','col.codigoPostal'
 		)->first();
 
         if($trabajo){
@@ -300,9 +312,11 @@ class PersonaController extends Controller{
 				'lugar'=>$trabajo->lugar,
 				'telefono'=>$trabajo->telefono,
 				'idDomicilio'=>$trabajo->idDomicilio,
-				'idEstado'=>$trabajo->idEstado,
-				'idMunicipio'=>$trabajo->idMunicipio,
-				'idLocalidad'=>$trabajo->idLocalidad,
+				'idEstado'=>array("nombre"=>$trabajo->descEstado, "id"=>$trabajo->idEstado),
+				'idMunicipio'=>array("nombre"=>$trabajo->descMunicipio, "id"=>$trabajo->idMunicipio),
+				'idLocalidad'=>array("nombre"=>$trabajo->descLocalidad, "id"=>$trabajo->idLocalidad),
+				'idColonia'=>array("nombre"=>$trabajo->descColonia, "id"=>$trabajo->idColonia),
+				'codigoPostal'=>$trabajo->codigoPostal,
 				'calle'=>$trabajo->calle,
 				'numExterno'=>$trabajo->numExterno,
 				'numInterno'=>$trabajo->numInterno
@@ -314,9 +328,14 @@ class PersonaController extends Controller{
 		->join('persona_fisica as per', 'per.id','=','var.idPersona')
 		->join('notificacion as noti', 'noti.id','=','var.idNotificacion')
 		->join('domicilio as dom', 'dom.id','=','noti.idDomicilio')		
+		->join('cat_estado as edo', 'edo.id','=','dom.idEstado')
+		->join('cat_municipio as mun', 'mun.id','=','dom.idMunicipio')
+		->join('cat_localidad as loc', 'loc.id','=','dom.idLocalidad')
+		->join('cat_colonia as col', 'col.id','=','dom.idColonia')
 		->where('rfc',$rfc)
 		->select(
-			'noti.id as idNotificacion','correo','noti.telefono','noti.idDomicilio','idEstado','idMunicipio','idLocalidad','calle','numExterno','numInterno'
+			'noti.id as idNotificacion','correo','noti.telefono','noti.idDomicilio','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia','col.nombre as descColonia',
+			'edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad','col.codigoPostal'
 		)->first();
 
 		if($notificacion){
@@ -325,9 +344,12 @@ class PersonaController extends Controller{
 				'correo'=>$notificacion->correo,
 				'telefono'=>$notificacion->telefono,
 				'idDomicilio'=>$notificacion->idDomicilio,
-				'idEstado'=>$notificacion->idEstado,
-				'idMunicipio'=>$notificacion->idMunicipio,
-				'idLocalidad'=>$notificacion->idLocalidad,
+				'idEstado'=>array("nombre"=>$notificacion->descEstado, "id"=>$notificacion->idEstado),
+				'idMunicipio'=>array("nombre"=>$notificacion->descMunicipio, "id"=>$notificacion->idMunicipio),
+				'idLocalidad'=>array("nombre"=>$notificacion->descLocalidad, "id"=>$notificacion->idLocalidad),
+				'idColonia'=>array("nombre"=>$notificacion->descColonia, "id"=>$notificacion->idColonia),
+				'codigoPostal'=>$notificacion->codigoPostal,
+				'calle'=>$notificacion->calle,
 				'calle'=>$notificacion->calle,
 				'numExterno'=>$notificacion->numExterno,
 				'numInterno'=>$notificacion->numInterno
