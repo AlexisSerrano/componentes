@@ -15,7 +15,7 @@
             <div class="form-row">
                 <div v-if="validaciones.nombres!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
-                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="calcularRfc(),generarCurp()">
+                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="calcularRfc(),generarCurp()" :readonly="this.$store.state.fisicaEncontrada==true">
                     <span v-show="errors.has('nombres')" class="text-danger">{{ errors.first('nombres')}}</span>
                     <span v-if="this.validacionesback.nombres!=undefined" class="text-danger">{{ String(this.validacionesback.nombres)}}</span>
                 </div>
@@ -296,7 +296,7 @@ import { mapState } from "vuex";
                 }
                 var urlBuscarPersona = this.url+'/searchPersonaFisica';
                 axios.post(urlBuscarPersona,{
-                        busqueda:rfc_curp,
+                        tipoBusqueda:rfc_curp,
                         rfcCurp: rfcCurp
                 }).then(response => {
                     this.personaExiste=response.data
