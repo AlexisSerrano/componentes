@@ -44,7 +44,8 @@ import swal from 'sweetalert2'
                 identidad:'',                
                 solicitantes:['Víctima','Ofendido'],
                 solicitante:'',
-                descripcion:'',                
+                descripcion:'',  
+                systemUser:'TEST',
                 url:'http://localhost/componentes/public/api',                
                 idreturn:''
             }
@@ -94,7 +95,7 @@ import swal from 'sweetalert2'
                     reguardarIdentidad:this.identidad,
                     victima: (this.solicitante=="Víctima" ? 1 : 0),
                     sistema:this.sistema.toUpperCase(),
-                    usuario:'TEST'                                                                       
+                    usuario:this.systemUser                                                                       
                     };
                     axios.post(urlGuardarDenunciante,data)
                     .then (response =>{
@@ -141,7 +142,7 @@ import swal from 'sweetalert2'
                     reguardarIdentidad:this.identidad,
                     victima: (this.solicitante=="Victima" ? 1 : 0),
                     sistema:this.sistema.toUpperCase(),
-                    usuario:'TEST'                   
+                    usuario:this.systemUser                  
                     };
                     axios.post(urlGuardarDenunciante,data)
                     .then (response =>{

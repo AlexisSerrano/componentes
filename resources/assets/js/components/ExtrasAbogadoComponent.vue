@@ -57,6 +57,7 @@ import swal from 'sweetalert2'
                 correo:'',
                 idExtrasAbogado:0,
                 validacionesback:[],
+                systemUser:'TEST',
                 tipos:['ASESOR JURIDICO', 'ABOGADO DEFENSOR'],
                 sectores:['PÚBLICO','PARTICULAR'],
                 //url:'/api'
@@ -95,7 +96,7 @@ import swal from 'sweetalert2'
                     correo:this.correo,
                     tipo:this.tipo,
                     sistema:this.sistema.toUpperCase(),
-                    usuario:'TEST'
+                    usuario:this.systemUser
                 };
                     axios.post(urlGuardarAbogado,data)
                     .then (response =>{
@@ -137,7 +138,7 @@ import swal from 'sweetalert2'
                     correo:this.correo,
                     tipo:this.tipo,
                     sistema:this.sistema.toUpperCase(),
-                    usuario:'TEST'
+                    usuario:this.systemUser
                 };
                     axios.post(urlGuardarAbogado,data)
                     .then (response =>{

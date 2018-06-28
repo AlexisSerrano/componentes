@@ -4574,7 +4574,7 @@
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
 /* 1 */
@@ -5002,7 +5002,7 @@ function applyToTag (styleElement, obj) {
 "use strict";
 
 
-var bind = __webpack_require__(15);
+var bind = __webpack_require__(14);
 var isBuffer = __webpack_require__(153);
 
 /*global toString:true*/
@@ -7632,10 +7632,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(16);
+    adapter = __webpack_require__(15);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(16);
+    adapter = __webpack_require__(15);
   }
   return adapter;
 }
@@ -7717,95 +7717,6 @@ module.exports = defaults;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_lib_HollowDotsSpinner_vue__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_lib_HollowDotsSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_lib_HollowDotsSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_lib_PixelSpinner_vue__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_lib_PixelSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_lib_PixelSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_lib_FlowerSpinner_vue__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_lib_FlowerSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_lib_FlowerSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_lib_IntersectingCirclesSpinner_vue__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_lib_IntersectingCirclesSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_lib_IntersectingCirclesSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_lib_OrbitSpinner_vue__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_lib_OrbitSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_lib_OrbitSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_lib_FingerprintSpinner_vue__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_lib_FingerprintSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_lib_FingerprintSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_lib_TrinityRingsSpinner_vue__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_lib_TrinityRingsSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_lib_TrinityRingsSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_lib_FulfillingSquareSpinner_vue__ = __webpack_require__(216);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_lib_FulfillingSquareSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_lib_FulfillingSquareSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_lib_CirclesToRhombusesSpinner_vue__ = __webpack_require__(221);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_lib_CirclesToRhombusesSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_lib_CirclesToRhombusesSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_lib_SemipolarSpinner_vue__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_lib_SemipolarSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_lib_SemipolarSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_lib_BreedingRhombusSpinner_vue__ = __webpack_require__(231);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_lib_BreedingRhombusSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__components_lib_BreedingRhombusSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_lib_SwappingSquaresSpinner_vue__ = __webpack_require__(236);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_lib_SwappingSquaresSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__components_lib_SwappingSquaresSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_lib_ScalingSquaresSpinner_vue__ = __webpack_require__(241);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_lib_ScalingSquaresSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__components_lib_ScalingSquaresSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_lib_FulfillingBouncingCircleSpinner_vue__ = __webpack_require__(246);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_lib_FulfillingBouncingCircleSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__components_lib_FulfillingBouncingCircleSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_lib_RadarSpinner_vue__ = __webpack_require__(251);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_lib_RadarSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__components_lib_RadarSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_lib_SelfBuildingSquareSpinner_vue__ = __webpack_require__(256);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_lib_SelfBuildingSquareSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_lib_SelfBuildingSquareSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_lib_SpringSpinner_vue__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_lib_SpringSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__components_lib_SpringSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_lib_LoopingRhombusesSpinner_vue__ = __webpack_require__(266);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_lib_LoopingRhombusesSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_lib_LoopingRhombusesSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_lib_HalfCircleSpinner_vue__ = __webpack_require__(271);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_lib_HalfCircleSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_lib_HalfCircleSpinner_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_lib_AtomSpinner_vue__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_lib_AtomSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__components_lib_AtomSpinner_vue__);
-/* unused harmony reexport HollowDotsSpinner */
-/* unused harmony reexport PixelSpinner */
-/* unused harmony reexport FlowerSpinner */
-/* unused harmony reexport IntersectingCirclesSpinner */
-/* unused harmony reexport OrbitSpinner */
-/* unused harmony reexport FingerprintSpinner */
-/* unused harmony reexport TrinityRingsSpinner */
-/* unused harmony reexport FulfillingSquareSpinner */
-/* unused harmony reexport CirclesToRhombusesSpinner */
-/* unused harmony reexport SemipolarSpinner */
-/* unused harmony reexport BreedingRhombusSpinner */
-/* unused harmony reexport SwappingSquaresSpinner */
-/* unused harmony reexport ScalingSquaresSpinner */
-/* unused harmony reexport FulfillingBouncingCircleSpinner */
-/* unused harmony reexport RadarSpinner */
-/* unused harmony reexport SelfBuildingSquareSpinner */
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_16__components_lib_SpringSpinner_vue___default.a; });
-/* unused harmony reexport LoopingRhombusesSpinner */
-/* unused harmony reexport HalfCircleSpinner */
-/* unused harmony reexport AtomSpinner */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
   appendKeyframes: function (name, frames) {
     var idx = document.styleSheets[0].cssRules.length
@@ -7815,7 +7726,7 @@ module.exports = defaults;
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -7843,7 +7754,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10372,7 +10283,7 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(7)))
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -20743,7 +20654,7 @@ return jQuery;
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20761,7 +20672,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20772,7 +20683,7 @@ var settle = __webpack_require__(156);
 var buildURL = __webpack_require__(158);
 var parseHeaders = __webpack_require__(159);
 var isURLSameOrigin = __webpack_require__(160);
-var createError = __webpack_require__(17);
+var createError = __webpack_require__(16);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(161);
 
 module.exports = function xhrAdapter(config) {
@@ -20948,7 +20859,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20973,7 +20884,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20985,7 +20896,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21011,7 +20922,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports) {
 
 /*jslint indent:2, regexp:true*/
@@ -21357,7 +21268,7 @@ function actualizarCurp(curp) {
 }
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32321,6 +32232,95 @@ Vue.compile = compileToFunctions;
 module.exports = Vue;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(170).setImmediate))
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_lib_HollowDotsSpinner_vue__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_lib_HollowDotsSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_lib_HollowDotsSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_lib_PixelSpinner_vue__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_lib_PixelSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_lib_PixelSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_lib_FlowerSpinner_vue__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_lib_FlowerSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_lib_FlowerSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_lib_IntersectingCirclesSpinner_vue__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_lib_IntersectingCirclesSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_lib_IntersectingCirclesSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_lib_OrbitSpinner_vue__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_lib_OrbitSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_lib_OrbitSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_lib_FingerprintSpinner_vue__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_lib_FingerprintSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_lib_FingerprintSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_lib_TrinityRingsSpinner_vue__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_lib_TrinityRingsSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_lib_TrinityRingsSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_lib_FulfillingSquareSpinner_vue__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_lib_FulfillingSquareSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_lib_FulfillingSquareSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_lib_CirclesToRhombusesSpinner_vue__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_lib_CirclesToRhombusesSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_lib_CirclesToRhombusesSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_lib_SemipolarSpinner_vue__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_lib_SemipolarSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_lib_SemipolarSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_lib_BreedingRhombusSpinner_vue__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_lib_BreedingRhombusSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__components_lib_BreedingRhombusSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_lib_SwappingSquaresSpinner_vue__ = __webpack_require__(236);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_lib_SwappingSquaresSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__components_lib_SwappingSquaresSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_lib_ScalingSquaresSpinner_vue__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_lib_ScalingSquaresSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__components_lib_ScalingSquaresSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_lib_FulfillingBouncingCircleSpinner_vue__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_lib_FulfillingBouncingCircleSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__components_lib_FulfillingBouncingCircleSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_lib_RadarSpinner_vue__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_lib_RadarSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__components_lib_RadarSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_lib_SelfBuildingSquareSpinner_vue__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_lib_SelfBuildingSquareSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_lib_SelfBuildingSquareSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_lib_SpringSpinner_vue__ = __webpack_require__(261);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_lib_SpringSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__components_lib_SpringSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_lib_LoopingRhombusesSpinner_vue__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_lib_LoopingRhombusesSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_lib_LoopingRhombusesSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_lib_HalfCircleSpinner_vue__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_lib_HalfCircleSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_lib_HalfCircleSpinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_lib_AtomSpinner_vue__ = __webpack_require__(276);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_lib_AtomSpinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__components_lib_AtomSpinner_vue__);
+/* unused harmony reexport HollowDotsSpinner */
+/* unused harmony reexport PixelSpinner */
+/* unused harmony reexport FlowerSpinner */
+/* unused harmony reexport IntersectingCirclesSpinner */
+/* unused harmony reexport OrbitSpinner */
+/* unused harmony reexport FingerprintSpinner */
+/* unused harmony reexport TrinityRingsSpinner */
+/* unused harmony reexport FulfillingSquareSpinner */
+/* unused harmony reexport CirclesToRhombusesSpinner */
+/* unused harmony reexport SemipolarSpinner */
+/* unused harmony reexport BreedingRhombusSpinner */
+/* unused harmony reexport SwappingSquaresSpinner */
+/* unused harmony reexport ScalingSquaresSpinner */
+/* unused harmony reexport FulfillingBouncingCircleSpinner */
+/* unused harmony reexport RadarSpinner */
+/* unused harmony reexport SelfBuildingSquareSpinner */
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_16__components_lib_SpringSpinner_vue___default.a; });
+/* unused harmony reexport LoopingRhombusesSpinner */
+/* unused harmony reexport HalfCircleSpinner */
+/* unused harmony reexport AtomSpinner */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /***/ }),
 /* 22 */
@@ -44194,8 +44194,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 __webpack_require__(147);
-__webpack_require__(20);
-window.Vue = __webpack_require__(21);
+__webpack_require__(19);
+window.Vue = __webpack_require__(20);
 
 /*Vue-Select*/
 
@@ -44253,7 +44253,7 @@ $(function () {
 
 
 window._ = __webpack_require__(148);
-window.Popper = __webpack_require__(13).default;
+window.Popper = __webpack_require__(12).default;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -44262,7 +44262,7 @@ window.Popper = __webpack_require__(13).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(14);
+  window.$ = window.jQuery = __webpack_require__(13);
 
   __webpack_require__(149);
 } catch (e) {}
@@ -61412,7 +61412,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(12)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(11)(module)))
 
 /***/ }),
 /* 149 */
@@ -61424,7 +61424,7 @@ if (token) {
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(14), __webpack_require__(13)) :
+   true ? factory(exports, __webpack_require__(13), __webpack_require__(12)) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
   (factory((global.bootstrap = {}),global.jQuery,global.Popper));
 }(this, (function (exports,$,Popper) { 'use strict';
@@ -66545,7 +66545,7 @@ module.exports = __webpack_require__(152);
 
 
 var utils = __webpack_require__(4);
-var bind = __webpack_require__(15);
+var bind = __webpack_require__(14);
 var Axios = __webpack_require__(154);
 var defaults = __webpack_require__(9);
 
@@ -66580,9 +66580,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(19);
+axios.Cancel = __webpack_require__(18);
 axios.CancelToken = __webpack_require__(168);
-axios.isCancel = __webpack_require__(18);
+axios.isCancel = __webpack_require__(17);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -66735,7 +66735,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(17);
+var createError = __webpack_require__(16);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -67168,7 +67168,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(4);
 var transformData = __webpack_require__(165);
-var isCancel = __webpack_require__(18);
+var isCancel = __webpack_require__(17);
 var defaults = __webpack_require__(9);
 var isAbsoluteURL = __webpack_require__(166);
 var combineURLs = __webpack_require__(167);
@@ -67328,7 +67328,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(19);
+var Cancel = __webpack_require__(18);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -72808,7 +72808,7 @@ var index_esm = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(5);
 
@@ -72998,11 +72998,11 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__curp__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_epic_spinners__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_epic_spinners__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(5);
@@ -73247,6 +73247,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             validaciones: [],
             validacionesback: '',
             loader: true,
+            systemUser: 'TEST',
             qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
             url: 'http://localhost/componentes/public/api'
             // url:'http://componentes.oo/api',
@@ -73454,7 +73455,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     idCarpeta: this.carpeta,
                     sistema: this.sistema,
                     tipo: this.tipo,
-                    idPersona: this.$store.state.idPersonaFisica
+                    idPersona: this.$store.state.idPersonaFisica,
+                    usuario: this.systemUser
                 };
             } else if (this.tipo == 'conocido') {
                 if (this.nombres != '' || this.alias != '') {
@@ -73466,7 +73468,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         idCarpeta: this.carpeta,
                         sistema: this.sistema,
                         tipo: this.tipo,
-                        idPersona: this.$store.state.idPersonaFisica
+                        idPersona: this.$store.state.idPersonaFisica,
+                        usuario: this.systemUser
                     };
                 } else {
                     __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
@@ -73495,7 +73498,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     sistema: this.sistema,
                     tipo: this.tipo,
                     edad: this.edad,
-                    idPersona: this.$store.state.idPersonaFisica
+                    idPersona: this.$store.state.idPersonaFisica,
+                    usuario: this.systemUser
                 };
             } else if (this.tipo == 'qrr') {
                 __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()({
@@ -73866,7 +73870,7 @@ exports.push([module.i, "\n.pixel-spinner[data-v-de3ac38c], .pixel-spinner *[dat
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(10);
 //
 //
 //
@@ -74076,7 +74080,7 @@ exports.push([module.i, "\n.flower-spinner[data-v-40c4a772],  .flower-spinner *[
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(10);
 //
 //
 //
@@ -76815,7 +76819,7 @@ exports.push([module.i, "\n.spring-spinner[data-v-3fefc155], .spring-spinner *[d
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_utils__ = __webpack_require__(10);
 //
 //
 //
@@ -79872,6 +79876,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             representanteLegal: '',
             personaExiste: '',
             validacionesback: '',
+            systemUser: 'TEST',
             url: 'http://localhost/componentes/public/api'
             //url:'/api'
         };
@@ -79972,7 +79977,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 sistema: this.sistema,
                 tipo: this.tipo,
                 idCarpeta: this.carpeta,
-                idPersona: this.$store.state.idPersonaMoral
+                idPersona: this.$store.state.idPersonaMoral,
+                usuario: this.systemUser
             }).then(function (response) {
                 _this4.$store.commit('asignarIdMoral', { idPersona: response.data, tipo: _this4.tipo });
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -80837,7 +80843,7 @@ exports.push([module.i, "\n.dropdown-toggle{\r\n    height: 36px;\r\n    overflo
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_epic_spinners__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_epic_spinners__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(5);
 //
 //
@@ -80960,7 +80966,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             lugarTrabajo: '',
             correo: '',
             url: '/'
-            //url:'http://localhost/componentes/public/api'
         };
     },
 
@@ -88109,7 +88114,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.dropdown-toggle{\r\n    height: 36px;\r\n    overflow: hidden;\n}\ninput{\r\n    text-transform: uppercase\n}\ninput.form-control{\r\n    width: 100% !important;\n}\n.dropdown{\r\n    font-family: inherit;\r\n    font-size: .875rem;\n}\n.centrar{\r\n    position: absolute;\r\n    top:50%;\r\n    left:50%;\r\n    margin-left: -30px;\r\n    margin-top: -30px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -88122,8 +88127,7 @@ exports.push([module.i, "\n.dropdown-toggle{\r\n    height: 36px;\r\n    overflo
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert2__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_epic_spinners__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(5);
 //
 //
 //
@@ -88141,218 +88145,84 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            estado: { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
-            municipio: null,
-            localidad: null,
-            codigoPostal: null,
-            colonia: null,
-            estados: [],
-            municipios: [],
-            localidades: [],
-            codigosPostales: [],
-            colonias: [],
-            calle: '',
-            numExterno: '',
-            numInterno: '',
-            validacionesback: '',
-            idDomicilio: '',
-            loader: true,
-            telefono: '',
-            lugarTrabajo: '',
-            correo: '',
-            url: '/'
+            rfc: '',
+            rfcMoral: '',
+            curp: '',
+            url: 'http://localhost/componentes/public/api',
+            carpetasLigadas: []
         };
     },
 
-    props: {
-        tipo: {
-            required: true
-        },
-        empresa: {
-            required: true
-        }
-    },
-    components: { SpringSpinner: __WEBPACK_IMPORTED_MODULE_1_epic_spinners__["a" /* SpringSpinner */] },
-    mounted: function mounted() {
-        this.getEstados();
-    },
+    props: {},
+    mounted: function mounted() {},
     methods: {
-        getEstados: function getEstados() {
+        buscarCarpetasFisica: function buscarCarpetasFisica(param) {
             var _this = this;
 
-            var urlEstados = this.url + 'getEstados';
-            axios.get(urlEstados).then(function (response) {
-                _this.estados = response.data;
-                var self = _this;
-                setTimeout(function () {
-                    self.loader = false;
-                }, 1100);
-            });
+            if (param == 'rfc') {
+                console.log("Se buscará la carpeta de persona fisica por RFC");
+                var post = this.url + '/fisicaCarpetasRfc';
+                axios.post(post, {
+                    rfc: this.rfc
+                }).then(function (response) {
+                    _this.carpetasLigadas = response.data;
+                    if (_this.carpetasLigadas != '') {
+                        __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                            title: 'Hay carpteas ligadas a esta persona!',
+                            text: 'Existen carpetas.',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                    }
+                });
+            } else {
+                console.log("Se buscará la carpeta de persona fisica por CURP");
+                var post = this.url + '/fisicaCarpetasCurp';
+                axios.post(post, {
+                    curp: this.curp
+                }).then(function (response) {
+                    _this.carpetasLigadas = response.data;
+                    if (_this.carpetasLigadas != '') {
+                        __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
+                            title: 'Hay carpteas ligadas a esta persona!',
+                            text: 'Existen carpetas.',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                    }
+                });
+            }
         },
-        getMunicipios: function getMunicipios() {
+        buscarCarpetasMoral: function buscarCarpetasMoral() {
             var _this2 = this;
 
-            if (this.estado != null) {
-                this.municipio = null, this.localidad = null, this.codigoPostal = null, this.colonia = null;
-                var urlMunicipios = this.url + 'getMunicipios/' + this.estado.id;
-                axios.get(urlMunicipios).then(function (response) {
-                    _this2.municipios = response.data;
-                });
-            } else {
-                this.municipio = null, this.localidad = null, this.codigoPostal = null, this.colonia = null, this.municipios = [], this.localidades = [], this.codigosPostales = [], this.colonias = [];
-            }
-        },
-        getLocalidades: function getLocalidades() {
-            var _this3 = this;
-
-            if (this.municipio != null) {
-                this.localidad = null, this.codigoPostal = null, this.colonia = null;
-                var urlLocalidades = this.url + 'getLocalidades/' + this.municipio.id;
-                axios.get(urlLocalidades).then(function (response) {
-                    _this3.localidades = response.data;
-                });
-            } else {
-                this.localidad = null, this.codigoPostal = null, this.colonia = null, this.localidades = [], this.codigosPostales = [], this.colonias = [];
-            }
-        },
-        getCodigosPostales: function getCodigosPostales() {
-            var _this4 = this;
-
-            if (this.municipio != null) {
-                this.codigoPostal = null;
-                this.colonia = null;
-                var urlCodigosPostales = this.url + 'getCodigosPostales/' + this.municipio.id;
-                axios.get(urlCodigosPostales).then(function (response) {
-                    _this4.codigosPostales = response.data;
-                });
-            } else {
-                this.codigoPostal = null, this.colonia = null;
-                this.codigosPostales = [], this.colonias = [];
-            }
-        },
-        getColonias: function getColonias() {
-            var _this5 = this;
-
-            if (this.codigoPostal != null) {
-                this.colonia = null;
-                var urlColonias = this.url + 'getColonias/' + this.codigoPostal.id;
-                axios.get(urlColonias).then(function (response) {
-                    _this5.colonias = response.data;
-                });
-            } else {
-                this.colonia = null, this.colonias = [];
-            }
-        },
-        CleanFields: function CleanFields() {
-            this.calle = '', this.numExterno = '', this.numInterno = '', this.estado = { "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 }, this.municipio = null, this.localidad = null, this.codigoPostal = null, this.colonia = null;
-            this.$validator.reset();
-        },
-        validateBeforeSubmit: function validateBeforeSubmit() {
-            var _this6 = this;
-
-            this.$validator.validateAll().then(function (result) {
-                if (result) {
-                    _this6.crearDomicilio();
-                    return;
-                }
-                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: '¡Guardado Incorrecto!',
-                    text: 'Éste domicilio no fue posible guardarse.',
-                    type: 'error',
-                    confirmButtonText: 'Ok'
-                });
-            });
-        },
-
-        crearDomicilio: function crearDomicilio() {
-            var _this7 = this;
-
-            this.validacionesback = '';
-            var urlDomicilio = this.url + 'addDomicilio';
-            if (this.empresa == false) {
-                var idPersona = this.$store.state.idPersonaFisica;
-            } else {
-                var idPersona = this.$store.state.idPersonaMoral;
-            }
-            if (this.tipo == 'domicilio') {
-                var data = {
-                    estado: this.estado.id,
-                    municipio: this.municipio.id,
-                    localidad: this.localidad.id,
-                    colonia: this.colonia.id,
-                    codigoPostal: this.codigoPostal.id,
-                    calle: this.calle.toUpperCase(),
-                    numExterno: this.numExterno.toUpperCase(),
-                    numInterno: this.numInterno.toUpperCase(),
-                    tipo: this.tipo,
-                    empresa: this.empresa,
-                    idPersona: idPersona,
-                    claveDomicilio: this.$store.state.idDomicilio
-                };
-            } else if (this.tipo == 'trabajo') {
-                var data = {
-                    estado: this.estado.id,
-                    municipio: this.municipio.id,
-                    localidad: this.localidad.id,
-                    colonia: this.colonia.id,
-                    codigoPostal: this.codigoPostal.id,
-                    calle: this.calle.toUpperCase(),
-                    numExterno: this.numExterno.toUpperCase(),
-                    numInterno: this.numInterno.toUpperCase(),
-                    telefonoTrabajo: this.telefono,
-                    lugarTrabajo: this.lugarTrabajo.toUpperCase(),
-                    tipo: this.tipo,
-                    empresa: this.empresa,
-                    idPersona: idPersona,
-                    claveDomicilio: this.$store.state.idTrabajo
-                };
-            } else if (this.tipo == 'contacto') {
-                var data = {
-                    estado: this.estado.id,
-                    municipio: this.municipio.id,
-                    localidad: this.localidad.id,
-                    colonia: this.colonia.id,
-                    codigoPostal: this.codigoPostal.id,
-                    calle: this.calle.toUpperCase(),
-                    numExterno: this.numExterno.toUpperCase(),
-                    numInterno: this.numInterno.toUpperCase(),
-                    telefonoContacto: this.telefono,
-                    correoContacto: this.correo.toUpperCase(),
-                    tipo: this.tipo,
-                    empresa: this.empresa,
-                    idPersona: idPersona,
-                    claveDomicilio: this.$store.state.idContacto
-                };
-            }
-            axios.post(urlDomicilio, data).then(function (response) {
-                console.log(response);
-                _this7.$store.commit('asignarIdDomicilio', { tipo: _this7.tipo, idDomicilio: response.data });
-                __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                    title: '¡Guardado Correctamente!',
-                    text: 'Éste domicilio fue guardado exitosamente.',
-                    type: 'success',
-                    confirmButtonText: 'Ok'
-                }).catch(function (error) {
-                    console.log(error.response.data.errors);
-                    _this7.validacionesback = error.response.data.errors;
+            console.log("Se buscará la persona moral por RFC");
+            var post = this.url + '/moralCarpetasRfc';
+            axios.post(post, {
+                rfc: this.rfcMoral
+            }).then(function (response) {
+                _this2.carpetasLigadas = response.data;
+                if (_this2.carpetasLigadas != '') {
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
-                        title: '¡Guardado Incorrecto!',
-                        text: 'Éste domicilio no fue posible guardarse.',
-                        type: 'error',
+                        title: 'Hay carpteas ligadas a esta persona!',
+                        text: 'Existen carpetas.',
+                        type: 'success',
                         confirmButtonText: 'Ok'
                     });
-                });
+                }
             });
         }
-    },
-    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['idPersonaFisica', 'idPersonaMoral', 'personaExiste'])
+    }
 });
 
 /***/ }),
@@ -88363,45 +88233,92 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container-fluid" },
-    [
-      _vm.loader
-        ? _c("spring-spinner", {
-            staticClass: "centrar",
-            attrs: { "animation-duration": 1500, size: 60, color: "#828282" }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.loader != true
-        ? _c(
-            "form",
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("form", [
+      _c("div", { staticClass: "form-row" }, [
+        _c("label", { attrs: { for: "rfc" } }, [_vm._v("RFC persona fisica")]),
+        _c("input", {
+          directives: [
             {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.validateBeforeSubmit($event)
-                }
-              }
+              name: "model",
+              rawName: "v-model",
+              value: _vm.rfc,
+              expression: "rfc"
+            }
+          ],
+          attrs: { type: "text" },
+          domProps: { value: _vm.rfc },
+          on: {
+            blur: function($event) {
+              _vm.buscarCarpetasFisica("rfc")
             },
-            [
-              _c("div", { staticClass: "form-row" }),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary mt-2",
-                  attrs: { type: "submit" }
-                },
-                [_vm._v("Guardar")]
-              )
-            ]
-          )
-        : _vm._e()
-    ],
-    1
-  )
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.rfc = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "rfc" } }, [_vm._v("CURP persona fisica")]),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.curp,
+              expression: "curp"
+            }
+          ],
+          attrs: { type: "text" },
+          domProps: { value: _vm.curp },
+          on: {
+            blur: function($event) {
+              _vm.buscarCarpetasFisica("curp")
+            },
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.curp = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "rfc" } }, [_vm._v("RFC persona moral")]),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.rfcMoral,
+            expression: "rfcMoral"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.rfcMoral },
+        on: {
+          blur: _vm.buscarCarpetasMoral,
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.rfcMoral = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("pre", [_vm._v(_vm._s(_vm.$data))]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary mt-2", attrs: { type: "submit" } },
+        [_vm._v("Guardar")]
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

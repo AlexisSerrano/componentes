@@ -21,6 +21,13 @@ use Illuminate\Http\Request;
 
 class ValidacionController extends Controller
 {
+
+    protected $log;
+
+    function __construct() {
+        $this->log=new BitacoraController();
+    }
+    
     public function valAbogadoUAT(AbogadoRequest $request){
         if(isset($request->idPersona))
             $idVariable = ValidacionController::updateInputsAbogadoFisica($request);

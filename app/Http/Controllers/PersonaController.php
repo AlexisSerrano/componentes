@@ -337,13 +337,22 @@ class PersonaController extends Controller{
 	public function cambiarEstadoCarpeta(Request $request){						
 		$respuesta=aparicionesModel::where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)->first();		
 		if($respuesta){
-			$update = DB::table('apariciones')->
-            where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)
-            ->update(['idTipoDeterminacion' => $request->idTipoDeterminacion]);
-			return ["Valor antiguo"=>$respuesta->idTipoDeterminacion,"Valor actual"=>$request->idTipoDeterminacion];
+        	try{
+	            DB::beginTransaction();
+				$update = DB::table('apariciones')->
+            	where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)
+				->update(['idTipoDeterminacion' => $request->idTipoDeterminacion]);
+				$idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','UPDATE',$respuesta->id,['idTipoDeterminacion' => $respuesta->idTipoDeterminacion],['idTipoDeterminacion' => $request->idTipoDeterminacion]);
+				DB::commit();
+			}catch (Exception $e){
+				DB::rollback();
+				return response()->json(["ERROR"->$e->getMessage()]);
+			}
+				return ["Valor antiguo"=>$respuesta->idTipoDeterminacion,"Valor actual"=>$request->idTipoDeterminacion];
 		}else{
 			return ["Response"=>" Sin datos"];
 		}				
 	}
+
 
 }

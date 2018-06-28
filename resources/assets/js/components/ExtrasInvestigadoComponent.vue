@@ -106,6 +106,7 @@ import swal from 'sweetalert2'
                 hechos:'',
                 idExtrasInvestigado:0,
                 validacionesback:[],
+                systemUser:'TEST',
                 puestos:[],
                 periodos:['DIARIO','SEMANAL','QUINCENAL','MENSUAL'],
                 //url:'/api'
@@ -167,7 +168,7 @@ import swal from 'sweetalert2'
                     vestimenta:this.vestimenta.toUpperCase(),
                     senasPartic:this.particulares.toUpperCase(),
                     sistema:this.sistema.toUpperCase(),
-                    usuario:'TEST'
+                    usuario:this.systemUser
                     };
                     axios.post(urlGuardarInvestigado,data)
                     .then (response =>{
@@ -218,7 +219,7 @@ import swal from 'sweetalert2'
                     vestimenta:this.vestimenta.toUpperCase(),
                     senasPartic:this.particulares.toUpperCase(),
                     sistema:this.sistema.toUpperCase(),
-                    usuario:'TEST'
+                    usuario:this.systemUser
                     };
                     axios.post(urlGuardarInvestigado,data)
                     .then (response =>{

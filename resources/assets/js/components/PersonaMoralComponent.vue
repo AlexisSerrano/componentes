@@ -73,6 +73,7 @@ import { mapState } from "vuex";
                 representanteLegal:'',
                 personaExiste:'',              
                 validacionesback:'',
+                systemUser:'TEST',
                  url:'http://localhost/componentes/public/api'
                 //url:'/api'
             }
@@ -175,7 +176,8 @@ import { mapState } from "vuex";
                         sistema: this.sistema,
                         tipo: this.tipo,
                         idCarpeta:this.carpeta,
-                        idPersona:this.$store.state.idPersonaMoral
+                        idPersona:this.$store.state.idPersonaMoral,
+                        usuario:this.systemUser
                     })
                     .then (response =>{
                         this.$store.commit('asignarIdMoral',{idPersona:response.data,tipo:this.tipo})

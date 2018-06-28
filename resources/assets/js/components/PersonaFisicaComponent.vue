@@ -239,6 +239,7 @@ import { mapState } from "vuex";
                 validaciones:[],
                 validacionesback:'',
                 loader:true,
+                systemUser:'TEST',
                 qrr:"QUIEN O QUIENES RESULTEN RESPONSABLES",
                   url:'http://localhost/componentes/public/api'
                 // url:'http://componentes.oo/api',
@@ -475,7 +476,8 @@ import { mapState } from "vuex";
                         idCarpeta:this.carpeta,
                         sistema:this.sistema,
                         tipo:this.tipo,
-                        idPersona:this.$store.state.idPersonaFisica
+                        idPersona:this.$store.state.idPersonaFisica,
+                        usuario:this.systemUser
                     };
                 }
                 else if(this.tipo=='conocido'){
@@ -488,7 +490,8 @@ import { mapState } from "vuex";
                             idCarpeta:this.carpeta,
                             sistema:this.sistema,
                             tipo:this.tipo,
-                            idPersona:this.$store.state.idPersonaFisica
+                            idPersona:this.$store.state.idPersonaFisica,
+                            usuario:this.systemUser
                         };
                     }
                     else{
@@ -519,7 +522,8 @@ import { mapState } from "vuex";
                         sistema:this.sistema,
                         tipo:this.tipo,
                         edad:this.edad,
-                        idPersona:this.$store.state.idPersonaFisica
+                        idPersona:this.$store.state.idPersonaFisica,
+                        usuario:this.systemUser
                     };
                 }
                 else if (this.tipo=='qrr'){
