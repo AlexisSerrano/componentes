@@ -71,5 +71,7 @@ Route::post('/updateExtrasAutoridad','ExtrasAutoridadController@update');
 
 
 /*Buscar en carpetas en la que está involucrada una persona*/
-Route::post('/buscarCarpetas','PersonaController@buscarCarpetas');
+Route::post('/fisicaCarpetasRfc','PersonaController@personaFisicaBuscarCarpetasRFC');
+Route::post('/fisicaCarpetasCurp','PersonaController@personaFisicaBuscarCarpetasCURP');
+Route::post('/moralCarpetasRfc','PersonaController@moralBuscarCarpetasRFC');
 Route::post('/cambiarEstadoCarpeta','PersonaController@cambiarEstadoCarpeta');
