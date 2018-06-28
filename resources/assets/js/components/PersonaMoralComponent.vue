@@ -48,11 +48,6 @@
 
             </div>
 
-            <div>
-                <input type="hidden" v-model="idMoral" id="idMoral">             
-            </div>
-
-
 
             <button type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 
@@ -77,10 +72,10 @@ import { mapState } from "vuex";
                 telefono:'',
                 representanteLegal:'',
                 personaExiste:'',              
-                idMoral:'',
                 validacionesback:'',
-                // url:'http://localhost/componentes/public/api'
-                url:'/api'
+                systemUser:'TEST',
+                 url:'http://localhost/componentes/public/api'
+                //url:'/api'
             }
         },
         props:{
@@ -118,7 +113,7 @@ import { mapState } from "vuex";
                             this.homoclave = this.personaExiste.rfc.slice(-3),
                             this.telefono = this.personaExiste.telefono,
                             this.representanteLegal = this.personaExiste.representanteLegal,
-                            this.$store.commit('asignarIdMoral',{idPersona:this.personaExiste.idMoral, tipo:this.tipo})       
+                            this.$store.commit('asignarIdMoral',{idPersona:this.personaExiste.idMoral, tipo:this.tipo,moralEncontrada:true})       
                         }
                     });
                 }
@@ -181,10 +176,10 @@ import { mapState } from "vuex";
                         sistema: this.sistema,
                         tipo: this.tipo,
                         idCarpeta:this.carpeta,
-                        idPersona:this.$store.state.idPersonaMoral
+                        idPersona:this.$store.state.idPersonaMoral,
+                        usuario:this.systemUser
                     })
                     .then (response =>{
-                        // this.idMoral=response.data        
                         this.$store.commit('asignarIdMoral',{idPersona:response.data,tipo:this.tipo})
                         swal({
                             title: '¡Guardado correctamente!',
@@ -213,7 +208,7 @@ import { mapState } from "vuex";
        },
        computed: Object.assign({
         botonGuardarModificar(){
-             if(this.$store.state.personaMoralExiste==''){
+             if(this.$store.state.idPersonaMoral==''){
                  return 'Guardar'
              }
              else{

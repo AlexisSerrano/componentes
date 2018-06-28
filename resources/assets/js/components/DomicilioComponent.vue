@@ -6,20 +6,27 @@
         <form v-on:submit.prevent="validateBeforeSubmit" v-if="loader!=true">
             
             <div class="form-row">
-                
-                <div class="form-group col-md-4">
+
+
+                <div v-if="this.tipo=='contacto'" class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="notificacion">Domicilio</label>  
+                    <v-select :options="notificaciones" label="nombre" v-model="notificacion" name="notificacion" placeholder="Seleccione el domicilio de notificaciones"></v-select>
+                </div>
+
+
+                <div v-if="this.notificacion.id==2 || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="estado">Entidad federativa</label>    
                     <v-select :options="estados" label="nombre" data-vv-name="entidad federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('entidad federativa') || this.validacionesback.idEstado}" placeholder="Seleccione una entidad federativa"></v-select>
                     <span v-show="errors.has('entidad federativa')" class="text-danger">{{ errors.first('entidad federativa') }}</span>
                     <span v-if="this.validacionesback.idEstado!=undefined" class="text-danger">{{ String(this.validacionesback.idEstado)}}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="this.notificacion.id==2 || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="municipio">Municipio</label>  
                     <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || this.validacionesback.idMunicipio}" placeholder="Seleccione un municipio"></v-select>
                     <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
                     <span v-if="this.validacionesback.idMunicipio!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipio)}}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="this.notificacion.id==2 || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="localidad">Localidad</label>    
                     <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') || this.validacionesback.idLocalidad}" placeholder="Seleccione una localidad"></v-select>
                     <span v-show="errors.has('localidad')" class="text-danger">{{ errors.first('localidad')}}</span>
@@ -28,19 +35,19 @@
 
 
 
-                <div class="form-group col-md-4">
+                <div v-if="this.notificacion.id==2 || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="codigoPostal">Código postal</label>    
                     <v-select :options="codigosPostales" label="codigoPostal" v-model="codigoPostal" name="codigoPostal" @input="getColonias"  v-validate="'required'" data-vv-name="código postal" :class="{ 'border border-danger': errors.has('código postal') || this.validacionesback.idCodigoPostal}" placeholder="Seleccione un código postal"></v-select>
                     <span v-show="errors.has('código postal')" class="text-danger">{{ errors.first('código postal') }}</span>
                     <span v-if="this.validacionesback.idCodigoPostal!=undefined" class="text-danger">{{ String(this.validacionesback.idCodigoPostal)}}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="this.notificacion.id==2 || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="colonia">Colonia</label>    
                     <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia"  v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') || this.validacionesback.idColonia}" placeholder="Seleccione una colonia"></v-select>
                     <span v-show="errors.has('colonia')" class="text-danger">{{ errors.first('colonia')}}</span>
                     <span v-if="this.validacionesback.idColonia!=undefined" class="text-danger">{{ String(this.validacionesback.idColonia)}}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="this.notificacion.id==2 || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="calle">Calle</label>
                     <input type="text" name="calle" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('calle') || this.validacionesback.calle}" v-model="calle" placeholder="Ingrese la calle" v-validate="'required'" autocomplete="off">
                     <span v-show="errors.has('calle')" class="text-danger">{{ errors.first('calle')}}</span>
@@ -49,13 +56,13 @@
 
 
 
-                <div class="form-group col-md-4">
+                <div v-if="this.notificacion.id==2 || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="numExterno">Número externo</label>
                     <input type="text" data-vv-name="Número externo" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Número externo') || this.validacionesback.numExterno}" v-model="numExterno" placeholder="Ingrese el número externo" v-validate="'required'" autocomplete="off">
                     <span v-show="errors.has('Número externo')" class="text-danger">{{ errors.first('Número externo')}}</span>
                     <span v-if="this.validacionesback.numExterno!=undefined" class="text-danger">{{ String(this.validacionesback.numExterno)}}</span>
                 </div>
-                <div class="form-group col-md-4">
+                <div v-if="this.notificacion.id==2 || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="numInterno">Número interno</label>
                     <input type="text" name="numInterno" class="input form-control form-control-sm" v-model="numInterno" placeholder="Ingrese el número interno" autocomplete="off">
                 </div>
@@ -72,7 +79,8 @@
                 </div>
                 <div v-if="tipo=='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="correo">Correo</label>
-                    <input type="text" name="correo" class="input form-control form-control-sm" v-model="correo" placeholder="Ingrese el correo" autocomplete="off">
+                    <input type="text" name="correo" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('correo')}" v-model="correo" placeholder="Ingrese el correo" v-validate="'email'" autocomplete="off">
+                    <span v-show="errors.has('correo')" class="text-danger">{{ errors.first('correo')}}</span>
                 </div>
 
             </div>
@@ -90,6 +98,10 @@ import { mapState } from "vuex";
         data(){
             return{
                 estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+                notificacion:'',
+                notificaciones:[
+                { "nombre": "DOMICILIO CASA", "id": 1 },
+                { "nombre": "OTRO DOMICILIO", "id": 2 }],
                 municipio:null,
                 localidad:null,
                 codigoPostal:null,
@@ -308,6 +320,24 @@ import { mapState } from "vuex";
                 })
             }
         },
+        watch: {
+            fisicaEncontrada(){
+                if(this.empresa==false){
+                    this.notificaciones=[
+                    { "nombre": "DOMICILIO CASA", "id": 1 },
+                    { "nombre": "OTRO DOMICILIO", "id": 2 },
+                    { "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES", "id": 3 }]
+                }
+            },
+            moralEncontrada(){
+                if(this.empresa==true){
+                    this.notificaciones=[
+                    { "nombre": "DOMICILIO CASA", "id": 1 },
+                    { "nombre": "OTRO DOMICILIO", "id": 2 },
+                    { "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES", "id": 3 }]
+                }
+            }
+        },
         computed: Object.assign({
         botonGuardarModificar(){
             if(this.empresa==false){
@@ -335,7 +365,7 @@ import { mapState } from "vuex";
                 else if(this.tipo=='contacto'  && this.$store.state.idContacto==''){return 'Guardar'}
             }
         }  
-        },mapState(['idPersonaFisica','idPersonaMoral']))
+        },mapState(['idPersonaFisica','idPersonaMoral','fisicaEncontrada','moralEncontrada']))
         }
 </script>
 <style>

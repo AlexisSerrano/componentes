@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Models\ExtraAutoridad;
 use App\Http\Controllers\Controller;
+use BitracoraController;
+use DB;
 
 class ExtrasAutoridadController extends Controller
 {
+    protected $log;
+
+    function __construct() {
+        $this->log=new BitacoraController();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,16 +42,24 @@ class ExtrasAutoridadController extends Controller
      */
     public function store(Request $request)
     {        
-        $ExtraAutoridad = new ExtraAutoridad();
-        $ExtraAutoridad->idVariablesPersona = $request->idVariablesPersona;
-        $ExtraAutoridad->antiguedad = $request->antiguedad;
-        $ExtraAutoridad->rango = $request->rango;
-        $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;
-        //$ExtraAutoridad->narracion = $request->narracion;                
-        $ExtraAutoridad->save();  
-        $id = $ExtraAutoridad->id;                
-        return response()->json($id);        
-
+        $id=[];       
+        try{
+            DB::beginTransaction();
+            $ExtraAutoridad = new ExtraAutoridad();
+            $ExtraAutoridad->idVariablesPersona = $request->idVariablesPersona;
+            $ExtraAutoridad->antiguedad = $request->antiguedad;
+            $ExtraAutoridad->rango = $request->rango;
+            $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;
+            //$ExtraAutoridad->narracion = $request->narracion;                
+            $ExtraAutoridad->save();  
+            $id = $ExtraAutoridad->id;
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_autoridad','INSERT',$id,null,$ExtraAutoridad);
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollback();
+            return response()->json(["ERROR"->$e->getMessage()]);
+        }    
+        return response()->json($id);
     }
 
     /**
@@ -78,14 +93,23 @@ class ExtrasAutoridadController extends Controller
      */
     public function update(Request $request)
     {
-        
-       $ExtraAutoridad = ExtraAutoridad::find($request->idVariablesPersona);        
-        $ExtraAutoridad->antiguedad = $request->antiguedad;
-        $ExtraAutoridad->rango = $request->rango;
-        $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;                 
-        $ExtraAutoridad->save();     
-        $id = $ExtraAutoridad->id;                
-        return response()->json($id);
+        $id=[];     
+        try{
+            DB::beginTransaction(); 
+            $ExtraAutoridad = ExtraAutoridad::find($request->idVariablesPersona);        
+            $antes=clone $ExtraAutoridad;
+            $ExtraAutoridad->antiguedad = $request->antiguedad;
+            $ExtraAutoridad->rango = $request->rango;
+            $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;                 
+            $ExtraAutoridad->save();     
+            $id = $ExtraAutoridad->id; 
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_autoridad','UPDATE',$id,$antes,$ExtraAutoridad);
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollback();
+            return response()->json(["ERROR"->$e->getMessage()]);
+        }               
+            return response()->json($id);
     }
 
     /**
