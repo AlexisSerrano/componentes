@@ -95,6 +95,8 @@ import swal from 'sweetalert2'
                     antiguedad:this.antiguedad,
                     rango:this.rango,
                     horarioLaboral: this.horarioLaboral.toUpperCase(),
+                    sistema:this.sistema.toUpperCase(),
+                    usuario:'TEST'
                     //narracion:narracionHechos.toUpperCase()
                     };
                     axios.post(urlGuardarAutoridad,data)
@@ -133,7 +135,9 @@ import swal from 'sweetalert2'
                     idVariablesPersona:this.idreturn,
                     antiguedad:this.antiguedad,
                     rango:this.rango,
-                    horarioLaboral: this.horarioLaboral.toUpperCase(),                    
+                    horarioLaboral: this.horarioLaboral.toUpperCase(), 
+                    sistema:this.sistema.toUpperCase(),
+                    usuario:'TEST'                   
                     };
                     axios.post(urlGuardarAutoridad,data)
                     .then (response =>{

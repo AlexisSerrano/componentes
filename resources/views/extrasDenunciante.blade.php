@@ -11,7 +11,7 @@
   </head>
   <body>
     <div id="app">
-        <extrasdenunciante  :tipo="'fisica'"></extrasdenunciante>          
+        <extrasdenunciante  :tipo="'fisica'" :sistema="'uat'"></extrasdenunciante>          
         <!--<extrasdenunciante  :tipo="'moral'"></extrasdenunciante>  -->
     </div>    
     <!--<button id="btn2">console.log idvarpersonamoral</button>-->

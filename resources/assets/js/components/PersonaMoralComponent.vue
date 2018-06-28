@@ -73,8 +73,8 @@ import { mapState } from "vuex";
                 representanteLegal:'',
                 personaExiste:'',              
                 validacionesback:'',
-                // url:'http://localhost/componentes/public/api'
-                url:'/api'
+                 url:'http://localhost/componentes/public/api'
+                //url:'/api'
             }
         },
         props:{

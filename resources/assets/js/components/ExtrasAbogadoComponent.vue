@@ -63,6 +63,11 @@ import swal from 'sweetalert2'
                 url:'http://localhost/componentes/public/api'
             }
         },
+        props:{
+            sistema: {
+                default:''
+            }
+        },
         methods:{
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -89,6 +94,8 @@ import swal from 'sweetalert2'
                     sector:this.sector,
                     correo:this.correo,
                     tipo:this.tipo,
+                    sistema:this.sistema.toUpperCase(),
+                    usuario:'TEST'
                 };
                     axios.post(urlGuardarAbogado,data)
                     .then (response =>{
@@ -129,6 +136,8 @@ import swal from 'sweetalert2'
                     sector:this.sector,
                     correo:this.correo,
                     tipo:this.tipo,
+                    sistema:this.sistema.toUpperCase(),
+                    usuario:'TEST'
                 };
                     axios.post(urlGuardarAbogado,data)
                     .then (response =>{

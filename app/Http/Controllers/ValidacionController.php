@@ -14,6 +14,7 @@ use App\Http\Models\VariablesPersona;
 use App\Http\Models\VariablesPersonaMoral;
 use App\Http\Models\aparicionesModel;
 use App\Http\Models\ExtraDenunciado;
+use BitracoraController;
 use DB;
 
 use Illuminate\Http\Request;
@@ -93,6 +94,7 @@ class ValidacionController extends Controller
             $persona->idLengua = $request->idLengua;
             $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
             $persona->save();
+            
             $variables =  new VariablesPersona();
             $variables->idPersona = $persona->id;
             $variables->edad = $request->edad;
@@ -108,6 +110,7 @@ class ValidacionController extends Controller
             $variables->telefono = $request->telefono;
             $variables->idTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->save();
+            
             $apariciones = new aparicionesModel();
             $apariciones->idVarPersona = $variables->id;
             $apariciones->idCarpeta = $request->idCarpeta;
@@ -116,6 +119,10 @@ class ValidacionController extends Controller
             $apariciones->nuc = 'xxxxx';
             $apariciones->esEmpresa = 0;
             $apariciones->save(); 
+
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -140,7 +147,7 @@ class ValidacionController extends Controller
             $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->telefono = $request->telefono;
             $variables->save();
-
+            
             $persona = PersonaModel::find($variables->idPersona);
             $persona->nombres = $request->nombres;
             $persona->primerAp = $request->primerAp;
@@ -155,6 +162,8 @@ class ValidacionController extends Controller
             $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
             $persona->save();
             
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -192,6 +201,10 @@ class ValidacionController extends Controller
             $apariciones->nuc = 'xxxxx';
             $apariciones->esEmpresa = 0;
             $apariciones->save(); 
+
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -219,6 +232,9 @@ class ValidacionController extends Controller
             $persona->sexo = $request->sexo;
             $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
             $persona->save();
+
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
 
             DB::commit();
 			return $variables->id;
@@ -252,7 +268,12 @@ class ValidacionController extends Controller
             $apariciones->tipoInvolucrado = $request->tipo;
             $apariciones->nuc = 'xxxxx';
             $apariciones->esEmpresa = 0;
-            $apariciones->save(); 
+            $apariciones->save();
+
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$extras->id,null,$extras);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -273,6 +294,9 @@ class ValidacionController extends Controller
             $persona->primerAp = $request->primerAp;
             $persona->segundoAp = $request->segundoAp;
             $persona->save();
+
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
            
             DB::commit();
 			return $variables->id;
@@ -304,6 +328,11 @@ class ValidacionController extends Controller
             $apariciones->nuc = 'xxxxx';
             $apariciones->esEmpresa = 1;
             $apariciones->save(); 
+
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_moral','INSERT',$persona->id,null,$persona);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_moral','INSERT',$variables->id,null,$variables);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
+
             DB::commit();
             return $variables->id;
         }catch (\PDOException $e){
@@ -326,6 +355,9 @@ class ValidacionController extends Controller
             $persona->fechaCreacion = $request->fechaCreacion;
             $persona->rfc = $request->rfc.$request->homo;
             $persona->save();
+
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_moral','UPDATE',$variables->id,null,$variables);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_moral','UPDATE',$persona->id,null,$persona); 
             
             DB::commit();
             return $variables->id;
