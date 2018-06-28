@@ -28,7 +28,8 @@ class PersonaController extends Controller{
 	}
 
 	public function searchPersona(Request $request){
-		$rfc = $request->rfc;
+		$rfcCurp = $request->rfcCurp;
+		$tipoBusqueda = $request->tipoBusqueda;
 
 		$personaExisteP = DB::table('persona_fisica')
 		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
@@ -44,8 +45,7 @@ class PersonaController extends Controller{
 		->join('sexos', 'persona_fisica.sexo', '=', 'sexos.id')
 		->join('cat_interprete', 'variables_persona_fisica.idInterprete', '=', 'cat_interprete.id')
 		->join('cat_estado', 'cat_municipio.idEstado', '=', 'cat_estado.id')
-		->where('rfc',$rfc)
-		//->orwhere('curp',$persona)
+		->where($tipoBusqueda,$rfcCurp)
 		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
 		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
 		'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
