@@ -43,7 +43,8 @@ import swal from 'sweetalert2'
                 solicitante:'',
                 descripcion:'',  
                 systemUser:'TEST',
-                url:'http://localhost/componentes/public/api'                
+                // url:'http://localhost/componentes/public/api'  
+                url:'/api'              
             }
         },
         props:{            
@@ -61,7 +62,7 @@ import swal from 'sweetalert2'
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.guardarExtra                               
+                        this.guardarExtra()                               
                     }else{
                         swal({
                         title: '¡Guardado incorrecto!',
@@ -93,7 +94,8 @@ import swal from 'sweetalert2'
                 axios.post(urlGuardarDenunciante,data)
                 .then (response =>{
                     if(response.data){        
-                        this.$store.commit('asignarIdExtra',response.data)                    
+                        this.$store.commit('asignarIdExtra',response.data)
+                        this.$store.commit('cleanStore')                    
                         swal({
                             title: '¡Guardado correctamente!',
                             text: 'Ésta persona fue guardada exitosamente.',

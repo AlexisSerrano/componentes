@@ -336,6 +336,12 @@ import { mapState } from "vuex";
                     { "nombre": "OTRO DOMICILIO", "id": 2 },
                     { "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES", "id": 3 }]
                 }
+            },
+            idPersonaFisica(){
+                (this.$store.state.idPersonaFisica=='' && this.empresa==false)?this.CleanFields():''
+            },
+            idPersonaMoral(){
+                (this.$store.state.idPersonaMoral=='' && this.empresa==true)?this.CleanFields():''
             }
         },
         computed: Object.assign({

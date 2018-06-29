@@ -601,6 +601,7 @@ import { mapState } from "vuex";
                 else if(this.$store.state.tipoInvolucrado=='conocido' && this.tipo!='conocido'){
                     this.CleanFields();
                 }
+                (this.$store.state.idPersonaFisica=='' && this.empresa==false)?this.CleanFields():''
             },
             fisicaEncontrada(){
                 if(this.$store.state.fisicaEncontrada==''){this.CleanFields()}

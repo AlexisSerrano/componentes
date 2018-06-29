@@ -207,6 +207,9 @@ import { mapState } from "vuex";
             },
             moralEncontrada(){
             if(this.$store.state.moralEncontrada==''){this.CleanFields()}
+            },
+            idPersonaMoral(){
+                (this.$store.state.idPersonaMoral=='')?this.CleanFields():''
             }
        },
        computed: Object.assign({

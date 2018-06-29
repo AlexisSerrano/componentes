@@ -25,6 +25,7 @@ const store = new Vuex.Store({
                 state.fisicaEncontrada=payload.fisicaEncontrada
             }
             state.idPersonaMoral=''
+            state.moralEncontrada=''
             state.idDomicilio=''
             state.idTrabajo=''
             state.idContacto=''
@@ -38,6 +39,7 @@ const store = new Vuex.Store({
                 state.moralEncontrada=payload.moralEncontrada
             }
             state.idPersonaFisica=''
+            state.fisicaEncontrada=''
             state.idDomicilio=''
             state.idTrabajo=''
             state.idContacto=''
@@ -59,6 +61,17 @@ const store = new Vuex.Store({
         cleanSearch(state,payload){
             (payload=='fisica')?(state.fisicaEncontrada='',state.tipoInvolucrado=''):(state.moralEncontrada='',state.tipoInvolucrado='')
         },
+        cleanStore(state){
+            idPersonaFisica= '',
+            idPersonaMoral='',
+            idExtra='',
+            tipoInvolucrado='',
+            idDomicilio='',
+            idTrabajo='',
+            idContacto='',
+            fisicaEncontrada='',
+            moralEncontrada=''
+        }
     }
 })
 
