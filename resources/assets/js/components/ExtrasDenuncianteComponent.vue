@@ -87,6 +87,7 @@ import swal from 'sweetalert2'
                     reguardarIdentidad:this.identidad.id,
                     victima: this.solicitante.id,
                     sistema:this.sistema,
+                    empresa:this.empresa,
                     usuario:this.systemUser                                                                       
                 };
                 axios.post(urlGuardarDenunciante,data)

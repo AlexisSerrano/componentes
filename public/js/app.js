@@ -87152,6 +87152,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 reguardarIdentidad: this.identidad.id,
                 victima: this.solicitante.id,
                 sistema: this.sistema,
+                empresa: this.empresa,
                 usuario: this.systemUser
             };
             axios.post(urlGuardarDenunciante, data).then(function (response) {
