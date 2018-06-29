@@ -120,7 +120,7 @@ import { mapState } from "vuex";
                 telefono:'',
                 lugarTrabajo:'',
                 correo:'',
-                url:'/'
+                url:'./api'
             }
         },
         props:{

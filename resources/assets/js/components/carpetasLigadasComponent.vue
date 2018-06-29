@@ -80,7 +80,7 @@ import { mapState } from "vuex";
                 rfc:'',
                 homoclave:'',                
                 curp:'',
-                url:'http://localhost/componentes/public/api',                     
+                url:'./api',
                 carpetasLigadas:''             
             }
         },

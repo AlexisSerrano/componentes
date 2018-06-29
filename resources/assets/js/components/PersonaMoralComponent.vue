@@ -74,8 +74,7 @@ import { mapState } from "vuex";
                 personaExiste:'',              
                 validacionesback:'',
                 systemUser:'TEST',
-                //  url:'http://localhost/componentes/public/api'
-                url:'/api'
+                url:'./api'
             }
         },
         props:{

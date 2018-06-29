@@ -60,8 +60,7 @@ import swal from 'sweetalert2'
                 systemUser:'TEST',
                 tipos:['ASESOR JURIDICO', 'ABOGADO DEFENSOR'],
                 sectores:['PÚBLICO','PARTICULAR'],
-                //url:'/api'
-                url:'http://localhost/componentes/public/api'
+                url:'./api'
             }
         },
         props:{
@@ -69,7 +68,11 @@ import swal from 'sweetalert2'
                 default:''
             }
         },
-        methods:{
+        mounted(){
+           
+                alert("url:"+rootUrl2);
+        },
+        methods:{            
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                    if (result) {
@@ -147,16 +150,16 @@ import swal from 'sweetalert2'
                             this.idExtrasAbogado=this.confirm;
                             //this.CleanFields();
                             swal({
-                                title: '¡Guardado correctamente!',
-                                text: 'Ésta persona fue guardada exitosamente.',
+                                title: '¡Actualizado correctamente!',
+                                text: 'Ésta persona fue actualizada exitosamente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
                         }
                         else{
                             swal({
-                                title: '¡Guardado incorrecto!',
-                                text: 'Error al guardar.',
+                                title: '¡Actualización incorrecta!',
+                                text: 'Error al actualizar.',
                                 type: 'error',
                                 confirmButtonText: 'Ok'
                             });

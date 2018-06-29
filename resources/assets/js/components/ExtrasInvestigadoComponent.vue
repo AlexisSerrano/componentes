@@ -113,8 +113,7 @@ import swal from 'sweetalert2'
                 systemUser:'TEST',
                 puestos:[],
                 periodos:['DIARIO','SEMANAL','QUINCENAL','MENSUAL'],
-                //url:'/api'
-                url:'http://localhost/componentes/public/api'
+                url:'./api'
             }
         },
         props:{
@@ -232,24 +231,24 @@ import swal from 'sweetalert2'
                             this.idExtrasInvestigado=this.confirm;
                             //this.CleanFields();
                             swal({
-                                title: '¡Guardado correctamente!',
-                                text: 'Ésta persona fue guardada exitosamente.',
+                                title: '¡Actualizado correctamente!',
+                                text: 'Ésta persona fue actualizada exitosamente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
                         }
                         else{
                             swal({
-                                title: '¡Guardado incorrecto!',
-                                text: 'Error al guardar.',
+                                title: '¡Actualización incorrecta!',
+                                text: 'Error al actualizar.',
                                 type: 'error',
                                 confirmButtonText: 'Ok'
                             });
                         }
                     }).catch((error)=>{                        
                         swal({
-                        title: '¡Guardado incorrecto!',
-                        text: 'Ésta persona no fue posible guardarla.',
+                        title: '¡Actualización incorrecta!',
+                        text: 'No fue posible actualiza esta persona.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                         });
