@@ -75,3 +75,7 @@ Route::post('/fisicaCarpetasRfc','PersonaController@personaFisicaBuscarCarpetasR
 Route::post('/fisicaCarpetasCurp','PersonaController@personaFisicaBuscarCarpetasCURP');
 Route::post('/moralCarpetasRfc','PersonaController@moralBuscarCarpetasRFC');
 Route::post('/cambiarEstadoCarpeta','PersonaController@cambiarEstadoCarpeta');
+
+
+/*extra denunciante*/
+Route::post('addExtrasDenunciante','ExtrasDenuncianteController@addExtrasDenunciante');

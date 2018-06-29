@@ -93,6 +93,7 @@ import swal from 'sweetalert2'
                 };
                 axios.post(urlGuardarDenunciante,data)
                 .then (response =>{
+                    console.log(response.data);
                     if(response.data){        
                         this.$store.commit('asignarIdExtra',response.data)
                         this.$store.commit('cleanStore')                    
