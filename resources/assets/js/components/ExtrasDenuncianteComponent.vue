@@ -88,7 +88,8 @@ import swal from 'sweetalert2'
                     victima: this.solicitante.id,
                     sistema:this.sistema,
                     empresa:this.empresa,
-                    usuario:this.systemUser                                                                       
+                    usuario:this.systemUser,
+                    narracion:this.descripcion.toUpperCase()                                                                       
                 };
                 axios.post(urlGuardarDenunciante,data)
                 .then (response =>{

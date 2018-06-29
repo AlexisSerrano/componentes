@@ -61,6 +61,7 @@ import swal from 'sweetalert2'
                this.$validator.validateAll().then((result) => {
                     if (result) {
                         this.guardarExtraAutoridad();    
+                        return
                     }
                     else{
                         swal({
@@ -74,9 +75,9 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtraAutoridad: function(){   
-                var urlGuardarAutoridad = this.url+'/guardarExtrasAutoridad';          
+                var urlGuardarAutoridad = this.url+'/addExtrasAutoridad';          
                 var data = {
-                    idExtraAutoridad:this.$store.state.idExtra,
+                    idExtrasAutoridad:this.$store.state.idExtra,
                     idPersona:this.$store.state.idPersonaFisica,
                     antiguedad:this.antiguedad,
                     rango:this.rango,
@@ -120,6 +121,7 @@ import swal from 'sweetalert2'
                 this.rango=''
                 this.horarioLaboral=''
                 this.descripcion=''
+                this.$validator.reset()
             }
        }
     }

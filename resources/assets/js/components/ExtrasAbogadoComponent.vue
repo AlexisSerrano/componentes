@@ -9,38 +9,37 @@
 
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="tipo">Tipo</label>    
-                    <v-select :options="tipos" label="nombre" v-model="tipo" name="tipo" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('tipo')|| this.validacionesback.tipo}" placeholder="Seleccione un tipo"></v-select>
+                    <v-select :options="tipos" label="nombre" v-model="tipo" name="tipo" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('tipo')}" placeholder="Seleccione un tipo"></v-select>
                     <span v-show="errors.has('tipo')" class="text-danger">{{ errors.first('tipo')}}</span>
-                    <span v-if="this.validacionesback.tipo!=undefined" class="text-danger">{{ String(this.validacionesback.tipo)}}</span>
                 </div>
 
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="sector">Sector</label>    
-                    <v-select :options="sectores" label="nombre" v-model="sector" name="sector" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('sector')|| this.validacionesback.sector}" placeholder="Seleccione un sector"></v-select>
+                    <v-select :options="sectores" label="nombre" v-model="sector" name="sector" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('sector')}" placeholder="Seleccione un sector"></v-select>
                     <span v-show="errors.has('sector')" class="text-danger">{{ errors.first('sector')}}</span>
-                    <span v-if="this.validacionesback.sector!=undefined" class="text-danger">{{ String(this.validacionesback.sector)}}</span>
                 </div>
 
                  <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="cedula">Cédula profesional</label>                    
-                    <input type="text" name="cedula" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('cedula')  || this.validacionesback.cedula}" v-model="cedula" placeholder="Ingrese el cedula" v-validate="'required'" autocomplete="off">
+                    <input type="text" name="cedula" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('cedula')}" v-model="cedula" placeholder="Ingrese el cedula" v-validate="'required'" autocomplete="off">
                     <span v-show="errors.has('cedula')" class="text-danger">{{ errors.first('cedula')}}</span>
-                    <span v-if="this.validacionesback.cedula!=undefined" class="text-danger">{{ String(this.validacionesback.cedula)}}</span>
                 </div>
 
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="correo">Correo</label>                    
-                    <input type="text" name="correo" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('correo')  || this.validacionesback.correo}" v-model="correo" placeholder="Ingrese el correo" v-validate="'required|email'" autocomplete="off">
+                    <input type="text" name="correo" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('correo')}" v-model="correo" placeholder="Ingrese el correo" v-validate="'required|email'" autocomplete="off">
                     <span v-show="errors.has('correo')" class="text-danger">{{ errors.first('correo')}}</span>
-                    <span v-if="this.validacionesback.correo!=undefined" class="text-danger">{{ String(this.validacionesback.correo)}}</span>
                 </div>
+
+                <div class="form-group col-md-12">
+                    <label class="col-form-label col-form-label-sm" for="descripcion">Descripcion de los hechos</label>
+                    <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcion')}" v-model="descripcion" placeholder="Ingrese la descripción de los hechos" v-validate="'required'" autocomplete="off"></textarea>
+                    <span v-show="errors.has('descripcion')" class="text-danger">{{ errors.first('descripcion')}}</span>
+                </div> 
             </div>
 
-            <div class="form-row mt-3">
-                <div class="form-group col-md-5">
-                    <button type="submit" class="btn btn-primary mr-1">Guardar</button>
-                </div>
-            </div>
+                  
+            <button type="submit" class="btn btn-primary">Guardar</button>
 
         </form>
     </div>
@@ -55,12 +54,11 @@ import swal from 'sweetalert2'
                 sector: '',
                 cedula:'',
                 correo:'',
-                idExtrasAbogado:0,
-                validacionesback:[],
                 systemUser:'TEST',
                 tipos:['ASESOR JURIDICO', 'ABOGADO DEFENSOR'],
                 sectores:['PÚBLICO','PARTICULAR'],
-                url:'./api'
+                url:'./api',
+                descripcion:''
             }
         },
         props:{
@@ -68,19 +66,12 @@ import swal from 'sweetalert2'
                 default:''
             }
         },
-        mounted(){
-           
-                alert("url:"+rootUrl2);
-        },
         methods:{            
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                    if (result) {
-                        if(this.idExtrasAbogado>0)
-                            this.actualizarExtra();
-                        else
-                            this.guardarExtra();
-                        return;
+                        this.guardarExtra();
+                        return
                     }
                     swal({
                         title: '¡Guardado incorrecto!',
@@ -91,22 +82,23 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtra: function(){
-                var urlGuardarAbogado = this.url+'/guardarExtrasAbogado';       
+                var urlGuardarAbogado = this.url+'/addExtrasAbogado';       
                 var data = {
-                    idVariablesPersona:1,        
-                    cedulaProf:this.cedula.toUpperCase(),
+                    idExtrasAbogado:this.$store.state.idExtra,
+                    idPersona:this.$store.state.idPersonaFisica,
+                    cedula:this.cedula.toUpperCase(),
                     sector:this.sector,
-                    correo:this.correo,
+                    correo:this.correo.toUpperCase(),
                     tipo:this.tipo,
                     sistema:this.sistema.toUpperCase(),
-                    usuario:this.systemUser
+                    usuario:this.systemUser,
+                    narracion:this.descripcion.toUpperCase()
                 };
                     axios.post(urlGuardarAbogado,data)
                     .then (response =>{
-                        this.confirm = response.data
-                        if(this.confirm){
-                            this.idExtrasAbogado=this.confirm;
-                            //this.CleanFields(); 
+                        if(response.data){
+                            this.$store.commit('asignarIdExtra',response.data)
+                            this.$store.commit('cleanStore')  
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
@@ -132,52 +124,12 @@ import swal from 'sweetalert2'
                     });
                 
             },
-            actualizarExtra: function(){
-                var urlGuardarAbogado = this.url+'/actualizarExtrasAbogado';                
-                var data = {
-                    id:this.idExtrasAbogado,
-                    cedulaProf:this.cedula.toUpperCase(),
-                    sector:this.sector,
-                    correo:this.correo,
-                    tipo:this.tipo,
-                    sistema:this.sistema.toUpperCase(),
-                    usuario:this.systemUser
-                };
-                    axios.post(urlGuardarAbogado,data)
-                    .then (response =>{
-                        this.confirm = response.data
-                        if(this.confirm){
-                            this.idExtrasAbogado=this.confirm;
-                            //this.CleanFields();
-                            swal({
-                                title: '¡Actualizado correctamente!',
-                                text: 'Ésta persona fue actualizada exitosamente.',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            });
-                        }
-                        else{
-                            swal({
-                                title: '¡Actualización incorrecta!',
-                                text: 'Error al actualizar.',
-                                type: 'error',
-                                confirmButtonText: 'Ok'
-                            });
-                        }
-                    }).catch((error)=>{                        
-                        swal({
-                        title: '¡Guardado incorrecto!',
-                        text: 'Ésta persona no fue posible guardarla.',
-                        type: 'error',
-                        confirmButtonText: 'Ok'
-                        });
-                    });
-            },
             CleanFields() {
                 this.cedula='',
                 this.sector='',
                 this.correo='',
                 this.tipo='',
+                this.descripcion='',
                 this.$validator.reset();
             }
        }
