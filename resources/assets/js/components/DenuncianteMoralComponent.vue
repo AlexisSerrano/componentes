@@ -2,20 +2,28 @@
     <div>
         <!-- MENÚ -->
         <div class="container-fluid">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a :class="tabPrincipalMoral" id="denunciante-personamoral-tab" data-toggle="pill" href="#pills-denunciante-personamoral" role="tab" aria-controls="pills-denunciante-personamoral" aria-selected="true">Datos Personales</a>
-                </li>
-                <li class="nav-item">
-                    <a @click="ubicacionTabsMoral(1)" :class="tabsMoral" id="denunciante-domiciliomoral-tab" data-toggle="pill" href="#pills-denunciante-domiciliomoral" role="tab" aria-controls="pills-denunciante-domiciliomoral" aria-selected="false">Domicilio</a>
-                </li>
-                <li class="nav-item">
-                    <a @click="ubicacionTabsMoral(2)" :class="tabsMoral" id="denunciante-notificacionesmoral-tab" data-toggle="pill" href="#pills-denunciante-notificacionesmoral" role="tab" aria-controls="#pills-denunciante-notificacionesmoral" aria-selected="false">Domicilio para notificaciones</a>
-                </li>
-                <li class="nav-item">
-                    <a @click="ubicacionTabsMoral(3)" :class="tabsMoral" id="denunciante-extramoral-tab" data-toggle="pill" href="#pills-denunciante-extramoral" role="tab" aria-controls="pills-denunciante-extramoral" aria-selected="false">Datos de la víctima u ofendido</a>
-                </li>
-            </ul>
+            <div class="row">
+                <ul class="nav nav-pills mb-3 col-10" style="padding-left:15px" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a :class="tabPrincipalMoral" id="denunciante-personamoral-tab" data-toggle="pill" href="#pills-denunciante-personamoral" role="tab" aria-controls="pills-denunciante-personamoral" aria-selected="true">Datos Personales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @click="ubicacionTabsMoral(1)" :class="tabsMoral" id="denunciante-domiciliomoral-tab" data-toggle="pill" href="#pills-denunciante-domiciliomoral" role="tab" aria-controls="pills-denunciante-domiciliomoral" aria-selected="false">Domicilio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @click="ubicacionTabsMoral(2)" :class="tabsMoral" id="denunciante-notificacionesmoral-tab" data-toggle="pill" href="#pills-denunciante-notificacionesmoral" role="tab" aria-controls="#pills-denunciante-notificacionesmoral" aria-selected="false">Domicilio para notificaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @click="ubicacionTabsMoral(3)" :class="tabsMoral" id="denunciante-extramoral-tab" data-toggle="pill" href="#pills-denunciante-extramoral" role="tab" aria-controls="pills-denunciante-extramoral" aria-selected="false">Datos de la víctima u ofendido</a>
+                    </li>
+                </ul>
+                <div class="col-2 d-flex align-items-start justify-content-end">
+                    <button v-if="this.$store.state.moralEncontrada  && this.$store.state.idPersonaMoral==''" type="button" class="btn btn-primary" @click="cleanFields">
+                        <icon name="eraser" style="color:white"></icon>
+                        Limpiar
+                    </button>
+                </div>
+            </div>
         </div>
         <!-- MENÚ -->
 
@@ -80,6 +88,9 @@ import { mapState } from "vuex";
                         this.pillsMoral3 = 'tab-pane fade show active'
                     }       
                 }  
+            },
+            cleanFields(){
+                this.$store.commit('cleanSearch','moral')
             }
         },
         watch: {

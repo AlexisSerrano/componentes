@@ -2,23 +2,31 @@
     <div>
         <!-- MENÚ -->
         <div class="container-fluid">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a :class="tabPrincipalFisica" id="denunciante-personafisico-tab" data-toggle="pill" href="#pills-denunciante-personafisico" role="tab" aria-controls="pills-denunciante-personafisico" aria-selected="true">Datos Personales</a>
-                </li>
-                <li class="nav-item">
-                    <a @click="ubicacionTabsFisica(1)" :class="tabsFisica" id="denunciante-domiciliofisico-tab" data-toggle="pill" href="#pills-denunciante-domiciliofisico" role="tab" aria-controls="pills-denunciante-domiciliofisico" aria-selected="false">Domicilio</a>
-                </li>
-                <li class="nav-item">
-                    <a @click="ubicacionTabsFisica(2)" :class="tabsFisica" id="denunciante-trabajofisico-tab" data-toggle="pill" href="#pills-denunciante-trabajofisico" role="tab" aria-controls="pills-denunciante-trabajofisico" aria-selected="false">Datos del trabajo</a>
-                </li>
-                <li class="nav-item">
-                    <a @click="ubicacionTabsFisica(3)" :class="tabsFisica" id="denunciante-notificacionesfisico-tab" data-toggle="pill" href="#pills-denunciante-notificacionesfisico" role="tab" aria-controls="#pills-denunciante-notificacionesfisico" aria-selected="false">Domicilio para notificaciones</a>
-                </li>
-                <li class="nav-item">
-                    <a @click="ubicacionTabsFisica(4)" :class="tabsFisica" id="denunciante-extrafisico-tab" data-toggle="pill" href="#pills-denunciante-extrafisico" role="tab" aria-controls="pills-denunciante-extrafisico" aria-selected="false">Datos de la víctima u ofendido</a>
-                </li>
-            </ul>
+            <div class="row">
+                <ul class="nav nav-pills mb-3 col-10" style="padding-left:15px" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a :class="tabPrincipalFisica" id="denunciante-personafisico-tab" data-toggle="pill" href="#pills-denunciante-personafisico" role="tab" aria-controls="pills-denunciante-personafisico" aria-selected="true">Datos Personales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @click="ubicacionTabsFisica(1)" :class="tabsFisica" id="denunciante-domiciliofisico-tab" data-toggle="pill" href="#pills-denunciante-domiciliofisico" role="tab" aria-controls="pills-denunciante-domiciliofisico" aria-selected="false">Domicilio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @click="ubicacionTabsFisica(2)" :class="tabsFisica" id="denunciante-trabajofisico-tab" data-toggle="pill" href="#pills-denunciante-trabajofisico" role="tab" aria-controls="pills-denunciante-trabajofisico" aria-selected="false">Datos del trabajo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @click="ubicacionTabsFisica(3)" :class="tabsFisica" id="denunciante-notificacionesfisico-tab" data-toggle="pill" href="#pills-denunciante-notificacionesfisico" role="tab" aria-controls="#pills-denunciante-notificacionesfisico" aria-selected="false">Domicilio para notificaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @click="ubicacionTabsFisica(4)" :class="tabsFisica" id="denunciante-extrafisico-tab" data-toggle="pill" href="#pills-denunciante-extrafisico" role="tab" aria-controls="pills-denunciante-extrafisico" aria-selected="false">Datos de la víctima u ofendido</a>
+                    </li>
+                </ul>
+                <div class="col-2 d-flex align-items-start justify-content-end">
+                    <button v-if="this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
+                        <icon name="eraser" style="color:white"></icon>
+                        Limpiar
+                    </button>
+                </div>
+            </div>
         </div>
         <!-- MENÚ -->
 
@@ -97,6 +105,9 @@ import { mapState } from "vuex";
                         this.pillsFisica4 = 'tab-pane fade show active'
                     }       
                 }     
+            },
+            cleanFields(){
+                this.$store.commit('cleanSearch','fisica')
             }
         },
         watch: {

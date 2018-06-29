@@ -25,6 +25,11 @@ Vue.use(VeeValidate);
 import store from './store';
 /*Vuex*/
 
+/*Awesome*/
+import Icon from 'vue-awesome/components/Icon'
+import 'vue-awesome/icons'
+/*Awesome*/
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -49,6 +54,7 @@ Vue.component('extrasdenunciante',require('./components/ExtrasDenuncianteCompone
 Vue.component('extrasautoridad',require('./components/ExtrasAutoridadComponent.vue'));
 Vue.component('registro',require('./components/RegistroComponent.vue'));
 Vue.component('carpetas',require('./components/carpetasLigadasComponent.vue'));
+Vue.component('icon', Icon)
 
 const app = new Vue({
     el: '#app',
