@@ -66,7 +66,7 @@ class ExtrasAbogadoController extends Controller
             $extraAbogado->tipo = $request->tipo;
             $extraAbogado->save();  
             $id = $extraAbogado->id;                
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_fisico','UPDATE',$id,$antes,$extraAbogado);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_abogado','UPDATE',$id,$antes,$extraAbogado);
             DB::commit();
         }catch (Exception $e){
             DB::rollback();

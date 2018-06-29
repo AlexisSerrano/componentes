@@ -57,7 +57,7 @@ import swal from 'sweetalert2'
                 descripcionHechos:'',
                 validacionesback:[],
                 systemUser:'TEST',
-                url:'http://localhost/componentes/public/api',
+                url:'./api',
                 idreturn:''
             }
         },
@@ -155,15 +155,15 @@ import swal from 'sweetalert2'
                         }
                         else{
                             swal({
-                                title: '¡Guardado incorrecto!',
-                                text: 'Error al guardar.',
+                                title: '¡Actualización incorrecta!',
+                                text: 'Error al actualizar.',
                                 type: 'error',
                                 confirmButtonText: 'Ok'
                             })
                         }
                     }).catch((error)=>{                        
                         swal({
-                        title: '¡Guardado incorrecto!',
+                        title: '¡Actualización incorrecta!',
                         text: 'No fue posible actualizar.',
                         type: 'error',
                         confirmButtonText: 'Ok'

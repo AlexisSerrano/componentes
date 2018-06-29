@@ -43,8 +43,7 @@ import swal from 'sweetalert2'
                 solicitante:'',
                 descripcion:'',  
                 systemUser:'TEST',
-                // url:'http://localhost/componentes/public/api'  
-                url:'/api'              
+                url:'./api'             
             }
         },
         props:{            

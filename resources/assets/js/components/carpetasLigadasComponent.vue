@@ -68,7 +68,6 @@ import { mapState } from "vuex";
                 rfc:'',
                 rfcMoral:'',
                 curp:'',
-                url:'http://localhost/componentes/public/api',                     
                 carpetasLigadas: 
                     {
                     nombres: 'JUAN',
@@ -82,7 +81,8 @@ import { mapState } from "vuex";
                     nuc: 'xxxxx',
                     tipoDeterminacion: 'POR DETERMINAR',
                     variablePersona: 3,
-                    },              
+                    },
+                url:'./api'
             }
         },
         props:{
