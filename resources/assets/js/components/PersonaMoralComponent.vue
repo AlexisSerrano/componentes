@@ -74,8 +74,8 @@ import { mapState } from "vuex";
                 personaExiste:'',              
                 validacionesback:'',
                 systemUser:'TEST',
-                 url:'http://localhost/componentes/public/api'
-                //url:'/api'
+                //url:'http://localhost/componentes/public/api'
+                url:'/api'
             }
         },
         props:{
@@ -99,6 +99,7 @@ import { mapState } from "vuex";
                     axios.post(urlBuscarPersona,{
                         rfc: this.rfc+this.homoclave
                     }).then(response => {
+                        console.log(response.data);
                         this.personaExiste=response.data
                         if(this.personaExiste!=''){                                
                             swal({

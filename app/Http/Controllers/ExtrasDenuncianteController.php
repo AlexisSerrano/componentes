@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-//use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Models\ExtraDenuncianteFisico;
 use App\Http\Models\ExtraDenuncianteMoral;
@@ -16,41 +15,47 @@ class ExtrasDenuncianteController extends Controller
         $this->log=new BitacoraController();
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view("extrasDenunciante");
-        
+    public function addExtrasDenunciante(){
+        // resguardar 1=si 0=no  victima=1 ofendido=0
+        if($request->empresa){
+            if($request->idExtraDenunciante==""){
+                $ExtraDenunciante = new ExtraDenuncianteMoral();
+                $ExtraDenunciante->idPersona = $request->idPersona;        
+                $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
+                $ExtraDenunciante->victima = $request->victima;      
+                $ExtraDenunciante->save();  
+            }
+            else{
+                $ExtraDenunciante = ExtraDenuncianteMoral::find($request->idPersona);           
+                $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;
+                $ExtraDenunciante->victima = $request->victima;                
+                $ExtraDenunciante->save();
+            }
+        }
+        else{
+            if($request->idExtraDenunciante==""){
+                $ExtraDenunciante = new ExtraDenuncianteFisico();
+                $ExtraDenunciante->idPersona = $request->idPersona;
+                $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
+                $ExtraDenunciante->victima = $request->victima;        
+                $ExtraDenunciante->save();
+            }
+            else{
+                $ExtraDenunciante = ExtraDenuncianteFisico::find($request->idPersona);          
+                $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;
+                $ExtraDenunciante->victima = $request->victima;                
+                $ExtraDenunciante->save(); 
+            }
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function storeExtraDenuncianteFisico(Request $request)
     {    
         $id=[];       
         try{
             DB::beginTransaction();    
             $ExtraDenunciante = new ExtraDenuncianteFisico();
-            $ExtraDenunciante->idVariablesPersona = $request->idVariablesPersona;        
-            $ExtraDenunciante->idAbogado = $request->idAbogado;
+            $ExtraDenunciante->idPersona = $request->idPersona;
             $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
             $ExtraDenunciante->victima = $request->victima;        
             $ExtraDenunciante->save();  
@@ -71,7 +76,7 @@ class ExtrasDenuncianteController extends Controller
         try{
             DB::beginTransaction(); 
             $ExtraDenunciante = new ExtraDenuncianteMoral();
-            $ExtraDenunciante->idVariablesPersona = $request->idVariablesPersona;        
+            $ExtraDenunciante->idPersona = $request->idPersona;        
             $ExtraDenunciante->idAbogado = $request->idAbogado;
             $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
             $ExtraDenunciante->victima = $request->victima;      
@@ -87,41 +92,12 @@ class ExtrasDenuncianteController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function updateExtrasDenuncianteFisico(Request $request)
     {      
         $id=[];       
         try{
             DB::beginTransaction();         
-            $ExtraDenunciante = ExtraDenuncianteFisico::find($request->idVariablesPersona);  
+            $ExtraDenunciante = ExtraDenuncianteFisico::find($request->idPersona);  
             $antes=clone $ExtraDenunciante;          
             $ExtraDenunciante->idAbogado= $request->idAbogado;
             $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;
@@ -143,7 +119,7 @@ class ExtrasDenuncianteController extends Controller
         $id=[];       
         try{
             DB::beginTransaction();       
-            $ExtraDenunciante = ExtraDenuncianteMoral::find($request->idVariablesPersona);  
+            $ExtraDenunciante = ExtraDenuncianteMoral::find($request->idPersona);  
             $antes=clone $ExtraDenunciante;            
             $ExtraDenunciante->idAbogado= $request->idAbogado;
             $ExtraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;
@@ -158,16 +134,5 @@ class ExtrasDenuncianteController extends Controller
         }                                   
         return response()->json($id); 
 
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

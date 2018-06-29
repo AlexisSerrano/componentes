@@ -73249,10 +73249,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loader: true,
             systemUser: 'TEST',
             qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-            url: 'http://localhost/componentes/public/api'
+            //url:'http://localhost/componentes/public/api'
             // url:'http://componentes.oo/api',
             // url:'http://componentes.test/api'
-            //url:'/api'
+            url: '/api'
         };
     },
 
@@ -73314,7 +73314,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             var urlBuscarPersona = this.url + '/searchPersonaFisica';
             axios.post(urlBuscarPersona, {
-                busqueda: rfc_curp,
+                tipoBusqueda: rfc_curp,
                 rfcCurp: rfcCurp
             }).then(function (response) {
                 _this2.personaExiste = response.data;
@@ -77894,7 +77894,8 @@ var render = function() {
                           type: "text",
                           name: "nombres",
                           placeholder: "Ingrese el nombre",
-                          autocomplete: "off"
+                          autocomplete: "off",
+                          readonly: this.$store.state.fisicaEncontrada == true
                         },
                         domProps: { value: _vm.nombres },
                         on: {
@@ -79877,8 +79878,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             personaExiste: '',
             validacionesback: '',
             systemUser: 'TEST',
-            url: 'http://localhost/componentes/public/api'
-            //url:'/api'
+            //url:'http://localhost/componentes/public/api'
+            url: '/api'
         };
     },
 
@@ -79905,6 +79906,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 axios.post(urlBuscarPersona, {
                     rfc: this.rfc + this.homoclave
                 }).then(function (response) {
+                    console.log(response.data);
                     _this.personaExiste = response.data;
                     if (_this.personaExiste != '') {
                         __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -85458,6 +85460,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             hechos: '',
             idExtrasInvestigado: 0,
             validacionesback: [],
+            systemUser: 'TEST',
             puestos: [],
             periodos: ['DIARIO', 'SEMANAL', 'QUINCENAL', 'MENSUAL'],
             //url:'/api'
@@ -85520,7 +85523,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 vestimenta: this.vestimenta.toUpperCase(),
                 senasPartic: this.particulares.toUpperCase(),
                 sistema: this.sistema.toUpperCase(),
-                usuario: 'TEST'
+                usuario: this.systemUser
             };
             axios.post(urlGuardarInvestigado, data).then(function (response) {
                 _this3.confirm = response.data;
@@ -85568,7 +85571,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 vestimenta: this.vestimenta.toUpperCase(),
                 senasPartic: this.particulares.toUpperCase(),
                 sistema: this.sistema.toUpperCase(),
-                usuario: 'TEST'
+                usuario: this.systemUser
             };
             axios.post(urlGuardarInvestigado, data).then(function (response) {
                 _this4.confirm = response.data;
@@ -86485,6 +86488,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             correo: '',
             idExtrasAbogado: 0,
             validacionesback: [],
+            systemUser: 'TEST',
             tipos: ['ASESOR JURIDICO', 'ABOGADO DEFENSOR'],
             sectores: ['PÚBLICO', 'PARTICULAR'],
             //url:'/api'
@@ -86526,7 +86530,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 correo: this.correo,
                 tipo: this.tipo,
                 sistema: this.sistema.toUpperCase(),
-                usuario: 'TEST'
+                usuario: this.systemUser
             };
             axios.post(urlGuardarAbogado, data).then(function (response) {
                 _this2.confirm = response.data;
@@ -86567,7 +86571,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 correo: this.correo,
                 tipo: this.tipo,
                 sistema: this.sistema.toUpperCase(),
-                usuario: 'TEST'
+                usuario: this.systemUser
             };
             axios.post(urlGuardarAbogado, data).then(function (response) {
                 _this3.confirm = response.data;
@@ -87075,6 +87079,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             solicitantes: ['Víctima', 'Ofendido'],
             solicitante: '',
             descripcion: '',
+            systemUser: 'TEST',
             url: 'http://localhost/componentes/public/api',
             idreturn: ''
         };
@@ -87129,7 +87134,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 reguardarIdentidad: this.identidad,
                 victima: this.solicitante == "Víctima" ? 1 : 0,
                 sistema: this.sistema.toUpperCase(),
-                usuario: 'TEST'
+                usuario: this.systemUser
             };
             axios.post(urlGuardarDenunciante, data).then(function (response) {
                 _this2.idreturn = response.data;
@@ -87174,7 +87179,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 reguardarIdentidad: this.identidad,
                 victima: this.solicitante == "Victima" ? 1 : 0,
                 sistema: this.sistema.toUpperCase(),
-                usuario: 'TEST'
+                usuario: this.systemUser
             };
             axios.post(urlGuardarDenunciante, data).then(function (response) {
                 _this3.idreturn = response.data;
@@ -87538,6 +87543,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             horarioLaboral: '',
             descripcionHechos: '',
             validacionesback: [],
+            systemUser: 'TEST',
             url: 'http://localhost/componentes/public/api',
             idreturn: ''
         };
@@ -87583,7 +87589,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 rango: this.rango,
                 horarioLaboral: this.horarioLaboral.toUpperCase(),
                 sistema: this.sistema.toUpperCase(),
-                usuario: 'TEST'
+                usuario: this.systemUser
                 //narracion:narracionHechos.toUpperCase()
             };
             axios.post(urlGuardarAutoridad, data).then(function (response) {
@@ -87623,7 +87629,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 rango: this.rango,
                 horarioLaboral: this.horarioLaboral.toUpperCase(),
                 sistema: this.sistema.toUpperCase(),
-                usuario: 'TEST'
+                usuario: this.systemUser
             };
             axios.post(urlGuardarAutoridad, data).then(function (response) {
                 _this3.idreturn = response.data;
