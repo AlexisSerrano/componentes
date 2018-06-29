@@ -7,6 +7,7 @@ const store = new Vuex.Store({
     state: {
         idPersonaFisica: '',
         idPersonaMoral:'',
+        idExtra:'',
         tipoInvolucrado:'',
         idDomicilio:'',
         idTrabajo:'',
@@ -40,6 +41,9 @@ const store = new Vuex.Store({
             state.idDomicilio=''
             state.idTrabajo=''
             state.idContacto=''
+        },
+        asignarIdExtra(state,payload) {
+            state.idExtra=payload
         },
         asignarIdDomicilio(state,payload){
             if(payload.tipo=='domicilio'){

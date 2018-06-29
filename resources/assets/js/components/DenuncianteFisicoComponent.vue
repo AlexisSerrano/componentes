@@ -38,7 +38,7 @@
                 <domicilio :tipo="'contacto'" :empresa="false"></domicilio>
             </div>
             <div :class="pillsFisica4" id="pills-denunciante-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciante-extrafisico-tab">
-                <extrasdenunciante :sistema="sistema" :tipo="'fisica'"></extrasdenunciante>
+                <extrasdenunciante :sistema="sistema" :empresa="false"></extrasdenunciante>
             </div>
         </div>
         <!-- OPCIONES -->
@@ -101,11 +101,9 @@ import { mapState } from "vuex";
         },
         watch: {
             idPersonaFisica() {
-            if(this.$store.state.idPersonaMoral==''){
-                if(this.$store.state.idPersonaFisica!=false){
-                   this.tabsFisica='nav-link'
+                if(this.$store.state.idPersonaMoral==''){
+                    this.tabsFisica='nav-link'
                 }
-            }
             },
             idPersonaMoral(){
                 if(this.$store.state.idPersonaFisica==''){
