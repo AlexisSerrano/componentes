@@ -11,7 +11,7 @@
   </head>
   <body>
 	    <div id="app">
-            <carpetas></carpetas>
+            <carpetas :tipo="'moral'"></carpetas>
 	    </div>
   </body> 
 
