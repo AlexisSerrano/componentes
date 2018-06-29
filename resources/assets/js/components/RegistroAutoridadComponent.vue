@@ -7,13 +7,13 @@
                     <a class="nav-link active" id="autoridad-persona-tab" data-toggle="pill" href="#pills-autoridad-persona" role="tab" aria-controls="pills-autoridad-persona" aria-selected="true">Datos Personales</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="autoridad-domicilio-tab" data-toggle="pill" href="#pills-autoridad-domicilio" role="tab" aria-controls="pills-autoridad-domicilio" aria-selected="false">Domicilio</a>
+                    <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" id="autoridad-domicilio-tab" data-toggle="pill" href="#pills-autoridad-domicilio" role="tab" aria-controls="pills-autoridad-domicilio" aria-selected="false">Domicilio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="autoridad-trabajo-tab" data-toggle="pill" href="#pills-autoridad-trabajo" role="tab" aria-controls="pills-autoridad-trabajo" aria-selected="false">Datos del trabajo</a>
+                    <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-autoridad-trabajo" role="tab" aria-controls="pills-autoridad-trabajo" aria-selected="false">Datos del trabajo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="autoridad-extra-tab" data-toggle="pill" href="#pills-autoridad-extra" role="tab" aria-controls="pills-autoridad-extra" aria-selected="false">Datos de autoridad</a>
+                    <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-autoridad-extra" role="tab" aria-controls="pills-autoridad-extra" aria-selected="false">Datos de autoridad</a>
                 </li>
             </ul>
         </div>
@@ -48,6 +48,6 @@
             carpeta:{
                 required:true
             }
-        } 
+        }
     }
 </script>

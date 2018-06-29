@@ -2,20 +2,28 @@
     <div>
         <!-- MENÚ -->
         <div class="container-fluid">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a :class="tabPrincipalMoral" id="denunciado-personamoral-tab" data-toggle="pill" href="#pills-denunciado-personamoral" role="tab" aria-controls="pills-denunciado-personamoral" aria-selected="true">Datos Personales</a>
-                </li>
-                <li class="nav-item">
-                    <a @click="ubicacionTabsMoral(1)" :class="tabsMoral" id="denunciado-domiciliomoral-tab" data-toggle="pill" href="#pills-denunciado-domiciliomoral" role="tab" aria-controls="pills-denunciado-domiciliomoral" aria-selected="false">Domicilio</a>
-                </li>
-                <li class="nav-item">
-                    <a @click="ubicacionTabsMoral(2)" :class="tabsMoral" id="denunciado-notificacionesmoral-tab" data-toggle="pill" href="#pills-denunciado-notificacionesmoral" role="tab" aria-controls="#pills-denunciado-notificacionesmoral" aria-selected="false">Domicilio para notificaciones</a>
-                </li>
-                <li class="nav-item">
-                    <a @click="ubicacionTabsMoral(3)" :class="tabsMoral" id="denunciado-extramoral-tab" data-toggle="pill" href="#pills-denunciado-extramoral" role="tab" aria-controls="pills-denunciado-extramoral" aria-selected="false">Datos del investigado</a>
-                </li>
-            </ul>
+            <div class="row">
+                <ul class="nav nav-pills mb-3 col-10" style="padding-left:15px" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a :class="tabPrincipalMoral" id="denunciado-personamoral-tab" data-toggle="pill" href="#pills-denunciado-personamoral" role="tab" aria-controls="pills-denunciado-personamoral" aria-selected="true">Datos Personales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @click="ubicacionTabsMoral(1)" :class="tabsMoral" id="denunciado-domiciliomoral-tab" data-toggle="pill" href="#pills-denunciado-domiciliomoral" role="tab" aria-controls="pills-denunciado-domiciliomoral" aria-selected="false">Domicilio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @click="ubicacionTabsMoral(2)" :class="tabsMoral" id="denunciado-notificacionesmoral-tab" data-toggle="pill" href="#pills-denunciado-notificacionesmoral" role="tab" aria-controls="#pills-denunciado-notificacionesmoral" aria-selected="false">Domicilio para notificaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @click="ubicacionTabsMoral(3)" :class="tabsMoral" id="denunciado-extramoral-tab" data-toggle="pill" href="#pills-denunciado-extramoral" role="tab" aria-controls="pills-denunciado-extramoral" aria-selected="false">Datos del investigado</a>
+                    </li>
+                </ul>
+                <div class="col-2 d-flex align-items-start justify-content-end">
+                    <button v-if="this.$store.state.moralEncontrada  && this.$store.state.idPersonaMoral==''" type="button" class="btn btn-primary" @click="cleanFields">
+                        <icon name="eraser" style="color:white"></icon>
+                        Limpiar
+                    </button>
+                </div>
+            </div>
         </div>
         <!-- MENÚ -->
 
@@ -81,6 +89,9 @@ import { mapState } from "vuex";
                         this.pillsMoral3 = 'tab-pane fade show active'
                     }       
                 }  
+            },
+            cleanFields(){
+                this.$store.commit('cleanSearch','moral')
             }
         },
         watch: {
@@ -98,8 +109,18 @@ import { mapState } from "vuex";
                     this.pillsMoral3='tab-pane fade'
                     this.pillPrincipalMoral='tab-pane fade show active'
                 }
+            },
+            fisicaEncontrada(){
+                if(this.$store.state.idPersonaMoral==''){
+                    this.tabsMoral='nav-link disabled'
+                    this.tabPrincipalMoral='nav-link active show'
+                    this.pillsMoral1='tab-pane fade'
+                    this.pillsMoral2='tab-pane fade'
+                    this.pillsMoral3='tab-pane fade'
+                    this.pillPrincipalMoral='tab-pane fade show active'
+                }
             }
         },
-        computed:mapState(['idPersonaFisica','idPersonaMoral'])
+        computed:mapState(['idPersonaFisica','idPersonaMoral','fisicaEncontrada'])
     }
 </script>

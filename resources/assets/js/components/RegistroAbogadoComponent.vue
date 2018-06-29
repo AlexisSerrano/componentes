@@ -7,10 +7,10 @@
                     <a class="nav-link active" id="abogado-persona-tab" data-toggle="pill" href="#pills-abogado-persona" role="tab" aria-controls="pills-abogado-persona" aria-selected="true">Datos Personales</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="abogado-trabajo-tab" data-toggle="pill" href="#pills-abogado-trabajo" role="tab" aria-controls="pills-abogado-trabajo" aria-selected="false">Datos del trabajo</a>
+                    <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-abogado-trabajo" role="tab" aria-controls="pills-abogado-trabajo" aria-selected="false">Datos del trabajo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="abogado-extra-tab" data-toggle="pill" href="#pills-abogado-extra" role="tab" aria-controls="pills-abogado-extra" aria-selected="false">Datos del abogado</a>
+                    <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-abogado-extra" role="tab" aria-controls="pills-abogado-extra" aria-selected="false">Datos del abogado</a>
                 </li>
             </ul>
         </div>

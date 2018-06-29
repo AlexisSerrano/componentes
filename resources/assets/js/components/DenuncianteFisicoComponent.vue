@@ -126,8 +126,19 @@ import { mapState } from "vuex";
                     this.pillsFisica4='tab-pane fade'
                     this.pillPrincipalFisica='tab-pane fade show active'
                 }
+            },
+            moralEncontrada(){
+                if(this.$store.state.idPersonaFisica==''){
+                    this.tabsFisica='nav-link disabled'
+                    this.tabPrincipalFisica='nav-link active show'
+                    this.pillsFisica1='tab-pane fade'
+                    this.pillsFisica2='tab-pane fade'
+                    this.pillsFisica3='tab-pane fade'
+                    this.pillsFisica4='tab-pane fade'
+                    this.pillPrincipalFisica='tab-pane fade show active'
+                }
             }
         },
-        computed:mapState(['idPersonaFisica','idPersonaMoral'])
+        computed:mapState(['idPersonaFisica','idPersonaMoral','moralEncontrada'])
     }
 </script>

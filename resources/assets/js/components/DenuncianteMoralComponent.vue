@@ -108,8 +108,18 @@ import { mapState } from "vuex";
                     this.pillsMoral3='tab-pane fade'
                     this.pillPrincipalMoral='tab-pane fade show active'
                 }
+            },
+            fisicaEncontrada(){
+                if(this.$store.state.idPersonaMoral==''){
+                    this.tabsMoral='nav-link disabled'
+                    this.tabPrincipalMoral='nav-link active show'
+                    this.pillsMoral1='tab-pane fade'
+                    this.pillsMoral2='tab-pane fade'
+                    this.pillsMoral3='tab-pane fade'
+                    this.pillPrincipalMoral='tab-pane fade show active'
+                }
             }
         },
-        computed:mapState(['idPersonaFisica','idPersonaMoral'])
+        computed:mapState(['idPersonaFisica','idPersonaMoral','fisicaEncontrada'])
     }
 </script>
