@@ -22,8 +22,8 @@ class ExtrasAbogadoController extends Controller
     public function addExtrasAbogado(Request $request){
         try{
             DB::beginTransaction();
-            if($request->idExtraAbogado!=""){
-                $extraAbogado = ExtraAbogado::find($request->idExtraAbogado);
+            if($request->idExtrasAbogado!=""){
+                $extraAbogado = ExtraAbogado::find($request->idExtrasAbogado);
                 $oper="UPDATE";
                 $antes= clone $extraAbogado;
             }else{
@@ -32,7 +32,7 @@ class ExtrasAbogadoController extends Controller
                 $antes=null;
                 $extraAbogado->idVariablesPersona = $request->idPersona;
             }     
-            $extraAbogado->cedulaProf = $request->cedulaProf;        
+            $extraAbogado->cedulaProf = $request->cedula;        
             $extraAbogado->sector = $request->sector;
             $extraAbogado->correo = $request->correo;
             $extraAbogado->tipo = $request->tipo;      

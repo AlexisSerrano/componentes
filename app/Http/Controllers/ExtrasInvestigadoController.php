@@ -34,8 +34,8 @@ class ExtrasInvestigadoController extends Controller{
     public function addExtrasDenunciado(Request $request){
         try{
             DB::beginTransaction();
-            if($request->idExtraDenunciado!=""){
-                $extraDenunciado=($request->empresa)?ExtraDenunciadoMoral::find($request->idExtraDenunciado):ExtraDenunciadoFisico::find($request->idExtraDenunciado);
+            if($request->idExtrasDenunciado!=""){
+                $extraDenunciado=($request->empresa)?ExtraDenunciadoMoral::find($request->idExtrasDenunciado):ExtraDenunciadoFisico::find($request->idExtrasDenunciado);
                 $oper="UPDATE";
                 $antes= clone $extraDenunciado;
                 $tipo=($request->empresa)?"extra_denunciado_moral":"extra_denunciado_fisico";
@@ -48,11 +48,11 @@ class ExtrasInvestigadoController extends Controller{
             }     
             $extraDenunciado->idPuesto = $request->idPuesto;
             $extraDenunciado->alias = $request->alias;
-            $extraDenunciado->senasPartic = $request->senasPartic;
+            $extraDenunciado->senasPartic = $request->particulares;
             $extraDenunciado->ingreso = $request->ingreso;
             $extraDenunciado->periodoIngreso = $request->periodoIngreso;
             $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
-            $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
+            $extraDenunciado->personasBajoSuGuarda = $request->dependientes;
             $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
             $extraDenunciado->vestimenta = $request->vestimenta;    
             $extraDenunciado->save();

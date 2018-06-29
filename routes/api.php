@@ -54,19 +54,19 @@ Route::post('getPuestos','ExtrasInvestigadoController@getPuestos');
 
 
 /* Guardado de extras */
-Route::post('/guardarExtrasInvestigadoFisico','ExtrasInvestigadoController@storeFisico');
-Route::post('/guardarExtrasInvestigadoMoral','ExtrasInvestigadoController@storeMoral');
-Route::post('/guardarExtrasAbogado','ExtrasAbogadoController@store');
-Route::post('/guardarExtrasAutoridad','ExtrasAutoridadController@store');
-Route::post('/guardarExtrasDenuncianteFisico','ExtrasDenuncianteController@storeExtraDenuncianteFisico');
-Route::post('/guardarExtrasDenuncianteMoral','ExtrasDenuncianteController@storeExtraDenuncianteMoral');
+// Route::post('/guardarExtrasInvestigadoFisico','ExtrasInvestigadoController@storeFisico');
+// Route::post('/guardarExtrasInvestigadoMoral','ExtrasInvestigadoController@storeMoral');
+// Route::post('/guardarExtrasAbogado','ExtrasAbogadoController@store');
+// Route::post('/guardarExtrasAutoridad','ExtrasAutoridadController@store');
+// Route::post('/guardarExtrasDenuncianteFisico','ExtrasDenuncianteController@storeExtraDenuncianteFisico');
+// Route::post('/guardarExtrasDenuncianteMoral','ExtrasDenuncianteController@storeExtraDenuncianteMoral');
 /* Update de extras */
-Route::post('/updateExtrasDenuncianteFisico','ExtrasDenuncianteController@updateExtrasDenuncianteFisico');
-Route::post('/updateExtrasDenuncianteMoral','ExtrasDenuncianteController@updateExtrasDenuncianteMoral');
-Route::post('/actualizarExtrasInvestigadoFisico','ExtrasInvestigadoController@updateFisico');
-Route::post('/actualizarExtrasInvestigadoMoral','ExtrasInvestigadoController@updateMoral');
-Route::post('/actualizarExtrasAbogado','ExtrasAbogadoController@update');
-Route::post('/updateExtrasAutoridad','ExtrasAutoridadController@update');
+// Route::post('/updateExtrasDenuncianteFisico','ExtrasDenuncianteController@updateExtrasDenuncianteFisico');
+// Route::post('/updateExtrasDenuncianteMoral','ExtrasDenuncianteController@updateExtrasDenuncianteMoral');
+// Route::post('/actualizarExtrasInvestigadoFisico','ExtrasInvestigadoController@updateFisico');
+// Route::post('/actualizarExtrasInvestigadoMoral','ExtrasInvestigadoController@updateMoral');
+// Route::post('/actualizarExtrasAbogado','ExtrasAbogadoController@update');
+// Route::post('/updateExtrasAutoridad','ExtrasAutoridadController@update');
 
 
 
@@ -79,3 +79,6 @@ Route::post('/cambiarEstadoCarpeta','PersonaController@cambiarEstadoCarpeta');
 
 /*extra denunciante*/
 Route::post('addExtrasDenunciante','ExtrasDenuncianteController@addExtrasDenunciante');
+Route::post('addExtrasDenunciado','ExtrasDenuncianteController@addExtrasDenunciado');
+Route::post('addExtrasAbogado','ExtrasDenuncianteController@addExtrasAbogado');
+Route::post('addExtrasAutoridad','ExtrasDenuncianteController@addExtrasAutoridad');

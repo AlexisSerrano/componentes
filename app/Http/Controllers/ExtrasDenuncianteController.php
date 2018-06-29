@@ -19,8 +19,8 @@ class ExtrasDenuncianteController extends Controller
     public function addExtrasDenunciante(Request $request){
         try{
             DB::beginTransaction();
-            if($request->idExtraDenunciante!=""){
-                $extraDenunciante=($request->empresa)?ExtraDenuncianteMoral::find($request->idExtraDenunciante):ExtraDenuncianteFisico::find($request->idExtraDenunciante);
+            if($request->idExtrasDenunciante!=""){
+                $extraDenunciante=($request->empresa)?ExtraDenuncianteMoral::find($request->idExtrasDenunciante):ExtraDenuncianteFisico::find($request->idExtrasDenunciante);
                 $oper="UPDATE";
                 $antes= clone $extraDenunciante;
                 $tipo=($request->empresa)?"extra_denunciante_moral":"extra_denunciante_fisico";
