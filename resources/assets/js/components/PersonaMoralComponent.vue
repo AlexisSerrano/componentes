@@ -8,25 +8,25 @@
 
                 <div class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombre">Nombre</label>
-                    <input  class="form-control form-control-sm" type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') || this.validacionesback.nombre}" v-model="nombre" placeholder="Ingrese el nombre" v-validate="''" autocomplete="off" @blur="calcularRfc">
+                    <input  class="form-control form-control-sm" type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') || this.validacionesback.nombre}" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'" autocomplete="off" @blur="calcularRfc" :readonly="this.$store.state.moralEncontrada==true">
                     <span v-show="errors.has('nombre')" class="text-danger">{{ errors.first('nombre')}}</span>
                     <span v-if="this.validacionesback.nombre!=undefined" class="text-danger">{{ String(this.validacionesback.nombre)}}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="fechaCreacion">Fecha de creación</label>
-                    <input class="form-control form-control-sm" type="date" v-model="fechaCreacion" name="fechaCreacion" data-vv-name="fecha de creación" v-validate="'date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de creación') || this.validacionesback.fechaCreacion}" @blur="calcularRfc">
+                    <input class="form-control form-control-sm" type="date" v-model="fechaCreacion" name="fechaCreacion" data-vv-name="fecha de creación" v-validate="'date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de creación') || this.validacionesback.fechaCreacion}" @blur="calcularRfc" :readonly="this.$store.state.moralEncontrada==true">
                     <span v-show="errors.has('fecha de creación')" class="text-danger">{{ errors.first('fecha de creación')}}</span>
                     <span v-if="this.validacionesback.fechaCreacion!=undefined" class="text-danger">{{ String(this.validacionesback.fechaCreacion)}}</span>
                 </div>
                 <div class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
-                    <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="'required'" autocomplete="off" @blur="searchPersona" :readonly="this.$store.state.moralEncontrada==true">
                     <span v-show="errors.has('rfc')" class="text-danger">{{ errors.first('rfc')}}</span>
                     <span v-if="this.validacionesback.rfc!=undefined" class="text-danger">{{ String(this.validacionesback.rfc)}}</span>
                 </div>
                 <div class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="homoclave">Homoclave</label>
-                    <input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') || this.validacionesback.homo}" v-model="homoclave" placeholder="Homoclave" v-validate="'required'" autocomplete="off" @blur="searchPersona">
+                    <input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') || this.validacionesback.homo}" v-model="homoclave" placeholder="Homoclave" v-validate="'required'" autocomplete="off" @blur="searchPersona" :readonly="this.$store.state.moralEncontrada==true">
                     <span v-show="errors.has('homoclave')" class="text-danger">{{ errors.first('homoclave')}}</span>
                     <span v-if="this.validacionesback.homo!=undefined" class="text-danger">{{ String(this.validacionesback.homo)}}</span>
                 </div>
@@ -74,7 +74,7 @@ import { mapState } from "vuex";
                 personaExiste:'',              
                 validacionesback:'',
                 systemUser:'TEST',
-                //url:'http://localhost/componentes/public/api'
+                //  url:'http://localhost/componentes/public/api'
                 url:'/api'
             }
         },
@@ -94,12 +94,12 @@ import { mapState } from "vuex";
         },
         methods:{
             searchPersona: function(){
+                if(this.$store.state.moralEncontrada==true){return}
                 if(this.rfc.length==9 && this.homoclave.length==3){
                     var urlBuscarPersona = this.url+'/searchPersonaMoral';
                     axios.post(urlBuscarPersona,{
                         rfc: this.rfc+this.homoclave
                     }).then(response => {
-                        console.log(response.data);
                         this.personaExiste=response.data
                         if(this.personaExiste!=''){                                
                             swal({
@@ -189,7 +189,6 @@ import { mapState } from "vuex";
                             confirmButtonText: 'Ok'
                         })
                     }).catch((error)=>{
-                        console.log(error.response.data.errors);
                         this.validacionesback = error.response.data.errors
                         swal({
                         title: '¡Guardado incorrecto!',
