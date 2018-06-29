@@ -55,7 +55,10 @@ const store = new Vuex.Store({
             else if(payload.tipo=='contacto'){
                 state.idContacto=payload.idDomicilio
             }
-        }
+        },
+        cleanSearch(state,payload){
+            (payload=='fisica')?(state.fisicaEncontrada='',state.tipoInvolucrado=''):(state.moralEncontrada='',state.tipoInvolucrado='')
+        },
     }
 })
 

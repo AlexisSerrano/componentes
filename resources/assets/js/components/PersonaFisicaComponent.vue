@@ -325,7 +325,6 @@ import { mapState } from "vuex";
                         this.etnia=this.personaExiste.idEtnia,
                         this.lengua=this.personaExiste.idLengua,
                         this.interprete=this.personaExiste.idInterprete,
-                        this.motivoEstancia=this.personaExiste.motivoEstancia,
                         this.ocupacion=this.personaExiste.idOcupacion,
                         this.estadoCivil=this.personaExiste.idEstadoCivil,
                         this.escolaridad=this.personaExiste.idEscolaridad,
@@ -333,8 +332,9 @@ import { mapState } from "vuex";
                         this.identificacion=this.personaExiste.docIdentificacion,
                         this.numIdentificacion=this.personaExiste.numDocIdentificacion
                         this.alias=this.personaExiste.alias,
-                        this.telefono=this.personaExiste.telefono,
-                        this.$store.commit('asignarIdFisica',{idPersona:this.personaExiste.idPersona, tipo:this.tipo, fisicaEncontrada:true})       
+                        (this.tipo=='conocido')?this.telefono=this.personaExiste.telefono:'',
+                        (this.sistema=='uipj')?this.motivoEstancia=this.personaExiste.motivoEstancia:'',
+                        this.$store.commit('asignarIdFisica',{idPersona:'', tipo:this.tipo, fisicaEncontrada:true})       
                     }
                 });
             },
@@ -601,6 +601,9 @@ import { mapState } from "vuex";
                 else if(this.$store.state.tipoInvolucrado=='conocido' && this.tipo!='conocido'){
                     this.CleanFields();
                 }
+            },
+            fisicaEncontrada(){
+                if(this.$store.state.fisicaEncontrada==''){this.CleanFields()}
             }
         },
         computed: Object.assign({
@@ -612,7 +615,7 @@ import { mapState } from "vuex";
                  return 'Modificar'
             }
         }  
-        },mapState(['idPersonaFisica','idPersonaMoral']))
+        },mapState(['idPersonaFisica','idPersonaMoral','fisicaEncontrada']))
     }
 </script>
 <style>

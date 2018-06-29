@@ -114,7 +114,7 @@ import { mapState } from "vuex";
                             this.homoclave = this.personaExiste.rfc.slice(-3),
                             this.telefono = this.personaExiste.telefono,
                             this.representanteLegal = this.personaExiste.representanteLegal,
-                            this.$store.commit('asignarIdMoral',{idPersona:this.personaExiste.idMoral, tipo:this.tipo,moralEncontrada:true})       
+                            this.$store.commit('asignarIdMoral',{idPersona:'', tipo:this.tipo ,moralEncontrada:true})       
                         }
                     });
                 }
@@ -204,6 +204,9 @@ import { mapState } from "vuex";
                 if(this.$store.state.idPersonaFisica!=''){
                     this.CleanFields();
                 }
+            },
+            moralEncontrada(){
+            if(this.$store.state.moralEncontrada==''){this.CleanFields()}
             }
        },
        computed: Object.assign({
@@ -215,7 +218,7 @@ import { mapState } from "vuex";
                  return 'Modificar'
              }
          }  
-       },mapState(['idPersonaFisica','idPersonaMoral']))
+       },mapState(['idPersonaFisica','idPersonaMoral','moralEncontrada']))
     //    computed:mapState(['idPersonaFisica','idPersonaMoral'])
     }
 </script>
