@@ -2,9 +2,11 @@
 
 <div class="container">
             <div class="form-row">
-            <!--<label for="rfc">RFC persona fisica</label><input type="text" v-model="rfc" v-on:blur="buscarCarpetasFisica('rfc')">-->
-            <div v-if="tipo=='fisica'"> <label for="rfc">CURP persona fisica</label><input type="text" v-model="curp" v-on:blur="buscarCarpetasFisica('curp')"></div>
-            <div v-if="tipo=='moral'"> <label for="rfc">RFC persona moral</label><input type="text" v-model="rfcMoral" v-on:blur="buscarCarpetasMoral"></div>
+            <div v-if="tipo=='fisica'"><label for="rfc">RFC persona fisica</label><input type="text" v-model="rfc" v-on:blur="buscarCarpetasFisica('rfc')"></div>
+            <div v-if="tipo=='fisica'"><label for="homoclave">Homoclave persona fisica</label><input type="text" v-model="homoclave" v-on:blur="buscarCarpetasFisica('rfc')"></div>
+            <div v-if="tipo=='fisica'"><label for="curp">CURP persona fisica</label><input type="text" v-model="curp" v-on:blur="buscarCarpetasFisica('curp')"></div>
+            <div v-if="tipo=='moral'"><label for="rfcMoral">RFC persona moral</label><input type="text" v-model="rfc" v-on:blur="buscarCarpetasMoral"></div>
+            <div v-if="tipo=='moral'"><label for="homoclaveMoral">Homoclave persona moral</label><input type="text" v-model="homoclave" v-on:blur="buscarCarpetasMoral"></div>
             </div>
 
   <h2>Carpetas encontradas</h2>         
@@ -36,7 +38,7 @@
       </tr>
     </thead>
     <tbody v-if="tipo=='fisica'" >
-      <tr v-for="value in carpetasLigadas">
+      <tr v-for="value in carpetasLigadas" :key="value.rfc">
         <td>{{ value.nombres }}</td>
         <td>{{ value.primerAp }}</td>
         <td>{{ value.segundoAp }}</td>
@@ -51,7 +53,7 @@
       <tr v-show="carpetasLigadas==''" ><td colspan="10" style="text-align:center;">Sin resultados</td></tr>
     </tbody>
     <tbody v-if="tipo=='moral'">
-      <tr  v-for="value in carpetasLigadas">
+      <tr  v-for="value in carpetasLigadas" :key="value.rfc">
         <td>{{ value.nombre }}</td>
         <td>{{ value.rfc }}</td>
         <td>{{ value.representanteLegal }}</td>
@@ -76,7 +78,7 @@ import { mapState } from "vuex";
         data(){
             return{
                 rfc:'',
-                rfcMoral:'',
+                homoclave:'',                
                 curp:'',
                 url:'http://localhost/componentes/public/api',                     
                 carpetasLigadas:''             
@@ -91,10 +93,11 @@ import { mapState } from "vuex";
         },
         methods:{
             buscarCarpetasFisica:function(param){
-                if(param=='rfc' && this.rfc!='' ){                    
+                if(param=='rfc' && this.rfc!='' && this.homoclave!='' ){  
+                    console.log();                  
                     var post = this.url+'/fisicaCarpetasRfc';
                     axios.post(post,{
-                        rfc:this.rfc,                        
+                        rfc:this.rfc+this.homoclave,                        
                 }).then(response =>{
                     this.carpetasLigadas=response.data;                  
                     if(this.carpetasLigadas!=''){
@@ -103,8 +106,7 @@ import { mapState } from "vuex";
                             text: 'Existen carpetas.',
                             type: 'success',
                             confirmButtonText: 'Ok'
-                        })
-                        this.rfc='';
+                        })                        
                     }
                 });
                 }else if(param=='curp' && this.curp!=''){                              
@@ -124,10 +126,11 @@ import { mapState } from "vuex";
                 });
                 }             
             },
-            buscarCarpetasMoral:function(){                              
+            buscarCarpetasMoral:function(){
+                if(this.rfc!='' && this.homoclave!=''){                                              
                     var post = this.url+'/moralCarpetasRfc';
                     axios.post(post,{
-                        rfc:this.rfcMoral,                       
+                        rfc:this.rfc+this.homoclave,                       
                 }).then(response =>{
                     this.carpetasLigadas=response.data                    
                     if(this.carpetasLigadas!=''){
@@ -139,7 +142,9 @@ import { mapState } from "vuex";
                         })
                     }
                 });
-            }            
+                }
+            }
+                        
         },        
     }
 </script>
