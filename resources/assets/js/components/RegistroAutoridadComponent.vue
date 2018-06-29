@@ -26,10 +26,10 @@
                 <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'autoridad'"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-domicilio" role="tabpanel" aria-labelledby="autoridad-domicilio-tab">
-                <domicilio></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="false"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-trabajo" role="tabpanel" aria-labelledby="autoridad-trabajo-tab">
-                <domicilio :tipo="'trabajo'"></domicilio>
+                <domicilio :tipo="'trabajo'" :empresa="false"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-extra" role="tabpanel-fisico" aria-labelledby="autoridad-extra-tab">
                 <extrasautoridad :sistema="sistema"></extrasautoridad>
