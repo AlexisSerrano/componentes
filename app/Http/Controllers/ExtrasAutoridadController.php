@@ -22,8 +22,8 @@ class ExtrasAutoridadController extends Controller
     public function addExtrasAutoridad(Request $request){
         try{
             DB::beginTransaction();
-            if($request->idExtraAutoridad!=""){
-                $extraAutoridad = ExtraAutoridad::find($request->idExtraAutoridad);
+            if($request->idExtrasAutoridad!=""){
+                $extraAutoridad = ExtraAutoridad::find($request->idExtrasAutoridad);
                 $oper="UPDATE";
                 $antes= clone $extraAutoridad;
             }else{

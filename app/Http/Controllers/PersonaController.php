@@ -215,13 +215,16 @@ class PersonaController extends Controller{
 		$resp = DB::table('persona_fisica')->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')
 		->join('apariciones','apariciones.idVarPersona','=','variables_persona_fisica.idPersona')
 		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
-		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp','persona_fisica.rfc','persona_fisica.curp','variables_persona_fisica.idPersona as variablePersona','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as tipoDeterminacion')
+		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
+		'persona_fisica.rfc','persona_fisica.curp','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado',
+		'apariciones.nuc','cat_tipo_determinacion.nombre as determinacion','apariciones.esEmpresa')
 		->where('rfc','=',$request->rfc)->where('esEmpresa','=',0)->get();			
 		if(!$resp->isEmpty()){
+			//$data=array('Nombres'=>$resp->nombres,'Primer apellido'=>$resp->primerAp,'Segundo apellido'=>$resp->segundoAp,'RFC'=>$resp->rfc,'CURP'=>$resp->curp,'ID carpeta'=>$resp->idCarpeta,'Sistema'=>$resp->sistema,'Tipo de involucrado'=>$resp->tipoInvolucrado,'NUC'=>$resp->nuc,'Tipo de determinacion'=>$resp->tipoDeterminacion);
 			return response()->json($resp);
 		}else{
 			//return ["Respuesta"=>"Sin información"]; 
-			return ;
+			return;
 		}
 		
 	}
@@ -245,7 +248,7 @@ class PersonaController extends Controller{
 		$resp = DB::table('persona_moral')->join('variables_persona_moral','variables_persona_moral.idPersona','=','persona_moral.id')
 		->join('apariciones','apariciones.idVarPersona','=','variables_persona_moral.idPersona')
 		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
-		->select('persona_moral.nombre','persona_moral.rfc','variables_persona_moral.idPersona as variablePersonaMoral','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as tipoDeterminacion')
+		->select('persona_moral.nombre','persona_moral.rfc','variables_persona_moral.representanteLegal','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as tipoDeterminacion')
 		->where('rfc','=',$request->rfc)->where('esEmpresa','=',1)->get();	
 		
 		if(!$resp->isEmpty()){

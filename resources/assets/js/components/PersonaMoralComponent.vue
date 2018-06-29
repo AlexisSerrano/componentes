@@ -74,8 +74,7 @@ import { mapState } from "vuex";
                 personaExiste:'',              
                 validacionesback:'',
                 systemUser:'TEST',
-                //  url:'http://localhost/componentes/public/api'
-                url:'/api'
+                url:'./api'
             }
         },
         props:{
@@ -207,6 +206,9 @@ import { mapState } from "vuex";
             },
             moralEncontrada(){
             if(this.$store.state.moralEncontrada==''){this.CleanFields()}
+            },
+            idPersonaMoral(){
+                (this.$store.state.idPersonaMoral=='')?this.CleanFields():''
             }
        },
        computed: Object.assign({

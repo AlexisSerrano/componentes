@@ -37,7 +37,7 @@
 
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="periodo">Periodo de ingreso</label>    
-                    <v-select :options="periodos" label="nombre" v-model="periodo" name="periodo" v-validate="validacionesback.periodo" :class="{ 'border border-danger rounded': errors.has('periodo') || this.validacionesback.periodo}" placeholder="Seleccione un periodo" ></v-select>
+                    <v-select :options="periodos" label="nombre" v-model="periodo" name="periodo" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('periodo') || this.validacionesback.periodo}" placeholder="Seleccione un periodo" ></v-select>
                     <span v-show="errors.has('periodo')" class="text-danger">{{ errors.first('periodo')}}</span>
                     <span v-if="this.validacionesback.periodo!=undefined" class="text-danger">{{ String(this.validacionesback.periodo)}}</span>
                 </div>
@@ -56,12 +56,16 @@
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label col-form-label col-form-label-sm" for="perseguidoSi" style="padding-right: 5px">Si</label>
-                            <input class="form-check-input" type="radio" v-model="perseguido" id="perseguidoSi" value="1" name="perseguido">
+                            <input class="form-check-input" type="radio" v-model="perseguido" id="perseguidoSi" value="1" name="perseguido" v-validate="'required'">
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label col-form-label col-form-label-sm" for="perseguidoNo" style="padding-right: 5px">No</label>
                             <input class="form-check-input" type="radio" v-model="perseguido" id="perseguidoNo" value="0" name="perseguido" v-validate="'required'">
                         </div>
+                    </div>
+                    <div>
+                        <span v-show="errors.has('perseguido')" class="text-danger">{{ errors.first('perseguido')}}</span>
+                        <span v-if="this.validacionesback.perseguido!=undefined" class="text-danger">{{ String(this.validacionesback.perseguido)}}</span>
                     </div>
                 </div>
 
@@ -109,8 +113,7 @@ import swal from 'sweetalert2'
                 systemUser:'TEST',
                 puestos:[],
                 periodos:['DIARIO','SEMANAL','QUINCENAL','MENSUAL'],
-                //url:'/api'
-                url:'http://localhost/componentes/public/api'
+                url:'./api'
             }
         },
         props:{
@@ -228,24 +231,24 @@ import swal from 'sweetalert2'
                             this.idExtrasInvestigado=this.confirm;
                             //this.CleanFields();
                             swal({
-                                title: '¡Guardado correctamente!',
-                                text: 'Ésta persona fue guardada exitosamente.',
+                                title: '¡Actualizado correctamente!',
+                                text: 'Ésta persona fue actualizada exitosamente.',
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             });
                         }
                         else{
                             swal({
-                                title: '¡Guardado incorrecto!',
-                                text: 'Error al guardar.',
+                                title: '¡Actualización incorrecta!',
+                                text: 'Error al actualizar.',
                                 type: 'error',
                                 confirmButtonText: 'Ok'
                             });
                         }
                     }).catch((error)=>{                        
                         swal({
-                        title: '¡Guardado incorrecto!',
-                        text: 'Ésta persona no fue posible guardarla.',
+                        title: '¡Actualización incorrecta!',
+                        text: 'No fue posible actualiza esta persona.',
                         type: 'error',
                         confirmButtonText: 'Ok'
                         });

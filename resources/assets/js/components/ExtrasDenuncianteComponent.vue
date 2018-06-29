@@ -43,8 +43,7 @@ import swal from 'sweetalert2'
                 solicitante:'',
                 descripcion:'',  
                 systemUser:'TEST',
-                //url:'http://localhost/componentes/public/api'   
-                url:'/api'             
+                url:'./api'             
             }
         },
         props:{            
@@ -95,7 +94,8 @@ import swal from 'sweetalert2'
                 .then (response =>{
                     console.log(response.data);
                     if(response.data){        
-                        this.$store.commit('asignarIdExtra',response.data)                    
+                        this.$store.commit('asignarIdExtra',response.data)
+                        this.$store.commit('cleanStore')                    
                         swal({
                             title: '¡Guardado correctamente!',
                             text: 'Ésta persona fue guardada exitosamente.',
