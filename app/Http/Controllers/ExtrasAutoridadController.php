@@ -14,112 +14,78 @@ class ExtrasAutoridadController extends Controller
     function __construct() {
         $this->log=new BitacoraController();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+
+    public function index(){
         return view("extrasAutoridad");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {        
-        $id=[];       
+    public function addExtrasAutoridad(Request $request){
         try{
             DB::beginTransaction();
-            $ExtraAutoridad = new ExtraAutoridad();
-            $ExtraAutoridad->idVariablesPersona = $request->idVariablesPersona;
-            $ExtraAutoridad->antiguedad = $request->antiguedad;
-            $ExtraAutoridad->rango = $request->rango;
-            $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;
-            //$ExtraAutoridad->narracion = $request->narracion;                
-            $ExtraAutoridad->save();  
-            $id = $ExtraAutoridad->id;
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_autoridad','INSERT',$id,null,$ExtraAutoridad);
+            if($request->idExtraAutoridad!=""){
+                $extraAutoridad = ExtraAutoridad::find($request->idExtraAutoridad);
+                $oper="UPDATE";
+                $antes= clone $extraAutoridad;
+            }else{
+                $extraAutoridad = new ExtraAutoridad();
+                $oper="INSERT";
+                $antes=null;
+                $extraAutoridad->idVariablesPersona = $request->idPersona;
+            }     
+            $extraAutoridad->antiguedad = $request->antiguedad;
+            $extraAutoridad->rango = $request->rango;
+            $extraAutoridad->horarioLaboral = $request->horarioLaboral;      
+            $extraAutoridad->save();
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,"extra_autoridad",$oper,$extraAutoridad->id,$antes,$extraAutoridad);
             DB::commit();
-        }catch (Exception $e){
+            return $extraAutoridad->id;
+        }
+        catch(Exception $e){
             DB::rollback();
-            return response()->json(["ERROR"->$e->getMessage()]);
-        }    
-        return response()->json($id);
+            return false;
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    // public function store(Request $request)
+    // {        
+    //     $id=[];       
+    //     try{
+    //         DB::beginTransaction();
+    //         $ExtraAutoridad = new ExtraAutoridad();
+    //         $ExtraAutoridad->idVariablesPersona = $request->idVariablesPersona;
+    //         $ExtraAutoridad->antiguedad = $request->antiguedad;
+    //         $ExtraAutoridad->rango = $request->rango;
+    //         $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;
+    //         //$ExtraAutoridad->narracion = $request->narracion;                
+    //         $ExtraAutoridad->save();  
+    //         $id = $ExtraAutoridad->id;
+    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_autoridad','INSERT',$id,null,$ExtraAutoridad);
+    //         DB::commit();
+    //     }catch (Exception $e){
+    //         DB::rollback();
+    //         return response()->json(["ERROR"->$e->getMessage()]);
+    //     }    
+    //     return response()->json($id);
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-        $id=[];     
-        try{
-            DB::beginTransaction(); 
-            $ExtraAutoridad = ExtraAutoridad::find($request->idVariablesPersona);        
-            $antes=clone $ExtraAutoridad;
-            $ExtraAutoridad->antiguedad = $request->antiguedad;
-            $ExtraAutoridad->rango = $request->rango;
-            $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;                 
-            $ExtraAutoridad->save();     
-            $id = $ExtraAutoridad->id; 
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_autoridad','UPDATE',$id,$antes,$ExtraAutoridad);
-            DB::commit();
-        }catch (Exception $e){
-            DB::rollback();
-            return response()->json(["ERROR"->$e->getMessage()]);
-        }               
-            return response()->json($id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    // public function update(Request $request)
+    // {
+    //     $id=[];     
+    //     try{
+    //         DB::beginTransaction(); 
+    //         $ExtraAutoridad = ExtraAutoridad::find($request->idVariablesPersona);        
+    //         $antes=clone $ExtraAutoridad;
+    //         $ExtraAutoridad->antiguedad = $request->antiguedad;
+    //         $ExtraAutoridad->rango = $request->rango;
+    //         $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;                 
+    //         $ExtraAutoridad->save();     
+    //         $id = $ExtraAutoridad->id; 
+    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_autoridad','UPDATE',$id,$antes,$ExtraAutoridad);
+    //         DB::commit();
+    //     }catch (Exception $e){
+    //         DB::rollback();
+    //         return response()->json(["ERROR"->$e->getMessage()]);
+    //     }               
+    //         return response()->json($id);
+    // }
 }

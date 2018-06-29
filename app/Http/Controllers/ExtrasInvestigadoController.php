@@ -31,19 +31,21 @@ class ExtrasInvestigadoController extends Controller{
         return response()->json($puestos);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeFisico(Request $request)
-    {       
-       $id=[];       
+    public function addExtrasDenunciado(Request $request){
         try{
             DB::beginTransaction();
-            $extraDenunciado = new ExtraDenunciadoFisico();
-            $extraDenunciado->idVariablesPersona = $request->idVariablesPersona;
+            if($request->idExtraDenunciado!=""){
+                $extraDenunciado=($request->empresa)?ExtraDenunciadoMoral::find($request->idExtraDenunciado):ExtraDenunciadoFisico::find($request->idExtraDenunciado);
+                $oper="UPDATE";
+                $antes= clone $extraDenunciado;
+                $tipo=($request->empresa)?"extra_denunciado_moral":"extra_denunciado_fisico";
+            }else{
+                $extraDenunciado=($request->empresa)?new ExtraDenunciaMoral():new ExtraDenunciadoFisico();
+                $oper="INSERT";
+                $antes=null;
+                $extraDenunciado->idVariablesPersona = $request->idPersona;
+                $tipo=($request->empresa)?"extra_denunciado_moral":"extra_denunciado_fisico"; 
+            }     
             $extraDenunciado->idPuesto = $request->idPuesto;
             $extraDenunciado->alias = $request->alias;
             $extraDenunciado->senasPartic = $request->senasPartic;
@@ -52,110 +54,119 @@ class ExtrasInvestigadoController extends Controller{
             $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
             $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
             $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
-            $extraDenunciado->vestimenta = $request->vestimenta;
+            $extraDenunciado->vestimenta = $request->vestimenta;    
             $extraDenunciado->save();
-            $id = $extraDenunciado->id;
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_fisico','INSERT',$id,null,$extraDenunciado);
+            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciado->id,$antes,$extraDenunciado);
             DB::commit();
-        }catch (Exception $e){
-            DB::rollback();
-            return response()->json(["ERROR"->$e->getMessage()]);
-        }    
-        return response()->json($id);
-
-       
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function updateFisico(Request $request)
-    {   
-        $id=[];     
-        try{
-            DB::beginTransaction();
-            $extraDenunciado = ExtraDenunciadoFisico::find($request->id);
-            $antes=clone $extraDenunciado;
-            $extraDenunciado->idPuesto = $request->idPuesto;
-            $extraDenunciado->alias = $request->alias;
-            $extraDenunciado->senasPartic = $request->senasPartic;
-            $extraDenunciado->ingreso = $request->ingreso;
-            $extraDenunciado->periodoIngreso = $request->periodoIngreso;
-            $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
-            $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
-            $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
-            $extraDenunciado->vestimenta = $request->vestimenta;
-            $extraDenunciado->save();  
-            $id = $extraDenunciado->id;
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_fisico','UPDATE',$id,$antes,$extraDenunciado);
-            DB::commit();
-        }catch (Exception $e){
-            DB::rollback();
-            return response()->json(["ERROR"->$e->getMessage()]);
+            return $extraDenunciado->id;
         }
-        return response()->json($id);
+        catch(Exception $e){
+            DB::rollback();
+            return false;
+        }
     }
 
-    public function storeMoral(Request $request)
-    {        
-        $id=[];     
-        try{
-            DB::beginTransaction();
-            $extraDenunciado = new ExtraDenunciadoMoral();
-            $extraDenunciado->idVariablesPersona = $request->idVariablesPersona;
-            $extraDenunciado->idPuesto = $request->idPuesto;
-            $extraDenunciado->alias = $request->alias;
-            $extraDenunciado->senasPartic = $request->senasPartic;
-            $extraDenunciado->ingreso = $request->ingreso;
-            $extraDenunciado->periodoIngreso = $request->periodoIngreso;
-            $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
-            $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
-            $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
-            $extraDenunciado->vestimenta = $request->vestimenta;
-            $extraDenunciado->save();
-            $id = $extraDenunciado->id;                
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_moral','INSERT',$id,null,$extraDenunciado);
-            DB::commit();
-        }catch (Exception $e){
-            DB::rollback();
-            return response()->json(["ERROR"->$e->getMessage()]);
-        }
-        return response()->json($id);
-    }
+    // public function storeFisico(Request $request){       
+    //    $id=[];       
+    //     try{
+    //         DB::beginTransaction();
+    //         $extraDenunciado = new ExtraDenunciadoFisico();
+    //         $extraDenunciado->idVariablesPersona = $request->idVariablesPersona;
+    //         $extraDenunciado->idPuesto = $request->idPuesto;
+    //         $extraDenunciado->alias = $request->alias;
+    //         $extraDenunciado->senasPartic = $request->senasPartic;
+    //         $extraDenunciado->ingreso = $request->ingreso;
+    //         $extraDenunciado->periodoIngreso = $request->periodoIngreso;
+    //         $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
+    //         $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
+    //         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
+    //         $extraDenunciado->vestimenta = $request->vestimenta;
+    //         $extraDenunciado->save();
+    //         $id = $extraDenunciado->id;
+    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_fisico','INSERT',$id,null,$extraDenunciado);
+    //         DB::commit();
+    //     }catch (Exception $e){
+    //         DB::rollback();
+    //         return response()->json(["ERROR"->$e->getMessage()]);
+    //     }    
+    //     return response()->json($id); 
+    // }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function updateMoral(Request $request)
-    {
-        $id=[];     
-        try{
-            DB::beginTransaction();        
-            $extraDenunciado = ExtraDenunciadoMoral::find($request->id);
-            $antes=clone $extraDenunciado;
-            $extraDenunciado->idPuesto = $request->idPuesto;
-            $extraDenunciado->alias = $request->alias;
-            $extraDenunciado->senasPartic = $request->senasPartic;
-            $extraDenunciado->ingreso = $request->ingreso;
-            $extraDenunciado->periodoIngreso = $request->periodoIngreso;
-            $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
-            $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
-            $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
-            $extraDenunciado->vestimenta = $request->vestimenta;
-            $extraDenunciado->save();  
-            $id = $extraDenunciado->id;                
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_moral','UPDATE',$id,$antes,$extraDenunciado);
-            DB::commit();
-        }catch (Exception $e){
-            DB::rollback();
-            return response()->json(["ERROR"->$e->getMessage()]);
-        }
-        return response()->json($id);
-    }
+    // public function updateFisico(Request $request){   
+    //     $id=[];     
+    //     try{
+    //         DB::beginTransaction();
+    //         $extraDenunciado = ExtraDenunciadoFisico::find($request->id);
+    //         $antes=clone $extraDenunciado;
+    //         $extraDenunciado->idPuesto = $request->idPuesto;
+    //         $extraDenunciado->alias = $request->alias;
+    //         $extraDenunciado->senasPartic = $request->senasPartic;
+    //         $extraDenunciado->ingreso = $request->ingreso;
+    //         $extraDenunciado->periodoIngreso = $request->periodoIngreso;
+    //         $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
+    //         $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
+    //         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
+    //         $extraDenunciado->vestimenta = $request->vestimenta;
+    //         $extraDenunciado->save();  
+    //         $id = $extraDenunciado->id;
+    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_fisico','UPDATE',$id,$antes,$extraDenunciado);
+    //         DB::commit();
+    //     }catch (Exception $e){
+    //         DB::rollback();
+    //         return response()->json(["ERROR"->$e->getMessage()]);
+    //     }
+    //     return response()->json($id);
+    // }
+
+    // public function storeMoral(Request $request){        
+    //     $id=[];     
+    //     try{
+    //         DB::beginTransaction();
+    //         $extraDenunciado = new ExtraDenunciadoMoral();
+    //         $extraDenunciado->idVariablesPersona = $request->idVariablesPersona;
+    //         $extraDenunciado->idPuesto = $request->idPuesto;
+    //         $extraDenunciado->alias = $request->alias;
+    //         $extraDenunciado->senasPartic = $request->senasPartic;
+    //         $extraDenunciado->ingreso = $request->ingreso;
+    //         $extraDenunciado->periodoIngreso = $request->periodoIngreso;
+    //         $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
+    //         $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
+    //         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
+    //         $extraDenunciado->vestimenta = $request->vestimenta;
+    //         $extraDenunciado->save();
+    //         $id = $extraDenunciado->id;                
+    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_moral','INSERT',$id,null,$extraDenunciado);
+    //         DB::commit();
+    //     }catch (Exception $e){
+    //         DB::rollback();
+    //         return response()->json(["ERROR"->$e->getMessage()]);
+    //     }
+    //     return response()->json($id);
+    // }
+
+    // public function updateMoral(Request $request){
+    //     $id=[];     
+    //     try{
+    //         DB::beginTransaction();        
+    //         $extraDenunciado = ExtraDenunciadoMoral::find($request->id);
+    //         $antes=clone $extraDenunciado;
+    //         $extraDenunciado->idPuesto = $request->idPuesto;
+    //         $extraDenunciado->alias = $request->alias;
+    //         $extraDenunciado->senasPartic = $request->senasPartic;
+    //         $extraDenunciado->ingreso = $request->ingreso;
+    //         $extraDenunciado->periodoIngreso = $request->periodoIngreso;
+    //         $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
+    //         $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
+    //         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
+    //         $extraDenunciado->vestimenta = $request->vestimenta;
+    //         $extraDenunciado->save();  
+    //         $id = $extraDenunciado->id;                
+    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_moral','UPDATE',$id,$antes,$extraDenunciado);
+    //         DB::commit();
+    //     }catch (Exception $e){
+    //         DB::rollback();
+    //         return response()->json(["ERROR"->$e->getMessage()]);
+    //     }
+    //     return response()->json($id);
+    // }
 }
