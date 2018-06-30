@@ -120,6 +120,7 @@ import { mapState } from "vuex";
                 telefono:'',
                 lugarTrabajo:'',
                 correo:'',
+                usuario:'Test',
                 url:'./'
             }
         },
@@ -128,6 +129,9 @@ import { mapState } from "vuex";
                 required:true
             },
             empresa:{
+                required:true
+            },
+            sistema:{
                 required:true
             }
         },
@@ -260,7 +264,9 @@ import { mapState } from "vuex";
                         tipo: this.tipo,
                         empresa: this.empresa,
                         idPersona: idPersona,
-                        claveDomicilio: this.$store.state.idDomicilio
+                        claveDomicilio: this.$store.state.idDomicilio,
+                        sistema:this.sistema,
+                        usuario:this.usuario
                     };
                 }
                 else if (this.tipo=='trabajo'){
@@ -278,7 +284,9 @@ import { mapState } from "vuex";
                         tipo: this.tipo,
                         empresa: this.empresa,
                         idPersona: idPersona,
-                        claveDomicilio: this.$store.state.idTrabajo
+                        claveDomicilio: this.$store.state.idTrabajo,
+                        sistema:this.sistema,
+                        usuario:this.usuario
                     };
                 }
                 else if(this.tipo=='contacto'){
@@ -296,7 +304,9 @@ import { mapState } from "vuex";
                         tipo: this.tipo,
                         empresa: this.empresa,
                         idPersona: idPersona,
-                        claveDomicilio: this.$store.state.idContacto
+                        claveDomicilio: this.$store.state.idContacto,
+                        sistema:this.sistema,
+                        usuario:this.usuario
                     };
                 }
                 axios.post(urlDomicilio,data).then((response)=>{

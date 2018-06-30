@@ -31,7 +31,7 @@
                 <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'abogado'"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-abogado-trabajo" role="tabpanel" aria-labelledby="abogado-trabajo-tab">
-                <domicilio :tipo="'trabajo'" :empresa="false"></domicilio>
+                <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-abogado-extra" role="tabpanel-fisico" aria-labelledby="abogado-extra-tab">
                 <extrasabogado :sistema="sistema"></extrasabogado>

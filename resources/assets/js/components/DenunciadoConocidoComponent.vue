@@ -23,7 +23,7 @@
                 <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'conocido'"></personafisica>
             </div>
             <div :class="pillsConocido1" id="pills-denunciado-domicilioconocido" role="tabpanel" aria-labelledby="denunciado-domicilioconocido-tab">
-                <domicilio :tipo="'domicilio'" :empresa="false"></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div :class="pillsConocido2" id="pills-denunciado-extraconocido" role="tabpanel-conocido" aria-labelledby="denunciado-extraconocido-tab">
                 <form v-on:submit.prevent="validateBeforeSubmit">

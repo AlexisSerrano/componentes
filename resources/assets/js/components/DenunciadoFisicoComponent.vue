@@ -38,13 +38,13 @@
                 <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'denunciado'"></personafisica>
             </div>
             <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaMoral!=''||this.$store.state.moralEncontrada!=''}" id="pills-denunciado-domiciliofisico" role="tabpanel" aria-labelledby="denunciado-domiciliofisico-tab">
-                <domicilio :tipo="'domicilio'" :empresa="false"></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaMoral!=''||this.$store.state.moralEncontrada!=''}" id="pills-denunciado-trabajofisico" role="tabpanel" aria-labelledby="denunciado-trabajofisico-tab">
-                <domicilio :tipo="'trabajo'" :empresa="false"></domicilio>
+                <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaMoral!=''||this.$store.state.moralEncontrada!=''}" id="pills-denunciado-notificacionesfisico" role="tabpanel" aria-labelledby="denunciado-notificacionesfisico-tab">
-                <domicilio :tipo="'contacto'" :empresa="false"></domicilio>
+                <domicilio :tipo="'contacto'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaMoral!=''||this.$store.state.moralEncontrada!=''}" id="pills-denunciado-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciado-extrafisico-tab">
                 <extrasinvestigado :sistema="sistema" :empresa="false"></extrasinvestigado>

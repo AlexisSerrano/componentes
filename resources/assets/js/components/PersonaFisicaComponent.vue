@@ -350,6 +350,40 @@ import { mapState } from "vuex";
                     });
                 }
             },
+            buscarCarpetasFisica:function(param){
+                if(param=='rfc'){
+                    if(this.rfc.length!=10 || this.homoclave.length!=3){return}  
+                    var post = this.url+'/fisicaCarpetasRfc';
+                    axios.post(post,{
+                        rfc:this.rfc+this.homoclave,                        
+                    }).then(response =>{                  
+                        if(response.data){
+                            this.$store.commit('asignarCarpetasLigadas',response.data)
+                            swal({
+                                title: 'Hay carpteas ligadas a esta persona!',
+                                text: 'Existen carpetas.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })                        
+                        }
+                    });
+                }else if(param=='curp' && this.curp!=''){                              
+                    var post = this.url+'/fisicaCarpetasCurp';
+                    axios.post(post,{
+                        curp:this.curp                                              
+                }).then(response =>{
+                    this.carpetasLigadas=response.data;                    
+                    if(this.carpetasLigadas!=''){
+                        swal({
+                            title: 'Hay carpteas ligadas a esta persona!',
+                            text: 'Existen carpetas.',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        })                        
+                    }
+                });
+                }             
+            },
             getMunicipios: function(){
                 if(this.estado!=null){
                     // this.municipio=null

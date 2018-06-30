@@ -34,10 +34,10 @@
                 <personamoral :sistema="sistema" :carpeta="carpeta" :tipo="'denunciadomoral'"></personamoral>
             </div>
             <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaFisica!=''||this.$store.state.fisicaEncontrada!=''}" id="pills-denunciado-domiciliomoral" role="tabpanel" aria-labelledby="denunciado-domiciliomoral-tab">
-                <domicilio :tipo="'domicilio'" :empresa="true"></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="true" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaFisica!=''||this.$store.state.fisicaEncontrada!=''}" id="pills-denunciado-notificacionesmoral" role="tabpanel" aria-labelledby="denunciado-notificacionesmoral-tab">
-                <domicilio :tipo="'contacto'" :empresa="true"></domicilio>
+                <domicilio :tipo="'contacto'" :empresa="true" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaFisica!=''||this.$store.state.fisicaEncontrada!=''}" id="pills-denunciado-extramoral" role="tabpanel-moral" aria-labelledby="denunciado-extramoral-tab">
                 <extrasinvestigado :sistema="sistema" :empresa="true"></extrasinvestigado>
