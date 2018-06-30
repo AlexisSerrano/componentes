@@ -19,6 +19,9 @@
                     <li class="nav-item">
                         <a @click="numeroTab=5" :class="{'nav-link disabled':this.$store.state.idPersonaFisica==''|| this.$store.state.idPersonaMoral!='','nav-link':this.$store.state.idPersonaFisica!=''}" id="denunciante-extrafisico-tab" data-toggle="pill" href="#pills-denunciante-extrafisico" role="tab" aria-controls="pills-denunciante-extrafisico" aria-selected="false">Datos de la víctima u ofendido</a>
                     </li>
+                    <li v-show="this.$store.state.carpetasLigadas!=''" class="nav-item">
+                        <a @click="numeroTab=6" :class="{'nav-link disabled':this.$store.state.idPersonaFisica==''|| this.$store.state.idPersonaMoral!='','nav-link':this.$store.state.idPersonaFisica!=''}" id="denunciante-notificaciones-tab" data-toggle="pill" href="#pills-denunciante-notificaciones" role="tab" aria-controls="pills-denunciante-notificaciones" aria-selected="false">Notificaciones</a>
+                    </li>
                 </ul>
                 <div class="col-2 d-flex align-items-start justify-content-end">
                     <button v-if="this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
@@ -47,6 +50,9 @@
             </div>
             <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaMoral!=''||this.$store.state.moralEncontrada!=''}" id="pills-denunciante-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciante-extrafisico-tab">
                 <extrasdenunciante :sistema="sistema" :empresa="false"></extrasdenunciante>
+            </div>
+            <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaMoral!=''||this.$store.state.moralEncontrada!=''}" id="pills-denunciante-notificaciones" role="tabpanel-fisico" aria-labelledby="denunciante-notificaciones-tab">
+                <carpetas :tipo="'fisica'"></carpetas>
             </div>
         </div>
         <!-- OPCIONES -->

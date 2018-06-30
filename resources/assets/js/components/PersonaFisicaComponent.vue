@@ -347,6 +347,7 @@ import { mapState } from "vuex";
                         this.rfc = response.data.res.slice(0, -3);                        
                         this.homoclave=response.data.res.slice(-3);
                         this.searchPersona('rfc');
+                        this.buscarCarpetasFisica('rfc')
                     });
                 }
             },
@@ -371,17 +372,17 @@ import { mapState } from "vuex";
                     var post = this.url+'/fisicaCarpetasCurp';
                     axios.post(post,{
                         curp:this.curp                                              
-                }).then(response =>{
-                    this.carpetasLigadas=response.data;                    
-                    if(this.carpetasLigadas!=''){
-                        swal({
-                            title: 'Hay carpteas ligadas a esta persona!',
-                            text: 'Existen carpetas.',
-                            type: 'success',
-                            confirmButtonText: 'Ok'
-                        })                        
-                    }
-                });
+                    }).then(response =>{
+                        this.carpetasLigadas=response.data;                    
+                        if(this.carpetasLigadas!=''){
+                            swal({
+                                title: 'Hay carpteas ligadas a esta persona!',
+                                text: 'Existen carpetas.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })                        
+                        }
+                    });
                 }             
             },
             getMunicipios: function(){

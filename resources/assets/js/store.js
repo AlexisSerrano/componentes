@@ -13,7 +13,8 @@ const store = new Vuex.Store({
         idTrabajo:'',
         idContacto:'',
         fisicaEncontrada:'',
-        moralEncontrada:''
+        moralEncontrada:'',
+        carpetasLigadas:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -71,6 +72,9 @@ const store = new Vuex.Store({
             state.idContacto='',
             state.fisicaEncontrada='',
             state.moralEncontrada=''
+        },
+        asignarCarpetasLigadas(state,payload){
+            state.carpetasLigadas=payload
         }
     }
 })

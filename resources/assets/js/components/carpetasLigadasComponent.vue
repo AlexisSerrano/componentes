@@ -81,7 +81,7 @@ import { mapState } from "vuex";
                 homoclave:'',                
                 curp:'',
                 url:'./api',
-                carpetasLigadas:''             
+                carpetasLigadas:this.$store.state.carpetasLigadas             
             }
         },
         props:{
@@ -92,7 +92,6 @@ import { mapState } from "vuex";
         mounted: function () {          
         },
         methods:{
-
             buscarCarpetasMoral:function(){
                 if(this.rfc!='' && this.homoclave!=''){                                              
                     var post = this.url+'/moralCarpetasRfc';
