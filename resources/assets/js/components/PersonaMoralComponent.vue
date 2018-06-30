@@ -100,7 +100,8 @@ import { mapState } from "vuex";
                         rfc: this.rfc+this.homoclave
                     }).then(response => {
                         this.personaExiste=response.data
-                        if(this.personaExiste!=''){                                
+                        if(this.personaExiste!=''){          
+                            this.$store.commit('asignarIdMoral',{idPersona:'', tipo:this.tipo ,moralEncontrada:true})                             
                             swal({
                                 title: '¡Persona moral encontrada!',
                                 text: 'Ésta persona moral ya fue registrada anteriormente.',
@@ -112,8 +113,7 @@ import { mapState } from "vuex";
                             this.rfc=this.personaExiste.rfc.slice(0,-3),
                             this.homoclave = this.personaExiste.rfc.slice(-3),
                             this.telefono = this.personaExiste.telefono,
-                            this.representanteLegal = this.personaExiste.representanteLegal,
-                            this.$store.commit('asignarIdMoral',{idPersona:'', tipo:this.tipo ,moralEncontrada:true})       
+                            this.representanteLegal = this.personaExiste.representanteLegal
                         }
                     });
                 }

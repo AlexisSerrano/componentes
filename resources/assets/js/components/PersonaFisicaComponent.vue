@@ -301,6 +301,7 @@ import { mapState } from "vuex";
                 }).then(response => {
                     this.personaExiste=response.data
                     if(this.personaExiste!=''){
+                        this.$store.commit('asignarIdFisica',{idPersona:'', tipo:this.tipo, fisicaEncontrada:true})       
                         swal({
                             title: '¡Persona Encontrada!',
                             text: 'Ésta persona ya fue registrada anteriormente.',
@@ -330,8 +331,7 @@ import { mapState } from "vuex";
                         this.numIdentificacion=this.personaExiste.numDocIdentificacion
                         this.alias=this.personaExiste.alias,
                         (this.tipo=='conocido')?this.telefono=this.personaExiste.telefono:'',
-                        (this.sistema=='uipj')?this.motivoEstancia=this.personaExiste.motivoEstancia:'',
-                        this.$store.commit('asignarIdFisica',{idPersona:'', tipo:this.tipo, fisicaEncontrada:true})       
+                        (this.sistema=='uipj')?this.motivoEstancia=this.personaExiste.motivoEstancia:''
                     }
                 });
             },
