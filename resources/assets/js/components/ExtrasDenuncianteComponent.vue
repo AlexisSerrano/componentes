@@ -82,7 +82,7 @@ import swal from 'sweetalert2'
                     var idPersona=this.$store.state.idPersonaMoral
                 }
                 var data = {
-                    idExtraDenunciante:this.$store.state.idExtra,
+                    idExtrasDenunciante:this.$store.state.idExtra,
                     idPersona:idPersona,                    
                     reguardarIdentidad:this.identidad.id,
                     victima: this.solicitante.id,
@@ -96,7 +96,7 @@ import swal from 'sweetalert2'
                     console.log(response.data);
                     if(response.data){        
                         this.$store.commit('asignarIdExtra',response.data)
-                        this.$store.commit('cleanStore')                    
+                        //this.$store.commit('cleanStore')                    
                         swal({
                             title: '¡Guardado correctamente!',
                             text: 'Ésta persona fue guardada exitosamente.',

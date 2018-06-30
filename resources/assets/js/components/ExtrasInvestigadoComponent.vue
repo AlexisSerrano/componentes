@@ -172,7 +172,7 @@ import swal from 'sweetalert2'
                     .then (response =>{
                         if(response.data){
                             this.$store.commit('asignarIdExtra',response.data)
-                            this.$store.commit('cleanStore') 
+                            //this.$store.commit('cleanStore') 
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',

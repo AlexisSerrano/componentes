@@ -79,6 +79,6 @@ Route::post('/cambiarEstadoCarpeta','PersonaController@cambiarEstadoCarpeta');
 
 /*extra denunciante*/
 Route::post('addExtrasDenunciante','ExtrasDenuncianteController@addExtrasDenunciante');
-Route::post('addExtrasDenunciado','ExtrasDenuncianteController@addExtrasDenunciado');
-Route::post('addExtrasAbogado','ExtrasDenuncianteController@addExtrasAbogado');
-Route::post('addExtrasAutoridad','ExtrasDenuncianteController@addExtrasAutoridad');
+Route::post('addExtrasDenunciado','ExtrasInvestigadoController@addExtrasDenunciado');
+Route::post('addExtrasAbogado','ExtrasAbogadoController@addExtrasAbogado');
+Route::post('addExtrasAutoridad','ExtrasAutoridadController@addExtrasAutoridad');

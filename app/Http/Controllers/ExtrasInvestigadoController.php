@@ -40,7 +40,7 @@ class ExtrasInvestigadoController extends Controller{
                 $antes= clone $extraDenunciado;
                 $tipo=($request->empresa)?"extra_denunciado_moral":"extra_denunciado_fisico";
             }else{
-                $extraDenunciado=($request->empresa)?new ExtraDenunciaMoral():new ExtraDenunciadoFisico();
+                $extraDenunciado=($request->empresa)?new ExtraDenunciadoMoral():new ExtraDenunciadoFisico();
                 $oper="INSERT";
                 $antes=null;
                 $extraDenunciado->idVariablesPersona = $request->idPersona;
@@ -65,108 +65,4 @@ class ExtrasInvestigadoController extends Controller{
             return false;
         }
     }
-
-    // public function storeFisico(Request $request){       
-    //    $id=[];       
-    //     try{
-    //         DB::beginTransaction();
-    //         $extraDenunciado = new ExtraDenunciadoFisico();
-    //         $extraDenunciado->idVariablesPersona = $request->idVariablesPersona;
-    //         $extraDenunciado->idPuesto = $request->idPuesto;
-    //         $extraDenunciado->alias = $request->alias;
-    //         $extraDenunciado->senasPartic = $request->senasPartic;
-    //         $extraDenunciado->ingreso = $request->ingreso;
-    //         $extraDenunciado->periodoIngreso = $request->periodoIngreso;
-    //         $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
-    //         $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
-    //         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
-    //         $extraDenunciado->vestimenta = $request->vestimenta;
-    //         $extraDenunciado->save();
-    //         $id = $extraDenunciado->id;
-    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_fisico','INSERT',$id,null,$extraDenunciado);
-    //         DB::commit();
-    //     }catch (Exception $e){
-    //         DB::rollback();
-    //         return response()->json(["ERROR"->$e->getMessage()]);
-    //     }    
-    //     return response()->json($id); 
-    // }
-
-    // public function updateFisico(Request $request){   
-    //     $id=[];     
-    //     try{
-    //         DB::beginTransaction();
-    //         $extraDenunciado = ExtraDenunciadoFisico::find($request->id);
-    //         $antes=clone $extraDenunciado;
-    //         $extraDenunciado->idPuesto = $request->idPuesto;
-    //         $extraDenunciado->alias = $request->alias;
-    //         $extraDenunciado->senasPartic = $request->senasPartic;
-    //         $extraDenunciado->ingreso = $request->ingreso;
-    //         $extraDenunciado->periodoIngreso = $request->periodoIngreso;
-    //         $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
-    //         $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
-    //         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
-    //         $extraDenunciado->vestimenta = $request->vestimenta;
-    //         $extraDenunciado->save();  
-    //         $id = $extraDenunciado->id;
-    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_fisico','UPDATE',$id,$antes,$extraDenunciado);
-    //         DB::commit();
-    //     }catch (Exception $e){
-    //         DB::rollback();
-    //         return response()->json(["ERROR"->$e->getMessage()]);
-    //     }
-    //     return response()->json($id);
-    // }
-
-    // public function storeMoral(Request $request){        
-    //     $id=[];     
-    //     try{
-    //         DB::beginTransaction();
-    //         $extraDenunciado = new ExtraDenunciadoMoral();
-    //         $extraDenunciado->idVariablesPersona = $request->idVariablesPersona;
-    //         $extraDenunciado->idPuesto = $request->idPuesto;
-    //         $extraDenunciado->alias = $request->alias;
-    //         $extraDenunciado->senasPartic = $request->senasPartic;
-    //         $extraDenunciado->ingreso = $request->ingreso;
-    //         $extraDenunciado->periodoIngreso = $request->periodoIngreso;
-    //         $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
-    //         $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
-    //         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
-    //         $extraDenunciado->vestimenta = $request->vestimenta;
-    //         $extraDenunciado->save();
-    //         $id = $extraDenunciado->id;                
-    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_moral','INSERT',$id,null,$extraDenunciado);
-    //         DB::commit();
-    //     }catch (Exception $e){
-    //         DB::rollback();
-    //         return response()->json(["ERROR"->$e->getMessage()]);
-    //     }
-    //     return response()->json($id);
-    // }
-
-    // public function updateMoral(Request $request){
-    //     $id=[];     
-    //     try{
-    //         DB::beginTransaction();        
-    //         $extraDenunciado = ExtraDenunciadoMoral::find($request->id);
-    //         $antes=clone $extraDenunciado;
-    //         $extraDenunciado->idPuesto = $request->idPuesto;
-    //         $extraDenunciado->alias = $request->alias;
-    //         $extraDenunciado->senasPartic = $request->senasPartic;
-    //         $extraDenunciado->ingreso = $request->ingreso;
-    //         $extraDenunciado->periodoIngreso = $request->periodoIngreso;
-    //         $extraDenunciado->residenciaAnterior = $request->residenciaAnterior;
-    //         $extraDenunciado->personasBajoSuGuarda = $request->personasBajoSuGuarda;
-    //         $extraDenunciado->perseguidoPenalmente = $request->perseguidoPenalmente;
-    //         $extraDenunciado->vestimenta = $request->vestimenta;
-    //         $extraDenunciado->save();  
-    //         $id = $extraDenunciado->id;                
-    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_moral','UPDATE',$id,$antes,$extraDenunciado);
-    //         DB::commit();
-    //     }catch (Exception $e){
-    //         DB::rollback();
-    //         return response()->json(["ERROR"->$e->getMessage()]);
-    //     }
-    //     return response()->json($id);
-    // }
 }

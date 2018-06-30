@@ -39,55 +39,11 @@ class ExtrasAbogadoController extends Controller
             $extraAbogado->save();
             $idLog=$this->log->saveInLog($request->sistema,$request->usuario,"extra_abogado",$oper,$extraAbogado->id,$antes,$extraAbogado);
             DB::commit();
-            return $ExtraAbogado->id;
+            return $extraAbogado->id;
         }
         catch(Exception $e){
             DB::rollback();
             return false;
         }
     }
-
-    // public function store(Request $request)
-    // {    
-    //     $id=[];       
-    //     try{
-    //         DB::beginTransaction();        
-    //         $extraAbogado = new ExtraAbogado();
-    //         $extraAbogado->idVariablesPersona = $request->idVariablesPersona;
-    //         $extraAbogado->cedulaProf = $request->cedulaProf;        
-    //         $extraAbogado->sector = $request->sector;
-    //         $extraAbogado->correo = $request->correo;
-    //         $extraAbogado->tipo = $request->tipo;
-    //         $extraAbogado->save();  
-    //         $id = $extraAbogado->id;                
-    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_abogado','INSERT',$id,null,$extraAbogado);
-    //         DB::commit();
-    //     }catch (Exception $e){
-    //         DB::rollback();
-    //         return response()->json(["ERROR"->$e->getMessage()]);
-    //     }    
-    //     return response()->json($id);
-    // }
-
-    // public function update(Request $request)
-    // {    
-    //     $id=[];     
-    //     try{
-    //         DB::beginTransaction();
-    //         $extraAbogado = ExtraAbogado::find($request->id);
-    //         $antes= clone $extraAbogado;
-    //         $extraAbogado->cedulaProf = $request->cedulaProf;        
-    //         $extraAbogado->sector = $request->sector;
-    //         $extraAbogado->correo = $request->correo;
-    //         $extraAbogado->tipo = $request->tipo;
-    //         $extraAbogado->save();  
-    //         $id = $extraAbogado->id;                
-    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_denunciado_fisico','UPDATE',$id,$antes,$extraAbogado);
-    //         DB::commit();
-    //     }catch (Exception $e){
-    //         DB::rollback();
-    //         return response()->json(["ERROR"->$e->getMessage()]);
-    //     }
-    //     return response()->json($id);
-    // }
 }

@@ -45,47 +45,4 @@ class ExtrasAutoridadController extends Controller
             return false;
         }
     }
-
-    // public function store(Request $request)
-    // {        
-    //     $id=[];       
-    //     try{
-    //         DB::beginTransaction();
-    //         $ExtraAutoridad = new ExtraAutoridad();
-    //         $ExtraAutoridad->idVariablesPersona = $request->idVariablesPersona;
-    //         $ExtraAutoridad->antiguedad = $request->antiguedad;
-    //         $ExtraAutoridad->rango = $request->rango;
-    //         $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;
-    //         //$ExtraAutoridad->narracion = $request->narracion;                
-    //         $ExtraAutoridad->save();  
-    //         $id = $ExtraAutoridad->id;
-    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_autoridad','INSERT',$id,null,$ExtraAutoridad);
-    //         DB::commit();
-    //     }catch (Exception $e){
-    //         DB::rollback();
-    //         return response()->json(["ERROR"->$e->getMessage()]);
-    //     }    
-    //     return response()->json($id);
-    // }
-
-    // public function update(Request $request)
-    // {
-    //     $id=[];     
-    //     try{
-    //         DB::beginTransaction(); 
-    //         $ExtraAutoridad = ExtraAutoridad::find($request->idVariablesPersona);        
-    //         $antes=clone $ExtraAutoridad;
-    //         $ExtraAutoridad->antiguedad = $request->antiguedad;
-    //         $ExtraAutoridad->rango = $request->rango;
-    //         $ExtraAutoridad->horarioLaboral = $request->horarioLaboral;                 
-    //         $ExtraAutoridad->save();     
-    //         $id = $ExtraAutoridad->id; 
-    //         $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'extra_autoridad','UPDATE',$id,$antes,$ExtraAutoridad);
-    //         DB::commit();
-    //     }catch (Exception $e){
-    //         DB::rollback();
-    //         return response()->json(["ERROR"->$e->getMessage()]);
-    //     }               
-    //         return response()->json($id);
-    // }
 }

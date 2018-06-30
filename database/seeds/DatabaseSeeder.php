@@ -63,6 +63,7 @@ class DatabaseSeeder extends Seeder
         $this->call(extraAbogadoSeeder::class);
         $this->call(personaMoralSeeder::class);
         $this->call(variablesPersonaMoralSeeder::class);
+        $this->call(PuestosSeeder::class);
     }
 }
 

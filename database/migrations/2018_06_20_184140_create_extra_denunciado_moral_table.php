@@ -17,7 +17,7 @@ class CreateExtraDenunciadoMoralTable extends Migration
             $table->increments('id');
             $table->integer('idVariablesPersona')->unsigned();
             //$table->integer('idNotificacion')->unsigned();
-            $table->integer('idPuesto')->unsigned()->default(9);
+            $table->integer('idPuesto')->unsigned()->default(9)->nullable();
             $table->string('alias', 50)->default("SIN INFORMACION");
             $table->string('senasPartic', 150)->default("SIN INFORMACION");
             $table->integer('ingreso')->default(0);
@@ -27,12 +27,12 @@ class CreateExtraDenunciadoMoralTable extends Migration
             $table->integer('personasBajoSuGuarda')->default(0);
             $table->boolean('perseguidoPenalmente')->default(false);
             $table->string('vestimenta', 150)->default("SIN INFORMACION");
-            // $table->string('narracion',2000)->default("SIN INFORMACION");
+            //$table->string('narracion',2000)->default("SIN INFORMACION");
 
             $table->foreign('idVariablesPersona')->references('id')->on('variables_persona_moral')->onDelete('cascade');
             //$table->foreign('idNotificacion')->references('id')->on('notificacion')->onDelete('cascade');
-            //$table->foreign('idPuesto')->references('id')->on('cat_puesto')->onDelete('cascade');
-            $table->foreign('idAbogado')->references('id')->on('extra_abogado')->onDelete('cascade');
+            $table->foreign('idPuesto')->references('id')->on('cat_puesto')->onDelete('restrict');
+            $table->foreign('idAbogado')->references('id')->on('extra_abogado')->onDelete('restrict');
 
             $table->timestamps();
             $table->softDeletes();
