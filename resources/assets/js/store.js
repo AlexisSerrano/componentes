@@ -62,15 +62,15 @@ const store = new Vuex.Store({
             (payload=='fisica')?(state.fisicaEncontrada='',state.tipoInvolucrado=''):(state.moralEncontrada='',state.tipoInvolucrado='')
         },
         cleanStore(state){
-            idPersonaFisica= '',
-            idPersonaMoral='',
-            idExtra='',
-            tipoInvolucrado='',
-            idDomicilio='',
-            idTrabajo='',
-            idContacto='',
-            fisicaEncontrada='',
-            moralEncontrada=''
+            state.idPersonaFisica= '',
+            state.idPersonaMoral='',
+            state.idExtra='',
+            state.tipoInvolucrado='',
+            state.idDomicilio='',
+            state.idTrabajo='',
+            state.idContacto='',
+            state.fisicaEncontrada='',
+            state.moralEncontrada=''
         }
     }
 })
