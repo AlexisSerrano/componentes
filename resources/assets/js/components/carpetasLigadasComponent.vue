@@ -81,7 +81,7 @@ import { mapState } from "vuex";
                 homoclave:'',                
                 curp:'',
                 url:'./api',
-                carpetasLigadas:this.$store.state.carpetasLigadas             
+                carpetasLigadas:''             
             }
         },
         props:{
@@ -92,6 +92,40 @@ import { mapState } from "vuex";
         mounted: function () {          
         },
         methods:{
+            buscarCarpetasFisica:function(param){ 
+                if(param=='rfc' && this.rfc!='' && this.homoclave!='' ){  
+                    console.log();                  
+                    var post = this.url+'/fisicaCarpetasRfc';
+                    axios.post(post,{
+                        rfc:this.rfc+this.homoclave,                        
+                }).then(response =>{
+                    this.carpetasLigadas=response.data;                  
+                    if(this.carpetasLigadas!=''){
+                        swal({
+                            title: 'Hay carpteas ligadas a esta persona!',
+                            text: 'Existen carpetas.',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        })                        
+                    }
+                });
+                }else if(param=='curp' && this.curp!=''){                              
+                    var post = this.url+'/fisicaCarpetasCurp';
+                    axios.post(post,{
+                        curp:this.curp                                              
+                }).then(response =>{
+                    this.carpetasLigadas=response.data;                    
+                    if(this.carpetasLigadas!=''){
+                        swal({
+                            title: 'Hay carpteas ligadas a esta persona!',
+                            text: 'Existen carpetas.',
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        })                        
+                    }
+                });
+                }             
+            },
             buscarCarpetasMoral:function(){
                 if(this.rfc!='' && this.homoclave!=''){                                              
                     var post = this.url+'/moralCarpetasRfc';
