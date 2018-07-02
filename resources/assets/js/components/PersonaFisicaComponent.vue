@@ -289,10 +289,12 @@ import { mapState } from "vuex";
                 if(rfc_curp=='rfc'){
                     if(this.rfc.length!=10 || this.homoclave.length!=3){return}
                     else{var rfcCurp=this.rfc+this.homoclave}
+                    this.buscarCarpetasFisica('rfc')
                 }
                 else if(rfc_curp=='curp'){
                     if(this.curp.length!=18){return}
                     else{var rfcCurp=this.curp}
+                    this.buscarCarpetasFisica('curp')
                 }
                 var urlBuscarPersona = this.url+'/searchPersonaFisica';
                 axios.post(urlBuscarPersona,{
@@ -300,6 +302,7 @@ import { mapState } from "vuex";
                         rfcCurp: rfcCurp
                 }).then(response => {
                     this.personaExiste=response.data
+                    console.log(response.data)
                     if(this.personaExiste!=''){
                         this.$store.commit('asignarIdFisica',{idPersona:'', tipo:this.tipo, fisicaEncontrada:true})       
                         swal({
@@ -347,40 +350,38 @@ import { mapState } from "vuex";
                         this.rfc = response.data.res.slice(0, -3);                        
                         this.homoclave=response.data.res.slice(-3);
                         this.searchPersona('rfc');
-                        this.buscarCarpetasFisica('rfc')
                     });
                 }
             },
             buscarCarpetasFisica:function(param){
                 if(param=='rfc'){
-                    if(this.rfc.length!=10 || this.homoclave.length!=3){return}  
                     var post = this.url+'/fisicaCarpetasRfc';
                     axios.post(post,{
                         rfc:this.rfc+this.homoclave,                        
                     }).then(response =>{                  
                         if(response.data){
-                            this.$store.commit('asignarCarpetasLigadas',response.data)
-                            swal({
-                                title: 'Hay carpteas ligadas a esta persona!',
-                                text: 'Existen carpetas.',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            })                        
+                            this.$store.commit('asignarCarpetasLigadas',{carpetas:response.data,tipo:'fisica'})
+                            // swal({
+                            //     title: 'Hay carpteas ligadas a esta persona!',
+                            //     text: 'Existen carpetas.',
+                            //     type: 'success',
+                            //     confirmButtonText: 'Ok'
+                            // })                        
                         }
                     });
-                }else if(param=='curp' && this.curp!=''){                              
+                }else if(param=='curp'){           
                     var post = this.url+'/fisicaCarpetasCurp';
                     axios.post(post,{
                         curp:this.curp                                              
                     }).then(response =>{
-                        this.carpetasLigadas=response.data;                    
-                        if(this.carpetasLigadas!=''){
-                            swal({
-                                title: 'Hay carpteas ligadas a esta persona!',
-                                text: 'Existen carpetas.',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            })                        
+                        if(response.data){
+                            this.$store.commit('asignarCarpetasLigadas',{carpetas:response.data,tipo:'fisica'})
+                            // swal({
+                            //     title: 'Hay carpteas ligadas a esta persona!',
+                            //     text: 'Existen carpetas.',
+                            //     type: 'success',
+                            //     confirmButtonText: 'Ok'
+                            // })                        
                         }
                     });
                 }             

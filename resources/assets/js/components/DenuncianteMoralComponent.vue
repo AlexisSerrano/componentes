@@ -16,6 +16,9 @@
                     <li class="nav-item">
                         <a @click="numeroTab=4" :class="{'nav-link disabled':this.$store.state.idPersonaMoral==''|| this.$store.state.idPersonaFisica!='','nav-link':this.$store.state.idPersonaMoral!=''}" id="denunciante-extramoral-tab" data-toggle="pill" href="#pills-denunciante-extramoral" role="tab" aria-controls="pills-denunciante-extramoral" aria-selected="false">Datos de la víctima u ofendido</a>
                     </li>
+                    <li v-show="this.$store.state.carpetasLigadasMoral!=''" class="nav-item">
+                        <a @click="numeroTab=5" :class="{'nav-link disabled':this.$store.state.idPersonaMoral==''|| this.$store.state.idPersonaFisica!='','nav-link':this.$store.state.idPersonaMoral!=''}" id="denunciante-carpetasLigadasMoral-tab" data-toggle="pill" href="#pills-denunciante-carpetasLigadasMoral" role="tab" aria-controls="pills-denunciante-carpetasLigadasMoral" aria-selected="false">Carpetas Ligadas</a>
+                    </li>
                 </ul>
                 <div class="col-2 d-flex align-items-start justify-content-end">
                     <button v-if="this.$store.state.moralEncontrada  && this.$store.state.idPersonaMoral==''" type="button" class="btn btn-primary" @click="cleanFields">
@@ -41,6 +44,9 @@
             </div>
             <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaFisica!=''||this.$store.state.fisicaEncontrada!=''}" id="pills-denunciante-extramoral" role="tabpanel-moral" aria-labelledby="denunciante-extramoral-tab">
                 <extrasdenunciante :sistema="sistema" :empresa="true"></extrasdenunciante>
+            </div>
+            <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaFisica!=''||this.$store.state.fisicaEncontrada!=''}" id="pills-denunciante-carpetasLigadasMoral" role="tabpanel-moral" aria-labelledby="denunciante-carpetasLigadasMoral-tab">
+                <notificaciones :tipo="'moral'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->

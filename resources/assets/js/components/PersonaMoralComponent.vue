@@ -96,6 +96,7 @@ import { mapState } from "vuex";
                 if(this.$store.state.moralEncontrada==true){return}
                 if(this.rfc.length==9 && this.homoclave.length==3){
                     var urlBuscarPersona = this.url+'/searchPersonaMoral';
+                    this.buscarCarpetasMoral()
                     axios.post(urlBuscarPersona,{
                         rfc: this.rfc+this.homoclave
                     }).then(response => {
@@ -139,6 +140,22 @@ import { mapState } from "vuex";
                         this.searchPersona();
                     });
                 }
+            },
+            buscarCarpetasMoral:function(){
+                var post = this.url+'/moralCarpetasRfc';
+                axios.post(post,{
+                    rfc:this.rfc+this.homoclave,                       
+                }).then(response =>{
+                    if(response.data){
+                            this.$store.commit('asignarCarpetasLigadas',{carpetas:response.data,tipo:'moral'})
+                        // swal({
+                        //     title: 'Hay carpteas ligadas a esta persona!',
+                        //     text: 'Existen carpetas.',
+                        //     type: 'success',
+                        //     confirmButtonText: 'Ok'
+                        // })
+                    }
+                });
             },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {

@@ -14,7 +14,8 @@ const store = new Vuex.Store({
         idContacto:'',
         fisicaEncontrada:'',
         moralEncontrada:'',
-        carpetasLigadas:''
+        carpetasLigadasFisica:'',
+        carpetasLigadasMoral:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -30,6 +31,7 @@ const store = new Vuex.Store({
             state.idDomicilio=''
             state.idTrabajo=''
             state.idContacto=''
+            state.carpetasLigadasMoral=''
         },
         asignarIdMoral(state,payload) {
             state.idPersonaMoral=payload.idPersona
@@ -44,6 +46,7 @@ const store = new Vuex.Store({
             state.idDomicilio=''
             state.idTrabajo=''
             state.idContacto=''
+            state.carpetasLigadasFisica=''
         },
         asignarIdExtra(state,payload) {
             state.idExtra=payload
@@ -60,7 +63,7 @@ const store = new Vuex.Store({
             }
         },
         cleanSearch(state,payload){
-            (payload=='fisica')?(state.fisicaEncontrada='',state.tipoInvolucrado=''):(state.moralEncontrada='',state.tipoInvolucrado='')
+            (payload=='fisica')?(state.fisicaEncontrada='',state.tipoInvolucrado='',state.carpetasLigadasFisica=''):(state.moralEncontrada='',state.tipoInvolucrado='',state.carpetasLigadasMoral='')
         },
         cleanStore(state){
             state.idPersonaFisica= '',
@@ -71,10 +74,17 @@ const store = new Vuex.Store({
             state.idTrabajo='',
             state.idContacto='',
             state.fisicaEncontrada='',
-            state.moralEncontrada=''
+            state.moralEncontrada='',
+            state.carpetasLigadasFisica='',
+            state.carpetasLigadasMoral=''
         },
         asignarCarpetasLigadas(state,payload){
-            state.carpetasLigadas=payload
+            if(payload.tipo=='fisica'){
+                state.carpetasLigadasFisica=payload.carpetas
+            }
+            else if(payload.tipo=='moral'){
+                state.carpetasLigadasMoral=payload.carpetas
+            }
         }
     }
 })
