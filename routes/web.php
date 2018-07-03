@@ -33,3 +33,6 @@ Route::get('carpetasLigadas', function(){
     return view('carpetasLigadas');
 });
 
+Route::get('familiar', function(){
+    return view('familiar');
+});
