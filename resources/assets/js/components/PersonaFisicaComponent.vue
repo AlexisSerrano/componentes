@@ -287,8 +287,7 @@ import { mapState } from "vuex";
             getDomicilios(){
                 var urlGetDomicilios=this.url+'/getDomiciliosPersonaFisica'
                 axios.post(urlGetDomicilios, {
-                    rfc:this.rfc+this.homoclave,             
-                    curp:this.curp,         
+                    idVarPersona:this.$store.state.idPersonaFisica,     
                     esEmpresa:false
                 })
                 .then((response) =>{
@@ -314,7 +313,7 @@ import { mapState } from "vuex";
                 }).then(response => {
                     this.personaExiste=response.data
                     if(this.personaExiste!=''){
-                        this.$store.commit('asignarIdFisica',{idPersona:'', fisicaEncontrada:true})       
+                        this.$store.commit('asignarIdFisica',{idPersona:this.personaExiste.idVarPersona, fisicaEncontrada:true,personaFisica:this.personaExiste.idPersona})       
                         swal({
                             title: '¡Persona Encontrada!',
                             text: 'Ésta persona ya fue registrada anteriormente.',
@@ -505,7 +504,8 @@ import { mapState } from "vuex";
                         sistema:this.sistema,
                         tipo:this.tipo,
                         idPersona:this.$store.state.idPersonaFisica,
-                        usuario:this.systemUser
+                        usuario:this.systemUser,
+                        personaFisica:this.$store.state.personaFisica
                     };
                 }
                 else if(this.tipo=='conocido'){
@@ -519,7 +519,8 @@ import { mapState } from "vuex";
                             sistema:this.sistema,
                             tipo:this.tipo,
                             idPersona:this.$store.state.idPersonaFisica,
-                            usuario:this.systemUser
+                            usuario:this.systemUser,
+                            personaFisica:this.$store.state.personaFisica
                         };
                     }
                     else{
@@ -551,7 +552,8 @@ import { mapState } from "vuex";
                         tipo:this.tipo,
                         edad:this.edad,
                         idPersona:this.$store.state.idPersonaFisica,
-                        usuario:this.systemUser
+                        usuario:this.systemUser,
+                        personaFisica:this.$store.state.personaFisica
                     };
                 }
                 else if (this.tipo=='qrr'){
