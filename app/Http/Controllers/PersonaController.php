@@ -46,11 +46,11 @@ class PersonaController extends Controller{
 		->join('cat_interprete', 'variables_persona_fisica.idInterprete', '=', 'cat_interprete.id')
 		->join('cat_estado', 'cat_municipio.idEstado', '=', 'cat_estado.id')
 		->where($tipoBusqueda,$rfcCurp)
-		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
+		->select('persona_fisica.id as id','persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
 		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
 		'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
-		'variables_persona_fisica.numDocIdentificacion',/*'variables_persona_fisica.alias',*/'variables_persona_fisica.id',
-		'variables_persona_fisica.idDomicilio','variables_persona_fisica.idTrabajo',
+		'variables_persona_fisica.numDocIdentificacion',/*'variables_persona_fisica.alias',*/'variables_persona_fisica.id as idVar',
+		'variables_persona_fisica.idDomicilio','variables_persona_fisica.idTrabajo','variables_persona_fisica.idNotificacion',
 		'cat_nacionalidad.id as idNacionalidad','cat_nacionalidad.nombre as nombreNacionalidad',
 		'cat_etnia.id as idEtnia','cat_etnia.nombre as nombreEtnia',
 		'cat_lengua.id as idLengua','cat_lengua.nombre as nombreLengua',
@@ -91,8 +91,9 @@ class PersonaController extends Controller{
 				'idInterprete'=>array("nombre"=>$personaExisteP->nombreInterprete, "id"=>$personaExisteP->idInterprete),
 				'numDocIdentificacion'=>$personaExisteP->numDocIdentificacion,
 				'idDomicilioTrabajo'=>$personaExisteP->idTrabajo,
-				//'alias'=>$personaExisteP->alias,
+				'idDomicilioNotificacion'=>$personaExisteP->idNotificacion,
 				'idPersona'=>$personaExisteP->id,
+				'idVarPersona'=>$personaExisteP->idVar,
 				'telefono'=>$personaExisteP->telefono
 			);
 		}
@@ -274,7 +275,7 @@ class PersonaController extends Controller{
 			'idMunicipio'=>array("nombre"=>$trabajo->descMunicipio, "id"=>$trabajo->idMunicipio),
 			'idLocalidad'=>array("nombre"=>$trabajo->descLocalidad, "id"=>$trabajo->idLocalidad),
 			'idColonia'=>array("nombre"=>$trabajo->descColonia, "id"=>$trabajo->idColonia),
-			'codigoPostal'=>array("codigoPostal"=>$trabajo->codigoPostal, "id"=>$trabajo->codigoPostal),
+			'codigoPostal'=>array("codigoPostal"=>(string)$trabajo->codigoPostal, "id"=>$trabajo->codigoPostal),
 			'calle'=>$trabajo->calle,
 			'numExterno'=>$trabajo->numExterno,
 			'numInterno'=>$trabajo->numInterno
@@ -291,8 +292,9 @@ class PersonaController extends Controller{
 		->join('cat_colonia as col', 'col.id','=','dom.idColonia')
 		->where("$tabla.id",$id)
 		->select(
-			'dom.id as id','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia','col.nombre as descColonia',
-			'edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad','col.codigoPostal'
+			'dom.id as id','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia',
+			'col.nombre as descColonia','edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad',
+			'col.codigoPostal'
 		)->first();
 		$dom = array(
 			'id'=>$domicilio->id,
@@ -300,7 +302,7 @@ class PersonaController extends Controller{
 			'idMunicipio'=>array("nombre"=>$domicilio->descMunicipio, "id"=>$domicilio->idMunicipio),
 			'idLocalidad'=>array("nombre"=>$domicilio->descLocalidad, "id"=>$domicilio->idLocalidad),
 			'idColonia'=>array("nombre"=>$domicilio->descColonia, "id"=>$domicilio->idColonia),
-			'codigoPostal'=>array("codigoPostal"=>$domicilio->codigoPostal, "id"=>$domicilio->codigoPostal),
+			'codigoPostal'=>array("codigoPostal"=>(string)$domicilio->codigoPostal, "id"=>$domicilio->codigoPostal),
 			'calle'=>$domicilio->calle,
 			'numExterno'=>$domicilio->numExterno,
 			'numInterno'=>$domicilio->numInterno
@@ -330,7 +332,7 @@ class PersonaController extends Controller{
 			'idMunicipio'=>array("nombre"=>$notificacion->descMunicipio, "id"=>$notificacion->idMunicipio),
 			'idLocalidad'=>array("nombre"=>$notificacion->descLocalidad, "id"=>$notificacion->idLocalidad),
 			'idColonia'=>array("nombre"=>$notificacion->descColonia, "id"=>$notificacion->idColonia),
-			'codigoPostal'=>array("codigoPostal"=>$notificacion->codigoPostal, "id"=>$notificacion->codigoPostal),
+			'codigoPostal'=>array("codigoPostal"=>(string)$notificacion->codigoPostal, "id"=>$notificacion->codigoPostal),
 			'calle'=>$notificacion->calle,
 			'calle'=>$notificacion->calle,
 			'numExterno'=>$notificacion->numExterno,
@@ -340,30 +342,16 @@ class PersonaController extends Controller{
 	}
 
 	public function getDomiciliosPersona(Request $request){
-		$rfc = $request->rfc;
-		$curp = $request->curp;
+		$varPersona = $request->idVarPersona;
 		$esEmpresa = $request->esEmpresa;
 		if($esEmpresa){
-			$varPersona = DB::table('variables_persona_moral')
-			->join('persona_moral', 'persona_moral.id','=','variables_persona_moral.idPersona')
-			->where('persona_moral.rfc',$rfc)
-			->select('variables_persona_moral.id as id')
-			->orderBy('variables_persona_moral.id','desc')
-			->first();
-			$data['domicilio'] = PersonaController::domicilios($varPersona->id,'variables_persona_moral');
-			$data['notificacion'] = PersonaController::notificaciones($varPersona->id,'variables_persona_moral');
+			$data['domicilio'] = PersonaController::domicilios($varPersona,'variables_persona_moral');
+			$data['notificacion'] = PersonaController::notificaciones($varPersona,'variables_persona_moral');
 		}
 		else{
-			$varPersona = DB::table('variables_persona_fisica')
-			->join('persona_fisica', 'persona_fisica.id','=','variables_persona_fisica.idPersona')
-			->where('persona_fisica.rfc',$rfc)
-			->orWhere('persona_fisica.curp',$curp)
-			->select('variables_persona_fisica.id as id')
-			->orderBy('variables_persona_fisica.id','desc')
-			->first();
-			$data['domicilio'] = PersonaController::domicilios($varPersona->id,'variables_persona_fisica');
-			$data['notificacion'] = PersonaController::notificaciones($varPersona->id,'variables_persona_fisica');
-			$data['trabajo'] = PersonaController::trabajos($varPersona->id,'variables_persona_fisica');
+			$data['domicilio'] = PersonaController::domicilios($varPersona,'variables_persona_fisica');
+			$data['notificacion'] = PersonaController::notificaciones($varPersona,'variables_persona_fisica');
+			$data['trabajo'] = PersonaController::trabajos($varPersona,'variables_persona_fisica');
 		}
 		return response()->json($data);
 	}

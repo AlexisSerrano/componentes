@@ -16,7 +16,13 @@ const store = new Vuex.Store({
         carpetasLigadas:'',
         datosDomicilio:'',
         datosTrabajo:'',
-        datosNotificaciones:''
+        datosNotificaciones:'',
+        personaFisica:'',
+        personaMoral:'',
+        idTemporal:'',
+        idDomicilioTemporal:'',
+        idTrabajoTemporal:'',
+        idContactoTemporal:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -24,11 +30,23 @@ const store = new Vuex.Store({
             if(payload.fisicaEncontrada){
                 state.fisicaEncontrada=payload.fisicaEncontrada
             }
+            if(payload.personaFisica){
+                state.personaFisica=payload.personaFisica
+            }
+            if(payload.idTemporal){
+                state.idTemporal=payload.idTemporal
+            }
         },
         asignarIdMoral(state,payload) {
             state.idPersonaMoral=payload.idPersona           
             if(payload.moralEncontrada){
                 state.moralEncontrada=payload.moralEncontrada
+            }
+            if(payload.personaMoral){
+                state.personaMoral=payload.personaMoral
+            }
+            if(payload.idTemporal){
+                state.idTemporal=payload.idTemporal
             }
         },
         asignarIdExtra(state,payload) {
@@ -57,15 +75,30 @@ const store = new Vuex.Store({
             state.carpetasLigadas='',
             state.datosDomicilio='',
             state.datosTrabajo='',
-            state.datosNotificaciones=''
+            state.datosNotificaciones='',
+            state.personaFisica='',
+            state.personaMoral='',
+            state.idTemporal='',
+            state.idDomicilioTemporal='',
+            state.idTrabajoTemporal='',
+            state.idContactoTemporal=''
         },
         asignarCarpetasLigadas(state,payload){
             state.carpetasLigadas=payload
         },
         asignarDomicilios(state,payload){
                 state.datosDomicilio=payload.domicilio
-                state.datosTrabajo=payload.trabajo
+                if(payload.trabajo){
+                    state.datosTrabajo=payload.trabajo
+                }
                 state.datosNotificaciones=payload.notificacion
+        },
+        asignarDomiciliosTemporales(state,payload){
+            state.idDomicilioTemporal=payload.idDomicilioTemporal
+            if(payload.idTrabajoTemporal){
+                state.idTrabajoTemporal=payload.idTrabajoTemporal
+            }
+            state.idContactoTemporal=payload.idContactoTemporal
         }
     }
 })

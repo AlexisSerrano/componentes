@@ -31,7 +31,7 @@
                     <span v-show="errors.has('correo')" class="text-danger">{{ errors.first('correo')}}</span>
                 </div>
 
-                <div class="form-group col-md-12">
+                <div v-if="sistema=='uat'" class="form-group col-md-12">
                     <label class="col-form-label col-form-label-sm" for="descripcion">Descripcion de los hechos</label>
                     <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcion')}" v-model="descripcion" placeholder="Ingrese la descripción de los hechos" v-validate="'required'" autocomplete="off"></textarea>
                     <span v-show="errors.has('descripcion')" class="text-danger">{{ errors.first('descripcion')}}</span>

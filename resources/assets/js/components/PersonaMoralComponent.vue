@@ -101,7 +101,8 @@ import { mapState } from "vuex";
                     }).then(response => {
                         this.personaExiste=response.data
                         if(this.personaExiste!=''){          
-                            this.$store.commit('asignarIdMoral',{idPersona:'',moralEncontrada:true})                             
+                            this.$store.commit('asignarIdMoral',{idPersona:'',idTemporal:this.personaExiste.idVarPersona,moralEncontrada:true,personaMoral:this.personaExiste.idPersona})         
+                            this.$store.commit('asignarDomiciliosTemporales',{idDomicilioTemporal:this.personaExiste.idDomicilio,idContactoTemporal:this.personaExiste.idDomicilioNotificacion})                        
                             swal({
                                 title: '¡Persona moral encontrada!',
                                 text: 'Ésta persona moral ya fue registrada anteriormente.',
@@ -157,13 +158,13 @@ import { mapState } from "vuex";
                 });
             },
             getDomicilios(){
-                var urlGetDomicilios=this.url+'/getDomiciliosPersonaMoral'
+                var urlGetDomicilios=this.url+'/getDomiciliosPersona'
                 axios.post(urlGetDomicilios, {
-                    rfc:this.rfc+this.homoclave,
-                    curp:this.curp,
+                    idVarPersona:this.$store.state.idTemporal,
                     esEmpresa:true                      
                 })
                 .then((response) =>{
+                    console.log(response);
                     if(response.data){
                         this.$store.commit('asignarDomicilios',response.data)
                     }
@@ -206,7 +207,10 @@ import { mapState } from "vuex";
                         tipo: this.tipo,
                         idCarpeta:this.carpeta,
                         idPersona:this.$store.state.idPersonaMoral,
-                        usuario:this.systemUser
+                        usuario:this.systemUser,
+                        personaMoral:this.$store.state.personaMoral,
+                        idDomicilio:this.$store.state.idDomicilioTemporal,
+                        idNotificacion:this.$store.state.idContactoTemporal
                     })
                     .then (response =>{
                         this.$store.commit('asignarIdMoral',{idPersona:response.data})

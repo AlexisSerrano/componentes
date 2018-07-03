@@ -34,7 +34,7 @@ class DefaultsSeeder extends Seeder
         DB::table('notificacion')->insert([
             [ 
                 'idDomicilio' => 1,
-                'correo' => 'SIN INFORMACIÓN',
+                'correo' => '',
                 'telefono' => 'SIN INFORMACIÓN'
             ]
         ]);

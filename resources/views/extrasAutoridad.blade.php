@@ -11,7 +11,7 @@
   </head>
   <body>      
     <div id="app">
-        <extrasautoridad :sistema="'uat'" ></extrasautoridad>        
+        <extrasautoridad :sistema="'uipj'" ></extrasautoridad>        
     </div>    
     <!--<button id="btn2">console.log idvarpersonamoral</button>-->
   </body> 
