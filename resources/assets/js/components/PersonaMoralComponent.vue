@@ -96,7 +96,6 @@ import { mapState } from "vuex";
                 if(this.$store.state.moralEncontrada==true){return}
                 if(this.rfc.length==9 && this.homoclave.length==3){
                     var urlBuscarPersona = this.url+'/searchPersonaMoral';
-                    this.buscarCarpetasMoral()
                     axios.post(urlBuscarPersona,{
                         rfc: this.rfc+this.homoclave
                     }).then(response => {
@@ -160,7 +159,9 @@ import { mapState } from "vuex";
             getDomicilios(){
                 var urlGetDomicilios=this.url+'/getDomiciliosPersonaMoral'
                 axios.post(urlGetDomicilios, {
-                    rfc:this.rfc+this.homoclave                      
+                    rfc:this.rfc+this.homoclave,
+                    curp:this.curp,
+                    esEmpresa:true                      
                 })
                 .then((response) =>{
                     if(response.data){
@@ -217,6 +218,7 @@ import { mapState } from "vuex";
                         })
                         if(this.$store.state.moralEncontrada){
                             this.getDomicilios()
+                            this.buscarCarpetasMoral()
                         }
                     }).catch((error)=>{
                         this.validacionesback = error.response.data.errors

@@ -287,7 +287,9 @@ import { mapState } from "vuex";
             getDomicilios(){
                 var urlGetDomicilios=this.url+'/getDomiciliosPersonaFisica'
                 axios.post(urlGetDomicilios, {
-                    rfc:this.rfc+this.homoclave                      
+                    rfc:this.rfc+this.homoclave,             
+                    curp:this.curp,         
+                    esEmpresa:false
                 })
                 .then((response) =>{
                     if(response.data){
@@ -300,12 +302,10 @@ import { mapState } from "vuex";
                 if(rfc_curp=='rfc'){
                     if(this.rfc.length!=10 || this.homoclave.length!=3){return}
                     else{var rfcCurp=this.rfc+this.homoclave}
-                    this.buscarCarpetasFisica('rfc')
                 }
                 else if(rfc_curp=='curp'){
                     if(this.curp.length!=18){return}
                     else{var rfcCurp=this.curp}
-                    this.buscarCarpetasFisica('curp')
                 }
                 var urlBuscarPersona = this.url+'/searchPersonaFisica';
                 axios.post(urlBuscarPersona,{
@@ -364,10 +364,10 @@ import { mapState } from "vuex";
                 }
             },
             buscarCarpetasFisica:function(param){
-                if(param=='rfc'){
                     var post = this.url+'/fisicaCarpetasRfc';
                     axios.post(post,{
-                        rfc:this.rfc+this.homoclave                      
+                        rfc:this.rfc+this.homoclave,  
+                        curp:this.curp                    
                     }).then(response =>{                  
                         if(response.data){
                             this.$store.commit('asignarCarpetasLigadas',response.data)
@@ -378,23 +378,7 @@ import { mapState } from "vuex";
                             //     confirmButtonText: 'Ok'
                             // })                        
                         }
-                    });
-                }else if(param=='curp'){           
-                    var post = this.url+'/fisicaCarpetasCurp';
-                    axios.post(post,{
-                        curp:this.curp                                              
-                    }).then(response =>{
-                        if(response.data){
-                            this.$store.commit('asignarCarpetasLigadas',response.data)
-                            // swal({
-                            //     title: 'Hay carpteas ligadas a esta persona!',
-                            //     text: 'Existen carpetas.',
-                            //     type: 'success',
-                            //     confirmButtonText: 'Ok'
-                            // })                        
-                        }
-                    });
-                }             
+                    });   
             },
             getMunicipios: function(){
                 if(this.estado!=null){
@@ -593,6 +577,7 @@ import { mapState } from "vuex";
                             })
                             if(this.$store.state.fisicaEncontrada){
                                 this.getDomicilios()
+                                this.buscarCarpetasFisica()
                             }
                         }
                         else{
