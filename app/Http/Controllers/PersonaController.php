@@ -291,8 +291,9 @@ class PersonaController extends Controller{
 		->join('cat_colonia as col', 'col.id','=','dom.idColonia')
 		->where("$tabla.id",$id)
 		->select(
-			'dom.id as id','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia','col.nombre as descColonia',
-			'edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad','col.codigoPostal'
+			'dom.id as id','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia',
+			'col.nombre as descColonia','edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad',
+			'col.codigoPostal'
 		)->first();
 		$dom = array(
 			'id'=>$domicilio->id,

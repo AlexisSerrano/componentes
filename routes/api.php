@@ -26,7 +26,7 @@ Route::post('getDomiciliosPersonaFisica','PersonaController@getDomiciliosPersona
 Route::post('addPersonaMoral','PersonaMoralController@addPersonaMoral')->name('addPersonaMoral');
 Route::post('searchPersonaMoral','PersonaMoralController@searchPersona');
 Route::post('rfcMoral','PersonaMoralController@rfcMoral');
-Route::post('getDomiciliosPersonaMoral','PersonaMoralController@getDomiciliosPersona');
+Route::post('getDomiciliosPersonaMoral','PersonaController@getDomiciliosPersona');
 
 /* Validaciones back personas en uat*/
 Route::post('abogadouat','ValidacionController@valAbogadoUAT');

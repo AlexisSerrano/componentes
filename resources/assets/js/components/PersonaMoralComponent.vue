@@ -163,6 +163,7 @@ import { mapState } from "vuex";
                     esEmpresa:true                      
                 })
                 .then((response) =>{
+                    console.log(response);
                     if(response.data){
                         this.$store.commit('asignarDomicilios',response.data)
                     }
