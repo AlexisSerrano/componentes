@@ -208,7 +208,9 @@ import { mapState } from "vuex";
                         idCarpeta:this.carpeta,
                         idPersona:this.$store.state.idPersonaMoral,
                         usuario:this.systemUser,
-                        personaMoral:this.$store.state.personaMoral
+                        personaMoral:this.$store.state.personaMoral,
+                        idDomicilio:this.$store.state.idDomicilioTemporal,
+                        idNotificacion:this.$store.state.idContactoTemporal
                     })
                     .then (response =>{
                         this.$store.commit('asignarIdMoral',{idPersona:response.data})
