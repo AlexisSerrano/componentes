@@ -41,7 +41,7 @@
         <td>{{ value.sistema }}</td>
         <td>{{ value.tipoInvolucrado }}</td>
         <td>{{ value.nuc }}</td>
-        <td>{{ value.tipoDeterminacion }}</td>
+        <td>{{ value.determinacion }}</td>
       </tr>
       <tr v-show="carpetas==''" ><td colspan="10" style="text-align:center;">Sin resultados</td></tr>
     </tbody>

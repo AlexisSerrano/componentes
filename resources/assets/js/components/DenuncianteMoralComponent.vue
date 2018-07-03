@@ -16,7 +16,7 @@
                     <li class="nav-item">
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaMoral=='','nav-link':this.$store.state.idPersonaMoral!=''}" id="denunciante-extramoral-tab" data-toggle="pill" href="#pills-denunciante-extramoral" role="tab" aria-controls="pills-denunciante-extramoral" aria-selected="false">Datos de la víctima u ofendido</a>
                     </li>
-                    <li v-show="this.$store.state.carpetasLigadasMoral!=''" class="nav-item">
+                    <li v-show="this.$store.state.carpetasLigadas!=''" class="nav-item">
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaMoral=='','nav-link':this.$store.state.idPersonaMoral!=''}" id="denunciante-carpetasLigadasMoral-tab" data-toggle="pill" href="#pills-denunciante-carpetasLigadasMoral" role="tab" aria-controls="pills-denunciante-carpetasLigadasMoral" aria-selected="false">Carpetas Ligadas</a>
                     </li>
                 </ul>

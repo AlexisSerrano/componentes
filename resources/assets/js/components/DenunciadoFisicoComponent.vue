@@ -20,7 +20,7 @@
                     <li class="nav-item">
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" id="denunciado-extrafisico-tab" data-toggle="pill" href="#pills-denunciado-extrafisico" role="tab" aria-controls="pills-denunciado-extrafisico" aria-selected="false">Datos de la víctima u ofendido</a>
                     </li>
-                    <li v-show="this.$store.state.carpetasLigadasFisica!=''" class="nav-item">
+                    <li v-show="this.$store.state.carpetasLigadas!=''" class="nav-item">
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" id="denunciante-carpetasLigadasFisica-tab" data-toggle="pill" href="#pills-denunciante-carpetasLigadasFisica" role="tab" aria-controls="pills-denunciante-carpetasLigadasFisica" aria-selected="false">Carpetas ligadas</a>
                     </li>
                 </ul>
