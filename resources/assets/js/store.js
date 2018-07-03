@@ -18,7 +18,8 @@ const store = new Vuex.Store({
         datosTrabajo:'',
         datosNotificaciones:'',
         personaFisica:'',
-        personaMoral:''
+        personaMoral:'',
+        idTemporal:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -29,6 +30,9 @@ const store = new Vuex.Store({
             if(payload.personaFisica){
                 state.personaFisica=payload.personaFisica
             }
+            if(payload.idTemporal){
+                state.idTemporal=payload.idTemporal
+            }
         },
         asignarIdMoral(state,payload) {
             state.idPersonaMoral=payload.idPersona           
@@ -37,6 +41,9 @@ const store = new Vuex.Store({
             }
             if(payload.personaMoral){
                 state.personaMoral=payload.personaMoral
+            }
+            if(payload.idTemporal){
+                state.idTemporal=payload.idTemporal
             }
         },
         asignarIdExtra(state,payload) {

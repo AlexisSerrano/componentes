@@ -101,7 +101,7 @@ import { mapState } from "vuex";
                     }).then(response => {
                         this.personaExiste=response.data
                         if(this.personaExiste!=''){          
-                            this.$store.commit('asignarIdMoral',{idPersona:this.personaExiste.idVarPersona,moralEncontrada:true,personaMoral:this.personaExiste.idPersona})                             
+                            this.$store.commit('asignarIdMoral',{idPersona:'',idTemporal:this.personaExiste.idVarPersona,moralEncontrada:true,personaMoral:this.personaExiste.idPersona})                             
                             swal({
                                 title: '¡Persona moral encontrada!',
                                 text: 'Ésta persona moral ya fue registrada anteriormente.',
@@ -159,7 +159,7 @@ import { mapState } from "vuex";
             getDomicilios(){
                 var urlGetDomicilios=this.url+'/getDomiciliosPersona'
                 axios.post(urlGetDomicilios, {
-                    idVarPersona:this.$store.state.idPersonaMoral,
+                    idVarPersona:this.$store.state.idTemporal,
                     esEmpresa:true                      
                 })
                 .then((response) =>{
