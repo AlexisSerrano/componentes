@@ -75,20 +75,20 @@ const store = new Vuex.Store({
             (payload=='fisica')?(state.fisicaEncontrada='',state.tipoInvolucrado='',state.carpetasLigadasFisica=''):(state.moralEncontrada='',state.tipoInvolucrado='',state.carpetasLigadasMoral='')
         },
         cleanStore(state){
-            idPersonaFisica= '',
-            idPersonaMoral='',
-            idExtra='',
-            tipoInvolucrado='',
-            idDomicilio='',
-            idTrabajo='',
-            idContacto='',
-            fisicaEncontrada='',
-            moralEncontrada='',
-            carpetasLigadasFisica='',
-            carpetasLigadasMoral='',
-            datosDomicilio='',
-            datosTrabajo='',
-            datosNotificaciones=''
+            state.idPersonaFisica= '',
+            state.idPersonaMoral='',
+            state.idExtra='',
+            state.tipoInvolucrado='',
+            state.idDomicilio='',
+            state.idTrabajo='',
+            state.idContacto='',
+            state.fisicaEncontrada='',
+            state.moralEncontrada='',
+            state.carpetasLigadasFisica='',
+            state.carpetasLigadasMoral='',
+            state.datosDomicilio='',
+            state.datosTrabajo='',
+            state.datosNotificaciones=''
         },
         asignarCarpetasLigadas(state,payload){
             if(payload.tipo=='fisica'){

@@ -17,8 +17,8 @@
                 </div>
             </div>
         </div>
-        <denunciantefisico v-show="persona==1" :sistema="sistema" :carpeta="carpeta"></denunciantefisico>
-        <denunciantemoral v-show="persona==2" :sistema="sistema" :carpeta="carpeta"></denunciantemoral>
+        <denunciantefisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta"></denunciantefisico>
+        <denunciantemoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta"></denunciantemoral>
     </div>
 </template>
 
@@ -35,6 +35,11 @@
             },
             carpeta:{
                 required:true
+            }
+        },
+        watch: {
+            persona() {
+                this.$store.commit('cleanStore')
             }
         },
     }

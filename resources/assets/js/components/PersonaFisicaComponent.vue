@@ -341,9 +341,9 @@ import { mapState } from "vuex";
                         this.escolaridad=this.personaExiste.idEscolaridad,
                         this.religion=this.personaExiste.idReligion,
                         this.identificacion=this.personaExiste.docIdentificacion,
-                        this.numIdentificacion=this.personaExiste.numDocIdentificacion
-                        this.alias=this.personaExiste.alias,
-                        (this.tipo=='conocido')?this.telefono=this.personaExiste.telefono:'',
+                        this.numIdentificacion=this.personaExiste.numDocIdentificacion,
+                        this.telefono=this.personaExiste.telefono,
+                        (this.tipo=='conocido')?this.alias=this.personaExiste.alias:'',
                         (this.sistema=='uipj')?this.motivoEstancia=this.personaExiste.motivoEstancia:''
                     }
                 });
