@@ -29,15 +29,6 @@ const store = new Vuex.Store({
             if(payload.fisicaEncontrada){
                 state.fisicaEncontrada=payload.fisicaEncontrada
             }
-            state.idPersonaMoral=''
-            state.moralEncontrada=''
-            state.idDomicilio=''
-            state.idTrabajo=''
-            state.idContacto=''
-            state.carpetasLigadasMoral=''
-            state.datosDomicilio=''
-            state.datosTrabajo=''
-            state.datosNotificaciones=''
         },
         asignarIdMoral(state,payload) {
             state.idPersonaMoral=payload.idPersona
@@ -47,15 +38,6 @@ const store = new Vuex.Store({
             if(payload.moralEncontrada){
                 state.moralEncontrada=payload.moralEncontrada
             }
-            state.idPersonaFisica=''
-            state.fisicaEncontrada=''
-            state.idDomicilio=''
-            state.idTrabajo=''
-            state.idContacto=''
-            state.carpetasLigadasFisica=''
-            state.datosDomicilio=''
-            state.datosTrabajo=''
-            state.datosNotificaciones=''
         },
         asignarIdExtra(state,payload) {
             state.idExtra=payload
@@ -70,9 +52,6 @@ const store = new Vuex.Store({
             else if(payload.tipo=='contacto'){
                 state.idContacto=payload.idDomicilio
             }
-        },
-        cleanSearch(state,payload){
-            (payload=='fisica')?(state.fisicaEncontrada='',state.tipoInvolucrado='',state.carpetasLigadasFisica=''):(state.moralEncontrada='',state.tipoInvolucrado='',state.carpetasLigadasMoral='')
         },
         cleanStore(state){
             state.idPersonaFisica= '',

@@ -163,7 +163,6 @@ import { mapState } from "vuex";
                     rfc:this.rfc+this.homoclave                      
                 })
                 .then((response) =>{
-                    console.log(response.data)
                     if(response.data){
                         this.$store.commit('asignarDomicilios',response.data)
                     }

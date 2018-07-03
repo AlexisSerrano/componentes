@@ -40,10 +40,10 @@
                 </div>
             </div>
         </div>
-        <personafisica v-show="denunciado==1" :sistema="sistema" :carpeta="carpeta" :tipo="'qrr'"></personafisica>
-        <denunciadoconocido v-show="denunciado==2" :sistema="sistema" :carpeta="carpeta"></denunciadoconocido>
-        <denunciadofisico v-show="persona==1" :sistema="sistema" :carpeta="carpeta"></denunciadofisico>
-        <denunciadomoral v-show="persona==2" :sistema="sistema" :carpeta="carpeta"></denunciadomoral>
+        <personafisica v-if="denunciado==1" :sistema="sistema" :carpeta="carpeta" :tipo="'qrr'"></personafisica>
+        <denunciadoconocido v-if="denunciado==2" :sistema="sistema" :carpeta="carpeta"></denunciadoconocido>
+        <denunciadofisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta"></denunciadofisico>
+        <denunciadomoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta"></denunciadomoral>
     </div>
 </template>
 
@@ -64,10 +64,13 @@
             }
         },
         watch: {
-            denunciado(newValue, oldValue) {
+            denunciado() {
                 if(this.denunciado==1 || this.denunciado==2){
                     this.persona=''
                 }
+            },
+            persona() {
+                this.$store.commit('cleanStore')
             }
         },
     }
