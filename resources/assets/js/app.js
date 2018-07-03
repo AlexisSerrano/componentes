@@ -55,6 +55,7 @@ Vue.component('extrasautoridad',require('./components/ExtrasAutoridadComponent.v
 Vue.component('registro',require('./components/RegistroComponent.vue'));
 Vue.component('carpetas',require('./components/carpetasLigadasComponent.vue'));
 Vue.component('notificaciones',require('./components/NotificacionesComponent.vue'));
+Vue.component('familiar',require('./components/familiarComponent.vue'));
 Vue.component('icon', Icon)
 
 const app = new Vue({

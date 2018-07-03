@@ -6,7 +6,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="familiarDe">Familiar de</label>
-                    <v-select :options="familiarDe" label="familiarDe" v-model="familiar" name="familiar" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('familiar')}" placeholder="Seleccione tipo solicitante" ></v-select>
+                    <v-select :options="familiarDe" label="familiarDe" v-model="familiar" name="familiar" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('familiar')}" placeholder="Seleccione un involucrado" ></v-select>
                     <span v-show="errors.has('familiarDe')" class="text-danger">{{ errors.first('familiarDe')}}</span>
                 </div>
 
@@ -19,9 +19,9 @@
                 <!-- Traer el catálogo -->
                 <div  class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="ocupacion">Ocupación</label>    
-                    <v-select :options="ocupaciones" label="ocupacion" v-model="ocupacion" name="ocupacion" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('ocupacion')}" placeholder="Seleccione una ocupación"></v-select>
+                    <v-select :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupacion" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('ocupacion')}" placeholder="Seleccione una ocupación"></v-select>
                     <span v-show="errors.has('ocupación')" class="text-danger">{{ errors.first('ocupación')}}</span>                    
-                </div>
+                </div> 
                 <!-- -->
 
                 <div class="form-group col-md-4">
@@ -95,13 +95,22 @@ import swal from 'sweetalert2'
         
                 });
             },
-            getCatalogos: function(){
+            getCatalogos: function(){                
                 var urlCatalogos = this.url+'/getCatalogos';
                 axios.post(urlCatalogos, {
                     sistema: 'uat',
                     tipo: 'autoridad'
                 }).then(response => {
-                    this.ocupaciones = response.data['ocupaciones'].original                    
+                    this.ocupaciones = response.data['ocupaciones'].original                                         
+                });
+            },
+            getInvolucrados: function(){                
+                var urlCatalogos = this.url+'/getInvolucrados';
+                axios.post(urlCatalogos, {
+                    sistema: 'uat',
+                    tipo: 'autoridad'
+                }).then(response => {
+                    this.ocupaciones = response.data['ocupaciones'].original                                         
                 });
             },
             cleanFields(){               
