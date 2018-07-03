@@ -160,7 +160,6 @@ import { mapState } from "vuex";
                 var urlGetDomicilios=this.url+'/getDomiciliosPersonaMoral'
                 axios.post(urlGetDomicilios, {
                     rfc:this.rfc+this.homoclave,
-                    curp:this.curp,
                     esEmpresa:true                      
                 })
                 .then((response) =>{

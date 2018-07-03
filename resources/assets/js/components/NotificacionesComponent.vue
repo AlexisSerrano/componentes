@@ -41,9 +41,9 @@
         <td>{{ value.sistema }}</td>
         <td>{{ value.tipoInvolucrado }}</td>
         <td>{{ value.nuc }}</td>
-        <td>{{ value.determinacion 
-          <icon name="eraser" :style="{color:black}"></icon>
-        }}</td>
+        <td>{{ value.determinacion }}
+        <icon name="folder-open" :style="{color:(value.determinacion=='INICIADA')?'yellow':''}"></icon>
+        </td>
       </tr>
       <tr v-show="carpetas==''" ><td colspan="10" style="text-align:center;">Sin resultados</td></tr>
     </tbody>
@@ -56,9 +56,10 @@
         <td>{{ value.sistema }}</td>
         <td>{{ value.tipoInvolucrado }}</td>
         <td>{{ value.nuc }}</td>
-        <td>{{ value.tipoDeterminacion 
-          <icon name="eraser" :style="{color:black}"></icon>
-        }}</td>
+        <td>
+          <icon name="folder-open" :style="{color:(value.tipoDeterminacion=='INICIADA')?'yellow':''}"></icon>
+          {{ value.tipoDeterminacion }}
+        </td>
       </tr>
       <tr v-show="carpetas==''" ><td colspan="10" style="text-align:center;">Sin resultados</td></tr>
     </tbody>
