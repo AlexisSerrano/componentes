@@ -300,7 +300,7 @@ class PersonaController extends Controller{
 			'idMunicipio'=>array("nombre"=>$domicilio->descMunicipio, "id"=>$domicilio->idMunicipio),
 			'idLocalidad'=>array("nombre"=>$domicilio->descLocalidad, "id"=>$domicilio->idLocalidad),
 			'idColonia'=>array("nombre"=>$domicilio->descColonia, "id"=>$domicilio->idColonia),
-			'codigoPostal'=>array("codigoPostal"=>$domicilio->codigoPostal, "id"=>$domicilio->codigoPostal),
+			'codigoPostal'=>array("codigoPostal"=>(string)$domicilio->codigoPostal, "id"=>$domicilio->codigoPostal),
 			'calle'=>$domicilio->calle,
 			'numExterno'=>$domicilio->numExterno,
 			'numInterno'=>$domicilio->numInterno

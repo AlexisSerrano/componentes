@@ -354,7 +354,7 @@ import { mapState } from "vuex";
                     this.estado=this.$store.state.datosDomicilio.idEstado
                     this.municipio=this.$store.state.datosDomicilio.idMunicipio
                     this.localidad=this.$store.state.datosDomicilio.idLocalidad
-                    this.codigoPostal=this.$store.state.datosDomicilio.idCodigoPostal
+                    this.codigoPostal=this.$store.state.datosDomicilio.codigoPostal
                     this.colonia=this.$store.state.datosDomicilio.idColonia
                     this.calle=this.$store.state.datosDomicilio.calle
                     this.numExterno=this.$store.state.datosDomicilio.numExterno
@@ -366,7 +366,7 @@ import { mapState } from "vuex";
                     this.estado=this.$store.state.datosTrabajo.idEstado
                     this.municipio=this.$store.state.datosTrabajo.idMunicipio
                     this.localidad=this.$store.state.datosTrabajo.idLocalidad
-                    this.codigoPostal=this.$store.state.datosTrabajo.idCodigoPostal
+                    this.codigoPostal=this.$store.state.datosTrabajo.codigoPostal
                     this.colonia=this.$store.state.datosTrabajo.idColonia
                     this.calle=this.$store.state.datosTrabajo.calle
                     this.numExterno=this.$store.state.datosTrabajo.numExterno
@@ -380,7 +380,7 @@ import { mapState } from "vuex";
                     this.estado=this.$store.state.datosNotificaciones.idEstado
                     this.municipio=this.$store.state.datosNotificaciones.idMunicipio
                     this.localidad=this.$store.state.datosNotificaciones.idLocalidad
-                    this.codigoPostal=this.$store.state.datosNotificaciones.idCodigoPostal
+                    this.codigoPostal=this.$store.state.datosNotificaciones.codigoPostal
                     this.colonia=this.$store.state.datosNotificaciones.idColonia
                     this.calle=this.$store.state.datosNotificaciones.calle
                     this.numExterno=this.$store.state.datosNotificaciones.numExterno

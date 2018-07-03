@@ -3,8 +3,8 @@
 <div class="col">
 
   <h3>Carpetas encontradas</h3>         
-  <table class="table">
-    <thead v-if="this.$store.state.fisicaEncontrada">
+  <table class="table table-bordered table-hover">
+    <thead class="thead-dark" v-if="this.$store.state.fisicaEncontrada">
       <tr>
         <th>Nombres</th>
         <th>Primer apellido</th>
@@ -18,7 +18,7 @@
         <th>Tipo de determinación</th>
       </tr>
     </thead>
-    <thead v-if="this.$store.state.moralEncontrada">
+    <thead class="thead-dark" v-if="this.$store.state.moralEncontrada">
       <tr>
         <th>Nombre</th>
         <th>R.F.C.</th>        
@@ -41,7 +41,9 @@
         <td>{{ value.sistema }}</td>
         <td>{{ value.tipoInvolucrado }}</td>
         <td>{{ value.nuc }}</td>
-        <td>{{ value.determinacion }}</td>
+        <td>{{ value.determinacion 
+          <icon name="eraser" :style="{color:black}"></icon>
+        }}</td>
       </tr>
       <tr v-show="carpetas==''" ><td colspan="10" style="text-align:center;">Sin resultados</td></tr>
     </tbody>
@@ -54,7 +56,9 @@
         <td>{{ value.sistema }}</td>
         <td>{{ value.tipoInvolucrado }}</td>
         <td>{{ value.nuc }}</td>
-        <td>{{ value.tipoDeterminacion }}</td>
+        <td>{{ value.tipoDeterminacion 
+          <icon name="eraser" :style="{color:black}"></icon>
+        }}</td>
       </tr>
       <tr v-show="carpetas==''" ><td colspan="10" style="text-align:center;">Sin resultados</td></tr>
     </tbody>
