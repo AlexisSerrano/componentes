@@ -157,7 +157,7 @@ import { mapState } from "vuex";
                 });
             },
             getDomicilios(){
-                var urlGetDomicilios=this.url+'/getDomiciliosPersonaMoral'
+                var urlGetDomicilios=this.url+'/getDomiciliosPersona'
                 axios.post(urlGetDomicilios, {
                     idVarPersona:this.$store.state.idPersonaMoral,
                     esEmpresa:true                      
