@@ -13,6 +13,9 @@
                     <li class="nav-item">
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-abogado-extra" role="tab" aria-controls="pills-abogado-extra" aria-selected="false">Datos del abogado</a>
                     </li>
+                    <li v-show="this.$store.state.carpetasLigadasFisica!=''" class="nav-item">
+                        <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-abogado-carpetasLigadas" role="tab" aria-controls="pills-abogado-carpetasLigadas" aria-selected="false">Carpetas ligadas</a>
+                    </li>
                 </ul>
                 <div class="col-2 d-flex align-items-start justify-content-end">
                     <button v-if="this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
@@ -35,6 +38,9 @@
             </div>
             <div class="tab-pane fade" id="pills-abogado-extra" role="tabpanel-fisico" aria-labelledby="abogado-extra-tab">
                 <extrasabogado :sistema="sistema"></extrasabogado>
+            </div>
+            <div class="tab-pane fade" id="pills-abogado-carpetasLigadas" role="tabpanel-fisico" aria-labelledby="abogado-carpetasLigadas-tab">
+                <notificaciones :tipo="'fisica'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->

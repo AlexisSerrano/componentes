@@ -20,6 +20,9 @@
                     <li class="nav-item">
                         <a @click="numeroTab=5" :class="{'nav-link disabled':this.$store.state.idPersonaFisica==''|| this.$store.state.idPersonaMoral!='','nav-link':this.$store.state.idPersonaFisica!=''}" id="denunciado-extrafisico-tab" data-toggle="pill" href="#pills-denunciado-extrafisico" role="tab" aria-controls="pills-denunciado-extrafisico" aria-selected="false">Datos de la víctima u ofendido</a>
                     </li>
+                    <li v-show="this.$store.state.carpetasLigadasFisica!=''" class="nav-item">
+                        <a @click="numeroTab=6" :class="{'nav-link disabled':this.$store.state.idPersonaFisica==''|| this.$store.state.idPersonaMoral!='','nav-link':this.$store.state.idPersonaFisica!=''}" id="denunciante-carpetasLigadasFisica-tab" data-toggle="pill" href="#pills-denunciante-carpetasLigadasFisica" role="tab" aria-controls="pills-denunciante-carpetasLigadasFisica" aria-selected="false">Carpetas ligadas</a>
+                    </li>
                 </ul>
                 <div class="col-2 d-flex align-items-start justify-content-end">
                     <button v-if="this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
@@ -48,6 +51,9 @@
             </div>
             <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaMoral!=''||this.$store.state.moralEncontrada!=''}" id="pills-denunciado-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciado-extrafisico-tab">
                 <extrasinvestigado :sistema="sistema" :empresa="false"></extrasinvestigado>
+            </div>
+            <div class="tab-pane fade" :class="{'tab-pane fade':this.$store.state.idPersonaMoral!=''||this.$store.state.moralEncontrada!=''}" id="pills-denunciante-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="denunciante-carpetasLigadasFisica-tab">
+                <notificaciones :tipo="'fisica'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->
