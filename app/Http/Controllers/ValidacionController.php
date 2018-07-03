@@ -111,12 +111,14 @@ class ValidacionController extends Controller
             $variables->idEstadoCivil = $request->idEstadoCivil;
             $variables->idEscolaridad = $request->idEscolaridad;
             $variables->idReligion = $request->idReligion;
-            $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            
             $variables->docIdentificacion = $request->docIdentificacion;
             $variables->idInterprete = $request->idInterprete;
             $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->telefono = $request->telefono;
-            $variables->idTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
             $variables->save();
             
             $apariciones = new aparicionesModel();
@@ -201,8 +203,9 @@ class ValidacionController extends Controller
             $variables =  new VariablesPersona();
             $variables->idPersona = ($request->personaFisica=='')?$persona->id:$request->personaFisica;
             $variables->idEstadoCivil = $request->idEstadoCivil;
-            $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->idTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
             $variables->telefono = $request->telefono;
             $variables->edad = $request->edad;
             $variables->save();
@@ -271,8 +274,9 @@ class ValidacionController extends Controller
             }
             $variables =  new VariablesPersona();
             $variables->idPersona = ($request->personaFisica=='')?$persona->id:$request->personaFisica;
-            $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->idTrabajo = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
             $variables->save();
             $extras = new ExtraDenunciado();
             $extras->idVariablesPersona = $variables->id;
@@ -337,7 +341,8 @@ class ValidacionController extends Controller
             }
             $variables =  new VariablesPersonaMoral();
             $variables->idPersona = ($request->personaMoral=='')?$persona->id:$request->personaMoral;
-            $variables->idDomicilio = 1; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idDomicilio = ($request->personaMoral=='')?1:$request->idDomicilio; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idNotificacion = ($request->personaMoral=='')?1:$request->idNotificacion;
             $variables->telefono = $request->telefono;
             $variables->representanteLegal = $request->representanteLegal;
             $variables->save();

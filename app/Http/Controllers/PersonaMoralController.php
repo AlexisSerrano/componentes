@@ -37,8 +37,8 @@ class PersonaMoralController extends Controller{
 		->join('variables_persona_moral', 'variables_persona_moral.idPersona', '=', 'persona_moral.id')
 		->where('rfc',$persona)
 		->select('persona_moral.id as id','persona_moral.nombre','persona_moral.fechaCreacion','persona_moral.rfc',
-		'variables_persona_moral.telefono','variables_persona_moral.representanteLegal',
-		'variables_persona_moral.id as idVar')
+		'variables_persona_moral.telefono','variables_persona_moral.representanteLegal','variables_persona_moral.id as idVar',
+		'variables_persona_moral.idDomicilio','variables_persona_moral.idNotificacion')
 		->orderBy('variables_persona_moral.id','desc')
 		->first();
 		if($personaExiste){
@@ -51,6 +51,8 @@ class PersonaMoralController extends Controller{
 				'representanteLegal'=>$personaExiste->representanteLegal,
 				'idPersona'=>$personaExiste->id,
 				'idVarPersona'=>$personaExiste->idVar,
+				'idDomicilio'=>$personaExiste->idDomicilio,
+				'idDomicilioNotificacion'=>$personaExiste->idNotificacion
 			);
 		}else{
 			$data = array(
