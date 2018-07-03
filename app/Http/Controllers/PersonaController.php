@@ -274,7 +274,7 @@ class PersonaController extends Controller{
 			'idMunicipio'=>array("nombre"=>$trabajo->descMunicipio, "id"=>$trabajo->idMunicipio),
 			'idLocalidad'=>array("nombre"=>$trabajo->descLocalidad, "id"=>$trabajo->idLocalidad),
 			'idColonia'=>array("nombre"=>$trabajo->descColonia, "id"=>$trabajo->idColonia),
-			'codigoPostal'=>array("nombre"=>$trabajo->codigoPostal, "id"=>$trabajo->codigoPostal),
+			'codigoPostal'=>array("codigoPostal"=>$trabajo->codigoPostal, "id"=>$trabajo->codigoPostal),
 			'calle'=>$trabajo->calle,
 			'numExterno'=>$trabajo->numExterno,
 			'numInterno'=>$trabajo->numInterno
@@ -300,7 +300,7 @@ class PersonaController extends Controller{
 			'idMunicipio'=>array("nombre"=>$domicilio->descMunicipio, "id"=>$domicilio->idMunicipio),
 			'idLocalidad'=>array("nombre"=>$domicilio->descLocalidad, "id"=>$domicilio->idLocalidad),
 			'idColonia'=>array("nombre"=>$domicilio->descColonia, "id"=>$domicilio->idColonia),
-			'codigoPostal'=>array("nombre"=>$domicilio->codigoPostal, "id"=>$domicilio->codigoPostal),
+			'codigoPostal'=>array("codigoPostal"=>$domicilio->codigoPostal, "id"=>$domicilio->codigoPostal),
 			'calle'=>$domicilio->calle,
 			'numExterno'=>$domicilio->numExterno,
 			'numInterno'=>$domicilio->numInterno
@@ -330,7 +330,7 @@ class PersonaController extends Controller{
 			'idMunicipio'=>array("nombre"=>$notificacion->descMunicipio, "id"=>$notificacion->idMunicipio),
 			'idLocalidad'=>array("nombre"=>$notificacion->descLocalidad, "id"=>$notificacion->idLocalidad),
 			'idColonia'=>array("nombre"=>$notificacion->descColonia, "id"=>$notificacion->idColonia),
-			'codigoPostal'=>array("nombre"=>$notificacion->codigoPostal, "id"=>$notificacion->codigoPostal),
+			'codigoPostal'=>array("codigoPostal"=>$notificacion->codigoPostal, "id"=>$notificacion->codigoPostal),
 			'calle'=>$notificacion->calle,
 			'calle'=>$notificacion->calle,
 			'numExterno'=>$notificacion->numExterno,
