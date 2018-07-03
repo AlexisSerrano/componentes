@@ -210,156 +210,161 @@ class PersonaController extends Controller{
 		return ['res' => $rfc];
 	}
 
-	public function personaFisicaBuscarCarpetasRFC(Request $request){
-				
-		$resp = DB::table('persona_fisica')->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')
+	/*se lanza cuando se da en guardar persona fisica, busca carpetas involucradas en uat y uipj*/
+	/*falta agregar un where con los tipos de determinaciones validos*/
+	public function fisicaBuscarCarpetas(Request $request){		
+		$resp = DB::table('persona_fisica')
+		->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')
 		->join('apariciones','apariciones.idVarPersona','=','variables_persona_fisica.idPersona')
 		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
 		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
-		'persona_fisica.rfc','persona_fisica.curp','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado',
-		'apariciones.nuc','cat_tipo_determinacion.nombre as determinacion','apariciones.esEmpresa')
-		->where('rfc','=',$request->rfc)->where('esEmpresa','=',0)->get();			
-		if(!$resp->isEmpty()){
-			//$data=array('Nombres'=>$resp->nombres,'Primer apellido'=>$resp->primerAp,'Segundo apellido'=>$resp->segundoAp,'RFC'=>$resp->rfc,'CURP'=>$resp->curp,'ID carpeta'=>$resp->idCarpeta,'Sistema'=>$resp->sistema,'Tipo de involucrado'=>$resp->tipoInvolucrado,'NUC'=>$resp->nuc,'Tipo de determinacion'=>$resp->tipoDeterminacion);
+		'persona_fisica.rfc','persona_fisica.curp','apariciones.idCarpeta','apariciones.sistema',
+		'apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as determinacion',
+		'apariciones.esEmpresa')
+		->where('esEmpresa',0)
+		->where('rfc',$request->rfc)
+		->orWhere('curp',$request->curp)
+		->get();			
+		if($resp){
 			return response()->json($resp);
 		}else{
-			//return ["Respuesta"=>"Sin información"]; 
-			return;
-		}
-		
-	}
-
-	public function personaFisicaBuscarCarpetasCURP(Request $request){
-		$resp = DB::table('persona_fisica')->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')
-		->join('apariciones','apariciones.idVarPersona','=','variables_persona_fisica.idPersona')
-		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
-		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp','persona_fisica.rfc','persona_fisica.curp','variables_persona_fisica.idPersona as variablePersona','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as tipoDeterminacion')
-		->where('curp','=',$request->curp)->where('esEmpresa','=',0)->get();			
-		if(!$resp->isEmpty()){
-			return response()->json($resp);
-		}else{
-			//return ["Respuesta"=>"Sin información"]; 
-			return;
+			return false;
 		}
 	}
 
-	
-	public function moralBuscarCarpetasRFC(Request $request){				
-		$resp = DB::table('persona_moral')->join('variables_persona_moral','variables_persona_moral.idPersona','=','persona_moral.id')
+	/*se lanza cuando se da en guardar persona moral, busca carpetas involucradas en uat y uipj*/
+	/*falta agregar un where con los tipos de determinaciones validos*/
+	public function moralBuscarCarpetas(Request $request){				
+		$resp = DB::table('persona_moral')
+		->join('variables_persona_moral','variables_persona_moral.idPersona','=','persona_moral.id')
 		->join('apariciones','apariciones.idVarPersona','=','variables_persona_moral.idPersona')
 		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
-		->select('persona_moral.nombre','persona_moral.rfc','variables_persona_moral.representanteLegal','apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as tipoDeterminacion')
-		->where('rfc','=',$request->rfc)->where('esEmpresa','=',1)->get();	
-		
-		if(!$resp->isEmpty()){
+		->select('persona_moral.nombre','persona_moral.rfc','variables_persona_moral.representanteLegal',
+		'apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc',
+		'cat_tipo_determinacion.nombre as tipoDeterminacion')
+		->where('rfc',$request->rfc)
+		->where('esEmpresa',1)
+		->get();
+		if($resp){
 			return response()->json($resp);
-		}else{
-			//return ["Respuesta"=>"Sin información"]; 			
-			return;
+		}else{			
+			return false;
 		}
 	}
 
-
-
-	public function getDomiciliosPersona(Request $request){
-		$data=array();
-		$rfc = $request->rfc;
-
-		$data['rfc'] = $rfc;
-
-		$domicilio = DB::table('variables_persona_fisica as var')
-		->join('persona_fisica as per', 'per.id','=','var.idPersona')
-		->join('domicilio as dom', 'dom.id','=','var.idDomicilio')
-		->join('cat_estado as edo', 'edo.id','=','dom.idEstado')
-		->join('cat_municipio as mun', 'mun.id','=','dom.idMunicipio')
-		->join('cat_localidad as loc', 'loc.id','=','dom.idLocalidad')
-		->join('cat_colonia as col', 'col.id','=','dom.idColonia')
-		->where('rfc',$rfc)
-		->select(
-			'dom.id as id','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia','col.nombre as descColonia',
-			'edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad','col.codigoPostal'
-		)->first();
-
-        if($domicilio){
-			$dom = array(
-				'id'=>$domicilio->id,
-				'idEstado'=>array("nombre"=>$domicilio->descEstado, "id"=>$domicilio->idEstado),
-				'idMunicipio'=>array("nombre"=>$domicilio->descMunicipio, "id"=>$domicilio->idMunicipio),
-				'idLocalidad'=>array("nombre"=>$domicilio->descLocalidad, "id"=>$domicilio->idLocalidad),
-				'idColonia'=>array("nombre"=>$domicilio->descColonia, "id"=>$domicilio->idColonia),
-				'codigoPostal'=>$domicilio->codigoPostal,
-				'calle'=>$domicilio->calle,
-				'numExterno'=>$domicilio->numExterno,
-				'numInterno'=>$domicilio->numInterno
-			);
-			$data['domicilio'] = $dom;
-		}
-
-		$trabajo = DB::table('variables_persona_fisica as var')
-		->join('persona_fisica as per', 'per.id','var.idPersona')
-		->join('trabajo as tra', 'tra.id','var.idTrabajo')
+	public function trabajos($id,$tabla){
+		$trabajo = DB::table("$tabla")
+		->join('trabajo as tra', 'tra.id',"$tabla.idTrabajo")
 		->join('domicilio as dom', 'dom.id','tra.idDomicilio')	
 		->join('cat_estado as edo', 'edo.id','=','dom.idEstado')
 		->join('cat_municipio as mun', 'mun.id','=','dom.idMunicipio')
 		->join('cat_localidad as loc', 'loc.id','=','dom.idLocalidad')
 		->join('cat_colonia as col', 'col.id','=','dom.idColonia')	
-		->where('rfc',$rfc)
+		->where("$tabla.id",$id)
 		->select(
 			'tra.id as idTrabajo','lugar','tra.telefono','tra.idDomicilio','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia','col.nombre as descColonia',
 			'edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad','col.codigoPostal'
 		)->first();
+		$dom = array(
+			'idTrabajo'=>$trabajo->idTrabajo,
+			'lugar'=>$trabajo->lugar,
+			'telefono'=>$trabajo->telefono,
+			'idDomicilio'=>$trabajo->idDomicilio,
+			'idEstado'=>array("nombre"=>$trabajo->descEstado, "id"=>$trabajo->idEstado),
+			'idMunicipio'=>array("nombre"=>$trabajo->descMunicipio, "id"=>$trabajo->idMunicipio),
+			'idLocalidad'=>array("nombre"=>$trabajo->descLocalidad, "id"=>$trabajo->idLocalidad),
+			'idColonia'=>array("nombre"=>$trabajo->descColonia, "id"=>$trabajo->idColonia),
+			'codigoPostal'=>array("nombre"=>$trabajo->codigoPostal, "id"=>$trabajo->codigoPostal),
+			'calle'=>$trabajo->calle,
+			'numExterno'=>$trabajo->numExterno,
+			'numInterno'=>$trabajo->numInterno
+		);
+		return $dom;
+	}
 
-        if($trabajo){
-			$dom = array(
-				'idTrabajo'=>$trabajo->idTrabajo,
-				'lugar'=>$trabajo->lugar,
-				'telefono'=>$trabajo->telefono,
-				'idDomicilio'=>$trabajo->idDomicilio,
-				'idEstado'=>array("nombre"=>$trabajo->descEstado, "id"=>$trabajo->idEstado),
-				'idMunicipio'=>array("nombre"=>$trabajo->descMunicipio, "id"=>$trabajo->idMunicipio),
-				'idLocalidad'=>array("nombre"=>$trabajo->descLocalidad, "id"=>$trabajo->idLocalidad),
-				'idColonia'=>array("nombre"=>$trabajo->descColonia, "id"=>$trabajo->idColonia),
-				'codigoPostal'=>$trabajo->codigoPostal,
-				'calle'=>$trabajo->calle,
-				'numExterno'=>$trabajo->numExterno,
-				'numInterno'=>$trabajo->numInterno
-			);
-			$data['trabajo'] = $dom;
-		}
+	public function domicilios($id,$tabla){
+		$domicilio = DB::table("$tabla")
+		->join('domicilio as dom', 'dom.id','=',"$tabla.idDomicilio")
+		->join('cat_estado as edo', 'edo.id','=','dom.idEstado')
+		->join('cat_municipio as mun', 'mun.id','=','dom.idMunicipio')
+		->join('cat_localidad as loc', 'loc.id','=','dom.idLocalidad')
+		->join('cat_colonia as col', 'col.id','=','dom.idColonia')
+		->where("$tabla.id",$id)
+		->select(
+			'dom.id as id','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia','col.nombre as descColonia',
+			'edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad','col.codigoPostal'
+		)->first();
+		$dom = array(
+			'id'=>$domicilio->id,
+			'idEstado'=>array("nombre"=>$domicilio->descEstado, "id"=>$domicilio->idEstado),
+			'idMunicipio'=>array("nombre"=>$domicilio->descMunicipio, "id"=>$domicilio->idMunicipio),
+			'idLocalidad'=>array("nombre"=>$domicilio->descLocalidad, "id"=>$domicilio->idLocalidad),
+			'idColonia'=>array("nombre"=>$domicilio->descColonia, "id"=>$domicilio->idColonia),
+			'codigoPostal'=>array("nombre"=>$domicilio->codigoPostal, "id"=>$domicilio->codigoPostal),
+			'calle'=>$domicilio->calle,
+			'numExterno'=>$domicilio->numExterno,
+			'numInterno'=>$domicilio->numInterno
+		);
+		return $dom;
+	}
 
-		$notificacion = DB::table('variables_persona_fisica as var')
-		->join('persona_fisica as per', 'per.id','=','var.idPersona')
-		->join('notificacion as noti', 'noti.id','=','var.idNotificacion')
+	public function notificaciones($id,$tabla){
+		$notificacion = DB::table("$tabla")
+		->join('notificacion as noti', 'noti.id','=',"$tabla.idNotificacion")
 		->join('domicilio as dom', 'dom.id','=','noti.idDomicilio')		
 		->join('cat_estado as edo', 'edo.id','=','dom.idEstado')
 		->join('cat_municipio as mun', 'mun.id','=','dom.idMunicipio')
 		->join('cat_localidad as loc', 'loc.id','=','dom.idLocalidad')
 		->join('cat_colonia as col', 'col.id','=','dom.idColonia')
-		->where('rfc',$rfc)
+		->where("$tabla.id",$id)
 		->select(
 			'noti.id as idNotificacion','correo','noti.telefono','noti.idDomicilio','dom.idEstado','dom.idMunicipio','dom.idLocalidad','calle','numExterno','numInterno','dom.idColonia','col.nombre as descColonia',
 			'edo.nombre as descEstado','mun.nombre as descMunicipio','loc.nombre as descLocalidad','col.codigoPostal'
 		)->first();
+		$dom = array(
+			'idNotificacion'=>$notificacion->idNotificacion,
+			'correo'=>$notificacion->correo,
+			'telefono'=>$notificacion->telefono,
+			'idDomicilio'=>$notificacion->idDomicilio,
+			'idEstado'=>array("nombre"=>$notificacion->descEstado, "id"=>$notificacion->idEstado),
+			'idMunicipio'=>array("nombre"=>$notificacion->descMunicipio, "id"=>$notificacion->idMunicipio),
+			'idLocalidad'=>array("nombre"=>$notificacion->descLocalidad, "id"=>$notificacion->idLocalidad),
+			'idColonia'=>array("nombre"=>$notificacion->descColonia, "id"=>$notificacion->idColonia),
+			'codigoPostal'=>array("nombre"=>$notificacion->codigoPostal, "id"=>$notificacion->codigoPostal),
+			'calle'=>$notificacion->calle,
+			'calle'=>$notificacion->calle,
+			'numExterno'=>$notificacion->numExterno,
+			'numInterno'=>$notificacion->numInterno
+		);
+		return $dom;
+	}
 
-		if($notificacion){
-			$dom = array(
-				'idNotificacion'=>$notificacion->idNotificacion,
-				'correo'=>$notificacion->correo,
-				'telefono'=>$notificacion->telefono,
-				'idDomicilio'=>$notificacion->idDomicilio,
-				'idEstado'=>array("nombre"=>$notificacion->descEstado, "id"=>$notificacion->idEstado),
-				'idMunicipio'=>array("nombre"=>$notificacion->descMunicipio, "id"=>$notificacion->idMunicipio),
-				'idLocalidad'=>array("nombre"=>$notificacion->descLocalidad, "id"=>$notificacion->idLocalidad),
-				'idColonia'=>array("nombre"=>$notificacion->descColonia, "id"=>$notificacion->idColonia),
-				'codigoPostal'=>$notificacion->codigoPostal,
-				'calle'=>$notificacion->calle,
-				'calle'=>$notificacion->calle,
-				'numExterno'=>$notificacion->numExterno,
-				'numInterno'=>$notificacion->numInterno
-			);
-			$data['notificacion'] = $dom;
+	public function getDomiciliosPersona(Request $request){
+		$rfc = $request->rfc;
+		$curp = $request->curp;
+		$esEmpresa = $request->esEmpresa;
+		if($esEmpresa){
+			$varPersona = DB::table('variables_persona_moral')
+			->join('persona_moral', 'persona_moral.id','=','variables_persona_moral.idPersona')
+			->where('persona_moral.rfc',$rfc)
+			->select('variables_persona_moral.id as id')
+			->orderBy('variables_persona_moral.id','desc')
+			->first();
+			$data['domicilio'] = PersonaController::domicilios($varPersona->id,'variables_persona_moral');
+			$data['notificacion'] = PersonaController::notificaciones($varPersona->id,'variables_persona_moral');
 		}
-		
+		else{
+			$varPersona = DB::table('variables_persona_fisica')
+			->join('persona_fisica', 'persona_fisica.id','=','variables_persona_fisica.idPersona')
+			->where('persona_fisica.rfc',$rfc)
+			->orWhere('persona_fisica.curp',$curp)
+			->select('variables_persona_fisica.id as id')
+			->orderBy('variables_persona_fisica.id','desc')
+			->first();
+			$data['domicilio'] = PersonaController::domicilios($varPersona->id,'variables_persona_fisica');
+			$data['notificacion'] = PersonaController::notificaciones($varPersona->id,'variables_persona_fisica');
+			$data['trabajo'] = PersonaController::trabajos($varPersona->id,'variables_persona_fisica');
+		}
 		return response()->json($data);
 	}
 

@@ -71,13 +71,13 @@ Route::post('getPuestos','ExtrasInvestigadoController@getPuestos');
 
 
 /*Buscar en carpetas en la que está involucrada una persona*/
-Route::post('/fisicaCarpetasRfc','PersonaController@personaFisicaBuscarCarpetasRFC');
-Route::post('/fisicaCarpetasCurp','PersonaController@personaFisicaBuscarCarpetasCURP');
-Route::post('/moralCarpetasRfc','PersonaController@moralBuscarCarpetasRFC');
+Route::post('/fisicaCarpetasRfc','PersonaController@fisicaBuscarCarpetas');
+//Route::post('/fisicaCarpetasCurp','PersonaController@personaFisicaBuscarCarpetasCURP');
+Route::post('/moralCarpetasRfc','PersonaController@moralBuscarCarpetas');
 Route::post('/cambiarEstadoCarpeta','PersonaController@cambiarEstadoCarpeta');
 
 
-/*extra denunciante*/
+/*rutas de extras*/
 Route::post('addExtrasDenunciante','ExtrasDenuncianteController@addExtrasDenunciante');
 Route::post('addExtrasDenunciado','ExtrasInvestigadoController@addExtrasDenunciado');
 Route::post('addExtrasAbogado','ExtrasAbogadoController@addExtrasAbogado');
