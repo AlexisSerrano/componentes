@@ -291,7 +291,7 @@ import { mapState } from "vuex";
                 })
                 .then((response) =>{
                     if(response.data){
-                        this.$store.commit('asignarDomicilios',{domicilios:response.data,tipo:'fisica'})
+                        this.$store.commit('asignarDomicilios',response.data)
                     }
                 })
             },

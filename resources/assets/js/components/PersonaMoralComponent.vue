@@ -158,13 +158,14 @@ import { mapState } from "vuex";
                 });
             },
             getDomicilios(){
-                var urlGetDomicilios=this.url+'/getDomiciliosPersonaFisica'
+                var urlGetDomicilios=this.url+'/getDomiciliosPersonaMoral'
                 axios.post(urlGetDomicilios, {
                     rfc:this.rfc+this.homoclave                      
                 })
                 .then((response) =>{
+                    console.log(response.data)
                     if(response.data){
-                        this.$store.commit('asignarDomicilios',{domicilios:response.data,tipo:'moral'})
+                        this.$store.commit('asignarDomicilios',response.data)
                     }
                 })
             },
