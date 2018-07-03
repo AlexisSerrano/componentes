@@ -46,10 +46,10 @@ class PersonaController extends Controller{
 		->join('cat_interprete', 'variables_persona_fisica.idInterprete', '=', 'cat_interprete.id')
 		->join('cat_estado', 'cat_municipio.idEstado', '=', 'cat_estado.id')
 		->where($tipoBusqueda,$rfcCurp)
-		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
+		->select('persona_fisica.id as id','persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
 		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
 		'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
-		'variables_persona_fisica.numDocIdentificacion',/*'variables_persona_fisica.alias',*/'variables_persona_fisica.id',
+		'variables_persona_fisica.numDocIdentificacion',/*'variables_persona_fisica.alias',*/'variables_persona_fisica.id as idVar',
 		'variables_persona_fisica.idDomicilio','variables_persona_fisica.idTrabajo',
 		'cat_nacionalidad.id as idNacionalidad','cat_nacionalidad.nombre as nombreNacionalidad',
 		'cat_etnia.id as idEtnia','cat_etnia.nombre as nombreEtnia',
@@ -93,6 +93,7 @@ class PersonaController extends Controller{
 				'idDomicilioTrabajo'=>$personaExisteP->idTrabajo,
 				//'alias'=>$personaExisteP->alias,
 				'idPersona'=>$personaExisteP->id,
+				'idVarPersona'=>$personaExisteP->idVar,
 				'telefono'=>$personaExisteP->telefono
 			);
 		}
