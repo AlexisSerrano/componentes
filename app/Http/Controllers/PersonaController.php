@@ -342,30 +342,16 @@ class PersonaController extends Controller{
 	}
 
 	public function getDomiciliosPersona(Request $request){
-		$rfc = $request->rfc;
-		$curp = $request->curp;
+		$varPersona = $request->idVarPersona;
 		$esEmpresa = $request->esEmpresa;
 		if($esEmpresa){
-			$varPersona = DB::table('variables_persona_moral')
-			->join('persona_moral', 'persona_moral.id','=','variables_persona_moral.idPersona')
-			->where('persona_moral.rfc',$rfc)
-			->select('variables_persona_moral.id as id')
-			->orderBy('variables_persona_moral.id','desc')
-			->first();
-			$data['domicilio'] = PersonaController::domicilios($varPersona->id,'variables_persona_moral');
-			$data['notificacion'] = PersonaController::notificaciones($varPersona->id,'variables_persona_moral');
+			$data['domicilio'] = PersonaController::domicilios($varPersona,'variables_persona_moral');
+			$data['notificacion'] = PersonaController::notificaciones($varPersona,'variables_persona_moral');
 		}
 		else{
-			$varPersona = DB::table('variables_persona_fisica')
-			->join('persona_fisica', 'persona_fisica.id','=','variables_persona_fisica.idPersona')
-			->where('persona_fisica.rfc',$rfc)
-			->orWhere('persona_fisica.curp',$curp)
-			->select('variables_persona_fisica.id as id')
-			->orderBy('variables_persona_fisica.id','desc')
-			->first();
-			$data['domicilio'] = PersonaController::domicilios($varPersona->id,'variables_persona_fisica');
-			$data['notificacion'] = PersonaController::notificaciones($varPersona->id,'variables_persona_fisica');
-			$data['trabajo'] = PersonaController::trabajos($varPersona->id,'variables_persona_fisica');
+			$data['domicilio'] = PersonaController::domicilios($varPersona,'variables_persona_fisica');
+			$data['notificacion'] = PersonaController::notificaciones($varPersona,'variables_persona_fisica');
+			$data['trabajo'] = PersonaController::trabajos($varPersona,'variables_persona_fisica');
 		}
 		return response()->json($data);
 	}
