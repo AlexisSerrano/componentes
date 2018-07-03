@@ -15,7 +15,13 @@ const store = new Vuex.Store({
         fisicaEncontrada:'',
         moralEncontrada:'',
         carpetasLigadasFisica:'',
-        carpetasLigadasMoral:''
+        carpetasLigadasMoral:'',
+        datosDomicilioFisica:'',
+        datosTrabajoFisica:'',
+        datosNotificacionesFisica:'',
+        datosDomicilioMoral:'',
+        datosTrabajoMoral:'',
+        datosNotificacionesMoral:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -66,17 +72,23 @@ const store = new Vuex.Store({
             (payload=='fisica')?(state.fisicaEncontrada='',state.tipoInvolucrado='',state.carpetasLigadasFisica=''):(state.moralEncontrada='',state.tipoInvolucrado='',state.carpetasLigadasMoral='')
         },
         cleanStore(state){
-            state.idPersonaFisica= '',
-            state.idPersonaMoral='',
-            state.idExtra='',
-            state.tipoInvolucrado='',
-            state.idDomicilio='',
-            state.idTrabajo='',
-            state.idContacto='',
-            state.fisicaEncontrada='',
-            state.moralEncontrada='',
-            state.carpetasLigadasFisica='',
-            state.carpetasLigadasMoral=''
+            idPersonaFisica= '',
+            idPersonaMoral='',
+            idExtra='',
+            tipoInvolucrado='',
+            idDomicilio='',
+            idTrabajo='',
+            idContacto='',
+            fisicaEncontrada='',
+            moralEncontrada='',
+            carpetasLigadasFisica='',
+            carpetasLigadasMoral='',
+            datosDomicilioFisica='',
+            datosTrabajoFisica='',
+            datosNotificacionesFisica='',
+            datosDomicilioMoral='',
+            datosTrabajoMoral='',
+            datosNotificacionesMoral=''
         },
         asignarCarpetasLigadas(state,payload){
             if(payload.tipo=='fisica'){
@@ -85,6 +97,18 @@ const store = new Vuex.Store({
             else if(payload.tipo=='moral'){
                 state.carpetasLigadasMoral=payload.carpetas
             }
+        },
+        asignarDomicilios(state,payload){
+            if(payload.tipo=='fisica'){
+                state.datosDomicilioFisica=payload.domicilios.domicilio
+                state.datostrabajoFisica=payload.domicilios.trabajo
+                state.datosnotificacionesFisica=payload.domicilios.notificacion
+            }
+            else if(payload.tipo=='moral'){
+                state.datosDomicilioMoral=payload.domicilios.domicilio
+                state.datostrabajoMoral=payload.domicilios.trabajo
+                state.datosnotificacionesMoral=payload.domicilios.notificacion  
+            }   
         }
     }
 })

@@ -157,6 +157,17 @@ import { mapState } from "vuex";
                     }
                 });
             },
+            getDomicilios(){
+                var urlGetDomicilios=this.url+'/getDomiciliosPersonaFisica'
+                axios.post(urlGetDomicilios, {
+                    rfc:this.rfc+this.homoclave                      
+                })
+                .then((response) =>{
+                    if(response.data){
+                        this.$store.commit('asignarDomicilios',{domicilios:response.data,tipo:'moral'})
+                    }
+                })
+            },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
@@ -204,6 +215,9 @@ import { mapState } from "vuex";
                             type: 'success',
                             confirmButtonText: 'Ok'
                         })
+                        if(this.$store.state.moralEncontrada){
+                            this.getDomicilios()
+                        }
                     }).catch((error)=>{
                         this.validacionesback = error.response.data.errors
                         swal({

@@ -259,7 +259,7 @@ import { mapState } from "vuex";
         },
         components: {SpringSpinner},
         created: function(){
-            this.getCatalogos();
+            this.getCatalogos()
         },
         methods:{
             getCatalogos: function(){
@@ -284,6 +284,17 @@ import { mapState } from "vuex";
                     setTimeout(function(){ self.loader=false; }, 1100);
                 });
             },
+            getDomicilios(){
+                var urlGetDomicilios=this.url+'/getDomiciliosPersonaFisica'
+                axios.post(urlGetDomicilios, {
+                    rfc:this.rfc+this.homoclave                      
+                })
+                .then((response) =>{
+                    if(response.data){
+                        this.$store.commit('asignarDomicilios',{domicilios:response.data,tipo:'fisica'})
+                    }
+                })
+            },
             searchPersona: function(rfc_curp){
                 if(this.$store.state.fisicaEncontrada==true){return}
                 if(rfc_curp=='rfc'){
@@ -302,7 +313,6 @@ import { mapState } from "vuex";
                         rfcCurp: rfcCurp
                 }).then(response => {
                     this.personaExiste=response.data
-                    console.log(response.data)
                     if(this.personaExiste!=''){
                         this.$store.commit('asignarIdFisica',{idPersona:'', tipo:this.tipo, fisicaEncontrada:true})       
                         swal({
@@ -357,7 +367,7 @@ import { mapState } from "vuex";
                 if(param=='rfc'){
                     var post = this.url+'/fisicaCarpetasRfc';
                     axios.post(post,{
-                        rfc:this.rfc+this.homoclave,                        
+                        rfc:this.rfc+this.homoclave                      
                     }).then(response =>{                  
                         if(response.data){
                             this.$store.commit('asignarCarpetasLigadas',{carpetas:response.data,tipo:'fisica'})
@@ -581,6 +591,9 @@ import { mapState } from "vuex";
                                 type: 'success',
                                 confirmButtonText: 'Ok'
                             })
+                            if(this.$store.state.fisicaEncontrada){
+                                this.getDomicilios()
+                            }
                         }
                         else{
                             swal({
