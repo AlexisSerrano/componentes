@@ -306,7 +306,8 @@ import { mapState } from "vuex";
                         idPersona: idPersona,
                         claveDomicilio: this.$store.state.idContacto,
                         sistema:this.sistema,
-                        usuario:this.usuario
+                        usuario:this.usuario,
+                        domNotificacion:this.notificacion.id
                     };
                 }
                 axios.post(urlDomicilio,data).then((response)=>{
