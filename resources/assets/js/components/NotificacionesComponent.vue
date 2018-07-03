@@ -2,7 +2,7 @@
 
 <div class="col">
 
-  <h3>Carpetas encontradas</h3>         
+  <h3 class="mb-3">Carpetas encontradas</h3>         
   <table class="table table-bordered table-hover">
     <thead class="thead-dark" v-if="this.$store.state.fisicaEncontrada">
       <tr>
@@ -88,5 +88,10 @@ import { mapState } from "vuex";
     }
 </script>
 <style>
-
+  th{
+    text-align: center
+  }
+  td{
+    text-align: center
+  }
 </style>
