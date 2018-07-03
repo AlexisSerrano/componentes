@@ -101,7 +101,8 @@ import { mapState } from "vuex";
                     }).then(response => {
                         this.personaExiste=response.data
                         if(this.personaExiste!=''){          
-                            this.$store.commit('asignarIdMoral',{idPersona:'',idTemporal:this.personaExiste.idVarPersona,moralEncontrada:true,personaMoral:this.personaExiste.idPersona})                             
+                            this.$store.commit('asignarIdMoral',{idPersona:'',idTemporal:this.personaExiste.idVarPersona,moralEncontrada:true,personaMoral:this.personaExiste.idPersona})         
+                            this.$store.commit('asignarDomiciliosTemporales',{idDomicilioTemporal:this.personaExiste.idDomicilio,idContactoTemporal:this.personaExiste.idDomicilioNotificacion})                        
                             swal({
                                 title: '¡Persona moral encontrada!',
                                 text: 'Ésta persona moral ya fue registrada anteriormente.',
