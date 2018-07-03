@@ -15,20 +15,20 @@
             <div class="form-row">
                 <div v-if="validaciones.nombres!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
-                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="calcularRfc(),generarCurp()" :readonly="this.$store.state.fisicaEncontrada==true && (this.tipo==this.$store.state.tipoInvolucrado)">
+                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="calcularRfc(),generarCurp()" :readonly="this.$store.state.fisicaEncontrada==true">
                     <span v-show="errors.has('nombres')" class="text-danger">{{ errors.first('nombres')}}</span>
                     <span v-if="this.validacionesback.nombres!=undefined" class="text-danger">{{ String(this.validacionesback.nombres)}}</span>
                 </div>
 
                 <div v-if="validaciones.primerAp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="primerAp">Primer apellido</label>
-                    <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc(),generarCurp()" :readonly="this.$store.state.fisicaEncontrada==true && (this.tipo==this.$store.state.tipoInvolucrado)">
+                    <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc(),generarCurp()" :readonly="this.$store.state.fisicaEncontrada==true">
                     <span v-show="errors.has('primer apellido')" class="text-danger">{{ errors.first('primer apellido')}}</span>
                     <span v-if="this.validacionesback.primerAp!=undefined" class="text-danger">{{ String(this.validacionesback.primerAp)}}</span>
                 </div>
                 <div v-if="validaciones.segundoAp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="segundoAp">Segundo apellido</label>
-                    <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc(),generarCurp()" :readonly="this.$store.state.fisicaEncontrada==true && (this.tipo==this.$store.state.tipoInvolucrado)">
+                    <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc(),generarCurp()" :readonly="this.$store.state.fisicaEncontrada==true">
                     <span v-show="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido')}}</span>
                     <span v-if="this.validacionesback.segundoAp!=undefined" class="text-danger">{{ String(this.validacionesback.segundoAp)}}</span>
                 </div>
@@ -314,7 +314,7 @@ import { mapState } from "vuex";
                 }).then(response => {
                     this.personaExiste=response.data
                     if(this.personaExiste!=''){
-                        this.$store.commit('asignarIdFisica',{idPersona:'', tipo:this.tipo, fisicaEncontrada:true})       
+                        this.$store.commit('asignarIdFisica',{idPersona:'', fisicaEncontrada:true})       
                         swal({
                             title: '¡Persona Encontrada!',
                             text: 'Ésta persona ya fue registrada anteriormente.',
@@ -370,7 +370,7 @@ import { mapState } from "vuex";
                         rfc:this.rfc+this.homoclave                      
                     }).then(response =>{                  
                         if(response.data){
-                            this.$store.commit('asignarCarpetasLigadas',{carpetas:response.data,tipo:'fisica'})
+                            this.$store.commit('asignarCarpetasLigadas',response.data)
                             // swal({
                             //     title: 'Hay carpteas ligadas a esta persona!',
                             //     text: 'Existen carpetas.',
@@ -385,7 +385,7 @@ import { mapState } from "vuex";
                         curp:this.curp                                              
                     }).then(response =>{
                         if(response.data){
-                            this.$store.commit('asignarCarpetasLigadas',{carpetas:response.data,tipo:'fisica'})
+                            this.$store.commit('asignarCarpetasLigadas',response.data)
                             // swal({
                             //     title: 'Hay carpteas ligadas a esta persona!',
                             //     text: 'Existen carpetas.',
@@ -577,14 +577,14 @@ import { mapState } from "vuex";
                         type: 'success',
                         confirmButtonText: 'Ok'
                     })    
-                    this.$store.commit('asignarIdFisica',1)       
+                    this.$store.commit('asignarIdFisica',{idPersona:1})       
                     return        
                 }
                 if(data){
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
                         if(response.data){
-                            this.$store.commit('asignarIdFisica',{idPersona:response.data,tipo:this.tipo})
+                            this.$store.commit('asignarIdFisica',{idPersona:response.data})
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
@@ -634,20 +634,6 @@ import { mapState } from "vuex";
                 else{
                     this.validaciones.idInterprete='oculto';
                 }
-            },
-            idPersonaMoral() {
-                if(this.$store.state.idPersonaMoral!=''){
-                    this.CleanFields();
-                }
-            },
-            idPersonaFisica(){
-                if(this.$store.state.tipoInvolucrado!='conocido'&& this.tipo=='conocido'){
-                    this.CleanFields();
-                }
-                else if(this.$store.state.tipoInvolucrado=='conocido' && this.tipo!='conocido'){
-                    this.CleanFields();
-                }
-                (this.$store.state.idPersonaFisica=='' && this.empresa==false)?this.CleanFields():''
             },
             fisicaEncontrada(){
                 if(this.$store.state.fisicaEncontrada==''){this.CleanFields()}

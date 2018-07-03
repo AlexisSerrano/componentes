@@ -64,7 +64,7 @@
         },
         methods: {
             cleanFields(){
-                this.$store.commit('cleanSearch','moral')
+                this.$store.commit('cleanStore')
             }
         }
     }

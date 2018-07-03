@@ -102,7 +102,7 @@ import { mapState } from "vuex";
                     }).then(response => {
                         this.personaExiste=response.data
                         if(this.personaExiste!=''){          
-                            this.$store.commit('asignarIdMoral',{idPersona:'', tipo:this.tipo ,moralEncontrada:true})                             
+                            this.$store.commit('asignarIdMoral',{idPersona:'',moralEncontrada:true})                             
                             swal({
                                 title: '¡Persona moral encontrada!',
                                 text: 'Ésta persona moral ya fue registrada anteriormente.',
@@ -147,7 +147,7 @@ import { mapState } from "vuex";
                     rfc:this.rfc+this.homoclave,                       
                 }).then(response =>{
                     if(response.data){
-                            this.$store.commit('asignarCarpetasLigadas',{carpetas:response.data,tipo:'moral'})
+                            this.$store.commit('asignarCarpetasLigadas',response.data)
                         // swal({
                         //     title: 'Hay carpteas ligadas a esta persona!',
                         //     text: 'Existen carpetas.',
@@ -208,7 +208,7 @@ import { mapState } from "vuex";
                         usuario:this.systemUser
                     })
                     .then (response =>{
-                        this.$store.commit('asignarIdMoral',{idPersona:response.data,tipo:this.tipo})
+                        this.$store.commit('asignarIdMoral',{idPersona:response.data})
                         swal({
                             title: '¡Guardado correctamente!',
                             text: 'Ésta empresa fue guardada exitosamente.',
@@ -230,16 +230,8 @@ import { mapState } from "vuex";
             }
        },
        watch: {
-            idPersonaFisica() {
-                if(this.$store.state.idPersonaFisica!=''){
-                    this.CleanFields();
-                }
-            },
             moralEncontrada(){
-            if(this.$store.state.moralEncontrada==''){this.CleanFields()}
-            },
-            idPersonaMoral(){
-                (this.$store.state.idPersonaMoral=='')?this.CleanFields():''
+                if(this.$store.state.moralEncontrada==''){this.CleanFields()}
             }
        },
        computed: Object.assign({

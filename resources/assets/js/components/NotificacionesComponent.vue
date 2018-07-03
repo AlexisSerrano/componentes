@@ -75,14 +75,11 @@ import { mapState } from "vuex";
             }
         },
         watch: {
-            carpetasLigadasFisica() {
-                this.carpetas=this.$store.state.carpetasLigadasFisica
-            },
-            carpetasLigadasMoral() {
-                this.carpetas=this.$store.state.carpetasLigadasMoral
+            carpetasLigadas() {
+                this.carpetas=this.$store.state.carpetasLigadas
             }
         },
-        computed:mapState(['carpetasLigadasFisica','carpetasLigadasMoral'])
+        computed:mapState(['carpetasLigadas'])
     }
 </script>
 <style>

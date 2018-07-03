@@ -8,14 +8,12 @@ const store = new Vuex.Store({
         idPersonaFisica: '',
         idPersonaMoral:'',
         idExtra:'',
-        tipoInvolucrado:'',
         idDomicilio:'',
         idTrabajo:'',
         idContacto:'',
         fisicaEncontrada:'',
         moralEncontrada:'',
-        carpetasLigadasFisica:'',
-        carpetasLigadasMoral:'',
+        carpetasLigadas:'',
         datosDomicilio:'',
         datosTrabajo:'',
         datosNotificaciones:''
@@ -23,18 +21,12 @@ const store = new Vuex.Store({
     mutations: {
         asignarIdFisica(state,payload) {
             state.idPersonaFisica=payload.idPersona
-            if(payload.tipo){
-                state.tipoInvolucrado=payload.tipo
-            }
             if(payload.fisicaEncontrada){
                 state.fisicaEncontrada=payload.fisicaEncontrada
             }
         },
         asignarIdMoral(state,payload) {
-            state.idPersonaMoral=payload.idPersona
-            if(payload.tipo){
-                state.tipoInvolucrado=payload.tipo
-            }            
+            state.idPersonaMoral=payload.idPersona           
             if(payload.moralEncontrada){
                 state.moralEncontrada=payload.moralEncontrada
             }
@@ -57,25 +49,18 @@ const store = new Vuex.Store({
             state.idPersonaFisica= '',
             state.idPersonaMoral='',
             state.idExtra='',
-            state.tipoInvolucrado='',
             state.idDomicilio='',
             state.idTrabajo='',
             state.idContacto='',
             state.fisicaEncontrada='',
             state.moralEncontrada='',
-            state.carpetasLigadasFisica='',
-            state.carpetasLigadasMoral='',
+            state.carpetasLigadas='',
             state.datosDomicilio='',
             state.datosTrabajo='',
             state.datosNotificaciones=''
         },
         asignarCarpetasLigadas(state,payload){
-            if(payload.tipo=='fisica'){
-                state.carpetasLigadasFisica=payload.carpetas
-            }
-            else if(payload.tipo=='moral'){
-                state.carpetasLigadasMoral=payload.carpetas
-            }
+            state.carpetasLigadas=payload
         },
         asignarDomicilios(state,payload){
                 state.datosDomicilio=payload.domicilio

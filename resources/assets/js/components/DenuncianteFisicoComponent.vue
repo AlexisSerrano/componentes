@@ -71,7 +71,7 @@
         },
         methods: {
             cleanFields(){
-                this.$store.commit('cleanSearch','fisica')
+                this.$store.commit('cleanStore')
             }
         }
     }
