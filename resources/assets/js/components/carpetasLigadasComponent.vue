@@ -48,7 +48,7 @@
         <td>{{ value.sistema }}</td>
         <td>{{ value.tipoInvolucrado }}</td>
         <td>{{ value.nuc }}</td>
-        <td>{{ value.tipoDeterminacion }}</td>
+        <td>{{ value.determinacion }}</td>
       </tr>
       <tr v-show="carpetasLigadas==''" ><td colspan="10" style="text-align:center;">Sin resultados</td></tr>
     </tbody>
@@ -92,7 +92,7 @@ import { mapState } from "vuex";
         mounted: function () {          
         },
         methods:{
-            buscarCarpetasFisica:function(param){ 
+            buscarCarpetasFisica:function(param){  
                 if(param=='rfc' && this.rfc!='' && this.homoclave!='' ){  
                     console.log();                  
                     var post = this.url+'/fisicaCarpetasRfc';
