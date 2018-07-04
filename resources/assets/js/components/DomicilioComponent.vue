@@ -306,7 +306,8 @@ import { mapState } from "vuex";
                         sistema:this.sistema,
                         usuario:this.usuario,
                         domNotificacion:this.notificacion.id,
-                        idDomicilio:this.$store.state.idDomicilio
+                        idDomicilio:this.$store.state.idDomicilio,
+                        idOldDomicilio:this.$store.state.idDomicilioTemporal
                     };
                 }
                 axios.post(urlDomicilio,data).then((response)=>{
