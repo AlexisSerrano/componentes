@@ -195,30 +195,50 @@ class DomicilioController extends Controller
         return response()->json($estados);
     }
     public function getMunicipios($id){
-        $municipios=CatMunicipio::orderBy('nombre', 'ASC')
-        ->where('idEstado',$id)
-	    ->select('nombre','id')->get();
-        return response()->json($municipios);
+        if($id==null){
+            return array();
+        }
+        else{
+            $municipios=CatMunicipio::orderBy('nombre', 'ASC')
+            ->where('idEstado',$id)
+            ->select('nombre','id')->get();
+            return response()->json($municipios);
+        }
     }
     public function getLocalidades($id){
-        $localidades=CatLocalidad::orderBy('nombre', 'ASC')
-        ->where('idMunicipio',$id)
-	    ->select('nombre','id')->get();
-        return response()->json($localidades);
+        if($id==null){
+            return array();
+        }
+        else{
+            $localidades=CatLocalidad::orderBy('nombre', 'ASC')
+            ->where('idMunicipio',$id)
+            ->select('nombre','id')->get();
+            return response()->json($localidades);
+        }
     }
     public function getCodigosPostales($id){
-        $codigosPostales=CatColonia::orderBy('codigoPostal', 'ASC')
-        ->where('idMunicipio',$id)
-        ->where('codigoPostal', '!=', 0)
-        ->select('codigoPostal','codigoPostal as id')
-        ->groupBy('codigoPostal')
-        ->get();
-        return response()->json($codigosPostales);
+        if($id==null){
+            return array();
+        }
+        else{
+            $codigosPostales=CatColonia::orderBy('codigoPostal', 'ASC')
+            ->where('idMunicipio',$id)
+            ->where('codigoPostal', '!=', 0)
+            ->select('codigoPostal','codigoPostal as id')
+            ->groupBy('codigoPostal')
+            ->get();
+            return response()->json($codigosPostales);
+        }
     }
     public function getColonias($id){
-        $colonias=CatColonia::orderBy('nombre', 'ASC')
-        ->where('codigoPostal',$id)
-	    ->select('nombre','id')->get();
-        return response()->json($colonias);
+        if($id==null){
+            return array();
+        }
+        else{
+            $colonias=CatColonia::orderBy('nombre', 'ASC')
+            ->where('codigoPostal',$id)
+            ->select('nombre','id')->get();
+            return response()->json($colonias);
+        }
     }
 }
