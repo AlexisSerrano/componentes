@@ -121,6 +121,7 @@ import { mapState } from "vuex";
                 lugarTrabajo:'',
                 correo:'',
                 usuario:'Test',
+                loadingFields:true,
                 url:'./'
             }
         },
@@ -145,77 +146,40 @@ import { mapState } from "vuex";
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
                     var self=this;
-                    setTimeout(function(){ self.loader=false; }, 1100);                });
+                    setTimeout(function(){ self.loader=false; }, 1100);                
+                });
             },
             getMunicipios: function(){
-                if(this.estado!=null){
-                    // this.municipio=null,
-                    // this.localidad=null,
-                    // this.codigoPostal=null,
-                    // this.colonia=null
-                    var urlMunicipios = this.url+'getMunicipios/'+this.estado.id;
-                    axios.get(urlMunicipios).then(response => {
-                        this.municipios = response.data
-                    });
-                }
-                else{
-                    // this.municipio=null,
-                    // this.localidad=null,
-                    // this.codigoPostal=null,
-                    // this.colonia=null,
-                    // this.municipios=[],
-                    // this.localidades=[],
-                    // this.codigosPostales=[],
-                    // this.colonias=[]
-                }
+                this.cleanSelect('municipio')
+                if(this.estado==null){return}
+                var urlMunicipios = this.url+'getMunicipios/'+this.estado.id;
+                axios.get(urlMunicipios).then(response => {
+                    this.municipios = response.data
+                });
             },
             getLocalidades: function(){
-                if(this.municipio!=null){
-                    // this.localidad=null,
-                    // this.codigoPostal=null,
-                    // this.colonia=null
-                    var urlLocalidades = this.url+'getLocalidades/'+this.municipio.id;
-                    axios.get(urlLocalidades).then(response => {
-                        this.localidades = response.data
-                    });
-                }
-                else{
-                    // this.localidad=null,
-                    // this.codigoPostal=null,
-                    // this.colonia=null,
-                    // this.localidades=[],
-                    // this.codigosPostales=[],
-                    // this.colonias=[]
-                }
+                this.cleanSelect('localidad')
+                if(this.municipio==null){return}
+                var urlLocalidades = this.url+'getLocalidades/'+this.municipio.id;
+                axios.get(urlLocalidades).then(response => {
+                    this.localidades = response.data
+                });
             },
             getCodigosPostales: function(){
-                if(this.municipio!=null){
-                    // this.codigoPostal=null
-                    // this.colonia=null
-                    var urlCodigosPostales = this.url+'getCodigosPostales/'+this.municipio.id;
-                    axios.get(urlCodigosPostales).then(response => {
-                        this.codigosPostales = response.data
-                    });
-                }
-                else{
-                    // this.codigoPostal=null,
-                    // this.colonia=null
-                    // this.codigosPostales=[],
-                    // this.colonias=[]
-                }
+                this.cleanSelect('codigoPostal')
+                if(this.localidad==null){return}
+                var urlCodigosPostales = this.url+'getCodigosPostales/'+this.municipio.id;
+                axios.get(urlCodigosPostales).then(response => {
+                    this.codigosPostales = response.data
+                });
             },
             getColonias: function(){
-                if(this.codigoPostal!=null){
-                    // this.colonia=null
-                    var urlColonias = this.url+'getColonias/'+this.codigoPostal.id;
-                    axios.get(urlColonias).then(response => {
-                        this.colonias = response.data
-                    });
-                }
-                else{
-                    // this.colonia=null,
-                    // this.colonias=[]
-                }
+                this.cleanSelect('colonia')
+                if(this.codigoPostal==null){return}
+                var urlColonias = this.url+'getColonias/'+this.codigoPostal.id;
+                axios.get(urlColonias).then(response => {
+                    this.colonias = response.data
+                });
             },
             CleanFields() {
                 this.calle='',
@@ -227,6 +191,37 @@ import { mapState } from "vuex";
                 this.codigoPostal=null,
                 this.colonia=null
                 this.$validator.reset();
+            },
+            cleanSelect(select){
+                if(this.loadingFields===true){return}
+                if(select=='municipio'){
+                    this.municipio=null
+                    this.localidad=null,
+                    this.codigoPostal=null,
+                    this.colonia=null,
+                    this.municipios=[],
+                    this.localidades=[],
+                    this.codigosPostales=[],
+                    this.colonias=[]
+                }
+                else if(select=='localidad'){
+                    this.localidad=null,
+                    this.codigoPostal=null,
+                    this.colonia=null,
+                    this.localidades=[],
+                    this.codigosPostales=[],
+                    this.colonias=[]
+                }
+                else if(select=='codigoPostal'){
+                    this.codigoPostal=null,
+                    this.colonia=null,
+                    this.codigosPostales=[],
+                    this.colonias=[]
+                }
+                else if(select=='colonia'){
+                    this.colonia=null,
+                    this.colonias=[]      
+                }
             },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -360,6 +355,7 @@ import { mapState } from "vuex";
                     this.calle=this.$store.state.datosDomicilio.calle
                     this.numExterno=this.$store.state.datosDomicilio.numExterno
                     this.numInterno=this.$store.state.datosDomicilio.numInterno
+                    this.loadingFields=false
                 }
             },
             datosTrabajo(){
@@ -374,6 +370,7 @@ import { mapState } from "vuex";
                     this.numInterno=this.$store.state.datosTrabajo.numInterno
                     this.lugarTrabajo=this.$store.state.datosTrabajo.lugar
                     this.telefono=this.$store.state.datosTrabajo.telefono
+                    this.loadingFields=false
                 }
             },
             datosNotificaciones(){
@@ -388,6 +385,7 @@ import { mapState } from "vuex";
                     this.numInterno=this.$store.state.datosNotificaciones.numInterno
                     this.correo=this.$store.state.datosNotificaciones.correo
                     this.telefono=this.$store.state.datosNotificaciones.telefono
+                    this.loadingFields=false
                 }
             }
         },
@@ -418,7 +416,7 @@ import { mapState } from "vuex";
                     else if(this.tipo=='contacto'  && this.$store.state.idContacto==''){return 'Guardar'}
                 }
             }  
-        },mapState(['idPersonaFisica','idPersonaMoral','fisicaEncontrada','moralEncontrada','datosDomicilio','datosTrabajo','datosNotificaciones']))
+        },mapState(['fisicaEncontrada','moralEncontrada','datosDomicilio','datosTrabajo','datosNotificaciones']))
     }
 </script>
 <style>
