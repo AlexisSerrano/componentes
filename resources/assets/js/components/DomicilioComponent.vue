@@ -10,13 +10,14 @@
 
                 <div v-if="this.tipo=='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="notificacion">Domicilio</label>  
-                    <v-select :options="notificaciones" label="nombre" v-model="notificacion" name="notificacion" placeholder="Seleccione el domicilio de notificaciones"></v-select>
+                    <v-select :options="notificaciones" label="nombre" v-model="notificacion" data-vv-name="domicilio de notificaciones" v-validate="'required'" :class="{ 'border border-danger': errors.has('domicilio de notificaciones')}" placeholder="Seleccione el domicilio de notificaciones"></v-select>
+                    <span v-show="errors.has('domicilio de notificaciones')" class="text-danger">{{ errors.first('domicilio de notificaciones') }}</span>
                 </div>
 
 
                 <div v-if="this.notificacion.id==2 || this.notificacion.id==3 || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="estado">Entidad federativa</label>    
-                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('entidad federativa') || this.validacionesback.idEstado}" placeholder="Seleccione una entidad federativa"></v-select>
+                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa" v-model="estado" name="estado" @blur="getMunicipios()" v-validate="'required'" :class="{ 'border border-danger': errors.has('entidad federativa') || this.validacionesback.idEstado}" placeholder="Seleccione una entidad federativa"></v-select>
                     <span v-show="errors.has('entidad federativa')" class="text-danger">{{ errors.first('entidad federativa') }}</span>
                     <span v-if="this.validacionesback.idEstado!=undefined" class="text-danger">{{ String(this.validacionesback.idEstado)}}</span>
                 </div>
@@ -97,7 +98,8 @@ import { mapState } from "vuex";
     export default {
         data(){
             return{
-                estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+                // estado:{ "nombre": "VERACRUZ DE IGNACIO DE LA LLAVE", "id": 30 },
+                estado:'',
                 notificacion:'',
                 notificaciones:[
                 { "nombre": "DOMICILIO CASA", "id": 1 },
@@ -121,7 +123,6 @@ import { mapState } from "vuex";
                 lugarTrabajo:'',
                 correo:'',
                 usuario:'Test',
-                loadingFields:true,
                 url:'./'
             }
         },
@@ -142,6 +143,7 @@ import { mapState } from "vuex";
         },
         methods:{
             getEstados: function(){
+                console.log('ejecutado getEstados')
                 var urlEstados = this.url+'getEstados';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
@@ -150,6 +152,7 @@ import { mapState } from "vuex";
                 });
             },
             getMunicipios: function(){
+                console.log('ejecutado getMunicipios')
                 this.cleanSelect('municipio')
                 if(this.estado==null){return}
                 var urlMunicipios = this.url+'getMunicipios/'+this.estado.id;
@@ -158,6 +161,7 @@ import { mapState } from "vuex";
                 });
             },
             getLocalidades: function(){
+                console.log('ejecutado getLocalidades')
                 this.cleanSelect('localidad')
                 if(this.municipio==null){return}
                 var urlLocalidades = this.url+'getLocalidades/'+this.municipio.id;
@@ -166,6 +170,7 @@ import { mapState } from "vuex";
                 });
             },
             getCodigosPostales: function(){
+                console.log('ejecutado getCodigosPostales')
                 this.cleanSelect('codigoPostal')
                 if(this.localidad==null){return}
                 var urlCodigosPostales = this.url+'getCodigosPostales/'+this.municipio.id;
@@ -174,6 +179,7 @@ import { mapState } from "vuex";
                 });
             },
             getColonias: function(){
+                console.log('ejecutado getColonias')
                 this.cleanSelect('colonia')
                 if(this.codigoPostal==null){return}
                 var urlColonias = this.url+'getColonias/'+this.codigoPostal.id;
@@ -193,7 +199,6 @@ import { mapState } from "vuex";
                 this.$validator.reset();
             },
             cleanSelect(select){
-                if(this.loadingFields===true){return}
                 if(select=='municipio'){
                     this.municipio=null
                     this.localidad=null,
@@ -302,11 +307,11 @@ import { mapState } from "vuex";
                         claveDomicilio: this.$store.state.idContacto,
                         sistema:this.sistema,
                         usuario:this.usuario,
-                        domNotificacion:this.notificacion.id
+                        domNotificacion:this.notificacion.id,
+                        idDomicilio:this.$store.state.idDomicilio
                     };
                 }
                 axios.post(urlDomicilio,data).then((response)=>{
-                    console.log(response);
                     this.$store.commit('asignarIdDomicilio',{tipo:this.tipo,idDomicilio:response.data})
                     swal({
                         title: '¡Guardado Correctamente!',
@@ -314,7 +319,6 @@ import { mapState } from "vuex";
                         type: 'success',
                         confirmButtonText: 'Ok'
                     }).catch((error)=>{
-                        console.log(error.response.data.errors);
                         this.validacionesback = error.response.data.errors
                         swal({
                             title: '¡Guardado Incorrecto!',
@@ -355,7 +359,6 @@ import { mapState } from "vuex";
                     this.calle=this.$store.state.datosDomicilio.calle
                     this.numExterno=this.$store.state.datosDomicilio.numExterno
                     this.numInterno=this.$store.state.datosDomicilio.numInterno
-                    this.loadingFields=false
                 }
             },
             datosTrabajo(){
@@ -370,7 +373,6 @@ import { mapState } from "vuex";
                     this.numInterno=this.$store.state.datosTrabajo.numInterno
                     this.lugarTrabajo=this.$store.state.datosTrabajo.lugar
                     this.telefono=this.$store.state.datosTrabajo.telefono
-                    this.loadingFields=false
                 }
             },
             datosNotificaciones(){
@@ -385,7 +387,6 @@ import { mapState } from "vuex";
                     this.numInterno=this.$store.state.datosNotificaciones.numInterno
                     this.correo=this.$store.state.datosNotificaciones.correo
                     this.telefono=this.$store.state.datosNotificaciones.telefono
-                    this.loadingFields=false
                 }
             }
         },
