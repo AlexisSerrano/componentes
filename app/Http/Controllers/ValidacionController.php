@@ -120,21 +120,11 @@ class ValidacionController extends Controller
             $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
             $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
             $variables->save();
-            
-            $apariciones = new aparicionesModel();
-            $apariciones->idVarPersona = $variables->id;
-            $apariciones->idCarpeta = $request->idCarpeta;
-            $apariciones->sistema = $request->sistema;
-            $apariciones->tipoInvolucrado = $request->tipo;
-            $apariciones->nuc = 'xxxxx';
-            $apariciones->esEmpresa = 0;
-            $apariciones->save(); 
 
             if($request->personaFisica==''){
                 $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
             }
             $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -209,20 +199,10 @@ class ValidacionController extends Controller
             $variables->telefono = $request->telefono;
             $variables->edad = $request->edad;
             $variables->save();
-            $apariciones = new aparicionesModel();
-            $apariciones->idVarPersona = $variables->id;
-            $apariciones->idCarpeta = $request->idCarpeta;
-            $apariciones->sistema = $request->sistema;
-            $apariciones->tipoInvolucrado = $request->tipo;
-            $apariciones->nuc = 'xxxxx';
-            $apariciones->esEmpresa = 0;
-            $apariciones->save(); 
-
             if($request->personaFisica==''){
                 $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
             }
             $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -282,21 +262,12 @@ class ValidacionController extends Controller
             $extras->idVariablesPersona = $variables->id;
             $extras->alias = $request->alias;
             $extras->save();
-            $apariciones = new aparicionesModel();
-            $apariciones->idVarPersona = $variables->id;
-            $apariciones->idCarpeta = $request->idCarpeta;
-            $apariciones->sistema = $request->sistema;
-            $apariciones->tipoInvolucrado = $request->tipo;
-            $apariciones->nuc = 'xxxxx';
-            $apariciones->esEmpresa = 0;
-            $apariciones->save();
 
             if($request->personaFisica==''){
                 $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
             }
             $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
             $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$extras->id,null,$extras);
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -346,20 +317,11 @@ class ValidacionController extends Controller
             $variables->telefono = $request->telefono;
             $variables->representanteLegal = $request->representanteLegal;
             $variables->save();
-            $apariciones = new aparicionesModel();
-            $apariciones->idVarPersona = $variables->id;
-            $apariciones->idCarpeta = $request->idCarpeta;
-            $apariciones->sistema = $request->sistema;
-            $apariciones->tipoInvolucrado = ($request->tipo=='denunciantemoral')?'denunciante':'denunciado';
-            $apariciones->nuc = 'xxxxx';
-            $apariciones->esEmpresa = 1;
-            $apariciones->save(); 
 
             if($request->personaMoral==''){
                 $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_moral','INSERT',$persona->id,null,$persona);
             }
             $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_moral','INSERT',$variables->id,null,$variables);
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
 
             DB::commit();
             return $variables->id;
