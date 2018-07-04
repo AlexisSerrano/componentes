@@ -80,22 +80,39 @@ class DomicilioController extends Controller
                 else{
                     $trabajo = DomicilioController::trabajos($request,$request->claveDomicilio,false);
                     $idDomicilio = DomicilioController::domicilios($request,$trabajo->idDomicilio);
-                    return $idDomicilio;
+                    return $trabajo->id;
                 }  
             }
             else if($request->tipo=='contacto'){
-                if($request->claveDomicilio==""){
-                    $idDomicilio = DomicilioController::domicilios($request,false);
-                    $notificacion = DomicilioController::notificaciones($request,false,$idDomicilio);
+                //$request->domNotificacion; 1=domcasa 2=otro 3=ultimo domicilio
+                if($request->domNotificacion==1){
+                    $notificacion = DomicilioController::notificaciones($request,false,$request->idDomicilio);
                     $varPersona = VariablesPersona::find($request->idPersona);
                     $varPersona->idNotificacion = $notificacion->id;
                     $varPersona->save();
                     return $notificacion->id;
                 }
-                else{
-                    $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,false);
-                    $idDomicilio = DomicilioController::domicilios($request,$notificacion->idDomicilio);
-                    return $idDomicilio;
+                else if($request->domNotificacion==2){
+                    if($request->claveDomicilio==""){
+                        $idDomicilio = DomicilioController::domicilios($request,false);
+                        $notificacion = DomicilioController::notificaciones($request,false,$idDomicilio);
+                        $varPersona = VariablesPersona::find($request->idPersona);
+                        $varPersona->idNotificacion = $notificacion->id;
+                        $varPersona->save();
+                        return $notificacion->id;
+                    }
+                    else{
+                        $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,false);
+                        $idDomicilio = DomicilioController::domicilios($request,$notificacion->idDomicilio);
+                        return $notificacion->id;
+                    }
+                }
+                else if($request->domNotificacion==3){
+                    $notificacion = DomicilioController::notificaciones($request,false,$request->idOldDomicilio);
+                    $varPersona = VariablesPersona::find($request->idPersona);
+                    $varPersona->idNotificacion = $notificacion->id;
+                    $varPersona->save();
+                    return $notificacion->id;
                 }
             }
         }
@@ -104,7 +121,6 @@ class DomicilioController extends Controller
     public function domicilios(Request $request,$idDomicilio){
         try{
             DB::beginTransaction();
-            //$domicilio = ($idDomicilio!==FALSE)?Domicilio::find($idDomicilio):new Domicilio();
             if($idDomicilio!==FALSE){
                 $domicilio=Domicilio::find($idDomicilio);
                 $oper="UPDATE";
@@ -134,7 +150,6 @@ class DomicilioController extends Controller
     }
 
     public function notificaciones(Request $request,$idNotificacion,$idDomicilio){
-        //$notificacion = ($idNotificacion!==FALSE)?Notificacion::find($idNotificacion):new Notificacion();
         try{
             DB::beginTransaction();
             if($idNotificacion!==FALSE){
@@ -162,7 +177,6 @@ class DomicilioController extends Controller
     }
 
     public function trabajos(Request $request,$idTrabajo,$idDomicilio){
-        //$trabajo = ($idTrabajo!==FALSE)?Trabajo::find($idTrabajo):new Trabajo();
         try{
             DB::beginTransaction();
             if($idTrabajo!==FALSE){
