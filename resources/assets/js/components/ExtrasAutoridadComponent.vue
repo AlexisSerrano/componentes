@@ -88,7 +88,7 @@ import swal from 'sweetalert2'
                     sistema:this.sistema,
                     usuario:this.systemUser,
                     narracion:this.descripcion.toUpperCase(),
-                    carpeta:this.carpeta,
+                    idCarpeta:this.carpeta,
                     empresa:false,
                     tipo:'autoridad'
                     };

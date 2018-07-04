@@ -169,7 +169,7 @@ import swal from 'sweetalert2'
                     sistema:this.sistema,
                     usuario:this.systemUser,
                     narracion:this.descripcion.toUpperCase(),
-                    carpeta:this.carpeta,
+                    idCarpeta:this.carpeta,
                     tipo:'denunciado'
                     };
                     axios.post(urlGuardarDenunciado,data)
