@@ -37,7 +37,7 @@
                 <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-abogado-extra" role="tabpanel-fisico" aria-labelledby="abogado-extra-tab">
-                <extrasabogado :sistema="sistema"></extrasabogado>
+                <extrasabogado :sistema="sistema" :carpeta="carpeta"></extrasabogado>
             </div>
             <div class="tab-pane fade" id="pills-abogado-carpetasLigadas" role="tabpanel-fisico" aria-labelledby="abogado-carpetasLigadas-tab">
                 <notificaciones :tipo="'fisica'"></notificaciones>

@@ -115,6 +115,9 @@ import swal from 'sweetalert2'
             },
             empresa:{
                 required:true
+            },
+            carpeta:{
+                required:true
             }
         },
         created: function(){
@@ -165,7 +168,9 @@ import swal from 'sweetalert2'
                     particulares:this.particulares.toUpperCase(),
                     sistema:this.sistema,
                     usuario:this.systemUser,
-                    narracion:this.descripcion.toUpperCase()
+                    narracion:this.descripcion.toUpperCase(),
+                    carpeta:this.carpeta,
+                    tipo:'denunciado'
                     };
                     axios.post(urlGuardarDenunciado,data)
                     .then (response =>{

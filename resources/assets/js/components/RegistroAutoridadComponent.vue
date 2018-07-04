@@ -43,7 +43,7 @@
                 <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-extra" role="tabpanel-fisico" aria-labelledby="autoridad-extra-tab">
-                <extrasautoridad :sistema="sistema"></extrasautoridad>
+                <extrasautoridad :sistema="sistema" :carpeta="carpeta"></extrasautoridad>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-carpetasLigadas" role="tabpanel-fisico" aria-labelledby="autoridad-carpetasLigadas-tab">
                 <notificaciones :tipo="'fisica'"></notificaciones>

@@ -50,7 +50,7 @@
                 <domicilio :tipo="'contacto'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciado-extrafisico-tab">
-                <extrasinvestigado :sistema="sistema" :empresa="false"></extrasinvestigado>
+                <extrasinvestigado :sistema="sistema" :empresa="false" :carpeta="carpeta"></extrasinvestigado>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="denunciante-carpetasLigadasFisica-tab">
                 <notificaciones :tipo="'fisica'"></notificaciones>

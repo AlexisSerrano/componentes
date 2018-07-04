@@ -43,7 +43,7 @@
                 <domicilio :tipo="'contacto'" :empresa="true" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-extramoral" role="tabpanel-moral" aria-labelledby="denunciado-extramoral-tab">
-                <extrasinvestigado :sistema="sistema" :empresa="true"></extrasinvestigado>
+                <extrasinvestigado :sistema="sistema" :empresa="true" :carpeta="carpeta"></extrasinvestigado>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasMoral" role="tabpanel-moral" aria-labelledby="denunciante-carpetasLigadasMoral-tab">
                 <notificaciones :tipo="'moral'"></notificaciones>

@@ -54,6 +54,9 @@ import swal from 'sweetalert2'
         props:{
             sistema: {
                 required:true
+            },
+            carpeta:{
+                required:true
             }
         },
         methods:{
@@ -84,7 +87,10 @@ import swal from 'sweetalert2'
                     horarioLaboral: this.horarioLaboral.toUpperCase(),
                     sistema:this.sistema,
                     usuario:this.systemUser,
-                    narracion:this.descripcion.toUpperCase()
+                    narracion:this.descripcion.toUpperCase(),
+                    carpeta:this.carpeta,
+                    empresa:false,
+                    tipo:'autoridad'
                     };
                     axios.post(urlGuardarAutoridad,data)
                     .then (response =>{

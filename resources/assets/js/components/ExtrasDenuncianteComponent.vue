@@ -52,7 +52,10 @@ import swal from 'sweetalert2'
             },
             sistema: {
                 required:true
-            }        
+            },       
+            carpeta:{
+                required:true
+            }
         },
         created: function(){
 //            this.getPuestos();
@@ -89,7 +92,9 @@ import swal from 'sweetalert2'
                     sistema:this.sistema,
                     empresa:this.empresa,
                     usuario:this.systemUser,
-                    narracion:this.descripcion.toUpperCase()                                                                       
+                    narracion:this.descripcion.toUpperCase(),
+                    carpeta:this.carpeta,
+                    tipo:'denunciante'                                                                  
                 };
                 axios.post(urlGuardarDenunciante,data)
                 .then (response =>{
