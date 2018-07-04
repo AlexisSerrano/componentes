@@ -6,16 +6,9 @@ use App\Http\Models\CatPuesto;
 use Illuminate\Http\Request;
 use App\Http\Models\ExtraDenunciadoFisico;
 use App\Http\Models\ExtraDenunciadoMoral;
-use BitracoraController;
 use DB;
 
 class ExtrasInvestigadoController extends Controller{
-
-    protected $log;
-
-    function __construct() {
-        $this->log=new BitacoraController();
-    }
 
     public function indexFisico(){
         return view("extrasInvestigadoFisico");
@@ -57,17 +50,10 @@ class ExtrasInvestigadoController extends Controller{
             $extraDenunciado->vestimenta = $request->vestimenta;    
             $extraDenunciado->save();
 
-            $apariciones = new aparicionesModel();
-            $apariciones->idVarPersona = $request->idPersona;
-            $apariciones->idCarpeta = $request->idCarpeta;
-            $apariciones->sistema = $request->sistema;
-            $apariciones->tipoInvolucrado = $request->tipo;
-            $apariciones->nuc = 'xxxxx';
-            $apariciones->esEmpresa = $request->empresa;
-            $apariciones->save(); 
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
 
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciado->id,$antes,$extraDenunciado);
+            saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
+            saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciado->id,$antes,$extraDenunciado);
             DB::commit();
             return $extraDenunciado->id;
         }

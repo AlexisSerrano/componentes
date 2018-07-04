@@ -14,19 +14,12 @@ use App\Http\Models\VariablesPersona;
 use App\Http\Models\VariablesPersonaMoral;
 use App\Http\Models\aparicionesModel;
 use App\Http\Models\ExtraDenunciado;
-use BitracoraController;
 use DB;
 
 use Illuminate\Http\Request;
 
 class ValidacionController extends Controller
 {
-
-    protected $log;
-
-    function __construct() {
-        $this->log=new BitacoraController();
-    }
     
     public function valAbogadoUAT(AbogadoRequest $request){
         if(isset($request->idPersona))
@@ -116,15 +109,15 @@ class ValidacionController extends Controller
             $variables->idInterprete = $request->idInterprete;
             $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->telefono = $request->telefono;
-            $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; 
+            $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; 
             $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
             $variables->save();
 
             if($request->personaFisica==''){
-                $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
+                saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
             }
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
+            saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -164,8 +157,8 @@ class ValidacionController extends Controller
             $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
             $persona->save();
             
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
+            saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
+            saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -193,16 +186,16 @@ class ValidacionController extends Controller
             $variables =  new VariablesPersona();
             $variables->idPersona = ($request->personaFisica=='')?$persona->id:$request->personaFisica;
             $variables->idEstadoCivil = $request->idEstadoCivil;
-            $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; 
+            $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; 
             $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
             $variables->telefono = $request->telefono;
             $variables->edad = $request->edad;
             $variables->save();
             if($request->personaFisica==''){
-                $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
+                saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
             }
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
+            saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -231,8 +224,8 @@ class ValidacionController extends Controller
             $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
             $persona->save();
 
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
+            saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
+            saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
 
             DB::commit();
 			return $variables->id;
@@ -254,8 +247,8 @@ class ValidacionController extends Controller
             }
             $variables =  new VariablesPersona();
             $variables->idPersona = ($request->personaFisica=='')?$persona->id:$request->personaFisica;
-            $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
-            $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; 
+            $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; 
             $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
             $variables->save();
             $extras = new ExtraDenunciado();
@@ -264,10 +257,10 @@ class ValidacionController extends Controller
             $extras->save();
 
             if($request->personaFisica==''){
-                $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
+                saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
             }
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$extras->id,null,$extras);
+            saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
+            saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$extras->id,null,$extras);
             DB::commit();
 			return $variables->id;
         }catch (\PDOException $e){
@@ -289,8 +282,8 @@ class ValidacionController extends Controller
             $persona->segundoAp = $request->segundoAp;
             $persona->save();
 
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
+            saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
+            saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
            
             DB::commit();
 			return $variables->id;
@@ -312,16 +305,16 @@ class ValidacionController extends Controller
             }
             $variables =  new VariablesPersonaMoral();
             $variables->idPersona = ($request->personaMoral=='')?$persona->id:$request->personaMoral;
-            $variables->idDomicilio = ($request->personaMoral=='')?1:$request->idDomicilio; /*CAMBIAR CUANDO IMPLEMENTEMOS COMPONENTE DOMICILIO */
+            $variables->idDomicilio = ($request->personaMoral=='')?1:$request->idDomicilio; 
             $variables->idNotificacion = ($request->personaMoral=='')?1:$request->idNotificacion;
             $variables->telefono = $request->telefono;
             $variables->representanteLegal = $request->representanteLegal;
             $variables->save();
 
             if($request->personaMoral==''){
-                $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_moral','INSERT',$persona->id,null,$persona);
+                saveInLog($request->sistema,$request->usuario,'persona_moral','INSERT',$persona->id,null,$persona);
             }
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_moral','INSERT',$variables->id,null,$variables);
+            saveInLog($request->sistema,$request->usuario,'variables_persona_moral','INSERT',$variables->id,null,$variables);
 
             DB::commit();
             return $variables->id;
@@ -346,8 +339,8 @@ class ValidacionController extends Controller
             $persona->rfc = $request->rfc.$request->homo;
             $persona->save();
 
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'variables_persona_moral','UPDATE',$variables->id,null,$variables);
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'persona_moral','UPDATE',$persona->id,null,$persona); 
+            saveInLog($request->sistema,$request->usuario,'variables_persona_moral','UPDATE',$variables->id,null,$variables);
+            saveInLog($request->sistema,$request->usuario,'persona_moral','UPDATE',$persona->id,null,$persona); 
             
             DB::commit();
             return $variables->id;

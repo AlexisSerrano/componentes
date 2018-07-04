@@ -4,16 +4,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Models\ExtraAutoridad;
 use App\Http\Controllers\Controller;
-use BitracoraController;
 use DB;
 
 class ExtrasAutoridadController extends Controller
 {
-    protected $log;
-
-    function __construct() {
-        $this->log=new BitacoraController();
-    }
 
     public function index(){
         return view("extrasAutoridad");
@@ -36,7 +30,11 @@ class ExtrasAutoridadController extends Controller
             $extraAutoridad->rango = $request->rango;
             $extraAutoridad->horarioLaboral = $request->horarioLaboral;      
             $extraAutoridad->save();
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,"extra_autoridad",$oper,$extraAutoridad->id,$antes,$extraAutoridad);
+
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
+
+            saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
+            saveInLog($request->sistema,$request->usuario,"extra_autoridad",$oper,$extraAutoridad->id,$antes,$extraAutoridad);
             DB::commit();
             return $extraAutoridad->id;
         }

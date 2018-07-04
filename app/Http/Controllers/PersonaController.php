@@ -364,7 +364,7 @@ class PersonaController extends Controller{
 				$update = DB::table('apariciones')->
             	where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)
 				->update(['idTipoDeterminacion' => $request->idTipoDeterminacion]);
-				$idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','UPDATE',$respuesta->id,['idTipoDeterminacion' => $respuesta->idTipoDeterminacion],['idTipoDeterminacion' => $request->idTipoDeterminacion]);
+				saveInLog($request->sistema,$request->usuario,'apariciones','UPDATE',$respuesta->id,['idTipoDeterminacion' => $respuesta->idTipoDeterminacion],['idTipoDeterminacion' => $request->idTipoDeterminacion]);
 				DB::commit();
 			}catch (Exception $e){
 				DB::rollback();

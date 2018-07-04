@@ -14,17 +14,10 @@ use App\Http\Models\Domicilio;
 use App\Http\Models\Notificacion;
 use App\Http\Models\Trabajo;
 use App\Http\Requests\DomicilioRequest;
-use BitracoraController;
 use DB;
 
 class DomicilioController extends Controller
 {
-
-    protected $log;
-
-    function __construct() {
-        $this->log=new BitacoraController();
-    }
 
 	public function index(){
         return view("domicilio");
@@ -131,7 +124,7 @@ class DomicilioController extends Controller
                 $domicilio->numInterno=$request->input('numInterno');
             }
             $domicilio->save();
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'domicilio',$oper,$domicilio->id,$antes,$domicilio);
+            saveInLog($request->sistema,$request->usuario,'domicilio',$oper,$domicilio->id,$antes,$domicilio);
             DB::commit();
         }catch (Exception $e){
             DB::rollback();
@@ -159,7 +152,7 @@ class DomicilioController extends Controller
                 $notificacion->idDomicilio = $idDomicilio;
             } 
             $notificacion->save();
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'notificacion',$oper,$notificacion->id,$antes,$notificacion);
+            saveInLog($request->sistema,$request->usuario,'notificacion',$oper,$notificacion->id,$antes,$notificacion);
             DB::commit();
         }catch (Exception $e){
             DB::rollback();
@@ -187,7 +180,7 @@ class DomicilioController extends Controller
                 $trabajo->idDomicilio = $idDomicilio;
             } 
             $trabajo->save();
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,'trabajo',$oper,$trabajo->id,$antes,$trabajo);
+            saveInLog($request->sistema,$request->usuario,'trabajo',$oper,$trabajo->id,$antes,$trabajo);
             DB::commit();
         }catch (Exception $e){
             DB::rollback();

@@ -5,15 +5,9 @@ use Illuminate\Http\Request;
 use App\Http\Models\ExtraDenuncianteFisico;
 use App\Http\Models\ExtraDenuncianteMoral;
 use App\Http\Controllers\Controller;
-use BitracoraController;
 use DB;
 class ExtrasDenuncianteController extends Controller
 {
-    protected $log;
-
-    function __construct() {
-        $this->log=new BitacoraController();
-    }
 
     // resguardar 1=si 0=no  victima=1 ofendido=0
     public function addExtrasDenunciante(Request $request){
@@ -34,7 +28,11 @@ class ExtrasDenuncianteController extends Controller
             $extraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
             $extraDenunciante->victima = $request->victima;      
             $extraDenunciante->save();
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciante->id,$antes,$extraDenunciante);
+
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
+
+            saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
+            saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciante->id,$antes,$extraDenunciante);
             DB::commit();
             return $extraDenunciante->id;
         }
