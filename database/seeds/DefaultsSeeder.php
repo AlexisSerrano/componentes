@@ -39,5 +39,22 @@ class DefaultsSeeder extends Seeder
             ]
         ]);
 
+        DB::table('persona_fisica')->insert([
+            [ 
+                'id' => 2,
+                'nombres' => 'NOMBRE_001',
+                'primerAp' => 'PRIMER_APELLIDO_001',
+                'segundoAp' => 'SEGUNDO_APELLIDO_001',
+                'fechaNacimiento' => '1900-01-01',
+                'rfc' => 'FORT740247H228',
+                'curp' => 'FORT740247HEZPMR95',
+                'sexo' => 1,
+                'idNacionalidad' => 132,
+                'idEtnia' => 13,
+                'idLengua' => 69,
+                'idMunicipioOrigen' => 2496
+            ]
+        ]);
+
     }
 }

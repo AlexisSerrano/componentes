@@ -22,7 +22,7 @@ class CrateFamiliaresTable extends Migration
             $table->string('parentesco', 20);
             $table->integer('idOcupacion')->unsigned();
 
-            $table->foreign('idPersona')->references('id')->on('persona')->onDelete('cascade');
+            $table->foreign('idPersona')->references('id')->on('persona_fisica')->onDelete('cascade');
             $table->foreign('idOcupacion')->references('id')->on('cat_ocupacion')->onDelete('cascade');
 
             $table->timestamps();
