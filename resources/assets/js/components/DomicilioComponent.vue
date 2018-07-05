@@ -303,11 +303,11 @@ import { mapState } from "vuex";
                 }
                 else if(this.tipo=='contacto'){
                     var data={
-                        estado: this.estado.id,
-                        municipio: this.municipio.id,
-                        localidad: this.localidad.id,
-                        colonia: this.colonia.id,
-                        codigoPostal: this.codigoPostal.id,
+                        estado: (this.estado)?this.estado.id:'',
+                        municipio: (this.municipio)?this.municipio.id:'',
+                        localidad: (this.localidad)?this.localidad.id:'',
+                        colonia: (this.colonia)?this.colonia.id:'',
+                        codigoPostal: (this.codigoPostal)?this.codigoPostal.id:'',
                         calle: this.calle.toUpperCase(),
                         numExterno: this.numExterno.toUpperCase(),
                         numInterno: this.numInterno.toUpperCase(),
@@ -319,7 +319,7 @@ import { mapState } from "vuex";
                         claveDomicilio: this.$store.state.idContacto,
                         sistema:this.sistema,
                         usuario:this.usuario,
-                        domNotificacion:this.notificacion.id,
+                        domNotificacion:(this.notificacion)?this.notificacion.id:'',
                         idDomicilio:(this.$store.state.idDomicilio)?this.$store.state.idDomicilio:this.$store.state.idDomicilioTemporal,
                         idOldDomicilio:this.$store.state.idContactoTemporal
                     };
