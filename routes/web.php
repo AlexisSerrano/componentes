@@ -25,8 +25,20 @@ Route::get('/extrasAbogado','ExtrasAbogadoController@index');
 Route::get('/extrasDenunciante','ExtrasDenuncianteController@index');
 Route::get('/extrasAutoridad','ExtrasAutoridadController@index');
 
-Route::get('registro', function(){
-    return view('registro');
+Route::get('registroDenunciante', function(){
+    return view('registroDenunciante');
+});
+
+Route::get('registroDenunciado', function(){
+    return view('registroDenunciado');
+});
+
+Route::get('registroAbogado', function(){
+    return view('registroAbogado');
+});
+
+Route::get('registroAutoridad', function(){
+    return view('registroAutoridad');
 });
 
 Route::get('carpetasLigadas', function(){
