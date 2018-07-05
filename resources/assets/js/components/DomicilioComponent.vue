@@ -123,6 +123,7 @@ import { mapState } from "vuex";
                 correo:'',
                 usuario:'Test',
                 loadingFields:true,
+                guardadoContacto:'',
                 url:'./'
             }
         },
@@ -302,6 +303,7 @@ import { mapState } from "vuex";
                     };
                 }
                 else if(this.tipo=='contacto'){
+                    this.guardadoContacto=this.notificacion
                     var data={
                         estado: (this.estado)?this.estado.id:'',
                         municipio: (this.municipio)?this.municipio.id:'',
@@ -321,7 +323,8 @@ import { mapState } from "vuex";
                         usuario:this.usuario,
                         domNotificacion:(this.notificacion)?this.notificacion.id:'',
                         idDomicilio:(this.$store.state.idDomicilio)?this.$store.state.idDomicilio:this.$store.state.idDomicilioTemporal,
-                        idOldDomicilio:this.$store.state.idContactoTemporal
+                        idOldDomicilio:this.$store.state.idContactoTemporal,
+                        guardadoContacto:this.guardadoContacto
                     };
                 }
                 axios.post(urlDomicilio,data).then((response)=>{
