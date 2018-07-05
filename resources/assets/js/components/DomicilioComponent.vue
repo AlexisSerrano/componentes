@@ -320,7 +320,7 @@ import { mapState } from "vuex";
                         sistema:this.sistema,
                         usuario:this.usuario,
                         domNotificacion:this.notificacion.id,
-                        idDomicilio:this.$store.state.idDomicilio,
+                        idDomicilio:(this.$store.state.idDomicilio)?this.$store.state.idDomicilio:this.$store.state.idDomicilioTemporal,
                         idOldDomicilio:this.$store.state.idContactoTemporal
                     };
                 }
