@@ -86,11 +86,18 @@ class DomicilioController extends Controller
             else if($request->tipo=='contacto'){
                 //$request->domNotificacion; 1=domcasa 2=otro 3=ultimo domicilio
                 if($request->domNotificacion==1){
-                    $notificacion = DomicilioController::notificaciones($request,false,$request->idDomicilio);
-                    $varPersona = VariablesPersona::find($request->idPersona);
-                    $varPersona->idNotificacion = $notificacion->id;
-                    $varPersona->save();
-                    return $notificacion->id;
+                    if($request->claveDomicilio==""){
+                        $notificacion = DomicilioController::notificaciones($request,false,$request->idDomicilio);
+                        $varPersona = VariablesPersona::find($request->idPersona);
+                        $varPersona->idNotificacion = $notificacion->id;
+                        $varPersona->save();
+                        return $notificacion->id;
+                    }
+                    else{
+                        $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,false);
+                        $idDomicilio = DomicilioController::domicilios($request,$notificacion->idDomicilio);
+                        return $notificacion->id;
+                    }
                 }
                 else if($request->domNotificacion==2){
                     if($request->claveDomicilio==""){
@@ -108,11 +115,17 @@ class DomicilioController extends Controller
                     }
                 }
                 else if($request->domNotificacion==3){
-                    $notificacion = DomicilioController::notificaciones($request,false,$request->idOldDomicilio);
-                    $varPersona = VariablesPersona::find($request->idPersona);
-                    $varPersona->idNotificacion = $notificacion->id;
-                    $varPersona->save();
-                    return $notificacion->id;
+                    if($request->claveDomicilio==""){
+                        $notificacion = DomicilioController::notificaciones($request,false,$request->idOldDomicilio);
+                        $varPersona = VariablesPersona::find($request->idPersona);
+                        $varPersona->idNotificacion = $notificacion->id;
+                        $varPersona->save();
+                        return $notificacion->id;
+                    }
+                    else{
+                        $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,false);
+                        return $notificacion->id;
+                    }
                 }
             }
         }
