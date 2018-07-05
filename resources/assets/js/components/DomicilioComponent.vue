@@ -69,7 +69,7 @@
                 </div>
                 <div v-if="this.tipo!='domicilio'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
-                    <input type="text" name="telefono" class="input form-control form-control-sm" v-model="telefono" placeholder="Ingrese el teléfono" autocomplete="off" :readonly="notificacion.id==3 && this.tipo=='contacto'">
+                    <input type="text" name="telefono" class="input form-control form-control-sm" v-model="telefono" placeholder="Ingrese el teléfono" autocomplete="off">
                 </div>
 
 
@@ -80,7 +80,7 @@
                 </div>
                 <div v-if="tipo=='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="correo">Correo</label>
-                    <input type="text" name="correo" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('correo')}" v-model="correo" placeholder="Ingrese el correo" v-validate="'email'" autocomplete="off" :readonly="notificacion.id==3 && this.tipo=='contacto'">
+                    <input type="text" name="correo" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('correo')}" v-model="correo" placeholder="Ingrese el correo" v-validate="'email'" autocomplete="off">
                     <span v-show="errors.has('correo')" class="text-danger">{{ errors.first('correo')}}</span>
                 </div>
 
