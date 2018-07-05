@@ -16,7 +16,7 @@ class CreateAparicionesTable extends Migration
         Schema::create('apariciones', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idVarPersona')->unsigned();
-            $table->string('idCarpeta',20);
+            $table->string('idCarpeta',25);
             $table->string('sistema',20);
             $table->string('tipoInvolucrado',20);
             $table->string('nuc',50);
