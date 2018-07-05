@@ -321,7 +321,7 @@ import { mapState } from "vuex";
                         usuario:this.usuario,
                         domNotificacion:this.notificacion.id,
                         idDomicilio:this.$store.state.idDomicilio,
-                        idOldDomicilio:this.$store.state.idDomicilioTemporal
+                        idOldDomicilio:this.$store.state.idContactoTemporal
                     };
                 }
                 axios.post(urlDomicilio,data).then((response)=>{
@@ -394,7 +394,8 @@ import { mapState } from "vuex";
                 }
             },
             notificacion(){
-                if(this.notificacion.id==1){
+                if(this.notificacion==null){return}
+                if(this.notificacion.id==1 && (this.$store.state.fisicaEncontrada!='' || this.$store.state.moralEncontrada!='')){
                     this.CleanFields()
                     this.loadingFields=true
                 }
