@@ -20,7 +20,8 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-denunciado-personaconocido" role="tabpanel" aria-labelledby="denunciado-personaconocido-tab">
-                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'conocido'"></personafisica>
+                <personafisica v-if="empresa==false" :sistema="sistema" :carpeta="carpeta" :tipo="'conocido'"></personafisica>
+                <personamoral v-if="empresa==true" :sistema="sistema" :carpeta="carpeta" :tipo="'conocidomoral'"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-domicilioconocido" role="tabpanel" aria-labelledby="denunciado-domicilioconocido-tab">
                 <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema"></domicilio>
@@ -56,6 +57,10 @@ import swal from 'sweetalert2'
             },
             carpeta:{
                 required:true
+            },
+            empresa:{
+                required:true,
+                default:null
             }
         },
         methods: {
