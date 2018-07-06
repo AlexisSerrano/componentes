@@ -463,4 +463,16 @@ input.form-control{
     margin-left: -30px;
     margin-top: -30px;
 }
+.v-select input[type=search], .v-select input[type=search]:focus{
+    height: 31px;
+}
+.v-select .dropdown-toggle .clear{
+    bottom: 8px;
+}
+.v-select .open-indicator{
+    bottom: 5px;
+}
+.v-select .selected-tag{
+    margin: 2px 1px 0 3px;
+}
 </style>
