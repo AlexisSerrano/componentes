@@ -323,7 +323,7 @@ import { mapState } from "vuex";
                         usuario:this.usuario,
                         domNotificacion:(this.notificacion)?this.notificacion.id:'',
                         idDomicilio:(this.$store.state.idDomicilio)?this.$store.state.idDomicilio:this.$store.state.idDomicilioTemporal,
-                        idOldDomicilio:this.$store.state.idContactoTemporal,
+                        idOldNotificacion:this.$store.state.idContactoTemporal,
                         guardadoContacto:this.guardadoContacto
                     };
                 }
