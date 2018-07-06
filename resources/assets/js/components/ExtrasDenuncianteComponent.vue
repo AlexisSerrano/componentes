@@ -39,7 +39,7 @@ import swal from 'sweetalert2'
              return{                                                
                 identidades:[{nombre:'NO',id:0},{nombre:'SI',id:1}],
                 identidad:'',                
-                solicitantes:[{nombre:'Ofendido',id:0},{nombre:'Víctima',id:1}],
+                solicitantes:[{nombre:'OFENDIDO',id:0},{nombre:'VICTIMA',id:1}],
                 solicitante:'',
                 descripcion:'',  
                 systemUser:'TEST',

@@ -120,10 +120,10 @@ import swal from 'sweetalert2'
                 var post = this.url+'/saveFamiliar';
                 var data = {                   
                     idPersona: this.familiar.id,
-                    nombres:this.nombre,
-                    primerAp:this.primerAp,
-                    segundoAp:this.segundoAp,
-                    parentesco:this.parentesco.nombre, 
+                    nombres:this.nombre.toUpperCase(), 
+                    primerAp:this.primerAp.toUpperCase(),
+                    segundoAp:this.segundoAp.toUpperCase(),
+                    parentesco:this.parentesco.nombre,
                     idOcupacion:this.ocupacion.id
                 };       
                 if(data){
