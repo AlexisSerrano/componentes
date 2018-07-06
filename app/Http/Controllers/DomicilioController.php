@@ -39,18 +39,54 @@ class DomicilioController extends Controller
                 }        
             }
             else if($request->tipo=='contacto'){
-                if($request->claveDomicilio==""){
-                    $idDomicilio = DomicilioController::domicilios($request,false);
-                    $notificacion = DomicilioController::notificaciones($request,false,$idDomicilio);   
-                    $varPersona = VariablesPersonaMoral::find($request->idPersona);
-                    $varPersona->idNotificacion = $notificacion->id;
-                    $varPersona->save();
-                    return $notificacion->id;
+                //$request->domNotificacion; 1=domcasa 2=otro 3=ultimo domicilio
+                if($request->domNotificacion==1){
+                    if($request->claveDomicilio==""){
+                        $notificacion = DomicilioController::notificaciones($request,false,$request->idDomicilio);
+                        $varPersona = VariablesPersonaMoral::find($request->idPersona);
+                        $varPersona->idNotificacion = $notificacion->id;
+                        $varPersona->save();
+                        return $notificacion->id;
+                    }
+                    else{
+                        $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,$request->idDomicilio);
+                        return $notificacion->id;
+                    }
                 }
-                else{
-                    $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,false);
-                    $idDomicilio = DomicilioController::domicilios($request,$notificacion->idDomicilio);
-                    return $notificacion->id;
+                else if($request->domNotificacion==2){
+                    if($request->claveDomicilio==""){
+                        $idDomicilio = DomicilioController::domicilios($request,false);
+                        $notificacion = DomicilioController::notificaciones($request,false,$idDomicilio);
+                        $varPersona = VariablesPersonaMoral::find($request->idPersona);
+                        $varPersona->idNotificacion = $notificacion->id;
+                        $varPersona->save();
+                        return $notificacion->id;
+                    }
+                    else{
+                        if($request->guardadoContacto==2){
+                            $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,false);
+                            $idDomicilio = DomicilioController::domicilios($request,$notificacion->idDomicilio);
+                        }
+                        else{
+                            $idDomicilio = DomicilioController::domicilios($request,false);
+                            $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,$idDomicilio);
+                        }
+                        return $notificacion->id;
+                    }
+                }
+                else if($request->domNotificacion==3){
+                    if($request->claveDomicilio==""){
+                        $noti=Notificacion::where('id',$request->idOldNotificacion)->first();
+                        $notificacion = DomicilioController::notificaciones($request,false,$noti->idDomicilio);
+                        $varPersona = VariablesPersonaMoral::find($request->idPersona);
+                        $varPersona->idNotificacion = $notificacion->id;
+                        $varPersona->save();
+                        return $notificacion->id;
+                    }
+                    else{
+                        $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,false);
+                        return $notificacion->id;
+                    }
                 }
             }
         }
@@ -94,8 +130,7 @@ class DomicilioController extends Controller
                         return $notificacion->id;
                     }
                     else{
-                        $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,false);
-                        $idDomicilio = DomicilioController::domicilios($request,$notificacion->idDomicilio);
+                        $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,$request->idDomicilio);
                         return $notificacion->id;
                     }
                 }
@@ -109,14 +144,21 @@ class DomicilioController extends Controller
                         return $notificacion->id;
                     }
                     else{
-                        $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,false);
-                        $idDomicilio = DomicilioController::domicilios($request,$notificacion->idDomicilio);
+                        if($request->guardadoContacto==2){
+                            $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,false);
+                            $idDomicilio = DomicilioController::domicilios($request,$notificacion->idDomicilio);
+                        }
+                        else{
+                            $idDomicilio = DomicilioController::domicilios($request,false);
+                            $notificacion = DomicilioController::notificaciones($request,$request->claveDomicilio,$idDomicilio);
+                        }
                         return $notificacion->id;
                     }
                 }
                 else if($request->domNotificacion==3){
                     if($request->claveDomicilio==""){
-                        $notificacion = DomicilioController::notificaciones($request,false,$request->idOldDomicilio);
+                        $noti=Notificacion::where('id',$request->idOldNotificacion)->first();
+                        $notificacion = DomicilioController::notificaciones($request,false,$noti->idDomicilio);
                         $varPersona = VariablesPersona::find($request->idPersona);
                         $varPersona->idNotificacion = $notificacion->id;
                         $varPersona->save();

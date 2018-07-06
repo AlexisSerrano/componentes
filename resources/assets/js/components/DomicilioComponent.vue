@@ -328,6 +328,7 @@ import { mapState } from "vuex";
                     };
                 }
                 axios.post(urlDomicilio,data).then((response)=>{
+                    console.log(response);
                     this.$store.commit('asignarIdDomicilio',{tipo:this.tipo,idDomicilio:response.data})
                     swal({
                         title: '¡Guardado Correctamente!',

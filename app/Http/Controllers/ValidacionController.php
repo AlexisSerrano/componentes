@@ -13,7 +13,7 @@ use App\Http\Models\PersonaMoralModel;
 use App\Http\Models\VariablesPersona;
 use App\Http\Models\VariablesPersonaMoral;
 use App\Http\Models\aparicionesModel;
-use App\Http\Models\ExtraDenunciado;
+use App\Http\Models\ExtraDenunciadoFisico;
 use DB;
 
 use Illuminate\Http\Request;
