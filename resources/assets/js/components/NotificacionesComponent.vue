@@ -42,7 +42,7 @@
         <td>{{ value.tipoInvolucrado }}</td>
         <td>{{ value.nuc }}</td>
         <td>{{ value.determinacion }}
-        <icon name="folder-open" :style="{color:(value.determinacion=='INICIADA')?'yellow':''}"></icon>
+        <icon name="folder-open" :style="{color:(value.determinacion=='INICIADA')?'#ff6600':(value.determinacion=='ABSTENCION DE INVESTIGAR')?'#009900':(value.determinacion=='ARCHIVO TEMPORAL')?'#ff6600':(value.determinacion=='LA APLICACION DE UN CRITERIO DE OPORTUNIDAD')?'#009900':(value.determinacion=='NO EJERCICIO DE LA ACCION PENAL')?'#009900':(value.determinacion=='POR DETERMINAR')?'#ff6600':(value.determinacion=='EJERCICIO DE LA ACCION PENAL')?'#ff0000':''}"></icon>
         </td>
       </tr>
       <tr v-show="carpetas==''" ><td colspan="10" style="text-align:center;">Sin resultados</td></tr>
