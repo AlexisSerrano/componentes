@@ -47,11 +47,13 @@ Vue.component('denunciantefisico',require('./components/DenuncianteFisicoCompone
 Vue.component('denunciantemoral',require('./components/DenuncianteMoralComponent.vue'));
 Vue.component('denunciadofisico',require('./components/DenunciadoFisicoComponent.vue'));
 Vue.component('denunciadomoral',require('./components/DenunciadoMoralComponent.vue'));
-Vue.component('denunciadoconocido',require('./components/DenunciadoConocidoComponent.vue'));
+Vue.component('conocidofisico',require('./components/ConocidoFisicoComponent.vue'));
+Vue.component('conocidomoral',require('./components/ConocidoMoralComponent.vue'));
 Vue.component('extrasinvestigado',require('./components/ExtrasInvestigadoComponent.vue'));
 Vue.component('extrasabogado',require('./components/ExtrasAbogadoComponent.vue'));
 Vue.component('extrasdenunciante',require('./components/ExtrasDenuncianteComponent.vue'));
 Vue.component('extrasautoridad',require('./components/ExtrasAutoridadComponent.vue'));
+Vue.component('extrasconocido',require('./components/ExtrasConocidoComponent.vue'));
 Vue.component('registro',require('./components/RegistroComponent.vue'));
 Vue.component('carpetas',require('./components/carpetasLigadasComponent.vue'));
 Vue.component('notificaciones',require('./components/NotificacionesComponent.vue'));
