@@ -59,10 +59,16 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtrasConocido: function(){   
-                var urlGuardarAutoridad = this.url+'/addExtrasAutoridad';          
+                var urlGuardarAutoridad = this.url+'/addExtrasAutoridad';       
+                if(this.empresa==false){
+                    var idPersona=this.$store.state.idPersonaFisica
+                }
+                else{
+                    var idPersona=this.$store.state.idPersonaMoral
+                }   
                 var data = {
                     idExtrasConocido:this.$store.state.idExtra,
-                    idPersona:this.$store.state.idPersonaFisica,
+                    idPersona:idPersona,
                     particulares:particulares,
                     sistema:this.sistema,
                     usuario:this.systemUser,

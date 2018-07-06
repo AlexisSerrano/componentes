@@ -372,25 +372,4 @@ class PersonaController extends Controller{
 		}				
 	}
 
-	public function getInvolucrados(Request $request){
-		$involucrados1 = DB::table('extra_denunciado_fisico')
-            ->join('variables_persona_fisica', 'variables_persona_fisica.id', '=', 'extra_denunciado_fisico.idVariablesPersona')
-            ->join('persona_fisica', 'persona_fisica.id', '=', 'variables_persona_fisica.idPersona')
-            ->select('persona_fisica.id', 'persona_fisica.nombres', 'persona_fisica.primerAp', 'persona_fisica.segundoAp')
-            ->where('variables_persona_fisica.idCarpeta', '=', $idCarpeta)            
-            ->orderBy('persona_fisica.nombres', 'ASC');
-        $involucrados = DB::table('extra_denunciante')
-            ->join('variables_persona_fisica', 'variables_persona_fisica.id', '=', 'extra_denunciante.idVariablesPersona')
-            ->join('persona', 'persona.id', '=', 'variables_persona_fisica.idPersona')
-            ->select('persona.id', 'persona.nombres', 'persona.primerAp', 'persona.segundoAp')
-            ->where('variables_persona_fisica.idCarpeta', '=', $idCarpeta)
-            ->where('persona.esEmpresa', '=', 0)
-            ->orderBy('persona.nombres', 'ASC')
-            ->union($involucrados1)
-			->get();
-		
-			
-	}
-
-
 }
