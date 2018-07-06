@@ -14,6 +14,7 @@ use App\Http\Models\VariablesPersona;
 use App\Http\Models\VariablesPersonaMoral;
 use App\Http\Models\aparicionesModel;
 use App\Http\Models\ExtraDenunciadoFisico;
+use App\Http\Models\ExtraDenunciadoMoral;
 use DB;
 
 use Illuminate\Http\Request;
@@ -251,7 +252,7 @@ class ValidacionController extends Controller
             $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; 
             $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
             $variables->save();
-            $extras = new ExtraDenunciado();
+            $extras = new ExtraDenunciadoFisico();
             $extras->idVariablesPersona = $variables->id;
             $extras->alias = $request->alias;
             $extras->save();
@@ -262,7 +263,9 @@ class ValidacionController extends Controller
             saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
             saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$extras->id,null,$extras);
             DB::commit();
-			return $variables->id;
+
+            $data = array('idPersona'=>$variables->id,'idExtra'=>$extras->id);
+            return response()->json($data);
         }catch (\PDOException $e){
             DB::rollBack();
             return false;
@@ -270,27 +273,28 @@ class ValidacionController extends Controller
     }
 
     public function updateInputsConocidoFisica($request){
-        DB::beginTransaction();
-        try{
-            $variables =  VariablesPersona::find($request->idPersona);
-            $variables->alias = $request->alias;//ya no esta en variables persona, ahora esta solo en extras
-            $variables->save();
-
-            $persona = PersonaModel::find($variables->idPersona);
+        //DB::beginTransaction();
+        //try{
+            $persona = PersonaModel::find($request->personaFisica);
             $persona->nombres = $request->nombres;
             $persona->primerAp = $request->primerAp;
             $persona->segundoAp = $request->segundoAp;
             $persona->save();
 
+            $extras = ExtraDenunciadoFisico::find($request->idExtra);
+            $extras->alias = $request->alias;
+            $extras->save();
+
             saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
             saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
            
-            DB::commit();
-			return $variables->id;
-        }catch (\PDOException $e){
-            DB::rollBack();
-            return false;
-        }
+            //DB::commit();
+            $data = array('idPersona'=>$request->idPersona,'idExtra'=>$request->idExtra);
+            return response()->json($data);
+        // }catch (\PDOException $e){
+        //     //DB::rollBack();
+        //     return false;
+        // }
     }
 
     public function saveInputsMoral($request){
