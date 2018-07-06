@@ -67,6 +67,20 @@ class PersonaFisicaSeeder extends Seeder
                 'idEtnia' => 1,
                 'idLengua' => 7,
                 'idMunicipioOrigen' => 8
+            ],
+            [ 
+                'id' => 5, 
+                'nombres' => 'ADRIAN',
+                'primerAp' => 'GUEVARA',
+                'segundoAp' => 'QUIJANO',
+                'fechaNacimiento' => '1980-01-01',
+                'rfc' => 'JORF450926H',
+                'sexo' => 1,
+                'curp' => 'JORF450926HSWITM95',
+                'idNacionalidad' => 1,
+                'idEtnia' => 1,
+                'idLengua' => 7,
+                'idMunicipioOrigen' => 8
             ]
 	    ]);
     }

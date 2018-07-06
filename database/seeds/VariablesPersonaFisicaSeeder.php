@@ -79,7 +79,25 @@ class VariablesPersonaFisicaSeeder extends Seeder
                 'numDocIdentificacion' => '4589SDFJKER',
                 'idTrabajo' => 1,
                 'idNotificacion' => 1
+            ],
+            [ 
+                'id' => 5, 
+                'idPersona' => 5,
+                'edad' => 25,
+                'telefono' => '884458725',
+                'motivoEstancia' => 'TRABAJO',
+                'idOcupacion' => 24,
+                'idEstadoCivil' => 2,
+                'idEscolaridad' => 6,
+                'idReligion' => 3,
+                'idDomicilio' => 1,
+                'docIdentificacion' => 11,
+                'idInterprete' => 1,
+                'numDocIdentificacion' => 'FGHTRT645FDG',
+                'idTrabajo' => 1,
+                'idNotificacion' => 1
             ]
+
 	    ]);
     }
 }

@@ -65,6 +65,8 @@ class DatabaseSeeder extends Seeder
         $this->call(variablesPersonaMoralSeeder::class);
         $this->call(PuestosSeeder::class); 
         $this->call(aparicionesSeeder::class);
+        $this->call(denunciadoFisicoSeeder::class);
+        $this->call(denuncianteFisicoSeeder::class);
     }
 }
 

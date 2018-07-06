@@ -13,11 +13,12 @@ class extraAbogadoSeeder extends Seeder
     {
         DB::table('extra_abogado')->insert([
             [ 
-                'idVariablesPersona' => 1,
+                'id'=> 1,
+                'idVariablesPersona' => 5,
                 'cedulaProf' => 'NHR5D6DFH',
-                'sector' => 'Público',
-                'correo'=>'correo@gmail.com',
-                'tipo'=>'Civil'
+                'sector' => 'PÚBLICO',
+                'correo'=>'CORREO@GMAIL.COM',
+                'tipo'=>'CIVIL'
             ]
 	    ]);
     }

@@ -27,11 +27,10 @@ class FamiliarController extends Controller
 			->where('esEmpresa', '=', 0)
             ->orderBy('persona_fisica.nombres', 'ASC')
             ->union($involucrados1)
-			->get();
+			->get(); 
 				
 		if($involucrados){
-			//return response()->json($involucrados);
-			return $involucrados;
+			return response()->json($involucrados);						
 		}else{
 			return false;
 		}

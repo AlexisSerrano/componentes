@@ -110,7 +110,7 @@ import swal from 'sweetalert2'
             getInvolucrados: function(){                               
                 var urlCatalogos = this.url+'/getInvolucrados';
                 axios.post(urlCatalogos, {
-                    idCarpeta: 'xx',
+                    idCarpeta: 'UIPJ/D17/VER1/22/1/2018',
                 }).then(response => {
                     this.familiarDe=response.data                    
                 });
