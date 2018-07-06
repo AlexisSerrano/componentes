@@ -53,7 +53,8 @@
             </div>
         </div>
         <personafisica v-if="denunciado==1" :sistema="sistema" :carpeta="carpeta" :tipo="'qrr'"></personafisica>
-        <denunciadoconocido v-if="denunciado==2" :sistema="sistema" :carpeta="carpeta" :empresa="(conocido==1)?false:true"></denunciadoconocido>
+        <conocidofisico v-if="denunciado==2 && conocido==1" :sistema="sistema" :carpeta="carpeta"></conocidofisico>
+        <conocidomoral v-if="denunciado==2  && conocido==2" :sistema="sistema" :carpeta="carpeta"></conocidomoral>
         <denunciadofisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta"></denunciadofisico>
         <denunciadomoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta"></denunciadomoral>
     </div>
