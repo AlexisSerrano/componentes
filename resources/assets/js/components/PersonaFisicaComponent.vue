@@ -580,7 +580,12 @@ import { mapState } from "vuex";
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
                         if(response.data){
-                            this.$store.commit('asignarIdFisica',{idPersona:response.data})
+                            if(this.tipo=='conocido'){
+                                this.$store.commit('asignarIdFisica',{idPersona:response.data.idPersona})
+                                this.$store.commit('asignarIdExtra',response.data.idExtra)
+                            }else{
+                               this.$store.commit('asignarIdFisica',{idPersona:response.data})
+                            }
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',

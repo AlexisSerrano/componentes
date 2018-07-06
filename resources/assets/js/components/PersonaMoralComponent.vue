@@ -212,7 +212,12 @@ import { mapState } from "vuex";
                 }
                 axios.post(urlCrearMoral,data)
                 .then (response =>{
-                    this.$store.commit('asignarIdMoral',{idPersona:response.data})
+                    if(this.tipo=='conocidomoral'){
+                        this.$store.commit('asignarIdMoral',{idPersona:response.data.idPersona})
+                        this.$store.commit('asignarIdExtra',response.data.idExtra)
+                    }else{
+                        this.$store.commit('asignarIdFisica',{idPersona:response.data})
+                    }
                     swal({
                         title: '¡Guardado correctamente!',
                         text: 'Ésta empresa fue guardada exitosamente.',
