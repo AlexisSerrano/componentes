@@ -79,7 +79,7 @@ class aparicionesSeeder extends Seeder
                 'idVarPersona' => 2,
                 'idCarpeta' => 'UIPJ/D34/VER1/18/01/2019',
                 'sistema' => 'UIPJ',
-                'tipoInvolucrado' => 'DENUNCIANTE',
+                'tipoInvolucrado' => 'DENUNCIADO',
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 0,
                 'idTipoDeterminacion' => 3
@@ -89,7 +89,7 @@ class aparicionesSeeder extends Seeder
                 'idVarPersona' => 2,
                 'idCarpeta' => 'UIPJ/T78/VER4/22/08/2018',
                 'sistema' => 'UIPJ',
-                'tipoInvolucrado' => 'DENUNCIANTE',
+                'tipoInvolucrado' => 'AUTORIDAD',
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 0,
                 'idTipoDeterminacion' => 4
@@ -99,7 +99,7 @@ class aparicionesSeeder extends Seeder
                 'idVarPersona' => 2,
                 'idCarpeta' => 'UIPJ/T78/VER4/21/02/2018',
                 'sistema' => 'UIPJ',
-                'tipoInvolucrado' => 'DENUNCIANTE',
+                'tipoInvolucrado' => 'DENUNCIADO',
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 0,
                 'idTipoDeterminacion' => 5
@@ -113,6 +113,17 @@ class aparicionesSeeder extends Seeder
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 0,
                 'idTipoDeterminacion' => 6
+            ],
+
+            [
+                'id' => 11,
+                'idVarPersona' => 2,
+                'idCarpeta' => 'UIPJ/T84/VER17/08/29/2018',
+                'sistema' => 'UIPJ',
+                'tipoInvolucrado' => 'DENUNCIADO',
+                'nuc' => 'OS84-4Q8G3D-18',
+                'esEmpresa' => 0,
+                'idTipoDeterminacion' => 7
             ],
             
             

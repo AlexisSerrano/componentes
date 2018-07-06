@@ -17,7 +17,8 @@ class TipoDeterminacionSeeder extends Seeder
             [ 'id' => 3, 'nombre' => 'ARCHIVO TEMPORAL'],
             [ 'id' => 4, 'nombre' => 'LA APLICACION DE UN CRITERIO DE OPORTUNIDAD'],
             [ 'id' => 5, 'nombre' => 'NO EJERCICIO DE LA ACCION PENAL'],
-            [ 'id' => 6, 'nombre' => 'POR DETERMINAR']
+            [ 'id' => 6, 'nombre' => 'POR DETERMINAR'],
+            [ 'id' => 7, 'nombre' => 'EJERCICIO DE LA ACCION PENAL']
 	    ]);
     }
 }
