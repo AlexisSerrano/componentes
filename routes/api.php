@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /*Persona fisica*/
 Route::post('rfcFisico','PersonaController@rfcFisico');
 Route::post('searchPersonaFisica','PersonaController@searchPersona');
+Route::post('searchConocido','PersonaController@searchConocido');
 Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
 Route::post('getCatalogos','PersonaController@getCatalogos');
 Route::post('getDomiciliosPersona','PersonaController@getDomiciliosPersona');

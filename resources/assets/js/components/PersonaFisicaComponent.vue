@@ -356,15 +356,15 @@ import { mapState } from "vuex";
             searchConocido(){
                 if((this.tipo=='conocido' || this.tipo=='conocidomoral') && this.nombres!='' && this.primerAp!='' && this.segundoAp!=''){
                     console.log("ok")
-                    // var urlSearchConocido = this.url+'/searchConocido';
-                    // axios.post(urlSearchConocido,{
-                    //     nombres: this.nombres,
-                    //     primerAp: this.primerAp,
-                    //     segundoAp: this.segundoAp,
-                    // }).then(response =>{             
-                    //     console.log(response.data.idNacionalidad.nombre)
-                    //     this.$store.commit('asignarPersonasEncontradas',response.data)
-                    // });
+                    var urlSearchConocido = this.url+'/searchConocido';
+                    axios.post(urlSearchConocido,{
+                        nombres: this.nombres,
+                        primerAp: this.primerAp,
+                        segundoAp: this.segundoAp,
+                    }).then(response =>{             
+                        console.log(response.data.idNacionalidad.nombre)
+                        this.$store.commit('asignarPersonasEncontradas',response.data)
+                    });
                 }
             },
             calcularRfc(){
