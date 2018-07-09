@@ -353,6 +353,17 @@ import { mapState } from "vuex";
                     }
                 });
             },
+            searchConocido(){
+                if(this.tipo=='conocido'){
+                    axios.post(url, {
+                        params: {
+                            id:paramId
+                        }
+                    })
+                    .then (response =>{
+                    })
+                }
+            },
             calcularRfc(){
                 if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!=''){
                     var urlRfcFisico = this.url+'/rfcFisico';
@@ -585,7 +596,7 @@ import { mapState } from "vuex";
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
                         if(response.data){
-                            this.$store.commit('asignarIdFisica',{idPersona:response.data.idVarPersona,personaFisica:response.data.idPersona})
+                            this.$store.commit('asignarIdFisica',{idPersona:response.data.original.idVarPersona,personaFisica:response.data.original.idPersona})
                             if(this.tipo=='conocido'){
                                 this.$store.commit('asignarIdExtra',response.data.idExtra)
                             }
