@@ -185,6 +185,11 @@
             <button type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 
 
+
+            <coincidencias v-if="this.$store.state.personasEncontradas"></coincidencias>
+
+
+
         </form>
     </div>
 </template>
@@ -580,11 +585,9 @@ import { mapState } from "vuex";
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
                         if(response.data){
+                            this.$store.commit('asignarIdFisica',{idPersona:response.data.idVarPersona,personaFisica:response.data.idPersona})
                             if(this.tipo=='conocido'){
-                                this.$store.commit('asignarIdFisica',{idPersona:response.data.idPersona})
                                 this.$store.commit('asignarIdExtra',response.data.idExtra)
-                            }else{
-                               this.$store.commit('asignarIdFisica',{idPersona:response.data})
                             }
                             swal({
                                 title: '¡Guardado correctamente!',
