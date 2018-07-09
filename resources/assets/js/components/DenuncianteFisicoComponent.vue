@@ -49,7 +49,7 @@
                 <domicilio :tipo="'contacto'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciante-extrafisico-tab">
-                <extrasdenunciante :sistema="sistema" :empresa="false"></extrasdenunciante>
+                <extrasdenunciante :sistema="sistema" :empresa="false" :carpeta="carpeta"></extrasdenunciante>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="denunciante-carpetasLigadasFisica-tab">
                 <notificaciones :tipo="'fisica'"></notificaciones>

@@ -94,10 +94,7 @@ import { mapState } from "vuex";
             },
             tipo: {
                 default:false
-            },
-            carpeta:{
-                default:''
-            } 
+            }
         },
         mounted: function(){
         //    this.getNacionalidades();
@@ -207,43 +204,50 @@ import { mapState } from "vuex";
             CrearEmpresa: function(){
                 this.validacionesback='';
                 var urlCrearMoral = this.url+'/'+this.tipo+this.sistema;
-                    axios.post(urlCrearMoral,{                        
-                        nombre: this.nombre.toUpperCase(),
-                        fechaCreacion: this.fechaCreacion,
-                        rfc:this.rfc,
-                        homo:this.homoclave,
-                        telefono: this.telefono,
-                        representanteLegal: this.representanteLegal.toUpperCase(),
-                        sistema: this.sistema,
-                        tipo: this.tipo,
-                        idCarpeta:this.carpeta,
-                        idPersona:this.$store.state.idPersonaMoral,
-                        usuario:this.systemUser,
-                        personaMoral:this.$store.state.personaMoral,
-                        idDomicilio:this.$store.state.idDomicilioTemporal,
-                        idNotificacion:this.$store.state.idContactoTemporal
-                    })
-                    .then (response =>{
-                        this.$store.commit('asignarIdMoral',{idPersona:response.data})
-                        swal({
-                            title: '¡Guardado correctamente!',
-                            text: 'Ésta empresa fue guardada exitosamente.',
-                            type: 'success',
-                            confirmButtonText: 'Ok'
-                        })
-                        if(this.$store.state.moralEncontrada){
-                            this.getDomicilios()
-                            this.buscarCarpetasMoral()
-                        }
-                    }).catch((error)=>{
-                        this.validacionesback = error.response.data.errors
-                        swal({
-                        title: '¡Guardado incorrecto!',
-                        text: 'Ésta persona moral no fue posible guardarla.',
-                        type: 'error',
+                if(this.tipo!='conocidomoral'){
+                    nombre= this.nombre.toUpperCase(),
+                    fechaCreacion= this.fechaCreacion,
+                    rfc=this.rfc,
+                    homo=this.homoclave,
+                    telefono= this.telefono,
+                    representanteLegal= this.representanteLegal.toUpperCase(),
+                    sistema= this.sistema,
+                    idPersona=this.$store.state.idPersonaMoral,
+                    usuario=this.systemUser,
+                    personaMoral=this.$store.state.personaMoral,
+                    idDomicilio=this.$store.state.idDomicilioTemporal,
+                    idNotificacion=this.$store.state.idContactoTemporal
+                }
+                else{
+                    nombre= this.nombre.toUpperCase()
+                }
+                axios.post(urlCrearMoral,data)
+                .then (response =>{
+                    if(this.tipo=='conocidomoral'){
+                        this.$store.commit('asignarIdMoral',{idPersona:response.data.idPersona})
+                        this.$store.commit('asignarIdExtra',response.data.idExtra)
+                    }else{
+                        this.$store.commit('asignarIdFisica',{idPersona:response.data})
+                    }
+                    swal({
+                        title: '¡Guardado correctamente!',
+                        text: 'Ésta empresa fue guardada exitosamente.',
+                        type: 'success',
                         confirmButtonText: 'Ok'
-                        })
-                    });
+                    })
+                    if(this.$store.state.moralEncontrada){
+                        this.getDomicilios()
+                        this.buscarCarpetasMoral()
+                    }
+                }).catch((error)=>{
+                    this.validacionesback = error.response.data.errors
+                    swal({
+                    title: '¡Guardado incorrecto!',
+                    text: 'Ésta persona moral no fue posible guardarla.',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                    })
+                });
             }
        },
        watch: {

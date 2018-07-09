@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
         $this->call(validacionesSeeder::class);
 
         $this->call(InterpreteSeeder::class);
-        $this->call(DefaultsSeeder::class);
+        $this->call(DefaultsSeeder::class); 
         $this->call(PersonaFisicaSeeder::class);
         $this->call(VariablesPersonaFisicaSeeder::class);
 
@@ -63,7 +63,10 @@ class DatabaseSeeder extends Seeder
         $this->call(extraAbogadoSeeder::class);
         $this->call(personaMoralSeeder::class);
         $this->call(variablesPersonaMoralSeeder::class);
-        $this->call(PuestosSeeder::class);
+        $this->call(PuestosSeeder::class); 
+        $this->call(aparicionesSeeder::class);
+        $this->call(denunciadoFisicoSeeder::class);
+        $this->call(denuncianteFisicoSeeder::class);
     }
 }
 

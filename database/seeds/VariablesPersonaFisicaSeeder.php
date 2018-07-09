@@ -15,8 +15,8 @@ class VariablesPersonaFisicaSeeder extends Seeder
             [ 
                 'id' => 1, 
                 'idPersona' => 1,
-                'edad' => '1',
-                'telefono' => '',
+                'edad' => 12,
+                'telefono' => '2255874958',
                 'motivoEstancia' => '',
                 'idOcupacion' => 2941,
                 'idEstadoCivil' => 7,
@@ -28,7 +28,76 @@ class VariablesPersonaFisicaSeeder extends Seeder
                 'numDocIdentificacion' => '',
                 'idTrabajo' => 1,
                 'idNotificacion' => 1
+            ],
+            [ 
+                'id' => 2, 
+                'idPersona' => 2,
+                'edad' => 38,
+                'telefono' => '5544789568',
+                'motivoEstancia' => 'DENUNCIA CIUDADANA',
+                'idOcupacion' => 12,
+                'idEstadoCivil' => 2,
+                'idEscolaridad' => 6,
+                'idReligion' => 3,
+                'idDomicilio' => 1,
+                'docIdentificacion' => 11,
+                'idInterprete' => 1,
+                'numDocIdentificacion' => 'SDHJ45GH',
+                'idTrabajo' => 1,
+                'idNotificacion' => 1
+            ],
+            [ 
+                'id' => 3, 
+                'idPersona' => 3,
+                'edad' => 38,
+                'telefono' => '8844751469',
+                'motivoEstancia' => 'TRAMITE DE CONSTANCIA',
+                'idOcupacion' => 12,
+                'idEstadoCivil' => 2,
+                'idEscolaridad' => 6,
+                'idReligion' => 3,
+                'idDomicilio' => 1,
+                'docIdentificacion' => 11,
+                'idInterprete' => 1,
+                'numDocIdentificacion' => 'SDHJ45GH',
+                'idTrabajo' => 1,
+                'idNotificacion' => 1
+            ],
+            [ 
+                'id' => 4, 
+                'idPersona' => 4,
+                'edad' => 38,
+                'telefono' => '8844751258',
+                'motivoEstancia' => 'DENUNCIA CIUDADANA',
+                'idOcupacion' => 12,
+                'idEstadoCivil' => 2,
+                'idEscolaridad' => 6,
+                'idReligion' => 3,
+                'idDomicilio' => 1,
+                'docIdentificacion' => 11,
+                'idInterprete' => 1,
+                'numDocIdentificacion' => '4589SDFJKER',
+                'idTrabajo' => 1,
+                'idNotificacion' => 1
+            ],
+            [ 
+                'id' => 5, 
+                'idPersona' => 5,
+                'edad' => 25,
+                'telefono' => '884458725',
+                'motivoEstancia' => 'TRABAJO',
+                'idOcupacion' => 24,
+                'idEstadoCivil' => 2,
+                'idEscolaridad' => 6,
+                'idReligion' => 3,
+                'idDomicilio' => 1,
+                'docIdentificacion' => 11,
+                'idInterprete' => 1,
+                'numDocIdentificacion' => 'FGHTRT645FDG',
+                'idTrabajo' => 1,
+                'idNotificacion' => 1
             ]
+
 	    ]);
     }
 }

@@ -214,23 +214,19 @@ class PersonaController extends Controller{
 	/*se lanza cuando se da en guardar persona fisica, busca carpetas involucradas en uat y uipj*/
 	/*falta agregar un where con los tipos de determinaciones validos*/
 	public function fisicaBuscarCarpetas(Request $request){		
-		$resp = DB::table('persona_fisica')
-		->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')
-		->join('apariciones','apariciones.idVarPersona','=','variables_persona_fisica.idPersona')
-		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
-		->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
-		'persona_fisica.rfc','persona_fisica.curp','apariciones.idCarpeta','apariciones.sistema',
-		'apariciones.tipoInvolucrado','apariciones.nuc','cat_tipo_determinacion.nombre as determinacion',
-		'apariciones.esEmpresa')
-		->where('esEmpresa',0)
-		->where('rfc',$request->rfc)
-		->orWhere('curp',$request->curp)
-		->get();			
-		if($resp){
-			return response()->json($resp);
+		$carpetas = DB::select("select nombres,primerAp,segundoAp,
+				rfc, curp,apar.idCarpeta,apar.sistema,
+				apar.tipoInvolucrado,apar.nuc,catDet.nombre as determinacion,
+				apar.esEmpresa from variables_persona_fisica varPer
+			join persona_fisica per on per.id = varPer.idPersona
+			join apariciones apar on apar.idVarPersona = varPer.id
+			join cat_tipo_determinacion catDet on catDet.id = apar.idTipoDeterminacion
+			WHERE esEmpresa = 0 and (rfc = '$request->rfc' or curp = '$request->curp')");
+		if($carpetas){
+			return response()->json($carpetas);
 		}else{
-			return false;
-		}
+			return response()->json("false");
+		}		
 	}
 
 	/*se lanza cuando se da en guardar persona moral, busca carpetas involucradas en uat y uipj*/
@@ -364,7 +360,7 @@ class PersonaController extends Controller{
 				$update = DB::table('apariciones')->
             	where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)
 				->update(['idTipoDeterminacion' => $request->idTipoDeterminacion]);
-				$idLog=$this->log->saveInLog($request->sistema,$request->usuario,'apariciones','UPDATE',$respuesta->id,['idTipoDeterminacion' => $respuesta->idTipoDeterminacion],['idTipoDeterminacion' => $request->idTipoDeterminacion]);
+				saveInLog($request->sistema,$request->usuario,'apariciones','UPDATE',$respuesta->id,['idTipoDeterminacion' => $respuesta->idTipoDeterminacion],['idTipoDeterminacion' => $request->idTipoDeterminacion]);
 				DB::commit();
 			}catch (Exception $e){
 				DB::rollback();
@@ -375,6 +371,5 @@ class PersonaController extends Controller{
 			return ["Response"=>" Sin datos"];
 		}				
 	}
-
 
 }

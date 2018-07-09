@@ -185,6 +185,11 @@
             <button type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 
 
+
+            <coincidencias v-if="this.$store.state.personasEncontradas"></coincidencias>
+
+
+
         </form>
     </div>
 </template>
@@ -348,6 +353,17 @@ import { mapState } from "vuex";
                     }
                 });
             },
+            searchConocido(){
+                if(this.tipo=='conocido'){
+                    axios.post(url, {
+                        params: {
+                            id:paramId
+                        }
+                    })
+                    .then (response =>{
+                    })
+                }
+            },
             calcularRfc(){
                 if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!=''){
                     var urlRfcFisico = this.url+'/rfcFisico';
@@ -501,9 +517,9 @@ import { mapState } from "vuex";
                         docIdentificacion:this.identificacion.id,
                         numDocIdentificacion:this.numIdentificacion.toUpperCase(),
                         telefono:this.telefono,
-                        idCarpeta:this.carpeta,
+                        // idCarpeta:this.carpeta,
                         sistema:this.sistema,
-                        tipo:this.tipo,
+                        // tipo:this.tipo,
                         idPersona:this.$store.state.idPersonaFisica,
                         usuario:this.systemUser,
                         personaFisica:this.$store.state.personaFisica,
@@ -580,7 +596,10 @@ import { mapState } from "vuex";
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
                         if(response.data){
-                            this.$store.commit('asignarIdFisica',{idPersona:response.data})
+                            this.$store.commit('asignarIdFisica',{idPersona:response.data.original.idVarPersona,personaFisica:response.data.original.idPersona})
+                            if(this.tipo=='conocido'){
+                                this.$store.commit('asignarIdExtra',response.data.idExtra)
+                            }
                             swal({
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
@@ -650,7 +669,7 @@ import { mapState } from "vuex";
 </script>
 <style>
 .dropdown-toggle{
-    height: 36px;
+    height: 33px;
     overflow: hidden;
 }
 input{
@@ -669,5 +688,17 @@ input.form-control{
     left:50%;
     margin-left: -30px;
     margin-top: -30px;
+}
+.v-select input[type=search], .v-select input[type=search]:focus{
+    height: 31px;
+}
+.v-select .dropdown-toggle .clear{
+    bottom: 8px;
+}
+.v-select .open-indicator{
+    bottom: 5px;
+}
+.v-select .selected-tag{
+    margin: 2px 1px 0 3px;
 }
 </style>

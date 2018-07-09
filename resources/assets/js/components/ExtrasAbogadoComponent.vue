@@ -64,6 +64,9 @@ import swal from 'sweetalert2'
         props:{
             sistema: {
                 default:''
+            },
+            carpeta:{
+                required:true
             }
         },
         methods:{            
@@ -92,7 +95,10 @@ import swal from 'sweetalert2'
                     tipo:this.tipo,
                     sistema:this.sistema.toUpperCase(),
                     usuario:this.systemUser,
-                    narracion:this.descripcion.toUpperCase()
+                    narracion:this.descripcion.toUpperCase(),
+                    idCarpeta:this.carpeta,
+                    empresa:false,
+                    tipo:'abogado'
                 };
                     axios.post(urlGuardarAbogado,data)
                     .then (response =>{

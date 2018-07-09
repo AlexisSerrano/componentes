@@ -4,16 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Models\ExtraAbogado;
-use BitracoraController;
 use DB;
 
 class ExtrasAbogadoController extends Controller
 {
-    protected $log;
-
-    function __construct() {
-        $this->log=new BitacoraController();
-    }
 
     public function index(){
         return view("extrasAbogado");
@@ -37,7 +31,11 @@ class ExtrasAbogadoController extends Controller
             $extraAbogado->correo = $request->correo;
             $extraAbogado->tipo = $request->tipo;      
             $extraAbogado->save();
-            $idLog=$this->log->saveInLog($request->sistema,$request->usuario,"extra_abogado",$oper,$extraAbogado->id,$antes,$extraAbogado);
+
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
+
+            saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
+            saveInLog($request->sistema,$request->usuario,"extra_abogado",$oper,$extraAbogado->id,$antes,$extraAbogado);
             DB::commit();
             return $extraAbogado->id;
         }

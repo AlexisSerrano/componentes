@@ -16,7 +16,7 @@
                     <li class="nav-item">
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-autoridad-extra" role="tab" aria-controls="pills-autoridad-extra" aria-selected="false">Datos de autoridad</a>
                     </li>
-                    <li v-show="this.$store.state.carpetasLigadasFisica!=''" class="nav-item">
+                    <li v-show="this.$store.state.carpetasLigadas!=''" class="nav-item">
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-autoridad-carpetasLigadas" role="tab" aria-controls="pills-autoridad-carpetasLigadas" aria-selected="false">Carpetas ligadas</a>
                     </li>
                 </ul>
@@ -43,7 +43,7 @@
                 <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-extra" role="tabpanel-fisico" aria-labelledby="autoridad-extra-tab">
-                <extrasautoridad :sistema="sistema"></extrasautoridad>
+                <extrasautoridad :sistema="sistema" :carpeta="carpeta"></extrasautoridad>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-carpetasLigadas" role="tabpanel-fisico" aria-labelledby="autoridad-carpetasLigadas-tab">
                 <notificaciones :tipo="'fisica'"></notificaciones>

@@ -13,7 +13,7 @@
                     <li class="nav-item">
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-abogado-extra" role="tab" aria-controls="pills-abogado-extra" aria-selected="false">Datos del abogado</a>
                     </li>
-                    <li v-show="this.$store.state.carpetasLigadasFisica!=''" class="nav-item">
+                    <li v-show="this.$store.state.carpetasLigadas!=''" class="nav-item">
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-abogado-carpetasLigadas" role="tab" aria-controls="pills-abogado-carpetasLigadas" aria-selected="false">Carpetas ligadas</a>
                     </li>
                 </ul>
@@ -37,7 +37,7 @@
                 <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-abogado-extra" role="tabpanel-fisico" aria-labelledby="abogado-extra-tab">
-                <extrasabogado :sistema="sistema"></extrasabogado>
+                <extrasabogado :sistema="sistema" :carpeta="carpeta"></extrasabogado>
             </div>
             <div class="tab-pane fade" id="pills-abogado-carpetasLigadas" role="tabpanel-fisico" aria-labelledby="abogado-carpetasLigadas-tab">
                 <notificaciones :tipo="'fisica'"></notificaciones>
