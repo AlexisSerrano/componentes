@@ -25,7 +25,7 @@
                     </li>
                 </ul>
                 <div class="col-2 d-flex align-items-start justify-content-end">
-                    <button v-if="this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
+                    <button v-if="(this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica=='') || personasEncontradas!=''" type="button" class="btn btn-primary" @click="cleanFields">
                         <icon name="eraser" style="color:white"></icon>
                         Limpiar
                     </button>
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
     export default {
         props: {
             sistema: {
@@ -74,6 +75,7 @@
             cleanFields(){
                 this.$store.commit('cleanStore')
             }
-        }
+        },
+        computed: mapState(['personasEncontradas'])
     }
 </script>

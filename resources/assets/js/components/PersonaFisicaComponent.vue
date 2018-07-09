@@ -13,26 +13,26 @@
             </div>
 
             <div class="form-row">
-                <div v-if="validaciones.nombres!='oculto'" class="form-group col-md-4">
+                <div v-if="validaciones.nombres!='oculto' && personasEncontradas==''" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
                     <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
                     <span v-show="errors.has('nombres')" class="text-danger">{{ errors.first('nombres')}}</span>
                     <span v-if="this.validacionesback.nombres!=undefined" class="text-danger">{{ String(this.validacionesback.nombres)}}</span>
                 </div>
 
-                <div v-if="validaciones.primerAp!='oculto'" class="form-group col-md-4">
+                <div v-if="validaciones.primerAp!='oculto' && personasEncontradas==''" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="primerAp">Primer apellido</label>
                     <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
                     <span v-show="errors.has('primer apellido')" class="text-danger">{{ errors.first('primer apellido')}}</span>
                     <span v-if="this.validacionesback.primerAp!=undefined" class="text-danger">{{ String(this.validacionesback.primerAp)}}</span>
                 </div>
-                <div v-if="validaciones.segundoAp!='oculto'" class="form-group col-md-4">
+                <div v-if="validaciones.segundoAp!='oculto' && personasEncontradas==''" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="segundoAp">Segundo apellido</label>
                     <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
                     <span v-show="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido')}}</span>
                     <span v-if="this.validacionesback.segundoAp!=undefined" class="text-danger">{{ String(this.validacionesback.segundoAp)}}</span>
                 </div>
-               <div v-if="validaciones.alias!='oculto' && tipo=='conocido'" class="form-group col-md-4">
+               <div v-if="validaciones.alias!='oculto' && tipo=='conocido' && personasEncontradas==''" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="alias">Alias</label>                    
                     <input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias')  || this.validacionesback.alias}" v-model="alias" placeholder="Ingrese el alias" v-validate="validaciones.alias" autocomplete="off">
                     <span v-show="errors.has('alias')" class="text-danger">{{ errors.first('alias')}}</span>
@@ -182,11 +182,11 @@
 
 
 
-            <button type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
+            <button v-if="personasEncontradas==''" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 
 
 
-            <coincidencias v-if="this.$store.state.personasEncontradas"></coincidencias>
+            <coincidencias v-if="personasEncontradas"></coincidencias>
 
 
 
@@ -355,16 +355,15 @@ import { mapState } from "vuex";
             },
             searchConocido(){
                 if((this.tipo=='conocido' || this.tipo=='conocidomoral') && this.nombres!='' && this.primerAp!='' && this.segundoAp!=''){
-                    console.log("ok")
                     var urlSearchConocido = this.url+'/searchConocido';
                     axios.post(urlSearchConocido,{
                         nombres: this.nombres,
                         primerAp: this.primerAp,
                         segundoAp: this.segundoAp,
                     }).then(response =>{ 
-
-                        console.log(response.data)
-                        this.$store.commit('asignarPersonasEncontradas',response.data)
+                        if(response.data){
+                            this.$store.commit('asignarPersonasEncontradas',response.data)
+                        }
                     });
                 }
             },
@@ -668,7 +667,7 @@ import { mapState } from "vuex";
                  return 'Modificar'
             }
         }  
-        },mapState(['idPersonaFisica','idPersonaMoral','fisicaEncontrada']))
+        },mapState(['idPersonaFisica','idPersonaMoral','fisicaEncontrada','personasEncontradas']))
     }
 </script>
 <style>

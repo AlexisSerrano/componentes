@@ -82,7 +82,8 @@ const store = new Vuex.Store({
             state.idTemporal='',
             state.idDomicilioTemporal='',
             state.idTrabajoTemporal='',
-            state.idContactoTemporal=''
+            state.idContactoTemporal='',
+            state.personasEncontradas=''
         },
         asignarCarpetasLigadas(state,payload){
             state.carpetasLigadas=payload

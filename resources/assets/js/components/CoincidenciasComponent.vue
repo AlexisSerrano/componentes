@@ -1,15 +1,12 @@
 <template>
 
-<div class="col">
+<div>
 
   <h3 class="mb-3">Coincidencias</h3>         
   <table class="table table-bordered table-hover">
     <thead class="thead-dark">
       <tr>
-        <th>Nombres</th>
-        <th>Primer apellido</th>
-        <th>Segundo apellido</th>
-        <th>Fecha de nacimiento</th>
+        <th>Nombre y apellidos</th>
         <th>Edad</th>
         <th>Sexo</th>
         <th>R.F.C</th>
@@ -21,13 +18,10 @@
       </tr>
     </thead>
     <tbody >
-      <tr v-for="coincidencia in coincidencias" :key="coincidencia.curp">
-        <td>{{ coincidencia.nombres }}</td>
-        <td>{{ coincidencia.primerAp }}</td>
-        <td>{{ coincidencia.segundoAp }}</td>
-        <td>{{ coincidencia.fechaNacimiento }}</td>
+      <tr v-for="coincidencia in personasEncontradas" :key="coincidencia.curp">
+        <td>{{ `${coincidencia.nombres} ${coincidencia.primerAp} ${coincidencia.segundoAp}` }}</td>
         <td>{{ coincidencia.edad }}</td>
-        <td>{{ coincidencia.sexo }}</td>
+        <td>{{ coincidencia.sexo.nombre }}</td>
         <td>{{ coincidencia.rfc }}</td>
         <td>{{ coincidencia.curp }}</td>
         <td>{{ coincidencia.idNacionalidad.nombre }}</td>
@@ -44,16 +38,6 @@
 <script>
 import { mapState } from "vuex";
     export default {
-      data() {
-        return {
-          coincidencias:''
-        }
-      },
-      watch: {
-        personasEncontradas() {
-          this.coincidencias=this.$store.state.personasEncontradas
-        }
-      },
       computed:mapState(['personasEncontradas'])
     }
 </script>
