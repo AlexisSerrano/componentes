@@ -57,6 +57,7 @@ Vue.component('extrasconocido',require('./components/ExtrasConocidoComponent.vue
 Vue.component('registro',require('./components/RegistroComponent.vue'));
 Vue.component('carpetas',require('./components/carpetasLigadasComponent.vue'));
 Vue.component('notificaciones',require('./components/NotificacionesComponent.vue'));
+Vue.component('coincidencias',require('./components/CoincidenciasComponent.vue'));
 Vue.component('familiar',require('./components/familiarComponent.vue'));
 Vue.component('icon', Icon)
 

@@ -225,7 +225,7 @@ class PersonaController extends Controller{
 		if($carpetas){
 			return response()->json($carpetas);
 		}else{
-			return response()->json("false");
+			return response()->json(false);
 		}		
 	}
 
