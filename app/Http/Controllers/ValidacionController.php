@@ -63,10 +63,10 @@ class ValidacionController extends Controller
     }
 
     public function valDenuncianteFUAT(DenuncianteFisicaRequest $request){
-        if(isset($request->idPersona))
-            $idVariable = ValidacionController::updateInputsFisica($request);
-        else
-            $idVariable = ValidacionController::saveInputsFisica($request);
+        // if(isset($request->idPersona))
+        //     $idVariable = ValidacionController::updateInputsFisica($request);
+        // else
+        $idVariable = ValidacionController::saveInputsFisica($request);
         return response()->json($idVariable);
     }
 
@@ -82,69 +82,16 @@ class ValidacionController extends Controller
     public function saveInputsFisica($request){
         DB::beginTransaction();
         try{
-            if($request->personaFisica==''){
-                $persona =  new PersonaModel();
-                $persona->nombres = $request->nombres;
-                $persona->primerAp = $request->primerAp;
-                $persona->segundoAp = $request->segundoAp;
-                $persona->fechaNacimiento = $request->fechaNacimiento;
-                $persona->rfc = $request->rfc.$request->homo;
-                $persona->curp = $request->curp;
-                $persona->sexo = $request->sexo;
-                $persona->idNacionalidad = $request->idNacionalidad;
-                $persona->idEtnia = $request->idEtnia;
-                $persona->idLengua = $request->idLengua;
-                $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
-                $persona->save();
+            if($request->personaFisica==''&&$request->idPersona==''){
+                $persona = new PersonaModel();
+                $oper="INSERT";
+                $antes= null;
             }
-            $variables =  new VariablesPersona();
-            $variables->idPersona = ($request->personaFisica=='')?$persona->id:$request->personaFisica;
-            $variables->edad = $request->edad;
-            $variables->motivoEstancia = $request->motivoEstancia;
-            $variables->idOcupacion = $request->idOcupacion;
-            $variables->idEstadoCivil = $request->idEstadoCivil;
-            $variables->idEscolaridad = $request->idEscolaridad;
-            $variables->idReligion = $request->idReligion;
-            
-            $variables->docIdentificacion = $request->docIdentificacion;
-            $variables->idInterprete = $request->idInterprete;
-            $variables->numDocIdentificacion = $request->numDocIdentificacion;
-            $variables->telefono = $request->telefono;
-            $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; 
-            $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; 
-            $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
-            $variables->save();
-
-            if($request->personaFisica==''){
-                saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$persona->id,null,$persona);
+            else{
+                $persona = PersonaModel::find($request->personaFisica);
+                $oper = "UPDATE";
+                $antes = clone $persona;
             }
-            saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','INSERT',$variables->id,null,$variables);
-            DB::commit();
-			return $variables->id;
-        }catch (\PDOException $e){
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateInputsFisica($request){
-        DB::beginTransaction();
-        try{
-            
-            $variables =  VariablesPersona::find($request->idPersona);
-            $variables->edad = $request->edad;
-            $variables->motivoEstancia = $request->motivoEstancia;
-            $variables->idOcupacion = $request->idOcupacion;
-            $variables->idEstadoCivil = $request->idEstadoCivil;
-            $variables->idEscolaridad = $request->idEscolaridad;
-            $variables->idReligion = $request->idReligion;
-            $variables->docIdentificacion = $request->docIdentificacion;
-            $variables->idInterprete = $request->idInterprete;
-            $variables->numDocIdentificacion = $request->numDocIdentificacion;
-            $variables->telefono = $request->telefono;
-            $variables->save();
-            
-            $persona = PersonaModel::find($variables->idPersona);
             $persona->nombres = $request->nombres;
             $persona->primerAp = $request->primerAp;
             $persona->segundoAp = $request->segundoAp;
@@ -157,16 +104,68 @@ class ValidacionController extends Controller
             $persona->idLengua = $request->idLengua;
             $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
             $persona->save();
-            
-            saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
-            saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
+            if(isset($request->idPersona)){
+                $variables=VariablesPersona::find($request->idPersona);
+                $oper="UPDATE";
+                $antes= clone $variables;
+            }else{
+                $variables=new VariablesPersona();
+                $variables->idPersona = ($request->personaFisica=='')?$persona->id:$request->personaFisica;
+                $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; 
+                $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; 
+                $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
+                $oper="INSERT";
+                $antes=null;
+            }
+            $variables->edad = $request->edad;
+            $variables->motivoEstancia = $request->motivoEstancia;
+            $variables->idOcupacion = $request->idOcupacion;
+            $variables->idEstadoCivil = $request->idEstadoCivil;
+            $variables->idEscolaridad = $request->idEscolaridad;
+            $variables->idReligion = $request->idReligion;
+            $variables->docIdentificacion = $request->docIdentificacion;
+            $variables->idInterprete = $request->idInterprete;
+            $variables->numDocIdentificacion = $request->numDocIdentificacion;
+            $variables->telefono = $request->telefono;
+            $variables->save();
+            saveInLog($request->sistema,$request->usuario,'persona_fisica',$oper,$persona->id,$antes,$persona);
+            saveInLog($request->sistema,$request->usuario,'variables_persona_fisica',$oper,$variables->id,$antes,$variables);
             DB::commit();
-			return $variables->id;
+            $data = array(
+				'idPersona'=>$persona->id,
+                'idVarPersona'=>$variables->id
+            );
+			return response()->json($data);
         }catch (\PDOException $e){
             DB::rollBack();
             return false;
         }
     }
+
+    // public function updateInputsFisica($request){
+    //     DB::beginTransaction();
+    //     try{
+    //         $variables =  VariablesPersona::find($request->idPersona);
+    //         $antes= clone $variables;
+    //         $variables->edad = $request->edad;
+    //         $variables->motivoEstancia = $request->motivoEstancia;
+    //         $variables->idOcupacion = $request->idOcupacion;
+    //         $variables->idEstadoCivil = $request->idEstadoCivil;
+    //         $variables->idEscolaridad = $request->idEscolaridad;
+    //         $variables->idReligion = $request->idReligion;
+    //         $variables->docIdentificacion = $request->docIdentificacion;
+    //         $variables->idInterprete = $request->idInterprete;
+    //         $variables->numDocIdentificacion = $request->numDocIdentificacion;
+    //         $variables->telefono = $request->telefono;
+    //         $variables->save();
+    //         saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,$antes,$variables);           
+    //         DB::commit();
+	// 		return $variables->id;
+    //     }catch (\PDOException $e){
+    //         DB::rollBack();
+    //         return false;
+    //     }
+    // }
 
     public function saveInputsAbogadoFisica($request){
         DB::beginTransaction();
