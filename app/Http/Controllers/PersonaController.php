@@ -119,9 +119,9 @@ class PersonaController extends Controller{
 		->join('sexos', 'persona_fisica.sexo', '=', 'sexos.id')
 		->join('cat_interprete', 'variables_persona_fisica.idInterprete', '=', 'cat_interprete.id')
 		->join('cat_estado', 'cat_municipio.idEstado', '=', 'cat_estado.id')
-		->where('persona_fisica.nombres',$request->nombres)
-		->where('persona_fisica.primerAp.',$request->primerAp)
-		->where('persona_fisica.segundoAp',$request->segundoAp)
+		->where('nombres',$request->nombres)
+		->where('primerAp',$request->primerAp)
+		->where('segundoAp',$request->segundoAp)
 		->select('persona_fisica.id as id','persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
 		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','persona_fisica.sexo',
 		'variables_persona_fisica.edad','variables_persona_fisica.telefono','variables_persona_fisica.motivoEstancia',
@@ -142,7 +142,7 @@ class PersonaController extends Controller{
 		->orderBy('variables_persona_fisica.id','desc')
 		->get();
 		//echo $personaExisteP;
-        if($personaExisteP){
+        if($personaExiste){
 			$data = array();
 			foreach($personaExiste as $personaExisteP){
 				$data2 = array(

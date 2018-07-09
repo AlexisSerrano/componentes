@@ -361,8 +361,9 @@ import { mapState } from "vuex";
                         nombres: this.nombres,
                         primerAp: this.primerAp,
                         segundoAp: this.segundoAp,
-                    }).then(response =>{             
-                        console.log(response.data.idNacionalidad.nombre)
+                    }).then(response =>{ 
+
+                        console.log(response.data)
                         this.$store.commit('asignarPersonasEncontradas',response.data)
                     });
                 }
