@@ -175,13 +175,12 @@ class PersonaController extends Controller{
 					'telefono'=>$personaExisteP->telefono
 				);
 				array_push($data,$data2);
+				return response()->json($data);
 			}
 		}
 		else{
-			$data = array(
-			);
+			return false;
 		}
-		return response()->json($data);
 	}
 
 	public function getCatalogos(Request $request){
