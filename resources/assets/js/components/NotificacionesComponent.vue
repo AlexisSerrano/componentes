@@ -9,8 +9,8 @@
         <th>Nombres</th>
         <th>Primer apellido</th>
         <th>Segundo apellido</th>
-        <th>R.F.C.</th>
-        <th>C.U.R.P.</th>
+        <th>R.F.C</th>
+        <th>C.U.R.P</th>
         <th>ID Carpeta</th>
         <th>Sistema</th>
         <th>Tipo de involucrado</th>
@@ -70,12 +70,10 @@
 
 
 <script>
-import swal from 'sweetalert2'
 import { mapState } from "vuex";
     export default {
         data(){
-            return{
-                url:'./api',
+            return{ 
                 carpetas:''         
             }
         },

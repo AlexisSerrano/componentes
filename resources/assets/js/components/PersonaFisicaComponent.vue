@@ -15,20 +15,20 @@
             <div class="form-row">
                 <div v-if="validaciones.nombres!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
-                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="calcularRfc(),generarCurp()" :readonly="this.$store.state.fisicaEncontrada==true">
+                    <input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
                     <span v-show="errors.has('nombres')" class="text-danger">{{ errors.first('nombres')}}</span>
                     <span v-if="this.validacionesback.nombres!=undefined" class="text-danger">{{ String(this.validacionesback.nombres)}}</span>
                 </div>
 
                 <div v-if="validaciones.primerAp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="primerAp">Primer apellido</label>
-                    <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc(),generarCurp()" :readonly="this.$store.state.fisicaEncontrada==true">
+                    <input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido" v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
                     <span v-show="errors.has('primer apellido')" class="text-danger">{{ errors.first('primer apellido')}}</span>
                     <span v-if="this.validacionesback.primerAp!=undefined" class="text-danger">{{ String(this.validacionesback.primerAp)}}</span>
                 </div>
                 <div v-if="validaciones.segundoAp!='oculto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="segundoAp">Segundo apellido</label>
-                    <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc(),generarCurp()" :readonly="this.$store.state.fisicaEncontrada==true">
+                    <input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido" v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
                     <span v-show="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido')}}</span>
                     <span v-if="this.validacionesback.segundoAp!=undefined" class="text-danger">{{ String(this.validacionesback.segundoAp)}}</span>
                 </div>
@@ -353,6 +353,20 @@ import { mapState } from "vuex";
                     }
                 });
             },
+            searchConocido(){
+                if((this.tipo=='conocido' || this.tipo=='conocidomoral') && this.nombres!='' && this.primerAp!='' && this.segundoAp!=''){
+                    console.log("ok")
+                    // var urlSearchConocido = this.url+'/searchConocido';
+                    // axios.post(urlSearchConocido,{
+                    //     nombres: this.nombres,
+                    //     primerAp: this.primerAp,
+                    //     segundoAp: this.segundoAp,
+                    // }).then(response =>{             
+                    //     console.log(response.data.idNacionalidad.nombre)
+                    //     this.$store.commit('asignarPersonasEncontradas',response.data)
+                    // });
+                }
+            },
             calcularRfc(){
                 if(this.nombres!='' && this.primerAp!='' && this.segundoAp!='' && this.fechaNacimiento!=''){
                     var urlRfcFisico = this.url+'/rfcFisico';
@@ -584,7 +598,6 @@ import { mapState } from "vuex";
                 if(data){
                     axios.post(urlCrearPersona,data)
                     .then (response =>{
-                        console.log(response.data)
                         if(response.data){
                             this.$store.commit('asignarIdFisica',{idPersona:response.data.original.idVarPersona,personaFisica:response.data.original.idPersona})
                             if(this.tipo=='conocido'){

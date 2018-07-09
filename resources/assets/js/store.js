@@ -22,7 +22,8 @@ const store = new Vuex.Store({
         idTemporal:'',
         idDomicilioTemporal:'',
         idTrabajoTemporal:'',
-        idContactoTemporal:''
+        idContactoTemporal:'',
+        personasEncontradas:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -99,6 +100,9 @@ const store = new Vuex.Store({
                 state.idTrabajoTemporal=payload.idTrabajoTemporal
             }
             state.idContactoTemporal=payload.idContactoTemporal
+        },
+        asignarPersonasEncontradas(state,payload){
+            state.personasEncontradas=payload
         }
     }
 })
