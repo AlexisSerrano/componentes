@@ -79,11 +79,13 @@
         },
         watch: {
             denunciado() {
-                if(this.denunciado==1 || this.denunciado==2){
-                    this.persona=''
-                }
+                this.$store.commit('cleanStore')
+                this.persona=''
             },
             persona() {
+                this.$store.commit('cleanStore')
+            },
+            conocido(){
                 this.$store.commit('cleanStore')
             }
         },
