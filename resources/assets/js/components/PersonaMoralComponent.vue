@@ -205,21 +205,25 @@ import { mapState } from "vuex";
                 this.validacionesback='';
                 var urlCrearMoral = this.url+'/'+this.tipo+this.sistema;
                 if(this.tipo!='conocidomoral'){
-                    nombre= this.nombre.toUpperCase(),
-                    fechaCreacion= this.fechaCreacion,
-                    rfc=this.rfc,
-                    homo=this.homoclave,
-                    telefono= this.telefono,
-                    representanteLegal= this.representanteLegal.toUpperCase(),
-                    sistema= this.sistema,
-                    idPersona=this.$store.state.idPersonaMoral,
-                    usuario=this.systemUser,
-                    personaMoral=this.$store.state.personaMoral,
-                    idDomicilio=this.$store.state.idDomicilioTemporal,
-                    idNotificacion=this.$store.state.idContactoTemporal
+                    var data={
+                        nombre: this.nombre.toUpperCase(),
+                        fechaCreacion: this.fechaCreacion,
+                        rfc:this.rfc,
+                        homo:this.homoclave,
+                        telefono: this.telefono,
+                        representanteLegal: this.representanteLegal.toUpperCase(),
+                        sistema: this.sistema,
+                        idPersona:this.$store.state.idPersonaMoral,
+                        usuario:this.systemUser,
+                        personaMoral:this.$store.state.personaMoral,
+                        idDomicilio:this.$store.state.idDomicilioTemporal,
+                        idNotificacion:this.$store.state.idContactoTemporal
+                    };
                 }
                 else{
-                    nombre= this.nombre.toUpperCase()
+                    var data = {
+                      nombre: this.nombre.toUpperCase()
+                    };
                 }
                 axios.post(urlCrearMoral,data)
                 .then (response =>{
