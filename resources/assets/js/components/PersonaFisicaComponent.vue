@@ -644,16 +644,11 @@
 						idNotificacion: this.$store.state.idContactoTemporal
 					};
 				} else if (this.tipo == 'qrr') {
-					swal({
-						title: '¡Guardado correctamente!',
-						text: 'Ésta persona fue guardada exitosamente.',
-						type: 'success',
-						confirmButtonText: 'Ok'
-					})
-					this.$store.commit('asignarIdFisica', {
-						idPersona: 1
-					})
-					return
+					var data = {
+						sistema: this.sistema,
+						usuario: this.systemUser,
+						idCarpeta: this.carpeta
+					};
 				}
 				if (data) {
 					axios.post(urlCrearPersona, data)

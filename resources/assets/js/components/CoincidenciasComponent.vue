@@ -147,7 +147,8 @@
         text-align: center;
     }
     
-    td {
+    .table td {
         text-align: center;
+        vertical-align:middle;
     }
 </style>
