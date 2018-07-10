@@ -81,6 +81,7 @@
             denunciado() {
                 this.$store.commit('cleanStore')
                 this.persona=''
+                this.conocido=''
             },
             persona() {
                 this.$store.commit('cleanStore')
