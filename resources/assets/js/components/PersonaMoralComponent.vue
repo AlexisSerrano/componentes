@@ -240,6 +240,7 @@
                 } else {
                     var data = {
                         nombre: this.nombre.toUpperCase(),
+                        fechaCreacion:"0000-00-00",
                         sistema: this.sistema,
                         idPersonaMoral: this.$store.state.idPersonaMoral,
                         usuario: this.systemUser,
