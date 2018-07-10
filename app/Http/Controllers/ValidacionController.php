@@ -219,6 +219,40 @@ class ValidacionController extends Controller
         }
     }
 
+    public function saveInputsConocidoMoral($request){
+        // DB::beginTransaction();
+        // try{
+            $persona = new PersonaMoralModel();
+            $persona->nombre = $request->nombre;
+            $persona->fechaCreacion = "1990-01-01";
+            $persona->rfc = "";
+            $persona->save();
+
+            $variables = new VariablesPersonaMoral();
+            $variables->idPersona = ($request->personaMoral=='')?$persona->id:$request->personaMoral;
+            $variables->idDomicilio = ($request->personaMoral=='')?1:$request->idDomicilio; 
+            $variables->idTrabajo = ($request->personaMoral=='')?1:$request->idTrabajo; 
+            $variables->idNotificacion = ($request->personaMoral=='')?1:$request->idNotificacion;
+            $variables->save();
+
+            $extras = new ExtraDenunciadoMoral();
+            $extras->idVariablesPersona = $variables->id;
+            $extras->alias = $request->alias;
+            $extras->save();
+
+            saveInLog($request->sistema,$request->usuario,'persona_moral','INSERT',$persona->id,null,$persona);
+            saveInLog($request->sistema,$request->usuario,'variables_persona_moral','INSERT',$variables->id,null,$variables);
+            saveInLog($request->sistema,$request->usuario,'persona_moral','INSERT',$extras->id,null,$extras);
+            DB::commit();
+
+            $data = array('idPersona'=>$persona->id,'idVarPersona'=>$variables->id,'idExtra'=>$extras->id);
+            return response()->json($data);
+        // }catch (\PDOException $e){
+        //     DB::rollBack();
+        //     return false;
+        // }
+    }
+
     // public function updateInputsConocidoFisica($request){
     //     //DB::beginTransaction();
     //     //try{
