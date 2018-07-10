@@ -237,7 +237,7 @@
                         idDomicilio: this.$store.state.idDomicilioTemporal,
                         idNotificacion: this.$store.state.idContactoTemporal
                     };
-                } else {
+                } else if (this.tipo=='conocidomoral'){
                     var data = {
                         nombre: this.nombre.toUpperCase(),
                         fechaCreacion:"0000-00-00",
