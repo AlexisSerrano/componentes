@@ -5,8 +5,9 @@
                 <div class="col-6">
                      <label class="col-form-label col-form-label-sm">Seleccione una opción</label> 
                 </div>
-                <div v-if="denunciado==3" class="col-6">
-                    <label class="col-form-label col-form-label-sm">Tipo de persona</label> 
+                <div class="col-6">
+                    <label  v-if="denunciado==3" class="col-form-label col-form-label-sm">Tipo de persona</label> 
+                    <label  v-if="denunciado==2" class="col-form-label col-form-label-sm">Tipo de conocido</label> 
                 </div>
             </div>
             <div class="form-row">
