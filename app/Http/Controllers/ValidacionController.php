@@ -43,10 +43,10 @@ class ValidacionController extends Controller
     }
 
     public function valDenunciadoMUAT(DenunciadoMoralRequest $request){
-        if(isset($request->idPersona))
-            $idVariable = ValidacionController::updateInputsMoral($request);
-        else
-            $idVariable = ValidacionController::saveInputsMoral($request);
+        // if(isset($request->idPersona))
+        //     $idVariable = ValidacionController::updateInputsMoral($request);
+        // else
+        $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
     }
 
@@ -56,10 +56,10 @@ class ValidacionController extends Controller
     }
 
     public function valDenuncianteMUAT(DenuncianteMoralRequest $request){
-        if(isset($request->idPersona))
-            $idVariable = ValidacionController::updateInputsMoral($request);
-        else
-            $idVariable = ValidacionController::saveInputsMoral($request);
+        // if(isset($request->idPersona))
+        //     $idVariable = ValidacionController::updateInputsMoral($request);
+        // else
+        $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
     }
 
@@ -242,58 +242,77 @@ class ValidacionController extends Controller
     public function saveInputsMoral($request){
         DB::beginTransaction();
         try{
-            if($request->personaMoral==''){
-                $persona =  new PersonaMoralModel();
-                $persona->nombre = $request->nombre;
-                $persona->fechaCreacion = $request->fechaCreacion;
-                $persona->rfc = $request->rfc.$request->homo;
-                $persona->save();
+            if($request->personaMoral==''&&$request->idPersona==''){
+                $persona = new PersonaMoralModel();
+                $oper="INSERT";
+                $antes= null;
             }
-            $variables =  new VariablesPersonaMoral();
-            $variables->idPersona = ($request->personaMoral=='')?$persona->id:$request->personaMoral;
-            $variables->idDomicilio = ($request->personaMoral=='')?1:$request->idDomicilio; 
-            $variables->idNotificacion = ($request->personaMoral=='')?1:$request->idNotificacion;
-            $variables->telefono = $request->telefono;
-            $variables->representanteLegal = $request->representanteLegal;
-            $variables->save();
-
-            if($request->personaMoral==''){
-                saveInLog($request->sistema,$request->usuario,'persona_moral','INSERT',$persona->id,null,$persona);
+            else{
+                $persona = PersonaMoralModel::find($request->idPersona);
+                $oper = "UPDATE";
+                $antes = clone $persona;
             }
-            saveInLog($request->sistema,$request->usuario,'variables_persona_moral','INSERT',$variables->id,null,$variables);
-
-            DB::commit();
-            return $variables->id;
-        }catch (\PDOException $e){
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateInputsMoral($request){
-        DB::beginTransaction();
-        try{
-
-            $variables = VariablesPersonaMoral::find($request->idPersona);
-            $variables->telefono = $request->telefono;
-            $variables->representanteLegal = $request->representanteLegal;
-            $variables->save();
-
-            $persona =  PersonaMoralModel::find($variables->idPersona);
             $persona->nombre = $request->nombre;
             $persona->fechaCreacion = $request->fechaCreacion;
             $persona->rfc = $request->rfc.$request->homo;
             $persona->save();
 
-            saveInLog($request->sistema,$request->usuario,'variables_persona_moral','UPDATE',$variables->id,null,$variables);
-            saveInLog($request->sistema,$request->usuario,'persona_moral','UPDATE',$persona->id,null,$persona); 
-            
+            if(isset($request->idPersona)){
+                $variables = VariablesPersonaMoral::find($request->idPersona);
+                $oper = "UPDATE";
+                $antes = clone $variables; 
+            }
+            else{
+                $variables = new VariablesPersonaMoral();
+                $oper="INSERT";
+                $antes= null;
+            }
+            $variables->idDomicilio = ($request->personaMoral=='')?1:$request->idDomicilio; 
+            $variables->idNotificacion = ($request->personaMoral=='')?1:$request->idNotificacion;
+            $variables->idPersona = ($request->personaMoral=='')?$persona->id:$request->personaMoral;
+            $variables->telefono = $request->telefono;
+            $variables->representanteLegal = $request->representanteLegal;
+            $variables->save();
+
+            saveInLog($request->sistema,$request->usuario,'persona_moral',$oper,$persona->id,$antes,$persona);
+            saveInLog($request->sistema,$request->usuario,'variables_persona_moral',$oper,$variables->id,$antes,$variables);
+
             DB::commit();
-            return $variables->id;
+            $data = array(
+				'idPersona'=>$persona->id,
+                'idVarPersona'=>$variables->id
+            );
+			return response()->json($data);
         }catch (\PDOException $e){
             DB::rollBack();
             return false;
         }
     }
+
+    // public function updateInputsMoral($request){
+    //     DB::beginTransaction();
+    //     try{
+
+    //         $variables = VariablesPersonaMoral::find($request->idPersona);
+    //         $variables->telefono = $request->telefono;
+    //         $variables->representanteLegal = $request->representanteLegal;
+    //         $variables->save();
+
+    //         $persona =  PersonaMoralModel::find($variables->idPersona);
+    //         $persona->nombre = $request->nombre;
+    //         $persona->fechaCreacion = $request->fechaCreacion;
+    //         $persona->rfc = $request->rfc.$request->homo;
+    //         $persona->save();
+
+    //         saveInLog($request->sistema,$request->usuario,'variables_persona_moral','UPDATE',$variables->id,null,$variables);
+    //         saveInLog($request->sistema,$request->usuario,'persona_moral','UPDATE',$persona->id,null,$persona); 
+            
+    //         DB::commit();
+    //         return $variables->id;
+    //     }catch (\PDOException $e){
+    //         DB::rollBack();
+    //         return false;
+    //     }
+    // }
 
 }
