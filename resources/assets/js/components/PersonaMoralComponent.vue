@@ -243,7 +243,7 @@
                         sistema: this.sistema,
                         idPersonaMoral: this.$store.state.idPersonaMoral,
                         usuario: this.systemUser,
-                        personaFisica: this.$store.state.personaFisica
+                        personaMoral: this.$store.state.personaMoral
                     };
                 }
                 axios.post(urlCrearMoral, data)
@@ -253,7 +253,7 @@
                             personaMoral: response.data.original.idPersona
                         })
                         if (this.tipo == 'conocidomoral') {
-                            this.$store.commit('asignarIdExtra', response.data.idExtra)
+                            this.$store.commit('asignarIdExtra', response.data.original.idExtra)
                         }
                         swal({
                             title: '¡Guardado correctamente!',

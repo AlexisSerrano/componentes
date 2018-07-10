@@ -59,7 +59,7 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtrasConocido: function(){   
-                var urlGuardarAutoridad = this.url+'/addExtrasAutoridad';       
+                var urlGuardarConocido = this.url+'/addExtrasConocido';       
                 if(this.empresa==false){
                     var idPersona=this.$store.state.idPersonaFisica
                 }
