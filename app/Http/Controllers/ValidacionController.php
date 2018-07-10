@@ -240,8 +240,8 @@ class ValidacionController extends Controller
     // }
 
     public function saveInputsMoral($request){
-        DB::beginTransaction();
-        try{
+        // DB::beginTransaction();
+        // try{
             if($request->personaMoral==''&&$request->idPersona==''){
                 $persona = new PersonaMoralModel();
                 $oper="INSERT";
@@ -277,16 +277,16 @@ class ValidacionController extends Controller
             saveInLog($request->sistema,$request->usuario,'persona_moral',$oper,$persona->id,$antes,$persona);
             saveInLog($request->sistema,$request->usuario,'variables_persona_moral',$oper,$variables->id,$antes,$variables);
 
-            DB::commit();
+            // DB::commit();
             $data = array(
 				'idPersona'=>$persona->id,
                 'idVarPersona'=>$variables->id
             );
 			return response()->json($data);
-        }catch (\PDOException $e){
-            DB::rollBack();
-            return false;
-        }
+        // }catch (\PDOException $e){
+        //     DB::rollBack();
+        //     return false;
+        // }
     }
 
     // public function updateInputsMoral($request){
