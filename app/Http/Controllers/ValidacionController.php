@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\AbogadoRequest;
 use App\Http\Requests\AutoridadRequest;
-use App\Http\Requests\ConocidoRequest;
+use App\Http\Requests\ConocidoFisicoRequest;
+use App\Http\Requests\ConocidoMoralRequest;
 use App\Http\Requests\DenunciadoFisicaRequest;
 use App\Http\Requests\DenunciadoMoralRequest;
 use App\Http\Requests\DenuncianteFisicaRequest;
@@ -32,8 +33,13 @@ class ValidacionController extends Controller
         return response()->json($idVariable);
     }
 
-    public function valConocidoUAT(ConocidoRequest $request){
-        $idVariable = ValidacionController::saveInputsConocidoFisica($request);
+    public function valConocidoFUAT(ConocidoFisicoRequest $request){
+        $idVariable = ValidacionController::saveInputsConocidoFisico($request);
+        return response()->json($idVariable);
+    }
+
+    public function valConocidoMUAT(ConocidoMoralRequest $request){
+        $idVariable = ValidacionController::saveInputsConocidoMoral($request);
         return response()->json($idVariable);
     }
 
@@ -43,9 +49,6 @@ class ValidacionController extends Controller
     }
 
     public function valDenunciadoMUAT(DenunciadoMoralRequest $request){
-        // if(isset($request->idPersona))
-        //     $idVariable = ValidacionController::updateInputsMoral($request);
-        // else
         $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
     }
@@ -56,10 +59,12 @@ class ValidacionController extends Controller
     }
 
     public function valDenuncianteMUAT(DenuncianteMoralRequest $request){
-        // if(isset($request->idPersona))
-        //     $idVariable = ValidacionController::updateInputsMoral($request);
-        // else
         $idVariable = ValidacionController::saveInputsMoral($request);
+        return response()->json($idVariable);
+    }
+
+    public function valQrrUAT(Request $request){
+        $idVariable = ValidacionController::saveQrr($request);
         return response()->json($idVariable);
     }
 
@@ -180,7 +185,7 @@ class ValidacionController extends Controller
         }
     }
 
-    public function saveInputsConocidoFisica($request){
+    public function saveInputsConocidoFisico($request){
         DB::beginTransaction();
         try{
             $persona = new PersonaModel();
@@ -206,7 +211,7 @@ class ValidacionController extends Controller
             saveInLog($request->sistema,$request->usuario,'persona_fisica','INSERT',$extras->id,null,$extras);
             DB::commit();
 
-            $data = array('idPersona'=>$variables->id,'idExtra'=>$extras->id);
+            $data = array('idPersona'=>$persona->id,'idVarPersona'=>$variables->id,'idExtra'=>$extras->id);
             return response()->json($data);
         }catch (\PDOException $e){
             DB::rollBack();
@@ -240,8 +245,8 @@ class ValidacionController extends Controller
     // }
 
     public function saveInputsMoral($request){
-        // DB::beginTransaction();
-        // try{
+        DB::beginTransaction();
+        try{
             if($request->personaMoral==''&&$request->idPersona==''){
                 $persona = new PersonaMoralModel();
                 $oper="INSERT";
@@ -277,42 +282,25 @@ class ValidacionController extends Controller
             saveInLog($request->sistema,$request->usuario,'persona_moral',$oper,$persona->id,$antes,$persona);
             saveInLog($request->sistema,$request->usuario,'variables_persona_moral',$oper,$variables->id,$antes,$variables);
 
-            // DB::commit();
+            DB::commit();
             $data = array(
 				'idPersona'=>$persona->id,
                 'idVarPersona'=>$variables->id
             );
 			return response()->json($data);
-        // }catch (\PDOException $e){
-        //     DB::rollBack();
-        //     return false;
-        // }
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
     }
 
-    // public function updateInputsMoral($request){
-    //     DB::beginTransaction();
-    //     try{
-
-    //         $variables = VariablesPersonaMoral::find($request->idPersona);
-    //         $variables->telefono = $request->telefono;
-    //         $variables->representanteLegal = $request->representanteLegal;
-    //         $variables->save();
-
-    //         $persona =  PersonaMoralModel::find($variables->idPersona);
-    //         $persona->nombre = $request->nombre;
-    //         $persona->fechaCreacion = $request->fechaCreacion;
-    //         $persona->rfc = $request->rfc.$request->homo;
-    //         $persona->save();
-
-    //         saveInLog($request->sistema,$request->usuario,'variables_persona_moral','UPDATE',$variables->id,null,$variables);
-    //         saveInLog($request->sistema,$request->usuario,'persona_moral','UPDATE',$persona->id,null,$persona); 
-            
-    //         DB::commit();
-    //         return $variables->id;
-    //     }catch (\PDOException $e){
-    //         DB::rollBack();
-    //         return false;
-    //     }
-    // }
-
+    public function saveQrr($request){
+        $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,1,'denunciado','xxxxx',0);
+        saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
+        $data = array(
+            'idPersona'=>1,
+            'idVarPersona'=>1
+        );
+        return response()->json($data);
+    }
 }

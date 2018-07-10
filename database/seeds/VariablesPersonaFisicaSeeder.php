@@ -15,8 +15,8 @@ class VariablesPersonaFisicaSeeder extends Seeder
             [ 
                 'id' => 1, 
                 'idPersona' => 1,
-                'edad' => 12,
-                'telefono' => '2255874958',
+                'edad' => '0',
+                'telefono' => '',
                 'motivoEstancia' => '',
                 'idOcupacion' => 2941,
                 'idEstadoCivil' => 7,

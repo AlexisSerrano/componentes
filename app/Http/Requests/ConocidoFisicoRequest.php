@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Carbon\Carbon;
 
-class ConocidoRequest extends FormRequest
+class ConocidoFisicoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +23,6 @@ class ConocidoRequest extends FormRequest
      */
     public function rules()
     {
-        $before_date = Carbon::now()->subYears(18)->toDateString();
         return [
             'nombres' => 'nullable|string|min:3|max:200',
             'primerAp' => 'nullable|string|min:3|max:50',
@@ -42,7 +40,7 @@ class ConocidoRequest extends FormRequest
             'primerAp.max'=> 'El Primer apellido debe contener como máximo 50 letras',
             'segundoAp.min'=> 'El Segundo apellido debe contener como mínimo 3 letras',
             'segundoAp.max'=> 'El Segundo apellido debe contener como máximo 50 letras',
-			'alias.max' => 'El Alias debe contener como máximo 50 letra'
+			'alias.max' => 'El Alias debe contener como máximo 50 letra',
         ];
     }
 }

@@ -659,7 +659,7 @@
 									personaFisica: response.data.original.idPersona
 								})
 								if (this.tipo == 'conocido') {
-									this.$store.commit('asignarIdExtra', response.data.idExtra)
+									this.$store.commit('asignarIdExtra', response.data.original.idExtra)
 								}
 								swal({
 									title: '¡Guardado correctamente!',
