@@ -261,7 +261,7 @@
                             type: 'success',
                             confirmButtonText: 'Ok'
                         })
-                        if (this.$store.state.moralEncontrada) {
+                        if (this.$store.state.moralEncontrada && this.tipo!='conocidomoral') {
                             this.getDomicilios()
                             this.buscarCarpetasMoral()
                         }
