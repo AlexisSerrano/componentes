@@ -248,7 +248,7 @@ class ValidacionController extends Controller
                 $antes= null;
             }
             else{
-                $persona = PersonaMoralModel::find($request->idPersona);
+                $persona = PersonaMoralModel::find($request->personaMoral);
                 $oper = "UPDATE";
                 $antes = clone $persona;
             }
@@ -266,9 +266,9 @@ class ValidacionController extends Controller
                 $variables = new VariablesPersonaMoral();
                 $oper="INSERT";
                 $antes= null;
+                $variables->idDomicilio = ($request->personaMoral=='')?1:$request->idDomicilio; 
+                $variables->idNotificacion = ($request->personaMoral=='')?1:$request->idNotificacion;
             }
-            $variables->idDomicilio = ($request->personaMoral=='')?1:$request->idDomicilio; 
-            $variables->idNotificacion = ($request->personaMoral=='')?1:$request->idNotificacion;
             $variables->idPersona = ($request->personaMoral=='')?$persona->id:$request->personaMoral;
             $variables->telefono = $request->telefono;
             $variables->representanteLegal = $request->representanteLegal;
