@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Carbon\Carbon;
 
 class ActasHechosRequest extends FormRequest
 {
@@ -35,15 +36,16 @@ class ActasHechosRequest extends FormRequest
             'curp' => 'alpha_num|min:17|max:18',
             'rfc' => 'alpha_num|min:8|max:13',/*no requerido*/ 
             'homo' => 'nullable|size:3',/*no requerido*/ 
-            'idNacionalidad' => '',/*no requerido*/ 
+            'idNacionalidad' => 'required',/*no requerido*/ 
             'idEtnia' => '',/*no requerido default NO APLICA*/ 
             'idLengua' => '',/*no requerido default NO APLICA*/ 
             'telefono' => 'nullable|numeric|min:7', /*no requerido*/ 
-            'idOcupacion' => '',/*no requerido*/ 
-            'idEstadoCivil' => '',/*no requerido*/ 
+            'idOcupacion' => 'required',/*no requerido*/ 
+            'idEstadoCivil' => 'required',/*no requerido*/ 
             'idReligion' => '',/*no requerido*/ 
-            'idEscolaridad' => '',/*no requerido*/ 
-            'numDocIdentificacion' => 'nullable|string|min:2|max:50'
+            'idEscolaridad' => 'required',/*no requerido*/ 
+            'numDocIdentificacion' => 'nullable|string|min:2|max:50',
+            'docIdentificacion'=>'required'
         ];
     }
 
@@ -71,7 +73,8 @@ class ActasHechosRequest extends FormRequest
             'telefono.numeric'=>'El Teléfono personal solo debe de contener números',
             'telefono.min'=>'El Teléfono personal debe de tener como mínimo 7 digitos',
             'numDocIdentificacion.min'=> 'El Núm. de documento de identificación debe de tener como mínimo 2',
-            'numDocIdentificacion.max'=> 'El Núm. de documento de identificación debe de tener como máximo 50'
+            'numDocIdentificacion.max'=> 'El Núm. de documento de identificación debe de tener como máximo 50',
+            'docIdentificacion.required'=>'El documento de identificación es requerido'
         ];
     }
 }
