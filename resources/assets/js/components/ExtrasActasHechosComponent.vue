@@ -6,14 +6,8 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="tipoActa">Tipo de acta de hechos</label>    
-                    <v-select :options="tiposActas" label="nombre" v-model="tipoActa" name="tipoActa" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('identidad')}" placeholder="Seleccione identidad"></v-select>
-                    <span v-show="errors.has('identidad')" class="text-danger">{{ errors.first('identidad')}}</span>
-                </div>
-
-                <div class="form-group col-md-3">
-                    <label class="col-form-label col-form-label-sm" for="solicitante">Tipo de solicitante</label>    
-                    <v-select :options="solicitantes" label="nombre" v-model="solicitante" name="solicitante" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('solicitante')}" placeholder="Seleccione tipo solicitante" ></v-select>
-                    <span v-show="errors.has('solicitante')" class="text-danger">{{ errors.first('solicitante')}}</span>
+                    <v-select :options="tiposActas" label="nombre" v-model="tipoActa" data-vv-name="Tipo de acta de hechos" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('Tipo de acta de hechos')}" placeholder="Seleccione un tipo de acta"></v-select>
+                    <span v-show="errors.has('Tipo de acta de hechos')" class="text-danger">{{ errors.first('Tipo de acta de hechos')}}</span>
                 </div>
 
                 <div class="form-group col-md-12">
@@ -36,27 +30,15 @@
 import swal from 'sweetalert2'
     export default {
         data(){
-             return{                                                
-                identidades:[{nombre:'NO',id:0},{nombre:'SI',id:1}],
-                identidad:'',                
-                solicitantes:[{nombre:'OFENDIDO',id:0},{nombre:'VICTIMA',id:1}],
-                solicitante:'',
+             return{ 
+                tiposActas:[],                                                
+                tipoActa:'',
                 descripcion:'',  
                 systemUser:'TEST',
                 url:'./api'             
             }
         },
-        props:{            
-            empresa: {
-                required:true
-            },
-            sistema: {
-                required:true
-            },       
-            carpeta:{
-                required:true
-            }
-        },
+        props:['empresa','sistema'],
         created: function(){
 //            this.getPuestos();
         },
@@ -77,7 +59,7 @@ import swal from 'sweetalert2'
                 });
             },
             guardarExtra: function(){
-                var urlGuardarDenunciante = this.url+'/addExtrasDenunciante'
+                var urlGuardarDenunciante = this.url+'/addExtrasActas'
                 if(this.empresa==false){
                     var idPersona=this.$store.state.idPersonaFisica
                 }
@@ -85,16 +67,13 @@ import swal from 'sweetalert2'
                     var idPersona=this.$store.state.idPersonaMoral
                 }
                 var data = {
-                    idExtrasDenunciante:this.$store.state.idExtra,
+                    idExtrasActas:this.$store.state.idExtra,
                     idPersona:idPersona,                    
-                    reguardarIdentidad:this.identidad.id,
-                    victima: this.solicitante.id,
                     sistema:this.sistema,
                     empresa:this.empresa,
                     usuario:this.systemUser,
                     narracion:this.descripcion.toUpperCase(),
-                    idCarpeta:this.carpeta,
-                    tipo:'denunciante'                                                                  
+                    tipo:'actashechos'                                                                  
                 };
                 axios.post(urlGuardarDenunciante,data)
                 .then (response =>{
@@ -127,9 +106,8 @@ import swal from 'sweetalert2'
                 });
             },
             cleanFields(){
-                this.solicitante=''
-                this.descripcion=''
-                this.identidad=''
+                this.tipoActa,
+                this.descripcion,
                 this.$validator.reset();
             }
         }
