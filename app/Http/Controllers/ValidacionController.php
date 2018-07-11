@@ -392,7 +392,7 @@ class ValidacionController extends Controller
             $variables->idEstadoCivil = $request->idEstadoCivil;
             $variables->idEscolaridad = $request->idEscolaridad;
             $variables->docIdentificacion = $request->docIdentificacion;
-            $variables->idInterprete = $request->idInterprete;
+            $variables->idInterprete = 1;
             $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->telefono = $request->telefono;
             $variables->save();
