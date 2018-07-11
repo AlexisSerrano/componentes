@@ -134,7 +134,7 @@ import swal from 'sweetalert2'
 </script>
 
 <style>
-    input{
+    input , textarea{
         text-transform: uppercase
     }
 </style>

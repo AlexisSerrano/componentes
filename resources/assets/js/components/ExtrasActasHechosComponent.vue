@@ -1,22 +1,22 @@
 <template>
-
     <div class="container-fluid">
         <form v-on:submit.prevent="validateBeforeSubmit">
-
+    
             <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label class="col-form-label col-form-label-sm" for="tipoActa">Tipo de acta de hechos</label>    
-                    <v-select :options="tiposActas" label="nombre" v-model="tipoActa" data-vv-name="Tipo de acta de hechos" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('Tipo de acta de hechos')}" placeholder="Seleccione un tipo de acta"></v-select>
+                <div class="form-group col-md-5">
+                    <label class="col-form-label col-form-label-sm" for="tipoActa">Tipo de acta de hechos</label>
+                    <v-select :options="tiposActas" label="nombre" v-model="tipoActa" data-vv-name="Tipo de acta de hechos" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('Tipo de acta de hechos')}" placeholder="Seleccione un tipo de acta de hechos"></v-select>
                     <span v-show="errors.has('Tipo de acta de hechos')" class="text-danger">{{ errors.first('Tipo de acta de hechos')}}</span>
                 </div>
-
+    
                 <div class="form-group col-md-12">
-                        <label class="col-form-label col-form-label-sm" for="descripcion">Descripcion de los hechos</label>
-                        <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcion')}" v-model="descripcion" placeholder="Ingrese la descripcion de los hechos" v-validate="'required'" autocomplete="off"></textarea>
-                        <span v-show="errors.has('descripcion')" class="text-danger">{{ errors.first('descripcion')}}</span>
+                    <label class="col-form-label col-form-label-sm" for="descripcion">Descripcion de los hechos</label>
+                    <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcion')}" v-model="descripcion" placeholder="Ingrese la descripcion de los hechos"
+                        v-validate="'required'" autocomplete="off"></textarea>
+                    <span v-show="errors.has('descripcion')" class="text-danger">{{ errors.first('descripcion')}}</span>
                 </div>
             </div>
-
+    
             <div class="form-row mt-3">
                 <div class="form-group col-md-5">
                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -27,96 +27,98 @@
 </template>
 
 <script>
-import swal from 'sweetalert2'
+    import swal from 'sweetalert2'
     export default {
-        data(){
-             return{ 
-                tiposActas:[],                                                
-                tipoActa:'',
-                descripcion:'',  
-                systemUser:'TEST',
-                url:'./api'             
+        data() {
+            return {
+                tiposActas: ['PASAPORTE', 'CREDENCIAL DE TRABAJO/GAFFETE', 'TARJETA DE CRÉDITO/DÉBITO', 'TELEFONO CELULAR', 'EQUIPO DE TRABAJO(CELULARES,RADIOS,ETC)',
+                    'PERMISO DE TRANSITO PARA EMPLACAMIENTO DE TAXIS', 'FACTURA DE VEHÍCULO/MOTOCICLETA', 'TARJETA DE CIRCULACION', 'PLACAS DE CIRCULACIÓN',
+                    'LICENCIA DE CONDUCIR ESTATAL', 'LICENCIA DE CONDUCIR FEDERAL', 'DOCUMENTO/BIEN EXTRAVIADO O ROBADO', 'CERTIFICADO DE ALUMBRAMIENTO', 'OTROS DOCUMENTOS'
+                ],
+                tipoActa: '',
+                descripcion: '',
+                systemUser: 'TEST',
+                url: './api'
             }
         },
-        props:['empresa','sistema'],
-        created: function(){
-//            this.getPuestos();
+    
+        props: ['empresa', 'sistema'],
+        created: function() {
+            //            this.getPuestos();
         },
-        methods:{
+        methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.guardarExtra()                               
-                    }else{
-                        swal({
-                        title: '¡Guardado incorrecto!',
-                        text: 'Error al guardar.',
-                        type: 'error',
-                        confirmButtonText: 'Ok'
-                    });
-                    }
-        
-                });
-            },
-            guardarExtra: function(){
-                var urlGuardarDenunciante = this.url+'/addExtrasActas'
-                if(this.empresa==false){
-                    var idPersona=this.$store.state.idPersonaFisica
-                }
-                else{
-                    var idPersona=this.$store.state.idPersonaMoral
-                }
-                var data = {
-                    tipoActa:this.tipoActa.id,
-                    idExtrasActas:this.$store.state.idExtra,
-                    idPersona:idPersona,                    
-                    sistema:this.sistema,
-                    empresa:this.empresa,
-                    usuario:this.systemUser,
-                    narracion:this.descripcion.toUpperCase(),
-                    tipo:'actashechos'                                                                  
-                };
-                axios.post(urlGuardarDenunciante,data)
-                .then (response =>{
-                    console.log(response.data);
-                    if(response.data){        
-                        this.$store.commit('asignarIdExtra',response.data)
-                        //this.$store.commit('cleanStore')                    
-                        swal({
-                            title: '¡Guardado correctamente!',
-                            text: 'Ésta persona fue guardada exitosamente.',
-                            type: 'success',
-                            confirmButtonText: 'Ok'
-                        })
-                    }
-                    else{
+                        this.guardarExtra()
+                    } else {
                         swal({
                             title: '¡Guardado incorrecto!',
                             text: 'Error al guardar.',
                             type: 'error',
                             confirmButtonText: 'Ok'
-                        })
+                        });
                     }
-                }).catch((error)=>{                        
-                    swal({
-                    title: '¡Guardado incorrecto!',
-                    text: 'Ésta persona no fue posible guardarla.',
-                    type: 'error',
-                    confirmButtonText: 'Ok'
-                    })
+    
                 });
             },
-            cleanFields(){
+            guardarExtra: function() {
+                var urlGuardarDenunciante = this.url + '/addExtrasActas'
+                if (this.empresa == false) {
+                    var idPersona = this.$store.state.idPersonaFisica
+                } else {
+                    var idPersona = this.$store.state.idPersonaMoral
+                }
+                var data = {
+                    tipoActa: this.tipoActa,
+                    idExtrasActas: this.$store.state.idExtra,
+                    idPersona: idPersona,
+                    sistema: this.sistema,
+                    empresa: this.empresa,
+                    usuario: this.systemUser,
+                    narracion: this.descripcion.toUpperCase(),
+                    tipo: 'actashechos'
+                };
+                axios.post(urlGuardarDenunciante, data)
+                    .then(response => {
+                        console.log(response.data);
+                        if (response.data) {
+                            this.$store.commit('asignarIdExtra', response.data)
+                            //this.$store.commit('cleanStore')                    
+                            swal({
+                                title: '¡Guardado correctamente!',
+                                text: 'Ésta persona fue guardada exitosamente.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                        } else {
+                            swal({
+                                title: '¡Guardado incorrecto!',
+                                text: 'Error al guardar.',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }).catch((error) => {
+                        swal({
+                            title: '¡Guardado incorrecto!',
+                            text: 'Ésta persona no fue posible guardarla.',
+                            type: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    });
+            },
+            cleanFields() {
                 this.tipoActa,
-                this.descripcion,
-                this.$validator.reset();
+                    this.descripcion,
+                    this.$validator.reset();
             }
         }
     }
 </script>
 
 <style>
-    input{
+    input , textarea{
         text-transform: uppercase
     }
 </style>
