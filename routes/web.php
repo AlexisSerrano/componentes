@@ -48,3 +48,7 @@ Route::get('carpetasLigadas', function(){
 Route::get('familiar', function(){
     return view('familiar');
 });
+
+Route::get('registroActasHechos', function(){
+    return view('registroActasHechos');
+});

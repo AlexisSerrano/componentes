@@ -43,8 +43,11 @@ Vue.component('registrodenunciante',require('./components/RegistroDenuncianteCom
 Vue.component('registroabogado',require('./components/RegistroAbogadoComponent.vue'));
 Vue.component('registroautoridad',require('./components/RegistroAutoridadComponent.vue'));
 Vue.component('registrodenunciado',require('./components/RegistroDenunciadoComponent.vue'));
+Vue.component('registroactashechos',require('./components/RegistroActasHechosComponent.vue'));
 Vue.component('denunciantefisico',require('./components/DenuncianteFisicoComponent.vue'));
 Vue.component('denunciantemoral',require('./components/DenuncianteMoralComponent.vue'));
+Vue.component('actashechosfisica',require('./components/ActasHechosFisicaComponent.vue'));
+Vue.component('actashechosmoral',require('./components/ActasHechosMoralComponent.vue'));
 Vue.component('denunciadofisico',require('./components/DenunciadoFisicoComponent.vue'));
 Vue.component('denunciadomoral',require('./components/DenunciadoMoralComponent.vue'));
 Vue.component('conocidofisico',require('./components/ConocidoFisicoComponent.vue'));
@@ -54,6 +57,7 @@ Vue.component('extrasabogado',require('./components/ExtrasAbogadoComponent.vue')
 Vue.component('extrasdenunciante',require('./components/ExtrasDenuncianteComponent.vue'));
 Vue.component('extrasautoridad',require('./components/ExtrasAutoridadComponent.vue'));
 Vue.component('extrasconocido',require('./components/ExtrasConocidoComponent.vue'));
+Vue.component('extrasactashechos',require('./components/ExtrasActasHechosComponent.vue'));
 Vue.component('registro',require('./components/RegistroComponent.vue'));
 Vue.component('carpetas',require('./components/carpetasLigadasComponent.vue'));
 Vue.component('notificaciones',require('./components/NotificacionesComponent.vue'));

@@ -283,19 +283,7 @@
 				url: './api'
 			}
 		},
-	
-		// props: ['sistema','tipo'],
-		props: {
-			sistema: {
-				required: true
-			},
-			tipo: {
-				required: true
-			},
-			carpeta: {
-				required: true
-			}
-		},
+		props: ['sistema', 'tipo', 'carpeta'],
 		components: {
 			SpringSpinner
 		},
@@ -391,7 +379,7 @@
 							this.curp = this.personaExiste.curp,
 							this.nacionalidad = this.personaExiste.idNacionalidad,
 							this.estado = this.personaExiste.idEstado
-						this.municipio = this.personaExiste.idMunicipioOrigen,
+							this.municipio = this.personaExiste.idMunicipioOrigen,
 							this.etnia = this.personaExiste.idEtnia,
 							this.lengua = this.personaExiste.idLengua,
 							this.interprete = this.personaExiste.idInterprete,
@@ -642,6 +630,31 @@
 						idDomicilio: this.$store.state.idDomicilioTemporal,
 						idTrabajo: this.$store.state.idTrabajoTemporal,
 						idNotificacion: this.$store.state.idContactoTemporal
+					};
+				} else if (this.tipo == 'actashechos') {
+					var data = {
+						nombres: this.nombres.toUpperCase(),
+						primerAp: this.primerAp.toUpperCase(),
+						segundoAp: this.segundoAp.toUpperCase(),
+						fechaNacimiento: this.fechaNacimiento,
+						sexo: this.sexo.id,
+						idEstadoOrigen: this.estado.id,
+						idMunicipioOrigen: this.municipio.id,
+						rfc: this.rfc,
+						homo: this.homoclave,
+						curp: this.curp,
+						idEstadoCivil: this.estadoCivil.id,
+						idOcupacion: this.ocupacion.id,
+						idEscolaridad: this.escolaridad.id,
+						telefono: this.telefono,
+						edad: this.edad,
+						idPersona: this.$store.state.idPersonaFisica,
+						personaFisica: this.$store.state.personaFisica,
+						idDomicilio: this.$store.state.idDomicilioTemporal,
+						idTrabajo: this.$store.state.idTrabajoTemporal,
+						idNotificacion: this.$store.state.idContactoTemporal,
+						usuario: this.systemUser,
+						sistema: this.sistema
 					};
 				} else if (this.tipo == 'qrr') {
 					var data = {
