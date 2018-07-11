@@ -67,6 +67,7 @@ import swal from 'sweetalert2'
                     var idPersona=this.$store.state.idPersonaMoral
                 }
                 var data = {
+                    tipoActa:this.tipoActa.id,
                     idExtrasActas:this.$store.state.idExtra,
                     idPersona:idPersona,                    
                     sistema:this.sistema,
