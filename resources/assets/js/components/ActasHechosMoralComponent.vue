@@ -33,7 +33,7 @@
             <div class="tab-pane fade show active" id="pills-actasHechos-personaMoral" role="tabpanel" aria-labelledby="actasHechos-personaMoral-tab">
                 <personamoral :sistema="sistema" :tipo="'actashechosmoral'"></personamoral>
             </div>
-            <div class="tab-pane fade" id="pills-actasHechos-notificacionesMoral" role="tabpanel" aria-labelledby="actasHechos-notificacionesMoral-tab">
+            <div class="tab-pane fade" id="pills-actasHechos-domicilioMoral" role="tabpanel" aria-labelledby="actasHechos-domicilioMoral-tab">
                 <domicilio :tipo="'domicilio'" :empresa="true" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-extraMoral" role="tabpanel-Moral" aria-labelledby="actasHechos-extraMoral-tab">
