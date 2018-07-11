@@ -33,7 +33,7 @@
             <div class="tab-pane fade show active" id="pills-actasHechos-personafisico" role="tabpanel" aria-labelledby="actasHechos-personafisico-tab">
                 <personafisica :sistema="sistema" :tipo="'actashechos'"></personafisica>
             </div>
-            <div class="tab-pane fade" id="pills-actasHechos-notificacionesfisico" role="tabpanel" aria-labelledby="actasHechos-notificacionesfisico-tab">
+            <div class="tab-pane fade" id="pills-actasHechos-domiciliofisico" role="tabpanel" aria-labelledby="actasHechos-domiciliofisico-tab">
                 <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-extrafisico" role="tabpanel-fisico" aria-labelledby="actasHechos-extrafisico-tab">
