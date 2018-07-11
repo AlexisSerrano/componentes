@@ -39,7 +39,8 @@ Route::post('denunciadomoraluat','ValidacionController@valDenunciadoMUAT');
 Route::post('denuncianteuat','ValidacionController@valDenuncianteFUAT');
 Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
 Route::post('qrruat','ValidacionController@valQrrUAT');
-Route::post('actashechosuat','ValidacionController@valActasHechosUAT');
+Route::post('actashechosuat','ValidacionController@valActasHechosFUAT');
+Route::post('actashechosmoraluat','ValidacionController@valActasHechosMUAT');
 
 /*API UAT*/
 Route::post('getDenunciantesCarpetaUAT','ApiControllerUAT@getDenunciantesCarpeta');

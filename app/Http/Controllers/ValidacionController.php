@@ -16,6 +16,8 @@ use App\Http\Models\VariablesPersonaMoral;
 use App\Http\Models\aparicionesModel;
 use App\Http\Models\ExtraDenunciadoFisico;
 use App\Http\Models\ExtraDenunciadoMoral;
+use App\Http\Requests\ActasHechosRequest;
+use App\Http\Requests\ActasHechosMoralRequest;
 use DB;
 
 use Illuminate\Http\Request;
@@ -68,8 +70,13 @@ class ValidacionController extends Controller
         return response()->json($idVariable);
     }
 
-    public function valActasHechosUAT(Request $request){
+    public function valActasHechosFUAT(ActasHechosRequest $request){
         $idVariable = ValidacionController::saveActasHechos($request);
+        return response()->json($idVariable);
+    }
+
+    public function valActasHechosMUAT(ActasHechosMoralRequest $request){
+        $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
     }
 
