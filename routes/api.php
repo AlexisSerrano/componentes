@@ -57,24 +57,6 @@ Route::post('getAbogadosCarpetaUAT','ApiControllerUAT@getAbogadosCarpeta');
 
 Route::post('getPuestos','ExtrasInvestigadoController@getPuestos');
 
-
-/* Guardado de extras */
-// Route::post('/guardarExtrasInvestigadoFisico','ExtrasInvestigadoController@storeFisico');
-// Route::post('/guardarExtrasInvestigadoMoral','ExtrasInvestigadoController@storeMoral');
-// Route::post('/guardarExtrasAbogado','ExtrasAbogadoController@store');
-// Route::post('/guardarExtrasAutoridad','ExtrasAutoridadController@store');
-// Route::post('/guardarExtrasDenuncianteFisico','ExtrasDenuncianteController@storeExtraDenuncianteFisico');
-// Route::post('/guardarExtrasDenuncianteMoral','ExtrasDenuncianteController@storeExtraDenuncianteMoral');
-/* Update de extras */
-// Route::post('/updateExtrasDenuncianteFisico','ExtrasDenuncianteController@updateExtrasDenuncianteFisico');
-// Route::post('/updateExtrasDenuncianteMoral','ExtrasDenuncianteController@updateExtrasDenuncianteMoral');
-// Route::post('/actualizarExtrasInvestigadoFisico','ExtrasInvestigadoController@updateFisico');
-// Route::post('/actualizarExtrasInvestigadoMoral','ExtrasInvestigadoController@updateMoral');
-// Route::post('/actualizarExtrasAbogado','ExtrasAbogadoController@update');
-// Route::post('/updateExtrasAutoridad','ExtrasAutoridadController@update');
-
-
-
 /*Buscar en carpetas en la que está involucrada una persona*/
 Route::post('/fisicaCarpetasRfc','PersonaController@fisicaBuscarCarpetas');
 //Route::post('/fisicaCarpetasCurp','PersonaController@personaFisicaBuscarCarpetasCURP');
@@ -87,6 +69,14 @@ Route::post('addExtrasDenunciante','ExtrasDenuncianteController@addExtrasDenunci
 Route::post('addExtrasDenunciado','ExtrasInvestigadoController@addExtrasDenunciado');
 Route::post('addExtrasAbogado','ExtrasAbogadoController@addExtrasAbogado');
 Route::post('addExtrasAutoridad','ExtrasAutoridadController@addExtrasAutoridad');
+Route::post('addExtrasActasHechos','ExtrasActasHechosController@addExtrasActasHechos');
 /*Rutas para el componente  familiar*/
 Route::post('getInvolucrados','FamiliarController@getInvolucrados');
 Route::post('saveFamiliar','FamiliarController@saveFamiliar');
+
+/*URLS PARA SELECTS DOMICILIO */
+Route::get('getEstados','DomicilioController@getEstados');
+Route::get('getMunicipios/{id}','DomicilioController@getMunicipios');
+Route::get('getLocalidades/{id}','DomicilioController@getLocalidades');
+Route::get('getColonias/{id}','DomicilioController@getColonias');
+Route::get('getCodigosPostales/{id}','DomicilioController@getCodigosPostales');

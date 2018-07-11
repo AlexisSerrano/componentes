@@ -11,13 +11,6 @@ Route::post('addDomicilio','DomicilioController@addDomicilio')->name('addDomicil
 /*URLS PARA EMPRESAS*/
 Route::get('/personaMoral','PersonaMoralController@index');
 
-/*URLS PARA SELECTS DOMICILIO */
-Route::get('getEstados','DomicilioController@getEstados');
-Route::get('getMunicipios/{id}','DomicilioController@getMunicipios');
-Route::get('getLocalidades/{id}','DomicilioController@getLocalidades');
-Route::get('getColonias/{id}','DomicilioController@getColonias');
-Route::get('getCodigosPostales/{id}','DomicilioController@getCodigosPostales');
-
 /*URLS COMPONENTES EXTRA*/
 Route::get('/extrasInvestigadoFisico','ExtrasInvestigadoController@indexFisico');
 Route::get('/extrasInvestigadoMoral','ExtrasInvestigadoController@indexMoral');
