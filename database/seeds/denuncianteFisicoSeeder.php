@@ -16,7 +16,7 @@ class denuncianteFisicoSeeder extends Seeder
             'id' => 1, 
             'idVariablesPersona' => 2,            
             'idAbogado' => 1,
-            'resguardarIdentidad' => 2,            
+            'resguardarIdentidad' => 2,             
             'victima'=> 1
             ]
         ]);

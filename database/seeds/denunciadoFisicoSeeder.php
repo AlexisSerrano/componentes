@@ -19,7 +19,7 @@ class denunciadoFisicoSeeder extends Seeder
             'senasPartic' => 'Estatura 1.64',
             'ingreso' => 124,
             'periodoIngreso' => 'FEBRERO-AGOSTO 2018',
-            'ResidenciaAnterior' => 'PUEBLA, VERACRUZ',
+            'residenciaAnterior' => 'PUEBLA, VERACRUZ',
             'idAbogado' => 1,
             'personasBajoSuGuarda' => 5,
             'perseguidoPenalmente' => 0,
