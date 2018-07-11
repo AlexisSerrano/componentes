@@ -190,6 +190,36 @@ class validacionesSeeder extends Seeder
                     "idInterprete": "oculto",
                     "motivoEstancia": "oculto"
                }'
+            ],
+            [
+                "sistema"=>"uat",
+                "tipo"=>"actashechos",
+                "validaciones"=>'{
+                    "nombres": "required",
+                    "primerAp": "required",
+                    "segundoAp": "",
+                    "telefono":"numeric",
+                    "fechaNacimiento": "required",
+                    "idEstadoOrigen": "required",
+                    "idMunicipioOrigen": "required",
+                    "sexo": "required",
+                    "curp": "length:18",
+                    "rfc": "length:10",
+                    "homo": "length:3",
+                    "idNacionalidad": "required",
+                    "idEtnia": "oculto",
+                    "idLengua": "oculto",
+                    "idOcupacion": "required",
+                    "idEstadoCivil": "required",
+                    "idReligion": "oculto",
+                    "idEscolaridad": "required",
+                    "docIdentificacion": "required",
+                    "numDocIdentificacion": "required",
+                    "edad": "oculto",
+                    "alias": "oculto",
+                    "idInterprete": "oculto",
+                    "motivoEstancia": "oculto"
+               }'
             ]
         ]);
     }

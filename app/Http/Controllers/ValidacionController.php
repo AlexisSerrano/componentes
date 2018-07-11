@@ -68,6 +68,11 @@ class ValidacionController extends Controller
         return response()->json($idVariable);
     }
 
+    public function valActasHechosUAT(Request $request){
+        $idVariable = ValidacionController::saveActasHechos($request);
+        return response()->json($idVariable);
+    }
+
 
     public function saveInputsFisica($request){
         DB::beginTransaction();
@@ -336,5 +341,65 @@ class ValidacionController extends Controller
             'idVarPersona'=>1
         );
         return response()->json($data);
+    }
+
+    public function saveActasHechos($request){
+        DB::beginTransaction();
+        try{
+            if($request->personaFisica==''&&$request->idPersona==''){
+                $persona = new PersonaModel();
+                $oper="INSERT";
+                $antes= null;
+            }
+            else{
+                $persona = PersonaModel::find($request->personaFisica);
+                $oper = "UPDATE";
+                $antes = clone $persona;
+            }
+            $persona->nombres = $request->nombres;
+            $persona->primerAp = $request->primerAp;
+            $persona->segundoAp = $request->segundoAp;
+            $persona->fechaNacimiento = $request->fechaNacimiento;
+            $persona->rfc = $request->rfc.$request->homo;
+            $persona->curp = $request->curp;
+            $persona->sexo = $request->sexo;
+            $persona->idNacionalidad = $request->idNacionalidad;
+            $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
+            $persona->save();
+            if(isset($request->idPersona)){
+                $variables=VariablesPersona::find($request->idPersona);
+                $oper="UPDATE";
+                $antes= clone $variables;
+            }else{
+                $variables=new VariablesPersona();
+                $variables->idPersona = ($request->personaFisica=='')?$persona->id:$request->personaFisica;
+                $variables->idDomicilio = ($request->personaFisica=='')?1:$request->idDomicilio; 
+                $variables->idTrabajo = ($request->personaFisica=='')?1:$request->idTrabajo; 
+                $variables->idNotificacion = ($request->personaFisica=='')?1:$request->idNotificacion;
+                $oper="INSERT";
+                $antes=null;
+            }
+            $variables->edad = $request->edad;
+            $variables->motivoEstancia = $request->motivoEstancia;
+            $variables->idOcupacion = $request->idOcupacion;
+            $variables->idEstadoCivil = $request->idEstadoCivil;
+            $variables->idEscolaridad = $request->idEscolaridad;
+            $variables->docIdentificacion = $request->docIdentificacion;
+            $variables->idInterprete = $request->idInterprete;
+            $variables->numDocIdentificacion = $request->numDocIdentificacion;
+            $variables->telefono = $request->telefono;
+            $variables->save();
+            saveInLog($request->sistema,$request->usuario,'persona_fisica',$oper,$persona->id,$antes,$persona);
+            saveInLog($request->sistema,$request->usuario,'variables_persona_fisica',$oper,$variables->id,$antes,$variables);
+            DB::commit();
+            $data = array(
+				'idPersona'=>$persona->id,
+                'idVarPersona'=>$variables->id
+            );
+			return response()->json($data);
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
     }
 }
