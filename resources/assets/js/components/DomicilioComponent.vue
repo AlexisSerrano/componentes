@@ -124,7 +124,7 @@ import { mapState } from "vuex";
                 usuario:'Test',
                 loadingFields:true,
                 guardadoContacto:'',
-                url:'http://componentes/api/'
+                url:'http://localhost/componentes/public/api/'
             }
         },
         props:{

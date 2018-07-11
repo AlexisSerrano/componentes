@@ -280,7 +280,7 @@
 				loader: true,
 				systemUser: 'TEST',
 				qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-				url: 'http://componentes/api'
+				url: 'http://localhost/componentes/public/api'
 			}
 		},
 		props: ['sistema', 'tipo', 'carpeta'],

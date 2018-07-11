@@ -52438,7 +52438,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			loader: true,
 			systemUser: 'TEST',
 			qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-			url: 'http://componentes/api'
+			url: 'http://localhost/componentes/public/api'
 		};
 	},
 
@@ -60501,7 +60501,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             usuario: 'Test',
             loadingFields: true,
             guardadoContacto: '',
-            url: 'http://componentes/api/'
+            url: 'http://localhost/componentes/public/api/'
         };
     },
 
