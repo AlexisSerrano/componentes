@@ -643,6 +643,7 @@
 						rfc: this.rfc,
 						homo: this.homoclave,
 						curp: this.curp,
+						idNacionalidad:this.nacionalidad.id,
 						idEstadoCivil: this.estadoCivil.id,
 						idOcupacion: this.ocupacion.id,
 						idEscolaridad: this.escolaridad.id,
@@ -653,6 +654,8 @@
 						idDomicilio: this.$store.state.idDomicilioTemporal,
 						idTrabajo: this.$store.state.idTrabajoTemporal,
 						idNotificacion: this.$store.state.idContactoTemporal,
+						docIdentificacion: this.identificacion.id,
+						numDocIdentificacion: this.numIdentificacion.toUpperCase(),
 						usuario: this.systemUser,
 						sistema: this.sistema
 					};
