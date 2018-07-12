@@ -742,7 +742,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.dropdown-toggle {
 		height: 33px;
 		overflow: hidden;

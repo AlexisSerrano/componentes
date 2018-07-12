@@ -295,7 +295,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     input {
         text-transform: uppercase
     }

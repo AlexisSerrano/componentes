@@ -431,7 +431,7 @@ import { mapState } from "vuex";
         },mapState(['fisicaEncontrada','moralEncontrada','datosDomicilio','datosTrabajo','datosNotificaciones']))
     }
 </script>
-<style>
+<style scoped>
 .dropdown-toggle{
     height: 36px;
     overflow: hidden;

@@ -113,7 +113,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     input , textarea{
         text-transform: uppercase
     }
