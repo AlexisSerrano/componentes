@@ -201,7 +201,7 @@
 	
 	
 	
-			<coincidencias v-if="personasEncontradas" :sistema="this.sistema" :systemUser="this.systemUser"></coincidencias>
+			<coincidencias v-if="personasEncontradas" :sistema="sistema" :usuario="usuario"></coincidencias>
 	
 	
 	
@@ -278,12 +278,11 @@
 				validaciones: [],
 				validacionesback: '',
 				loader: true,
-				systemUser: 'TEST',
 				qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-				url: 'http://localhost/componentes/public/api'
+				url: 'http://localhost/componentesf/public/api'
 			}
 		},
-		props: ['sistema', 'tipo', 'carpeta'],
+		props: ['sistema', 'tipo', 'carpeta','usuario'],
 		components: {
 			SpringSpinner
 		},
@@ -578,7 +577,7 @@
 						telefono: this.telefono,
 						sistema: this.sistema,
 						idPersona: this.$store.state.idPersonaFisica,
-						usuario: this.systemUser,
+						usuario: this.usuario,
 						personaFisica: this.$store.state.personaFisica,
 						idDomicilio: this.$store.state.idDomicilioTemporal,
 						idTrabajo: this.$store.state.idTrabajoTemporal,
@@ -593,7 +592,7 @@
 							alias: this.alias.toUpperCase(),
 							sistema: this.sistema,
 							idPersona: this.$store.state.idPersonaFisica,
-							usuario: this.systemUser,
+							usuario: this.usuario,
 							personaFisica: this.$store.state.personaFisica,
 							idDomicilio: this.$store.state.idDomicilioTemporal,
 							idTrabajo: this.$store.state.idTrabajoTemporal,
@@ -625,7 +624,7 @@
 						sistema: this.sistema,
 						edad: this.edad,
 						idPersona: this.$store.state.idPersonaFisica,
-						usuario: this.systemUser,
+						usuario: this.usuario,
 						personaFisica: this.$store.state.personaFisica,
 						idDomicilio: this.$store.state.idDomicilioTemporal,
 						idTrabajo: this.$store.state.idTrabajoTemporal,
@@ -656,13 +655,13 @@
 						idNotificacion: this.$store.state.idContactoTemporal,
 						docIdentificacion: this.identificacion.id,
 						numDocIdentificacion: this.numIdentificacion.toUpperCase(),
-						usuario: this.systemUser,
+						usuario: this.usuario,
 						sistema: this.sistema
 					};
 				} else if (this.tipo == 'qrr') {
 					var data = {
 						sistema: this.sistema,
-						usuario: this.systemUser,
+						usuario: this.usuario,
 						idCarpeta: this.carpeta
 					};
 				}

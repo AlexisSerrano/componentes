@@ -31,13 +31,13 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-actasHechos-personaMoral" role="tabpanel" aria-labelledby="actasHechos-personaMoral-tab">
-                <personamoral :sistema="sistema" :tipo="'actashechosmoral'"></personamoral>
+                <personamoral :sistema="sistema" :tipo="'actashechosmoral'" :usuario="usuario"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-domicilioMoral" role="tabpanel" aria-labelledby="actasHechos-domicilioMoral-tab">
-                <domicilio :tipo="'domicilio'" :empresa="true" :sistema="sistema"></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-extraMoral" role="tabpanel-Moral" aria-labelledby="actasHechos-extraMoral-tab">
-                <extrasactashechos :sistema="sistema" :empresa="true"></extrasactashechos>
+                <extrasactashechos :sistema="sistema" :empresa="true" :usuario="usuario"></extrasactashechos>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-carpetasLigadasMoral" role="tabpanel-Moral" aria-labelledby="actasHechos-carpetasLigadasMoral-tab">
                 <notificaciones :tipo="'moral'"></notificaciones>
@@ -49,7 +49,7 @@
 
 <script>
     export default {
-        props: ['sistema','carpeta'],
+        props: ['sistema','carpeta','usuario'],
         methods: {
             cleanFields(){
                 this.$store.commit('cleanStore')

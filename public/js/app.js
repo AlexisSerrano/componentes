@@ -52436,13 +52436,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			validaciones: [],
 			validacionesback: '',
 			loader: true,
-			systemUser: 'TEST',
 			qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-			url: 'http://localhost/componentes/public/api'
+			url: 'http://localhost/componentesf/public/api'
 		};
 	},
 
-	props: ['sistema', 'tipo', 'carpeta'],
+	props: ['sistema', 'tipo', 'carpeta', 'usuario'],
 	components: {
 		SpringSpinner: __WEBPACK_IMPORTED_MODULE_2_epic_spinners__["a" /* SpringSpinner */]
 	},
@@ -52710,7 +52709,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					telefono: this.telefono,
 					sistema: this.sistema,
 					idPersona: this.$store.state.idPersonaFisica,
-					usuario: this.systemUser,
+					usuario: this.usuario,
 					personaFisica: this.$store.state.personaFisica,
 					idDomicilio: this.$store.state.idDomicilioTemporal,
 					idTrabajo: this.$store.state.idTrabajoTemporal,
@@ -52725,7 +52724,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						alias: this.alias.toUpperCase(),
 						sistema: this.sistema,
 						idPersona: this.$store.state.idPersonaFisica,
-						usuario: this.systemUser,
+						usuario: this.usuario,
 						personaFisica: this.$store.state.personaFisica,
 						idDomicilio: this.$store.state.idDomicilioTemporal,
 						idTrabajo: this.$store.state.idTrabajoTemporal,
@@ -52757,7 +52756,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					sistema: this.sistema,
 					edad: this.edad,
 					idPersona: this.$store.state.idPersonaFisica,
-					usuario: this.systemUser,
+					usuario: this.usuario,
 					personaFisica: this.$store.state.personaFisica,
 					idDomicilio: this.$store.state.idDomicilioTemporal,
 					idTrabajo: this.$store.state.idTrabajoTemporal,
@@ -52788,13 +52787,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					idNotificacion: this.$store.state.idContactoTemporal,
 					docIdentificacion: this.identificacion.id,
 					numDocIdentificacion: this.numIdentificacion.toUpperCase(),
-					usuario: this.systemUser,
+					usuario: this.usuario,
 					sistema: this.sistema
 				};
 			} else if (this.tipo == 'qrr') {
 				var data = {
 					sistema: this.sistema,
-					usuario: this.systemUser,
+					usuario: this.usuario,
 					idCarpeta: this.carpeta
 				};
 			}
@@ -59037,10 +59036,7 @@ var render = function() {
               _vm._v(" "),
               _vm.personasEncontradas
                 ? _c("coincidencias", {
-                    attrs: {
-                      sistema: this.sistema,
-                      systemUser: this.systemUser
-                    }
+                    attrs: { sistema: _vm.sistema, usuario: _vm.usuario }
                   })
                 : _vm._e()
             ],
@@ -59256,7 +59252,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             personaExiste: '',
             validacionesback: '',
             systemUser: 'TEST',
-            url: './api'
+            url: 'http://localhost/componentesf/public/api'
         };
     },
 
@@ -59357,7 +59353,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 idVarPersona: this.$store.state.idTemporal,
                 esEmpresa: true
             }).then(function (response) {
-                console.log(response);
                 if (response.data) {
                     _this4.$store.commit('asignarDomicilios', response.data);
                 }
@@ -60498,24 +60493,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             telefono: '',
             lugarTrabajo: '',
             correo: '',
-            usuario: 'Test',
             loadingFields: true,
             guardadoContacto: '',
-            url: 'http://localhost/componentes/public/api/'
+            url: 'http://localhost/componentesf/public/api/'
         };
     },
 
-    props: {
-        tipo: {
-            required: true
-        },
-        empresa: {
-            required: true
-        },
-        sistema: {
-            required: true
-        }
-    },
+    props: ['tipo', 'empresa', 'sistema', 'usuario'],
     components: { SpringSpinner: __WEBPACK_IMPORTED_MODULE_1_epic_spinners__["a" /* SpringSpinner */] },
     mounted: function mounted() {
         this.getEstados();
@@ -60524,7 +60508,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getEstados: function getEstados() {
             var _this = this;
 
-            var urlEstados = this.url + 'getEstados';
+            var urlEstados = this.url + 'getEstados/';
             axios.get(urlEstados).then(function (response) {
                 _this.estados = response.data;
                 var self = _this;
@@ -63390,7 +63374,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -63433,12 +63417,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    props: {
-        sistema: {
-            required: true
-        }
-
-    },
+    props: ['sistema', 'usuario'],
     watch: {
         persona: function persona() {
             this.$store.commit('cleanStore');
@@ -63538,11 +63517,15 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm.persona == 1
-        ? _c("actashechosfisica", { attrs: { sistema: _vm.sistema } })
+        ? _c("actashechosfisica", {
+            attrs: { sistema: _vm.sistema, usuario: _vm.usuario }
+          })
         : _vm._e(),
       _vm._v(" "),
       _vm.persona == 2
-        ? _c("actashechosmoral", { attrs: { sistema: _vm.sistema } })
+        ? _c("actashechosmoral", {
+            attrs: { sistema: _vm.sistema, usuario: _vm.usuario }
+          })
         : _vm._e()
     ],
     1
@@ -64529,7 +64512,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['sistema', 'carpeta'],
+    props: ['sistema', 'carpeta', 'usuario'],
     methods: {
         cleanFields: function cleanFields() {
             this.$store.commit('cleanStore');
@@ -64685,7 +64668,11 @@ var render = function() {
           },
           [
             _c("personafisica", {
-              attrs: { sistema: _vm.sistema, tipo: "actashechos" }
+              attrs: {
+                sistema: _vm.sistema,
+                tipo: "actashechos",
+                usuario: _vm.usuario
+              }
             })
           ],
           1
@@ -64703,7 +64690,12 @@ var render = function() {
           },
           [
             _c("domicilio", {
-              attrs: { tipo: "domicilio", empresa: false, sistema: _vm.sistema }
+              attrs: {
+                tipo: "domicilio",
+                empresa: false,
+                sistema: _vm.sistema,
+                usuario: _vm.usuario
+              }
             })
           ],
           1
@@ -64721,7 +64713,11 @@ var render = function() {
           },
           [
             _c("extrasactashechos", {
-              attrs: { sistema: _vm.sistema, empresa: false }
+              attrs: {
+                sistema: _vm.sistema,
+                empresa: false,
+                usuario: _vm.usuario
+              }
             })
           ],
           1
@@ -64881,7 +64877,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['sistema', 'carpeta'],
+    props: ['sistema', 'carpeta', 'usuario'],
     methods: {
         cleanFields: function cleanFields() {
             this.$store.commit('cleanStore');
@@ -65034,7 +65030,11 @@ var render = function() {
           },
           [
             _c("personamoral", {
-              attrs: { sistema: _vm.sistema, tipo: "actashechosmoral" }
+              attrs: {
+                sistema: _vm.sistema,
+                tipo: "actashechosmoral",
+                usuario: _vm.usuario
+              }
             })
           ],
           1
@@ -65052,7 +65052,12 @@ var render = function() {
           },
           [
             _c("domicilio", {
-              attrs: { tipo: "domicilio", empresa: true, sistema: _vm.sistema }
+              attrs: {
+                tipo: "domicilio",
+                empresa: true,
+                sistema: _vm.sistema,
+                usuario: _vm.usuario
+              }
             })
           ],
           1
@@ -65070,7 +65075,11 @@ var render = function() {
           },
           [
             _c("extrasactashechos", {
-              attrs: { sistema: _vm.sistema, empresa: true }
+              attrs: {
+                sistema: _vm.sistema,
+                empresa: true,
+                usuario: _vm.usuario
+              }
             })
           ],
           1
@@ -69730,9 +69739,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     props: ['empresa', 'sistema'],
-    created: function created() {
-        //            this.getPuestos();
-    },
     methods: {
         validateBeforeSubmit: function validateBeforeSubmit() {
             var _this = this;
@@ -69771,7 +69777,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 tipo: 'actashechos'
             };
             axios.post(urlGuardarDenunciante, data).then(function (response) {
-                console.log(response.data);
                 if (response.data) {
                     _this2.$store.commit('asignarIdExtra', response.data);
                     //this.$store.commit('cleanStore')                    
@@ -70049,7 +70054,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-     props: ['sistema', 'tipo', 'carpeta']
+     props: ['sistema', 'tipo', 'carpeta', 'usuario']
 });
 
 /***/ }),
@@ -70088,7 +70093,9 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _vm.tipo == "actashechos"
-        ? _c("registroactashechos", { attrs: { sistema: _vm.sistema } })
+        ? _c("registroactashechos", {
+            attrs: { sistema: _vm.sistema, usuario: _vm.usuario }
+          })
         : _vm._e()
     ],
     1
@@ -71270,14 +71277,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    props: {
-        sistema: {
-            required: true
-        },
-        systemUser: {
-            required: true
-        }
-    },
+    props: ['sistema', 'usuario'],
     methods: {
         seleccionarPersona: function seleccionarPersona(coincidencia) {
             this.$store.commit('asignarIdFisica', {
@@ -71321,7 +71321,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 alias: coincidencia.alias,
                 sistema: this.sistema,
                 idPersona: coincidencia.idVarPersona,
-                usuario: this.systemUser,
+                usuario: this.usuario,
                 personaFisica: coincidencia.idPersona,
                 idDomicilio: this.$store.state.idDomicilioTemporal,
                 idTrabajo: this.$store.state.idTrabajoTemporal,

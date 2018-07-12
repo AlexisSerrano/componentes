@@ -121,30 +121,19 @@ import { mapState } from "vuex";
                 telefono:'',
                 lugarTrabajo:'',
                 correo:'',
-                usuario:'Test',
                 loadingFields:true,
                 guardadoContacto:'',
-                url:'http://localhost/componentes/public/api/'
+                url:'http://localhost/componentesf/public/api/'
             }
         },
-        props:{
-            tipo:{
-                required:true
-            },
-            empresa:{
-                required:true
-            },
-            sistema:{
-                required:true
-            }
-        },
+        props:['tipo','empresa','sistema','usuario'],
         components: {SpringSpinner},
         mounted: function () {
             this.getEstados()
         },
         methods:{
             getEstados: function(){
-                var urlEstados = this.url+'getEstados';
+                var urlEstados = this.url+'getEstados/';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
                     var self=this;

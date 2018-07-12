@@ -48,14 +48,7 @@
                 url: './api'
             }
         },
-        props: {
-            sistema: {
-                required: true
-            },
-            systemUser: {
-                required: true
-            }
-        },
+        props: ['sistema','usuario'],
         methods: {
             seleccionarPersona(coincidencia) {
                 this.$store.commit('asignarIdFisica', {
@@ -96,7 +89,7 @@
                     alias: coincidencia.alias,
                     sistema: this.sistema,
                     idPersona: coincidencia.idVarPersona,
-                    usuario: this.systemUser,
+                    usuario: this.usuario,
                     personaFisica: coincidencia.idPersona,
                     idDomicilio: this.$store.state.idDomicilioTemporal,
                     idTrabajo: this.$store.state.idTrabajoTemporal,

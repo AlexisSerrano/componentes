@@ -15,6 +15,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/*Domicilios*/
+Route::post('addDomicilio','DomicilioController@addDomicilio')->name('addDomicilio');
+
 /*Persona fisica*/
 Route::post('rfcFisico','PersonaController@rfcFisico');
 Route::post('searchPersonaFisica','PersonaController@searchPersona');

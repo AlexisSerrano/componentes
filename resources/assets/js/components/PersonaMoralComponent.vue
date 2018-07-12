@@ -93,7 +93,7 @@
                 personaExiste: '',
                 validacionesback: '',
                 systemUser: 'TEST',
-                url: './api'
+                url: 'http://localhost/componentesf/public/api'
             }
         },
         props: {
@@ -190,7 +190,6 @@
                         esEmpresa: true
                     })
                     .then((response) => {
-                        console.log(response);
                         if (response.data) {
                             this.$store.commit('asignarDomicilios', response.data)
                         }

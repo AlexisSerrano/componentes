@@ -17,8 +17,8 @@
                 </div>
             </div>
         </div>
-        <actashechosfisica v-if="persona==1" :sistema="sistema"></actashechosfisica>
-        <actashechosmoral v-if="persona==2" :sistema="sistema"></actashechosmoral>
+        <actashechosfisica v-if="persona==1" :sistema="sistema" :usuario="usuario"></actashechosfisica>
+        <actashechosmoral v-if="persona==2" :sistema="sistema" :usuario="usuario"></actashechosmoral>
     </div>
 </template>
 
@@ -29,12 +29,7 @@
                 persona: ''
             }
         },
-        props: {
-            sistema: {
-                required:true
-            },
-
-        },
+        props:['sistema','usuario'],
         watch: {
             persona() {
                 this.$store.commit('cleanStore')

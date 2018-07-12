@@ -31,13 +31,13 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-actasHechos-personafisico" role="tabpanel" aria-labelledby="actasHechos-personafisico-tab">
-                <personafisica :sistema="sistema" :tipo="'actashechos'"></personafisica>
+                <personafisica :sistema="sistema" :tipo="'actashechos'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-domiciliofisico" role="tabpanel" aria-labelledby="actasHechos-domiciliofisico-tab">
-                <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema"></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-extrafisico" role="tabpanel-fisico" aria-labelledby="actasHechos-extrafisico-tab">
-                <extrasactashechos :sistema="sistema" :empresa="false"></extrasactashechos>
+                <extrasactashechos :sistema="sistema" :empresa="false" :usuario="usuario"></extrasactashechos>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="actasHechos-carpetasLigadasFisica-tab">
                 <notificaciones :tipo="'fisica'"></notificaciones>
@@ -49,7 +49,7 @@
 
 <script>
     export default {
-        props: ['sistema','carpeta'],
+        props: ['sistema','carpeta','usuario'],
         methods: {
             cleanFields(){
                 this.$store.commit('cleanStore')
