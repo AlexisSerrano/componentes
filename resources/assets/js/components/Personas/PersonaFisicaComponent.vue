@@ -210,7 +210,7 @@
 </template>
 
 <script>
-	import generaCurp from '../curp'
+	import generaCurp from '../../curp'
 	import swal from 'sweetalert2'
 	import {
 		SpringSpinner

@@ -62,10 +62,10 @@
 </template>
 
 <script>
-    import denunciadofisico from './DenunciadoFisicoComponent.vue';
-    import denunciadomoral from './DenunciadoMoralComponent.vue';
-    import conocidofisico from './ConocidoFisicoComponent.vue';
-    import conocidomoral from './ConocidoMoralComponent.vue';
+    import denunciadofisico from '../Denunciado/DenunciadoFisicoComponent.vue';
+    import denunciadomoral from '../Denunciado/DenunciadoMoralComponent.vue';
+    import conocidofisico from '../Denunciado/ConocidoFisicoComponent.vue';
+    import conocidomoral from '../Denunciado/ConocidoMoralComponent.vue';
     export default {
         data() {
             return {

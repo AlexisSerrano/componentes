@@ -10,11 +10,11 @@
 </template>
 
 <script>
-    import registrodenunciante from './RegistroDenuncianteComponent.vue';
-    import registroabogado from './RegistroAbogadoComponent.vue';
-    import registroautoridad from './RegistroAutoridadComponent.vue';
-    import registrodenunciado from './RegistroDenunciadoComponent.vue';
-    import registroactashechos from './RegistroActasHechosComponent.vue';
+    import registrodenunciante from './Registros/RegistroDenuncianteComponent.vue';
+    import registroabogado from './Registros/RegistroAbogadoComponent.vue';
+    import registroautoridad from './Registros/RegistroAutoridadComponent.vue';
+    import registrodenunciado from './Registros/RegistroDenunciadoComponent.vue';
+    import registroactashechos from './Registros/RegistroActasHechosComponent.vue';
     
     export default {
         props: ['sistema', 'tipo', 'carpeta', 'usuario'],

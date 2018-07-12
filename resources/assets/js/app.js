@@ -36,12 +36,12 @@ Vue.component('icon', Icon)
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.component('personafisica', require('./components/PersonaFisicaComponent.vue'));
-Vue.component('personamoral', require('./components/PersonaMoralComponent.vue'));
-Vue.component('domicilio', require('./components/DomicilioComponent.vue'));
+Vue.component('personafisica', require('./components/Personas/PersonaFisicaComponent.vue'));
+Vue.component('personamoral', require('./components/Personas/PersonaMoralComponent.vue'));
+Vue.component('domicilio', require('./components/Domicilio/DomicilioComponent.vue'));
 Vue.component('registro',require('./components/RegistroComponent.vue'));
-Vue.component('notificaciones',require('./components/NotificacionesComponent.vue'));
-Vue.component('coincidencias',require('./components/CoincidenciasComponent.vue'));
+Vue.component('notificaciones',require('./components/Tablas/NotificacionesComponent.vue'));
+Vue.component('coincidencias',require('./components/Tablas/CoincidenciasComponent.vue'));
 
 const app = new Vue({
     el: '#app',

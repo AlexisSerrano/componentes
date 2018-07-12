@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import extrasabogado from './ExtrasAbogadoComponent.vue';
+    import extrasabogado from '../Extras/ExtrasAbogadoComponent.vue';
     export default {
         props: ['sistema', 'carpeta','usuario'],
         components: {extrasabogado},

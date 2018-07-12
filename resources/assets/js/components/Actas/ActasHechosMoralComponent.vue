@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import extrasactashechos from './ExtrasActasHechosComponent.vue';
+    import extrasactashechos from '../Extras/ExtrasActasHechosComponent.vue';
     export default {
         props: ['sistema','carpeta','usuario'],
         components: {extrasactashechos},

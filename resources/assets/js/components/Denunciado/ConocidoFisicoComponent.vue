@@ -44,7 +44,7 @@
 </template>
 
 <script>
-    import extrasconocido from './ExtrasConocidoComponent.vue';
+    import extrasconocido from '../Extras/ExtrasConocidoComponent.vue';
     import { mapState } from "vuex";
     import swal from 'sweetalert2'
     export default {

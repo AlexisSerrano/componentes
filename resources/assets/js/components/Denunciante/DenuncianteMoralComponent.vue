@@ -58,7 +58,7 @@
 </template>
 
 <script>
-    import extrasdenunciante from './ExtrasDenuncianteComponent.vue';
+    import extrasdenunciante from '../Extras/ExtrasDenuncianteComponent.vue';
     export default {
         props: ['sistema', 'carpeta','usuario'],
         components: {

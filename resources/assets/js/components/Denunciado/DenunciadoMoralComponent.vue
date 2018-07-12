@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import extrasinvestigado from './ExtrasInvestigadoComponent.vue';
+    import extrasinvestigado from '../Extras/ExtrasInvestigadoComponent.vue';
     export default {
         props: ['sistema', 'carpeta','usuario'],
         components: {extrasinvestigado},

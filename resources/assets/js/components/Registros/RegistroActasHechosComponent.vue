@@ -23,8 +23,8 @@
 </template>
 
 <script>
-    import actashechosfisica from './ActasHechosFisicaComponent.vue';
-    import actashechosmoral from './ActasHechosMoralComponent.vue';
+    import actashechosfisica from '../Actas/ActasHechosFisicaComponent.vue';
+    import actashechosmoral from '../Actas/ActasHechosMoralComponent.vue';
     export default {
         data() {
             return {

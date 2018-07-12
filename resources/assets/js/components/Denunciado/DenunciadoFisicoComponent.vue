@@ -66,7 +66,7 @@
 </template>
 
 <script>
-    import extrasinvestigado from './ExtrasInvestigadoComponent.vue';
+    import extrasinvestigado from '../Extras/ExtrasInvestigadoComponent.vue';
     import { mapState } from "vuex";
     export default {
         props: ['sistema', 'carpeta','usuario'],

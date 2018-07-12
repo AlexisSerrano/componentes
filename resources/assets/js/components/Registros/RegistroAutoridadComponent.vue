@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import extrasautoridad from './ExtrasAutoridadComponent.vue';
+    import extrasautoridad from '../Extras/ExtrasAutoridadComponent.vue';
     export default {
         props: ['sistema', 'carpeta','usuario'],
         components: {extrasautoridad},

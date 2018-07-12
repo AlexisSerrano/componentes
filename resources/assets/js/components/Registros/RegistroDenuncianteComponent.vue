@@ -23,8 +23,8 @@
 </template>
 
 <script>
-    import denunciantefisico from './DenuncianteFisicoComponent.vue';
-    import denunciantemoral from './DenuncianteMoralComponent.vue';
+    import denunciantefisico from '../Denunciante/DenuncianteFisicoComponent.vue';
+    import denunciantemoral from '../Denunciante/DenuncianteMoralComponent.vue';
     export default {
         data() {
             return {

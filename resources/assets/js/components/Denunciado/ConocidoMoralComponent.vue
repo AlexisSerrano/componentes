@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import extrasconocido from './ExtrasConocidoComponent.vue';
+    import extrasconocido from '../Extras/ExtrasConocidoComponent.vue';
     import {
         mapState
     } from "vuex";
