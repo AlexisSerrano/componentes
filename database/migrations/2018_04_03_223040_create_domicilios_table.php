@@ -13,8 +13,9 @@ class CreateDomiciliosTable extends Migration
      */
     public function up()
     {
-        Schema::create('domicilios', function (Blueprint $table) {
+        Schema::create('domicilio', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('idEstado')->unsigned()->default(33);
             $table->integer('idMunicipio')->unsigned()->default(2497);
             $table->integer('idLocalidad')->unsigned()->default(27592);
             $table->integer('idColonia')->unsigned()->default(8982);
@@ -22,6 +23,7 @@ class CreateDomiciliosTable extends Migration
             $table->string('numExterno', 10)->default('S/N');
             $table->string('numInterno', 10)->default('S/N');
 
+            $table->foreign('idEstado')->references('id')->on('cat_estado')->onDelete('cascade');
             $table->foreign('idMunicipio')->references('id')->on('cat_municipio')->onDelete('cascade');
             $table->foreign('idLocalidad')->references('id')->on('cat_localidad')->onDelete('cascade');
             $table->foreign('idColonia')->references('id')->on('cat_colonia')->onDelete('cascade');
@@ -38,6 +40,6 @@ class CreateDomiciliosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('domicilios');
+        Schema::dropIfExists('domicilio');
     }
 }

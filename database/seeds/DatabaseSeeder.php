@@ -11,8 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        
 //      $this->call(UsersTableSeeder::class);
-
         $this->call(SexosSeeder::class);
 
         $this->call(EstadoSeeder::class);
@@ -48,6 +48,25 @@ class DatabaseSeeder extends Seeder
         $this->call(EstadoCivilSeeder::class); 
         $this->call(EscolaridadSeeder::class); 
         $this->call(ReligionSeeder::class); 
+        
+        $this->call(IdentificacionSeeder::class);
+        
+        $this->call(validacionesSeeder::class);
 
+        $this->call(InterpreteSeeder::class);
+        $this->call(DefaultsSeeder::class); 
+        $this->call(PersonaFisicaSeeder::class);
+        $this->call(VariablesPersonaFisicaSeeder::class);
+
+        $this->call(UsersSeeder::class);
+        $this->call(TipoDeterminacionSeeder::class);        
+        $this->call(extraAbogadoSeeder::class);
+        $this->call(personaMoralSeeder::class);
+        $this->call(variablesPersonaMoralSeeder::class);
+        $this->call(PuestosSeeder::class); 
+        $this->call(aparicionesSeeder::class);
+        $this->call(denunciadoFisicoSeeder::class);
+        $this->call(denuncianteFisicoSeeder::class);
     }
 }
+

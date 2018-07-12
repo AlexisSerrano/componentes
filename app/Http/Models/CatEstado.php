@@ -10,7 +10,9 @@ class CatEstado extends Model
     protected $table = 'cat_estado';
 
     protected $fillable = [
-        'id', 'nombre', 'abreviatura',
+        'id', 
+        'nombre', 
+        'abreviatura'
     ];
 
     public function municipios(){

@@ -1,26 +1,22 @@
 <?php
 use Illuminate\Http\Request;
 
-/*URLS PARA PERSONAS */
-Route::get('/','PersonaController@index');
-Route::post('addPersona','PersonaController@addPersona')->name('addPersona');
+Route::get('registroDenunciante', function(){
+    return view('registroDenunciante');
+});
 
-/*URLS PARA DOMICILIOS*/
-Route::get('/domicilio','DomicilioController@index');
-Route::post('addDomicilio','DomicilioController@addDomicilio')->name('addDomicilio');
+Route::get('registroDenunciado', function(){
+    return view('registroDenunciado');
+});
 
-/*URLS PARA SELECTS PERSONAS */
-Route::get('getNacionalidades','PersonaController@getNacionalidades');
-Route::get('getMunicipios/{id}','PersonaController@getMunicipios');
-Route::get('getEtnias','PersonaController@getEtnias');
-Route::get('getLenguas','PersonaController@getLenguas');
-Route::get('getEstados','PersonaController@getEstados');
-Route::get('getSexos','PersonaController@getSexos');
-Route::get('searchPersona/{id}','PersonaController@searchPersona');
+Route::get('registroAbogado', function(){
+    return view('registroAbogado');
+});
 
-/*URLS PARA SELECTS DOMICILIO */
-Route::get('getEstados2','DomicilioController@getEstados');
-Route::get('getMunicipios2/{id}','DomicilioController@getMunicipios');
-Route::get('getLocalidades2/{id}','DomicilioController@getLocalidades');
-Route::get('getColonias2/{id}','DomicilioController@getColonias');
-Route::get('getCodigosPostales2/{id}','DomicilioController@getCodigosPostales');
+Route::get('registroAutoridad', function(){
+    return view('registroAutoridad');
+});
+
+Route::get('registroActasHechos', function(){
+    return view('registroActasHechos');
+});

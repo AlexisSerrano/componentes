@@ -9,7 +9,7 @@ class OcupacionSeeder extends Seeder
      *
      * @return void
      */
-public function run()
+    public function run()
     {
         DB::table('cat_ocupacion')->insert([
             ['id'=>   1,'nombre' => 'CORTADOR DE PASTO'],
