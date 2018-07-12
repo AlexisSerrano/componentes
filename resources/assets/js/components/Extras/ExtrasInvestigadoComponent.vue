@@ -141,9 +141,9 @@
                         return;
                     }
                     swal({
-                        title: '¡Guardado incorrecto!',
-                        text: 'Error al guardar.',
-                        type: 'error',
+                        title: '¡Aún no es posible guardar!',
+                        text: 'Ingrese los campos obligatorios',
+                        type: 'warning',
                         confirmButtonText: 'Ok'
                     });
                 });
@@ -188,18 +188,18 @@
                         } else {
                             swal({
                                 title: '¡Guardado incorrecto!',
-                                text: 'Error al guardar.',
+                                text: 'No fue posible guardar.',
                                 type: 'error',
-                                confirmButtonText: 'Ok'
-                            });
+                                confirmButtonText: 'Ok',
+                            })
                         }
                     }).catch((error) => {
                         swal({
                             title: '¡Guardado incorrecto!',
-                            text: 'Ésta persona no fue posible guardarla.',
+                            text: 'No fue posible guardar.',
                             type: 'error',
-                            confirmButtonText: 'Ok'
-                        });
+                            confirmButtonText: 'Ok',
+                        })
                     });
             },
             CleanFields() {

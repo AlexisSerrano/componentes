@@ -47,12 +47,22 @@
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.guardarExtra()
+                        if(this.$store.state.idDomicilio!='' || this.$store.state.idDomicilioTemporal!=''){
+                            this.guardarExtra()
+                        }
+                        else{
+                            swal({
+                                title: '¡Aún no es posible guardar!',
+                                text: 'Debe guardar antes un domicilio.',
+                                type: 'warning',
+                                confirmButtonText: 'Ok'
+                            });
+                        }
                     } else {
                         swal({
-                            title: '¡Guardado incorrecto!',
-                            text: 'Error al guardar.',
-                            type: 'error',
+                            title: '¡Aún no es posible guardar!',
+                            text: 'Ingrese los campos obligatorios',
+                            type: 'warning',
                             confirmButtonText: 'Ok'
                         });
                     }
@@ -85,22 +95,22 @@
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
                                 type: 'success',
-                                confirmButtonText: 'Ok'
+                                confirmButtonText: '<a class="linkAlert" href="actaoficio/'+response.data+'" target="_blank">Imprimir oficio</a>',
                             })
                         } else {
                             swal({
                                 title: '¡Guardado incorrecto!',
-                                text: 'Error al guardar.',
+                                text: 'No fue posible guardar.',
                                 type: 'error',
-                                confirmButtonText: 'Ok'
+                                confirmButtonText: 'Ok',
                             })
                         }
                     }).catch((error) => {
                         swal({
                             title: '¡Guardado incorrecto!',
-                            text: 'Ésta persona no fue posible guardarla.',
+                            text: 'No fue posible guardar.',
                             type: 'error',
-                            confirmButtonText: 'Ok'
+                            confirmButtonText: 'Ok',
                         })
                     });
             },

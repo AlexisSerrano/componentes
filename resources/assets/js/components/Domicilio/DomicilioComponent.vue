@@ -269,11 +269,11 @@
                         return;
                     }
                     swal({
-                        title: '¡Guardado Incorrecto!',
-                        text: 'Éste domicilio no fue posible guardarse.',
-                        type: 'error',
+                        title: '¡Aún no es posible guardar!',
+                        text: 'Ingrese los campos obligatorios',
+                        type: 'warning',
                         confirmButtonText: 'Ok'
-                    })
+                    });
                 });
             },
             crearDomicilio: function() {

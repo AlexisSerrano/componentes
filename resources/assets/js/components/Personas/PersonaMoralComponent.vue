@@ -194,11 +194,11 @@
                         return;
                     }
                     swal({
-                        title: '¡Guardado incorrecto!',
-                        text: 'Ésta empresa no fue posible guardarla.',
-                        type: 'error',
+                        title: '¡Aún no es posible guardar!',
+                        text: 'Ingrese los campos obligatorios',
+                        type: 'warning',
                         confirmButtonText: 'Ok'
-                    })
+                    });
                 });
             },
             CleanFields() {

@@ -10432,6 +10432,12 @@ textarea {
   margin-top: -30px;
 }
 
+.linkAlert,
+.linkAlert:hover {
+  color: white;
+  text-decoration: none;
+}
+
 th {
   text-align: center;
 }

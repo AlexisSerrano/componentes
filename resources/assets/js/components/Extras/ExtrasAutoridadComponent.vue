@@ -68,13 +68,12 @@ import swal from 'sweetalert2'
                     }
                     else{
                         swal({
-                        title: '¡Guardado incorrecto!',
-                        text: 'Error al guardar.',
-                        type: 'error',
-                        confirmButtonText: 'Ok'
+                            title: '¡Aún no es posible guardar!',
+                            text: 'Ingrese los campos obligatorios',
+                            type: 'warning',
+                            confirmButtonText: 'Ok'
                         });
                     }
-                    
                 });
             },
             guardarExtraAutoridad: function(){   
@@ -106,18 +105,18 @@ import swal from 'sweetalert2'
                         }
                         else{
                             swal({
-                                title: 'Guardado Incorrecto!',
-                                text: 'Error al guardar.',
+                                title: '¡Guardado incorrecto!',
+                                text: 'No fue posible guardar.',
                                 type: 'error',
-                                confirmButtonText: 'Ok'
+                                confirmButtonText: 'Ok',
                             })
                         }
                     }).catch((error)=>{                        
                         swal({
-                        title: '¡Guardado incorrecto!',
-                        text: 'Ésta persona no fue posible guardarla.',
-                        type: 'error',
-                        confirmButtonText: 'Ok'
+                            title: '¡Guardado incorrecto!',
+                            text: 'No fue posible guardar.',
+                            type: 'error',
+                            confirmButtonText: 'Ok',
                         })
                     });
                 
