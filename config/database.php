@@ -58,7 +58,7 @@ return [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '192.108.24.142'),
             'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'uat'),
+            'database' => env('DB_DATABASE', 'componentes'),
             'username' => env('DB_USERNAME', 'postgres'),
             'password' => env('DB_PASSWORD', 'post.2030'),
             'charset' => 'utf8',

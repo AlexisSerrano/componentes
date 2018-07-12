@@ -15,7 +15,7 @@
     import registroautoridad from './Registros/RegistroAutoridadComponent.vue';
     import registrodenunciado from './Registros/RegistroDenunciadoComponent.vue';
     import registroactashechos from './Registros/RegistroActasHechosComponent.vue';
-    
+     
     export default {
         props: ['sistema', 'tipo', 'carpeta', 'usuario'],
         components: {
