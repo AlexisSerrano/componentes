@@ -41,15 +41,14 @@
             }
         },
     
-        props: ['empresa', 'sistema','usuario'],
+        props: ['empresa', 'sistema', 'usuario'],
         methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        if(this.$store.state.idDomicilio!='' || this.$store.state.idDomicilioTemporal!=''){
+                        if (this.$store.state.idDomicilio != '' || this.$store.state.idDomicilioTemporal != '') {
                             this.guardarExtra()
-                        }
-                        else{
+                        } else {
                             swal({
                                 title: '¡Aún no es posible guardar!',
                                 text: 'Debe guardar antes un domicilio.',
@@ -85,6 +84,11 @@
                     narracion: this.descripcion.toUpperCase(),
                     tipo: 'actashechos'
                 };
+                if (this.empresa == false) {
+                    var urlOficio = "actaoficio/"
+                } else {
+                    var urlOficio = "actaoficioM/"
+                }
                 axios.post(urlGuardarDenunciante, data)
                     .then(response => {
                         if (response.data) {
@@ -94,7 +98,7 @@
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta persona fue guardada exitosamente.',
                                 type: 'success',
-                                confirmButtonText: '<a class="linkAlert" href="actaoficio/'+response.data+'" target="_blank">Imprimir oficio</a>',
+                                confirmButtonText: '<a class="linkAlert" href="' + urlOficio + response.data + '" target="_blank">Imprimir oficio</a>',
                             })
                         } else {
                             swal({
@@ -109,7 +113,6 @@
                             title: '¡Guardado incorrecto!',
                             text: 'No fue posible guardar.',
                             type: 'error',
-                            confirmButtonText: 'Ok',
                         })
                     });
             },
