@@ -37,12 +37,11 @@
                 ],
                 tipoActa: '',
                 descripcion: '',
-                systemUser: 'TEST',
                 url: './api'
             }
         },
     
-        props: ['empresa', 'sistema'],
+        props: ['empresa', 'sistema','usuario'],
         methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -82,7 +81,7 @@
                     idPersona: idPersona,
                     sistema: this.sistema,
                     empresa: this.empresa,
-                    usuario: this.systemUser,
+                    usuario: this.usuario,
                     narracion: this.descripcion.toUpperCase(),
                     tipo: 'actashechos'
                 };
