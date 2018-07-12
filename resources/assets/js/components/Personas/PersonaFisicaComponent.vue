@@ -45,7 +45,7 @@
 	
 				<div v-if="validaciones.fechaNacimiento!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="fechaNacimiento">Fecha de nacimiento</label>
-					<input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="'date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de nacimiento') || this.validacionesback.fechaNacimiento}"
+					<input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="'required|date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de nacimiento') || this.validacionesback.fechaNacimiento}"
 					    @blur="calcularRfc(),generarCurp(),generarEdad()" :readonly="this.$store.state.fisicaEncontrada==true">
 					<span v-show="errors.has('fecha de nacimiento')" class="text-danger">{{ errors.first('fecha de nacimiento')}}</span>
 					<span v-if="this.validacionesback.fechaNacimiento!=undefined" class="text-danger">{{ String(this.validacionesback.fechaNacimiento)}}</span>
@@ -142,8 +142,8 @@
 					<span v-if="this.validacionesback.motivoEstancia!=undefined" class="text-danger">{{ String(this.validacionesback.motivoEstancia)}}</span>
 				</div>
 				<div v-if="validaciones.idOcupacion!='oculto'" class="form-group col-md-4">
-					<label class="col-form-label col-form-label-sm" for="ocupacion">Ocupación</label>
-					<v-select :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupacion" v-validate="validaciones.idOcupacion" :class="{ 'border border-danger rounded': errors.has('ocupación') || this.validacionesback.idOcupacion}" placeholder="Seleccione una ocupación"></v-select>
+					<label class="col-form-label col-form-label-sm" for="ocupación">Ocupación</label>
+					<v-select :options="ocupaciones" label="nombre" v-model="ocupacion" name="ocupación" v-validate="validaciones.idOcupacion" :class="{ 'border border-danger rounded': errors.has('ocupación') || this.validacionesback.idOcupacion}" placeholder="Seleccione una ocupación"></v-select>
 					<span v-show="errors.has('ocupación')" class="text-danger">{{ errors.first('ocupación')}}</span>
 					<span v-if="this.validacionesback.idOcupacion!=undefined" class="text-danger">{{ String(this.validacionesback.idOcupacion)}}</span>
 				</div>
@@ -173,8 +173,8 @@
 	
 	
 				<div v-if="validaciones.docIdentificacion!='oculto'" class="form-group col-md-4">
-					<label class="col-form-label col-form-label-sm" for="identificacion">Identificación</label>
-					<v-select :options="identificaciones" label="documento" v-model="identificacion" name="identificacion" v-validate="validaciones.docIdentificacion" :class="{ 'border border-danger rounded': errors.has('identificación') || this.validacionesback.docIdentificacion}"
+					<label class="col-form-label col-form-label-sm" for="identificación">Identificación</label>
+					<v-select :options="identificaciones" label="documento" v-model="identificacion" name="identificación" v-validate="validaciones.docIdentificacion" :class="{ 'border border-danger rounded': errors.has('identificación') || this.validacionesback.docIdentificacion}"
 					    placeholder="Seleccione una identificación"></v-select>
 					<span v-show="errors.has('identificación')" class="text-danger">{{ errors.first('identificación')}}</span>
 					<span v-if="this.validacionesback.docIdentificacion!=undefined" class="text-danger">{{ String(this.validacionesback.docIdentificacion)}}</span>
