@@ -1,8 +1,15 @@
 th {
-	text-align: center;
+	text-align: center !important;
 }
 
 .table td {
-	text-align: center;
-	vertical-align:middle;
+	text-align: center !important;
+	vertical-align:middle !important;
+}
+.table{
+	font-size: 14px !important;
+}
+
+.table thead th{
+	vertical-align: middle !important;
 }

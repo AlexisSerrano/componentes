@@ -2,10 +2,10 @@
     <div>
     
         <h3 class="mb-3">Coincidencias</h3>
-        <table class="table table-bordered table-hover">
+        <table class="table  table-responsive table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>Nombre y apellidos</th>
+                    <th>Nombres y apellidos</th>
                     <th>Edad</th>
                     <th>Sexo</th>
                     <th>R.F.C</th>

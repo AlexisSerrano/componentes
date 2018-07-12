@@ -3,12 +3,10 @@
 <div class="col">
 
   <h3 class="mb-3">Carpetas encontradas</h3>         
-  <table class="table table-bordered table-hover">
+  <table class="table table-sm table-responsive table-bordered table-hover">
     <thead class="thead-dark" v-if="this.$store.state.fisicaEncontrada">
       <tr>
-        <th>Nombres</th>
-        <th>Primer apellido</th>
-        <th>Segundo apellido</th>
+        <th>Nombres y apellidos</th>
         <th>R.F.C</th>
         <th>C.U.R.P</th>
         <th>ID Carpeta</th>
@@ -32,9 +30,7 @@
     </thead>
     <tbody v-if="this.$store.state.fisicaEncontrada" >
       <tr v-for="value in carpetas" :key="value.idCarpeta">
-        <td>{{ value.nombres }}</td>
-        <td>{{ value.primerAp }}</td>
-        <td>{{ value.segundoAp }}</td>
+        <td>{{ `${value.nombres} ${value.primerAp} ${value.segundoAp}` }}</td>
         <td>{{ value.rfc }}</td>
         <td>{{ value.curp }}</td>
         <td>{{ value.idCarpeta }}</td>
