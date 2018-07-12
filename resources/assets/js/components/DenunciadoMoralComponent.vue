@@ -34,16 +34,16 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-denunciado-personamoral" role="tabpanel" aria-labelledby="denunciado-personamoral-tab">
-                <personamoral :sistema="sistema" :carpeta="carpeta" :tipo="'denunciadomoral'"></personamoral>
+                <personamoral :sistema="sistema" :carpeta="carpeta" :tipo="'denunciadomoral'" :usuario="usuario"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-domiciliomoral" role="tabpanel" aria-labelledby="denunciado-domiciliomoral-tab">
-                <domicilio :tipo="'domicilio'" :empresa="true" :sistema="sistema"></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-notificacionesmoral" role="tabpanel" aria-labelledby="denunciado-notificacionesmoral-tab">
-                <domicilio :tipo="'contacto'" :empresa="true" :sistema="sistema"></domicilio>
+                <domicilio :tipo="'contacto'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-extramoral" role="tabpanel-moral" aria-labelledby="denunciado-extramoral-tab">
-                <extrasinvestigado :sistema="sistema" :empresa="true" :carpeta="carpeta"></extrasinvestigado>
+                <extrasinvestigado :sistema="sistema" :empresa="true" :carpeta="carpeta" :usuario="usuario"></extrasinvestigado>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasMoral" role="tabpanel-moral" aria-labelledby="denunciante-carpetasLigadasMoral-tab">
                 <notificaciones :tipo="'moral'"></notificaciones>
@@ -54,15 +54,10 @@
 </template>
 
 <script>
+    import extrasinvestigado from './ExtrasInvestigadoComponent.vue';
     export default {
-        props: {
-            sistema: {
-                required:true
-            },
-            carpeta:{
-                required:true
-            }
-        },
+        props: ['sistema', 'carpeta','usuario'],
+        components: {extrasinvestigado},
         methods: {
             cleanFields(){
                 this.$store.commit('cleanStore')

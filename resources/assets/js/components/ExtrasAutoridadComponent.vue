@@ -132,9 +132,3 @@ import swal from 'sweetalert2'
        }
     }
 </script>
-
-<style>
-    input , textarea{
-        text-transform: uppercase
-    }
-</style>

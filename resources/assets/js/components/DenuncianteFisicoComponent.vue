@@ -37,19 +37,19 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-denunciante-personafisico" role="tabpanel" aria-labelledby="denunciante-personafisico-tab">
-                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'denunciante'"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'denunciante'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-domiciliofisico" role="tabpanel" aria-labelledby="denunciante-domiciliofisico-tab">
-                <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema"></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-trabajofisico" role="tabpanel" aria-labelledby="denunciante-trabajofisico-tab">
-                <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema"></domicilio>
+                <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-notificacionesfisico" role="tabpanel" aria-labelledby="denunciante-notificacionesfisico-tab">
-                <domicilio :tipo="'contacto'" :empresa="false" :sistema="sistema"></domicilio>
+                <domicilio :tipo="'contacto'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciante-extrafisico-tab">
-                <extrasdenunciante :sistema="sistema" :empresa="false" :carpeta="carpeta"></extrasdenunciante>
+                <extrasdenunciante :sistema="sistema" :empresa="false" :carpeta="carpeta" :usuario="usuario"></extrasdenunciante>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="denunciante-carpetasLigadasFisica-tab">
                 <notificaciones :tipo="'fisica'"></notificaciones>
@@ -60,15 +60,10 @@
 </template>
 
 <script>
+    import extrasdenunciante from './ExtrasDenuncianteComponent.vue';
     export default {
-        props: {
-            sistema: {
-                required:true
-            },
-            carpeta:{
-                required:true
-            }
-        },
+        props: ['sistema', 'carpeta','usuario'],
+        components: {extrasdenunciante},
         methods: {
             cleanFields(){
                 this.$store.commit('cleanStore')

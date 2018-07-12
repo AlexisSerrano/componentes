@@ -17,26 +17,22 @@
                 </div>
             </div>
         </div>
-        <denunciantefisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta"></denunciantefisico>
-        <denunciantemoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta"></denunciantemoral>
+        <denunciantefisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></denunciantefisico>
+        <denunciantemoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></denunciantemoral>
     </div>
 </template>
 
 <script>
+    import denunciantefisico from './DenuncianteFisicoComponent.vue';
+    import denunciantemoral from './DenuncianteMoralComponent.vue';
     export default {
         data() {
             return {
                 persona: ''
             }
         },
-        props: {
-            sistema: {
-                required:true
-            },
-            carpeta:{
-                required:true
-            }
-        },
+        props: ['sistema','carpeta','usuario'],
+        components:{denunciantefisico,denunciantemoral},
         watch: {
             persona() {
                 this.$store.commit('cleanStore')
@@ -44,7 +40,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

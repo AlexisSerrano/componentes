@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container-fluid">
-            <label class="col-form-label col-form-label-sm">Tipo de persona</label> 
+            <label class="col-form-label col-form-label-sm">Tipo de persona</label>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <div class="form-check" style="padding: 0">
@@ -23,13 +23,19 @@
 </template>
 
 <script>
+    import actashechosfisica from './ActasHechosFisicaComponent.vue';
+    import actashechosmoral from './ActasHechosMoralComponent.vue';
     export default {
         data() {
             return {
                 persona: ''
             }
         },
-        props:['sistema','usuario'],
+        props: ['sistema', 'usuario'],
+        components: {
+            actashechosfisica,
+            actashechosmoral
+        },
         watch: {
             persona() {
                 this.$store.commit('cleanStore')
@@ -37,7 +43,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

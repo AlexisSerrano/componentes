@@ -48,8 +48,10 @@
 </template>
 
 <script>
+    import extrasactashechos from './ExtrasActasHechosComponent.vue';
     export default {
         props: ['sistema','carpeta','usuario'],
+        components: {extrasactashechos},
         methods: {
             cleanFields(){
                 this.$store.commit('cleanStore')

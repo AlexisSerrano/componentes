@@ -34,16 +34,16 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-autoridad-persona" role="tabpanel" aria-labelledby="autoridad-persona-tab">
-                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'autoridad'"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'autoridad'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-domicilio" role="tabpanel" aria-labelledby="autoridad-domicilio-tab">
-                <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema"></domicilio>
+                <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-trabajo" role="tabpanel" aria-labelledby="autoridad-trabajo-tab">
-                <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema"></domicilio>
+                <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-extra" role="tabpanel-fisico" aria-labelledby="autoridad-extra-tab">
-                <extrasautoridad :sistema="sistema" :carpeta="carpeta"></extrasautoridad>
+                <extrasautoridad :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></extrasautoridad>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-carpetasLigadas" role="tabpanel-fisico" aria-labelledby="autoridad-carpetasLigadas-tab">
                 <notificaciones :tipo="'fisica'"></notificaciones>
@@ -54,15 +54,10 @@
 </template>
 
 <script>
+    import extrasautoridad from './ExtrasAutoridadComponent.vue';
     export default {
-        props: {
-            sistema: {
-                required:true
-            },
-            carpeta:{
-                required:true
-            }
-        },
+        props: ['sistema', 'carpeta','usuario'],
+        components: {extrasautoridad},
         methods: {
             cleanFields(){
                 this.$store.commit('cleanSearch','fisica')

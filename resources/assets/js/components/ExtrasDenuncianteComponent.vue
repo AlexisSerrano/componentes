@@ -145,10 +145,3 @@
         }
     }
 </script>
-
-<style>
-    input,
-    textarea {
-        text-transform: uppercase
-    }
-</style>

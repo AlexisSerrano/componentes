@@ -53,15 +53,19 @@
                 </div>
             </div>
         </div>
-        <personafisica v-if="denunciado==1" :sistema="sistema" :carpeta="carpeta" :tipo="'qrr'"></personafisica>
-        <conocidofisico v-if="denunciado==2 && conocido==1" :sistema="sistema" :carpeta="carpeta"></conocidofisico>
-        <conocidomoral v-if="denunciado==2  && conocido==2" :sistema="sistema" :carpeta="carpeta"></conocidomoral>
-        <denunciadofisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta"></denunciadofisico>
-        <denunciadomoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta"></denunciadomoral>
+        <personafisica v-if="denunciado==1" :sistema="sistema" :carpeta="carpeta" :tipo="'qrr'" :usuario="usuario"></personafisica>
+        <conocidofisico v-if="denunciado==2 && conocido==1" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></conocidofisico>
+        <conocidomoral v-if="denunciado==2  && conocido==2" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></conocidomoral>
+        <denunciadofisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></denunciadofisico>
+        <denunciadomoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></denunciadomoral>
     </div>
 </template>
 
 <script>
+    import denunciadofisico from './DenunciadoFisicoComponent.vue';
+    import denunciadomoral from './DenunciadoMoralComponent.vue';
+    import conocidofisico from './ConocidoFisicoComponent.vue';
+    import conocidomoral from './ConocidoMoralComponent.vue';
     export default {
         data() {
             return {
@@ -70,14 +74,8 @@
                 conocido:1
             }
         },
-        props: {
-            sistema: {
-                required:true
-            },
-            carpeta:{
-                required:true
-            }
-        },
+        props: ['sistema','carpeta','usuario'],
+        components:{denunciadofisico,denunciadomoral,conocidofisico,conocidomoral},
         watch: {
             denunciado() {
                 this.$store.commit('cleanStore')
@@ -93,7 +91,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

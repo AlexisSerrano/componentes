@@ -92,18 +92,10 @@
                 representanteLegal: '',
                 personaExiste: '',
                 validacionesback: '',
-                systemUser: 'TEST',
-                url: 'http://localhost/componentesf/public/api'
+                url: 'http://localhost/componentes/public/api'
             }
         },
-        props: {
-            sistema: {
-                default: false
-            },
-            tipo: {
-                default: false
-            }
-        },
+        props:['sistema','tipo','usuario'],
         mounted: function() {
             //    this.getNacionalidades();
         },
@@ -231,7 +223,7 @@
                         representanteLegal: this.representanteLegal.toUpperCase(),
                         sistema: this.sistema,
                         idPersona: this.$store.state.idPersonaMoral,
-                        usuario: this.systemUser,
+                        usuario: this.usuario,
                         personaMoral: this.$store.state.personaMoral,
                         idDomicilio: this.$store.state.idDomicilioTemporal,
                         idNotificacion: this.$store.state.idContactoTemporal
@@ -241,7 +233,7 @@
                         nombre: this.nombre.toUpperCase(),
                         sistema: this.sistema,
                         idPersonaMoral: this.$store.state.idPersonaMoral,
-                        usuario: this.systemUser,
+                        usuario: this.usuario,
                         personaMoral: this.$store.state.personaMoral
                     };
                 }
@@ -294,9 +286,3 @@
         //    computed:mapState(['idPersonaFisica','idPersonaMoral'])
     }
 </script>
-
-<style>
-    input {
-        text-transform: uppercase
-    }
-</style>

@@ -85,11 +85,3 @@ import { mapState } from "vuex";
         computed:mapState(['carpetasLigadas'])
     }
 </script>
-<style>
-  th{
-    text-align: center
-  }
-  td{
-    text-align: center
-  }
-</style>

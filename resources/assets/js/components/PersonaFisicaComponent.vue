@@ -279,10 +279,10 @@
 				validacionesback: '',
 				loader: true,
 				qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-				url: 'http://localhost/componentesf/public/api'
+				url: 'http://localhost/componentes/public/api'
 			}
 		},
-		props: ['sistema', 'tipo', 'carpeta','usuario'],
+		props: ['sistema', 'tipo', 'carpeta', 'usuario'],
 		components: {
 			SpringSpinner
 		},
@@ -378,7 +378,7 @@
 							this.curp = this.personaExiste.curp,
 							this.nacionalidad = this.personaExiste.idNacionalidad,
 							this.estado = this.personaExiste.idEstado
-							this.municipio = this.personaExiste.idMunicipioOrigen,
+						this.municipio = this.personaExiste.idMunicipioOrigen,
 							this.etnia = this.personaExiste.idEtnia,
 							this.lengua = this.personaExiste.idLengua,
 							this.interprete = this.personaExiste.idInterprete,
@@ -642,7 +642,7 @@
 						rfc: this.rfc,
 						homo: this.homoclave,
 						curp: this.curp,
-						idNacionalidad:this.nacionalidad.id,
+						idNacionalidad: this.nacionalidad.id,
 						idEstadoCivil: this.estadoCivil.id,
 						idOcupacion: this.ocupacion.id,
 						idEscolaridad: this.escolaridad.id,
@@ -741,48 +741,3 @@
 		}, mapState(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'personasEncontradas']))
 	}
 </script>
-
-<style>
-	.dropdown-toggle {
-		height: 33px;
-		overflow: hidden;
-	}
-	
-	input {
-		text-transform: uppercase
-	}
-	
-	input.form-control {
-		width: 100% !important;
-	}
-	
-	.dropdown {
-		font-family: inherit;
-		font-size: .875rem;
-	}
-	
-	.centrar {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-left: -30px;
-		margin-top: -30px;
-	}
-	
-	.v-select input[type=search],
-	.v-select input[type=search]:focus {
-		height: 31px;
-	}
-	
-	.v-select .dropdown-toggle .clear {
-		bottom: 8px;
-	}
-	
-	.v-select .open-indicator {
-		bottom: 5px;
-	}
-	
-	.v-select .selected-tag {
-		margin: 2px 1px 0 3px;
-	}
-</style>

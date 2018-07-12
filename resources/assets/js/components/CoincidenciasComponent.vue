@@ -134,14 +134,3 @@
         computed: mapState(["personasEncontradas"])
     };
 </script>
-
-<style>
-    th {
-        text-align: center;
-    }
-    
-    .table td {
-        text-align: center;
-        vertical-align:middle;
-    }
-</style>

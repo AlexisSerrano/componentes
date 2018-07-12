@@ -31,13 +31,13 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-abogado-persona" role="tabpanel" aria-labelledby="abogado-persona-tab">
-                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'abogado'"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'abogado'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-abogado-trabajo" role="tabpanel" aria-labelledby="abogado-trabajo-tab">
-                <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema"></domicilio>
+                <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-abogado-extra" role="tabpanel-fisico" aria-labelledby="abogado-extra-tab">
-                <extrasabogado :sistema="sistema" :carpeta="carpeta"></extrasabogado>
+                <extrasabogado :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></extrasabogado>
             </div>
             <div class="tab-pane fade" id="pills-abogado-carpetasLigadas" role="tabpanel-fisico" aria-labelledby="abogado-carpetasLigadas-tab">
                 <notificaciones :tipo="'fisica'"></notificaciones>
@@ -48,15 +48,10 @@
 </template>
 
 <script>
+    import extrasabogado from './ExtrasAbogadoComponent.vue';
     export default {
-        props: {
-            sistema: {
-                required:true
-            },
-            carpeta:{
-                required:true
-            }
-        },
+        props: ['sistema', 'carpeta','usuario'],
+        components: {extrasabogado},
         methods: {
             cleanFields(){
                 this.$store.commit('cleanSearch','fisica')
