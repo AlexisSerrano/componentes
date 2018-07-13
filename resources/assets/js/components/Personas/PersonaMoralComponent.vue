@@ -276,22 +276,31 @@
                 }
                 axios.post(urlCrearMoral, data)
                     .then(response => {
-                        this.$store.commit('asignarIdMoral', {
-                            idPersona: response.data.original.idVarPersona,
-                            personaMoral: response.data.original.idPersona
-                        })
-                        if (this.tipo == 'conocidomoral') {
-                            this.$store.commit('asignarIdExtra', response.data.original.idExtra)
-                        }
-                        swal({
-                            title: '¡Guardado correctamente!',
-                            text: 'Ésta empresa fue guardada exitosamente.',
-                            type: 'success',
-                            confirmButtonText: 'Ok'
-                        })
-                        if (this.$store.state.moralEncontrada && this.tipo != 'conocidomoral') {
-                            this.getDomicilios()
-                            this.buscarCarpetasMoral()
+                        if (response.data) {
+                            this.$store.commit('asignarIdMoral', {
+                                idPersona: response.data.original.idVarPersona,
+                                personaMoral: response.data.original.idPersona
+                            })
+                            if (this.tipo == 'conocidomoral') {
+                                this.$store.commit('asignarIdExtra', response.data.original.idExtra)
+                            }
+                            swal({
+                                title: '¡Guardado correctamente!',
+                                text: 'Ésta empresa fue guardada exitosamente.',
+                                type: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                            if (this.$store.state.moralEncontrada && this.tipo != 'conocidomoral') {
+                                this.getDomicilios()
+                                this.buscarCarpetasMoral()
+                            }
+                        } else {
+                            swal({
+                                title: '¡Guardado incorrecto!',
+                                text: 'Ésta persona no fue posible guardarla.',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
                         }
                     }).catch((error) => {
                         this.validacionesback = error.response.data.errors
