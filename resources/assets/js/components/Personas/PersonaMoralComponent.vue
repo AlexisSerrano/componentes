@@ -258,7 +258,7 @@
                         usuario: this.usuario,
                         personaMoral: this.$store.state.personaMoral,
                         idDomicilio: this.$store.state.idDomicilioTemporal,
-                        nombresRep: this.nombresRep.toUpperCase(),
+                        nombreRep: this.nombresRep.toUpperCase(),
                         primerApRep: this.primerApRep.toUpperCase(),
                         segundoApRep: this.segundoApRep.toUpperCase(),
                         idNotificacion: this.$store.state.idContactoTemporal
