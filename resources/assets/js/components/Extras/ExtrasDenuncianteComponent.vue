@@ -33,6 +33,7 @@
 </template>
 
 <script>
+	import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
         data() {
@@ -55,7 +56,7 @@
                 solicitante: '',
                 descripcion: '',
                 systemUser: 'TEST',
-                url: './api'
+                url: urlComponentes
             }
         },
         props: {

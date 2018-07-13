@@ -210,6 +210,7 @@
 </template>
 
 <script>
+	import urlComponentes from '../../urlComponentes'
 	import generaCurp from '../../curp'
 	import swal from 'sweetalert2'
 	import {
@@ -279,7 +280,7 @@
 				validacionesback: '',
 				loader: true,
 				qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-				url: 'http://localhost/componentes/public/api'
+				url: urlComponentes
 			}
 		},
 		props: ['sistema', 'tipo', 'carpeta', 'usuario'],

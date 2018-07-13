@@ -46,6 +46,7 @@
 </template>
 
 <script>
+	import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
         data() {
@@ -57,7 +58,7 @@
                 systemUser: 'TEST',
                 tipos: ['ASESOR JURIDICO', 'ABOGADO DEFENSOR'],
                 sectores: ['PÚBLICO', 'PARTICULAR'],
-                url: './api',
+                url: urlComponentes,
                 descripcion: ''
             }
         },

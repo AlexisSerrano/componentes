@@ -35,10 +35,18 @@ class PersonaMoralController extends Controller{
 		$persona = $request->rfc;
 		$personaExiste = DB::table('persona_moral')
 		->join('variables_persona_moral', 'variables_persona_moral.idPersona', '=', 'persona_moral.id')
+		->join('cat_identificacion','variables_persona_moral.docIdentificacion', '=', 'cat_identificacion.id')
 		->where('rfc',$persona)
 		->select('persona_moral.id as id','persona_moral.nombre','persona_moral.fechaCreacion','persona_moral.rfc',
-		'variables_persona_moral.telefono','variables_persona_moral.representanteLegal','variables_persona_moral.id as idVar',
-		'variables_persona_moral.idDomicilio','variables_persona_moral.idNotificacion')
+		'variables_persona_moral.telefono',
+		'variables_persona_moral.nombreRep',
+		'variables_persona_moral.primerApRep',
+		'variables_persona_moral.segundoApRep',
+		'variables_persona_moral.docIdentificacion',
+		'variables_persona_moral.numDocIdentificacion',
+		'variables_persona_moral.id as idVar',
+		'variables_persona_moral.idDomicilio','variables_persona_moral.idNotificacion',
+		'cat_identificacion.id as idDoc','cat_identificacion.documento as nombreDoc')
 		->orderBy('variables_persona_moral.id','desc')
 		->first();
 		if($personaExiste){
@@ -48,7 +56,11 @@ class PersonaMoralController extends Controller{
 				'rfc'=>$personaExiste->rfc,
 				'idMoral'=>$personaExiste->id,
 				'telefono'=>$personaExiste->telefono,
-				'representanteLegal'=>$personaExiste->representanteLegal,
+				'nombreRep'=>$personaExiste->nombreRep,
+				'primerApRep'=>$personaExiste->primerApRep,
+				'segundoApRep'=>$personaExiste->segundoApRep,
+				'docIdentificacion'=>array("documento"=>$personaExiste->nombreDoc, "id"=>$personaExiste->idDoc),
+				'numDocIdentificacion'=>$personaExiste->numDocIdentificacion,
 				'idPersona'=>$personaExiste->id,
 				'idVarPersona'=>$personaExiste->idVar,
 				'idDomicilio'=>$personaExiste->idDomicilio,

@@ -75,7 +75,7 @@ class ValidacionController extends Controller
         return response()->json($idVariable);
     }
 
-    public function valActasHechosMUAT(ActasHechosMoralRequest $request){
+    public function valActasHechosMUAT(Request $request){
         $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
     }
@@ -232,8 +232,8 @@ class ValidacionController extends Controller
     }
 
     public function saveInputsConocidoMoral($request){
-        // DB::beginTransaction();
-        // try{
+        DB::beginTransaction();
+        try{
             $persona = new PersonaMoralModel();
             $persona->nombre = $request->nombre;
             $persona->fechaCreacion = "1990-01-01";
@@ -259,10 +259,10 @@ class ValidacionController extends Controller
 
             $data = array('idPersona'=>$persona->id,'idVarPersona'=>$variables->id,'idExtra'=>$extras->id);
             return response()->json($data);
-        // }catch (\PDOException $e){
-        //     DB::rollBack();
-        //     return false;
-        // }
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
     }
 
     // public function updateInputsConocidoFisica($request){
@@ -322,7 +322,11 @@ class ValidacionController extends Controller
             }
             $variables->idPersona = ($request->personaMoral=='')?$persona->id:$request->personaMoral;
             $variables->telefono = $request->telefono;
-            $variables->representanteLegal = $request->representanteLegal;
+            $variables->nombreRep = $request->nombreRep;
+            $variables->primerApRep = $request->primerApRep;
+            $variables->segundoApRep = $request->segundoApRep;
+            $variables->docIdentificacion = $request->docIdentificacion;
+            $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->save();
 
             saveInLog($request->sistema,$request->usuario,'persona_moral',$oper,$persona->id,$antes,$persona);
