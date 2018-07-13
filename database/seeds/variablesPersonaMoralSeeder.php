@@ -16,7 +16,9 @@ class variablesPersonaMoralSeeder extends Seeder
                 'id' => 1,
                 'idPersona' => 1,
                 'telefono' => '5588945876',
-                'representanteLegal' => 'SIN INFORMACION',
+                'nombreRep' => 'SIN INFORMACION',
+                'primerApRep' => 'SIN INFORMACION',
+                'segundoApRep' => 'SIN INFORMACION',
                 'idDomicilio'=>'1',
                 'idNotificacion'=>'1'
             ],
@@ -25,7 +27,9 @@ class variablesPersonaMoralSeeder extends Seeder
                 'id' => 2,
                 'idPersona' => 2,
                 'telefono' => '0182001585',
-                'representanteLegal' => 'INGENIERO ROBERTO',
+                'nombreRep' => 'INGENIERO ROBERTO',
+                'primerApRep' => 'SIN INFORMACION',
+                'segundoApRep' => 'SIN INFORMACION',
                 'idDomicilio'=>1,
                 'idNotificacion'=>1
             ],
@@ -33,7 +37,9 @@ class variablesPersonaMoralSeeder extends Seeder
                 'id' => 3,
                 'idPersona' => 3,
                 'telefono' => '55887492',
-                'representanteLegal' => 'LICENCIADA MARIANA',
+                'nombreRep' => 'LICENCIADA MARIANA',
+                'primerApRep' => 'SIN INFORMACION',
+                'segundoApRep' => 'SIN INFORMACION',
                 'idDomicilio'=>1,
                 'idNotificacion'=>1
             ],
@@ -41,7 +47,9 @@ class variablesPersonaMoralSeeder extends Seeder
                 'id' => 4,
                 'idPersona' => 4,
                 'telefono' => '88996647525',
-                'representanteLegal' => 'LICENCIADO GUSTAVO',
+                'nombreRep' => 'LICENCIADO GUSTAVO',
+                'primerApRep' => 'SIN INFORMACION',
+                'segundoApRep' => 'SIN INFORMACION',
                 'idDomicilio'=>1,
                 'idNotificacion'=>1
             ],
