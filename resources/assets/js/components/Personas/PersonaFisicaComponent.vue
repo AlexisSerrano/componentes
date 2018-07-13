@@ -423,6 +423,10 @@
 						this.searchPersona('rfc');
 					});
 				}
+				else{
+					this.rfc = ''
+					this.homoclave=''
+				}
 			},
 			buscarCarpetasFisica: function(param) {
 				var post = this.url + '/fisicaCarpetasRfc';
