@@ -14,7 +14,7 @@
                 </div>
                 <div v-if="this.tipo!='conocidomoral'" :class="'form-group col-md-4'">
                     <label class="col-form-label col-form-label-sm" for="fechaCreacion">Fecha de creación</label>
-                    <input class="form-control form-control-sm" type="date" v-model="fechaCreacion" name="fechaCreacion" data-vv-name="fecha de creación" v-validate="'date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de creación') || this.validacionesback.fechaCreacion}"
+                    <input class="form-control form-control-sm" type="date" v-model="fechaCreacion" name="fechaCreacion" data-vv-name="fecha de creación" v-validate="'required|date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de creación') || this.validacionesback.fechaCreacion}"
                         @blur="calcularRfc" :readonly="this.$store.state.moralEncontrada==true">
                     <span v-show="errors.has('fecha de creación')" class="text-danger">{{ errors.first('fecha de creación')}}</span>
                     <span v-if="this.validacionesback.fechaCreacion!=undefined" class="text-danger">{{ String(this.validacionesback.fechaCreacion)}}</span>
@@ -258,7 +258,7 @@
                         usuario: this.usuario,
                         personaMoral: this.$store.state.personaMoral,
                         idDomicilio: this.$store.state.idDomicilioTemporal,
-                        nombresRep: this.nombresRep.toUpperCase(),
+                        nombreRep: this.nombresRep.toUpperCase(),
                         primerApRep: this.primerApRep.toUpperCase(),
                         segundoApRep: this.segundoApRep.toUpperCase(),
                         idNotificacion: this.$store.state.idContactoTemporal
