@@ -75,7 +75,7 @@ class ValidacionController extends Controller
         return response()->json($idVariable);
     }
 
-    public function valActasHechosMUAT(ActasHechosMoralRequest $request){
+    public function valActasHechosMUAT(Request $request){
         $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
     }
@@ -232,8 +232,8 @@ class ValidacionController extends Controller
     }
 
     public function saveInputsConocidoMoral($request){
-        // DB::beginTransaction();
-        // try{
+        DB::beginTransaction();
+        try{
             $persona = new PersonaMoralModel();
             $persona->nombre = $request->nombre;
             $persona->fechaCreacion = "1990-01-01";
@@ -259,10 +259,10 @@ class ValidacionController extends Controller
 
             $data = array('idPersona'=>$persona->id,'idVarPersona'=>$variables->id,'idExtra'=>$extras->id);
             return response()->json($data);
-        // }catch (\PDOException $e){
-        //     DB::rollBack();
-        //     return false;
-        // }
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
     }
 
     // public function updateInputsConocidoFisica($request){
@@ -291,8 +291,8 @@ class ValidacionController extends Controller
     // }
 
     public function saveInputsMoral($request){
-        DB::beginTransaction();
-        try{
+        // DB::beginTransaction();
+        // try{
             if($request->personaMoral==''&&$request->idPersona==''){
                 $persona = new PersonaMoralModel();
                 $oper="INSERT";
@@ -338,10 +338,10 @@ class ValidacionController extends Controller
                 'idVarPersona'=>$variables->id
             );
 			return response()->json(1);
-        }catch (\PDOException $e){
-            DB::rollBack();
-            return false;
-        }
+        // }catch (\PDOException $e){
+        //     DB::rollBack();
+        //     return false;
+        // }
     }
 
     public function saveQrr($request){
