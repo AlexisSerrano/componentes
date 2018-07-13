@@ -147,11 +147,13 @@
                                 confirmButtonText: 'Ok'
                             })
                             this.nombre = this.personaExiste.nombre,
-                                this.fechaCreacion = this.personaExiste.fechaCreacion,
-                                this.rfc = this.personaExiste.rfc.slice(0, -3),
-                                this.homoclave = this.personaExiste.rfc.slice(-3),
-                                this.telefono = this.personaExiste.telefono,
-                                this.representanteLegal = this.personaExiste.representanteLegal
+                            this.fechaCreacion = this.personaExiste.fechaCreacion,
+                            this.rfc = this.personaExiste.rfc.slice(0, -3),
+                            this.homoclave = this.personaExiste.rfc.slice(-3),
+                            this.telefono = this.personaExiste.telefono,
+                            this.nombresRep = this.personaExiste.nombresRep,
+                            this.primerApRep = this.personaExiste.primerApRep,
+                            this.segundoApRep = this.personaExiste.segundoApRep
                         }
                     });
                 }
@@ -232,7 +234,9 @@
                     this.rfc = '',
                     this.homoclave = '',
                     this.telefono = '',
-                    this.representanteLegal = '',
+                    this.nombresRep = '',
+                    this.primerApRep = '',
+                    this.segundoApRep = '',
                     this.identificacion = '',
                     this.numIdentificacion = '',
                     this.$validator.reset();
