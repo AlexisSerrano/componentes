@@ -10,10 +10,10 @@
                 </div>
     
                 <div class="form-group col-md-12">
-                    <label class="col-form-label col-form-label-sm" for="descripcion">Descripcion de los hechos</label>
-                    <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcion')}" v-model="descripcion" placeholder="Ingrese la descripcion de los hechos"
+                    <label class="col-form-label col-form-label-sm" for="descripcion">Descripción de los hechos</label>
+                    <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripción" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripción')}" v-model="descripcion" placeholder="Ingrese la descripcion de los hechos"
                         v-validate="'required'" autocomplete="off"></textarea>
-                    <span v-show="errors.has('descripcion')" class="text-danger">{{ errors.first('descripcion')}}</span>
+                    <span v-show="errors.has('descripción')" class="text-danger">{{ errors.first('descripción')}}</span>
                 </div>
             </div>
     

@@ -211,7 +211,7 @@
                     })
             },
             getIdentificaciones() {
-                var urlIdentificaciones = this.url + '/getIdentificaciones/';
+                var urlIdentificaciones = this.url + '/getIdentificaciones';
                 axios.get(urlIdentificaciones).then(response => {
                     this.identificaciones = response.data
                 });
