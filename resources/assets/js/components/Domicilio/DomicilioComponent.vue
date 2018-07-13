@@ -141,7 +141,7 @@
                 correo: '',
                 loadingFields: true,
                 guardadoContacto: '',
-				url: 'http://componentes.fiscaliaveracruz.gob.mx/public/api/'
+				url: 'http://localhost/componentes/public/api/'
             }
         },
         props: ['tipo', 'empresa', 'sistema', 'usuario'],
