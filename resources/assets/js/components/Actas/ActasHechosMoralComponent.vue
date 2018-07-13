@@ -34,13 +34,13 @@
                 <personamoral :sistema="sistema" :tipo="'actashechosmoral'" :usuario="usuario"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-domicilioMoral" role="tabpanel" aria-labelledby="actasHechos-domicilioMoral-tab">
-                <domicilio :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-if="this.$store.state.idPersonaMoral" :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-extraMoral" role="tabpanel-Moral" aria-labelledby="actasHechos-extraMoral-tab">
-                <extrasactashechos :sistema="sistema" :empresa="true" :usuario="usuario"></extrasactashechos>
+                <extrasactashechos v-if="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :usuario="usuario"></extrasactashechos>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-carpetasLigadasMoral" role="tabpanel-Moral" aria-labelledby="actasHechos-carpetasLigadasMoral-tab">
-                <notificaciones :tipo="'moral'"></notificaciones>
+                <notificaciones v-if="this.$store.state.idPersonaMoral" :tipo="'moral'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->
