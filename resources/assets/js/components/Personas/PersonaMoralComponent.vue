@@ -153,7 +153,9 @@
                             this.telefono = this.personaExiste.telefono,
                             this.nombresRep = this.personaExiste.nombreRep,
                             this.primerApRep = this.personaExiste.primerApRep,
-                            this.segundoApRep = this.personaExiste.segundoApRep
+                            this.segundoApRep = this.personaExiste.segundoApRep,
+                            this.identificacion = this.personaExiste.docIdentificacion,
+                            this.numIdentificacion = this.personaExiste.numDocIdentificacion
                         }
                     });
                 }
