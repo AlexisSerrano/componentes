@@ -38,6 +38,7 @@
 
 
 <script>
+	import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     import {
         mapState
@@ -45,7 +46,7 @@
     export default {
         data() {
             return {
-                url: './api'
+                url: urlComponentes
             }
         },
         props: ['sistema','usuario'],

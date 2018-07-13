@@ -73,6 +73,7 @@
 </template>
 
 <script>
+	import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     import moment from 'moment'
     import {
@@ -92,7 +93,7 @@
                 representanteLegal: '',
                 personaExiste: '',
                 validacionesback: '',
-				url: 'http://localhost/componentes/public/api'
+                url: urlComponentes
             }
         },
         props:['sistema','tipo','usuario'],

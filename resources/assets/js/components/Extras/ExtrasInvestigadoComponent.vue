@@ -92,6 +92,7 @@
 </template>
 
 <script>
+	import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
         data() {
@@ -109,7 +110,7 @@
                 systemUser: 'TEST',
                 puestos: [],
                 periodos: ['DIARIO', 'SEMANAL', 'QUINCENAL', 'MENSUAL'],
-                url: './api'
+                url: urlComponentes
             }
         },
         props: {

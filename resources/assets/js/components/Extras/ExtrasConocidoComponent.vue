@@ -20,13 +20,14 @@
 </template>
 
 <script>
+	import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
         data() {
             return {
                 particulares: '',
                 systemUser: 'TEST',
-                url: './api'
+                url: urlComponentes
             }
         },
         props: {

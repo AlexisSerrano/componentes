@@ -97,6 +97,7 @@
 </template>
 
 <script>
+	import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     import {
         SpringSpinner
@@ -141,7 +142,7 @@
                 correo: '',
                 loadingFields: true,
                 guardadoContacto: '',
-				url: 'http://localhost/componentes/public/api/'
+                url: urlComponentes
             }
         },
         props: ['tipo', 'empresa', 'sistema', 'usuario'],
@@ -153,7 +154,7 @@
         },
         methods: {
             getEstados: function() {
-                var urlEstados = this.url + 'getEstados/';
+                var urlEstados = this.url + '/getEstados/';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
                     var self = this;
@@ -167,7 +168,7 @@
                 if (this.estado == null) {
                     return
                 }
-                var urlMunicipios = this.url + 'getMunicipios/' + this.estado.id;
+                var urlMunicipios = this.url + '/getMunicipios/' + this.estado.id;
                 axios.get(urlMunicipios).then(response => {
                     this.municipios = response.data
                 });
@@ -177,7 +178,7 @@
                 if (this.municipio == null) {
                     return
                 }
-                var urlLocalidades = this.url + 'getLocalidades/' + this.municipio.id;
+                var urlLocalidades = this.url + '/getLocalidades/' + this.municipio.id;
                 axios.get(urlLocalidades).then(response => {
                     this.localidades = response.data
                 });
@@ -187,7 +188,7 @@
                 if (this.localidad == null) {
                     return
                 }
-                var urlCodigosPostales = this.url + 'getCodigosPostales/' + this.municipio.id;
+                var urlCodigosPostales = this.url + '/getCodigosPostales/' + this.municipio.id;
                 axios.get(urlCodigosPostales).then(response => {
                     this.codigosPostales = response.data
                 });
@@ -197,7 +198,7 @@
                 if (this.codigoPostal == null) {
                     return
                 }
-                var urlColonias = this.url + 'getColonias/' + this.codigoPostal.id;
+                var urlColonias = this.url + '/getColonias/' + this.codigoPostal.id;
                 axios.get(urlColonias).then(response => {
                     this.colonias = response.data
                 });
@@ -278,7 +279,7 @@
             },
             crearDomicilio: function() {
                 this.validacionesback = '';
-                var urlDomicilio = this.url + 'addDomicilio';
+                var urlDomicilio = this.url + '/addDomicilio';
                 if (this.empresa == false) {
                     var idPersona = this.$store.state.idPersonaFisica
                 } else {
