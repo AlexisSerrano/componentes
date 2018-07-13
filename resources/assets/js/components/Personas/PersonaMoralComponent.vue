@@ -151,7 +151,7 @@
                             this.rfc = this.personaExiste.rfc.slice(0, -3),
                             this.homoclave = this.personaExiste.rfc.slice(-3),
                             this.telefono = this.personaExiste.telefono,
-                            this.nombresRep = this.personaExiste.nombresRep,
+                            this.nombresRep = this.personaExiste.nombreRep,
                             this.primerApRep = this.personaExiste.primerApRep,
                             this.segundoApRep = this.personaExiste.segundoApRep
                         }
