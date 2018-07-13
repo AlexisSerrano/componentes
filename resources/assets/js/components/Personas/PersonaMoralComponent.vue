@@ -92,7 +92,7 @@
                 representanteLegal: '',
                 personaExiste: '',
                 validacionesback: '',
-                url: 'http://localhost/componentes/public/api'
+				url: 'http://componentes.fiscaliaveracruz.gob.mx/public/api'
             }
         },
         props:['sistema','tipo','usuario'],
