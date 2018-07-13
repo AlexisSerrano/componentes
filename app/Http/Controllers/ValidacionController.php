@@ -322,7 +322,7 @@ class ValidacionController extends Controller
             }
             $variables->idPersona = ($request->personaMoral=='')?$persona->id:$request->personaMoral;
             $variables->telefono = $request->telefono;
-            $variables->nombresRep = $request->nombresRep;
+            $variables->nombreRep = $request->nombreRep;
             $variables->primerApRep = $request->primerApRep;
             $variables->segundoApRep = $request->segundoApRep;
             $variables->docIdentificacion = $request->docIdentificacion;
@@ -337,7 +337,7 @@ class ValidacionController extends Controller
 				'idPersona'=>$persona->id,
                 'idVarPersona'=>$variables->id
             );
-			return response()->json($data);
+			return response()->json(1);
         }catch (\PDOException $e){
             DB::rollBack();
             return false;
