@@ -34,13 +34,13 @@
                 <personafisica :sistema="sistema" :tipo="'actashechos'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-domiciliofisico" role="tabpanel" aria-labelledby="actasHechos-domiciliofisico-tab">
-                <domicilio v-if="this.$state.store.idPersonaFisica" :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-extrafisico" role="tabpanel-fisico" aria-labelledby="actasHechos-extrafisico-tab">
-                <extrasactashechos v-if="this.$state.store.idPersonaFisica" :sistema="sistema" :empresa="false" :usuario="usuario"></extrasactashechos>
+                <extrasactashechos v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :empresa="false" :usuario="usuario"></extrasactashechos>
             </div>
             <div class="tab-pane fade" id="pills-actasHechos-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="actasHechos-carpetasLigadasFisica-tab">
-                <notificaciones v-if="this.$state.store.idPersonaFisica" :tipo="'fisica'"></notificaciones>
+                <notificaciones v-if="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->
