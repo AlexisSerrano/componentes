@@ -279,7 +279,7 @@
 				validacionesback: '',
 				loader: true,
 				qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-				url: 'http://localhost/componentes/public/api'
+				url: 'http://componentes.fiscaliaveracruz.gob.mx/public/api'
 			}
 		},
 		props: ['sistema', 'tipo', 'carpeta', 'usuario'],
