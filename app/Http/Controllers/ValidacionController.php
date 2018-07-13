@@ -291,8 +291,8 @@ class ValidacionController extends Controller
     // }
 
     public function saveInputsMoral($request){
-        // DB::beginTransaction();
-        // try{
+        DB::beginTransaction();
+        try{
             if($request->personaMoral==''&&$request->idPersona==''){
                 $persona = new PersonaMoralModel();
                 $oper="INSERT";
@@ -337,11 +337,11 @@ class ValidacionController extends Controller
 				'idPersona'=>$persona->id,
                 'idVarPersona'=>$variables->id
             );
-			return response()->json(1);
-        // }catch (\PDOException $e){
-        //     DB::rollBack();
-        //     return false;
-        // }
+			return response()->json($data);
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
     }
 
     public function saveQrr($request){
