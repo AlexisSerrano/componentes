@@ -13,7 +13,11 @@ class VariablesPersonaMoral extends Model
         'id',
         'idPersona',
         'telefono',
-        'representanteLegal',
+        'nombreRep',
+        'primerApRep',
+        'segundoApRep',
+        'docIdentificacion',
+        'numDocIdentificacion',
         'idDomicilio',
         'idNotificacion'
     ];    
