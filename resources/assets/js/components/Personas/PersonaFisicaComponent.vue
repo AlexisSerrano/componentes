@@ -454,7 +454,7 @@
 				}
 			},
 			generarCurp: function() {
-				this.curp = '';
+				this.curp = ''
 				if ((this.sexo != null) && (this.sexo != undefined) && (this.sexo != '') && (this.sexo.id != 3)) {
 					var sex = '';
 					var edoArray = ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'];
@@ -469,7 +469,7 @@
 						default:
 							sex = '';
 					}
-					if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '' && this.estado != null && this.estado != '' && this.sexo != undefined & this.sexo != null) {
+					if (this.nombres != '' && this.primerAp != '' && this.fechaNacimiento != '' && this.estado != null && this.estado != '' && this.sexo != undefined & this.sexo != null) {
 						edo = edoArray[this.estado.id - 1];
 						var fecha = this.fechaNacimiento;
 						var arr = fecha.split('-');
