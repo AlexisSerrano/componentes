@@ -30,7 +30,11 @@ class ActasHechosMoralRequest extends FormRequest
             'fechaCreacion' => 'required',
             'rfc' => 'alpha_num|min:8|max:20|required',
             'homo' => 'size:3|required',
-            'representanteLegal' => 'required'
+            'docIdentificaciones' => 'required',
+            'numDocIdentificacion' => 'required',
+            'nombresRep' => 'required',
+            'primerApRep' => 'required',
+            'segundoApRep' => '',
         ];
     }
 
@@ -47,7 +51,11 @@ class ActasHechosMoralRequest extends FormRequest
             'rfc.required' => 'El RFC es requerido',
             'homo.size'=> 'La homoclave debe de tener como mínimo 3 caracteres',
             'homo.required' => 'La homoclave es requerida',
-            'representanteLegal.required' => 'El representante legal es requerido'
+            'nombresRep.required' => 'El nombre del representante legal es requerido',
+            'primerApRep.required' => 'El primer apellido del representante legal es requerido',
+            'segundoApRep.required' => 'El segundo apellido del representante legal es requerido',
+            'docIdentificacion' => 'El Documento de identificación es requerido',
+            'numDocIdentificacion' => 'El número de identificación es requerido'
         ];  
     }
 }

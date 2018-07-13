@@ -322,7 +322,11 @@ class ValidacionController extends Controller
             }
             $variables->idPersona = ($request->personaMoral=='')?$persona->id:$request->personaMoral;
             $variables->telefono = $request->telefono;
-            $variables->representanteLegal = $request->representanteLegal;
+            $variables->nombresRep = $request->nombresRep;
+            $variables->primerApRep = $request->primerApRep;
+            $variables->segundoApRep = $request->segundoApRep;
+            $variables->docIdentificacion = $request->docIdentificacion;
+            $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->save();
 
             saveInLog($request->sistema,$request->usuario,'persona_moral',$oper,$persona->id,$antes,$persona);
