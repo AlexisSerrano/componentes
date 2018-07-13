@@ -410,7 +410,7 @@
 				}
 			},
 			calcularRfc() {
-				if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '') {
+				if (this.nombres != '' && this.primerAp != '' && this.fechaNacimiento != '') {
 					var urlRfcFisico = this.url + '/rfcFisico';
 					axios.post(urlRfcFisico, {
 						nombres: this.nombres,
