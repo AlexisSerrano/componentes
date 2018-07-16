@@ -600,7 +600,8 @@
 							personaFisica: this.$store.state.personaFisica,
 							idDomicilio: this.$store.state.idDomicilioTemporal,
 							idTrabajo: this.$store.state.idTrabajoTemporal,
-							idNotificacion: this.$store.state.idContactoTemporal
+							idNotificacion: this.$store.state.idContactoTemporal,
+							idExtrasConocido: this.$store.state.idExtra
 						};
 					} else {
 						swal({
