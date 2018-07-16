@@ -33,7 +33,7 @@
 </template>
 
 <script>
-	import urlComponentes from '../../urlComponentes'
+    import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
         data() {
@@ -113,13 +113,19 @@
                         console.log(response.data);
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
-                            //this.$store.commit('cleanStore')                    
+                            this.$store.commit('cleanStore')
                             swal({
-                                title: '¡Guardado correctamente!',
-                                text: 'Ésta persona fue guardada exitosamente.',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            })
+                                    title: 'Denunciante guardado correctamente!',
+                                    text: 'Haz finalizado el registro del denunciante exitosamente.',
+                                    type: 'success',
+                                    confirmButtonText: 'Ok'
+                                })
+                                .then((result) => {
+                                    if (result.value) {
+                                        window.location.href = window.location;
+                                    }
+                                })
+    
                         } else {
                             swal({
                                 title: '¡Guardado incorrecto!',

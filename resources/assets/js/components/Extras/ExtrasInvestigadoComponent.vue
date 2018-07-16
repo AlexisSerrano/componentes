@@ -181,11 +181,16 @@
                             this.$store.commit('asignarIdExtra', response.data)
                             //this.$store.commit('cleanStore') 
                             swal({
-                                title: '¡Guardado correctamente!',
-                                text: 'Ésta persona fue guardada exitosamente.',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            });
+                                    title: 'Investigado guardado correctamente!',
+                                    text: 'Haz finalizado el registro del investigado exitosamente.',
+                                    type: 'success',
+                                    confirmButtonText: 'Ok'
+                                })
+                                .then((result) => {
+                                    if (result.value) {
+                                        window.location.href = window.location;
+                                    }
+                                })
                         } else {
                             swal({
                                 title: '¡Guardado incorrecto!',

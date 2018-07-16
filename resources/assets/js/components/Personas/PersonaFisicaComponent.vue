@@ -422,10 +422,9 @@
 						this.homoclave = response.data.res.slice(-3);
 						this.searchPersona('rfc');
 					});
-				}
-				else{
+				} else {
 					this.rfc = ''
-					this.homoclave=''
+					this.homoclave = ''
 				}
 			},
 			buscarCarpetasFisica: function(param) {
@@ -680,6 +679,14 @@
 								})
 								if (this.tipo == 'conocido') {
 									this.$store.commit('asignarIdExtra', response.data.original.idExtra)
+								} else if (this.tipo == 'qrr' && response.data.original.idPersona=='' && response.data.original.idVarPersona=='') {
+									swal({
+										title: '¡No fue posible guardar!',
+										text: 'Ya existe un qrr registrado en esta carpeta.',
+										type: 'warning',
+										confirmButtonText: 'Ok'
+									})
+									return
 								}
 								swal({
 									title: '¡Guardado correctamente!',
