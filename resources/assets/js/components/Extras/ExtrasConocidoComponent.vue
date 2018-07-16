@@ -75,7 +75,7 @@
                     empresa: this.empresa,
                     tipo: 'conocido'
                 };
-                axios.post(urlGuardarAutoridad, data)
+                axios.post(urlGuardarConocido, data)
                     .then(response => {
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
