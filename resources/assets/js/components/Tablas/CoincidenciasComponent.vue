@@ -2,43 +2,46 @@
     <div>
     
         <h3 class="mb-3">Coincidencias</h3>
-        <table class="table  table-responsive table-bordered table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Nombres y apellidos</th>
-                    <th>Edad</th>
-                    <th>Sexo</th>
-                    <th>R.F.C</th>
-                    <th>C.U.R.P</th>
-                    <th>Nacionalidad</th>
-                    <th>Estado</th>
-                    <th>Municipio</th>
-                    <th>Seleccionar Persona</th>
+        <div class="table-responsive">
     
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="coincidencia in personasEncontradas" :key="coincidencia.idVarPersona">
-                    <td>{{ `${coincidencia.nombres} ${coincidencia.primerAp} ${coincidencia.segundoAp}` }}</td>
-                    <td>{{ coincidencia.edad }}</td>
-                    <td>{{ coincidencia.sexo.nombre }}</td>
-                    <td>{{ coincidencia.rfc }}</td>
-                    <td>{{ coincidencia.curp }}</td>
-                    <td>{{ coincidencia.idNacionalidad.nombre }}</td>
-                    <td>{{ coincidencia.idEstado.nombre }}</td>
-                    <td>{{ coincidencia.idMunicipioOrigen.nombre }}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" @click="seleccionarPersona(coincidencia)">Guardar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="table table-sm table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombres y apellidos</th>
+                        <th>Edad</th>
+                        <th>Sexo</th>
+                        <th>R.F.C</th>
+                        <th>C.U.R.P</th>
+                        <th>Nacionalidad</th>
+                        <th>Estado</th>
+                        <th>Municipio</th>
+                        <th>Seleccionar Persona</th>
+    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="coincidencia in personasEncontradas" :key="coincidencia.idVarPersona">
+                        <td>{{ `${coincidencia.nombres} ${coincidencia.primerAp} ${coincidencia.segundoAp}` }}</td>
+                        <td>{{ coincidencia.edad }}</td>
+                        <td>{{ coincidencia.sexo.nombre }}</td>
+                        <td>{{ coincidencia.rfc }}</td>
+                        <td>{{ coincidencia.curp }}</td>
+                        <td>{{ coincidencia.idNacionalidad.nombre }}</td>
+                        <td>{{ coincidencia.idEstado.nombre }}</td>
+                        <td>{{ coincidencia.idMunicipioOrigen.nombre }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" @click="seleccionarPersona(coincidencia)">Guardar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
 
 <script>
-	import urlComponentes from '../../urlComponentes'
+    import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     import {
         mapState
@@ -49,7 +52,7 @@
                 url: urlComponentes
             }
         },
-        props: ['sistema','usuario'],
+        props: ['sistema', 'usuario'],
         methods: {
             seleccionarPersona(coincidencia) {
                 this.$store.commit('asignarIdFisica', {
