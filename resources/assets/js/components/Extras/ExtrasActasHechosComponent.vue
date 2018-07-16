@@ -9,12 +9,19 @@
                     <span v-show="errors.has('Tipo de acta de hechos')" class="text-danger">{{ errors.first('Tipo de acta de hechos')}}</span>
                 </div>
     
+                <div v-if="tipoActa=='OTRO DOCUMENTO'" class="form-group col-md-3">
+                    <label class="col-form-label col-form-label-sm" for="documento">Documento</label>
+                    <input type="text" name="documento" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('documento')}" v-model="documento" placeholder="Ingrese el tipo de documento" v-validate="'required'" autocomplete="off">
+                    <span v-show="errors.has('documento')" class="text-danger">{{ errors.first('documento')}}</span>
+                </div>
+
                 <div class="form-group col-md-12">
                     <label class="col-form-label col-form-label-sm" for="descripcion">Descripción de los hechos</label>
                     <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripción" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripción')}" v-model="descripcion" placeholder="Ingrese la descripcion de los hechos"
                         v-validate="'required'" autocomplete="off"></textarea>
                     <span v-show="errors.has('descripción')" class="text-danger">{{ errors.first('descripción')}}</span>
                 </div>
+    
             </div>
     
             <div class="form-row mt-3">
@@ -33,10 +40,11 @@
             return {
                 tiposActas: ['PASAPORTE', 'CREDENCIAL DE TRABAJO/GAFFETE', 'TARJETA DE CRÉDITO/DÉBITO', 'TELEFONO CELULAR', 'EQUIPO DE TRABAJO(CELULARES,RADIOS,ETC)',
                     'PERMISO DE TRANSITO PARA EMPLACAMIENTO DE TAXIS', 'FACTURA DE VEHÍCULO/MOTOCICLETA', 'TARJETA DE CIRCULACION', 'PLACAS DE CIRCULACIÓN',
-                    'LICENCIA DE CONDUCIR ESTATAL', 'LICENCIA DE CONDUCIR FEDERAL', 'DOCUMENTO/BIEN EXTRAVIADO O ROBADO', 'CERTIFICADO DE ALUMBRAMIENTO'
+                    'LICENCIA DE CONDUCIR ESTATAL', 'LICENCIA DE CONDUCIR FEDERAL', 'DOCUMENTO/BIEN EXTRAVIADO O ROBADO', 'CERTIFICADO DE ALUMBRAMIENTO', 'OTRO DOCUMENTO'
                 ],
                 tipoActa: '',
                 descripcion: '',
+                documento: '',
                 url: './api'
             }
         },
@@ -75,7 +83,7 @@
                     var idPersona = this.$store.state.idPersonaMoral
                 }
                 var data = {
-                    tipoActa: this.tipoActa,
+                    tipoActa: (this.tipoActa!='OTRO DOCUMENTO')?this.tipoActa:this.documento.toUpperCase(),
                     idExtrasActas: this.$store.state.idExtra,
                     idPersona: idPersona,
                     sistema: this.sistema,
@@ -89,6 +97,7 @@
                 } else {
                     var urlOficio = "actaoficioM/"
                 }
+                console.log(data)
                 axios.post(urlGuardarDenunciante, data)
                     .then(response => {
                         if (response.data) {
