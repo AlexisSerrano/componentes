@@ -116,7 +116,7 @@
                                 })
                                 .then((result) => {
                                     if (result.value) {
-                                        window.location.href = window.location;
+                                        window.location.replace(window.location)
                                     }
                                 })
                         } else {
