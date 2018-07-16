@@ -73,6 +73,7 @@ Route::post('addExtrasDenunciado','ExtrasInvestigadoController@addExtrasDenuncia
 Route::post('addExtrasAbogado','ExtrasAbogadoController@addExtrasAbogado');
 Route::post('addExtrasAutoridad','ExtrasAutoridadController@addExtrasAutoridad');
 Route::post('addExtrasActasHechos','ExtrasActasHechosController@addExtrasActasHechos');
+Route::post('addExtrasConocido','ExtrasInvestigadoController@addExtrasConocido');
 /*Rutas para el componente  familiar*/
 Route::post('getInvolucrados','FamiliarController@getInvolucrados');
 Route::post('saveFamiliar','FamiliarController@saveFamiliar');
