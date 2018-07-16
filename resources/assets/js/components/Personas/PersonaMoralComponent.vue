@@ -45,32 +45,32 @@
                 </div>
     
     
-                <div class="form-group col-md-4">
+                <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombresRep">Nombres del representante</label>
                     <input type="text" name="nombresRep" data-vv-name="nombre del representante" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombre del representante')}" v-model="nombresRep" placeholder="Ingrese los nombre del representante"
                         v-validate="'required'" autocomplete="off">
                     <span v-show="errors.has('nombre del representante')" class="text-danger">{{ errors.first('nombre del representante')}}</span>
                 </div>
     
-                <div class="form-group col-md-4">
+                <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="primerApRep">Primer apellido del representante</label>
                     <input type="text" name="primerApRep" data-vv-name="primer apellido del representante" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido del representante')}" v-model="primerApRep" placeholder="Ingrese el primer apellido del representante"
                         v-validate="'required'" autocomplete="off">
                     <span v-show="errors.has('primer apellido del representante')" class="text-danger">{{ errors.first('primer apellido del representante')}}</span>
                 </div>
     
-                <div class="form-group col-md-4">
+                <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="segundoApRep">Segundo apellido del representante</label>
                     <input type="text" name="segundoApRep" data-vv-name="segundo apellido del representante" class="input form-control form-control-sm" v-model="segundoApRep" placeholder="Ingrese el segundo apellido del representante" autocomplete="off">
                 </div>
     
     
-                <div class="form-group col-md-4">
+                <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="identificación">Identificación</label>
                     <v-select :options="identificaciones" label="documento" v-model="identificacion" name="identificación" placeholder="Seleccione una identificación"></v-select>
                 </div>
     
-                <div class="form-group col-md-4">
+                <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="numIdentificacion">Número de identificación</label>
                     <input type="text" class="input form-control form-control-sm" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" autocomplete="off">
                 </div>
