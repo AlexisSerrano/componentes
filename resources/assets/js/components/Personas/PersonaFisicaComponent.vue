@@ -679,7 +679,7 @@
 								})
 								if (this.tipo == 'conocido') {
 									this.$store.commit('asignarIdExtra', response.data.original.idExtra)
-								} else if (this.tipo == 'qrr' && response.data.original.idPersona=='' && response.data.original.idVarPersona=='') {
+								} else if (this.tipo == 'qrr' && response.data.original.idPersona==false && response.data.original.idVarPersona==false) {
 									swal({
 										title: '¡No fue posible guardar!',
 										text: 'Ya existe un qrr registrado en esta carpeta.',
