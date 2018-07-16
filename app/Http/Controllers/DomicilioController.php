@@ -292,7 +292,7 @@ class DomicilioController extends Controller
         else{
             $codigosPostales=CatColonia::orderBy('codigoPostal', 'ASC')
             ->where($request->busqueda,$request->id)
-            ->where('codigoPostal', '!=', 0)
+            // ->where('codigoPostal', '!=', 0)
             ->select('codigoPostal','codigoPostal as id')
             ->groupBy('codigoPostal')
             ->get();
