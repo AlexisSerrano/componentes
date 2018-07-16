@@ -68,7 +68,7 @@
                 var data = {
                     idExtrasConocido: this.$store.state.idExtra,
                     idPersona: idPersona,
-                    particulares: particulares,
+                    particulares: this.particulares,
                     sistema: this.sistema,
                     usuario: this.systemUser,
                     idCarpeta: this.carpeta,
