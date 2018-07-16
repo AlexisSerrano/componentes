@@ -186,6 +186,7 @@ class ValidacionController extends Controller
             $variables->save();
             saveInLog($request->sistema,$request->usuario,'persona_fisica',$oper,$persona->id,$antes,$persona);
             saveInLog($request->sistema,$request->usuario,'variables_persona_fisica',$oper,$variables->id,$antes,$variables);
+            DB::commit();
             $data = array(
 				'idPersona'=>$persona->id,
                 'idVarPersona'=>$variables->id
@@ -348,19 +349,28 @@ class ValidacionController extends Controller
         $aparicion = aparicionesModel::where('idCarpeta',$request->idCarpeta)->first();
         if($aparicion){
             $data = array(
-                'idPersona'=>'',
-                'idVarPersona'=>''
+                'idPersona'=>false,
+                'idVarPersona'=>false
             );
+            return response()->json($data);
         }
         else{
-            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,1,'denunciado','xxxxx',0);
-            saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
-            $data = array(
-                'idPersona'=>1,
-                'idVarPersona'=>1
-            );
+            DB::beginTransaction();
+            try{
+                $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,1,'denunciado','xxxxx',0);
+                saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
+                DB::commit();
+                $data = array(
+                    'idPersona'=>1,
+                    'idVarPersona'=>1
+                );
+                return response()->json($data);
+            }
+            catch (\PDOException $e){
+                DB::rollBack();
+                return false;
+            }
         } 
-        return response()->json($data);
     }
 
     public function saveActasHechos($request){
