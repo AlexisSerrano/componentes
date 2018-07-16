@@ -81,6 +81,6 @@ Route::post('saveFamiliar','FamiliarController@saveFamiliar');
 Route::get('getEstados','DomicilioController@getEstados');
 Route::get('getMunicipios/{id}','DomicilioController@getMunicipios');
 Route::get('getLocalidades/{id}','DomicilioController@getLocalidades');
-Route::get('getColonias/{id}','DomicilioController@getColonias');
-Route::get('getCodigosPostales/{id}','DomicilioController@getCodigosPostales');
+Route::post('getColonias','DomicilioController@getColonias');
+Route::post('getCodigosPostales','DomicilioController@getCodigosPostales');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');

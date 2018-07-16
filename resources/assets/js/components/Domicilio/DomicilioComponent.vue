@@ -23,15 +23,14 @@
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="municipio">Municipio</label>
-                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || this.validacionesback.idMunicipio}" placeholder="Seleccione un municipio"
-                        :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
+                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades(),getCodigosPostales(),getColonias()" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || this.validacionesback.idMunicipio}"
+                        placeholder="Seleccione un municipio" :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
                     <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
                     <span v-if="this.validacionesback.idMunicipio!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipio)}}</span>
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="localidad">Localidad</label>
-                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') || this.validacionesback.idLocalidad}" placeholder="Seleccione una localidad"
-                        :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
+                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') || this.validacionesback.idLocalidad}" placeholder="Seleccione una localidad" :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
                     <span v-show="errors.has('localidad')" class="text-danger">{{ errors.first('localidad')}}</span>
                     <span v-if="this.validacionesback.idLocalidad!=undefined" class="text-danger">{{ String(this.validacionesback.idLocalidad)}}</span>
                 </div>
@@ -47,7 +46,8 @@
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="colonia">Colonia</label>
-                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia" v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') || this.validacionesback.idColonia}" placeholder="Seleccione una colonia" :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
+                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') || this.validacionesback.idColonia}" placeholder="Seleccione una colonia"
+                        :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
                     <span v-show="errors.has('colonia')" class="text-danger">{{ errors.first('colonia')}}</span>
                     <span v-if="this.validacionesback.idColonia!=undefined" class="text-danger">{{ String(this.validacionesback.idColonia)}}</span>
                 </div>
@@ -97,7 +97,7 @@
 </template>
 
 <script>
-	import urlComponentes from '../../urlComponentes'
+    import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     import {
         SpringSpinner
@@ -184,22 +184,48 @@
                 });
             },
             getCodigosPostales: function() {
-                this.cleanSelect('codigoPostal')
-                if (this.localidad == null) {
+                if (this.colonia == null) {
+                    this.cleanSelect('codigoPostal')
+                }
+                var urlCodigosPostales = this.url + '/getCodigosPostales'
+                if (this.colonia != '' && this.colonia != null) {
+                    var id = this.colonia.id
+                    var busqueda = 'id'
+                } else if (this.municipio != null) {
+                    var id = this.municipio.id
+                    var busqueda = 'idMunicipio'
+                } else {
                     return
                 }
-                var urlCodigosPostales = this.url + '/getCodigosPostales/' + this.municipio.id;
-                axios.get(urlCodigosPostales).then(response => {
+                axios.post(urlCodigosPostales, {
+                    id,
+                    busqueda
+                }).then(response => {
                     this.codigosPostales = response.data
+                    if (busqueda == 'id') {
+                        this.codigoPostal = this.codigosPostales[0]
+                    }
                 });
             },
+    
             getColonias: function() {
-                this.cleanSelect('colonia')
                 if (this.codigoPostal == null) {
+                    this.cleanSelect('colonia')
+                }
+                var urlColonias = this.url + '/getColonias'
+                if (this.codigoPostal != '' && this.codigoPostal != null) {
+                    var id = this.codigoPostal.id
+                    var busqueda = 'codigoPostal'
+                } else if (this.municipio != null) {
+                    var id = this.municipio.id
+                    var busqueda = 'idMunicipio'
+                } else {
                     return
                 }
-                var urlColonias = this.url + '/getColonias/' + this.codigoPostal.id;
-                axios.get(urlColonias).then(response => {
+                axios.post(urlColonias, {
+                    id,
+                    busqueda
+                }).then(response => {
                     this.colonias = response.data
                 });
                 this.loadingFields = false
@@ -227,28 +253,30 @@
                 }
                 if (select == 'municipio') {
                     this.municipio = null
-                    this.localidad = null,
-                        this.codigoPostal = null,
-                        this.colonia = null,
-                        this.municipios = [],
-                        this.localidades = [],
-                        this.codigosPostales = [],
-                        this.colonias = []
+                    this.localidad = null
+                    this.codigoPostal = null
+                    this.colonia = null
+                    this.municipios = []
+                    this.localidades = []
+                    this.codigosPostales = []
+                    this.colonias = []
                 } else if (select == 'localidad') {
-                    this.localidad = null,
-                        this.codigoPostal = null,
-                        this.colonia = null,
-                        this.localidades = [],
-                        this.codigosPostales = [],
-                        this.colonias = []
+                    this.localidad = null
+                    this.codigoPostal = null
+                    this.colonia = null
+                    this.localidades = []
+                    this.codigosPostales = []
+                    this.colonias = []
                 } else if (select == 'codigoPostal') {
-                    this.codigoPostal = null,
-                        this.colonia = null,
-                        this.codigosPostales = [],
-                        this.colonias = []
+                    this.colonia = null
+                    this.colonias = []
+                    this.codigoPostal = null
+                    this.codigosPostales = []
                 } else if (select == 'colonia') {
-                    this.colonia = null,
-                        this.colonias = []
+                    this.codigoPostal = null
+                    this.codigosPostales = []
+                    this.colonia = null
+                    this.colonias = []
                 }
             },
             setFormContact() {

@@ -97,7 +97,6 @@
                 } else {
                     var urlOficio = "actaoficioM/"
                 }
-                console.log(data)
                 axios.post(urlGuardarDenunciante, data)
                     .then(response => {
                         if (response.data) {
@@ -111,7 +110,7 @@
                             })
                             swal({
                                     title: 'Acta de hechos guardada correctamente!',
-                                    text: 'Haz finalizado el registro de la acta exitosamente.',
+                                    text: 'Haz finalizado el registro del acta exitosamente.',
                                     type: 'success',
                                     confirmButtonText: '<a class="linkAlert" href="' + urlOficio + response.data + '" target="_blank">Imprimir oficio</a>',
                                 })

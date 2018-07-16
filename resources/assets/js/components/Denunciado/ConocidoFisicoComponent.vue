@@ -33,10 +33,10 @@
                 <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'conocido'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-conocido-domiciliofisica" role="tabpanel" aria-labelledby="conocido-domiciliofisica-tab">
-                <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-conocido-extrafisica" role="tabpanel-fisica" aria-labelledby="conocido-extrafisica-tab">
-                <extrasconocido :sistema="sistema" :empresa="false" :carpeta="carpeta" :usuario="usuario"></extrasconocido>
+                <extrasconocido v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :empresa="false" :carpeta="carpeta" :usuario="usuario"></extrasconocido>
             </div>
         </div>
         <!-- OPCIONES -->

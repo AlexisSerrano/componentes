@@ -40,19 +40,19 @@
                 <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'denunciante'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-domiciliofisico" role="tabpanel" aria-labelledby="denunciante-domiciliofisico-tab">
-                <domicilio :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-trabajofisico" role="tabpanel" aria-labelledby="denunciante-trabajofisico-tab">
-                <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-notificacionesfisico" role="tabpanel" aria-labelledby="denunciante-notificacionesfisico-tab">
-                <domicilio :tipo="'contacto'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'contacto'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciante-extrafisico-tab">
-                <extrasdenunciante :sistema="sistema" :empresa="false" :carpeta="carpeta" :usuario="usuario"></extrasdenunciante>
+                <extrasdenunciante v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :empresa="false" :carpeta="carpeta" :usuario="usuario"></extrasdenunciante>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="denunciante-carpetasLigadasFisica-tab">
-                <notificaciones :tipo="'fisica'"></notificaciones>
+                <notificaciones v-if="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->

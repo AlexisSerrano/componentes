@@ -285,13 +285,13 @@ class DomicilioController extends Controller
             return response()->json($localidades);
         }
     }
-    public function getCodigosPostales($id){
-        if($id==null){
+    public function getCodigosPostales(Request $request){
+        if($request->id==null){
             return array();
         }
         else{
             $codigosPostales=CatColonia::orderBy('codigoPostal', 'ASC')
-            ->where('idMunicipio',$id)
+            ->where($request->busqueda,$request->id)
             ->where('codigoPostal', '!=', 0)
             ->select('codigoPostal','codigoPostal as id')
             ->groupBy('codigoPostal')
@@ -299,13 +299,14 @@ class DomicilioController extends Controller
             return response()->json($codigosPostales);
         }
     }
-    public function getColonias($id){
-        if($id==null){
+    public function getColonias(Request $request){
+        if($request->id==null){
             return array();
         }
         else{
             $colonias=CatColonia::orderBy('nombre', 'ASC')
-            ->where('codigoPostal',$id)
+            // ->where('codigoPostal',$id)
+            ->where($request->busqueda,$request->id)
             ->select('nombre','id')->get();
             return response()->json($colonias);
         }

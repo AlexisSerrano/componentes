@@ -37,16 +37,16 @@
                 <personamoral :sistema="sistema" :carpeta="carpeta" :tipo="'denunciadomoral'" :usuario="usuario"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-domiciliomoral" role="tabpanel" aria-labelledby="denunciado-domiciliomoral-tab">
-                <domicilio :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-if="this.$store.state.idPersonaMoral" :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-notificacionesmoral" role="tabpanel" aria-labelledby="denunciado-notificacionesmoral-tab">
-                <domicilio :tipo="'contacto'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-if="this.$store.state.idPersonaMoral" :tipo="'contacto'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-extramoral" role="tabpanel-moral" aria-labelledby="denunciado-extramoral-tab">
-                <extrasinvestigado :sistema="sistema" :empresa="true" :carpeta="carpeta" :usuario="usuario"></extrasinvestigado>
+                <extrasinvestigado v-if="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :carpeta="carpeta" :usuario="usuario"></extrasinvestigado>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasMoral" role="tabpanel-moral" aria-labelledby="denunciante-carpetasLigadasMoral-tab">
-                <notificaciones :tipo="'moral'"></notificaciones>
+                <notificaciones v-if="this.$store.state.idPersonaMoral" :tipo="'moral'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->
