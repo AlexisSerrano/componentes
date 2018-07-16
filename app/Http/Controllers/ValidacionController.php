@@ -75,7 +75,7 @@ class ValidacionController extends Controller
         return response()->json($idVariable);
     }
 
-    public function valActasHechosMUAT(Request $request){
+    public function valActasHechosMUAT(ActasHechosMoralRequest $request){
         $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
     }
@@ -345,12 +345,21 @@ class ValidacionController extends Controller
     }
 
     public function saveQrr($request){
-        $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,1,'denunciado','xxxxx',0);
-        saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
-        $data = array(
-            'idPersona'=>1,
-            'idVarPersona'=>1
-        );
+        $aparicion = aparicionesModel::where('idCarpeta',$request->idCarpeta)->first();
+        if($aparicion){
+            $data = array(
+                'idPersona'=>'',
+                'idVarPersona'=>''
+            );
+        }
+        else{
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,1,'denunciado','xxxxx',0);
+            saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
+            $data = array(
+                'idPersona'=>1,
+                'idVarPersona'=>1
+            );
+        } 
         return response()->json($data);
     }
 
