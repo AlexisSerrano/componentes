@@ -385,7 +385,9 @@
                         type: 'success',
                         confirmButtonText: 'Ok'
                     }).catch((error) => {
-                        this.validacionesback = error.response.data.errors
+                        if (error.response.data.errors) {
+                            this.validacionesback = error.response.data.errors
+                        }
                         swal({
                             title: '¡Guardado Incorrecto!',
                             text: 'Éste domicilio no fue posible guardarse.',

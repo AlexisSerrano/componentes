@@ -76,7 +76,7 @@
                 });
             },
             guardarExtra: function() {
-                var urlGuardarDenunciante = this.url + '/addExtrasActas'
+                var urlActasHechos = this.url + '/addExtrasActas'
                 if (this.empresa == false) {
                     var idPersona = this.$store.state.idPersonaFisica
                 } else {
@@ -97,7 +97,7 @@
                 } else {
                     var urlOficio = "actaoficioM/"
                 }
-                axios.post(urlGuardarDenunciante, data)
+                axios.post(urlActasHechos, data)
                     .then(response => {
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)

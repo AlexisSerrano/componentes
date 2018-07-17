@@ -67,8 +67,6 @@
                     idContactoTemporal: coincidencia.idDomicilioNotificacion
                 })
                 this.crearPersona(coincidencia)
-                var personaCorrecta = [coincidencia]
-                this.$store.commit('asignarPersonasEncontradas', personaCorrecta)
             },
             getDomicilios(idVarPersona) {
                 var urlGetDomicilios = this.url + '/getDomiciliosPersona'
@@ -82,7 +80,7 @@
                         }
                     })
             },
-            buscarCarpetasFisica (coincidencia) {
+            buscarCarpetasFisica(coincidencia) {
                 var post = this.url + '/fisicaCarpetasRfc';
                 axios.post(post, {
                     rfc: coincidencia.rfc + coincidencia.homoclave,
@@ -123,6 +121,8 @@
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
+                                var personaCorrecta = [coincidencia]
+                                this.$store.commit('asignarPersonasEncontradas', personaCorrecta)
                                 this.getDomicilios(coincidencia.idVarPersona)
                                 this.buscarCarpetasFisica(coincidencia)
                             } else {

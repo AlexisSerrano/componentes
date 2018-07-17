@@ -72,7 +72,8 @@
     
                 <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="número de identificación">Número de identificación</label>
-                    <input type="text" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" name="número de identificación" v-validate="(this.tipo=='denunciantemoral')?'required':''" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('número de identificación')}" autocomplete="off">
+                    <input type="text" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" name="número de identificación" v-validate="(this.tipo=='denunciantemoral')?'required':''" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('número de identificación')}"
+                        autocomplete="off">
                     <span v-if="this.tipo=='denunciantemoral'" v-show="errors.has('número de identificación')" class="text-danger">{{ errors.first('número de identificación')}}</span>
                 </div>
     
@@ -298,7 +299,9 @@
                             })
                         }
                     }).catch((error) => {
-                        this.validacionesback = error.response.data.errors
+                        if (error.response.data.errors) {
+                            this.validacionesback = error.response.data.errors
+                        }
                         swal({
                             title: '¡Guardado incorrecto!',
                             text: 'Ésta persona moral no fue posible guardarla.',

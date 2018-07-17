@@ -434,7 +434,7 @@
 					curp: this.curp
 				}).then(response => {
 					if (response.data) {
-						this.$store.commit('asignarCarpetasLigadas', response.data)                    
+						this.$store.commit('asignarCarpetasLigadas', response.data)
 					}
 				});
 			},
@@ -629,7 +629,7 @@
 						idTrabajo: this.$store.state.idTrabajoTemporal,
 						idNotificacion: this.$store.state.idContactoTemporal
 					};
-				} else if (this.tipo == 'actashechos') {
+				} else if (this.tipo == 'actashechos' || this.tipo == 'actascircunstanciadas') {
 					var data = {
 						nombres: this.nombres.toUpperCase(),
 						primerAp: this.primerAp.toUpperCase(),
@@ -674,7 +674,7 @@
 								})
 								if (this.tipo == 'conocido') {
 									this.$store.commit('asignarIdExtra', response.data.original.idExtra)
-								} else if (this.tipo == 'qrr' && response.data.original.idPersona==false && response.data.original.idVarPersona==false) {
+								} else if (this.tipo == 'qrr' && response.data.original.idPersona == false && response.data.original.idVarPersona == false) {
 									swal({
 										title: '¡No fue posible guardar!',
 										text: 'Ya existe un qrr registrado en esta carpeta.',
@@ -702,7 +702,9 @@
 								})
 							}
 						}).catch((error) => {
-							this.validacionesback = error.response.data.errors;
+							if (error.response.data.errors) {
+								this.validacionesback = error.response.data.errors;
+							}
 							swal({
 								title: '¡Guardado incorrecto!',
 								text: 'Ésta persona no fue posible guardarla.',
@@ -722,7 +724,7 @@
 			},
 			lengua() {
 				if (this.lengua != null && this.lengua != '') {
-					if (this.lengua.id != 69 && this.lengua.id != 70) {
+					if (this.lengua.id != 69 && this.lengua.id != 70 && this.validaciones.idLengua != 'oculto') {
 						this.validaciones.idInterprete = '';
 					} else {
 						this.validaciones.idInterprete = 'oculto';

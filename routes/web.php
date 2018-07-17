@@ -20,3 +20,7 @@ Route::get('registroAutoridad', function(){
 Route::get('registroActasHechos', function(){
     return view('registroActasHechos');
 });
+
+Route::get('registroActasCircunstanciadas', function(){
+    return view('registroActasCircunstanciadas');
+});

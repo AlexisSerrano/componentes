@@ -21,7 +21,7 @@
                     </li>
                 </ul>
                 <div class="col-2 d-flex align-items-start justify-content-end">
-                    <button v-if="personasEncontradas!=''" type="button" class="btn btn-primary" @click="cleanFields">
+                    <button v-if="personasEncontradas!='' && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
                         <icon name="eraser" style="color:white"></icon>
                         Limpiar
                     </button>
