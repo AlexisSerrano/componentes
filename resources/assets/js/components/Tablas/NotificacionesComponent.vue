@@ -50,7 +50,7 @@
                     <tr v-for="value in carpetas" :key="value.idCarpeta">
                         <td>{{ value.nombre }}</td>
                         <td>{{ value.rfc }}</td>
-                        <td>{{ value.representanteLegal }}</td>
+                        <td>{{ `${value.nombreRep} ${value.primerApRep} ${value.segundoApRep}` }}</td>
                         <td>{{ value.idCarpeta }}</td>
                         <td>{{ value.sistema }}</td>
                         <td>{{ value.tipoInvolucrado }}</td>

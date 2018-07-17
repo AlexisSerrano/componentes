@@ -190,12 +190,6 @@
                 }).then(response => {
                     if (response.data) {
                         this.$store.commit('asignarCarpetasLigadas', response.data)
-                        // swal({
-                        //     title: 'Hay carpteas ligadas a esta persona!',
-                        //     text: 'Existen carpetas.',
-                        //     type: 'success',
-                        //     confirmButtonText: 'Ok'
-                        // })
                     }
                 });
             },

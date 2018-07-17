@@ -201,7 +201,7 @@
 	
 	
 	
-			<coincidencias v-if="personasEncontradas" :sistema="sistema" :usuario="usuario"></coincidencias>
+			<coincidencias v-if="personasEncontradas.length>0" :sistema="sistema" :usuario="usuario"></coincidencias>
 	
 	
 	
