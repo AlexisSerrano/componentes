@@ -63,13 +63,12 @@
                     idExtrasActas: this.$store.state.idExtra,
                     idPersona: this.$store.state.idPersonaFisica,
                     sistema: this.sistema,
-                    empresa: this.empresa,
                     usuario: this.usuario,
                     narracion: this.descripcion.toUpperCase(),
                     tipo: 'actascircunstanciadas'
                 };
                 var urlActasCircunstanciadas = "addExtrasCircunstanciadas/"
-                axios.post(urlGuardarDenunciante, data)
+                axios.post(urlActasCircunstanciadas, data)
                     .then(response => {
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
