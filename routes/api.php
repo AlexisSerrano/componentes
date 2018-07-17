@@ -44,6 +44,7 @@ Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
 Route::post('qrruat','ValidacionController@valQrrUAT');
 Route::post('actashechosuat','ValidacionController@valActasHechosFUAT');
 Route::post('actashechosmoraluat','ValidacionController@valActasHechosMUAT');
+Route::post('actascircunstanciadasuat','ValidacionController@valActasCircunstanciadasFUAT');
 
 /*API UAT*/
 Route::post('getDenunciantesCarpetaUAT','ApiControllerUAT@getDenunciantesCarpeta');

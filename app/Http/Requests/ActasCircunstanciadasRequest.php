@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Carbon\Carbon;
 
-class ActasHechosRequest extends FormRequest
+class ActasCircunstanciadasRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +26,7 @@ class ActasHechosRequest extends FormRequest
         $before_date = Carbon::now()->subYears(18)->toDateString();
         return [
             'nombres' => 'string|min:3|max:200|required',
-            'primerAp' => 'required|string|min:3|max:50',
+            'primerAp' => 'nullable|string|min:3|max:50',
             'segundoAp' => 'nullable|string|min:3|max:50',
             'fechaNacimiento' => 'required|date|before:'.$before_date,
             'idEstadoOrigen' => 'required',
@@ -48,7 +47,6 @@ class ActasHechosRequest extends FormRequest
             'docIdentificacion'=>'required'
         ];
     }
-
     public function messages()
     {
         return [
