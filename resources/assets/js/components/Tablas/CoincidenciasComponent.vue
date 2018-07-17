@@ -87,7 +87,7 @@
                     nombres: coincidencia.nombres,
                     primerAp: coincidencia.primerAp,
                     segundoAp: coincidencia.segundoAp,
-                    alias: coincidencia.alias,
+                    alias: (coincidencia.alias)?coincidencia.alias:'',
                     sistema: this.sistema,
                     idPersona: coincidencia.idVarPersona,
                     usuario: this.usuario,
@@ -96,6 +96,7 @@
                     idTrabajo: this.$store.state.idTrabajoTemporal,
                     idNotificacion: this.$store.state.idContactoTemporal
                 }
+                console.log(data)
                 if (data) {
                     axios.post(urlCrearPersona, data)
                         .then(response => {
