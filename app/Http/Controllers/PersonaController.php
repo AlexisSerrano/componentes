@@ -175,8 +175,8 @@ class PersonaController extends Controller{
 					'telefono'=>$personaExisteP->telefono
 				);
 				array_push($data,$data2);
-				return response()->json($data);
 			}
+			return response()->json($data);
 		}
 		else{
 			return false;
