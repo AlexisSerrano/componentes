@@ -310,24 +310,19 @@ class PersonaController extends Controller{
 
 	/*se lanza cuando se da en guardar persona moral, busca carpetas involucradas en uat y uipj*/
 	/*falta agregar un where con los tipos de determinaciones validos*/
-	public function moralBuscarCarpetas(Request $request){				
-		$resp = DB::table('persona_moral')
-		->join('variables_persona_moral','variables_persona_moral.idPersona','=','persona_moral.id')
-		->join('apariciones','apariciones.idVarPersona','=','variables_persona_moral.idPersona')
-		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
-		->select('persona_moral.nombre','persona_moral.rfc','variables_persona_moral.nombreRep',
-		'variables_persona_moral.primerApRep',
-		'variables_persona_moral.segundoApRep',
-		'apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc',
-		'cat_tipo_determinacion.nombre as tipoDeterminacion')
-		->where('rfc',$request->rfc)
-		->where('esEmpresa',1)
-		->get();
-		if($resp){
-			return response()->json($resp);
-		}else{			
-			return false;
-		}
+	public function moralBuscarCarpetas(Request $request){
+		$carpetas = DB::select("select per.nombre,varPer.nombreRep,varPer.primerApRep,varPer.segundoApRep,rfc,apar.idCarpeta,apar.sistema,
+				apar.tipoInvolucrado,apar.nuc,catDet.nombre as determinacion,
+				apar.esEmpresa from variables_persona_moral varPer
+			join persona_moral per on per.id = varPer.idPersona
+			join apariciones apar on apar.idVarPersona = varPer.id
+			join cat_tipo_determinacion catDet on catDet.id = apar.idTipoDeterminacion
+			WHERE esEmpresa = 1 and (rfc = '$request->rfc')");
+		if($carpetas){
+			return response()->json($carpetas);
+		}else{
+			return response()->json(false);
+		}	
 	}
 
 	public function trabajos($id,$tabla){

@@ -51,19 +51,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'CONOCIDO',
                 'nuc' => '78DH-J48ASY-19',
                 'esEmpresa' => 1,
-                'idTipoDeterminacion' => 4
-            ],
-           
-            [
-                'id' => 5,
-                'idVarPersona' => 3,
-                'idCarpeta' => 'UIPJ/D70/VER1/01/07/2018',
-                'sistema' => 'UIPJ',
-                'tipoInvolucrado' => 'CONOCIDO',
-                'nuc' => '78DH-J48ASY-19',
-                'esEmpresa' => 1,
-                'idTipoDeterminacion' => 5
-            ],
+                'idTipoDeterminacion' => 2
+            ],                     
             [
                 'id' => 6,
                 'idVarPersona' => 2,
@@ -125,7 +114,66 @@ class aparicionesSeeder extends Seeder
                 'esEmpresa' => 0,
                 'idTipoDeterminacion' => 7
             ],
-            
+            [
+                'id' => 12,
+                'idVarPersona' => 2,
+                'idCarpeta' => 'UIPJ/T80/VER19/12/09/2018',
+                'sistema' => 'UIPJ',
+                'tipoInvolucrado' => 'DENUNCIADO',
+                'nuc' => 'OS84-4Q8G3D-18',
+                'esEmpresa' => 1,
+                'idTipoDeterminacion' => 3
+            ],
+            [
+                'id' => 13,
+                'idVarPersona' => 2,
+                'idCarpeta' => 'UIPJ/Y80/VER18/11/15/2018',
+                'sistema' => 'UIPJ',
+                'tipoInvolucrado' => 'CONOCIDO',
+                'nuc' => 'OS84-4Q84SD-18',
+                'esEmpresa' => 1,
+                'idTipoDeterminacion' => 4
+            ],
+            [
+                'id' => 14,
+                'idVarPersona' => 2,
+                'idCarpeta' => 'UIPJ/P80/ACT18/10/19/2017',
+                'sistema' => 'UIPJ',
+                'tipoInvolucrado' => 'DENUNCIANTE',
+                'nuc' => 'OS84-4Q84SD-18',
+                'esEmpresa' => 1,
+                'idTipoDeterminacion' => 5
+            ],
+            [
+                'id' => 15,
+                'idVarPersona' => 2,
+                'idCarpeta' => 'UIPJ/P18/XAL18/04/07/2019',
+                'sistema' => 'UIPJ',
+                'tipoInvolucrado' => 'DENUNCIADO',
+                'nuc' => 'OS84-4Q84SD-18',
+                'esEmpresa' => 1,
+                'idTipoDeterminacion' => 6
+            ],
+            [
+                'id' => 16,
+                'idVarPersona' => 2,
+                'idCarpeta' => 'UIPJ/E18/VER18/09/17/2017',
+                'sistema' => 'UIPJ',
+                'tipoInvolucrado' => 'CONOCIDO',
+                'nuc' => 'OS84-4Q84SD-18',
+                'esEmpresa' => 1,
+                'idTipoDeterminacion' => 7
+            ],
+            [
+                'id' => 17,
+                'idVarPersona' => 2,
+                'idCarpeta' => 'UIPJ/F09/TUX47/11/29/2017',
+                'sistema' => 'UIPJ',
+                'tipoInvolucrado' => 'DENUNCIADO',
+                'nuc' => '78DH-J48ASY-19',
+                'esEmpresa' => 1,
+                'idTipoDeterminacion' => 1
+            ]
             
         ]);
     }
