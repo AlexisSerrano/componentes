@@ -315,7 +315,9 @@ class PersonaController extends Controller{
 		->join('variables_persona_moral','variables_persona_moral.idPersona','=','persona_moral.id')
 		->join('apariciones','apariciones.idVarPersona','=','variables_persona_moral.idPersona')
 		->join('cat_tipo_determinacion','cat_tipo_determinacion.id','=','apariciones.idTipoDeterminacion')
-		->select('persona_moral.nombre','persona_moral.rfc','variables_persona_moral.representanteLegal',
+		->select('persona_moral.nombre','persona_moral.rfc','variables_persona_moral.nombreRep',
+		'variables_persona_moral.primerApRep',
+		'variables_persona_moral.segundoApRep',
 		'apariciones.idCarpeta','apariciones.sistema','apariciones.tipoInvolucrado','apariciones.nuc',
 		'cat_tipo_determinacion.nombre as tipoDeterminacion')
 		->where('rfc',$request->rfc)

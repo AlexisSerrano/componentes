@@ -199,8 +199,8 @@ class ValidacionController extends Controller
     }
 
     public function saveInputsConocidoFisico($request){
-        // DB::beginTransaction();
-        // try{
+        DB::beginTransaction();
+        try{
             if($request->personaFisica==''&&$request->idPersona==''){
                 $persona = new PersonaModel();
                 $oper="INSERT";
@@ -260,15 +260,15 @@ class ValidacionController extends Controller
                 $data = array('idPersona'=>$persona->id,'idVarPersona'=>$request->idPersona,'idExtra'=>$extras->id);
             }
             return response()->json($data);
-        // }catch (\PDOException $e){
-        //     DB::rollBack();
-        //     return false;
-        // }
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
     }
 
     public function saveInputsConocidoMoral($request){
-        // DB::beginTransaction();
-        // try{
+        DB::beginTransaction();
+        try{
             if($request->personaMoral==''&&$request->idPersonaMoral==''){
                 $persona = new PersonaMoralModel();
                 $oper="INSERT";
@@ -298,36 +298,11 @@ class ValidacionController extends Controller
 
             $data = array('idPersona'=>$persona->id,'idVarPersona'=>$variables->id,'idExtra'=>'');
             return response()->json($data);
-        // }catch (\PDOException $e){
-        //     DB::rollBack();
-        //     return false;
-        // }
+        }catch (\PDOException $e){
+            DB::rollBack();
+            return false;
+        }
     }
-
-    // public function updateInputsConocidoFisica($request){
-    //     //DB::beginTransaction();
-    //     //try{
-    //         $persona = PersonaModel::find($request->personaFisica);
-    //         $persona->nombres = $request->nombres;
-    //         $persona->primerAp = $request->primerAp;
-    //         $persona->segundoAp = $request->segundoAp;
-    //         $persona->save();
-
-    //         $extras = ExtraDenunciadoFisico::find($request->idExtra);
-    //         $extras->alias = $request->alias;
-    //         $extras->save();
-
-    //         saveInLog($request->sistema,$request->usuario,'variables_persona_fisica','UPDATE',$variables->id,null,$variables);
-    //         saveInLog($request->sistema,$request->usuario,'persona_fisica','UPDATE',$persona->id,null,$persona);            
-           
-    //         //DB::commit();
-    //         $data = array('idPersona'=>$request->idPersona,'idExtra'=>$request->idExtra);
-    //         return response()->json($data);
-    //     // }catch (\PDOException $e){
-    //     //     //DB::rollBack();
-    //     //     return false;
-    //     // }
-    // }
 
     public function saveInputsMoral($request){
         DB::beginTransaction();
