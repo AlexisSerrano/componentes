@@ -73,15 +73,25 @@
             getDomicilios(idVarPersona) {
                 var urlGetDomicilios = this.url + '/getDomiciliosPersona'
                 axios.post(urlGetDomicilios, {
-                        idVarPersona: coincidencia.idVarPersona,
+                        idVarPersona: idVarPersona,
                         esEmpresa: false
                     })
                     .then((response) => {
                         if (response.data) {
                             this.$store.commit('asignarDomicilios', response.data)
-    
                         }
                     })
+            },
+            buscarCarpetasFisica: function(param) {
+                var post = this.url + '/fisicaCarpetasRfc';
+                axios.post(post, {
+                    rfc: this.rfc + this.homoclave,
+                    curp: this.curp
+                }).then(response => {
+                    if (response.data) {
+                        this.$store.commit('asignarCarpetasLigadas', response.data)
+                    }
+                });
             },
             crearPersona(coincidencia) {
                 var urlCrearPersona = this.url + '/conocido' + this.sistema;
@@ -102,6 +112,7 @@
                 if (data) {
                     axios.post(urlCrearPersona, data)
                         .then(response => {
+                            console.log(response.data.original)
                             if (response.data) {
                                 this.$store.commit('asignarIdFisica', {
                                     idPersona: response.data.original.idVarPersona,
@@ -114,6 +125,7 @@
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
+                                console.log(coincidencia.idVarPersona)
                                 this.getDomicilios(coincidencia.idVarPersona)
                                 this.buscarCarpetasFisica()
                             } else {
