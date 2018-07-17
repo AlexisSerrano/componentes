@@ -18,6 +18,7 @@ use App\Http\Models\ExtraDenunciadoFisico;
 use App\Http\Models\ExtraDenunciadoMoral;
 use App\Http\Requests\ActasHechosRequest;
 use App\Http\Requests\ActasHechosMoralRequest;
+use App\Http\Requests\ActasCircunstanciadasRequest;
 use DB;
 
 use Illuminate\Http\Request;
