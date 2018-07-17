@@ -66,6 +66,11 @@
                     idTrabajoTemporal: coincidencia.idDomicilioTrabajo,
                     idContactoTemporal: coincidencia.idDomicilioNotificacion
                 })
+                this.crearPersona(coincidencia)
+                var personaCorrecta = [coincidencia]
+                this.$store.commit('asignarPersonasEncontradas', personaCorrecta)
+            },
+            getDomicilios(idVarPersona) {
                 var urlGetDomicilios = this.url + '/getDomiciliosPersona'
                 axios.post(urlGetDomicilios, {
                         idVarPersona: coincidencia.idVarPersona,
@@ -74,20 +79,17 @@
                     .then((response) => {
                         if (response.data) {
                             this.$store.commit('asignarDomicilios', response.data)
-                            this.crearPersona(coincidencia)
-                            var personaCorrecta = [coincidencia]
-                            this.$store.commit('asignarPersonasEncontradas', personaCorrecta)
+    
                         }
                     })
             },
             crearPersona(coincidencia) {
-                this.validacionesback = '';
                 var urlCrearPersona = this.url + '/conocido' + this.sistema;
                 var data = {
                     nombres: coincidencia.nombres,
                     primerAp: coincidencia.primerAp,
                     segundoAp: coincidencia.segundoAp,
-                    alias: (coincidencia.alias)?coincidencia.alias:'',
+                    alias: (coincidencia.alias) ? coincidencia.alias : '',
                     sistema: this.sistema,
                     idPersona: coincidencia.idVarPersona,
                     usuario: this.usuario,
@@ -112,7 +114,7 @@
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
-                                this.getDomicilios()
+                                this.getDomicilios(coincidencia.idVarPersona)
                                 this.buscarCarpetasFisica()
                             } else {
                                 swal({
