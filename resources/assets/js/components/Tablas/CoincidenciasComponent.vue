@@ -66,20 +66,17 @@
                     idTrabajoTemporal: coincidencia.idDomicilioTrabajo,
                     idContactoTemporal: coincidencia.idDomicilioNotificacion
                 })
-                this.getDomicilios(coincidencia.idVarPersona)
-                this.crearPersona(coincidencia)
-                var personaCorrecta = [coincidencia]
-                this.$store.commit('asignarPersonasEncontradas', personaCorrecta)
-            },
-            getDomicilios(idVarPersona) {
                 var urlGetDomicilios = this.url + '/getDomiciliosPersona'
                 axios.post(urlGetDomicilios, {
-                        idVarPersona: idVarPersona,
+                        idVarPersona: coincidencia.idVarPersona,
                         esEmpresa: false
                     })
                     .then((response) => {
                         if (response.data) {
                             this.$store.commit('asignarDomicilios', response.data)
+                            this.crearPersona(coincidencia)
+                            var personaCorrecta = [coincidencia]
+                            this.$store.commit('asignarPersonasEncontradas', personaCorrecta)
                         }
                     })
             },
@@ -98,7 +95,7 @@
                     idDomicilio: this.$store.state.idDomicilioTemporal,
                     idTrabajo: this.$store.state.idTrabajoTemporal,
                     idNotificacion: this.$store.state.idContactoTemporal
-                };
+                }
                 if (data) {
                     axios.post(urlCrearPersona, data)
                         .then(response => {

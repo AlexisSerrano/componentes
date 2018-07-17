@@ -64,15 +64,16 @@
                     <input type="text" name="segundoApRep" data-vv-name="segundo apellido del representante" class="input form-control form-control-sm" v-model="segundoApRep" placeholder="Ingrese el segundo apellido del representante" autocomplete="off">
                 </div>
     
-    
                 <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="identificación">Identificación</label>
-                    <v-select :options="identificaciones" label="documento" v-model="identificacion" name="identificación" placeholder="Seleccione una identificación"></v-select>
+                    <label class="col-form-label col-form-label-sm" for="identificacion">Identificación</label>
+                    <v-select :options="identificaciones" label="documento" v-model="identificacion" name="Identificación" v-validate="(this.tipo=='denunciantemoral')?'required':''" :class="{ 'border border-danger rounded': errors.has('Identificación')}" placeholder="Seleccione una Identificación"></v-select>
+                    <span v-if="this.tipo=='denunciantemoral'" v-show="errors.has('Identificación')" class="text-danger">{{ errors.first('Identificación')}}</span>
                 </div>
     
                 <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="numIdentificacion">Número de identificación</label>
-                    <input type="text" class="input form-control form-control-sm" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" autocomplete="off">
+                    <label class="col-form-label col-form-label-sm" for="número de identificación">Número de identificación</label>
+                    <input type="text" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" name="número de identificación" v-validate="(this.tipo=='denunciantemoral')?'required':''" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('número de identificación')}" autocomplete="off">
+                    <span v-if="this.tipo=='denunciantemoral'" v-show="errors.has('número de identificación')" class="text-danger">{{ errors.first('número de identificación')}}</span>
                 </div>
     
             </div>
@@ -147,15 +148,15 @@
                                 confirmButtonText: 'Ok'
                             })
                             this.nombre = this.personaExiste.nombre,
-                            this.fechaCreacion = this.personaExiste.fechaCreacion,
-                            this.rfc = this.personaExiste.rfc.slice(0, -3),
-                            this.homoclave = this.personaExiste.rfc.slice(-3),
-                            this.telefono = this.personaExiste.telefono,
-                            this.nombresRep = this.personaExiste.nombreRep,
-                            this.primerApRep = this.personaExiste.primerApRep,
-                            this.segundoApRep = this.personaExiste.segundoApRep,
-                            this.identificacion = this.personaExiste.docIdentificacion,
-                            this.numIdentificacion = this.personaExiste.numDocIdentificacion
+                                this.fechaCreacion = this.personaExiste.fechaCreacion,
+                                this.rfc = this.personaExiste.rfc.slice(0, -3),
+                                this.homoclave = this.personaExiste.rfc.slice(-3),
+                                this.telefono = this.personaExiste.telefono,
+                                this.nombresRep = this.personaExiste.nombreRep,
+                                this.primerApRep = this.personaExiste.primerApRep,
+                                this.segundoApRep = this.personaExiste.segundoApRep,
+                                this.identificacion = this.personaExiste.docIdentificacion,
+                                this.numIdentificacion = this.personaExiste.numDocIdentificacion
                         }
                     });
                 }
