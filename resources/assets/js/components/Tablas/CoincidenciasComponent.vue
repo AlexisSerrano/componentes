@@ -82,11 +82,11 @@
                         }
                     })
             },
-            buscarCarpetasFisica: function(param) {
+            buscarCarpetasFisica (coincidencia) {
                 var post = this.url + '/fisicaCarpetasRfc';
                 axios.post(post, {
-                    rfc: this.rfc + this.homoclave,
-                    curp: this.curp
+                    rfc: coincidencia.rfc + coincidencia.homoclave,
+                    curp: coincidencia.curp
                 }).then(response => {
                     if (response.data) {
                         this.$store.commit('asignarCarpetasLigadas', response.data)
@@ -108,11 +108,9 @@
                     idTrabajo: this.$store.state.idTrabajoTemporal,
                     idNotificacion: this.$store.state.idContactoTemporal
                 }
-                console.log(data)
                 if (data) {
                     axios.post(urlCrearPersona, data)
                         .then(response => {
-                            console.log(response.data.original)
                             if (response.data) {
                                 this.$store.commit('asignarIdFisica', {
                                     idPersona: response.data.original.idVarPersona,
@@ -125,9 +123,8 @@
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
-                                console.log(coincidencia.idVarPersona)
                                 this.getDomicilios(coincidencia.idVarPersona)
-                                this.buscarCarpetasFisica()
+                                this.buscarCarpetasFisica(coincidencia)
                             } else {
                                 swal({
                                     title: '¡Guardado incorrecto!',

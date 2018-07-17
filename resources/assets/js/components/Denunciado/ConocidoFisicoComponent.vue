@@ -15,12 +15,16 @@
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" id="conocido-extrafisica-tab" data-toggle="pill" href="#pills-conocido-extrafisica" role="tab" aria-controls="pills-conocido-extrafisica"
                             aria-selected="false">Datos del investigado</a>
                     </li>
+                    <li v-show="this.$store.state.carpetasLigadas!=''" class="nav-item">
+                        <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" id="denunciante-carpetasLigadasFisica-tab" data-toggle="pill" href="#pills-denunciante-carpetasLigadasFisica" role="tab" aria-controls="pills-denunciante-carpetasLigadasFisica"
+                            aria-selected="false">Carpetas ligadas</a>
+                    </li>
                 </ul>
                 <div class="col-2 d-flex align-items-start justify-content-end">
                     <button v-if="personasEncontradas!=''" type="button" class="btn btn-primary" @click="cleanFields">
-                            <icon name="eraser" style="color:white"></icon>
-                            Limpiar
-                        </button>
+                        <icon name="eraser" style="color:white"></icon>
+                        Limpiar
+                    </button>
                 </div>
             </div>
         </div>
@@ -38,6 +42,9 @@
             <div class="tab-pane fade" id="pills-conocido-extrafisica" role="tabpanel-fisica" aria-labelledby="conocido-extrafisica-tab">
                 <extrasconocido v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :empresa="false" :carpeta="carpeta" :usuario="usuario"></extrasconocido>
             </div>
+            <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="denunciante-carpetasLigadasFisica-tab">
+                <notificaciones v-if="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
+            </div>
         </div>
         <!-- OPCIONES -->
     </div>
@@ -45,7 +52,9 @@
 
 <script>
     import extrasconocido from '../Extras/ExtrasConocidoComponent.vue';
-    import { mapState } from "vuex";
+    import {
+        mapState
+    } from "vuex";
     import swal from 'sweetalert2'
     export default {
         data() {
@@ -53,8 +62,10 @@
                 particulares: ''
             }
         },
-        props: ['sistema', 'carpeta','usuario'],
-        components: { extrasconocido },
+        props: ['sistema', 'carpeta', 'usuario'],
+        components: {
+            extrasconocido
+        },
         methods: {
             cleanFields() {
                 this.$store.commit('cleanStore')
