@@ -3,7 +3,7 @@
         <form v-on:submit.prevent="validateBeforeSubmit">
     
             <div class="form-row">
-
+    
                 <div class="form-group col-md-12">
                     <label class="col-form-label col-form-label-sm" for="descripcion">Descripción de los hechos</label>
                     <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripción" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripción')}" v-model="descripcion" placeholder="Ingrese la descripcion de los hechos"
@@ -67,7 +67,7 @@
                     narracion: this.descripcion.toUpperCase(),
                     tipo: 'actascircunstanciadas'
                 };
-                var urlActasCircunstanciadas = "addExtrasCircunstanciadas/"
+                var urlActasCircunstanciadas = this.url + '/addExtrasCircunstanciadas'
                 axios.post(urlActasCircunstanciadas, data)
                     .then(response => {
                         if (response.data) {
