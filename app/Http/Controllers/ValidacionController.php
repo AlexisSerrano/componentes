@@ -121,11 +121,11 @@ class ValidacionController extends Controller
             }
             $variables->edad = $request->edad;
             $variables->motivoEstancia = $request->motivoEstancia;
-            $variables->idOcupacion = $request->idOcupacion;
-            $variables->idEstadoCivil = $request->idEstadoCivil;
-            $variables->idEscolaridad = $request->idEscolaridad;
-            $variables->idReligion = $request->idReligion;
-            $variables->docIdentificacion = $request->docIdentificacion;
+            $variables->idOcupacion = ($request->idOcupacion=='')?'2941':$request->idOcupacion;
+            $variables->idEstadoCivil = ($request->idEstadoCivil=='')?'7':$request->idEstadoCivil;
+            $variables->idEscolaridad = ($request->idEscolaridad=='')?'14':$request->idEscolaridad; 
+            $variables->idReligion = ($request->idReligion=='')?'29':$request->idReligion;
+            $variables->docIdentificacion = ($request->docIdentificacion=='')?'14':$request->docIdentificacion;
             $variables->idInterprete = $request->idInterprete;
             $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->telefono = $request->telefono;
@@ -180,7 +180,7 @@ class ValidacionController extends Controller
                 $oper="INSERT";
                 $antes=null;
             }
-            $variables->idEstadoCivil = $request->idEstadoCivil;
+            $variables->idEstadoCivil = ($request->idEstadoCivil=='')?'7':$request->idEstadoCivil;
             $variables->telefono = $request->telefono;
             $variables->edad = $request->edad;
             $variables->save();
@@ -199,8 +199,8 @@ class ValidacionController extends Controller
     }
 
     public function saveInputsConocidoFisico($request){
-        DB::beginTransaction();
-        try{
+        // DB::beginTransaction();
+        // try{
             if($request->personaFisica==''&&$request->idPersona==''){
                 $persona = new PersonaModel();
                 $oper="INSERT";
@@ -246,7 +246,7 @@ class ValidacionController extends Controller
                 $oper = "UPDATE";
                 $antes = clone $extras;
             }
-            $extras->alias = $request->alias;
+            $extras->alias = ($request->alias=='')?'SIN INFORMACION':$request->alias;
             $extras->save();
 
             saveInLog($request->sistema,$request->usuario,'persona_fisica',$oper,$persona->id,$antes,$persona);
@@ -260,10 +260,10 @@ class ValidacionController extends Controller
                 $data = array('idPersona'=>$persona->id,'idVarPersona'=>$request->idPersona,'idExtra'=>$extras->id);
             }
             return response()->json($data);
-        }catch (\PDOException $e){
-            DB::rollBack();
-            return false;
-        }
+        // }catch (\PDOException $e){
+        //     DB::rollBack();
+        //     return false;
+        // }
     }
 
     public function saveInputsConocidoMoral($request){
@@ -364,7 +364,7 @@ class ValidacionController extends Controller
             $variables->nombreRep = $request->nombreRep;
             $variables->primerApRep = $request->primerApRep;
             $variables->segundoApRep = $request->segundoApRep;
-            $variables->docIdentificacion = $request->docIdentificacion;
+            $variables->docIdentificacion = ($request->docIdentificacion=='')?'14':$request->docIdentificacion;
             $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->save();
 
@@ -449,10 +449,10 @@ class ValidacionController extends Controller
             }
             $variables->edad = $request->edad;
             $variables->motivoEstancia = $request->motivoEstancia;
-            $variables->idOcupacion = $request->idOcupacion;
-            $variables->idEstadoCivil = $request->idEstadoCivil;
-            $variables->idEscolaridad = $request->idEscolaridad;
-            $variables->docIdentificacion = $request->docIdentificacion;
+            $variables->idOcupacion = ($request->idOcupacion=='')?'2941':$request->idOcupacion;
+            $variables->idEstadoCivil = ($request->idEstadoCivil=='')?'7':$request->idEstadoCivil;
+            $variables->idEscolaridad = ($request->idEscolaridad=='')?'14':$request->idEscolaridad; 
+            $variables->docIdentificacion = ($request->docIdentificacion=='')?'14':$request->docIdentificacion;
             $variables->idInterprete = 1;
             $variables->numDocIdentificacion = $request->numDocIdentificacion;
             $variables->telefono = $request->telefono;
