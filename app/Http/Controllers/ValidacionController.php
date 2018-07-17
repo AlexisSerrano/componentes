@@ -108,8 +108,8 @@ class ValidacionController extends Controller
             $persona->curp = $request->curp;
             $persona->sexo = $request->sexo;
             $persona->idNacionalidad = $request->idNacionalidad;
-            $persona->idEtnia = $request->idEtnia;
-            $persona->idLengua = $request->idLengua;
+            $persona->idEtnia = ($request->idEtnia=='')?'13':$request->idEtnia;
+            $persona->idLengua = ($request->idLengua=='')?'69':$request->idLengua;
             $persona->idMunicipioOrigen = $request->idMunicipioOrigen;
             $persona->save();
             if(isset($request->idPersona)){
