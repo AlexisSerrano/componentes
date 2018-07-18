@@ -74,16 +74,10 @@
                             this.$store.commit('asignarIdExtra', response.data)
                             //this.$store.commit('cleanStore')                    
                             swal({
-                                title: '¡Guardado correctamente!',
-                                text: 'Ésta persona fue guardada exitosamente.',
-                                type: 'success',
-    
-                            })
-                            swal({
                                     title: 'Acta de hechos guardada correctamente!',
                                     text: 'Haz finalizado el registro del acta exitosamente.',
                                     type: 'success',
-                                    confirmButtonText: '<a class="linkAlert" href="' + urlOficio + response.data + '" target="_blank">Imprimir oficio</a>',
+                                    confirmButtonText: '<a class="linkAlert" href="actaCircunstanciada/'+ response.data + '" target="_blank">Imprimir oficio</a>',
                                 })
                                 .then((result) => {
                                     if (result.value) {
