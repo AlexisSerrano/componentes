@@ -552,7 +552,7 @@
 					var data = {
 						nombres: this.nombres.toUpperCase(),
 						primerAp: this.primerAp.toUpperCase(),
-						segundoAp: this.segundoAp.toUpperCase(),
+						segundoAp: (this.segundoAp)?this.segundoAp.toUpperCase():'',
 						fechaNacimiento: this.fechaNacimiento,
 						edad: this.edad,
 						sexo: this.sexo.id,
@@ -565,13 +565,13 @@
 						idEtnia: this.etnia.id,
 						idLengua: this.lengua.id,
 						idInterprete: this.interprete.id,
-						motivoEstancia: this.motivoEstancia.toUpperCase(),
+						motivoEstancia: (this.motivoEstancia)?this.motivoEstancia.toUpperCase():'',
 						idOcupacion: this.ocupacion.id,
 						idEstadoCivil: this.estadoCivil.id,
 						idEscolaridad: this.escolaridad.id,
 						idReligion: this.religion.id,
 						docIdentificacion: this.identificacion.id,
-						numDocIdentificacion: this.numIdentificacion.toUpperCase(),
+						numDocIdentificacion: (this.numIdentificacion)?this.numIdentificacion.toUpperCase():'',
 						telefono: this.telefono,
 						sistema: this.sistema,
 						idPersona: this.$store.state.idPersonaFisica,
@@ -586,8 +586,8 @@
 						var data = {
 							nombres: this.nombres.toUpperCase(),
 							primerAp: this.primerAp.toUpperCase(),
-							segundoAp: this.segundoAp.toUpperCase(),
-							alias: this.alias.toUpperCase(),
+							segundoAp: (this.segundoAp)?this.segundoAp.toUpperCase():'',
+							alias: (this.alias)?this.alias.toUpperCase():'',
 							sistema: this.sistema,
 							idPersona: this.$store.state.idPersonaFisica,
 							usuario: this.usuario,
@@ -610,7 +610,7 @@
 					var data = {
 						nombres: this.nombres.toUpperCase(),
 						primerAp: this.primerAp.toUpperCase(),
-						segundoAp: this.segundoAp.toUpperCase(),
+						segundoAp: (this.segundoAp)?this.segundoAp.toUpperCase():'',
 						fechaNacimiento: this.fechaNacimiento,
 						sexo: this.sexo.id,
 						idEstadoOrigen: this.estado.id,
@@ -633,7 +633,7 @@
 					var data = {
 						nombres: this.nombres.toUpperCase(),
 						primerAp: this.primerAp.toUpperCase(),
-						segundoAp: this.segundoAp.toUpperCase(),
+						segundoAp: (this.segundoAp)?this.segundoAp.toUpperCase():'',
 						fechaNacimiento: this.fechaNacimiento,
 						sexo: this.sexo.id,
 						idEstadoOrigen: this.estado.id,
@@ -653,7 +653,7 @@
 						idTrabajo: this.$store.state.idTrabajoTemporal,
 						idNotificacion: this.$store.state.idContactoTemporal,
 						docIdentificacion: this.identificacion.id,
-						numDocIdentificacion: this.numIdentificacion.toUpperCase(),
+						numDocIdentificacion: (this.numIdentificacion)?this.numIdentificacion.toUpperCase():'',
 						usuario: this.usuario,
 						sistema: this.sistema
 					};
@@ -664,6 +664,7 @@
 						idCarpeta: this.carpeta
 					};
 				}
+				console.log(data)
 				if (data) {
 					axios.post(urlCrearPersona, data)
 						.then(response => {

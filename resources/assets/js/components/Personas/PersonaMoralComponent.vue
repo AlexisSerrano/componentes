@@ -250,15 +250,15 @@
                         homo: this.homoclave,
                         telefono: this.telefono,
                         docIdentificacion: this.identificacion.id,
-                        numDocIdentificacion: this.numIdentificacion.toUpperCase(),
+                        numDocIdentificacion: (this.numIdentificacion)?this.numIdentificacion.toUpperCase():'',
                         sistema: this.sistema,
                         idPersona: this.$store.state.idPersonaMoral,
                         usuario: this.usuario,
                         personaMoral: this.$store.state.personaMoral,
                         idDomicilio: this.$store.state.idDomicilioTemporal,
-                        nombreRep: this.nombresRep.toUpperCase(),
-                        primerApRep: this.primerApRep.toUpperCase(),
-                        segundoApRep: this.segundoApRep.toUpperCase(),
+                        nombreRep: (this.nombresRep)?this.nombresRep.toUpperCase():'',
+                        primerApRep: (this.primerApRep)?this.primerApRep.toUpperCase():'',
+                        segundoApRep: (this.segundoApRep)?this.segundoApRep.toUpperCase():'',
                         idNotificacion: this.$store.state.idContactoTemporal
                     };
                 } else {
