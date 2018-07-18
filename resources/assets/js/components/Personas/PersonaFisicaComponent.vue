@@ -664,7 +664,6 @@
 						idCarpeta: this.carpeta
 					};
 				}
-				console.log(data)
 				if (data) {
 					axios.post(urlCrearPersona, data)
 						.then(response => {

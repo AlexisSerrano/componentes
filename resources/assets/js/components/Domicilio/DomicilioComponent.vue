@@ -23,8 +23,8 @@
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="municipio">Municipio</label>
-                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades(),getCodigosPostales(),getColonias()" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || this.validacionesback.idMunicipio}"
-                        placeholder="Seleccione un municipio" :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
+                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getCatalogosDomicilios" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || this.validacionesback.idMunicipio}" placeholder="Seleccione un municipio"
+                        :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
                     <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
                     <span v-if="this.validacionesback.idMunicipio!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipio)}}</span>
                 </div>
@@ -131,6 +131,8 @@
                 localidades: [],
                 codigosPostales: [],
                 colonias: [],
+                codigosPostalesMunicipio: [],
+                coloniasMunicipio: [],
                 calle: '',
                 numExterno: '',
                 numInterno: '',
@@ -173,58 +175,51 @@
                     this.municipios = response.data
                 });
             },
-            getLocalidades: function() {
-                this.cleanSelect('localidad')
+            getCatalogosDomicilios: function() {
+                this.cleanSelect('catalogos')
                 if (this.municipio == null) {
                     return
                 }
-                var urlLocalidades = this.url + '/getLocalidades/' + this.municipio.id;
-                axios.get(urlLocalidades).then(response => {
-                    this.localidades = response.data
+                var urlCatalogos = this.url + '/getCatalogosDomicilios'
+                axios.post(urlCatalogos, {
+                    id: this.municipio.id,
+                    busqueda: 'idMunicipio'
+                }).then(response => {
+                    this.localidades = response.data['localidades'].original
+                    this.codigosPostales = response.data['codigosPostales'].original
+                    this.colonias = response.data['colonias'].original
+                    this.codigosPostalesMunicipio = response.data['codigosPostales'].original
+                    this.coloniasMunicipio = response.data['colonias'].original
                 });
             },
             getCodigosPostales: function() {
-                if (this.colonia == null) {
+                if (this.colonia == null || this.colonia == '') {
                     this.cleanSelect('codigoPostal')
-                }
-                var urlCodigosPostales = this.url + '/getCodigosPostales'
-                if (this.colonia != '' && this.colonia != null) {
-                    var id = this.colonia.id
-                    var busqueda = 'id'
-                } else if (this.municipio != null) {
-                    var id = this.municipio.id
-                    var busqueda = 'idMunicipio'
-                } else {
+                    this.codigosPostales = this.codigosPostalesMunicipio
+                    this.colonias = this.coloniasMunicipio
                     return
                 }
+                var urlCodigosPostales = this.url + '/getCodigosPostales'
                 axios.post(urlCodigosPostales, {
-                    id,
-                    busqueda
+                    id: this.colonia.id,
+                    busqueda: 'id'
                 }).then(response => {
                     this.codigosPostales = response.data
-                    if (busqueda == 'id') {
-                        this.codigoPostal = this.codigosPostales[0]
-                    }
+                    this.codigoPostal = this.codigosPostales[0]
                 });
             },
     
             getColonias: function() {
-                if (this.codigoPostal == null) {
+                if (this.codigoPostal == null || this.codigoPostal == '') {
                     this.cleanSelect('colonia')
-                }
-                var urlColonias = this.url + '/getColonias'
-                if (this.codigoPostal != '' && this.codigoPostal != null) {
-                    var id = this.codigoPostal.id
-                    var busqueda = 'codigoPostal'
-                } else if (this.municipio != null) {
-                    var id = this.municipio.id
-                    var busqueda = 'idMunicipio'
-                } else {
+                    this.codigosPostales = this.codigosPostalesMunicipio
+                    this.colonias = this.coloniasMunicipio
                     return
                 }
+                var urlColonias = this.url + '/getColonias'
                 axios.post(urlColonias, {
-                    id,
-                    busqueda
+                    id: this.codigoPostal.id,
+                    busqueda: 'codigoPostal'
                 }).then(response => {
                     this.colonias = response.data
                 });
@@ -260,7 +255,7 @@
                     this.localidades = []
                     this.codigosPostales = []
                     this.colonias = []
-                } else if (select == 'localidad') {
+                } else if (select == 'catalogos') {
                     this.localidad = null
                     this.codigoPostal = null
                     this.colonia = null
@@ -322,7 +317,7 @@
                         codigoPostal: this.codigoPostal.id,
                         calle: this.calle.toUpperCase(),
                         numExterno: this.numExterno.toUpperCase(),
-                        numInterno: (this.numInterno)?this.numInterno.toUpperCase():'',
+                        numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
                         tipo: this.tipo,
                         empresa: this.empresa,
                         idPersona: idPersona,
@@ -339,7 +334,7 @@
                         codigoPostal: this.codigoPostal.id,
                         calle: this.calle.toUpperCase(),
                         numExterno: this.numExterno.toUpperCase(),
-                        numInterno: (this.numInterno)?this.numInterno.toUpperCase():'',
+                        numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
                         telefonoTrabajo: this.telefono,
                         lugarTrabajo: this.lugarTrabajo.toUpperCase(),
                         tipo: this.tipo,
@@ -359,9 +354,9 @@
                         codigoPostal: (this.codigoPostal) ? this.codigoPostal.id : '',
                         calle: this.calle.toUpperCase(),
                         numExterno: this.numExterno.toUpperCase(),
-                        numInterno: (this.numInterno)?this.numInterno.toUpperCase():'',
+                        numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
                         telefonoContacto: this.telefono,
-                        correoContacto: (this.correo)?this.correo.toUpperCase():'',
+                        correoContacto: (this.correo) ? this.correo.toUpperCase() : '',
                         tipo: this.tipo,
                         empresa: this.empresa,
                         idPersona: idPersona,

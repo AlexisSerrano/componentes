@@ -82,7 +82,7 @@ Route::post('saveFamiliar','FamiliarController@saveFamiliar');
 /*URLS PARA SELECTS DOMICILIO */
 Route::get('getEstados','DomicilioController@getEstados');
 Route::get('getMunicipios/{id}','DomicilioController@getMunicipios');
-Route::get('getLocalidades/{id}','DomicilioController@getLocalidades');
 Route::post('getColonias','DomicilioController@getColonias');
 Route::post('getCodigosPostales','DomicilioController@getCodigosPostales');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
+Route::post('getCatalogosDomicilios','DomicilioController@getCatalogosDomicilios');
