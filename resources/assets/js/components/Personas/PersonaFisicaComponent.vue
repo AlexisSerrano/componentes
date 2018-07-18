@@ -201,7 +201,7 @@
 	
 	
 	
-			<coincidencias v-if="personasEncontradas" :sistema="sistema" :usuario="usuario"></coincidencias>
+			<coincidencias v-if="personasEncontradas.length>0" :sistema="sistema" :usuario="usuario"></coincidencias>
 	
 	
 	
@@ -410,7 +410,7 @@
 				}
 			},
 			calcularRfc() {
-				if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '') {
+				if (this.nombres != '' && this.primerAp != '' && this.fechaNacimiento != '') {
 					var urlRfcFisico = this.url + '/rfcFisico';
 					axios.post(urlRfcFisico, {
 						nombres: this.nombres,
@@ -422,6 +422,9 @@
 						this.homoclave = response.data.res.slice(-3);
 						this.searchPersona('rfc');
 					});
+				} else {
+					this.rfc = ''
+					this.homoclave = ''
 				}
 			},
 			buscarCarpetasFisica: function(param) {
@@ -432,12 +435,6 @@
 				}).then(response => {
 					if (response.data) {
 						this.$store.commit('asignarCarpetasLigadas', response.data)
-						// swal({
-						//     title: 'Hay carpteas ligadas a esta persona!',
-						//     text: 'Existen carpetas.',
-						//     type: 'success',
-						//     confirmButtonText: 'Ok'
-						// })                        
 					}
 				});
 			},
@@ -454,7 +451,7 @@
 				}
 			},
 			generarCurp: function() {
-				this.curp = '';
+				this.curp = ''
 				if ((this.sexo != null) && (this.sexo != undefined) && (this.sexo != '') && (this.sexo.id != 3)) {
 					var sex = '';
 					var edoArray = ['AS', 'BC', 'BS', 'CC', 'CS', 'CH', 'CL', 'CM', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS', 'NE'];
@@ -469,7 +466,7 @@
 						default:
 							sex = '';
 					}
-					if (this.nombres != '' && this.primerAp != '' && this.segundoAp != '' && this.fechaNacimiento != '' && this.estado != null && this.estado != '' && this.sexo != undefined & this.sexo != null) {
+					if (this.nombres != '' && this.primerAp != '' && this.fechaNacimiento != '' && this.estado != null && this.estado != '' && this.sexo != undefined & this.sexo != null) {
 						edo = edoArray[this.estado.id - 1];
 						var fecha = this.fechaNacimiento;
 						var arr = fecha.split('-');
@@ -553,29 +550,29 @@
 				var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
 				if (this.tipo == 'autoridad' || this.tipo == 'denunciado' || this.tipo == 'denunciante') {
 					var data = {
-						nombres: this.nombres.toUpperCase(),
-						primerAp: this.primerAp.toUpperCase(),
-						segundoAp: this.segundoAp.toUpperCase(),
-						fechaNacimiento: this.fechaNacimiento,
-						edad: this.edad,
-						sexo: this.sexo.id,
-						rfc: this.rfc,
-						homo: this.homoclave,
-						curp: this.curp,
-						idNacionalidad: this.nacionalidad.id,
-						idEstadoOrigen: this.estado.id,
-						idMunicipioOrigen: this.municipio.id,
-						idEtnia: this.etnia.id,
-						idLengua: this.lengua.id,
-						idInterprete: this.interprete.id,
-						motivoEstancia: this.motivoEstancia.toUpperCase(),
-						idOcupacion: this.ocupacion.id,
-						idEstadoCivil: this.estadoCivil.id,
-						idEscolaridad: this.escolaridad.id,
-						idReligion: this.religion.id,
-						docIdentificacion: this.identificacion.id,
-						numDocIdentificacion: this.numIdentificacion.toUpperCase(),
-						telefono: this.telefono,
+						nombres: (this.nombres) ? this.nombres.toUpperCase() : '',
+						primerAp: (this.primerAp) ? this.primerAp.toUpperCase() : '',
+						segundoAp: (this.segundoAp) ? this.segundoAp.toUpperCase() : '',
+						fechaNacimiento: (this.fechaNacimiento) ? this.fechaNacimiento : '',
+						edad: (this.edad) ? this.edad : '',
+						sexo: (this.sexo) ? this.sexo.id : '',
+						rfc: (this.rfc) ? this.rfc : '',
+						homo: (this.homoclave) ? this.homoclave : '',
+						curp: (this.curp) ? this.curp : '',
+						idNacionalidad: (this.nacionalidades) ? this.nacionalidad.id : '',
+						idEstadoOrigen: (this.estado) ? this.estado.id : '',
+						idMunicipioOrigen: (this.municipio) ? this.municipio.id : '',
+						idEtnia: (this.etnia) ? this.etnia.id : '',
+						idLengua: (this.lengua) ? this.lengua.id : '',
+						idInterprete: (this.interprete) ? this.interprete.id : '',
+						motivoEstancia: (this.motivoEstancia) ? this.motivoEstancia.toUpperCase() : '',
+						idOcupacion: (this.ocupacion) ? this.ocupacion.id : '',
+						idEstadoCivil: (this.estadoCivil) ? this.estadoCivil.id : '',
+						idEscolaridad: (this.escolaridad) ? this.escolaridad.id : '',
+						idReligion: (this.religion) ? this.religion.id : '',
+						docIdentificacion: (this.identificacion) ? this.identificacion.id : '',
+						numDocIdentificacion: (this.numIdentificacion) ? this.numIdentificacion.toUpperCase() : '',
+						telefono: (this.telefono) ? this.telefono : '',
 						sistema: this.sistema,
 						idPersona: this.$store.state.idPersonaFisica,
 						usuario: this.usuario,
@@ -587,17 +584,18 @@
 				} else if (this.tipo == 'conocido') {
 					if (this.nombres != '' || this.alias != '') {
 						var data = {
-							nombres: this.nombres.toUpperCase(),
-							primerAp: this.primerAp.toUpperCase(),
-							segundoAp: this.segundoAp.toUpperCase(),
-							alias: this.alias.toUpperCase(),
+							nombres: (this.nombres) ? this.nombres.toUpperCase() : '',
+							primerAp: (this.primerAp) ? this.primerAp.toUpperCase() : '',
+							segundoAp: (this.segundoAp) ? this.segundoAp.toUpperCase() : '',
+							alias: (this.alias) ? this.alias.toUpperCase() : '',
 							sistema: this.sistema,
 							idPersona: this.$store.state.idPersonaFisica,
 							usuario: this.usuario,
 							personaFisica: this.$store.state.personaFisica,
 							idDomicilio: this.$store.state.idDomicilioTemporal,
 							idTrabajo: this.$store.state.idTrabajoTemporal,
-							idNotificacion: this.$store.state.idContactoTemporal
+							idNotificacion: this.$store.state.idContactoTemporal,
+							idExtrasConocido: this.$store.state.idExtra
 						};
 					} else {
 						swal({
@@ -610,20 +608,20 @@
 					}
 				} else if (this.tipo == 'abogado') {
 					var data = {
-						nombres: this.nombres.toUpperCase(),
-						primerAp: this.primerAp.toUpperCase(),
-						segundoAp: this.segundoAp.toUpperCase(),
-						fechaNacimiento: this.fechaNacimiento,
-						sexo: this.sexo.id,
-						idEstadoOrigen: this.estado.id,
-						idMunicipioOrigen: this.municipio.id,
-						rfc: this.rfc,
-						homo: this.homoclave,
-						curp: this.curp,
-						idEstadoCivil: this.estadoCivil.id,
-						telefono: this.telefono,
+						nombres: (this.nombres) ? this.nombres.toUpperCase() : '',
+						primerAp: (this.primerAp) ? this.primerAp.toUpperCase() : '',
+						segundoAp: (this.segundoAp) ? this.segundoAp.toUpperCase() : '',
+						fechaNacimiento: (this.fechaNacimiento) ? this.fechaNacimiento : '',
+						sexo: (this.sexo) ? this.sexo.id : '',
+						idEstadoOrigen: (this.estado) ? this.estado.id : '',
+						idMunicipioOrigen: (this.municipio) ? this.municipio.id : '',
+						rfc: (this.rfc) ? this.rfc : '',
+						homo: (this.homoclave) ? this.homoclave : '',
+						curp: (this.curp) ? this.curp : '',
+						idEstadoCivil: (this.estadoCivil) ? this.estadoCivil.id : '',
+						telefono: (this.telefono) ? this.telefono : '',
+						edad: (this.edad) ? this.edad : '',
 						sistema: this.sistema,
-						edad: this.edad,
 						idPersona: this.$store.state.idPersonaFisica,
 						usuario: this.usuario,
 						personaFisica: this.$store.state.personaFisica,
@@ -631,31 +629,31 @@
 						idTrabajo: this.$store.state.idTrabajoTemporal,
 						idNotificacion: this.$store.state.idContactoTemporal
 					};
-				} else if (this.tipo == 'actashechos') {
+				} else if (this.tipo == 'actashechos' || this.tipo == 'actascircunstanciadas') {
 					var data = {
-						nombres: this.nombres.toUpperCase(),
-						primerAp: this.primerAp.toUpperCase(),
-						segundoAp: this.segundoAp.toUpperCase(),
-						fechaNacimiento: this.fechaNacimiento,
-						sexo: this.sexo.id,
-						idEstadoOrigen: this.estado.id,
-						idMunicipioOrigen: this.municipio.id,
-						rfc: this.rfc,
-						homo: this.homoclave,
-						curp: this.curp,
-						idNacionalidad: this.nacionalidad.id,
-						idEstadoCivil: this.estadoCivil.id,
-						idOcupacion: this.ocupacion.id,
-						idEscolaridad: this.escolaridad.id,
-						telefono: this.telefono,
-						edad: this.edad,
+						nombres: (this.nombres) ? this.nombres.toUpperCase() : '',
+						primerAp: (this.primerAp) ? this.primerAp.toUpperCase() : '',
+						segundoAp: (this.segundoAp) ? this.segundoAp.toUpperCase() : '',
+						fechaNacimiento: (this.fechaNacimiento) ? this.fechaNacimiento : '',
+						sexo: (this.sexo) ? this.sexo.id : '',
+						idEstadoOrigen: (this.estado) ? this.estado.id : '',
+						idMunicipioOrigen: (this.municipio) ? this.municipio.id : '',
+						rfc: (this.rfc) ? this.rfc : '',
+						homo: (this.homoclave) ? this.homoclave : '',
+						curp: (this.curp) ? this.curp : '',
+						idNacionalidad: (this.nacionalidad) ? this.nacionalidad.id : '',
+						idEstadoCivil: (this.estadoCivil) ? this.estadoCivil.id : '',
+						idOcupacion: (this.ocupacion) ? this.ocupacion.id : '',
+						idEscolaridad: (this.escolaridad) ? this.escolaridad.id : '',
+						telefono: (this.telefono) ? this.telefono : '',
+						edad: (this.edad) ? this.edad : '',
+						docIdentificacion: (this.identificacion)?this.identificacion.id:'',
+						numDocIdentificacion: (this.numIdentificacion) ? this.numIdentificacion.toUpperCase() : '',
 						idPersona: this.$store.state.idPersonaFisica,
 						personaFisica: this.$store.state.personaFisica,
 						idDomicilio: this.$store.state.idDomicilioTemporal,
 						idTrabajo: this.$store.state.idTrabajoTemporal,
 						idNotificacion: this.$store.state.idContactoTemporal,
-						docIdentificacion: this.identificacion.id,
-						numDocIdentificacion: this.numIdentificacion.toUpperCase(),
 						usuario: this.usuario,
 						sistema: this.sistema
 					};
@@ -676,6 +674,14 @@
 								})
 								if (this.tipo == 'conocido') {
 									this.$store.commit('asignarIdExtra', response.data.original.idExtra)
+								} else if (this.tipo == 'qrr' && response.data.original.idPersona == false && response.data.original.idVarPersona == false) {
+									swal({
+										title: '¡No fue posible guardar!',
+										text: 'Ya existe un qrr registrado en esta carpeta.',
+										type: 'warning',
+										confirmButtonText: 'Ok'
+									})
+									return
 								}
 								swal({
 									title: '¡Guardado correctamente!',
@@ -696,7 +702,9 @@
 								})
 							}
 						}).catch((error) => {
-							this.validacionesback = error.response.data.errors;
+							if (error.response.data.errors) {
+								this.validacionesback = error.response.data.errors;
+							}
 							swal({
 								title: '¡Guardado incorrecto!',
 								text: 'Ésta persona no fue posible guardarla.',
@@ -716,7 +724,7 @@
 			},
 			lengua() {
 				if (this.lengua != null && this.lengua != '') {
-					if (this.lengua.id != 69 && this.lengua.id != 70) {
+					if (this.lengua.id != 69 && this.lengua.id != 70 && this.validaciones.idLengua != 'oculto') {
 						this.validaciones.idInterprete = '';
 					} else {
 						this.validaciones.idInterprete = 'oculto';

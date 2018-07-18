@@ -20,3 +20,34 @@ Route::get('registroAutoridad', function(){
 Route::get('registroActasHechos', function(){
     return view('registroActasHechos');
 });
+
+Route::get('registroActasCircunstanciadas', function(){
+    return view('registroActasCircunstanciadas');
+});
+
+
+// ::::::::::::::::::REDIRECCIONES::::::::::::::.:::
+Route::get('denunciante', function(){
+    return redirect('http://localhost/componentes/public/registroDenunciante');
+});
+
+Route::get('denunciado', function(){
+    return redirect('http://localhost/componentes/public/registroDenunciado');
+});
+
+Route::get('abogado', function(){
+    return redirect('http://localhost/componentes/public/registroAbogado');
+});
+
+Route::get('autoridad', function(){
+    return redirect('http://localhost/componentes/public/registroAutoridad');
+});
+
+Route::get('actasHechos', function(){
+    return redirect('http://localhost/componentes/public/registroActasHechos');
+});
+
+Route::get('actasCircunstanciadas', function(){
+    return redirect('http://localhost/componentes/public/registroActasCircunstanciadas');
+});
+// ::::::::::::::::::REDIRECCIONES::::::::::::::.:::

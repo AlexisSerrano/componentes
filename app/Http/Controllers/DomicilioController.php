@@ -274,6 +274,14 @@ class DomicilioController extends Controller
             return response()->json($municipios);
         }
     }
+    public function getCatalogosDomicilios(Request $request){
+        $data = array(
+        'localidades' => domicilioController::getLocalidades($request->id),
+		'codigosPostales' => domicilioController::getCodigosPostales($request),
+		'colonias' => domicilioController::getColonias($request),
+		);
+		return response()->json($data);
+    }
     public function getLocalidades($id){
         if($id==null){
             return array();
@@ -285,27 +293,27 @@ class DomicilioController extends Controller
             return response()->json($localidades);
         }
     }
-    public function getCodigosPostales($id){
-        if($id==null){
+    public function getCodigosPostales(Request $request){
+        if($request->id==null){
             return array();
         }
         else{
             $codigosPostales=CatColonia::orderBy('codigoPostal', 'ASC')
-            ->where('idMunicipio',$id)
-            ->where('codigoPostal', '!=', 0)
+            ->where($request->busqueda,$request->id)
+            // ->where('codigoPostal', '!=', 0)
             ->select('codigoPostal','codigoPostal as id')
             ->groupBy('codigoPostal')
             ->get();
             return response()->json($codigosPostales);
         }
     }
-    public function getColonias($id){
-        if($id==null){
+    public function getColonias(Request $request){
+        if($request->id==null){
             return array();
         }
         else{
             $colonias=CatColonia::orderBy('nombre', 'ASC')
-            ->where('codigoPostal',$id)
+            ->where($request->busqueda,$request->id)
             ->select('nombre','id')->get();
             return response()->json($colonias);
         }

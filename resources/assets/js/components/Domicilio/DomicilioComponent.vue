@@ -23,15 +23,14 @@
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="municipio">Municipio</label>
-                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getLocalidades" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || this.validacionesback.idMunicipio}" placeholder="Seleccione un municipio"
+                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getCatalogosDomicilios" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || this.validacionesback.idMunicipio}" placeholder="Seleccione un municipio"
                         :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
                     <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
                     <span v-if="this.validacionesback.idMunicipio!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipio)}}</span>
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="localidad">Localidad</label>
-                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') || this.validacionesback.idLocalidad}" placeholder="Seleccione una localidad"
-                        :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
+                    <v-select :options="localidades" label="nombre" v-model="localidad" name="localidad" v-validate="'required'" :class="{ 'border border-danger': errors.has('localidad') || this.validacionesback.idLocalidad}" placeholder="Seleccione una localidad" :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
                     <span v-show="errors.has('localidad')" class="text-danger">{{ errors.first('localidad')}}</span>
                     <span v-if="this.validacionesback.idLocalidad!=undefined" class="text-danger">{{ String(this.validacionesback.idLocalidad)}}</span>
                 </div>
@@ -47,7 +46,8 @@
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="colonia">Colonia</label>
-                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia" v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') || this.validacionesback.idColonia}" placeholder="Seleccione una colonia" :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
+                    <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') || this.validacionesback.idColonia}" placeholder="Seleccione una colonia"
+                        :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
                     <span v-show="errors.has('colonia')" class="text-danger">{{ errors.first('colonia')}}</span>
                     <span v-if="this.validacionesback.idColonia!=undefined" class="text-danger">{{ String(this.validacionesback.idColonia)}}</span>
                 </div>
@@ -64,13 +64,16 @@
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="numExterno">Número externo</label>
                     <input type="text" data-vv-name="Número externo" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Número externo') || this.validacionesback.numExterno}" v-model="numExterno" placeholder="Ingrese el número externo"
-                        v-validate="'required'" autocomplete="off" :readonly="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false">
+                        v-validate="'max:10'" autocomplete="off" :readonly="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false">
                     <span v-show="errors.has('Número externo')" class="text-danger">{{ errors.first('Número externo')}}</span>
                     <span v-if="this.validacionesback.numExterno!=undefined" class="text-danger">{{ String(this.validacionesback.numExterno)}}</span>
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="numInterno">Número interno</label>
-                    <input type="text" name="numInterno" class="input form-control form-control-sm" v-model="numInterno" placeholder="Ingrese el número interno" autocomplete="off" :readonly="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false">
+                    <input type="text" data-vv-name="Número interno" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Número interno') || this.validacionesback.numInterno}" v-model="numInterno" placeholder="Ingrese el número interno"
+                        v-validate="'max:10'" autocomplete="off" :readonly="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false">
+                    <span v-show="errors.has('Número interno')" class="text-danger">{{ errors.first('Número interno')}}</span>
+                    <span v-if="this.validacionesback.numInterno!=undefined" class="text-danger">{{ String(this.validacionesback.numInterno)}}</span>
                 </div>
                 <div v-if="this.tipo!='domicilio'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
@@ -97,7 +100,7 @@
 </template>
 
 <script>
-	import urlComponentes from '../../urlComponentes'
+    import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     import {
         SpringSpinner
@@ -114,7 +117,7 @@
                 },
                 notificacion: '',
                 notificaciones: [{
-                        "nombre": "DOMICILIO CASA",
+                        "nombre": (this.empresa == false) ? "DOMICILIO CASA" : "DOMICILIO EMPRESA",
                         "id": 1
                     },
                     {
@@ -131,6 +134,8 @@
                 localidades: [],
                 codigosPostales: [],
                 colonias: [],
+                codigosPostalesMunicipio: [],
+                coloniasMunicipio: [],
                 calle: '',
                 numExterno: '',
                 numInterno: '',
@@ -154,7 +159,7 @@
         },
         methods: {
             getEstados: function() {
-                var urlEstados = this.url + '/getEstados/';
+                var urlEstados = this.url + '/getEstados';
                 axios.get(urlEstados).then(response => {
                     this.estados = response.data
                     var self = this;
@@ -173,33 +178,52 @@
                     this.municipios = response.data
                 });
             },
-            getLocalidades: function() {
-                this.cleanSelect('localidad')
+            getCatalogosDomicilios: function() {
+                this.cleanSelect('catalogos')
                 if (this.municipio == null) {
                     return
                 }
-                var urlLocalidades = this.url + '/getLocalidades/' + this.municipio.id;
-                axios.get(urlLocalidades).then(response => {
-                    this.localidades = response.data
+                var urlCatalogos = this.url + '/getCatalogosDomicilios'
+                axios.post(urlCatalogos, {
+                    id: this.municipio.id,
+                    busqueda: 'idMunicipio'
+                }).then(response => {
+                    this.localidades = response.data['localidades'].original
+                    this.codigosPostales = response.data['codigosPostales'].original
+                    this.colonias = response.data['colonias'].original
+                    this.codigosPostalesMunicipio = response.data['codigosPostales'].original
+                    this.coloniasMunicipio = response.data['colonias'].original
                 });
             },
             getCodigosPostales: function() {
-                this.cleanSelect('codigoPostal')
-                if (this.localidad == null) {
+                if (this.colonia == null || this.colonia == '') {
+                    this.cleanSelect('codigoPostal')
+                    this.codigosPostales = this.codigosPostalesMunicipio
+                    this.colonias = this.coloniasMunicipio
                     return
                 }
-                var urlCodigosPostales = this.url + '/getCodigosPostales/' + this.municipio.id;
-                axios.get(urlCodigosPostales).then(response => {
+                var urlCodigosPostales = this.url + '/getCodigosPostales'
+                axios.post(urlCodigosPostales, {
+                    id: this.colonia.id,
+                    busqueda: 'id'
+                }).then(response => {
                     this.codigosPostales = response.data
+                    this.codigoPostal = this.codigosPostales[0]
                 });
             },
+    
             getColonias: function() {
-                this.cleanSelect('colonia')
-                if (this.codigoPostal == null) {
+                if (this.codigoPostal == null || this.codigoPostal == '') {
+                    this.cleanSelect('colonia')
+                    this.codigosPostales = this.codigosPostalesMunicipio
+                    this.colonias = this.coloniasMunicipio
                     return
                 }
-                var urlColonias = this.url + '/getColonias/' + this.codigoPostal.id;
-                axios.get(urlColonias).then(response => {
+                var urlColonias = this.url + '/getColonias'
+                axios.post(urlColonias, {
+                    id: this.codigoPostal.id,
+                    busqueda: 'codigoPostal'
+                }).then(response => {
                     this.colonias = response.data
                 });
                 this.loadingFields = false
@@ -227,28 +251,30 @@
                 }
                 if (select == 'municipio') {
                     this.municipio = null
-                    this.localidad = null,
-                        this.codigoPostal = null,
-                        this.colonia = null,
-                        this.municipios = [],
-                        this.localidades = [],
-                        this.codigosPostales = [],
-                        this.colonias = []
-                } else if (select == 'localidad') {
-                    this.localidad = null,
-                        this.codigoPostal = null,
-                        this.colonia = null,
-                        this.localidades = [],
-                        this.codigosPostales = [],
-                        this.colonias = []
+                    this.localidad = null
+                    this.codigoPostal = null
+                    this.colonia = null
+                    this.municipios = []
+                    this.localidades = []
+                    this.codigosPostales = []
+                    this.colonias = []
+                } else if (select == 'catalogos') {
+                    this.localidad = null
+                    this.codigoPostal = null
+                    this.colonia = null
+                    this.localidades = []
+                    this.codigosPostales = []
+                    this.colonias = []
                 } else if (select == 'codigoPostal') {
-                    this.codigoPostal = null,
-                        this.colonia = null,
-                        this.codigosPostales = [],
-                        this.colonias = []
+                    this.colonia = null
+                    this.colonias = []
+                    this.codigoPostal = null
+                    this.codigosPostales = []
                 } else if (select == 'colonia') {
-                    this.colonia = null,
-                        this.colonias = []
+                    this.codigoPostal = null
+                    this.codigosPostales = []
+                    this.colonia = null
+                    this.colonias = []
                 }
             },
             setFormContact() {
@@ -292,9 +318,9 @@
                         localidad: this.localidad.id,
                         colonia: this.colonia.id,
                         codigoPostal: this.codigoPostal.id,
-                        calle: this.calle.toUpperCase(),
-                        numExterno: this.numExterno.toUpperCase(),
-                        numInterno: this.numInterno.toUpperCase(),
+                        calle: (this.calle) ? this.calle.toUpperCase() : '',
+                        numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
+                        numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
                         tipo: this.tipo,
                         empresa: this.empresa,
                         idPersona: idPersona,
@@ -309,11 +335,11 @@
                         localidad: this.localidad.id,
                         colonia: this.colonia.id,
                         codigoPostal: this.codigoPostal.id,
-                        calle: this.calle.toUpperCase(),
-                        numExterno: this.numExterno.toUpperCase(),
-                        numInterno: this.numInterno.toUpperCase(),
+                        calle: (this.calle) ? this.calle.toUpperCase() : '',
+                        numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
+                        numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
                         telefonoTrabajo: this.telefono,
-                        lugarTrabajo: this.lugarTrabajo.toUpperCase(),
+                        lugarTrabajo: (this.lugarTrabajo) ? this.lugarTrabajo.toUpperCase() : '',
                         tipo: this.tipo,
                         empresa: this.empresa,
                         idPersona: idPersona,
@@ -329,11 +355,11 @@
                         localidad: (this.localidad) ? this.localidad.id : '',
                         colonia: (this.colonia) ? this.colonia.id : '',
                         codigoPostal: (this.codigoPostal) ? this.codigoPostal.id : '',
-                        calle: this.calle.toUpperCase(),
-                        numExterno: this.numExterno.toUpperCase(),
-                        numInterno: this.numInterno.toUpperCase(),
+                        calle: (this.calle) ? this.calle.toUpperCase() : '',
+                        numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
+                        numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
                         telefonoContacto: this.telefono,
-                        correoContacto: this.correo.toUpperCase(),
+                        correoContacto: (this.correo) ? this.correo.toUpperCase() : '',
                         tipo: this.tipo,
                         empresa: this.empresa,
                         idPersona: idPersona,
@@ -357,7 +383,9 @@
                         type: 'success',
                         confirmButtonText: 'Ok'
                     }).catch((error) => {
-                        this.validacionesback = error.response.data.errors
+                        if (error.response.data.errors) {
+                            this.validacionesback = error.response.data.errors
+                        }
                         swal({
                             title: '¡Guardado Incorrecto!',
                             text: 'Éste domicilio no fue posible guardarse.',
@@ -393,7 +421,7 @@
             moralEncontrada() {
                 if (this.empresa == true) {
                     this.notificaciones = [{
-                            "nombre": "DOMICILIO CASA",
+                            "nombre": "DOMICILIO EMPRESA",
                             "id": 1
                         },
                         {

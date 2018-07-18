@@ -68,24 +68,29 @@
                 var data = {
                     idExtrasConocido: this.$store.state.idExtra,
                     idPersona: idPersona,
-                    particulares: particulares,
+                    particulares: this.particulares,
                     sistema: this.sistema,
                     usuario: this.systemUser,
                     idCarpeta: this.carpeta,
                     empresa: this.empresa,
                     tipo: 'conocido'
                 };
-                axios.post(urlGuardarAutoridad, data)
+                axios.post(urlGuardarConocido, data)
                     .then(response => {
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
                             //this.$store.commit('cleanStore')                                         
                             swal({
-                                title: '¡Guardado correctamente!',
-                                text: 'Ésta persona fue guardada exitosamente.',
-                                type: 'success',
-                                confirmButtonText: 'Ok'
-                            })
+                                    title: 'Conocido guardado correctamente!',
+                                    text: 'Haz finalizado el registro del conocido exitosamente.',
+                                    type: 'success',
+                                    confirmButtonText: 'Ok'
+                                })
+                                .then((result) => {
+                                    if (result.value) {
+                                        window.location.href = window.location;
+                                    }
+                                })
                         } else {
                             swal({
                                 title: '¡Guardado incorrecto!',

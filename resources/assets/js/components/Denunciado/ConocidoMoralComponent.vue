@@ -25,10 +25,10 @@
                 <personamoral :sistema="sistema" :carpeta="carpeta" :tipo="'conocidomoral'" :usuario="usuario"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-conocido-domicilioMoral" role="tabpanel" aria-labelledby="conocido-domicilioMoral-tab">
-                <domicilio :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-if="this.$store.state.idPersonaMoral" :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-conocido-extraMoral" role="tabpanel-Moral" aria-labelledby="conocido-extraMoral-tab">
-                <extrasconocido :sistema="sistema" :empresa="true" :carpeta="carpeta" :usuario="usuario"></extrasconocido>
+                <extrasconocido v-if="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :carpeta="carpeta" :usuario="usuario"></extrasconocido>
             </div>
         </div>
         <!-- OPCIONES -->

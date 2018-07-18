@@ -30,11 +30,12 @@ class ActasHechosMoralRequest extends FormRequest
             'fechaCreacion' => 'required',
             'rfc' => 'alpha_num|min:8|max:20|required',
             'homo' => 'size:3|required',
-            'docIdentificaciones' => 'required',
+            'docIdentificacion' => 'required',
             'numDocIdentificacion' => 'required',
             'nombreRep' => 'required',
             'primerApRep' => 'required',
             'segundoApRep' => '',
+            'telefono' => 'required'
         ];
     }
 
@@ -54,8 +55,9 @@ class ActasHechosMoralRequest extends FormRequest
             'nombreRep.required' => 'El nombre del representante legal es requerido',
             'primerApRep.required' => 'El primer apellido del representante legal es requerido',
             'segundoApRep.required' => 'El segundo apellido del representante legal es requerido',
-            'docIdentificacion' => 'El Documento de identificación es requerido',
-            'numDocIdentificacion' => 'El número de identificación es requerido'
+            'docIdentificacion.required' => 'El Documento de identificación es requerido',
+            'numDocIdentificacion.required' => 'El número de identificación es requerido',
+            'telefono.required' => 'El número de identificación es requerido'
         ];  
     }
 }

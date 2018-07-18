@@ -23,8 +23,8 @@ function saveInApariciones(String $sistema,$idCarpeta,$idPersona,$tipo,$nuc,$emp
 	try{
 		$apariciones = new aparicionesModel();
 		$apariciones->idVarPersona = $idPersona;
-		//$apariciones->idCarpeta = $idCarpeta;
-		$apariciones->idCarpeta = rand(100000, 999999);
+		$apariciones->idCarpeta = $idCarpeta;
+		//$apariciones->idCarpeta = rand(100000, 999999);
 		$apariciones->sistema = $sistema;
 		$apariciones->tipoInvolucrado = $tipo;
 		$apariciones->nuc = $nuc;

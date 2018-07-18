@@ -45,34 +45,36 @@
                 </div>
     
     
-                <div class="form-group col-md-4">
+                <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="nombresRep">Nombres del representante</label>
                     <input type="text" name="nombresRep" data-vv-name="nombre del representante" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombre del representante')}" v-model="nombresRep" placeholder="Ingrese los nombre del representante"
                         v-validate="'required'" autocomplete="off">
                     <span v-show="errors.has('nombre del representante')" class="text-danger">{{ errors.first('nombre del representante')}}</span>
                 </div>
     
-                <div class="form-group col-md-4">
+                <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="primerApRep">Primer apellido del representante</label>
                     <input type="text" name="primerApRep" data-vv-name="primer apellido del representante" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido del representante')}" v-model="primerApRep" placeholder="Ingrese el primer apellido del representante"
                         v-validate="'required'" autocomplete="off">
                     <span v-show="errors.has('primer apellido del representante')" class="text-danger">{{ errors.first('primer apellido del representante')}}</span>
                 </div>
     
-                <div class="form-group col-md-4">
+                <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="segundoApRep">Segundo apellido del representante</label>
                     <input type="text" name="segundoApRep" data-vv-name="segundo apellido del representante" class="input form-control form-control-sm" v-model="segundoApRep" placeholder="Ingrese el segundo apellido del representante" autocomplete="off">
                 </div>
     
-    
-                <div class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="identificación">Identificación</label>
-                    <v-select :options="identificaciones" label="documento" v-model="identificacion" name="identificación" placeholder="Seleccione una identificación"></v-select>
+                <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="identificacion">Identificación</label>
+                    <v-select :options="identificaciones" label="documento" v-model="identificacion" name="Identificación" v-validate="(this.tipo=='denunciantemoral')?'required':''" :class="{ 'border border-danger rounded': errors.has('Identificación')}" placeholder="Seleccione una Identificación"></v-select>
+                    <span v-if="this.tipo=='denunciantemoral'" v-show="errors.has('Identificación')" class="text-danger">{{ errors.first('Identificación')}}</span>
                 </div>
     
-                <div class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="numIdentificacion">Número de identificación</label>
-                    <input type="text" class="input form-control form-control-sm" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" autocomplete="off">
+                <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="número de identificación">Número de identificación</label>
+                    <input type="text" v-model="numIdentificacion" placeholder="Ingrese el número de identificación" name="número de identificación" v-validate="(this.tipo=='denunciantemoral')?'required':''" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('número de identificación')}"
+                        autocomplete="off">
+                    <span v-if="this.tipo=='denunciantemoral'" v-show="errors.has('número de identificación')" class="text-danger">{{ errors.first('número de identificación')}}</span>
                 </div>
     
             </div>
@@ -147,15 +149,15 @@
                                 confirmButtonText: 'Ok'
                             })
                             this.nombre = this.personaExiste.nombre,
-                            this.fechaCreacion = this.personaExiste.fechaCreacion,
-                            this.rfc = this.personaExiste.rfc.slice(0, -3),
-                            this.homoclave = this.personaExiste.rfc.slice(-3),
-                            this.telefono = this.personaExiste.telefono,
-                            this.nombresRep = this.personaExiste.nombreRep,
-                            this.primerApRep = this.personaExiste.primerApRep,
-                            this.segundoApRep = this.personaExiste.segundoApRep,
-                            this.identificacion = this.personaExiste.docIdentificacion,
-                            this.numIdentificacion = this.personaExiste.numDocIdentificacion
+                                this.fechaCreacion = this.personaExiste.fechaCreacion,
+                                this.rfc = this.personaExiste.rfc.slice(0, -3),
+                                this.homoclave = this.personaExiste.rfc.slice(-3),
+                                this.telefono = this.personaExiste.telefono,
+                                this.nombresRep = this.personaExiste.nombreRep,
+                                this.primerApRep = this.personaExiste.primerApRep,
+                                this.segundoApRep = this.personaExiste.segundoApRep,
+                                this.identificacion = this.personaExiste.docIdentificacion,
+                                this.numIdentificacion = this.personaExiste.numDocIdentificacion
                         }
                     });
                 }
@@ -189,12 +191,6 @@
                 }).then(response => {
                     if (response.data) {
                         this.$store.commit('asignarCarpetasLigadas', response.data)
-                        // swal({
-                        //     title: 'Hay carpteas ligadas a esta persona!',
-                        //     text: 'Existen carpetas.',
-                        //     type: 'success',
-                        //     confirmButtonText: 'Ok'
-                        // })
                     }
                 });
             },
@@ -211,7 +207,7 @@
                     })
             },
             getIdentificaciones() {
-                var urlIdentificaciones = this.url + '/getIdentificaciones/';
+                var urlIdentificaciones = this.url + '/getIdentificaciones';
                 axios.get(urlIdentificaciones).then(response => {
                     this.identificaciones = response.data
                 });
@@ -254,15 +250,15 @@
                         homo: this.homoclave,
                         telefono: this.telefono,
                         docIdentificacion: this.identificacion.id,
-                        numDocIdentificacion: this.numIdentificacion.toUpperCase(),
+                        numDocIdentificacion: (this.numIdentificacion)?this.numIdentificacion.toUpperCase():'',
                         sistema: this.sistema,
                         idPersona: this.$store.state.idPersonaMoral,
                         usuario: this.usuario,
                         personaMoral: this.$store.state.personaMoral,
                         idDomicilio: this.$store.state.idDomicilioTemporal,
-                        nombreRep: this.nombresRep.toUpperCase(),
-                        primerApRep: this.primerApRep.toUpperCase(),
-                        segundoApRep: this.segundoApRep.toUpperCase(),
+                        nombreRep: (this.nombresRep)?this.nombresRep.toUpperCase():'',
+                        primerApRep: (this.primerApRep)?this.primerApRep.toUpperCase():'',
+                        segundoApRep: (this.segundoApRep)?this.segundoApRep.toUpperCase():'',
                         idNotificacion: this.$store.state.idContactoTemporal
                     };
                 } else {
@@ -303,7 +299,9 @@
                             })
                         }
                     }).catch((error) => {
-                        this.validacionesback = error.response.data.errors
+                        if (error.response.data.errors) {
+                            this.validacionesback = error.response.data.errors
+                        }
                         swal({
                             title: '¡Guardado incorrecto!',
                             text: 'Ésta persona moral no fue posible guardarla.',

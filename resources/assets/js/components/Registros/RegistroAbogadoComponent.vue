@@ -34,13 +34,13 @@
                 <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'abogado'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-abogado-trabajo" role="tabpanel" aria-labelledby="abogado-trabajo-tab">
-                <domicilio :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-abogado-extra" role="tabpanel-fisico" aria-labelledby="abogado-extra-tab">
-                <extrasabogado :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></extrasabogado>
+                <extrasabogado v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></extrasabogado>
             </div>
             <div class="tab-pane fade" id="pills-abogado-carpetasLigadas" role="tabpanel-fisico" aria-labelledby="abogado-carpetasLigadas-tab">
-                <notificaciones :tipo="'fisica'"></notificaciones>
+                <notificaciones v-if="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->

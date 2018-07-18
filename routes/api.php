@@ -44,6 +44,7 @@ Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
 Route::post('qrruat','ValidacionController@valQrrUAT');
 Route::post('actashechosuat','ValidacionController@valActasHechosFUAT');
 Route::post('actashechosmoraluat','ValidacionController@valActasHechosMUAT');
+Route::post('actascircunstanciadasuat','ValidacionController@valActasCircunstanciadasFUAT');
 
 /*API UAT*/
 Route::post('getDenunciantesCarpetaUAT','ApiControllerUAT@getDenunciantesCarpeta');
@@ -73,6 +74,7 @@ Route::post('addExtrasDenunciado','ExtrasInvestigadoController@addExtrasDenuncia
 Route::post('addExtrasAbogado','ExtrasAbogadoController@addExtrasAbogado');
 Route::post('addExtrasAutoridad','ExtrasAutoridadController@addExtrasAutoridad');
 Route::post('addExtrasActasHechos','ExtrasActasHechosController@addExtrasActasHechos');
+Route::post('addExtrasConocido','ExtrasInvestigadoController@addExtrasConocido');
 /*Rutas para el componente  familiar*/
 Route::post('getInvolucrados','FamiliarController@getInvolucrados');
 Route::post('saveFamiliar','FamiliarController@saveFamiliar');
@@ -80,7 +82,7 @@ Route::post('saveFamiliar','FamiliarController@saveFamiliar');
 /*URLS PARA SELECTS DOMICILIO */
 Route::get('getEstados','DomicilioController@getEstados');
 Route::get('getMunicipios/{id}','DomicilioController@getMunicipios');
-Route::get('getLocalidades/{id}','DomicilioController@getLocalidades');
-Route::get('getColonias/{id}','DomicilioController@getColonias');
-Route::get('getCodigosPostales/{id}','DomicilioController@getCodigosPostales');
+Route::post('getColonias','DomicilioController@getColonias');
+Route::post('getCodigosPostales','DomicilioController@getCodigosPostales');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
+Route::post('getCatalogosDomicilios','DomicilioController@getCatalogosDomicilios');
