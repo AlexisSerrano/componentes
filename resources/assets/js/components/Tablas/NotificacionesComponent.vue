@@ -55,9 +55,8 @@
                         <td>{{ value.sistema }}</td>
                         <td>{{ value.tipoInvolucrado }}</td>
                         <td>{{ value.nuc }}</td>
-                        <td>
-                            <icon name="folder-open" :style="{color:(value.tipoDeterminacion=='INICIADA')?'yellow':''}"></icon>
-                            {{ value.tipoDeterminacion }}
+                        <td> {{ value.determinacion }}
+                            <icon name="folder-open" :style="{color:(value.determinacion=='INICIADA')?'yellow':''}"></icon>
                         </td>
                     </tr>
                     <tr v-show="carpetas==''">

@@ -114,7 +114,7 @@
                 },
                 notificacion: '',
                 notificaciones: [{
-                        "nombre": "DOMICILIO CASA",
+                        "nombre": (this.empresa==false)?"DOMICILIO CASA":"DOMICILIO EMPRESA",
                         "id": 1
                     },
                     {
@@ -418,7 +418,7 @@
             moralEncontrada() {
                 if (this.empresa == true) {
                     this.notificaciones = [{
-                            "nombre": "DOMICILIO CASA",
+                            "nombre": "DOMICILIO EMPRESA",
                             "id": 1
                         },
                         {
