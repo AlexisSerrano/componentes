@@ -64,13 +64,16 @@
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="numExterno">Número externo</label>
                     <input type="text" data-vv-name="Número externo" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Número externo') || this.validacionesback.numExterno}" v-model="numExterno" placeholder="Ingrese el número externo"
-                        v-validate="'required'" autocomplete="off" :readonly="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false">
+                        v-validate="'max:10'" autocomplete="off" :readonly="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false">
                     <span v-show="errors.has('Número externo')" class="text-danger">{{ errors.first('Número externo')}}</span>
                     <span v-if="this.validacionesback.numExterno!=undefined" class="text-danger">{{ String(this.validacionesback.numExterno)}}</span>
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="numInterno">Número interno</label>
-                    <input type="text" name="numInterno" class="input form-control form-control-sm" v-model="numInterno" placeholder="Ingrese el número interno" autocomplete="off" :readonly="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false">
+                    <input type="text" data-vv-name="Número interno" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('Número interno') || this.validacionesback.numInterno}" v-model="numInterno" placeholder="Ingrese el número interno"
+                        v-validate="'max:10'" autocomplete="off" :readonly="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false">
+                    <span v-show="errors.has('Número interno')" class="text-danger">{{ errors.first('Número interno')}}</span>
+                    <span v-if="this.validacionesback.numInterno!=undefined" class="text-danger">{{ String(this.validacionesback.numInterno)}}</span>
                 </div>
                 <div v-if="this.tipo!='domicilio'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
@@ -114,7 +117,7 @@
                 },
                 notificacion: '',
                 notificaciones: [{
-                        "nombre": (this.empresa==false)?"DOMICILIO CASA":"DOMICILIO EMPRESA",
+                        "nombre": (this.empresa == false) ? "DOMICILIO CASA" : "DOMICILIO EMPRESA",
                         "id": 1
                     },
                     {
@@ -315,8 +318,8 @@
                         localidad: this.localidad.id,
                         colonia: this.colonia.id,
                         codigoPostal: this.codigoPostal.id,
-                        calle: this.calle.toUpperCase(),
-                        numExterno: this.numExterno.toUpperCase(),
+                        calle: (this.calle) ? this.calle.toUpperCase() : '',
+                        numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
                         numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
                         tipo: this.tipo,
                         empresa: this.empresa,
@@ -332,11 +335,11 @@
                         localidad: this.localidad.id,
                         colonia: this.colonia.id,
                         codigoPostal: this.codigoPostal.id,
-                        calle: this.calle.toUpperCase(),
-                        numExterno: this.numExterno.toUpperCase(),
+                        calle: (this.calle) ? this.calle.toUpperCase() : '',
+                        numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
                         numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
                         telefonoTrabajo: this.telefono,
-                        lugarTrabajo: this.lugarTrabajo.toUpperCase(),
+                        lugarTrabajo: (this.lugarTrabajo) ? this.lugarTrabajo.toUpperCase() : '',
                         tipo: this.tipo,
                         empresa: this.empresa,
                         idPersona: idPersona,
@@ -352,8 +355,8 @@
                         localidad: (this.localidad) ? this.localidad.id : '',
                         colonia: (this.colonia) ? this.colonia.id : '',
                         codigoPostal: (this.codigoPostal) ? this.codigoPostal.id : '',
-                        calle: this.calle.toUpperCase(),
-                        numExterno: this.numExterno.toUpperCase(),
+                        calle: (this.calle) ? this.calle.toUpperCase() : '',
+                        numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
                         numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
                         telefonoContacto: this.telefono,
                         correoContacto: (this.correo) ? this.correo.toUpperCase() : '',
