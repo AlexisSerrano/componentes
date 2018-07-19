@@ -40,7 +40,7 @@ class ExtrasInvestigadoController extends Controller{
                 $tipo=($request->empresa)?"extra_denunciado_moral":"extra_denunciado_fisico"; 
             }     
             $extraDenunciado->idPuesto = $request->idPuesto;
-            $extraDenunciado->alias = $request->alias;
+            $extraDenunciado->alias = ($request->alias=='')?'SIN INFORMACIÓN':$request->alias;
             $extraDenunciado->senasPartic = $request->particulares;
             $extraDenunciado->ingreso = $request->ingreso;
             $extraDenunciado->periodoIngreso = $request->periodoIngreso;
