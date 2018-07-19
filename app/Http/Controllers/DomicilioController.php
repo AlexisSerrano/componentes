@@ -190,7 +190,9 @@ class DomicilioController extends Controller
             $domicilio->idLocalidad=$request->input('localidad');
             $domicilio->idColonia=$request->input('colonia');
             $domicilio->calle=$request->input('calle');
-            $domicilio->numExterno=$request->input('numExterno');
+            if($request->input('numExterno')!=null){
+                $domicilio->numExterno=$request->input('numExterno');
+            }
             if($request->input('numInterno')!=null){
                 $domicilio->numInterno=$request->input('numInterno');
             }
