@@ -19,7 +19,7 @@ class CreateExtraDenunciadoMoralTable extends Migration
             //$table->integer('idNotificacion')->unsigned();
             $table->integer('idPuesto')->unsigned()->default(9)->nullable();
             $table->string('alias', 50)->default("SIN INFORMACION");
-            $table->string('senasPartic', 150)->default("SIN INFORMACION");
+            $table->text('senasPartic');
             $table->integer('ingreso')->default(0);
             $table->string('periodoIngreso', 20)->default("SIN INFORMACION");
             $table->string('residenciaAnterior', 100)->default("SIN INFORMACION");

@@ -242,34 +242,24 @@
             CrearEmpresa: function() {
                 this.validacionesback = '';
                 var urlCrearMoral = this.url + '/' + this.tipo + this.sistema;
-                if (this.tipo != 'conocidomoral') {
-                    var data = {
-                        nombre: this.nombre.toUpperCase(),
-                        fechaCreacion: this.fechaCreacion,
-                        rfc: this.rfc,
-                        homo: this.homoclave,
-                        telefono: this.telefono,
-                        docIdentificacion: this.identificacion.id,
-                        numDocIdentificacion: (this.numIdentificacion)?this.numIdentificacion.toUpperCase():'',
-                        sistema: this.sistema,
-                        idPersona: this.$store.state.idPersonaMoral,
-                        usuario: this.usuario,
-                        personaMoral: this.$store.state.personaMoral,
-                        idDomicilio: this.$store.state.idDomicilioTemporal,
-                        nombreRep: (this.nombresRep)?this.nombresRep.toUpperCase():'',
-                        primerApRep: (this.primerApRep)?this.primerApRep.toUpperCase():'',
-                        segundoApRep: (this.segundoApRep)?this.segundoApRep.toUpperCase():'',
-                        idNotificacion: this.$store.state.idContactoTemporal
-                    };
-                } else {
-                    var data = {
-                        nombre: this.nombre.toUpperCase(),
-                        sistema: this.sistema,
-                        idPersonaMoral: this.$store.state.idPersonaMoral,
-                        usuario: this.usuario,
-                        personaMoral: this.$store.state.personaMoral
-                    };
-                }
+                var data = {
+                    nombre: (this.nombre) ? this.nombre.toUpperCase() : '',
+                    fechaCreacion: (this.fechaCreacion) ? this.fechaCreacion : '',
+                    rfc: (this.rfc) ? this.rfc : '',
+                    homo: (this.homoclave) ? this.homoclave : '',
+                    telefono: (this.telefono) ? this.telefono : '',
+                    docIdentificacion: (this.identificacion) ? this.identificacion.id : '',
+                    numDocIdentificacion: (this.numIdentificacion) ? this.numIdentificacion.toUpperCase() : '',
+                    nombreRep: (this.nombresRep) ? this.nombresRep.toUpperCase() : '',
+                    primerApRep: (this.primerApRep) ? this.primerApRep.toUpperCase() : '',
+                    segundoApRep: (this.segundoApRep) ? this.segundoApRep.toUpperCase() : '',
+                    sistema: this.sistema,
+                    idPersona: this.$store.state.idPersonaMoral,
+                    usuario: this.usuario,
+                    personaMoral: this.$store.state.personaMoral,
+                    idDomicilio: this.$store.state.idDomicilioTemporal,
+                    idNotificacion: this.$store.state.idContactoTemporal
+                };
                 axios.post(urlCrearMoral, data)
                     .then(response => {
                         if (response.data) {

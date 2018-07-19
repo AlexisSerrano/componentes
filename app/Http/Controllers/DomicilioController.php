@@ -190,7 +190,9 @@ class DomicilioController extends Controller
             $domicilio->idLocalidad=$request->input('localidad');
             $domicilio->idColonia=$request->input('colonia');
             $domicilio->calle=$request->input('calle');
-            $domicilio->numExterno=$request->input('numExterno');
+            if($request->input('numExterno')!=null){
+                $domicilio->numExterno=$request->input('numExterno');
+            }
             if($request->input('numInterno')!=null){
                 $domicilio->numInterno=$request->input('numInterno');
             }
@@ -217,7 +219,7 @@ class DomicilioController extends Controller
                 $antes=null;
             }
             $notificacion->correo = $request->correoContacto;
-            $notificacion->telefono = $request->telefonoContacto;
+            $notificacion->telefono = $request->telefono;
             if($idDomicilio!==FALSE){
                 $notificacion->idDomicilio = $idDomicilio;
             } 
@@ -244,7 +246,7 @@ class DomicilioController extends Controller
                 $antes=null;
             }
             $trabajo->lugar = $request->lugarTrabajo;
-            $trabajo->telefono = $request->telefonoTrabajo;
+            $trabajo->telefono = $request->telefono;
             if($idDomicilio!==FALSE){
                 $trabajo->idDomicilio = $idDomicilio;
             } 
