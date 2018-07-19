@@ -219,7 +219,7 @@ class DomicilioController extends Controller
                 $antes=null;
             }
             $notificacion->correo = $request->correoContacto;
-            $notificacion->telefono = $request->telefonoContacto;
+            $notificacion->telefono = $request->telefono;
             if($idDomicilio!==FALSE){
                 $notificacion->idDomicilio = $idDomicilio;
             } 
@@ -246,7 +246,7 @@ class DomicilioController extends Controller
                 $antes=null;
             }
             $trabajo->lugar = $request->lugarTrabajo;
-            $trabajo->telefono = $request->telefonoTrabajo;
+            $trabajo->telefono = $request->telefono;
             if($idDomicilio!==FALSE){
                 $trabajo->idDomicilio = $idDomicilio;
             } 

@@ -306,72 +306,29 @@
             crearDomicilio: function() {
                 this.validacionesback = '';
                 var urlDomicilio = this.url + '/addDomicilio';
-                if (this.empresa == false) {
-                    var idPersona = this.$store.state.idPersonaFisica
-                } else {
-                    var idPersona = this.$store.state.idPersonaMoral
-                }
-                if (this.tipo == 'domicilio') {
-                    var data = {
-                        estado: (this.estado)?this.estado.id:'',
-                        municipio: (this.municipio)?this.municipio.id:'',
-                        localidad: (this.localidad)?this.localidad.id:'',
-                        colonia: (this.colonia)?this.colonia.id:'',
-                        codigoPostal: (this.codigoPostal)?this.codigoPostal.id:'',
-                        calle: (this.calle) ? this.calle.toUpperCase() : '',
-                        numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
-                        numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
-                        tipo: this.tipo,
-                        empresa: this.empresa,
-                        idPersona: idPersona,
-                        claveDomicilio: this.$store.state.idDomicilio,
-                        sistema: this.sistema,
-                        usuario: this.usuario
-                    };
-                } else if (this.tipo == 'trabajo') {
-                    var data = {
-                        estado: (this.estado)?this.estado.id:'',
-                        municipio: (this.municipio)?this.municipio.id:'',
-                        localidad: (this.localidad)?this.localidad.id:'',
-                        colonia: (this.colonia)?this.colonia.id:'',
-                        codigoPostal: (this.codigoPostal)?this.codigoPostal.id:'',
-                        calle: (this.calle) ? this.calle.toUpperCase() : '',
-                        numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
-                        numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
-                        telefonoTrabajo: (this.telefono)?this.telefono:'',
-                        lugarTrabajo: (this.lugarTrabajo) ? this.lugarTrabajo.toUpperCase() : '',
-                        tipo: this.tipo,
-                        empresa: this.empresa,
-                        idPersona: idPersona,
-                        claveDomicilio: this.$store.state.idTrabajo,
-                        sistema: this.sistema,
-                        usuario: this.usuario
-                    };
-                } else if (this.tipo == 'contacto') {
-                    this.guardadoContacto = this.notificacion
-                    var data = {
-                        estado: (this.estado) ? this.estado.id : '',
-                        municipio: (this.municipio) ? this.municipio.id : '',
-                        localidad: (this.localidad) ? this.localidad.id : '',
-                        colonia: (this.colonia) ? this.colonia.id : '',
-                        codigoPostal: (this.codigoPostal) ? this.codigoPostal.id : '',
-                        calle: (this.calle) ? this.calle.toUpperCase() : '',
-                        numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
-                        numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
-                        telefonoContacto: (this.telefono)?this.telefono:'',
-                        correoContacto: (this.correo) ? this.correo.toUpperCase() : '',
-                        tipo: this.tipo,
-                        empresa: this.empresa,
-                        idPersona: idPersona,
-                        claveDomicilio: this.$store.state.idContacto,
-                        sistema: this.sistema,
-                        usuario: this.usuario,
-                        domNotificacion: (this.notificacion) ? this.notificacion.id : '',
-                        idDomicilio: (this.$store.state.idDomicilio) ? this.$store.state.idDomicilio : this.$store.state.idDomicilioTemporal,
-                        idOldNotificacion: this.$store.state.idContactoTemporal,
-                        guardadoContacto: this.guardadoContacto
-                    };
-                }
+                var data = {
+                    estado: (this.estado) ? this.estado.id : '',
+                    municipio: (this.municipio) ? this.municipio.id : '',
+                    localidad: (this.localidad) ? this.localidad.id : '',
+                    colonia: (this.colonia) ? this.colonia.id : '',
+                    codigoPostal: (this.codigoPostal) ? this.codigoPostal.id : '',
+                    calle: (this.calle) ? this.calle.toUpperCase() : '',
+                    numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
+                    numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
+                    lugarTrabajo: (this.lugarTrabajo) ? this.lugarTrabajo.toUpperCase() : '',
+                    correoContacto: (this.correo) ? this.correo.toUpperCase() : '',
+                    telefono: (this.telefono) ? this.telefono : '',
+                    tipo: this.tipo,
+                    empresa: this.empresa,
+                    idPersona: (this.empresa == false)?this.$store.state.idPersonaFisica:this.$store.state.idPersonaMoral,
+                    claveDomicilio: (this.tipo == 'domicilio') ? this.$store.state.idDomicilio : (this.tipo == 'trabajo') ? this.$store.state.idTrabajo : (this.tipo == 'contacto') ? this.$store.state.idContacto : '',
+                    domNotificacion: (this.notificacion) ? this.notificacion.id : '',
+                    idDomicilio: (this.$store.state.idDomicilio) ? this.$store.state.idDomicilio : this.$store.state.idDomicilioTemporal,
+                    idOldNotificacion: this.$store.state.idContactoTemporal,
+                    guardadoContacto: (this.notificacion)?this.notificacion.id:'',
+                    sistema: this.sistema,
+                    usuario: this.usuario
+                };
                 axios.post(urlDomicilio, data).then((response) => {
                     this.$store.commit('asignarIdDomicilio', {
                         tipo: this.tipo,
