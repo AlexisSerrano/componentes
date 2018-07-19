@@ -25,7 +25,7 @@ class ExtrasDenuncianteController extends Controller
                 $extraDenunciante->idVariablesPersona = $request->idPersona;
                 $tipo=($request->empresa)?"extra_denunciante_moral":"extra_denunciante_fisico"; 
             }     
-            $extraDenunciante->resguardarIdentidad = $request->reguardarIdentidad;        
+            $extraDenunciante->resguardarIdentidad = ($request->reguardarIdentidad=='')?0:$request->reguardarIdentidad;        
             $extraDenunciante->victima = $request->victima;      
             $extraDenunciante->save();
 
