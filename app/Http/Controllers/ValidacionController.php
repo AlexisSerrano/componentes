@@ -253,6 +253,7 @@ class ValidacionController extends Controller
                 $antes = clone $extras;
             }
             $extras->alias = ($request->alias=='')?'SIN INFORMACION':$request->alias;
+            $extras->senasPartic = 'SIN INFORMACION';
             $extras->save();
 
             saveInLog($request->sistema,$request->usuario,'persona_fisica',$oper,$persona->id,$antes,$persona);
