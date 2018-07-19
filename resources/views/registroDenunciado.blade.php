@@ -11,7 +11,7 @@
   </head>
   <body>
 	    <div id="app">
-          <registro :sistema="'uat'" :carpeta="'xx6'" :tipo="'denunciado'" :usuario="'usuario'"></registro>
+          <registro :sistema="'uat'" :carpeta="'xx13'" :tipo="'denunciado'" :usuario="'usuario'"></registro>
         </div>
   </body> 
 

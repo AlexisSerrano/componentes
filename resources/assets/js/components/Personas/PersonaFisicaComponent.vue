@@ -368,30 +368,29 @@
 							type: 'success',
 							confirmButtonText: 'Ok'
 						})
-						this.nombres = this.personaExiste.nombres,
-							this.primerAp = this.personaExiste.primerAp,
-							this.segundoAp = this.personaExiste.segundoAp,
-							this.fechaNacimiento = this.personaExiste.fechaNacimiento,
-							this.edad = this.personaExiste.edad,
-							this.sexo = this.personaExiste.sexo,
-							this.rfc = this.personaExiste.rfc.slice(0, -3),
-							this.homoclave = this.personaExiste.rfc.slice(-3),
-							this.curp = this.personaExiste.curp,
-							this.nacionalidad = this.personaExiste.idNacionalidad,
-							this.estado = this.personaExiste.idEstado
-						this.municipio = this.personaExiste.idMunicipioOrigen,
-							this.etnia = this.personaExiste.idEtnia,
-							this.lengua = this.personaExiste.idLengua,
-							this.interprete = this.personaExiste.idInterprete,
-							this.ocupacion = this.personaExiste.idOcupacion,
-							this.estadoCivil = this.personaExiste.idEstadoCivil,
-							this.escolaridad = this.personaExiste.idEscolaridad,
-							this.religion = this.personaExiste.idReligion,
-							this.identificacion = this.personaExiste.docIdentificacion,
-							this.numIdentificacion = this.personaExiste.numDocIdentificacion,
-							this.telefono = this.personaExiste.telefono,
-							(this.tipo == 'conocido') ? this.alias = this.personaExiste.alias : '',
-							(this.sistema == 'uipj') ? this.motivoEstancia = this.personaExiste.motivoEstancia : ''
+						this.nombres = this.personaExiste.nombres
+						this.primerAp = this.personaExiste.primerAp
+						this.segundoAp = this.personaExiste.segundoAp
+						this.fechaNacimiento = this.personaExiste.fechaNacimiento
+						this.edad = this.personaExiste.edad
+						this.sexo = this.personaExiste.sexo
+						this.rfc = this.personaExiste.rfc.slice(0, -3)
+						this.homoclave = this.personaExiste.rfc.slice(-3)
+						this.curp = this.personaExiste.curp
+						this.nacionalidad = this.personaExiste.idNacionalidad
+						this.estado = this.personaExiste.idEstado
+						this.municipio = this.personaExiste.idMunicipioOrigen
+						this.etnia = this.personaExiste.idEtnia
+						this.lengua = this.personaExiste.idLengua
+						this.interprete = this.personaExiste.idInterprete
+						this.ocupacion = this.personaExiste.idOcupacion
+						this.estadoCivil = this.personaExiste.idEstadoCivil
+						this.escolaridad = this.personaExiste.idEscolaridad
+						this.religion = this.personaExiste.idReligion
+						this.identificacion = this.personaExiste.docIdentificacion
+						this.numIdentificacion = this.personaExiste.numDocIdentificacion
+						this.telefono = this.personaExiste.telefono,
+						(this.sistema == 'uipj') ? this.motivoEstancia = this.personaExiste.motivoEstancia : ''
 					}
 				});
 			},
@@ -548,7 +547,7 @@
 			crearPersona: function() {
 				this.validacionesback = '';
 				var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
-				if (this.tipo == 'autoridad' || this.tipo == 'denunciado' || this.tipo == 'denunciante') {
+				if (this.tipo != 'qrr') {
 					var data = {
 						nombres: (this.nombres) ? this.nombres.toUpperCase() : '',
 						primerAp: (this.primerAp) ? this.primerAp.toUpperCase() : '',
@@ -573,91 +572,18 @@
 						docIdentificacion: (this.identificacion) ? this.identificacion.id : '',
 						numDocIdentificacion: (this.numIdentificacion) ? this.numIdentificacion.toUpperCase() : '',
 						telefono: (this.telefono) ? this.telefono : '',
+						alias: (this.alias) ? this.alias.toUpperCase() : '',
 						sistema: this.sistema,
 						idPersona: this.$store.state.idPersonaFisica,
 						usuario: this.usuario,
-						personaFisica: this.$store.state.personaFisica,
-						idDomicilio: this.$store.state.idDomicilioTemporal,
-						idTrabajo: this.$store.state.idTrabajoTemporal,
-						idNotificacion: this.$store.state.idContactoTemporal
-					};
-				} else if (this.tipo == 'conocido') {
-					if (this.nombres != '' || this.alias != '') {
-						var data = {
-							nombres: (this.nombres) ? this.nombres.toUpperCase() : '',
-							primerAp: (this.primerAp) ? this.primerAp.toUpperCase() : '',
-							segundoAp: (this.segundoAp) ? this.segundoAp.toUpperCase() : '',
-							alias: (this.alias) ? this.alias.toUpperCase() : '',
-							sistema: this.sistema,
-							idPersona: this.$store.state.idPersonaFisica,
-							usuario: this.usuario,
-							personaFisica: this.$store.state.personaFisica,
-							idDomicilio: this.$store.state.idDomicilioTemporal,
-							idTrabajo: this.$store.state.idTrabajoTemporal,
-							idNotificacion: this.$store.state.idContactoTemporal,
-							idExtrasConocido: this.$store.state.idExtra
-						};
-					} else {
-						swal({
-							title: '¡Ingresa nombre o alias!',
-							text: 'Para guardar correctamente debes ingresar uno de estos campos.',
-							type: 'warning',
-							confirmButtonText: 'Ok'
-						})
-						return
-					}
-				} else if (this.tipo == 'abogado') {
-					var data = {
-						nombres: (this.nombres) ? this.nombres.toUpperCase() : '',
-						primerAp: (this.primerAp) ? this.primerAp.toUpperCase() : '',
-						segundoAp: (this.segundoAp) ? this.segundoAp.toUpperCase() : '',
-						fechaNacimiento: (this.fechaNacimiento) ? this.fechaNacimiento : '',
-						sexo: (this.sexo) ? this.sexo.id : '',
-						idEstadoOrigen: (this.estado) ? this.estado.id : '',
-						idMunicipioOrigen: (this.municipio) ? this.municipio.id : '',
-						rfc: (this.rfc) ? this.rfc : '',
-						homo: (this.homoclave) ? this.homoclave : '',
-						curp: (this.curp) ? this.curp : '',
-						idEstadoCivil: (this.estadoCivil) ? this.estadoCivil.id : '',
-						telefono: (this.telefono) ? this.telefono : '',
-						edad: (this.edad) ? this.edad : '',
-						sistema: this.sistema,
-						idPersona: this.$store.state.idPersonaFisica,
-						usuario: this.usuario,
-						personaFisica: this.$store.state.personaFisica,
-						idDomicilio: this.$store.state.idDomicilioTemporal,
-						idTrabajo: this.$store.state.idTrabajoTemporal,
-						idNotificacion: this.$store.state.idContactoTemporal
-					};
-				} else if (this.tipo == 'actashechos' || this.tipo == 'actascircunstanciadas') {
-					var data = {
-						nombres: (this.nombres) ? this.nombres.toUpperCase() : '',
-						primerAp: (this.primerAp) ? this.primerAp.toUpperCase() : '',
-						segundoAp: (this.segundoAp) ? this.segundoAp.toUpperCase() : '',
-						fechaNacimiento: (this.fechaNacimiento) ? this.fechaNacimiento : '',
-						sexo: (this.sexo) ? this.sexo.id : '',
-						idEstadoOrigen: (this.estado) ? this.estado.id : '',
-						idMunicipioOrigen: (this.municipio) ? this.municipio.id : '',
-						rfc: (this.rfc) ? this.rfc : '',
-						homo: (this.homoclave) ? this.homoclave : '',
-						curp: (this.curp) ? this.curp : '',
-						idNacionalidad: (this.nacionalidad) ? this.nacionalidad.id : '',
-						idEstadoCivil: (this.estadoCivil) ? this.estadoCivil.id : '',
-						idOcupacion: (this.ocupacion) ? this.ocupacion.id : '',
-						idEscolaridad: (this.escolaridad) ? this.escolaridad.id : '',
-						telefono: (this.telefono) ? this.telefono : '',
-						edad: (this.edad) ? this.edad : '',
-						docIdentificacion: (this.identificacion)?this.identificacion.id:'',
-						numDocIdentificacion: (this.numIdentificacion) ? this.numIdentificacion.toUpperCase() : '',
-						idPersona: this.$store.state.idPersonaFisica,
 						personaFisica: this.$store.state.personaFisica,
 						idDomicilio: this.$store.state.idDomicilioTemporal,
 						idTrabajo: this.$store.state.idTrabajoTemporal,
 						idNotificacion: this.$store.state.idContactoTemporal,
-						usuario: this.usuario,
-						sistema: this.sistema
+						idExtrasConocido: this.$store.state.idExtra,
+						idCarpeta: this.carpetaF
 					};
-				} else if (this.tipo == 'qrr') {
+				} else {
 					var data = {
 						sistema: this.sistema,
 						usuario: this.usuario,
@@ -741,7 +667,7 @@
 		},
 		computed: Object.assign({
 			botonGuardarModificar() {
-				if (this.$store.state.idPersonaFisica == '') {
+				if (this.$store.state.idPersonaFisica == '' || this.tipo=='qrr') {
 					return 'Guardar'
 				} else {
 					return 'Modificar'

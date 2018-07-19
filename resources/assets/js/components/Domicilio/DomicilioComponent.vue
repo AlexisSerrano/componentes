@@ -313,11 +313,11 @@
                 }
                 if (this.tipo == 'domicilio') {
                     var data = {
-                        estado: this.estado.id,
-                        municipio: this.municipio.id,
-                        localidad: this.localidad.id,
-                        colonia: this.colonia.id,
-                        codigoPostal: this.codigoPostal.id,
+                        estado: (this.estado)?this.estado.id:'',
+                        municipio: (this.municipio)?this.municipio.id:'',
+                        localidad: (this.localidad)?this.localidad.id:'',
+                        colonia: (this.colonia)?this.colonia.id:'',
+                        codigoPostal: (this.codigoPostal)?this.codigoPostal.id:'',
                         calle: (this.calle) ? this.calle.toUpperCase() : '',
                         numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
                         numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
@@ -330,15 +330,15 @@
                     };
                 } else if (this.tipo == 'trabajo') {
                     var data = {
-                        estado: this.estado.id,
-                        municipio: this.municipio.id,
-                        localidad: this.localidad.id,
-                        colonia: this.colonia.id,
-                        codigoPostal: this.codigoPostal.id,
+                        estado: (this.estado)?this.estado.id:'',
+                        municipio: (this.municipio)?this.municipio.id:'',
+                        localidad: (this.localidad)?this.localidad.id:'',
+                        colonia: (this.colonia)?this.colonia.id:'',
+                        codigoPostal: (this.codigoPostal)?this.codigoPostal.id:'',
                         calle: (this.calle) ? this.calle.toUpperCase() : '',
                         numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
                         numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
-                        telefonoTrabajo: this.telefono,
+                        telefonoTrabajo: (this.telefono)?this.telefono:'',
                         lugarTrabajo: (this.lugarTrabajo) ? this.lugarTrabajo.toUpperCase() : '',
                         tipo: this.tipo,
                         empresa: this.empresa,
@@ -358,7 +358,7 @@
                         calle: (this.calle) ? this.calle.toUpperCase() : '',
                         numExterno: (this.numExterno) ? this.numExterno.toUpperCase() : '',
                         numInterno: (this.numInterno) ? this.numInterno.toUpperCase() : '',
-                        telefonoContacto: this.telefono,
+                        telefonoContacto: (this.telefono)?this.telefono:'',
                         correoContacto: (this.correo) ? this.correo.toUpperCase() : '',
                         tipo: this.tipo,
                         empresa: this.empresa,
