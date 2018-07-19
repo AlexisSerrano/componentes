@@ -17,20 +17,22 @@ class aparicionesSeeder extends Seeder
                 'idVarPersona' => 2,
                 'idCarpeta' => 'UIPJ/D17/VER1/22/1/2018',
                 'sistema' => 'UAT',
-                'tipoInvolucrado' => 'DENUNCIANTE',
+                'tipoInvolucrado' => 'ABOGADO',
                 'nuc' => 'AZ09-1A2B3C-18',
                 'esEmpresa' => 0,
-                'idTipoDeterminacion' => 1
+                'idTipoDeterminacion' => 1,
+                'activo' => 1
             ],
             [
                 'id' => 2,
                 'idVarPersona' => 3,
-                'idCarpeta' => 'UIPJ/D42/VER0/19/8/2018',
+                'idCarpeta' => 'UIPJ/D17/VER1/22/1/2018',
                 'sistema' => 'UAT',
-                'tipoInvolucrado' => 'DENUNCIADO',
+                'tipoInvolucrado' => 'ABOGADO',
                 'nuc' => 'OA03-3Z6H3Q-19',
                 'esEmpresa' => 0,
-                'idTipoDeterminacion' => 2
+                'idTipoDeterminacion' => 2,
+                'activo' => 1
             ],
             [
                 'id' => 3,
@@ -40,7 +42,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'AUTORIDAD',
                 'nuc' => '8SH4-76RHX5-18',
                 'esEmpresa' => 0,
-                'idTipoDeterminacion' => 3
+                'idTipoDeterminacion' => 3,
+                'activo' => 1
             ],
             
             [
@@ -48,10 +51,11 @@ class aparicionesSeeder extends Seeder
                 'idVarPersona' => 2,
                 'idCarpeta' => 'UIPJ/F49/VER79/05/08/2018',
                 'sistema' => 'UIPJ',
-                'tipoInvolucrado' => 'CONOCIDO',
+                'tipoInvolucrado' => 'ABOGADO',
                 'nuc' => '78DH-J48ASY-19',
                 'esEmpresa' => 1,
-                'idTipoDeterminacion' => 2
+                'idTipoDeterminacion' => 2,
+                'activo' => 1
             ],                     
             [
                 'id' => 6,
@@ -61,7 +65,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'DENUNCIANTE',
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 0,
-                'idTipoDeterminacion' => 2
+                'idTipoDeterminacion' => 2,
+                'activo' => 1
             ],
             [
                 'id' => 7,
@@ -71,7 +76,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'DENUNCIADO',
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 0,
-                'idTipoDeterminacion' => 3
+                'idTipoDeterminacion' => 3,
+                'activo' => 1
             ],
             [
                 'id' => 8,
@@ -81,7 +87,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'AUTORIDAD',
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 0,
-                'idTipoDeterminacion' => 4
+                'idTipoDeterminacion' => 4,
+                'activo' => 1
             ],
             [
                 'id' => 9,
@@ -91,7 +98,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'DENUNCIADO',
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 0,
-                'idTipoDeterminacion' => 5
+                'idTipoDeterminacion' => 5,
+                'activo' => 1
             ],
             [
                 'id' => 10,
@@ -101,7 +109,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'DENUNCIANTE',
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 0,
-                'idTipoDeterminacion' => 6
+                'idTipoDeterminacion' => 6,
+                'activo' => 1
             ],
 
             [
@@ -112,7 +121,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'DENUNCIADO',
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 0,
-                'idTipoDeterminacion' => 7
+                'idTipoDeterminacion' => 7,
+                'activo' => 1
             ],
             [
                 'id' => 12,
@@ -122,7 +132,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'DENUNCIADO',
                 'nuc' => 'OS84-4Q8G3D-18',
                 'esEmpresa' => 1,
-                'idTipoDeterminacion' => 3
+                'idTipoDeterminacion' => 3,
+                'activo' => 1
             ],
             [
                 'id' => 13,
@@ -132,7 +143,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'CONOCIDO',
                 'nuc' => 'OS84-4Q84SD-18',
                 'esEmpresa' => 1,
-                'idTipoDeterminacion' => 4
+                'idTipoDeterminacion' => 4,
+                'activo' => 1
             ],
             [
                 'id' => 14,
@@ -142,7 +154,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'DENUNCIANTE',
                 'nuc' => 'OS84-4Q84SD-18',
                 'esEmpresa' => 1,
-                'idTipoDeterminacion' => 5
+                'idTipoDeterminacion' => 5,
+                'activo' => 1
             ],
             [
                 'id' => 15,
@@ -152,7 +165,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'DENUNCIADO',
                 'nuc' => 'OS84-4Q84SD-18',
                 'esEmpresa' => 1,
-                'idTipoDeterminacion' => 6
+                'idTipoDeterminacion' => 6,
+                'activo' => 1
             ],
             [
                 'id' => 16,
@@ -162,7 +176,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'CONOCIDO',
                 'nuc' => 'OS84-4Q84SD-18',
                 'esEmpresa' => 1,
-                'idTipoDeterminacion' => 7
+                'idTipoDeterminacion' => 7,
+                'activo' => 1
             ],
             [
                 'id' => 17,
@@ -172,7 +187,8 @@ class aparicionesSeeder extends Seeder
                 'tipoInvolucrado' => 'DENUNCIADO',
                 'nuc' => '78DH-J48ASY-19',
                 'esEmpresa' => 1,
-                'idTipoDeterminacion' => 1
+                'idTipoDeterminacion' => 1,
+                'activo' => 1
             ]
             
         ]);
