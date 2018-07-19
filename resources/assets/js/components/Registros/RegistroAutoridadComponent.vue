@@ -59,8 +59,8 @@
         props: ['sistema', 'carpeta','usuario'],
         components: {extrasautoridad},
         methods: {
-            cleanFields(){
-                this.$store.commit('cleanSearch','fisica')
+            cleanFields() {
+                this.$store.commit('cleanStore')
             }
         }
     }

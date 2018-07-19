@@ -19,15 +19,15 @@
                 </ul>
                 <div class="col-2 d-flex align-items-start justify-content-end">
                     <button v-if="this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
-                        <icon name="eraser" style="color:white"></icon>
-                        Limpiar
-                    </button>
+                            <icon name="eraser" style="color:white"></icon>
+                            Limpiar
+                        </button>
                 </div>
             </div>
         </div>
         <!-- MENÚ -->
-
-
+    
+    
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-abogado-persona" role="tabpanel" aria-labelledby="abogado-persona-tab">
@@ -50,11 +50,11 @@
 <script>
     import extrasabogado from '../Extras/ExtrasAbogadoComponent.vue';
     export default {
-        props: ['sistema', 'carpeta','usuario'],
-        components: {extrasabogado},
+        props: ['sistema', 'carpeta', 'usuario'],
+        components: { extrasabogado },
         methods: {
-            cleanFields(){
-                this.$store.commit('cleanSearch','fisica')
+            cleanFields() {
+                this.$store.commit('cleanStore')
             }
         }
     }

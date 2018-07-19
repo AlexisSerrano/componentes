@@ -12,7 +12,7 @@
                     <span v-show="errors.has('puesto')" class="text-danger">{{ errors.first('puesto')}}</span>
                 </div>
     
-                <div class="form-group col-md-3">
+                <div v-if="this.empresa==false" class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="alias">Alias</label>
                     <input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias')}" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off">
                     <span v-show="errors.has('alias')" class="text-danger">{{ errors.first('alias')}}</span>
@@ -161,7 +161,7 @@
                     empresa: this.empresa,
                     idPersona: idPersona,
                     idPuesto: this.puesto,
-                    alias: this.alias.toUpperCase(),
+                    alias: (this.alias)?this.alias.toUpperCase():'',
                     dependientes: this.dependientes,
                     ingreso: this.ingreso,
                     periodoIngreso: this.periodo,
