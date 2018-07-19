@@ -3,7 +3,7 @@
         <form v-on:submit.prevent="validateBeforeSubmit">
     
             <div class="form-row">
-                <div class="form-group col-md-3">
+                <div v-if="this.empresa==false" class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="identidad">Identidad resguardada</label>
                     <v-select :options="identidades" label="nombre" v-model="identidad" name="identidad" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('identidad')}" placeholder="Seleccione identidad"></v-select>
                     <span v-show="errors.has('identidad')" class="text-danger">{{ errors.first('identidad')}}</span>
@@ -99,7 +99,7 @@
                 var data = {
                     idExtrasDenunciante: this.$store.state.idExtra,
                     idPersona: idPersona,
-                    reguardarIdentidad: this.identidad.id,
+                    reguardarIdentidad: (this.identidad)?this.identidad.id:'',
                     victima: this.solicitante.id,
                     sistema: this.sistema,
                     empresa: this.empresa,
