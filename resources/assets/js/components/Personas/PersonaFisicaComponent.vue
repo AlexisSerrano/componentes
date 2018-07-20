@@ -72,7 +72,13 @@
 					<span v-if="this.validacionesback.idEstadoOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idEstadoOrigen)}}</span>
 				</div>
 	
-	
+				<div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
+					<label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>
+					<v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}" placeholder="Seleccione un municipio de origen"
+					    :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
+					<span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
+					<span v-if="this.validacionesback.idMunicipioOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipioOrigen)}}</span>
+				</div>
 	
 				<div v-if="validaciones.rfc!='oculto'" class="form-group col-md-2">
 					<label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
@@ -104,15 +110,6 @@
 					<span v-if="this.validacionesback.idNacionalidad!=undefined" class="text-danger">{{ String(this.validacionesback.idNacionalidad)}}</span>
 				</div>
 	
-	
-	
-				<div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
-					<label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>
-					<v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}" placeholder="Seleccione un municipio de origen"
-					    :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
-					<span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
-					<span v-if="this.validacionesback.idMunicipioOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipioOrigen)}}</span>
-				</div>
 				<div v-if="validaciones.idEtnia!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="etnia">Etnia</label>
 					<v-select label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="validaciones.idEtnia" :class="{ 'border border-danger rounded': errors.has('etnia') || this.validacionesback.idEtnia}" placeholder="Seleccione una etnia" :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
@@ -390,7 +387,7 @@
 						this.identificacion = this.personaExiste.docIdentificacion
 						this.numIdentificacion = this.personaExiste.numDocIdentificacion
 						this.telefono = this.personaExiste.telefono,
-						(this.sistema == 'uipj') ? this.motivoEstancia = this.personaExiste.motivoEstancia : ''
+							(this.sistema == 'uipj') ? this.motivoEstancia = this.personaExiste.motivoEstancia : ''
 					}
 				});
 			},
@@ -667,7 +664,7 @@
 		},
 		computed: Object.assign({
 			botonGuardarModificar() {
-				if (this.$store.state.idPersonaFisica == '' || this.tipo=='qrr') {
+				if (this.$store.state.idPersonaFisica == '' || this.tipo == 'qrr') {
 					return 'Guardar'
 				} else {
 					return 'Modificar'
