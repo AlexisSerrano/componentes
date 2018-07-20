@@ -1,5 +1,5 @@
 <template>
-    <div class="card pb-3 pt-1">
+    <div class="pb-3 pt-1">
         <div class="container-fluid">
             <div class="form-row">
                 <div class="col-7">
