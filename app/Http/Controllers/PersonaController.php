@@ -106,9 +106,10 @@ class PersonaController extends Controller{
 
 	public function searchConocido(Request $request){
 				
-		$busqueda = DB::select("select nombres,primerAp,segundoAp, varPer.edad, sex.nombre as nombreSexo, rfc,curp, varPer.idDomicilio, varPer.idTrabajo, varPer.idNotificacion, 
-		varPer.id as idVarPer, varPer.idPersona ,catEdo.nombre as estadoNombre, catMun.nombre as MunicipioOrigenNombre, 
-        catNaci.nombre as nacionalidadNombre from variables_persona_fisica varPer        
+		$busqueda = DB::select("select nombres,primerAp,segundoAp, varPer.edad as edad, 
+		sex.nombre as sexo, rfc, curp, varPer.idDomicilio, varPer.idDomicilioTrabajo, varPer.idDomicilioNotificacion, 
+		varPer.id as idVarPersona, varPer.idPersona ,catEdo.nombre as estado, catMun.nombre as municipio, 
+        catNaci.nombre as nacionalidad from variables_persona_fisica varPer        
 				join persona_fisica per on per.id = varPer.idPersona
 				join domicilio dom on dom.id = varPer.idDomicilio
 				join cat_estado catEdo on catEdo.id = dom.idEstado
