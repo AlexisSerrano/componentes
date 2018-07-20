@@ -1,5 +1,5 @@
 <template>
-    <div class="card pb-3 pt-3">
+    <div class="pb-3 pt-3">
         <!-- MENÚ -->
         <div class="container-fluid">
             <div class="row">

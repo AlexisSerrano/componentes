@@ -5,6 +5,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 require('./bootstrap');
+require('es6-promise').polyfill();
 require('./curp');
 window.Vue = require('vue');
 

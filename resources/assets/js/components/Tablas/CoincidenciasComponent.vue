@@ -23,12 +23,12 @@
                     <tr v-for="coincidencia in personasEncontradas" :key="coincidencia.idVarPersona">
                         <td>{{ `${coincidencia.nombres} ${coincidencia.primerAp} ${coincidencia.segundoAp}` }}</td>
                         <td>{{ coincidencia.edad }}</td>
-                        <td>{{ coincidencia.sexo.nombre }}</td>
+                        <td>{{ coincidencia.sexo }}</td>
                         <td>{{ coincidencia.rfc }}</td>
                         <td>{{ coincidencia.curp }}</td>
-                        <td>{{ coincidencia.idNacionalidad.nombre }}</td>
-                        <td>{{ coincidencia.idEstado.nombre }}</td>
-                        <td>{{ coincidencia.idMunicipioOrigen.nombre }}</td>
+                        <td>{{ coincidencia.nacionalidadNombre }}</td>
+                        <td>{{ coincidencia.estadoNombre }}</td>
+                        <td>{{ coincidencia.MunicipioOrigenNombre }}</td>
                         <td>
                             <button type="button" class="btn btn-primary" @click="seleccionarPersona(coincidencia)">Guardar</button>
                         </td>
@@ -83,7 +83,7 @@
             buscarCarpetasFisica(coincidencia) {
                 var post = this.url + '/fisicaCarpetasRfc';
                 axios.post(post, {
-                    rfc: coincidencia.rfc + coincidencia.homoclave,
+                    rfc: coincidencia.rfc,
                     curp: coincidencia.curp
                 }).then(response => {
                     if (response.data) {
