@@ -66,8 +66,8 @@ class ExtrasInvestigadoController extends Controller{
     public function addExtrasConocido(Request $request){
         try{
             DB::beginTransaction();
-            if($request->idExtrasDenunciado!=""){
-                $extraDenunciado=($request->empresa)?ExtraDenunciadoMoral::find($request->idExtrasDenunciado):ExtraDenunciadoFisico::find($request->idExtrasDenunciado);
+            if($request->idExtrasConocido!=""){
+                $extraDenunciado=($request->empresa)?ExtraDenunciadoMoral::find($request->idExtrasConocido):ExtraDenunciadoFisico::find($request->idExtrasConocido);
                 $oper="UPDATE";
                 $antes= clone $extraDenunciado;
                 $tipo=($request->empresa)?"extra_denunciado_moral":"extra_denunciado_fisico";
