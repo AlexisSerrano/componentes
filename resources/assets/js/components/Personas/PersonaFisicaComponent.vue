@@ -392,6 +392,7 @@
 				});
 			},
 			searchConocido() {
+				console.log("entrando a searchConocido")
 				if ((this.tipo == 'conocido' || this.tipo == 'conocidomoral') && this.nombres != '' && this.primerAp != '' && this.segundoAp != '') {
 					var urlSearchConocido = this.url + '/searchConocido';
 					axios.post(urlSearchConocido, {
@@ -399,6 +400,7 @@
 						primerAp: this.primerAp,
 						segundoAp: this.segundoAp,
 					}).then(response => {
+						console.log(response)
 						if (response.data) {
 							this.$store.commit('asignarPersonasEncontradas', response.data)
 						}

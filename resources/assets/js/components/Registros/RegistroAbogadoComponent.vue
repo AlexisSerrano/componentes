@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="card pb-3 pt-3">
         <!-- MENÚ -->
         <div class="container-fluid">
             <div class="row">
-                <ul class="nav nav-pills mb-3 col-10" style="padding-left:15px" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-3 col-10 pl-3" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="abogado-persona-tab" data-toggle="pill" href="#pills-abogado-persona" role="tab" aria-controls="pills-abogado-persona" aria-selected="true">Datos Personales</a>
                     </li>

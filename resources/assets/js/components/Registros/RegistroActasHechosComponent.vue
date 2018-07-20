@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="card pb-3 pt-1">
         <div class="container-fluid">
             <label class="col-form-label col-form-label-sm">Tipo de persona</label>
             <div class="form-row">
