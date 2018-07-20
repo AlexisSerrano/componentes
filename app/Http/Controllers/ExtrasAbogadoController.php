@@ -29,7 +29,7 @@ class ExtrasAbogadoController extends Controller
             $extraAbogado->cedulaProf = $request->cedula;        
             $extraAbogado->sector = $request->sector;
             $extraAbogado->correo = $request->correo;
-            $extraAbogado->tipo = $request->tipo;      
+            $extraAbogado->tipo = $request->tipoAbogado;      
             $extraAbogado->save();
 
             $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
