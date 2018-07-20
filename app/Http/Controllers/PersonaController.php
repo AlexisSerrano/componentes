@@ -106,21 +106,21 @@ class PersonaController extends Controller{
 
 	public function searchConocido(Request $request){
 				
-		$busqueda = DB::select("select nombres,primerAp,segundoAp, varPer.edad,sexo, rfc,curp, catEdo.nombre as estadoNombre, catMun.nombre as MunicipioOrigenNombre, catNaci.nombre as nacionalidadNombre from variables_persona_fisica varPer
-		join persona_fisica per on per.id = varPer.idPersona
-		join domicilio dom on dom.id = varPer.idDomicilio
-		join cat_estado catEdo on catEdo.id = dom.idEstado
-		join cat_municipio catMun on catMun.id = per.idMunicipioOrigen
-		join cat_localidad catLoc on catLoc.id = dom.idLocalidad
-		join cat_colonia catCol on catCol.id = dom.idColonia
-		join cat_nacionalidad  catNaci on catNaci.id = per.idNacionalidad 
-		WHERE ( (per.nombres = '$request->nombres') and (per.primerAp = '$request->primerAp') and (per.segundoAp = '$request->segundoAp') )");
+		$busqueda = DB::select("select nombres,primerAp,segundoAp, varPer.edad, sex.nombre as nombreSexo, rfc,curp, varPer.idDomicilio, varPer.idTrabajo, varPer.idNotificacion, 
+		varPer.id as idVarPer, varPer.idPersona ,catEdo.nombre as estadoNombre, catMun.nombre as MunicipioOrigenNombre, 
+        catNaci.nombre as nacionalidadNombre from variables_persona_fisica varPer        
+				join persona_fisica per on per.id = varPer.idPersona
+				join domicilio dom on dom.id = varPer.idDomicilio
+				join cat_estado catEdo on catEdo.id = dom.idEstado
+				join cat_municipio catMun on catMun.id = per.idMunicipioOrigen
+                join cat_nacionalidad  catNaci on catNaci.id = per.idNacionalidad 
+                join sexos sex on sex.id = per.sexo
+				WHERE ( (per.nombres = '$request->nombres') and (per.primerAp = '$request->primerAp') and (per.segundoAp = '$request->segundoAp') )");
 			if($busqueda){
 				return response()->json($busqueda);
 			}else{
 				return response()->json(false);
 			}
-
 
 	}
 
