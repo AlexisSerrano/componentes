@@ -93,7 +93,7 @@
                     cedula: this.cedula.toUpperCase(),
                     sector: this.sector,
                     correo: this.correo.toUpperCase(),
-                    tipo: this.tipo,
+                    tipoAbogado: this.tipo,
                     sistema: this.sistema.toUpperCase(),
                     usuario: this.systemUser,
                     narracion: this.descripcion.toUpperCase(),
