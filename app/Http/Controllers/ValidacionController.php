@@ -19,6 +19,11 @@ use App\Http\Models\ExtraDenunciadoMoral;
 use App\Http\Requests\ActasHechosRequest;
 use App\Http\Requests\ActasHechosMoralRequest;
 use App\Http\Requests\ActasCircunstanciadasRequest;
+use App\Http\Requests\StoreAbogado;
+use App\Http\Requests\StoreAutoridad;
+use App\Http\Requests\StoreDenunciado;
+use App\Http\Requests\StoreDenunciante;
+use App\Http\Requests\StoreTestigo;
 use DB;
 
 use Illuminate\Http\Request;
@@ -82,6 +87,21 @@ class ValidacionController extends Controller
     }
 
     public function valActasCircunstanciadasFUAT(ActasCircunstanciadasRequest $request){
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
+
+    public function valAbogadoUIPJ(StoreAbogado $request){
+        $idVariable = ValidacionController::saveInputsAbogadoFisica($request);
+        return response()->json($idVariable);
+    }
+
+    public function valAutoridadUIPJ(StoreAutoridad $request){
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
+
+    public function valTestigoUIPJ(StoreTestigo $request){
         $idVariable = ValidacionController::saveInputsFisica($request);
         return response()->json($idVariable);
     }
