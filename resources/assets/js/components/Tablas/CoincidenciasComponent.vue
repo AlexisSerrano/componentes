@@ -26,9 +26,9 @@
                         <td>{{ coincidencia.sexo }}</td>
                         <td>{{ coincidencia.rfc }}</td>
                         <td>{{ coincidencia.curp }}</td>
-                        <td>{{ coincidencia.nacionalidadNombre }}</td>
-                        <td>{{ coincidencia.estadoNombre }}</td>
-                        <td>{{ coincidencia.MunicipioOrigenNombre }}</td>
+                        <td>{{ coincidencia.nacionalidad }}</td>
+                        <td>{{ coincidencia.estado }}</td>
+                        <td>{{ coincidencia.municipio }}</td>
                         <td>
                             <button type="button" class="btn btn-primary" @click="seleccionarPersona(coincidencia)">Guardar</button>
                         </td>
