@@ -50,7 +50,7 @@ class ExtrasInvestigadoController extends Controller{
             $extraDenunciado->vestimenta = $request->vestimenta;    
             $extraDenunciado->save();
 
-            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
 
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciado->id,$antes,$extraDenunciado);
@@ -81,7 +81,7 @@ class ExtrasInvestigadoController extends Controller{
             $extraDenunciado->senasPartic = $request->particulares;
             $extraDenunciado->save();
 
-            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
 
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciado->id,$antes,$extraDenunciado);

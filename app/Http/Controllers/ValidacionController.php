@@ -366,7 +366,7 @@ class ValidacionController extends Controller
     }
 
     public function saveQrr($request){
-        $aparicion = aparicionesModel::where('idCarpeta',$request->idCarpeta)
+        $aparicion = aparicionesModel::where('carpeta',$request->carpeta)
         ->where('idVarPersona',1)->first();
         if($aparicion){
             $data = array(
@@ -378,7 +378,7 @@ class ValidacionController extends Controller
         else{
             DB::beginTransaction();
             try{
-                $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,1,'denunciado','xxxxx',0);
+                $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,1,'denunciado','xxxxx',0);
                 saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
                 DB::commit();
                 $data = array(

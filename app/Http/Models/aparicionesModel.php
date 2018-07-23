@@ -14,6 +14,7 @@ class AparicionesModel extends Model
         'id', 
         'idVarPersona', 
         'idCarpeta',
+        'carpeta',
         'sistema',
         'tipoInvolucrado',
         'nuc',

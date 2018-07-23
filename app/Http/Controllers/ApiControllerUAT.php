@@ -13,9 +13,9 @@ use App\Http\Models\aparicionesModel;
 class ApiControllerUAT extends Controller
 {
 
-    private function getInvolucradosPorTipo(String $idCarpeta,String $tipoInvolucrado){
+    private function getInvolucradosPorTipo(String $carpeta,String $tipoInvolucrado){
 		$result=[];
-		$data=DB::table('apariciones')->select('id','idVarPersona','nuc','esEmpresa')->where('sistema','uat')->where('idCarpeta',$idCarpeta)->where('tipoInvolucrado',$tipoInvolucrado)->get();							
+		$data=DB::table('apariciones')->select('id','idVarPersona','nuc','esEmpresa')->where('sistema','uat')->where('carpeta',$carpeta)->where('tipoInvolucrado',$tipoInvolucrado)->get();							
 		foreach($data as $involucrado){
 			if($involucrado->esEmpresa==0){
 				$data2=DB::table('persona_fisica')->select('variables_persona_fisica.id','nombres','primerAp','segundoAp','rfc','sexo','edad','telefono','docIdentificacion','numDocIdentificacion',DB::raw('0 AS esEmpresa'))->join('variables_persona_fisica','variables_persona_fisica.idPersona','=','persona_fisica.id')->where('variables_persona_fisica.id',$involucrado->idVarPersona)->get();
@@ -35,12 +35,12 @@ class ApiControllerUAT extends Controller
 	}
 
 	public function getDenunciantesCarpeta(Request $request){
-		if( (!isset($request->api_token)||empty($request->api_token)) || ($request->idCarpeta == null)){
+		if( (!isset($request->api_token)||empty($request->api_token)) || ($request->carpeta == null)){
 			return ["Status"=>"Error","Mensaje"=>"Faltan datos de entrada"];
 		}
 		else{
 			if(self::isTokenValido($request->api_token)){
-				$response=self::getInvolucradosPorTipo($request->idCarpeta,"denunciante");
+				$response=self::getInvolucradosPorTipo($request->carpeta,"denunciante");
 				if($response){
 					return  response()->json($response); 
 				}else{
@@ -53,11 +53,11 @@ class ApiControllerUAT extends Controller
 	}
 
 	public function getInvestigadosCarpeta(Request $request){
-		if( (!isset($request->api_token)||empty($request->api_token)) || ($request->idCarpeta == null)){
+		if( (!isset($request->api_token)||empty($request->api_token)) || ($request->carpeta == null)){
 			return ["Status"=>"Error","Mensaje"=>"Faltan datos de entrada"];
 		}else{
 			if(self::isTokenValido($request->api_token)){
-				$response=self::getInvolucradosPorTipo($request->idCarpeta,"investigado");
+				$response=self::getInvolucradosPorTipo($request->carpeta,"investigado");
 				if($response){
 					return response()->json($response);
 				}else{
@@ -70,11 +70,11 @@ class ApiControllerUAT extends Controller
 	}
 
 	public function getTestigosCarpeta(Request $request){
-		if( (!isset($request->api_token)||empty($request->api_token)) || ($request->idCarpeta == null)){
+		if( (!isset($request->api_token)||empty($request->api_token)) || ($request->carpeta == null)){
 			return ["Status"=>"Error","Mensaje"=>"Faltan datos de entrada"];
 		}else{
 			if(self::isTokenValido($request->api_token)){
-				$response=self::getInvolucradosPorTipo($request->idCarpeta,"testigo");
+				$response=self::getInvolucradosPorTipo($request->carpeta,"testigo");
 				if($response){
 					return response()->json($response);
 				}else{
@@ -87,11 +87,11 @@ class ApiControllerUAT extends Controller
 	}
 
 	public function getAutoridadesCarpeta(Request $request){
-		if( (!isset($request->api_token)||empty($request->api_token)) || ($request->idCarpeta == null)){
+		if( (!isset($request->api_token)||empty($request->api_token)) || ($request->carpeta == null)){
 			return ["Status"=>"Error","Mensaje"=>"Faltan datos de entrada"];
 		}else{
 			if(self::isTokenValido($request->api_token)){
-				$response=self::getInvolucradosPorTipo($request->idCarpeta,"autoridad");
+				$response=self::getInvolucradosPorTipo($request->carpeta,"autoridad");
 				if($response){
 					return response()->json($response);
 				}else{
@@ -104,11 +104,11 @@ class ApiControllerUAT extends Controller
 	}
 
 	public function getAbogadosCarpeta(Request $request){
-		if( (!isset($request->api_token)||empty($request->api_token)) || ($request->idCarpeta == null)){
+		if( (!isset($request->api_token)||empty($request->api_token)) || ($request->carpeta == null)){
 			return ["Status"=>"Error","Mensaje"=>"Faltan datos de entrada"];
 		}else{
 			if(self::isTokenValido($request->api_token)){
-				$response=self::getInvolucradosPorTipo($request->idCarpeta,"abogado");
+				$response=self::getInvolucradosPorTipo($request->carpeta,"abogado");
 				if($response){
 					return response()->json($response);
 				}else{

@@ -236,7 +236,7 @@ class PersonaController extends Controller{
 	/*falta agregar un where con los tipos de determinaciones validos*/
 	public function fisicaBuscarCarpetas(Request $request){		
 		$carpetas = DB::select("select nombres,primerAp,segundoAp,
-				rfc, curp,apar.idCarpeta,apar.sistema,
+				rfc, curp,apar.idCarpeta,apar.carpeta,apar.sistema,
 				apar.tipoInvolucrado,apar.nuc,catDet.nombre as determinacion,
 				apar.esEmpresa from variables_persona_fisica varPer
 			join persona_fisica per on per.id = varPer.idPersona
@@ -253,7 +253,7 @@ class PersonaController extends Controller{
 	/*se lanza cuando se da en guardar persona moral, busca carpetas involucradas en uat y uipj*/
 	/*falta agregar un where con los tipos de determinaciones validos*/
 	public function moralBuscarCarpetas(Request $request){
-		$carpetas = DB::select("select per.nombre,varPer.nombreRep,varPer.primerApRep,varPer.segundoApRep,rfc,apar.idCarpeta,apar.sistema,
+		$carpetas = DB::select("select per.nombre,varPer.nombreRep,varPer.primerApRep,varPer.segundoApRep,rfc,apar.idCarpeta,apar.carpeta,apar.sistema,
 				apar.tipoInvolucrado,apar.nuc,catDet.nombre as determinacion,
 				apar.esEmpresa from variables_persona_moral varPer
 			join persona_moral per on per.id = varPer.idPersona

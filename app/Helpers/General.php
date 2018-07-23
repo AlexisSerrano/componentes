@@ -19,11 +19,12 @@ function saveInLog(String $sistema,$usuario,$tabla,$operacion,$idAfectado,$antes
 	return $bitacora;
 }
 
-function saveInApariciones(String $sistema,$idCarpeta,$idPersona,$tipo,$nuc,$empresa){
+function saveInApariciones(String $sistema,$idCarpeta,$carpeta,$idPersona,$tipo,$nuc,$empresa){
 	try{
 		$apariciones = new aparicionesModel();
 		$apariciones->idVarPersona = $idPersona;
 		$apariciones->idCarpeta = $idCarpeta;
+		$apariciones->carpeta = $carpeta;
 		//$apariciones->idCarpeta = rand(100000, 999999);
 		$apariciones->sistema = $sistema;
 		$apariciones->tipoInvolucrado = $tipo;

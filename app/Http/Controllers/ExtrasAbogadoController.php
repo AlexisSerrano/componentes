@@ -32,7 +32,7 @@ class ExtrasAbogadoController extends Controller
             $extraAbogado->tipo = $request->tipoAbogado;      
             $extraAbogado->save();
 
-            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
 
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,"extra_abogado",$oper,$extraAbogado->id,$antes,$extraAbogado);
