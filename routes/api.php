@@ -46,6 +46,18 @@ Route::post('actashechosuat','ValidacionController@valActasHechosFUAT');
 Route::post('actashechosmoraluat','ValidacionController@valActasHechosMUAT');
 Route::post('actascircunstanciadasuat','ValidacionController@valActasCircunstanciadasFUAT');
 
+/* Validaciones back personas en UIPJ*/
+Route::post('abogadouipj','ValidacionController@valAbogadoUIPJ');
+Route::post('autoridaduipj','ValidacionController@valAutoridadUIPJ');
+Route::post('conocidouipj','ValidacionController@valConocidoFUIPJ');
+Route::post('conocidomoraluipj','ValidacionController@valConocidoMUIPJ');
+Route::post('denunciadouipj','ValidacionController@valDenunciadoFUIPJ');
+Route::post('denunciadomoraluipj','ValidacionController@valDenunciadoMUIPJ');
+Route::post('denuncianteuipj','ValidacionController@valDenuncianteFUIPJ');
+Route::post('denunciantemoraluipj','ValidacionController@valDenuncianteMUIPJ');
+Route::post('qrruipj','ValidacionController@valQrrUIPJ');
+Route::post('testigoipj','ValidacionController@valTestigoUIPJ');
+
 /*API UAT*/
 Route::post('getDenunciantesCarpetaUAT','ApiControllerUAT@getDenunciantesCarpeta');
 Route::post('getInvestigadosCarpetaUAT','ApiControllerUAT@getInvestigadosCarpeta'); 
