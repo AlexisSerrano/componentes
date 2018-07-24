@@ -66,6 +66,7 @@
                     empresa: this.empresa,
                     tipo: 'conocido'
                 };
+                                console.log(data)
                 axios.post(urlGuardarConocido, data)
                     .then(response => {
                         if (response.data) {

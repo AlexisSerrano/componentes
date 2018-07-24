@@ -14,8 +14,8 @@ class ExtrasAbogadoController extends Controller
     }
 
     public function addExtrasAbogado(Request $request){
-        // try{
-        //     DB::beginTransaction();
+        try{
+            DB::beginTransaction();
             if($request->idExtrasAbogado!=""){
                 $extraAbogado = ExtraAbogado::find($request->idExtrasAbogado);
                 $oper="UPDATE";
@@ -38,10 +38,10 @@ class ExtrasAbogadoController extends Controller
             saveInLog($request->sistema,$request->usuario,"extra_abogado",$oper,$extraAbogado->id,$antes,$extraAbogado);
             DB::commit();
             return $extraAbogado->id;
-        // }
-        // catch(Exception $e){
-        //     DB::rollback();
-        //     return false;
-        // }
+        }
+        catch(Exception $e){
+            DB::rollback();
+            return false;
+        }
     }
 }
