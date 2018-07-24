@@ -10445,6 +10445,18 @@ textarea {
   text-decoration: none;
 }
 
+.colorNav > .nav-item > .nav-link {
+  color: #6d6d6d !important;
+}
+
+.colorNav > .nav-item > .nav-link.active {
+  color: #fff !important;
+}
+
+.colorNav > .nav-item > .nav-link.disabled {
+  color: #efefef !important;
+}
+
 th {
   text-align: center !important;
 }
