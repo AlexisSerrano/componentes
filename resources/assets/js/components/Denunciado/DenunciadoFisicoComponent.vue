@@ -29,11 +29,11 @@
                             aria-selected="false">Carpetas ligadas</a>
                     </li>
                 </ul>
-                <div class="col-2 d-flex align-items-start justify-content-end">
+                <div class="col d-flex align-items-start justify-content-end">
                     <button v-if="(this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica=='') || personasEncontradas!=''" type="button" class="btn btn-primary" @click="cleanFields">
-                                <icon name="eraser" style="color:white"></icon>
-                                Limpiar
-                            </button>
+                        <icon name="eraser" style="color:white"></icon>
+                        Limpiar
+                    </button>
                 </div>
             </div>
         </div>

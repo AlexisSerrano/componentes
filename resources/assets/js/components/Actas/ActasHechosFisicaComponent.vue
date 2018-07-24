@@ -17,7 +17,7 @@
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" id="actasHechos-carpetasLigadasFisica-tab" data-toggle="pill" href="#pills-actasHechos-carpetasLigadasFisica" role="tab" aria-controls="pills-actasHechos-carpetasLigadasFisica" aria-selected="false">Carpetas ligadas</a>
                     </li>
                 </ul>
-                <div class="col-2 d-flex align-items-start justify-content-end">
+                <div class="col d-flex align-items-start justify-content-end">
                     <button v-if="this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
                         <icon name="eraser" style="color:white"></icon>
                         Limpiar
