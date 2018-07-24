@@ -105,8 +105,21 @@ class PersonaController extends Controller{
 	}
 
 	public function searchConocido(Request $request){
-				
-		$busqueda = DB::select("select nombres,primerAp,segundoAp, varPer.edad as edad, 
+		
+		
+		$busqueda = DB::table('variables_persona_fisica')
+		->join('persona_fisica','persona_fisica.id','=','variables_persona_fisica')
+		->join('domicilio','domicilio.id','=','variables_persona_fisica.idDomicilio')
+		->join('cat_estado','cat_estado','=','domicilio.')
+		->join('cat_municipio')
+		->join('cat_nacionalidad')
+		->join('sexos')
+		->where()
+		->select()
+		->groupBy();
+
+
+		$busqueda = DB::select("select max(varPer.id),nombres,primerAp,segundoAp, varPer.edad as edad, 
 		sex.nombre as sexo, rfc, curp, varPer.idDomicilio as idDomicilio, varPer.idTrabajo as idDomocilioTrabajo, 
 		varPer.idNotificacion as idDomicilioNotificacion, varPer.id as idVarPersona, varPer.idPersona ,catEdo.nombre as estado, catMun.nombre as municipio, 
         catNaci.nombre as nacionalidad from variables_persona_fisica varPer        
@@ -115,8 +128,9 @@ class PersonaController extends Controller{
 				join cat_estado catEdo on catEdo.id = dom.idEstado
 				join cat_municipio catMun on catMun.id = per.idMunicipioOrigen
                 join cat_nacionalidad  catNaci on catNaci.id = per.idNacionalidad 
-                join sexos sex on sex.id = per.sexo
-				WHERE ( (per.nombres = '$request->nombres') and (per.primerAp = '$request->primerAp') and (per.segundoAp = '$request->segundoAp') )");
+                join sexos sex on sex.id = per.sexo                
+				WHERE ( (per.nombres = '$request->nombres') and (per.primerAp = '$request->primerAp') and (per.segundoAp = '$request->segundoAp') )
+                GROUP by varPer.idPersona");
 			if($busqueda){
 				return response()->json($busqueda);
 			}else{
