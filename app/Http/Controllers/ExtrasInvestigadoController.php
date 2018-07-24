@@ -40,7 +40,7 @@ class ExtrasInvestigadoController extends Controller{
                 $tipo=($request->empresa)?"extra_denunciado_moral":"extra_denunciado_fisico"; 
             }     
             $extraDenunciado->idPuesto = $request->idPuesto;
-            $extraDenunciado->alias = $request->alias;
+            $extraDenunciado->alias = ($request->alias=='')?'SIN INFORMACIÓN':$request->alias;
             $extraDenunciado->senasPartic = $request->particulares;
             $extraDenunciado->ingreso = $request->ingreso;
             $extraDenunciado->periodoIngreso = $request->periodoIngreso;
@@ -50,7 +50,7 @@ class ExtrasInvestigadoController extends Controller{
             $extraDenunciado->vestimenta = $request->vestimenta;    
             $extraDenunciado->save();
 
-            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
 
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciado->id,$antes,$extraDenunciado);
@@ -66,8 +66,8 @@ class ExtrasInvestigadoController extends Controller{
     public function addExtrasConocido(Request $request){
         try{
             DB::beginTransaction();
-            if($request->idExtrasDenunciado!=""){
-                $extraDenunciado=($request->empresa)?ExtraDenunciadoMoral::find($request->idExtrasDenunciado):ExtraDenunciadoFisico::find($request->idExtrasDenunciado);
+            if($request->idExtrasConocido!=""){
+                $extraDenunciado=($request->empresa)?ExtraDenunciadoMoral::find($request->idExtrasConocido):ExtraDenunciadoFisico::find($request->idExtrasConocido);
                 $oper="UPDATE";
                 $antes= clone $extraDenunciado;
                 $tipo=($request->empresa)?"extra_denunciado_moral":"extra_denunciado_fisico";
@@ -81,7 +81,7 @@ class ExtrasInvestigadoController extends Controller{
             $extraDenunciado->senasPartic = $request->particulares;
             $extraDenunciado->save();
 
-            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
 
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciado->id,$antes,$extraDenunciado);

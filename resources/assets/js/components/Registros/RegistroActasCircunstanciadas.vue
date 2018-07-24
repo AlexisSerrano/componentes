@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="pb-3 pt-1">
         <!-- MENÚ -->
         <div class="container-fluid">
             <div class="row">
-                <ul class="nav nav-pills mb-3 col-10" style="padding-left:15px" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-3" style="padding-left:15px" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="actasCircunstanciadas-personafisico-tab" data-toggle="pill" href="#pills-actasCircunstanciadas-personafisico" role="tab" aria-controls="pills-actasCircunstanciadas-personafisico" aria-selected="true">Datos Personales</a>
                     </li>
@@ -17,7 +17,7 @@
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" id="actasCircunstanciadas-carpetasLigadasFisica-tab" data-toggle="pill" href="#pills-actasCircunstanciadas-carpetasLigadasFisica" role="tab" aria-controls="pills-actasCircunstanciadas-carpetasLigadasFisica" aria-selected="false">Carpetas ligadas</a>
                     </li>
                 </ul>
-                <div class="col-2 d-flex align-items-start justify-content-end">
+                <div class="col d-flex align-items-start justify-content-end">
                     <button v-if="this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
                         <icon name="eraser" style="color:white"></icon>
                         Limpiar
@@ -50,7 +50,7 @@
 <script>
     import extrasactascircunstanciadas from '../Extras/ExtrasActasCircunstanciadasComponent.vue';
     export default {
-        props: ['sistema','carpeta','usuario'],
+        props: ['sistema', 'usuario'],
         components: {extrasactascircunstanciadas},
         methods: {
             cleanFields(){

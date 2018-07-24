@@ -22,13 +22,13 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-conocido-personaMoral" role="tabpanel" aria-labelledby="conocido-personaMoral-tab">
-                <personamoral :sistema="sistema" :carpeta="carpeta" :tipo="'conocidomoral'" :usuario="usuario"></personamoral>
+                <personamoral :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'conocidomoral'" :usuario="usuario"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-conocido-domicilioMoral" role="tabpanel" aria-labelledby="conocido-domicilioMoral-tab">
                 <domicilio v-if="this.$store.state.idPersonaMoral" :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-conocido-extraMoral" role="tabpanel-Moral" aria-labelledby="conocido-extraMoral-tab">
-                <extrasconocido v-if="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :carpeta="carpeta" :usuario="usuario"></extrasconocido>
+                <extrasconocido v-if="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasconocido>
             </div>
         </div>
         <!-- OPCIONES -->
@@ -47,7 +47,7 @@
                 particulares: ''
             }
         },
-        props: ['sistema', 'carpeta','usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario'],
         components: { extrasconocido },
     }
 </script>

@@ -12,7 +12,7 @@
 			</div>
 	
 			<div class="form-row">
-				<div v-if="validaciones.nombres!='oculto' && personasEncontradas==''" class="form-group col-md-4">
+				<div v-if="validaciones.nombres!='oculto' && showCoincidencias!=true" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
 					<input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres"
 					    autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
@@ -20,21 +20,21 @@
 					<span v-if="this.validacionesback.nombres!=undefined" class="text-danger">{{ String(this.validacionesback.nombres)}}</span>
 				</div>
 	
-				<div v-if="validaciones.primerAp!='oculto' && personasEncontradas==''" class="form-group col-md-4">
+				<div v-if="validaciones.primerAp!='oculto' && showCoincidencias!=true" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="primerAp">Primer apellido</label>
 					<input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido"
 					    v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
 					<span v-show="errors.has('primer apellido')" class="text-danger">{{ errors.first('primer apellido')}}</span>
 					<span v-if="this.validacionesback.primerAp!=undefined" class="text-danger">{{ String(this.validacionesback.primerAp)}}</span>
 				</div>
-				<div v-if="validaciones.segundoAp!='oculto' && personasEncontradas==''" class="form-group col-md-4">
+				<div v-if="validaciones.segundoAp!='oculto' && showCoincidencias!=true" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="segundoAp">Segundo apellido</label>
 					<input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido"
 					    v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
 					<span v-show="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido')}}</span>
 					<span v-if="this.validacionesback.segundoAp!=undefined" class="text-danger">{{ String(this.validacionesback.segundoAp)}}</span>
 				</div>
-				<div v-if="validaciones.alias!='oculto' && tipo=='conocido' && personasEncontradas==''" class="form-group col-md-4">
+				<div v-if="validaciones.alias!='oculto' && tipo=='conocido' && showCoincidencias!=true" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="alias">Alias</label>
 					<input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias')  || this.validacionesback.alias}" v-model="alias" placeholder="Ingrese el alias" v-validate="validaciones.alias" autocomplete="off">
 					<span v-show="errors.has('alias')" class="text-danger">{{ errors.first('alias')}}</span>
@@ -72,7 +72,13 @@
 					<span v-if="this.validacionesback.idEstadoOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idEstadoOrigen)}}</span>
 				</div>
 	
-	
+				<div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
+					<label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>
+					<v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}" placeholder="Seleccione un municipio de origen"
+					    :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
+					<span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
+					<span v-if="this.validacionesback.idMunicipioOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipioOrigen)}}</span>
+				</div>
 	
 				<div v-if="validaciones.rfc!='oculto'" class="form-group col-md-2">
 					<label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
@@ -104,15 +110,6 @@
 					<span v-if="this.validacionesback.idNacionalidad!=undefined" class="text-danger">{{ String(this.validacionesback.idNacionalidad)}}</span>
 				</div>
 	
-	
-	
-				<div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
-					<label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>
-					<v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}" placeholder="Seleccione un municipio de origen"
-					    :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
-					<span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
-					<span v-if="this.validacionesback.idMunicipioOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipioOrigen)}}</span>
-				</div>
 				<div v-if="validaciones.idEtnia!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="etnia">Etnia</label>
 					<v-select label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="validaciones.idEtnia" :class="{ 'border border-danger rounded': errors.has('etnia') || this.validacionesback.idEtnia}" placeholder="Seleccione una etnia" :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
@@ -196,12 +193,14 @@
 			</div>
 	
 	
+			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
+				 <icon name="user-check" style="color:white"></icon>
+				{{personasEncontradas.length + coincidenciasText}}</button>
+			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
-			<button v-if="personasEncontradas==''" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
-	
-			<coincidencias v-if="personasEncontradas.length>0" :sistema="sistema" :usuario="usuario"></coincidencias>
+			<coincidencias v-if="showCoincidencias==true" :sistema="sistema" :usuario="usuario"></coincidencias>
 	
 	
 	
@@ -283,7 +282,7 @@
 				url: urlComponentes
 			}
 		},
-		props: ['sistema', 'tipo', 'carpeta', 'usuario'],
+		props: ['sistema', 'tipo', 'carpeta', 'idcarpeta' ,'usuario'],
 		components: {
 			SpringSpinner
 		},
@@ -390,7 +389,7 @@
 						this.identificacion = this.personaExiste.docIdentificacion
 						this.numIdentificacion = this.personaExiste.numDocIdentificacion
 						this.telefono = this.personaExiste.telefono,
-						(this.sistema == 'uipj') ? this.motivoEstancia = this.personaExiste.motivoEstancia : ''
+							(this.sistema == 'uipj') ? this.motivoEstancia = this.personaExiste.motivoEstancia : ''
 					}
 				});
 			},
@@ -407,6 +406,9 @@
 						}
 					});
 				}
+			},
+			mostrarCoincidencias(){
+				this.$store.commit('mostrarCoincidencias')
 			},
 			calcularRfc() {
 				if (this.nombres != '' && this.primerAp != '' && this.fechaNacimiento != '') {
@@ -581,13 +583,15 @@
 						idTrabajo: this.$store.state.idTrabajoTemporal,
 						idNotificacion: this.$store.state.idContactoTemporal,
 						idExtrasConocido: this.$store.state.idExtra,
-						idCarpeta: this.carpetaF
+						carpeta: this.carpeta,
+						idCarpeta: this.idcarpeta
 					};
 				} else {
 					var data = {
 						sistema: this.sistema,
 						usuario: this.usuario,
-						idCarpeta: this.carpeta
+						carpeta: this.carpeta,
+						idCarpeta: this.idcarpeta
 					};
 				}
 				if (data) {
@@ -667,12 +671,16 @@
 		},
 		computed: Object.assign({
 			botonGuardarModificar() {
-				if (this.$store.state.idPersonaFisica == '' || this.tipo=='qrr') {
+				if (this.$store.state.idPersonaFisica == '' || this.tipo == 'qrr') {
 					return 'Guardar'
 				} else {
 					return 'Modificar'
 				}
+			},
+			coincidenciasText(){
+				if(this.personasEncontradas.length==1){return " Coincidencia"}
+				else{return " Coincidencias"}
 			}
-		}, mapState(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'personasEncontradas']))
+		}, mapState(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'personasEncontradas','showCoincidencias']))
 	}
 </script>

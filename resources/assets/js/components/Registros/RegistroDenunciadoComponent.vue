@@ -1,20 +1,20 @@
 <template>
-    <div>
+    <div class="pb-3 pt-1">
         <div class="container-fluid">
             <div class="form-row">
-                <div class="col-6">
+                <div class="col-7">
                      <label class="col-form-label col-form-label-sm">Seleccione una opción</label> 
                 </div>
-                <div class="col-6">
+                <div class="col-5">
                     <label  v-if="denunciado==3" class="col-form-label col-form-label-sm">Tipo de persona</label> 
                     <label  v-if="denunciado==2" class="col-form-label col-form-label-sm">Tipo de conocido</label> 
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-7">
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
-                            <label class="form-check-label col-form-label col-form-label-sm" for="qrr" style="padding-right: 5px">Q.R.R</label>
+                            <label class="form-check-label col-form-label col-form-label-sm" for="qrr" style="padding-right: 5px">Q.R.R.</label>
                             <input class="form-check-input" type="radio" v-model="denunciado" id="qrr" value="1">
                         </div>
                         <div class="form-check form-check-inline">
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="denunciado==3" class="form-group col-md-6">
+                <div v-if="denunciado==3" class="form-group col-md-5">
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label col-form-label col-form-label-sm" for="personaFisica" style="padding-right: 5px">Persona física</label>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="denunciado==2" class="form-group col-md-6">
+                <div v-if="denunciado==2" class="form-group col-md-5">
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label col-form-label col-form-label-sm" for="conocidoFisica" style="padding-right: 5px">Persona física</label>
@@ -53,11 +53,11 @@
                 </div>
             </div>
         </div>
-        <personafisica v-if="denunciado==1" :sistema="sistema" :carpeta="carpeta" :tipo="'qrr'" :usuario="usuario"></personafisica>
-        <conocidofisico v-if="denunciado==2 && conocido==1" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></conocidofisico>
-        <conocidomoral v-if="denunciado==2  && conocido==2" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></conocidomoral>
-        <denunciadofisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></denunciadofisico>
-        <denunciadomoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></denunciadomoral>
+        <personafisica v-if="denunciado==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'qrr'" :usuario="usuario"></personafisica>
+        <conocidofisico v-if="denunciado==2 && conocido==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></conocidofisico>
+        <conocidomoral v-if="denunciado==2  && conocido==2" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></conocidomoral>
+        <denunciadofisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></denunciadofisico>
+        <denunciadomoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></denunciadomoral>
     </div>
 </template>
 
@@ -74,7 +74,7 @@
                 conocido:1
             }
         },
-        props: ['sistema','carpeta','usuario'],
+        props: ['sistema','carpeta', 'idcarpeta' ,'usuario'],
         components:{denunciadofisico,denunciadomoral,conocidofisico,conocidomoral},
         watch: {
             denunciado() {

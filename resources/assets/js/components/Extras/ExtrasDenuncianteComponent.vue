@@ -3,7 +3,7 @@
         <form v-on:submit.prevent="validateBeforeSubmit">
     
             <div class="form-row">
-                <div class="form-group col-md-3">
+                <div v-if="this.empresa==false" class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="identidad">Identidad resguardada</label>
                     <v-select :options="identidades" label="nombre" v-model="identidad" name="identidad" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('identidad')}" placeholder="Seleccione identidad"></v-select>
                     <span v-show="errors.has('identidad')" class="text-danger">{{ errors.first('identidad')}}</span>
@@ -55,21 +55,10 @@
                 }],
                 solicitante: '',
                 descripcion: '',
-                systemUser: 'TEST',
                 url: urlComponentes
             }
         },
-        props: {
-            empresa: {
-                required: true
-            },
-            sistema: {
-                required: true
-            },
-            carpeta: {
-                required: true
-            }
-        },
+        props:['empresa','sistema','carpeta','idcarpeta', 'usuario'],
         created: function() {
             //            this.getPuestos();
         },
@@ -99,13 +88,14 @@
                 var data = {
                     idExtrasDenunciante: this.$store.state.idExtra,
                     idPersona: idPersona,
-                    reguardarIdentidad: this.identidad.id,
+                    reguardarIdentidad: (this.identidad)?this.identidad.id:'',
                     victima: this.solicitante.id,
                     sistema: this.sistema,
                     empresa: this.empresa,
-                    usuario: this.systemUser,
+                    usuario: this.usuario,
                     narracion: this.descripcion.toUpperCase(),
-                    idCarpeta: this.carpeta,
+                    carpeta: this.carpeta,
+                    idCarpeta: this.idcarpeta,
                     tipo: 'denunciante'
                 };
                 axios.post(urlGuardarDenunciante, data)

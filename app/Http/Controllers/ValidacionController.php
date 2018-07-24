@@ -9,6 +9,16 @@ use App\Http\Requests\DenunciadoFisicaRequest;
 use App\Http\Requests\DenunciadoMoralRequest;
 use App\Http\Requests\DenuncianteFisicaRequest;
 use App\Http\Requests\DenuncianteMoralRequest;
+
+use App\Http\Requests\AbogadoUIPJRequest;
+use App\Http\Requests\AutoridadUIPJRequest;
+use App\Http\Requests\ConocidoFisicoUIPJRequest;
+use App\Http\Requests\ConocidoMoralUIPJRequest;
+use App\Http\Requests\DenunciadoFisicaUIPJRequest;
+use App\Http\Requests\DenunciadoMoralUIPJRequest;
+use App\Http\Requests\DenuncianteFisicaUIPJRequest;
+use App\Http\Requests\DenuncianteMoralUIPJRequest;
+
 use App\Http\Models\PersonaModel;
 use App\Http\Models\PersonaMoralModel;
 use App\Http\Models\VariablesPersona;
@@ -19,6 +29,11 @@ use App\Http\Models\ExtraDenunciadoMoral;
 use App\Http\Requests\ActasHechosRequest;
 use App\Http\Requests\ActasHechosMoralRequest;
 use App\Http\Requests\ActasCircunstanciadasRequest;
+use App\Http\Requests\StoreAbogado;
+use App\Http\Requests\StoreAutoridad;
+use App\Http\Requests\StoreDenunciado;
+use App\Http\Requests\StoreDenunciante;
+use App\Http\Requests\StoreTestigo;
 use DB;
 
 use Illuminate\Http\Request;
@@ -83,6 +98,54 @@ class ValidacionController extends Controller
 
     public function valActasCircunstanciadasFUAT(ActasCircunstanciadasRequest $request){
         $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
+
+    public function valAbogadoUIPJ(AbogadoUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsAbogadoFisica($request);
+        return response()->json($idVariable);
+    }
+
+    public function valAutoridadUIPJ(AutoridadUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
+
+    // public function valTestigoUIPJ(StoreTestigo $request){
+    //     $idVariable = ValidacionController::saveInputsFisica($request);
+    //     return response()->json($idVariable);
+    // }
+
+    public function valDenuncianteFUIPJ(DenuncianteFisicaUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
+
+    public function valDenuncianteMUIPJ(DenuncianteMoralUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsMoral($request);
+        return response()->json($idVariable);
+    }
+    public function valDenunciadoFUIPJ(DenunciadoFisicaUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
+
+    public function valDenunciadoMUIPJ(DenunciadoMoralUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsMoral($request);
+        return response()->json($idVariable);
+    }
+    public function valConocidoFUIPJ(ConocidoFisicoUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsConocidoFisico($request);
+        return response()->json($idVariable);
+    }
+
+    public function valConocidoMUIPJ(ConocidoMoralUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsConocidoMoral($request);
+        return response()->json($idVariable);
+    }
+
+    public function valQrrUIPJ(Request $request){
+        $idVariable = ValidacionController::saveQrr($request);
         return response()->json($idVariable);
     }
 
@@ -253,6 +316,7 @@ class ValidacionController extends Controller
                 $antes = clone $extras;
             }
             $extras->alias = ($request->alias=='')?'SIN INFORMACION':$request->alias;
+            $extras->senasPartic = 'SIN INFORMACION';
             $extras->save();
 
             saveInLog($request->sistema,$request->usuario,'persona_fisica',$oper,$persona->id,$antes,$persona);
@@ -365,7 +429,8 @@ class ValidacionController extends Controller
     }
 
     public function saveQrr($request){
-        $aparicion = aparicionesModel::where('idCarpeta',$request->idCarpeta)->first();
+        $aparicion = aparicionesModel::where('carpeta',$request->carpeta)
+        ->where('idVarPersona',1)->first();
         if($aparicion){
             $data = array(
                 'idPersona'=>false,
@@ -376,7 +441,7 @@ class ValidacionController extends Controller
         else{
             DB::beginTransaction();
             try{
-                $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,1,'denunciado','xxxxx',0);
+                $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,1,'denunciado','xxxxx',0);
                 saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
                 DB::commit();
                 $data = array(

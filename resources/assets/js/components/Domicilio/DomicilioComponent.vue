@@ -36,20 +36,19 @@
                 </div>
     
     
-    
-                <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="codigoPostal">Código postal</label>
-                    <v-select :options="codigosPostales" label="codigoPostal" v-model="codigoPostal" name="codigoPostal" @input="getColonias" v-validate="'required'" data-vv-name="código postal" :class="{ 'border border-danger': errors.has('código postal') || this.validacionesback.idCodigoPostal}"
-                        placeholder="Seleccione un código postal" :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
-                    <span v-show="errors.has('código postal')" class="text-danger">{{ errors.first('código postal') }}</span>
-                    <span v-if="this.validacionesback.idCodigoPostal!=undefined" class="text-danger">{{ String(this.validacionesback.idCodigoPostal)}}</span>
-                </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="colonia">Colonia</label>
                     <v-select :options="colonias" label="nombre" v-model="colonia" name="colonia" @input="getCodigosPostales" v-validate="'required'" :class="{ 'border border-danger': errors.has('colonia') || this.validacionesback.idColonia}" placeholder="Seleccione una colonia"
                         :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
                     <span v-show="errors.has('colonia')" class="text-danger">{{ errors.first('colonia')}}</span>
                     <span v-if="this.validacionesback.idColonia!=undefined" class="text-danger">{{ String(this.validacionesback.idColonia)}}</span>
+                </div>
+                <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
+                    <label class="col-form-label col-form-label-sm" for="codigoPostal">Código postal</label>
+                    <v-select :options="codigosPostales" label="codigoPostal" v-model="codigoPostal" name="codigoPostal" @input="getColonias" v-validate="'required'" data-vv-name="código postal" :class="{ 'border border-danger': errors.has('código postal') || this.validacionesback.idCodigoPostal}"
+                        placeholder="Seleccione un código postal" :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
+                    <span v-show="errors.has('código postal')" class="text-danger">{{ errors.first('código postal') }}</span>
+                    <span v-if="this.validacionesback.idCodigoPostal!=undefined" class="text-danger">{{ String(this.validacionesback.idCodigoPostal)}}</span>
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="calle">Calle</label>
@@ -137,8 +136,8 @@
                 codigosPostalesMunicipio: [],
                 coloniasMunicipio: [],
                 calle: '',
-                numExterno: '',
-                numInterno: '',
+                numExterno: "S/N",
+                numInterno: "S/N",
                 validacionesback: '',
                 idDomicilio: '',
                 loader: true,

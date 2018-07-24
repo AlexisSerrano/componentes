@@ -12,7 +12,7 @@
                     <span v-show="errors.has('puesto')" class="text-danger">{{ errors.first('puesto')}}</span>
                 </div>
     
-                <div class="form-group col-md-3">
+                <div v-if="this.empresa==false" class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="alias">Alias</label>
                     <input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias')}" v-model="alias" placeholder="Ingrese el alias" v-validate="'required'" autocomplete="off">
                     <span v-show="errors.has('alias')" class="text-danger">{{ errors.first('alias')}}</span>
@@ -92,7 +92,7 @@
 </template>
 
 <script>
-	import urlComponentes from '../../urlComponentes'
+    import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
         data() {
@@ -107,33 +107,23 @@
                 vestimenta: '',
                 particulares: '',
                 descripcion: '',
-                systemUser: 'TEST',
                 puestos: [],
                 periodos: ['DIARIO', 'SEMANAL', 'QUINCENAL', 'MENSUAL'],
                 url: urlComponentes
             }
         },
-        props: {
-            sistema: {
-                required: true
-            },
-            empresa: {
-                required: true
-            },
-            carpeta: {
-                required: true
-            }
-        },
-        created: function() {
-            //            this.getPuestos();
+        props: ['sistema', 'empresa', 'carpeta', 'idcarpeta', 'usuario'],
+        created() {
+            this.getPuestos();
         },
         methods: {
-            getPuestos: function() {
-                var urlPuestos = this.url + '/getPuestos';
-                axios.post(urlPuestos).then(response => {
-                    this.puestos = response.data
-                });
-    
+            getPuestos() {
+                if (this.sistema == 'uipj') {
+                    var urlPuestos = this.url + '/getPuestos';
+                    axios.post(urlPuestos).then(response => {
+                        this.puestos = response.data
+                    });
+                }
             },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -160,8 +150,8 @@
                     idExtrasDenunciado: this.$store.state.idExtra,
                     empresa: this.empresa,
                     idPersona: idPersona,
-                    idPuesto: this.puesto,
-                    alias: this.alias.toUpperCase(),
+                    idPuesto: this.puesto.id,
+                    alias: (this.alias) ? this.alias.toUpperCase() : '',
                     dependientes: this.dependientes,
                     ingreso: this.ingreso,
                     periodoIngreso: this.periodo,
@@ -170,9 +160,10 @@
                     vestimenta: this.vestimenta.toUpperCase(),
                     particulares: this.particulares.toUpperCase(),
                     sistema: this.sistema,
-                    usuario: this.systemUser,
+                    usuario: this.usuario,
                     narracion: this.descripcion.toUpperCase(),
-                    idCarpeta: this.carpeta,
+                    carpeta: this.carpeta,
+                    idCarpeta: this.idcarpeta,
                     tipo: 'denunciado'
                 };
                 axios.post(urlGuardarDenunciado, data)

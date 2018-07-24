@@ -10,7 +10,7 @@
                         <th>Nombres y apellidos</th>
                         <th>R.F.C</th>
                         <th>C.U.R.P</th>
-                        <th>ID Carpeta</th>
+                        <th>Carpeta</th>
                         <th>Sistema</th>
                         <th>Tipo de involucrado</th>
                         <th>N.U.C.</th>
@@ -22,7 +22,7 @@
                         <th>Nombre</th>
                         <th>R.F.C.</th>
                         <th>Representante legal</th>
-                        <th>ID Carpeta</th>
+                        <th>Carpeta</th>
                         <th>Sistema</th>
                         <th>Tipo de involucrado</th>
                         <th>N.U.C.</th>
@@ -30,11 +30,11 @@
                     </tr>
                 </thead>
                 <tbody v-if="this.$store.state.fisicaEncontrada">
-                    <tr v-for="value in carpetas" :key="value.idCarpeta">
+                    <tr v-for="value in carpetas" :key="value.carpeta">
                         <td>{{ `${value.nombres} ${value.primerAp} ${value.segundoAp}` }}</td>
                         <td>{{ value.rfc }}</td>
                         <td>{{ value.curp }}</td>
-                        <td>{{ value.idCarpeta }}</td>
+                        <td>{{ value.carpeta }}</td>
                         <td>{{ value.sistema }}</td>
                         <td>{{ value.tipoInvolucrado }}</td>
                         <td>{{ value.nuc }}</td>
@@ -47,11 +47,11 @@
                     </tr>
                 </tbody>
                 <tbody v-if="this.$store.state.moralEncontrada">
-                    <tr v-for="value in carpetas" :key="value.idCarpeta">
+                    <tr v-for="value in carpetas" :key="value.carpeta">
                         <td>{{ value.nombre }}</td>
                         <td>{{ value.rfc }}</td>
                         <td>{{ `${value.nombreRep} ${value.primerApRep} ${value.segundoApRep}` }}</td>
-                        <td>{{ value.idCarpeta }}</td>
+                        <td>{{ value.carpeta }}</td>
                         <td>{{ value.sistema }}</td>
                         <td>{{ value.tipoInvolucrado }}</td>
                         <td>{{ value.nuc }}</td>

@@ -19,6 +19,22 @@ class extraAbogadoSeeder extends Seeder
                 'sector' => 'PÚBLICO',
                 'correo'=>'CORREO@GMAIL.COM',
                 'tipo'=>'CIVIL'
+            ],
+            [ 
+                'id'=> 2,
+                'idVariablesPersona' => 2,
+                'cedulaProf' => 'DDK443',
+                'sector' => 'PRIVADO',
+                'correo'=>'CORREO@GMAIL.COM',
+                'tipo'=>'OTRO1'
+            ],
+            [ 
+                'id'=> 3,
+                'idVariablesPersona' => 3,
+                'cedulaProf' => 'KKOOPP009',
+                'sector' => 'PÚBLICO',
+                'correo'=>'CORREO@GMAIL.COM',
+                'tipo'=>'OTRO2'
             ]
 	    ]);
     }

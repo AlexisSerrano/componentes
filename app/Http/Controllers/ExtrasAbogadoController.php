@@ -14,8 +14,8 @@ class ExtrasAbogadoController extends Controller
     }
 
     public function addExtrasAbogado(Request $request){
-        // try{
-        //     DB::beginTransaction();
+        try{
+            DB::beginTransaction();
             if($request->idExtrasAbogado!=""){
                 $extraAbogado = ExtraAbogado::find($request->idExtrasAbogado);
                 $oper="UPDATE";
@@ -29,19 +29,19 @@ class ExtrasAbogadoController extends Controller
             $extraAbogado->cedulaProf = $request->cedula;        
             $extraAbogado->sector = $request->sector;
             $extraAbogado->correo = $request->correo;
-            $extraAbogado->tipo = $request->tipo;      
+            $extraAbogado->tipo = $request->tipoAbogado;      
             $extraAbogado->save();
 
-            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
 
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,"extra_abogado",$oper,$extraAbogado->id,$antes,$extraAbogado);
             DB::commit();
             return $extraAbogado->id;
-        // }
-        // catch(Exception $e){
-        //     DB::rollback();
-        //     return false;
-        // }
+        }
+        catch(Exception $e){
+            DB::rollback();
+            return false;
+        }
     }
 }

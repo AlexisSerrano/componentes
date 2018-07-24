@@ -14,7 +14,7 @@ class FamiliarController extends Controller
 			->join('persona_fisica', 'persona_fisica.id', '=', 'variables_persona_fisica.idPersona')
 			->join('apariciones', 'apariciones.idVarPersona', '=', 'variables_persona_fisica.id')
             ->select('persona_fisica.id', 'persona_fisica.nombres', 'persona_fisica.primerAp', 'persona_fisica.segundoAp')
-			->where('apariciones.idCarpeta', '=', $request->idCarpeta)
+			->where('apariciones.carpeta', '=', $request->carpeta)
 			->where('esEmpresa', '=', 0)
 			->orderBy('persona_fisica.nombres', 'ASC');
 					
@@ -23,7 +23,7 @@ class FamiliarController extends Controller
 			->join('persona_fisica', 'persona_fisica.id', '=', 'variables_persona_fisica.idPersona')
 			->join('apariciones', 'apariciones.idVarPersona', '=', 'variables_persona_fisica.id')
             ->select('persona_fisica.id', 'persona_fisica.nombres', 'persona_fisica.primerAp', 'persona_fisica.segundoAp')
-			->where('apariciones.idCarpeta', '=', $request->idCarpeta)
+			->where('apariciones.carpeta', '=', $request->carpeta)
 			->where('esEmpresa', '=', 0)
             ->orderBy('persona_fisica.nombres', 'ASC')
             ->union($involucrados1)
@@ -69,7 +69,7 @@ class FamiliarController extends Controller
             $extraDenunciante->victima = $request->victima;      
             $extraDenunciante->save();
 
-            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
+            $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
 
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciante->id,$antes,$extraDenunciante);

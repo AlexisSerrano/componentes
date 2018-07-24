@@ -23,7 +23,8 @@ const store = new Vuex.Store({
         idDomicilioTemporal:'',
         idTrabajoTemporal:'',
         idContactoTemporal:'',
-        personasEncontradas:''
+        personasEncontradas:'',
+        showCoincidencias:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -83,7 +84,8 @@ const store = new Vuex.Store({
             state.idDomicilioTemporal='',
             state.idTrabajoTemporal='',
             state.idContactoTemporal='',
-            state.personasEncontradas=''
+            // state.personasEncontradas='',
+            state.showCoincidencias=''
         },
         asignarCarpetasLigadas(state,payload){
             state.carpetasLigadas=payload
@@ -104,6 +106,9 @@ const store = new Vuex.Store({
         },
         asignarPersonasEncontradas(state,payload){
             state.personasEncontradas=payload
+        },
+        mostrarCoincidencias(state){
+            state.showCoincidencias=true
         }
     }
 })

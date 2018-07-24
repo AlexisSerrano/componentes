@@ -49,18 +49,10 @@
                 rango: '',
                 horarioLaboral: '',
                 descripcion: '',
-                systemUser: 'TEST',
                 url: urlComponentes,
             }
         },
-        props: {
-            sistema: {
-                required: true
-            },
-            carpeta: {
-                required: true
-            }
-        },
+        props: ['sistema','carpeta','idcarpeta', 'usuario'],
         methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -86,9 +78,10 @@
                     rango: this.rango,
                     horarioLaboral: this.horarioLaboral.toUpperCase(),
                     sistema: this.sistema,
-                    usuario: this.systemUser,
+                    usuario: this.usuario,
                     narracion: this.descripcion.toUpperCase(),
-                    idCarpeta: this.carpeta,
+                    carpeta: this.carpeta,
+                    idCarpeta: this.idcarpeta,
                     empresa: false,
                     tipo: 'autoridad'
                 };
