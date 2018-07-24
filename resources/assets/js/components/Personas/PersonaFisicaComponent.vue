@@ -679,7 +679,7 @@
 			},
 			coincidenciasText(){
 				if(this.personasEncontradas.length==1){return " Coincidencia"}
-				else{" Coincidencias"}
+				else{return " Coincidencias"}
 			}
 		}, mapState(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'personasEncontradas','showCoincidencias']))
 	}
