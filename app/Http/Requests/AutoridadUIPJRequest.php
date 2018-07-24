@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Carbon\Carbon;
 
-class AutoridadRequest extends FormRequest
+class AutoridadUIPJRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

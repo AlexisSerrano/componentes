@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Carbon\Carbon;
 
-class DenuncianteFisicaRequest extends FormRequest
+class DenuncianteFisicaUIPJRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
