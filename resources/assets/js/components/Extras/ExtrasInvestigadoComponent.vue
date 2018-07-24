@@ -92,7 +92,7 @@
 </template>
 
 <script>
-	import urlComponentes from '../../urlComponentes'
+    import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
         data() {
@@ -113,17 +113,18 @@
                 url: urlComponentes
             }
         },
-        props: ['sistema','empresa','carpeta','idcarpeta'],
-        created: function() {
-            //            this.getPuestos();
+        props: ['sistema', 'empresa', 'carpeta', 'idcarpeta'],
+        created() {
+            this.getPuestos();
         },
         methods: {
-            getPuestos: function() {
-                var urlPuestos = this.url + '/getPuestos';
-                axios.post(urlPuestos).then(response => {
-                    this.puestos = response.data
-                });
-    
+            getPuestos() {
+                if (this.sistema == 'uipj') {
+                    var urlPuestos = this.url + '/getPuestos';
+                    axios.post(urlPuestos).then(response => {
+                        this.puestos = response.data
+                    });
+                }
             },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -150,8 +151,8 @@
                     idExtrasDenunciado: this.$store.state.idExtra,
                     empresa: this.empresa,
                     idPersona: idPersona,
-                    idPuesto: this.puesto,
-                    alias: (this.alias)?this.alias.toUpperCase():'',
+                    idPuesto: this.puesto.id,
+                    alias: (this.alias) ? this.alias.toUpperCase() : '',
                     dependientes: this.dependientes,
                     ingreso: this.ingreso,
                     periodoIngreso: this.periodo,

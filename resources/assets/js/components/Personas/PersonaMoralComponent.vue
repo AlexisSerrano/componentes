@@ -36,7 +36,7 @@
                 </div>
     
     
-                <div v-if="sistema=='uat' && this.tipo!='conocidomoral'" :class="'form-group col-md-4'">
+                <div v-if="this.tipo!='conocidomoral'" :class="'form-group col-md-4'">
                     <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
                     <input class="form-control form-control-sm" type="text" name="teléfono" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('teléfono') || this.validacionesback.telefono}" v-model="telefono" placeholder="Ingrese el teléfono"
                         v-validate="'required|numeric'" autocomplete="off">
