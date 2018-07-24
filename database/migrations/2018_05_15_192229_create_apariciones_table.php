@@ -17,7 +17,7 @@ class CreateAparicionesTable extends Migration
             $table->increments('id');
             $table->integer('idVarPersona')->unsigned();
             $table->integer('idCarpeta');
-            $table->string('carpeta',25);
+            $table->string('carpeta',25)->nullable();
             $table->string('sistema',20);
             $table->string('tipoInvolucrado',20);
             $table->string('nuc',50);

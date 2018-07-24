@@ -61,7 +61,7 @@
                     particulares: this.particulares,
                     sistema: this.sistema,
                     usuario: this.systemUser,
-                    carpteta: this.carpeta,
+                    carpeta: this.carpeta,
                     idCarpeta: this.idcarpeta,
                     empresa: this.empresa,
                     tipo: 'conocido'
