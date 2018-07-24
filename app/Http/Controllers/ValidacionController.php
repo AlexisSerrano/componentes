@@ -9,6 +9,16 @@ use App\Http\Requests\DenunciadoFisicaRequest;
 use App\Http\Requests\DenunciadoMoralRequest;
 use App\Http\Requests\DenuncianteFisicaRequest;
 use App\Http\Requests\DenuncianteMoralRequest;
+
+use App\Http\Requests\AbogadoUIPJRequest;
+use App\Http\Requests\AutoridadUIPJRequest;
+use App\Http\Requests\ConocidoFisicoUIPJRequest;
+use App\Http\Requests\ConocidoMoralUIPJRequest;
+use App\Http\Requests\DenunciadoFisicaUIPJRequest;
+use App\Http\Requests\DenunciadoMoralUIPJRequest;
+use App\Http\Requests\DenuncianteFisicaUIPJRequest;
+use App\Http\Requests\DenuncianteMoralUIPJRequest;
+
 use App\Http\Models\PersonaModel;
 use App\Http\Models\PersonaMoralModel;
 use App\Http\Models\VariablesPersona;
@@ -91,18 +101,46 @@ class ValidacionController extends Controller
         return response()->json($idVariable);
     }
 
-    public function valAbogadoUIPJ(StoreAbogado $request){
+    public function valAbogadoUIPJ(AbogadoUIPJRequest $request){
         $idVariable = ValidacionController::saveInputsAbogadoFisica($request);
         return response()->json($idVariable);
     }
 
-    public function valAutoridadUIPJ(StoreAutoridad $request){
+    public function valAutoridadUIPJ(AutoridadUIPJRequest $request){
         $idVariable = ValidacionController::saveInputsFisica($request);
         return response()->json($idVariable);
     }
 
-    public function valTestigoUIPJ(StoreTestigo $request){
+    // public function valTestigoUIPJ(StoreTestigo $request){
+    //     $idVariable = ValidacionController::saveInputsFisica($request);
+    //     return response()->json($idVariable);
+    // }
+
+    public function valDenuncianteFUIPJ(DenuncianteFisicaUIPJRequest $request){
         $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
+
+    public function valDenuncianteMUIPJ(DenuncianteMoralUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsMoral($request);
+        return response()->json($idVariable);
+    }
+    public function valDenunciadoFUIPJ(DenunciadoFisicaUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
+
+    public function valDenunciadoMUIPJ(DenunciadoMoralUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsMoral($request);
+        return response()->json($idVariable);
+    }
+    public function valConocidoFUIPJ(ConocidoFisicoUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsConocidoFisico($request);
+        return response()->json($idVariable);
+    }
+
+    public function valConocidoMUIPJ(ConocidoMoralUIPJRequest $request){
+        $idVariable = ValidacionController::saveInputsConocidoMoral($request);
         return response()->json($idVariable);
     }
 

@@ -25,7 +25,6 @@ function saveInApariciones(String $sistema,$idCarpeta,$carpeta,$idPersona,$tipo,
 		$apariciones->idVarPersona = $idPersona;
 		$apariciones->idCarpeta = $idCarpeta;
 		$apariciones->carpeta = $carpeta;
-		//$apariciones->idCarpeta = rand(100000, 999999);
 		$apariciones->sistema = $sistema;
 		$apariciones->tipoInvolucrado = $tipo;
 		$apariciones->nuc = $nuc;
