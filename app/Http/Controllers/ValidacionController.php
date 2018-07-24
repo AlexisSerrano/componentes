@@ -144,6 +144,11 @@ class ValidacionController extends Controller
         return response()->json($idVariable);
     }
 
+    public function valQrrUIPJ(Request $request){
+        $idVariable = ValidacionController::saveQrr($request);
+        return response()->json($idVariable);
+    }
+
 
     public function saveInputsFisica($request){
         DB::beginTransaction();
