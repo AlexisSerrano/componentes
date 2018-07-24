@@ -2962,7 +2962,7 @@ class OcupacionSeeder extends Seeder
             ['id'=>   2946,'nombre' => 'MILITAR'],
             ['id'=>   2947,'nombre' => 'ESTUDIANTE'],
             ['id'=>   2948,'nombre' => 'EMPLEADO'],
-            ['id'=>   2948,'nombre' => 'JUBILADO']
+            ['id'=>   2949,'nombre' => 'JUBILADO']
 
 
             
