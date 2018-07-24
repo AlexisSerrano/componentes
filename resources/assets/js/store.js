@@ -65,7 +65,10 @@ const store = new Vuex.Store({
                 state.idContacto=payload.idDomicilio
             }
         },
-        cleanStore(state){
+        cleanStore(state,payload){
+            if(payload!='coincidencia'){
+                state.personasEncontradas=''
+            }
             state.idPersonaFisica= '',
             state.idPersonaMoral='',
             state.idExtra='',
@@ -84,7 +87,6 @@ const store = new Vuex.Store({
             state.idDomicilioTemporal='',
             state.idTrabajoTemporal='',
             state.idContactoTemporal='',
-            // state.personasEncontradas='',
             state.showCoincidencias=''
         },
         asignarCarpetasLigadas(state,payload){

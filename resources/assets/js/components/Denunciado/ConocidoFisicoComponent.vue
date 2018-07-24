@@ -68,7 +68,7 @@
         },
         methods: {
             cleanFields() {
-                this.$store.commit('cleanStore')
+                this.$store.commit('cleanStore','coincidencia')
             }
         },
         computed: mapState(['personasEncontradas'])
