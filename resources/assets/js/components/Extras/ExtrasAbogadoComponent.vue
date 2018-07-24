@@ -55,14 +55,13 @@
                 sector: '',
                 cedula: '',
                 correo: '',
-                systemUser: 'TEST',
                 tipos: ['ASESOR JURIDICO', 'ABOGADO DEFENSOR'],
                 sectores: ['PÚBLICO', 'PARTICULAR'],
                 url: urlComponentes,
                 descripcion: ''
             }
         },
-        props: ['sistema','carpeta', 'idcarpeta'],
+        props: ['sistema','carpeta', 'idcarpeta', 'usuario'],
         methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -88,7 +87,7 @@
                     correo: this.correo.toUpperCase(),
                     tipoAbogado: this.tipo,
                     sistema: this.sistema.toUpperCase(),
-                    usuario: this.systemUser,
+                    usuario: this.usuario,
                     narracion: this.descripcion.toUpperCase(),
                     carpeta: this.carpeta,
                     idCarpeta: this.idcarpeta,

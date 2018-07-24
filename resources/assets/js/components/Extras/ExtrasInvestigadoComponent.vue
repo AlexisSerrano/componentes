@@ -107,13 +107,12 @@
                 vestimenta: '',
                 particulares: '',
                 descripcion: '',
-                systemUser: 'TEST',
                 puestos: [],
                 periodos: ['DIARIO', 'SEMANAL', 'QUINCENAL', 'MENSUAL'],
                 url: urlComponentes
             }
         },
-        props: ['sistema', 'empresa', 'carpeta', 'idcarpeta'],
+        props: ['sistema', 'empresa', 'carpeta', 'idcarpeta', 'usuario'],
         created() {
             this.getPuestos();
         },
@@ -161,7 +160,7 @@
                     vestimenta: this.vestimenta.toUpperCase(),
                     particulares: this.particulares.toUpperCase(),
                     sistema: this.sistema,
-                    usuario: this.systemUser,
+                    usuario: this.usuario,
                     narracion: this.descripcion.toUpperCase(),
                     carpeta: this.carpeta,
                     idCarpeta: this.idcarpeta,

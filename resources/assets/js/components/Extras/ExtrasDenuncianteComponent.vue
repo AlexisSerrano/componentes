@@ -55,11 +55,10 @@
                 }],
                 solicitante: '',
                 descripcion: '',
-                systemUser: 'TEST',
                 url: urlComponentes
             }
         },
-        props:['empresa','sistema','carpeta','idcarpeta'],
+        props:['empresa','sistema','carpeta','idcarpeta', 'usuario'],
         created: function() {
             //            this.getPuestos();
         },
@@ -93,7 +92,7 @@
                     victima: this.solicitante.id,
                     sistema: this.sistema,
                     empresa: this.empresa,
-                    usuario: this.systemUser,
+                    usuario: this.usuario,
                     narracion: this.descripcion.toUpperCase(),
                     carpeta: this.carpeta,
                     idCarpeta: this.idcarpeta,

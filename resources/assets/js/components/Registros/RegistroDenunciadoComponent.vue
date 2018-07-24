@@ -14,7 +14,7 @@
                 <div class="form-group col-md-7">
                     <div class="form-check" style="padding: 0">
                         <div class="form-check form-check-inline">
-                            <label class="form-check-label col-form-label col-form-label-sm" for="qrr" style="padding-right: 5px">Q.R.R</label>
+                            <label class="form-check-label col-form-label col-form-label-sm" for="qrr" style="padding-right: 5px">Q.R.R.</label>
                             <input class="form-check-input" type="radio" v-model="denunciado" id="qrr" value="1">
                         </div>
                         <div class="form-check form-check-inline">

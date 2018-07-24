@@ -26,11 +26,10 @@
         data() {
             return {
                 particulares: '',
-                systemUser: 'TEST',
                 url: urlComponentes
             }
         },
-        props: ['sistema','empresa','carpeta','idcarpeta'],
+        props: ['sistema','empresa','carpeta','idcarpeta', 'usuario'],
         methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -60,7 +59,7 @@
                     idPersona: idPersona,
                     particulares: this.particulares,
                     sistema: this.sistema,
-                    usuario: this.systemUser,
+                    usuario: this.usuario,
                     carpeta: this.carpeta,
                     idCarpeta: this.idcarpeta,
                     empresa: this.empresa,
