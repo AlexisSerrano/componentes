@@ -34,7 +34,7 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-denunciado-personamoral" role="tabpanel" aria-labelledby="denunciado-personamoral-tab">
-                <personamoral :sistema="sistema" :carpeta="carpeta" :tipo="'denunciadomoral'" :usuario="usuario"></personamoral>
+                <personamoral :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'denunciadomoral'" :usuario="usuario"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-domiciliomoral" role="tabpanel" aria-labelledby="denunciado-domiciliomoral-tab">
                 <domicilio v-if="this.$store.state.idPersonaMoral" :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
@@ -43,7 +43,7 @@
                 <domicilio :tipo="'contacto'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-extramoral" role="tabpanel-moral" aria-labelledby="denunciado-extramoral-tab">
-                <extrasinvestigado v-if="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :carpeta="carpeta" :usuario="usuario"></extrasinvestigado>
+                <extrasinvestigado v-if="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasinvestigado>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasMoral" role="tabpanel-moral" aria-labelledby="denunciante-carpetasLigadasMoral-tab">
                 <notificaciones v-if="this.$store.state.idPersonaMoral" :tipo="'moral'"></notificaciones>
@@ -56,7 +56,7 @@
 <script>
     import extrasinvestigado from '../Extras/ExtrasInvestigadoComponent.vue';
     export default {
-        props: ['sistema', 'carpeta','usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario'],
         components: {extrasinvestigado},
         methods: {
             cleanFields(){

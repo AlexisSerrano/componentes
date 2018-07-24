@@ -59,17 +59,7 @@
                 url: urlComponentes
             }
         },
-        props: {
-            empresa: {
-                required: true
-            },
-            sistema: {
-                required: true
-            },
-            carpeta: {
-                required: true
-            }
-        },
+        props:['empresa','sistema','carpeta','idcarpeta'],
         created: function() {
             //            this.getPuestos();
         },
@@ -105,7 +95,8 @@
                     empresa: this.empresa,
                     usuario: this.systemUser,
                     narracion: this.descripcion.toUpperCase(),
-                    idCarpeta: this.carpeta,
+                    carpeta: this.carpeta,
+                    idCarpeta: this.idcarpeta,
                     tipo: 'denunciante'
                 };
                 axios.post(urlGuardarDenunciante, data)

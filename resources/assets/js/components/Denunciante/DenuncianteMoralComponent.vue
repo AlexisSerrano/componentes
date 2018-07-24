@@ -38,7 +38,7 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-denunciante-personamoral" role="tabpanel" aria-labelledby="denunciante-personamoral-tab">
-                <personamoral :sistema="sistema" :carpeta="carpeta" :tipo="'denunciantemoral'" :usuario="usuario"></personamoral>
+                <personamoral :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'denunciantemoral'" :usuario="usuario"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-domiciliomoral" role="tabpanel" aria-labelledby="denunciante-domiciliomoral-tab">
                 <domicilio v-if="this.$store.state.idPersonaMoral" :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
@@ -47,7 +47,7 @@
                 <domicilio :tipo="'contacto'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-extramoral" role="tabpanel-moral" aria-labelledby="denunciante-extramoral-tab">
-                <extrasdenunciante v-if="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :carpeta="carpeta" :usuario="usuario"></extrasdenunciante>
+                <extrasdenunciante v-if="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasdenunciante>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasMoral" role="tabpanel-moral" aria-labelledby="denunciante-carpetasLigadasMoral-tab">
                 <notificaciones v-if="this.$store.state.idPersonaMoral" :tipo="'moral'"></notificaciones>
@@ -60,7 +60,7 @@
 <script>
     import extrasdenunciante from '../Extras/ExtrasDenuncianteComponent.vue';
     export default {
-        props: ['sistema', 'carpeta','usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario'],
         components: {
             extrasdenunciante
         },

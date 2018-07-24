@@ -30,17 +30,7 @@
                 url: urlComponentes
             }
         },
-        props: {
-            sistema: {
-                required: true
-            },
-            empresa: {
-                required: true
-            },
-            carpeta: {
-                required: true
-            }
-        },
+        props: ['sistema','empresa','carpeta','idcarpeta'],
         methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -71,7 +61,8 @@
                     particulares: this.particulares,
                     sistema: this.sistema,
                     usuario: this.systemUser,
-                    idCarpeta: this.carpeta,
+                    carpteta: this.carpeta,
+                    idCarpeta: this.idcarpeta,
                     empresa: this.empresa,
                     tipo: 'conocido'
                 };

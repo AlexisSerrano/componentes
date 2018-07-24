@@ -34,13 +34,13 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-conocido-personafisica" role="tabpanel" aria-labelledby="conocido-personafisica-tab">
-                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'conocido'" :usuario="usuario"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'conocido'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-conocido-domiciliofisica" role="tabpanel" aria-labelledby="conocido-domiciliofisica-tab">
                 <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-conocido-extrafisica" role="tabpanel-fisica" aria-labelledby="conocido-extrafisica-tab">
-                <extrasconocido v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :empresa="false" :carpeta="carpeta" :usuario="usuario"></extrasconocido>
+                <extrasconocido v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :empresa="false" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasconocido>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="denunciante-carpetasLigadasFisica-tab">
                 <notificaciones v-if="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
@@ -62,7 +62,7 @@
                 particulares: ''
             }
         },
-        props: ['sistema', 'carpeta', 'usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta' , 'usuario'],
         components: {
             extrasconocido
         },

@@ -37,7 +37,7 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-denunciante-personafisico" role="tabpanel" aria-labelledby="denunciante-personafisico-tab">
-                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'denunciante'" :usuario="usuario"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'denunciante'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-domiciliofisico" role="tabpanel" aria-labelledby="denunciante-domiciliofisico-tab">
                 <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
@@ -49,7 +49,7 @@
                 <domicilio :tipo="'contacto'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciante-extrafisico-tab">
-                <extrasdenunciante v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :empresa="false" :carpeta="carpeta" :usuario="usuario"></extrasdenunciante>
+                <extrasdenunciante v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :empresa="false" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasdenunciante>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="denunciante-carpetasLigadasFisica-tab">
                 <notificaciones v-if="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
@@ -62,7 +62,7 @@
 <script>
     import extrasdenunciante from '../Extras/ExtrasDenuncianteComponent.vue';
     export default {
-        props: ['sistema', 'carpeta','usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario'],
         components: {extrasdenunciante},
         methods: {
             cleanFields(){

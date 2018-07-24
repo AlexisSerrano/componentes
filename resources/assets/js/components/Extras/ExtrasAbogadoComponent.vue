@@ -62,14 +62,7 @@
                 descripcion: ''
             }
         },
-        props: {
-            sistema: {
-                default: ''
-            },
-            carpeta: {
-                required: true
-            }
-        },
+        props: ['sistema','carpeta', 'idcarpeta'],
         methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -97,7 +90,8 @@
                     sistema: this.sistema.toUpperCase(),
                     usuario: this.systemUser,
                     narracion: this.descripcion.toUpperCase(),
-                    idCarpeta: this.carpeta,
+                    carpeta: this.carpeta,
+                    idCarpeta: this.idcarpeta,
                     empresa: false,
                     tipo: 'abogado'
                 };

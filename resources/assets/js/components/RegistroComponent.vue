@@ -1,9 +1,9 @@
 <template>
     <div>
-        <registrodenunciante v-if="tipo=='denunciante'" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></registrodenunciante>
-        <registrodenunciado v-if="tipo=='denunciado'" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></registrodenunciado>
-        <registroautoridad v-if="tipo=='autoridad'" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></registroautoridad>
-        <registroabogado v-if="tipo=='abogado'" :sistema="sistema" :carpeta="carpeta" :usuario="usuario"></registroabogado>
+        <registrodenunciante v-if="tipo=='denunciante'" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></registrodenunciante>
+        <registrodenunciado v-if="tipo=='denunciado'" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></registrodenunciado>
+        <registroautoridad v-if="tipo=='autoridad'" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></registroautoridad>
+        <registroabogado v-if="tipo=='abogado'" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></registroabogado>
         <registroactashechos v-if="tipo=='actashechos'" :sistema="sistema" :usuario="usuario"></registroactashechos>
         <registroactascircunstanciadas v-if="tipo=='actascircunstanciadas'" :sistema="sistema" :usuario="usuario"></registroactascircunstanciadas>
     
@@ -19,7 +19,7 @@
     import registroactascircunstanciadas from './Registros/RegistroActasCircunstanciadas'
      
     export default {
-        props: ['sistema', 'tipo', 'carpeta', 'usuario'],
+        props: ['sistema', 'tipo', 'carpeta', 'idcarpeta' ,'usuario'],
         components: {
             registrodenunciante,
             registroabogado,

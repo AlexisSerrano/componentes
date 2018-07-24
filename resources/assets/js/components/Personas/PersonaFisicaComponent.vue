@@ -282,7 +282,7 @@
 				url: urlComponentes
 			}
 		},
-		props: ['sistema', 'tipo', 'carpeta', 'usuario'],
+		props: ['sistema', 'tipo', 'carpeta', 'idcarpeta' ,'usuario'],
 		components: {
 			SpringSpinner
 		},
@@ -583,13 +583,15 @@
 						idTrabajo: this.$store.state.idTrabajoTemporal,
 						idNotificacion: this.$store.state.idContactoTemporal,
 						idExtrasConocido: this.$store.state.idExtra,
-						idCarpeta: this.carpetaF
+						carpeta: this.carpeta,
+						idCarpeta: this.idcarpeta
 					};
 				} else {
 					var data = {
 						sistema: this.sistema,
 						usuario: this.usuario,
-						idCarpeta: this.carpeta
+						carpeta: this.carpeta,
+						idCarpeta: this.idcarpeta
 					};
 				}
 				if (data) {

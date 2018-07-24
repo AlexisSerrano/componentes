@@ -43,7 +43,7 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-denunciado-personafisico" role="tabpanel" aria-labelledby="denunciado-personafisico-tab">
-                <personafisica :sistema="sistema" :carpeta="carpeta" :tipo="'denunciado'" :usuario="usuario"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'denunciado'" :usuario="usuario"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-domiciliofisico" role="tabpanel" aria-labelledby="denunciado-domiciliofisico-tab">
                 <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
@@ -55,7 +55,7 @@
                 <domicilio :tipo="'contacto'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-extrafisico" role="tabpanel-fisico" aria-labelledby="denunciado-extrafisico-tab">
-                <extrasinvestigado v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :empresa="false" :carpeta="carpeta" :usuario="usuario"></extrasinvestigado>
+                <extrasinvestigado v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :empresa="false" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasinvestigado>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasFisica" role="tabpanel-fisico" aria-labelledby="denunciante-carpetasLigadasFisica-tab">
                 <notificaciones v-if="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
@@ -69,7 +69,7 @@
     import extrasinvestigado from '../Extras/ExtrasInvestigadoComponent.vue';
     import { mapState } from "vuex";
     export default {
-        props: ['sistema', 'carpeta','usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario'],
         components: {extrasinvestigado},
         methods: {
             cleanFields() {

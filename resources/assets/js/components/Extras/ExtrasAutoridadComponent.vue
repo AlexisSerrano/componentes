@@ -53,14 +53,7 @@
                 url: urlComponentes,
             }
         },
-        props: {
-            sistema: {
-                required: true
-            },
-            carpeta: {
-                required: true
-            }
-        },
+        props: ['sistema','carpeta','idcarpeta'],
         methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -88,7 +81,8 @@
                     sistema: this.sistema,
                     usuario: this.systemUser,
                     narracion: this.descripcion.toUpperCase(),
-                    idCarpeta: this.carpeta,
+                    carpeta: this.carpeta,
+                    idCarpeta: this.idcarpeta,
                     empresa: false,
                     tipo: 'autoridad'
                 };

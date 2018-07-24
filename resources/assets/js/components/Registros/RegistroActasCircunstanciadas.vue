@@ -50,7 +50,7 @@
 <script>
     import extrasactascircunstanciadas from '../Extras/ExtrasActasCircunstanciadasComponent.vue';
     export default {
-        props: ['sistema','carpeta','usuario'],
+        props: ['sistema', 'usuario'],
         components: {extrasactascircunstanciadas},
         methods: {
             cleanFields(){
