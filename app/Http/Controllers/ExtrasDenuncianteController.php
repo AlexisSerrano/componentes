@@ -24,8 +24,21 @@ class ExtrasDenuncianteController extends Controller
                 $antes=null;
                 $extraDenunciante->idVariablesPersona = $request->idPersona;
                 $tipo=($request->empresa)?"extra_denunciante_moral":"extra_denunciante_fisico"; 
-            }     
-            $extraDenunciante->resguardarIdentidad = ($request->reguardarIdentidad=='')?0:$request->reguardarIdentidad;        
+            } 
+
+            $extraDenunciante->resguardarIdentidad = ($request->reguardarIdentidad=='')?0:$request->reguardarIdentidad;
+            
+            //Generar Alias        
+            if($request->reguardarIdentidad==1){
+                $datosPersona = DB::table('variables_persona_fisica')
+                ->join('persona_fisica','persona_fisica.id','=','variables_persona_fisica.idPersona')        
+                ->select('persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp')
+                ->where('variables_persona_fisica.id','=',$request->idPersona)->first();
+
+                $alias= substr($datosPersona->nombres,0,1).substr($datosPersona->primerAp,-1,1).substr($datosPersona->nombres,-1,1).rand(1000,9999).substr($datosPersona->primerAp,0,1);
+                $extraDenunciante->alias= $alias;
+            }            
+
             $extraDenunciante->victima = $request->victima;      
             $extraDenunciante->save();
 
