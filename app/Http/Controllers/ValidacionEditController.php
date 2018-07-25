@@ -65,7 +65,7 @@ class ValidacionEditController extends Controller
     }
 
     public function getConocidoFisico(Request $request){
-
+		
     }
 
     public function getConocidoMoral(Request $request){
