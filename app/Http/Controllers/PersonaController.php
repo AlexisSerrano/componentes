@@ -104,34 +104,32 @@ class PersonaController extends Controller{
 	}
 
 	public function searchConocido(Request $request){
-		
-		
-		$busqueda = DB::table('variables_persona_fisica')
-		->join('persona_fisica','persona_fisica.id','=','variables_persona_fisica')
-		->join('domicilio','domicilio.id','=','variables_persona_fisica.idDomicilio')
-		->join('cat_estado','cat_estado','=','domicilio.')
-		->join('cat_municipio')
-		->join('cat_nacionalidad')
-		->join('sexos')
-		->where()
-		->select()
-		->groupBy();
 
+		$subQuery = "(SELECT MAX(varPer.id ) as idVariables,
+				varPer.idPersona from variables_persona_fisica varPer        
+				join persona_fisica per on per.id = varPer.idPersona               
+				WHERE ( (per.nombres ='$request->nombres') and (per.primerAp = '$request->primerAp') and (per.segundoAp = '$request->segundoAp') )
+				GROUP by varPer.idPersona) sub ";
 
-		$busqueda = DB::select("select max(varPer.id),nombres,primerAp,segundoAp, varPer.edad as edad, 
-		sex.nombre as sexo, rfc, curp, varPer.idDomicilio as idDomicilio, varPer.idTrabajo as idDomocilioTrabajo, 
-		varPer.idNotificacion as idDomicilioNotificacion, varPer.id as idVarPersona, varPer.idPersona ,catEdo.nombre as estado, catMun.nombre as municipio, 
-        catNaci.nombre as nacionalidad from variables_persona_fisica varPer        
-				join persona_fisica per on per.id = varPer.idPersona
-				join domicilio dom on dom.id = varPer.idDomicilio
-				join cat_estado catEdo on catEdo.id = dom.idEstado
-				join cat_municipio catMun on catMun.id = per.idMunicipioOrigen
-                join cat_nacionalidad  catNaci on catNaci.id = per.idNacionalidad 
-                join sexos sex on sex.id = per.sexo                
-				WHERE ( (per.nombres = '$request->nombres') and (per.primerAp = '$request->primerAp') and (per.segundoAp = '$request->segundoAp') )
-                GROUP by varPer.idPersona");
-			if($busqueda){
-				return response()->json($busqueda);
+		$res = DB::table('variables_persona_fisica as varPer2')
+		->join('persona_fisica','persona_fisica.id','=','varPer2.idPersona')
+		->join('domicilio','domicilio.id','=','varPer2.idDomicilio')
+		->join('cat_estado','cat_estado.id','=','domicilio.idEstado')
+		->join('cat_municipio','cat_municipio.id','=','persona_fisica.idMunicipioOrigen')
+		->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
+		->join('sexos','sexos.id','=','persona_fisica.sexo')
+		->where('persona_fisica.nombres','=',$request->nombres)->where('persona_fisica.primerAp','=',$request->primerAp)->where('persona_fisica.segundoAp','=',$request->segundoAp)
+		->select('persona_fisica.nombres','persona_fisica.primerAp',
+		'persona_fisica.segundoAp','varPer2.edad','sexos.nombre','persona_fisica.rfc',
+		'persona_fisica.curp','varPer2.idDomicilio','varPer2.idTrabajo',
+		'varPer2.idNotificacion','varPer2.id','varPer2.idPersona',
+		'cat_estado.nombre','cat_municipio.nombre','cat_nacionalidad.nombre')
+
+		->join(DB::raw($subQuery), function($join) {
+			$join->on('sub.idVariables', '=', 'varPer2.id'); })->get();
+			
+			if($res){
+				return response()->json($res);
 			}else{
 				return response()->json(false);
 			}
