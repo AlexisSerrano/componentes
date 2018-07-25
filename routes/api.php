@@ -98,3 +98,7 @@ Route::post('getColonias','DomicilioController@getColonias');
 Route::post('getCodigosPostales','DomicilioController@getCodigosPostales');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
 Route::post('getCatalogosDomicilios','DomicilioController@getCatalogosDomicilios');
+
+/*URLS PARA EDITS */
+Route::get('getAutoridad/{idVarPersona}/{esEmpresa}','ValidacionEditController@getAutoridad');
+Route::post('getPersonaEdit','ValidacionEditController@getPersonaEdit');

@@ -65,7 +65,6 @@ class PersonaController extends Controller{
 		'cat_estado.id as idEstado','cat_estado.nombre as nombreEstado')
 		->orderBy('variables_persona_fisica.id','desc')
 		->first();
-		//echo $personaExisteP;
         if($personaExisteP){
 			$data = array(
 				'nombres'=>$personaExisteP->nombres,
@@ -267,7 +266,7 @@ class PersonaController extends Controller{
 		}	
 	}
 
-	public function trabajos($id,$tabla){
+	public static function trabajos($id,$tabla){
 		$trabajo = DB::table("$tabla")
 		->join('trabajo as tra', 'tra.id',"$tabla.idTrabajo")
 		->join('domicilio as dom', 'dom.id','tra.idDomicilio')	
@@ -297,7 +296,7 @@ class PersonaController extends Controller{
 		return $dom;
 	}
 
-	public function domicilios($id,$tabla){
+	public static function domicilios($id,$tabla){
 		$domicilio = DB::table("$tabla")
 		->join('domicilio as dom', 'dom.id','=',"$tabla.idDomicilio")
 		->join('cat_estado as edo', 'edo.id','=','dom.idEstado')
@@ -324,7 +323,7 @@ class PersonaController extends Controller{
 		return $dom;
 	}
 
-	public function notificaciones($id,$tabla){
+	public static function notificaciones($id,$tabla){
 		$notificacion = DB::table("$tabla")
 		->join('notificacion as noti', 'noti.id','=',"$tabla.idNotificacion")
 		->join('domicilio as dom', 'dom.id','=','noti.idDomicilio')		
@@ -355,7 +354,7 @@ class PersonaController extends Controller{
 		return $dom;
 	}
 
-	public function getDomiciliosPersona(Request $request){
+	public static function getDomiciliosPersona(Request $request){
 		$varPersona = $request->idVarPersona;
 		$esEmpresa = $request->esEmpresa;
 		if($esEmpresa){

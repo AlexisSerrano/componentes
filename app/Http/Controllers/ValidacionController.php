@@ -149,7 +149,6 @@ class ValidacionController extends Controller
         return response()->json($idVariable);
     }
 
-
     public function saveInputsFisica($request){
         DB::beginTransaction();
         try{
