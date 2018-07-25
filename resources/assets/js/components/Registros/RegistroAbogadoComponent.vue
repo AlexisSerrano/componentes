@@ -3,7 +3,7 @@
         <!-- MENÚ -->
         <div class="container-fluid">
             <div class="row">
-                <ul class="nav nav-pills mb-3 pl-3" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-3 pl-3 colorNav" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="abogado-persona-tab" data-toggle="pill" href="#pills-abogado-persona" role="tab" aria-controls="pills-abogado-persona" aria-selected="true">Datos Personales</a>
                     </li>

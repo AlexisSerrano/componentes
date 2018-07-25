@@ -2,7 +2,7 @@
     <div>
         <!-- MENÚ -->
         <div class="container-fluid">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <ul class="nav nav-pills mb-3 colorNav" id="pills-tab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="conocido-personaMoral-tab" data-toggle="pill" href="#pills-conocido-personaMoral" role="tab" aria-controls="pills-conocido-personaMoral" aria-selected="true">Datos Personales</a>
                 </li>
