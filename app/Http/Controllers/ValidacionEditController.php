@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class ValidacionEditController extends Controller
 {
     public function getPersonaEdit(Request $request){
-        switch ($tipo) {
+        switch ($request->tipo) {
             case 'autoridad':
                 $datos = ValidacionEditController::getAutoridad($request);
                 break;
@@ -35,11 +35,15 @@ class ValidacionEditController extends Controller
     }
 
     public function getAbogado(Request $request){
-
+        $data['persona'] = ValidacionEditController::getPersonaCompleta($request);
+        $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
+		return response()->json($data);
     }
 
     public function getDenuncianteFisico(Request $request){
-
+        $data['persona'] = ValidacionEditController::getPersonaCompleta($request);
+        $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
+		return response()->json($data);
     }
 
     public function getDenuncianteMoral(Request $request){
@@ -47,7 +51,9 @@ class ValidacionEditController extends Controller
     }
 
     public function getDenunciadoFisico(Request $request){
-
+        $data['persona'] = ValidacionEditController::getPersonaCompleta($request);
+        $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
+		return response()->json($data);
     }
 
     public function getDenunciadoMoral(Request $request){
@@ -64,8 +70,6 @@ class ValidacionEditController extends Controller
 
     public function getPersonaCompleta($request){
         $idVarPersona = $request->idVarPersona;
-		//$tipo = $request->tipo;
-
 		$personaExisteP = DB::table('persona_fisica')
 		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
 		->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
@@ -137,4 +141,46 @@ class ValidacionEditController extends Controller
 		}
 		return response()->json($data);
     }
+
+    public function getPersonaMoralCompleta(Request $request){
+		$idVarPersona = $request->idVarPersona;
+		$personaExiste = DB::table('persona_moral')
+		->join('variables_persona_moral', 'variables_persona_moral.idPersona', '=', 'persona_moral.id')
+		->join('cat_identificacion','variables_persona_moral.docIdentificacion', '=', 'cat_identificacion.id')
+		->where('variables_persona_moral.id',$idVarPersona)
+		->select('persona_moral.id as id','persona_moral.nombre','persona_moral.fechaCreacion','persona_moral.rfc',
+		'variables_persona_moral.telefono',
+		'variables_persona_moral.nombreRep',
+		'variables_persona_moral.primerApRep',
+		'variables_persona_moral.segundoApRep',
+		'variables_persona_moral.docIdentificacion',
+		'variables_persona_moral.numDocIdentificacion',
+		'variables_persona_moral.id as idVar',
+		'variables_persona_moral.idDomicilio','variables_persona_moral.idNotificacion',
+		'cat_identificacion.id as idDoc','cat_identificacion.documento as nombreDoc')
+		->orderBy('variables_persona_moral.id','desc')
+		->first();
+		if($personaExiste){
+			$data = array(
+				'nombre'=>$personaExiste->nombre,
+				'fechaCreacion'=>$personaExiste->fechaCreacion,
+				'rfc'=>$personaExiste->rfc,
+				'idMoral'=>$personaExiste->id,
+				'telefono'=>$personaExiste->telefono,
+				'nombreRep'=>$personaExiste->nombreRep,
+				'primerApRep'=>$personaExiste->primerApRep,
+				'segundoApRep'=>$personaExiste->segundoApRep,
+				'docIdentificacion'=>array("documento"=>$personaExiste->nombreDoc, "id"=>$personaExiste->idDoc),
+				'numDocIdentificacion'=>$personaExiste->numDocIdentificacion,
+				'idPersona'=>$personaExiste->id,
+				'idVarPersona'=>$personaExiste->idVar,
+				'idDomicilio'=>$personaExiste->idDomicilio,
+				'idDomicilioNotificacion'=>$personaExiste->idNotificacion
+			);
+		}else{
+			$data = array(
+			);
+		}
+		return response()->json($data);
+	}
 }
