@@ -34,19 +34,19 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-autoridad-persona" role="tabpanel" aria-labelledby="autoridad-persona-tab">
-                <personafisica :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'autoridad'" :usuario="usuario"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'autoridad'" :usuario="usuario" :idvarpersona="idvarpersona"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-domicilio" role="tabpanel" aria-labelledby="autoridad-domicilio-tab">
-                <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-show="this.$store.state.idPersonaFisica" :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-trabajo" role="tabpanel" aria-labelledby="autoridad-trabajo-tab">
-                <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-show="this.$store.state.idPersonaFisica" :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-extra" role="tabpanel-fisico" aria-labelledby="autoridad-extra-tab">
-                <extrasautoridad v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasautoridad>
+                <extrasautoridad v-show="this.$store.state.idPersonaFisica" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasautoridad>
             </div>
             <div class="tab-pane fade" id="pills-autoridad-carpetasLigadas" role="tabpanel-fisico" aria-labelledby="autoridad-carpetasLigadas-tab">
-                <notificaciones v-if="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
+                <notificaciones v-show="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->
@@ -56,7 +56,7 @@
 <script>
     import extrasautoridad from '../Extras/ExtrasAutoridadComponent.vue';
     export default {
-        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario', 'idvarpersona'],
         components: {extrasautoridad},
         methods: {
             cleanFields() {

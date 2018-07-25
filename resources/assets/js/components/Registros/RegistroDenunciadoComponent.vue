@@ -53,11 +53,11 @@
                 </div>
             </div>
         </div>
-        <personafisica v-if="denunciado==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'qrr'" :usuario="usuario"></personafisica>
-        <conocidofisico v-if="denunciado==2 && conocido==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></conocidofisico>
-        <conocidomoral v-if="denunciado==2  && conocido==2" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></conocidomoral>
-        <denunciadofisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></denunciadofisico>
-        <denunciadomoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></denunciadomoral>
+        <personafisica v-if="denunciado==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'qrr'" :usuario="usuario" :idvarpersona="idvarpersona"></personafisica>
+        <conocidofisico v-if="denunciado==2 && conocido==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></conocidofisico>
+        <conocidomoral v-if="denunciado==2  && conocido==2" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></conocidomoral>
+        <denunciadofisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></denunciadofisico>
+        <denunciadomoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></denunciadomoral>
     </div>
 </template>
 
@@ -74,7 +74,7 @@
                 conocido:1
             }
         },
-        props: ['sistema','carpeta', 'idcarpeta' ,'usuario'],
+        props: ['sistema','carpeta', 'idcarpeta' ,'usuario', 'idvarpersona'],
         components:{denunciadofisico,denunciadomoral,conocidofisico,conocidomoral},
         watch: {
             denunciado() {

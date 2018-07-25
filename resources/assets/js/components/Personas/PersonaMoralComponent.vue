@@ -116,13 +116,14 @@
                 url: urlComponentes
             }
         },
-        props: ['sistema', 'tipo', 'usuario'],
-        mounted: function() {
+        props: ['sistema', 'tipo', 'usuario', 'idvarpersona'],
+        created: function() {
             this.getIdentificaciones();
+            this.cargarEdicion()
         },
         methods: {
             searchPersona: function() {
-                if (this.$store.state.moralEncontrada == true) {
+                if (this.$store.state.moralEncontrada == true || this.$store.state.idPersonaMoral) {
                     return
                 }
                 if (this.rfc.length == 9 && this.homoclave.length == 3) {
@@ -162,6 +163,30 @@
                     });
                 }
             },
+			cargarEdicion() {
+				if (this.idvarpersona) {
+					var urlGetPersonasEdit = this.url + '/getPersonaEdit'
+					axios.post(urlGetPersonasEdit, {
+							idVarPersona: this.idvarpersona,
+							tipo: this.tipo,
+							esEmpresa: true
+						})
+						.then((response) => {
+							console.log(response.data)
+							this.$store.commit('asignarDataEditMoral', response.data)
+							this.personaExiste = response.data.persona.original
+							this.fillFields()
+						})
+						.catch((error) => {
+							swal({
+								title: '¡Algo salio mal!',
+								text: 'No fue posible cargar los datos para edición.',
+								type: 'error',
+								confirmButtonText: 'Entendido'
+							})
+						})
+				}
+			},
             calcularRfc() {
                 if (this.nombre != '' && this.fechaCreacion != '') {
                     if (this.nombre.length < 2) {

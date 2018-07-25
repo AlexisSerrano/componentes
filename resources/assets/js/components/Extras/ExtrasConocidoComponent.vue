@@ -70,7 +70,6 @@
                     .then(response => {
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
-                            //this.$store.commit('cleanStore')                                         
                             swal({
                                     title: 'Conocido guardado correctamente!',
                                     text: 'Haz finalizado el registro del conocido exitosamente.',

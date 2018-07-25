@@ -194,8 +194,8 @@
 	
 	
 			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
-				 <icon name="user-check" style="color:white"></icon>
-				{{personasEncontradas.length + coincidenciasText}}</button>
+															 <icon name="user-check" style="color:white"></icon>
+															{{personasEncontradas.length + coincidenciasText}}</button>
 			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
@@ -279,40 +279,84 @@
 				validacionesback: '',
 				loader: true,
 				qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-				url: urlComponentes
+				url: urlComponentes,
+				intentoCarga: 1
 			}
 		},
-		props: ['sistema', 'tipo', 'carpeta', 'idcarpeta' ,'usuario'],
+		props: ['sistema', 'tipo', 'carpeta', 'idcarpeta', 'usuario', 'idvarpersona'],
 		components: {
 			SpringSpinner
 		},
 		created: function() {
 			this.getCatalogos()
+			this.cargarEdicion()
 		},
 		methods: {
 			getCatalogos: function() {
 				var urlCatalogos = this.url + '/getCatalogos';
 				axios.post(urlCatalogos, {
-					sistema: this.sistema,
-					tipo: this.tipo
-				}).then(response => {
-					this.nacionalidades = response.data['nacionalidades'].original
-					this.estados = response.data['estados'].original
-					this.etnias = response.data['etnias'].original
-					this.lenguas = response.data['lenguas'].original
-					this.sexos = response.data['sexos'].original
-					this.ocupaciones = response.data['ocupaciones'].original
-					this.estadosCiviles = response.data['estadosciviles'].original
-					this.escolaridades = response.data['escolaridades'].original
-					this.religiones = response.data['religiones'].original
-					this.identificaciones = response.data['identificaciones'].original
-					this.interpretes = response.data['interpretes'].original
-					this.validaciones = response.data['validaciones'].original
-					var self = this;
-					setTimeout(function() {
-						self.loader = false;
-					}, 1100);
-				});
+						sistema: this.sistema,
+						tipo: this.tipo
+					}).then(response => {
+						this.nacionalidades = response.data['nacionalidades'].original
+						this.estados = response.data['estados'].original
+						this.etnias = response.data['etnias'].original
+						this.lenguas = response.data['lenguas'].original
+						this.sexos = response.data['sexos'].original
+						this.ocupaciones = response.data['ocupaciones'].original
+						this.estadosCiviles = response.data['estadosciviles'].original
+						this.escolaridades = response.data['escolaridades'].original
+						this.religiones = response.data['religiones'].original
+						this.identificaciones = response.data['identificaciones'].original
+						this.interpretes = response.data['interpretes'].original
+						this.validaciones = response.data['validaciones'].original
+						var self = this;
+						setTimeout(function() {
+							self.loader = false;
+						}, 1100);
+					})
+					.catch((error) => {
+						if (this.intentoCarga == 1) {
+							this.intentoCarga++
+								this.getCatalogos()
+						} else {
+							swal({
+									title: '¡Error de conexión!',
+									text: 'No fue posible cargar los catalogos correctamente.',
+									type: 'error',
+									confirmButtonText: 'Intentar de nuevo'
+								})
+								.then((result) => {
+									if (result.value) {
+										window.location.replace(window.location)
+									}
+								})
+						}
+					})
+			},
+			cargarEdicion() {
+				if (this.idvarpersona) {
+					var urlGetPersonasEdit = this.url + '/getPersonaEdit'
+					axios.post(urlGetPersonasEdit, {
+							idVarPersona: this.idvarpersona,
+							tipo: this.tipo,
+							esEmpresa: false
+						})
+						.then((response) => {
+							console.log(response.data)
+							this.$store.commit('asignarDataEditFisica', response.data)
+							this.personaExiste = response.data.persona.original
+							this.fillFields()
+						})
+						.catch((error) => {
+							swal({
+								title: '¡Algo salio mal!',
+								text: 'No fue posible cargar los datos para edición.',
+								type: 'error',
+								confirmButtonText: 'Entendido'
+							})
+						})
+				}
 			},
 			getDomicilios() {
 				var urlGetDomicilios = this.url + '/getDomiciliosPersona'
@@ -327,7 +371,7 @@
 					})
 			},
 			searchPersona: function(rfc_curp) {
-				if (this.$store.state.fisicaEncontrada == true) {
+				if (this.$store.state.fisicaEncontrada == true || this.$store.state.idPersonaFisica) {
 					return
 				}
 				if (rfc_curp == 'rfc') {
@@ -365,33 +409,36 @@
 							title: '¡Persona Encontrada!',
 							text: 'Ésta persona ya fue registrada anteriormente.',
 							type: 'success',
-							confirmButtonText: 'Ok'
+							confirmButtonText: 'Entendido'
 						})
-						this.nombres = this.personaExiste.nombres
-						this.primerAp = this.personaExiste.primerAp
-						this.segundoAp = this.personaExiste.segundoAp
-						this.fechaNacimiento = this.personaExiste.fechaNacimiento
-						this.edad = this.personaExiste.edad
-						this.sexo = this.personaExiste.sexo
-						this.rfc = this.personaExiste.rfc.slice(0, -3)
-						this.homoclave = this.personaExiste.rfc.slice(-3)
-						this.curp = this.personaExiste.curp
-						this.nacionalidad = this.personaExiste.idNacionalidad
-						this.estado = this.personaExiste.idEstado
-						this.municipio = this.personaExiste.idMunicipioOrigen
-						this.etnia = this.personaExiste.idEtnia
-						this.lengua = this.personaExiste.idLengua
-						this.interprete = this.personaExiste.idInterprete
-						this.ocupacion = this.personaExiste.idOcupacion
-						this.estadoCivil = this.personaExiste.idEstadoCivil
-						this.escolaridad = this.personaExiste.idEscolaridad
-						this.religion = this.personaExiste.idReligion
-						this.identificacion = this.personaExiste.docIdentificacion
-						this.numIdentificacion = this.personaExiste.numDocIdentificacion
-						this.telefono = this.personaExiste.telefono,
-							(this.sistema == 'uipj') ? this.motivoEstancia = this.personaExiste.motivoEstancia : ''
+						this.fillFields()
 					}
 				});
+			},
+			fillFields() {
+				this.nombres = this.personaExiste.nombres
+				this.primerAp = this.personaExiste.primerAp
+				this.segundoAp = this.personaExiste.segundoAp
+				this.fechaNacimiento = this.personaExiste.fechaNacimiento
+				this.edad = this.personaExiste.edad
+				this.sexo = this.personaExiste.sexo
+				this.rfc = this.personaExiste.rfc.slice(0, -3)
+				this.homoclave = this.personaExiste.rfc.slice(-3)
+				this.curp = this.personaExiste.curp
+				this.nacionalidad = this.personaExiste.idNacionalidad
+				this.estado = this.personaExiste.idEstado
+				this.municipio = this.personaExiste.idMunicipioOrigen
+				this.etnia = this.personaExiste.idEtnia
+				this.lengua = this.personaExiste.idLengua
+				this.interprete = this.personaExiste.idInterprete
+				this.ocupacion = this.personaExiste.idOcupacion
+				this.estadoCivil = this.personaExiste.idEstadoCivil
+				this.escolaridad = this.personaExiste.idEscolaridad
+				this.religion = this.personaExiste.idReligion
+				this.identificacion = this.personaExiste.docIdentificacion
+				this.numIdentificacion = this.personaExiste.numDocIdentificacion
+				this.telefono = this.personaExiste.telefono,
+					(this.sistema == 'uipj') ? this.motivoEstancia = this.personaExiste.motivoEstancia : ''
 			},
 			searchConocido() {
 				if ((this.tipo == 'conocido' || this.tipo == 'conocidomoral') && this.nombres != '' && this.primerAp != '' && this.segundoAp != '') {
@@ -407,7 +454,7 @@
 					});
 				}
 			},
-			mostrarCoincidencias(){
+			mostrarCoincidencias() {
 				this.$store.commit('mostrarCoincidencias')
 			},
 			calcularRfc() {
@@ -500,7 +547,7 @@
 						title: '¡Aún no es posible guardar!',
 						text: 'Ingrese los campos obligatorios',
 						type: 'warning',
-						confirmButtonText: 'Ok'
+						confirmButtonText: 'Entendido'
 					});
 				});
 			},
@@ -609,7 +656,7 @@
 										title: '¡No fue posible guardar!',
 										text: 'Ya existe un qrr registrado en esta carpeta.',
 										type: 'warning',
-										confirmButtonText: 'Ok'
+										confirmButtonText: 'Entendido'
 									})
 									return
 								}
@@ -617,7 +664,7 @@
 									title: '¡Guardado correctamente!',
 									text: 'Ésta persona fue guardada exitosamente.',
 									type: 'success',
-									confirmButtonText: 'Ok'
+									confirmButtonText: 'Entendido'
 								})
 								if (this.$store.state.fisicaEncontrada) {
 									this.getDomicilios()
@@ -628,7 +675,7 @@
 									title: '¡Guardado incorrecto!',
 									text: 'Ésta persona no fue posible guardarla.',
 									type: 'error',
-									confirmButtonText: 'Ok'
+									confirmButtonText: 'Entendido'
 								})
 							}
 						}).catch((error) => {
@@ -639,7 +686,7 @@
 								title: '¡Guardado incorrecto!',
 								text: 'Ésta persona no fue posible guardarla.',
 								type: 'error',
-								confirmButtonText: 'Ok'
+								confirmButtonText: 'Entendido'
 							})
 						});
 				}
@@ -677,10 +724,13 @@
 					return 'Modificar'
 				}
 			},
-			coincidenciasText(){
-				if(this.personasEncontradas.length==1){return " Coincidencia"}
-				else{return " Coincidencias"}
+			coincidenciasText() {
+				if (this.personasEncontradas.length == 1) {
+					return " Coincidencia"
+				} else {
+					return " Coincidencias"
+				}
 			}
-		}, mapState(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'personasEncontradas','showCoincidencias']))
+		}, mapState(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'personasEncontradas', 'showCoincidencias']))
 	}
 </script>
