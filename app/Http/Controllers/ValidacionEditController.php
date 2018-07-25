@@ -47,7 +47,9 @@ class ValidacionEditController extends Controller
     }
 
     public function getDenuncianteMoral(Request $request){
-
+        $data['persona'] = ValidacionEditController::getPersonaMoralCompleta($request);
+        $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
+		return response()->json($data);
     }
 
     public function getDenunciadoFisico(Request $request){
@@ -57,7 +59,9 @@ class ValidacionEditController extends Controller
     }
 
     public function getDenunciadoMoral(Request $request){
-
+        $data['persona'] = ValidacionEditController::getPersonaMoralCompleta($request);
+        $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
+		return response()->json($data);
     }
 
     public function getConocidoFisico(Request $request){
@@ -65,7 +69,9 @@ class ValidacionEditController extends Controller
     }
 
     public function getConocidoMoral(Request $request){
-
+		$data['persona'] = ValidacionEditController::getPersonaMoralConocido($request);
+        $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
+		return response()->json($data);
     }
 
     public function getPersonaCompleta($request){
@@ -172,6 +178,34 @@ class ValidacionEditController extends Controller
 				'segundoApRep'=>$personaExiste->segundoApRep,
 				'docIdentificacion'=>array("documento"=>$personaExiste->nombreDoc, "id"=>$personaExiste->idDoc),
 				'numDocIdentificacion'=>$personaExiste->numDocIdentificacion,
+				'idPersona'=>$personaExiste->id,
+				'idVarPersona'=>$personaExiste->idVar,
+				'idDomicilio'=>$personaExiste->idDomicilio,
+				'idDomicilioNotificacion'=>$personaExiste->idNotificacion
+			);
+		}else{
+			$data = array(
+			);
+		}
+		return response()->json($data);
+    }
+    
+    public function getPersonaMoralConocido(Request $request){
+		$idVarPersona = $request->idVarPersona;
+		$personaExiste = DB::table('persona_moral')
+		->join('variables_persona_moral', 'variables_persona_moral.idPersona', '=', 'persona_moral.id')
+		->where('variables_persona_moral.id',$idVarPersona)
+        ->select('persona_moral.id as id',
+        'persona_moral.nombre',
+		'variables_persona_moral.id as idVar',
+		'variables_persona_moral.idDomicilio',
+		'variables_persona_moral.idNotificacion')
+		->orderBy('variables_persona_moral.id','desc')
+		->first();
+		if($personaExiste){
+			$data = array(
+				'nombre'=>$personaExiste->nombre,
+				'idMoral'=>$personaExiste->id,
 				'idPersona'=>$personaExiste->id,
 				'idVarPersona'=>$personaExiste->idVar,
 				'idDomicilio'=>$personaExiste->idDomicilio,
