@@ -17,8 +17,8 @@
                 </div>
             </div>
         </div>
-        <denunciantefisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></denunciantefisico>
-        <denunciantemoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></denunciantemoral>
+        <denunciantefisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></denunciantefisico>
+        <denunciantemoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></denunciantemoral>
     </div>
 </template>
 
@@ -31,7 +31,7 @@
                 persona: ''
             }
         },
-        props: ['sistema','carpeta', 'idcarpeta' ,'usuario'],
+        props: ['sistema','carpeta', 'idcarpeta' ,'usuario', 'idvarpersona'],
         components:{denunciantefisico,denunciantemoral},
         watch: {
             persona() {

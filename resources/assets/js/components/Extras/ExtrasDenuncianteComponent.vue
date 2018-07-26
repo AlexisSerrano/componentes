@@ -103,7 +103,6 @@
                         console.log(response.data);
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
-                            // this.$store.commit('cleanStore')
                             swal({
                                     title: 'Denunciante guardado correctamente!',
                                     text: 'Haz finalizado el registro del denunciante exitosamente.',

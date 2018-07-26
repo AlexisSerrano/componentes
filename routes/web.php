@@ -17,6 +17,10 @@ Route::get('registroAutoridad', function(){
     return view('registroAutoridad');
 });
 
+Route::get('registroAutoridadEdit', function(){
+    return view('registroAutoridadEdit');
+});
+
 Route::get('registroActasHechos', function(){
     return view('registroActasHechos');
 });
@@ -49,5 +53,9 @@ Route::get('actasHechos', function(){
 
 Route::get('actasCircunstanciadas', function(){
     return redirect('http://localhost/componentes/public/registroActasCircunstanciadas');
+});
+
+Route::get('autoridadEdit', function(){
+    return redirect('http://localhost/componentes/public/registroAutoridadEdit');
 });
 // ::::::::::::::::::REDIRECCIONES::::::::::::::.:::

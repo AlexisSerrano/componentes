@@ -153,7 +153,7 @@
         components: {
             SpringSpinner
         },
-        mounted: function() {
+        created: function() {
             this.getEstados()
         },
         methods: {
@@ -445,45 +445,45 @@
             botonGuardarModificar() {
                 if (this.empresa == false) {
                     if (this.$store.state.tipoInvolucrado == 'conocido') {
-                        if (this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') {
+                        if ((this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'domicilio' && this.$store.state.idDomicilio == '') {
                             return 'Guardar'
                         }
-                        if (this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') {
+                        if ((this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') || this.$store.state.edit==true) {
                             return 'Modificar'
                         } else if (this.tipo == 'trabajo' && this.$store.state.idTrabajo == '') {
                             return 'Guardar'
                         }
-                        if (this.tipo == 'contacto' && this.$store.state.idContacto != '') {
+                        if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit==true) {
                             return 'Modificar'
                         } else if (this.tipo == 'contacto' && this.$store.state.idContacto == '') {
                             return 'Guardar'
                         }
                     } else {
-                        if (this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') {
+                        if ((this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') || this.$store.state.edit==true) {
                             return 'Modificar'
                         } else if (this.tipo == 'domicilio' && this.$store.state.idDomicilio == '') {
                             return 'Guardar'
                         }
-                        if (this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') {
+                        if ((this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') || this.$store.state.edit==true) {
                             return 'Modificar'
                         } else if (this.tipo == 'trabajo' && this.$store.state.idTrabajo == '') {
                             return 'Guardar'
                         }
-                        if (this.tipo == 'contacto' && this.$store.state.idContacto != '') {
+                        if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit==true) {
                             return 'Modificar'
                         } else if (this.tipo == 'contacto' && this.$store.state.idContacto == '') {
                             return 'Guardar'
                         }
                     }
                 } else if (this.empresa == true) {
-                    if (this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') {
+                    if ((this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') || this.$store.state.edit==true) {
                         return 'Modificar'
                     } else if (this.tipo == 'domicilio' && this.$store.state.idDomicilio == '') {
                         return 'Guardar'
                     }
-                    if (this.tipo == 'contacto' && this.$store.state.idContacto != '') {
+                    if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit==true) {
                         return 'Modificar'
                     } else if (this.tipo == 'contacto' && this.$store.state.idContacto == '') {
                         return 'Guardar'

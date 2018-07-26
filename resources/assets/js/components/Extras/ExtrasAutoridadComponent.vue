@@ -89,7 +89,6 @@
                     .then(response => {
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
-                            //this.$store.commit('cleanStore')                                         
                             swal({
                                     title: 'Autoridad guardada correctamente!',
                                     text: 'Haz finalizado el registro de la autoridad exitosamente.',

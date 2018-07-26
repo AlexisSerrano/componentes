@@ -24,7 +24,8 @@ const store = new Vuex.Store({
         idTrabajoTemporal:'',
         idContactoTemporal:'',
         personasEncontradas:'',
-        showCoincidencias:''
+        showCoincidencias:'',
+        edit:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -111,6 +112,40 @@ const store = new Vuex.Store({
         },
         mostrarCoincidencias(state){
             state.showCoincidencias=true
+        },
+        asignarDataEditFisica(state,payload){
+            state.idPersonaFisica = payload.persona.original.idVarPersona
+            state.personaFisica = payload.persona.original.idPersona
+            state.datosDomicilio = payload.domicilios.original.domicilio
+            state.datosTrabajo = payload.domicilios.original.trabajo
+            state.datosNotificacion = payload.domicilios.original.notificacion
+            if(payload.persona.original.idDomicilio!=1){
+                state.idDomicilio=payload.persona.original.idDomicilio
+            }
+            if(payload.persona.original.idDomicilioTrabajo!=1){
+                state.idTrabajo=payload.persona.original.idDomicilioTrabajo
+            }
+            if(payload.persona.original.idDomicilioNotificacion!=1){
+                state.idContacto=payload.persona.original.idDomicilioNotificacion
+            }
+            state.edit=true
+        },
+        asignarDataEditMoral(state,payload){
+            state.idPersonaMoral = payload.persona.original.idVarPersona
+            state.personaMoral = payload.persona.original.idPersona
+            state.datosDomicilio = payload.domicilios.original.domicilio
+            state.datosTrabajo = payload.domicilios.original.trabajo
+            state.datosNotificacion = payload.domicilios.original.notificacion
+            if(payload.persona.original.idDomicilio!=1){
+                state.idDomicilio=payload.persona.original.idDomicilio
+            }
+            if(payload.persona.original.idDomicilioTrabajo!=1){
+                state.idTrabajo=payload.persona.original.idDomicilioTrabajo
+            }
+            if(payload.persona.original.idDomicilioNotificacion!=1){
+                state.idContacto=payload.persona.original.idDomicilioNotificacion
+            }
+            state.edit=true
         }
     }
 })
