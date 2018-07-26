@@ -124,6 +124,19 @@
                         "id": 2
                     }
                 ],
+                notificacionesFull: [{
+                        "nombre": "DOMICILIO CASA",
+                        "id": 1
+                    },
+                    {
+                        "nombre": "OTRO DOMICILIO",
+                        "id": 2
+                    },
+                    {
+                        "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES",
+                        "id": 3
+                    }
+                ],
                 municipio: null,
                 localidad: null,
                 codigoPostal: null,
@@ -319,12 +332,12 @@
                     telefono: (this.telefono) ? this.telefono : '',
                     tipo: this.tipo,
                     empresa: this.empresa,
-                    idPersona: (this.empresa == false)?this.$store.state.idPersonaFisica:this.$store.state.idPersonaMoral,
+                    idPersona: (this.empresa == false) ? this.$store.state.idPersonaFisica : this.$store.state.idPersonaMoral,
                     claveDomicilio: (this.tipo == 'domicilio') ? this.$store.state.idDomicilio : (this.tipo == 'trabajo') ? this.$store.state.idTrabajo : (this.tipo == 'contacto') ? this.$store.state.idContacto : '',
                     domNotificacion: (this.notificacion) ? this.notificacion.id : '',
                     idDomicilio: (this.$store.state.idDomicilio) ? this.$store.state.idDomicilio : this.$store.state.idDomicilioTemporal,
                     idOldNotificacion: this.$store.state.idContactoTemporal,
-                    guardadoContacto: (this.notificacion)?this.notificacion.id:'',
+                    guardadoContacto: (this.notificacion) ? this.notificacion.id : '',
                     sistema: this.sistema,
                     usuario: this.usuario
                 };
@@ -355,44 +368,24 @@
         watch: {
             fisicaEncontrada() {
                 if (this.empresa == false) {
-                    this.notificaciones = [{
-                            "nombre": "DOMICILIO CASA",
-                            "id": 1
-                        },
-                        {
-                            "nombre": "OTRO DOMICILIO",
-                            "id": 2
-                        },
-                        {
-                            "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES",
-                            "id": 3
-                        }
-                    ]
-                    this.notificacion = {
-                        "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES",
-                        "id": 3
-                    }
+                    this.notificaciones = this.notificacionesFull
+                    this.notificacion = this.notificacionesFull[2]
                 }
             },
             moralEncontrada() {
                 if (this.empresa == true) {
-                    this.notificaciones = [{
-                            "nombre": "DOMICILIO EMPRESA",
-                            "id": 1
-                        },
-                        {
-                            "nombre": "OTRO DOMICILIO",
-                            "id": 2
-                        },
-                        {
-                            "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES",
-                            "id": 3
-                        }
-                    ]
-                    this.notificacion = {
-                        "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES",
-                        "id": 3
-                    }
+                    this.notificaciones = this.notificacionesFull
+                    this.notificacion = this.notificacionesFull[2]
+                }
+            },
+            edit() {
+                if (this.empresa == false) {
+                    this.notificaciones = this.notificacionesFull
+                    this.notificacion = this.notificacionesFull[2]
+                }
+                else if (this.empresa == true) {
+                    this.notificaciones = this.notificacionesFull
+                    this.notificacion = this.notificacionesFull[2]
                 }
             },
             datosDomicilio() {
@@ -437,7 +430,9 @@
                     this.CleanFields()
                     this.loadingFields = true
                 } else if (this.notificacion.id == 3) {
-                    this.setFormContact()
+                    if(this.tipo=='contacto'){
+                        this.setFormContact()
+                    }
                 }
             }
         },
@@ -450,46 +445,46 @@
                         } else if (this.tipo == 'domicilio' && this.$store.state.idDomicilio == '') {
                             return 'Guardar'
                         }
-                        if ((this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') || this.$store.state.edit==true) {
+                        if ((this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'trabajo' && this.$store.state.idTrabajo == '') {
                             return 'Guardar'
                         }
-                        if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit==true) {
+                        if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'contacto' && this.$store.state.idContacto == '') {
                             return 'Guardar'
                         }
                     } else {
-                        if ((this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') || this.$store.state.edit==true) {
+                        if ((this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'domicilio' && this.$store.state.idDomicilio == '') {
                             return 'Guardar'
                         }
-                        if ((this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') || this.$store.state.edit==true) {
+                        if ((this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'trabajo' && this.$store.state.idTrabajo == '') {
                             return 'Guardar'
                         }
-                        if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit==true) {
+                        if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'contacto' && this.$store.state.idContacto == '') {
                             return 'Guardar'
                         }
                     }
                 } else if (this.empresa == true) {
-                    if ((this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') || this.$store.state.edit==true) {
+                    if ((this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') || this.$store.state.edit == true) {
                         return 'Modificar'
                     } else if (this.tipo == 'domicilio' && this.$store.state.idDomicilio == '') {
                         return 'Guardar'
                     }
-                    if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit==true) {
+                    if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit == true) {
                         return 'Modificar'
                     } else if (this.tipo == 'contacto' && this.$store.state.idContacto == '') {
                         return 'Guardar'
                     }
                 }
             }
-        }, mapState(['fisicaEncontrada', 'moralEncontrada', 'datosDomicilio', 'datosTrabajo', 'datosNotificaciones']))
+        }, mapState(['fisicaEncontrada', 'moralEncontrada', 'datosDomicilio', 'datosTrabajo', 'datosNotificaciones', 'edit']))
     }
 </script>

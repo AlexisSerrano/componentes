@@ -1,6 +1,6 @@
 <template>
     <div class="pb-3 pt-1">
-        <div class="container-fluid">
+        <div v-if="!idvarpersona" class="container-fluid">
             <label class="col-form-label col-form-label-sm">Tipo de persona</label> 
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -17,8 +17,8 @@
                 </div>
             </div>
         </div>
-        <denunciantefisico v-if="persona==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></denunciantefisico>
-        <denunciantemoral v-if="persona==2" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></denunciantemoral>
+        <denunciantefisico v-if="persona==1 || empresa==false" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></denunciantefisico>
+        <denunciantemoral v-if="persona==2 || empresa==true" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></denunciantemoral>
     </div>
 </template>
 
@@ -31,7 +31,7 @@
                 persona: ''
             }
         },
-        props: ['sistema','carpeta', 'idcarpeta' ,'usuario', 'idvarpersona'],
+        props: ['sistema','carpeta', 'idcarpeta' ,'usuario', 'idvarpersona','empresa'],
         components:{denunciantefisico,denunciantemoral},
         watch: {
             persona() {

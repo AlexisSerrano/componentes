@@ -11,7 +11,7 @@
   </head>
   <body>
 	    <div id="app">
-          <registro :sistema="'uipj'" :carpeta="'xx'" :idcarpeta="20" :tipo="'autoridad'" :usuario="'usuario'" :idvarpersona="2"></registro>
+          <registro :sistema="'uipj'" :carpeta="'xx'" :idcarpeta="20" :tipo="'autoridad'" :usuario="'usuario'"></registro>
         </div>
   </body> 
 
