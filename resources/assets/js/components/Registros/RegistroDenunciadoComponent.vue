@@ -56,7 +56,7 @@
         <personafisica v-if="denunciado==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'qrr'" :usuario="usuario" :idvarpersona="idvarpersona"></personafisica>
         <conocidofisico v-if="denunciado==2 && conocido==1" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></conocidofisico>
         <conocidomoral v-if="denunciado==2  && conocido==2" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></conocidomoral>
-        <denunciadofisico v-if="persona==1 || empresa==false" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></denunciadofisico>
+        <denunciadofisico v-if="persona==1 || empresa==false" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona" :tipodenunciado="tipodenunciado"></denunciadofisico>
         <denunciadomoral v-if="persona==2 || empresa==true" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></denunciadomoral>
     </div>
 </template>
@@ -74,7 +74,7 @@
                 conocido:1
             }
         },
-        props: ['sistema','carpeta', 'idcarpeta' ,'usuario', 'idvarpersona','empresa'],
+        props: ['sistema','carpeta', 'idcarpeta' ,'usuario', 'idvarpersona','empresa','tipodenunciado'],
         components:{denunciadofisico,denunciadomoral,conocidofisico,conocidomoral},
         watch: {
             denunciado() {

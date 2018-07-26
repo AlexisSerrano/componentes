@@ -43,7 +43,7 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-denunciado-personafisico" role="tabpanel" aria-labelledby="denunciado-personafisico-tab">
-                <personafisica :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'denunciado'" :usuario="usuario" :idvarpersona="idvarpersona"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'denunciado'" :usuario="usuario" :idvarpersona="idvarpersona" :tipodenunciado="tipodenunciado"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-domiciliofisico" role="tabpanel" aria-labelledby="denunciado-domiciliofisico-tab">
                 <domicilio v-show="this.$store.state.idPersonaFisica" :tipo="'domicilio'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
@@ -69,7 +69,7 @@
     import extrasinvestigado from '../Extras/ExtrasInvestigadoComponent.vue';
     import { mapState } from "vuex";
     export default {
-        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario', 'idvarpersona'],
+        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario', 'idvarpersona','tipodenunciado'],
         components: {extrasinvestigado},
         methods: {
             cleanFields() {

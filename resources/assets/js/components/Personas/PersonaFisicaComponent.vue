@@ -15,7 +15,7 @@
 				<div v-if="validaciones.nombres!='oculto' && showCoincidencias!=true" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
 					<input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres"
-					    autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipo!='denunciado')">
+					    autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('nombres')" class="text-danger">{{ errors.first('nombres')}}</span>
 					<span v-if="this.validacionesback.nombres!=undefined" class="text-danger">{{ String(this.validacionesback.nombres)}}</span>
 				</div>
@@ -23,14 +23,14 @@
 				<div v-if="validaciones.primerAp!='oculto' && showCoincidencias!=true" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="primerAp">Primer apellido</label>
 					<input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido"
-					    v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipo!='denunciado')">
+					    v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('primer apellido')" class="text-danger">{{ errors.first('primer apellido')}}</span>
 					<span v-if="this.validacionesback.primerAp!=undefined" class="text-danger">{{ String(this.validacionesback.primerAp)}}</span>
 				</div>
 				<div v-if="validaciones.segundoAp!='oculto' && showCoincidencias!=true" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="segundoAp">Segundo apellido</label>
 					<input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido"
-					    v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipo!='denunciado')">
+					    v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido')}}</span>
 					<span v-if="this.validacionesback.segundoAp!=undefined" class="text-danger">{{ String(this.validacionesback.segundoAp)}}</span>
 				</div>
@@ -46,20 +46,20 @@
 				<div v-if="validaciones.fechaNacimiento!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="fechaNacimiento">Fecha de nacimiento</label>
 					<input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':'required|date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de nacimiento') || this.validacionesback.fechaNacimiento}"
-					    @blur="calcularRfc(),generarCurp(),generarEdad()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipo!='denunciado')">
+					    @blur="calcularRfc(),generarCurp(),generarEdad()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('fecha de nacimiento')" class="text-danger">{{ errors.first('fecha de nacimiento')}}</span>
 					<span v-if="this.validacionesback.fechaNacimiento!=undefined" class="text-danger">{{ String(this.validacionesback.fechaNacimiento)}}</span>
 				</div>
 				<div v-if="validaciones.edad!='oculto'" class="form-group col-md-1">
 					<label class="col-form-label col-form-label-sm" for="edad">Edad</label>
 					<input type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') || this.validacionesback.edad}" v-model="edad" placeholder="Edad" v-validate="validaciones.edad"
-					    :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipo!='denunciado')">
+					    :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('edad')" class="text-danger">{{ errors.first('edad')}}</span>
 					<span v-if="this.validacionesback.edad!=undefined" class="text-danger">{{ String(this.validacionesback.edad)}}</span>
 				</div>
 				<div v-if="validaciones.sexo!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="sexos">Sexo</label>
-					<v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="validaciones.sexo" :class="{ 'border border-danger rounded': errors.has('sexo') || this.validacionesback.sexo}" placeholder="Seleccione un sexo" @blur="generarCurp" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit == true && this.tipo!='denunciado')"></v-select>
+					<v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="validaciones.sexo" :class="{ 'border border-danger rounded': errors.has('sexo') || this.validacionesback.sexo}" placeholder="Seleccione un sexo" @blur="generarCurp" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo')}}</span>
 					<span v-if="this.validacionesback.sexo!=undefined" class="text-danger">{{ String(this.validacionesback.sexo)}}</span>
 				</div>
@@ -67,7 +67,7 @@
 				<div v-if="validaciones.idEstadoOrigen!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="estado">Entidad federativa de origen</label>
 					<v-select :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="validaciones.idEstadoOrigen" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') || this.validacionesback.idEstadoOrigen }"
-					    placeholder="Seleccione una entidad federativa de origen" @blur="generarCurp" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit == true && this.tipo!='denunciado')"></v-select>
+					    placeholder="Seleccione una entidad federativa de origen" @blur="generarCurp" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('entidad federativa de origen')" class="text-danger">{{ errors.first('entidad federativa de origen')}}</span>
 					<span v-if="this.validacionesback.idEstadoOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idEstadoOrigen)}}</span>
 				</div>
@@ -75,7 +75,7 @@
 				<div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>
 					<v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}" placeholder="Seleccione un municipio de origen"
-					    :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit == true && this.tipo!='denunciado')"></v-select>
+					    :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
 					<span v-if="this.validacionesback.idMunicipioOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipioOrigen)}}</span>
 				</div>
@@ -83,14 +83,14 @@
 				<div v-if="validaciones.rfc!='oculto'" class="form-group col-md-2">
 					<label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
 					<input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.rfc" autocomplete="off"
-					    @blur="searchPersona('rfc')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipo!='denunciado')">
+					    @blur="searchPersona('rfc')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('rfc')" class="text-danger">{{ errors.first('rfc')}}</span>
 					<span v-if="this.validacionesback.rfc!=undefined" class="text-danger">{{ String(this.validacionesback.rfc)}}</span>
 				</div>
 				<div v-if="validaciones.homo!='oculto'" class="form-group col-md-2">
 					<label class="col-form-label col-form-label-sm" for="homoclave">Homoclave</label>
 					<input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') || this.validacionesback.homo}" v-model="homoclave" placeholder="Homoclave" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.homo"
-					    autocomplete="off" @blur="searchPersona('rfc')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipo!='denunciado')">
+					    autocomplete="off" @blur="searchPersona('rfc')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('homoclave')" class="text-danger">{{ errors.first('homoclave')}}</span>
 					<span v-if="this.validacionesback.homo!=undefined" class="text-danger">{{ String(this.validacionesback.homo)}}</span>
 				</div>
@@ -98,27 +98,27 @@
 				<div v-if="validaciones.curp!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="curp">CURP</label>
 					<input type="text" name="curp" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('curp') || this.validacionesback.curp}" v-model="curp" placeholder="Ingrese el curp" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.curp" autocomplete="off"
-					    @blur="searchPersona('curp')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipo!='denunciado')">
+					    @blur="searchPersona('curp')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('curp')" class="text-danger">{{ errors.first('curp') }}</span>
 					<span v-if="this.validacionesback.curp!=undefined" class="text-danger">{{ String(this.validacionesback.curp)}}</span>
 				</div>
 				<div v-if="validaciones.idNacionalidad!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="nacionalidad">Nacionalidad</label>
 					<v-select :options="nacionalidades" label="nombre" v-model="nacionalidad" name="nacionalidad" v-validate="validaciones.idNacionalidad" :class="{ 'border border-danger rounded': errors.has('nacionalidad') || this.validacionesback.idNacionalidad}" placeholder="Seleccione una nacionalidad"
-					    :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit == true && this.tipo!='denunciado')"></v-select>
+					    :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('nacionalidad')" class="text-danger">{{ errors.first('nacionalidad')}}</span>
 					<span v-if="this.validacionesback.idNacionalidad!=undefined" class="text-danger">{{ String(this.validacionesback.idNacionalidad)}}</span>
 				</div>
 	
 				<div v-if="validaciones.idEtnia!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="etnia">Etnia</label>
-					<v-select label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="validaciones.idEtnia" :class="{ 'border border-danger rounded': errors.has('etnia') || this.validacionesback.idEtnia}" placeholder="Seleccione una etnia" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit == true && this.tipo!='denunciado')"></v-select>
+					<v-select label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="validaciones.idEtnia" :class="{ 'border border-danger rounded': errors.has('etnia') || this.validacionesback.idEtnia}" placeholder="Seleccione una etnia" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('etnia')" class="text-danger">{{ errors.first('etnia')}}</span>
 					<span v-if="this.validacionesback.idEtnia!=undefined" class="text-danger">{{ String(this.validacionesback.idEtnia)}}</span>
 				</div>
 				<div v-if="validaciones.idLengua!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="lengua">Lengua</label>
-					<v-select label="nombre" :options="lenguas" v-model="lengua" name="lengua" v-validate="validaciones.idLengua" :class="{ 'border border-danger rounded': errors.has('lengua') || this.validacionesback.idLengua}" placeholder="Seleccione una lengua" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit == true && this.tipo!='denunciado')"></v-select>
+					<v-select label="nombre" :options="lenguas" v-model="lengua" name="lengua" v-validate="validaciones.idLengua" :class="{ 'border border-danger rounded': errors.has('lengua') || this.validacionesback.idLengua}" placeholder="Seleccione una lengua" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('lengua')" class="text-danger">{{ errors.first('lengua')}}</span>
 					<span v-if="this.validacionesback.idLengua!=undefined" class="text-danger">{{ String(this.validacionesback.idLengua)}}</span>
 				</div>
@@ -283,7 +283,7 @@
 				intentoCarga: 1
 			}
 		},
-		props: ['sistema', 'tipo', 'carpeta', 'idcarpeta', 'usuario', 'idvarpersona'],
+		props: ['sistema', 'tipo', 'carpeta', 'idcarpeta', 'usuario', 'idvarpersona','tipodenunciado'],
 		components: {
 			SpringSpinner
 		},
