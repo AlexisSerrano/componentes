@@ -206,9 +206,13 @@
                     this.colonias = response.data['colonias'].original
                     this.codigosPostalesMunicipio = response.data['codigosPostales'].original
                     this.coloniasMunicipio = response.data['colonias'].original
+                    this.loadingFields = false
                 });
             },
             getCodigosPostales: function() {
+                if (this.loadingFields == true) {
+                    return
+                }
                 if (this.colonia == null || this.colonia == '') {
                     this.cleanSelect('codigoPostal')
                     this.codigosPostales = this.codigosPostalesMunicipio
@@ -226,6 +230,9 @@
             },
     
             getColonias: function() {
+                if (this.loadingFields == true) {
+                    return
+                }
                 if (this.codigoPostal == null || this.codigoPostal == '') {
                     this.cleanSelect('colonia')
                     this.codigosPostales = this.codigosPostalesMunicipio
@@ -239,7 +246,7 @@
                 }).then(response => {
                     this.colonias = response.data
                 });
-                this.loadingFields = false
+                // this.loadingFields = false
             },
             CleanFields() {
                 this.calle = ''
@@ -383,8 +390,7 @@
                 if (this.empresa == false) {
                     this.notificaciones = this.notificacionesFull
                     this.notificacion = this.notificacionesFull[2]
-                }
-                else if (this.empresa == true) {
+                } else if (this.empresa == true) {
                     this.notificaciones = this.notificacionesFull
                     this.notificacion = this.notificacionesFull[2]
                 }
@@ -431,13 +437,13 @@
                     this.CleanFields()
                     this.loadingFields = true
                 } else if (this.notificacion.id == 3) {
-                    if(this.tipo=='contacto'){
+                    if (this.tipo == 'contacto') {
                         this.setFormContact()
                     }
                 }
             },
-            estadosCatalogo(){
-                this.estados=this.$store.state.estadosCatalogo
+            estadosCatalogo() {
+                this.estados = this.$store.state.estadosCatalogo
             }
         },
         computed: Object.assign({
@@ -489,6 +495,6 @@
                     }
                 }
             }
-        }, mapState(['fisicaEncontrada', 'moralEncontrada', 'datosDomicilio', 'datosTrabajo', 'datosNotificaciones', 'edit','estadosCatalogo']))
+        }, mapState(['fisicaEncontrada', 'moralEncontrada', 'datosDomicilio', 'datosTrabajo', 'datosNotificaciones', 'edit', 'estadosCatalogo']))
     }
 </script>
