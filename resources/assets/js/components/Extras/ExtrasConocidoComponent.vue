@@ -57,7 +57,7 @@
                 var data = {
                     idExtrasConocido: this.$store.state.idExtra,
                     idPersona: idPersona,
-                    particulares: this.particulares,
+                    particulares: (this.particulares)?this.particulares.toUpperCase():'',
                     sistema: this.sistema,
                     usuario: this.usuario,
                     carpeta: this.carpeta,
