@@ -35,12 +35,12 @@ class ValidacionEditController extends Controller
 			case 'denunciadomoral':
 				$datos = ValidacionEditController::getDenunciadoMoral($request);
 				break;
-			case 'conocido':
-				$datos = ValidacionEditController::getConocidoFisico($request);
-				break;
-			case 'conocidomoral':
-				$datos = ValidacionEditController::getConocidoMoral($request);
-				break;
+			// case 'conocido':
+			// 	$datos = ValidacionEditController::getConocidoFisico($request);
+			// 	break;
+			// case 'conocidomoral':
+			// 	$datos = ValidacionEditController::getConocidoMoral($request);
+			// 	break;
     
         }
         return $datos;
@@ -71,7 +71,7 @@ class ValidacionEditController extends Controller
     }
 
     public function getDenunciadoFisico(Request $request){
-        $data['persona'] = ValidacionEditController::getPersonaCompleta($request);
+        $data['persona'] = ValidacionEditController::getPersonaCompleta($request,1);
         $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
 		return response()->json($data);
     }
@@ -82,19 +82,19 @@ class ValidacionEditController extends Controller
 		return response()->json($data);
     }
 
-    public function getConocidoFisico(Request $request){
-		$data['persona'] = ValidacionEditController::getPersonaFisicaConocido($request);
-        $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
-		return response()->json($data);
-    }
+    // public function getConocidoFisico(Request $request){
+	// 	$data['persona'] = ValidacionEditController::getPersonaFisicaConocido($request);
+    //     $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
+	// 	return response()->json($data);
+    // }
 
-    public function getConocidoMoral(Request $request){
-		$data['persona'] = ValidacionEditController::getPersonaMoralConocido($request);
-        $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
-		return response()->json($data);
-    }
+    // public function getConocidoMoral(Request $request){
+	// 	$data['persona'] = ValidacionEditController::getPersonaMoralConocido($request);
+    //     $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
+	// 	return response()->json($data);
+    // }
 
-    public function getPersonaCompleta($request){
+    public function getPersonaCompleta($request,$getalias=0){
         $idVarPersona = $request->idVarPersona;
 		$personaExisteP = DB::table('persona_fisica')
 		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
@@ -130,6 +130,13 @@ class ValidacionEditController extends Controller
 		'cat_estado.id as idEstado','cat_estado.nombre as nombreEstado')
 		->orderBy('variables_persona_fisica.id','desc')
 		->first();
+		if($getalias){
+			$alias = DB::table('extra_denunciado_fisico')
+			->select('alias','id')
+			->where('idVariablesPersona',$personaExisteP->idVar)
+			->first();
+		}
+		
         if($personaExisteP){
 			$data = array(
 				'nombres'=>$personaExisteP->nombres,
@@ -160,6 +167,10 @@ class ValidacionEditController extends Controller
 				'idVarPersona'=>$personaExisteP->idVar,
 				'telefono'=>$personaExisteP->telefono
 			);
+			if($getalias){
+				$data['alias']=$alias->alias;
+				$data['idExtra']=$alias->id;
+			}
 		}
 		else{
 			$data = array(
@@ -168,7 +179,7 @@ class ValidacionEditController extends Controller
 		return response()->json($data);
     }
 
-    public function getPersonaMoralCompleta(Request $request){
+    public function getPersonaMoralCompleta($request){
 		$idVarPersona = $request->idVarPersona;
 		$personaExiste = DB::table('persona_moral')
 		->join('variables_persona_moral', 'variables_persona_moral.idPersona', '=', 'persona_moral.id')
@@ -210,66 +221,66 @@ class ValidacionEditController extends Controller
 		return response()->json($data);
     }
     
-    public function getPersonaMoralConocido(Request $request){
-		$idVarPersona = $request->idVarPersona;
-		$personaExiste = DB::table('persona_moral')
-		->join('variables_persona_moral', 'variables_persona_moral.idPersona', '=', 'persona_moral.id')
-		->where('variables_persona_moral.id',$idVarPersona)
-        ->select('persona_moral.id as id',
-        'persona_moral.nombre',
-		'variables_persona_moral.id as idVar',
-		'variables_persona_moral.idDomicilio',
-		'variables_persona_moral.idNotificacion')
-		->orderBy('variables_persona_moral.id','desc')
-		->first();
-		if($personaExiste){
-			$data = array(
-				'nombre'=>$personaExiste->nombre,
-				'idMoral'=>$personaExiste->id,
-				'idPersona'=>$personaExiste->id,
-				'idVarPersona'=>$personaExiste->idVar,
-				'idDomicilio'=>$personaExiste->idDomicilio,
-				'idDomicilioNotificacion'=>$personaExiste->idNotificacion
-			);
-		}else{
-			$data = array(
-			);
-		}
-		return response()->json($data);
-	}
+    // public function getPersonaMoralConocido(Request $request){
+	// 	$idVarPersona = $request->idVarPersona;
+	// 	$personaExiste = DB::table('persona_moral')
+	// 	->join('variables_persona_moral', 'variables_persona_moral.idPersona', '=', 'persona_moral.id')
+	// 	->where('variables_persona_moral.id',$idVarPersona)
+    //     ->select('persona_moral.id as id',
+    //     'persona_moral.nombre',
+	// 	'variables_persona_moral.id as idVar',
+	// 	'variables_persona_moral.idDomicilio',
+	// 	'variables_persona_moral.idNotificacion')
+	// 	->orderBy('variables_persona_moral.id','desc')
+	// 	->first();
+	// 	if($personaExiste){
+	// 		$data = array(
+	// 			'nombre'=>$personaExiste->nombre,
+	// 			'idMoral'=>$personaExiste->id,
+	// 			'idPersona'=>$personaExiste->id,
+	// 			'idVarPersona'=>$personaExiste->idVar,
+	// 			'idDomicilio'=>$personaExiste->idDomicilio,
+	// 			'idDomicilioNotificacion'=>$personaExiste->idNotificacion
+	// 		);
+	// 	}else{
+	// 		$data = array(
+	// 		);
+	// 	}
+	// 	return response()->json($data);
+	// }
 
-	public function getPersonaFisicaConocido($request){
-        $idVarPersona = $request->idVarPersona;
-		$personaExisteP = DB::table('persona_fisica')
-		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
-		->where('variables_persona_fisica.id',$idVarPersona)
-		->select('persona_fisica.id as id','persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
-		'variables_persona_fisica.id as idVar','variables_persona_fisica.idDomicilio','variables_persona_fisica.idTrabajo',
-		'variables_persona_fisica.idNotificacion')
-		->orderBy('variables_persona_fisica.id','desc')
-		->first();
-		$alias = DB::table('extra_denunciado_fisico')
-		->select('alias','id')
-		->where('idVariablesPersona',$personaExisteP->idVar)
-		->first();
-        if($personaExisteP){
-			$data = array(
-				'nombres'=>$personaExisteP->nombres,
-				'primerAp'=>$personaExisteP->primerAp,
-				'segundoAp'=>$personaExisteP->segundoAp,
-				'idDomicilio'=>$personaExisteP->idDomicilio,
-				'idDomicilioTrabajo'=>$personaExisteP->idTrabajo,
-				'idDomicilioNotificacion'=>$personaExisteP->idNotificacion,
-				'idPersona'=>$personaExisteP->id,
-				'idVarPersona'=>$personaExisteP->idVar,
-				'alias'=>$alias->alias,
-				'idExtra'=>$alias->id
-			);
-		}
-		else{
-			$data = array(
-			);
-		}
-		return response()->json($data);
-    }
+	// public function getPersonaFisicaConocido($request){
+    //     $idVarPersona = $request->idVarPersona;
+	// 	$personaExisteP = DB::table('persona_fisica')
+	// 	->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
+	// 	->where('variables_persona_fisica.id',$idVarPersona)
+	// 	->select('persona_fisica.id as id','persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
+	// 	'variables_persona_fisica.id as idVar','variables_persona_fisica.idDomicilio','variables_persona_fisica.idTrabajo',
+	// 	'variables_persona_fisica.idNotificacion')
+	// 	->orderBy('variables_persona_fisica.id','desc')
+	// 	->first();
+	// 	$alias = DB::table('extra_denunciado_fisico')
+	// 	->select('alias','id')
+	// 	->where('idVariablesPersona',$personaExisteP->idVar)
+	// 	->first();
+    //     if($personaExisteP){
+	// 		$data = array(
+	// 			'nombres'=>$personaExisteP->nombres,
+	// 			'primerAp'=>$personaExisteP->primerAp,
+	// 			'segundoAp'=>$personaExisteP->segundoAp,
+	// 			'idDomicilio'=>$personaExisteP->idDomicilio,
+	// 			'idDomicilioTrabajo'=>$personaExisteP->idTrabajo,
+	// 			'idDomicilioNotificacion'=>$personaExisteP->idNotificacion,
+	// 			'idPersona'=>$personaExisteP->id,
+	// 			'idVarPersona'=>$personaExisteP->idVar,
+	// 			'alias'=>$alias->alias,
+	// 			'idExtra'=>$alias->id
+	// 		);
+	// 	}
+	// 	else{
+	// 		$data = array(
+	// 		);
+	// 	}
+	// 	return response()->json($data);
+    // }
 }

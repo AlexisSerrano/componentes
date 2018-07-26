@@ -16,7 +16,7 @@ class CreateVariablesPersonaMoralTable extends Migration
         Schema::create('variables_persona_moral', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idPersona')->unsigned();
-            $table->string('telefono',15)->nullable()->default("SIN INFORMACION");
+            $table->string('telefono',15)->nullable()->default("0");
             $table->string('nombreRep',100)->nullable()->default("SIN INFORMACION");
             $table->string('primerApRep',100)->nullable()->default("SIN INFORMACION");
             $table->string('segundoApRep',100)->nullable()->default("SIN INFORMACION");
