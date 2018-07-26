@@ -6,6 +6,7 @@ use App\Http\Requests\AutoridadRequest;
 use App\Http\Requests\ConocidoFisicoRequest;
 use App\Http\Requests\ConocidoMoralRequest;
 use App\Http\Requests\DenunciadoFisicaRequest;
+use App\Http\Requests\DenunciadoFisicaEditRequest;
 use App\Http\Requests\DenunciadoMoralRequest;
 use App\Http\Requests\DenuncianteFisicaRequest;
 use App\Http\Requests\DenuncianteMoralRequest;
