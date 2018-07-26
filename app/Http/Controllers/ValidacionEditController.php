@@ -19,11 +19,29 @@ class ValidacionEditController extends Controller
         switch ($request->tipo) {
             case 'autoridad':
                 $datos = ValidacionEditController::getAutoridad($request);
-                break;
-            
-            default:
-                # code...
-                break;
+				break;
+			case 'abogado':
+				$datos = ValidacionEditController::getAbogado($request);
+				break;
+			case 'denunciante':
+				$datos = ValidacionEditController::getDenuncianteFisico($request);
+				break;
+			case 'denunciantemoral':
+				$datos = ValidacionEditController::getDenuncianteMoral($request);
+				break;
+			case 'denunciado':
+				$datos = ValidacionEditController::getDenunciadoFisico($request);
+				break;
+			case 'denunciadomoral':
+				$datos = ValidacionEditController::getDenunciadoMoral($request);
+				break;
+			case 'conocido':
+				$datos = ValidacionEditController::getConocidoFisico($request);
+				break;
+			case 'conocidomoral':
+				$datos = ValidacionEditController::getConocidoMoral($request);
+				break;
+    
         }
         return $datos;
     }
