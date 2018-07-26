@@ -17,7 +17,7 @@ class VariablesPersonaFisica extends Migration
             $table->increments('id');
             $table->integer('idPersona')->unsigned();
             $table->integer('edad')->nullable();
-            $table->string('telefono',15)->nullable()->default("0");
+            $table->string('telefono',15)->nullable()->default(null);
             $table->string('motivoEstancia',200)->nullable()->default("SIN INFORMACION");
             $table->integer('idOcupacion')->nullable()->unsigned()->default(2941);
             $table->integer('idEstadoCivil')->nullable()->unsigned()->default(7);
