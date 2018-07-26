@@ -247,7 +247,7 @@ class ValidacionEditController extends Controller
 		->orderBy('variables_persona_fisica.id','desc')
 		->first();
 		$alias = DB::table('extra_denunciado_fisico')
-		->select('alias')
+		->select('alias','id')
 		->where('idVariablesPersona',$personaExisteP->idVar)
 		->first();
         if($personaExisteP){
@@ -260,7 +260,8 @@ class ValidacionEditController extends Controller
 				'idDomicilioNotificacion'=>$personaExisteP->idNotificacion,
 				'idPersona'=>$personaExisteP->id,
 				'idVarPersona'=>$personaExisteP->idVar,
-				'alias'=>$alias->alias
+				'alias'=>$alias->alias,
+				'idExtra'=>$alias->id
 			);
 		}
 		else{
