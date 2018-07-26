@@ -71,7 +71,7 @@ class ValidacionEditController extends Controller
     }
 
     public function getDenunciadoFisico(Request $request){
-        $data['persona'] = ValidacionEditController::getPersonaCompleta($request);
+        $data['persona'] = ValidacionEditController::getPersonaCompleta($request,1);
         $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
 		return response()->json($data);
     }
@@ -130,12 +130,12 @@ class ValidacionEditController extends Controller
 		'cat_estado.id as idEstado','cat_estado.nombre as nombreEstado')
 		->orderBy('variables_persona_fisica.id','desc')
 		->first();
-		// if($getalias){
-		// 	$alias = DB::table('extra_denunciado_fisico')
-		// 	->select('alias','id')
-		// 	->where('idVariablesPersona',$personaExisteP->idVar)
-		// 	->first();
-		// }
+		if($getalias){
+			$alias = DB::table('extra_denunciado_fisico')
+			->select('alias','id')
+			->where('idVariablesPersona',$personaExisteP->idVar)
+			->first();
+		}
 		
         if($personaExisteP){
 			$data = array(
@@ -167,10 +167,10 @@ class ValidacionEditController extends Controller
 				'idVarPersona'=>$personaExisteP->idVar,
 				'telefono'=>$personaExisteP->telefono
 			);
-			// if($getalias){
-			// 	$data['alias']=$alias->alias;
-			// 	$data['idExtra']=$alias->id;
-			// }
+			if($getalias){
+				$data['alias']=$alias->alias;
+				$data['idExtra']=$alias->id;
+			}
 		}
 		else{
 			$data = array(

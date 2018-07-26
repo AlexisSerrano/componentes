@@ -38,6 +38,7 @@ Route::post('autoridaduat','ValidacionController@valAutoridadUAT');
 Route::post('conocidouat','ValidacionController@valConocidoFUAT');
 Route::post('conocidomoraluat','ValidacionController@valConocidoMUAT');
 Route::post('denunciadouat','ValidacionController@valDenunciadoFUAT');
+Route::post('denunciadouatedit','ValidacionController@valDenunciadoEditFUAT');
 Route::post('denunciadomoraluat','ValidacionController@valDenunciadoMUAT');
 Route::post('denuncianteuat','ValidacionController@valDenuncianteFUAT');
 Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
