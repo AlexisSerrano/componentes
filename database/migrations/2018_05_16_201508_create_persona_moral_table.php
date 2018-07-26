@@ -17,8 +17,7 @@ class CreatePersonaMoralTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->date('fechaCreacion')->nullable()->default(null);
-            $table->string('rfc');
-            
+            $table->string('rfc', 20)->nullable()->default(null);
             $table->timestamps();
 
 
