@@ -83,7 +83,9 @@ class ValidacionEditController extends Controller
     }
 
     public function getConocidoFisico(Request $request){
-		
+		$data['persona'] = ValidacionEditController::getPersonaFisicaConocido($request);
+        $data['domicilios'] = PersonaController::getDomiciliosPersona($request);
+		return response()->json($data);
     }
 
     public function getConocidoMoral(Request $request){
