@@ -348,7 +348,6 @@ class ValidacionController extends Controller
                 $oper="INSERT";
                 $antes= null;
                 $persona->nombre = $request->nombre;
-                $persona->fechaCreacion = "1990-01-01";
                 $persona->rfc = "";
                 $persona->save();
             }
