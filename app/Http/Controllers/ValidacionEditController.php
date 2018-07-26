@@ -235,4 +235,38 @@ class ValidacionEditController extends Controller
 		}
 		return response()->json($data);
 	}
+
+	public function getPersonaFisicaConocido($request){
+        $idVarPersona = $request->idVarPersona;
+		$personaExisteP = DB::table('persona_fisica')
+		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
+		->where('variables_persona_fisica.id',$idVarPersona)
+		->select('persona_fisica.id as id','persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
+		'variables_persona_fisica.id as idVar','variables_persona_fisica.idDomicilio','variables_persona_fisica.idTrabajo',
+		'variables_persona_fisica.idNotificacion')
+		->orderBy('variables_persona_fisica.id','desc')
+		->first();
+		$alias = DB::table('extra_denunciado_fisico')
+		->select('alias')
+		->where('idVariablesPersona',$personaExisteP->idVar)
+		->first();
+        if($personaExisteP){
+			$data = array(
+				'nombres'=>$personaExisteP->nombres,
+				'primerAp'=>$personaExisteP->primerAp,
+				'segundoAp'=>$personaExisteP->segundoAp,
+				'idDomicilio'=>$personaExisteP->idDomicilio,
+				'idDomicilioTrabajo'=>$personaExisteP->idTrabajo,
+				'idDomicilioNotificacion'=>$personaExisteP->idNotificacion,
+				'idPersona'=>$personaExisteP->id,
+				'idVarPersona'=>$personaExisteP->idVar,
+				'alias'=>$alias->alias
+			);
+		}
+		else{
+			$data = array(
+			);
+		}
+		return response()->json($data);
+    }
 }
