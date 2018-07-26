@@ -22,7 +22,7 @@ class PersonaFisica extends Migration
              $table->string('rfc', 20)->nullable()->default("AAAA000101");
              //$table->string('curp', 20)->unique()->nullable();
              $table->string('curp', 20)->nullable();
-             $table->integer('sexo')->nullable()->unsigned();
+             $table->integer('sexo')->nullable()->unsigned()->default(3);
              $table->integer('idNacionalidad')->nullable()->unsigned()->default(132);
              $table->integer('idEtnia')->nullable()->unsigned()->default(13);
              $table->integer('idLengua')->nullable()->unsigned()->default(69);
