@@ -1,8 +1,9 @@
 <template>
     <div class="container-fluid">
     
-        <spring-spinner v-if="loader" class="centrar" :animation-duration="1500" :size="60" :color="'#828282'" />
-        <form v-on:submit.prevent="validateBeforeSubmit" v-if="loader!=true">
+        <!-- <spring-spinner v-if="loader" class="centrar" :animation-duration="1500" :size="60" :color="'#828282'" /> -->
+        <!-- <form v-on:submit.prevent="validateBeforeSubmit" v-if="loader!=true"> -->
+        <form v-on:submit.prevent="validateBeforeSubmit">
     
             <div class="form-row">
     
@@ -153,7 +154,7 @@
                 numInterno: "S/N",
                 validacionesback: '',
                 idDomicilio: '',
-                loader: true,
+                // loader: true,
                 telefono: '',
                 lugarTrabajo: '',
                 correo: '',
@@ -166,20 +167,20 @@
         components: {
             SpringSpinner
         },
-        created: function() {
-            this.getEstados()
-        },
+        // created: function() {
+        //     this.getEstados()
+        // },
         methods: {
-            getEstados: function() {
-                var urlEstados = this.url + '/getEstados';
-                axios.get(urlEstados).then(response => {
-                    this.estados = response.data
-                    var self = this;
-                    setTimeout(function() {
-                        self.loader = false;
-                    }, 1100);
-                });
-            },
+            // getEstados: function() {
+            //     var urlEstados = this.url + '/getEstados';
+            //     axios.get(urlEstados).then(response => {
+            //         this.estados = response.data
+            //         var self = this;
+            //         setTimeout(function() {
+            //             self.loader = false;
+            //         }, 1100);
+            //     });
+            // },
             getMunicipios: function() {
                 this.cleanSelect('municipio')
                 if (this.estado == null) {
@@ -434,6 +435,9 @@
                         this.setFormContact()
                     }
                 }
+            },
+            estadosCatalogo(){
+                this.estados=this.$store.state.estadosCatalogo
             }
         },
         computed: Object.assign({
@@ -485,6 +489,6 @@
                     }
                 }
             }
-        }, mapState(['fisicaEncontrada', 'moralEncontrada', 'datosDomicilio', 'datosTrabajo', 'datosNotificaciones', 'edit']))
+        }, mapState(['fisicaEncontrada', 'moralEncontrada', 'datosDomicilio', 'datosTrabajo', 'datosNotificaciones', 'edit','estadosCatalogo']))
     }
 </script>

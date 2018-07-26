@@ -310,6 +310,7 @@
 						this.identificaciones = response.data['identificaciones'].original
 						this.interpretes = response.data['interpretes'].original
 						this.validaciones = response.data['validaciones'].original
+						this.$store.commit('asignarEstados',this.estados)
 						var self = this;
 						setTimeout(function() {
 							self.loader = false;
