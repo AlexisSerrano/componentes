@@ -53,6 +53,7 @@ Route::post('autoridaduipj','ValidacionController@valAutoridadUIPJ');
 Route::post('conocidouipj','ValidacionController@valConocidoFUIPJ');
 Route::post('conocidomoraluipj','ValidacionController@valConocidoMUIPJ');
 Route::post('denunciadouipj','ValidacionController@valDenunciadoFUIPJ');
+Route::post('denunciadouipjedit','ValidacionController@valDenunciadoEditFUIPJ');
 Route::post('denunciadomoraluipj','ValidacionController@valDenunciadoMUIPJ');
 Route::post('denuncianteuipj','ValidacionController@valDenuncianteFUIPJ');
 Route::post('denunciantemoraluipj','ValidacionController@valDenuncianteMUIPJ');

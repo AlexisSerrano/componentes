@@ -135,7 +135,10 @@ class ValidacionController extends Controller
         $idVariable = ValidacionController::saveInputsFisica($request);
         return response()->json($idVariable);
     }
-
+    public function valDenunciadoEditFUIPJ(DenunciadoFisicaUIPJEditRequest $request){
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
     public function valDenunciadoMUIPJ(DenunciadoMoralUIPJRequest $request){
         $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
