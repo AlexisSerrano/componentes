@@ -151,6 +151,7 @@ class PersonaController extends Controller{
 		'religiones' => PersonaController::getReligiones(),
 		'identificaciones' => PersonaController::getIdentificaciones(),
 		'interpretes' => PersonaController::getInterpretes(),
+		'municipios' => PersonaController::getMunicipios(30),
 		'validaciones' => PersonaController::getValidaciones($sistema,$tipo)
 		);
 		return response()->json($data);
