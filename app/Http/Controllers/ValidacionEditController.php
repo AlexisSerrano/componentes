@@ -213,32 +213,32 @@ class ValidacionEditController extends Controller
     }
 	
 	public function getExtraDenunciadoFisico($id){
-		$extra = ExtraDenunciadoFisico::where('idVariablesPersona',$id);
+		$extra = ExtraDenunciadoFisico::where('idVariablesPersona',$id)->first();
 		return response()->json($extra);
 	}
 
 	public function getExtraDenunciadoMoral($id){
-		$extra = ExtraDenunciadoMoral::where('idVariablesPersona',$id);
+		$extra = ExtraDenunciadoMoral::where('idVariablesPersona',$id)->first();
 		return response()->json($extra);
 	}
 
 	public function getExtraDenuncianteFisico($id){
-		$extra = ExtraDenuncianteFisico::where('idVariablesPersona',$id);
+		$extra = ExtraDenuncianteFisico::where('idVariablesPersona',$id)->first();
 		return response()->json($extra);
 	}
 
 	public function getExtraDenuncianteMoral($id){
-		$extra = ExtraDenuncianteMoral::where('idVariablesPersona',$id);
+		$extra = ExtraDenuncianteMoral::where('idVariablesPersona',$id)->first();
 		return response()->json($extra);
 	}
 
 	public function getExtraAutoridad($id){
-		$extra = ExtraAutoridad::where('idVariablesPersona',$id);
+		$extra = ExtraAutoridad::where('idVariablesPersona',$id)->first();
 		return response()->json($extra);
 	}
 
 	public function getExtraAbogado($id){
-		$extra = ExtraAbogado::where('idVariablesPersona',$id);
+		$extra = ExtraAbogado::where('idVariablesPersona',$id)->first();
 		return response()->json($extra);
 	}
 }
