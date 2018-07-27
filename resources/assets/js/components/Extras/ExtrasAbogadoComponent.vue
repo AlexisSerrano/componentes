@@ -46,7 +46,10 @@
 </template>
 
 <script>
-	import urlComponentes from '../../urlComponentes'
+    import {
+        mapState
+    } from "vuex";
+    import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
         data() {
@@ -61,7 +64,7 @@
                 descripcion: ''
             }
         },
-        props: ['sistema','carpeta', 'idcarpeta', 'usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta', 'usuario'],
         methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -128,13 +131,22 @@
     
             },
             CleanFields() {
-                this.cedula = '',
-                    this.sector = '',
-                    this.correo = '',
-                    this.tipo = '',
-                    this.descripcion = '',
-                    this.$validator.reset();
+                this.cedula = ''
+                this.sector = ''
+                this.correo = ''
+                this.tipo = ''
+                this.descripcion = ''
+                this.$validator.reset();
             }
-        }
+        },
+        watch: {
+            datosExtra() {
+                this.cedula = this.datosExtra.cedulaProf
+                this.sector = this.datosExtra.sector
+                this.correo = this.datosExtra.correo
+                this.tipo = this.datosExtra.tipo
+            }
+        },
+        computed: mapState(['datosExtra'])
     }
 </script>

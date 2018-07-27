@@ -27,7 +27,7 @@ class DefaultsSeeder extends Seeder
             [ 
                 'idDomicilio' => 1,
                 'lugar' => 'SIN INFORMACIÓN',
-                'telefono' => 'SIN INFORMACIÓN'
+                'telefono' => ''
             ]
         ]);
         
@@ -35,7 +35,7 @@ class DefaultsSeeder extends Seeder
             [ 
                 'idDomicilio' => 1,
                 'correo' => '',
-                'telefono' => 'SIN INFORMACIÓN'
+                'telefono' => ''
             ]
         ]);
 

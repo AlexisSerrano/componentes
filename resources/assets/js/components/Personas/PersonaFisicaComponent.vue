@@ -36,7 +36,8 @@
 				</div>
 				<div v-if="(validaciones.alias!='oculto' && tipo=='conocido' && showCoincidencias!=true) || (tipo=='denunciado' && this.$store.state.edit==true)" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="alias">Alias</label>
-					<input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias')  || this.validacionesback.alias}" v-model="alias" placeholder="Ingrese el alias" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.alias" autocomplete="off">
+					<input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias')  || this.validacionesback.alias}" v-model="alias" placeholder="Ingrese el alias" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.alias"
+					    autocomplete="off">
 					<span v-show="errors.has('alias')" class="text-danger">{{ errors.first('alias')}}</span>
 					<span v-if="this.validacionesback.alias!=undefined" class="text-danger">{{ String(this.validacionesback.alias)}}</span>
 				</div>
@@ -66,7 +67,7 @@
 	
 				<div v-if="validaciones.idEstadoOrigen!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="estado">Entidad federativa de origen</label>
-					<v-select :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="validaciones.idEstadoOrigen" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') || this.validacionesback.idEstadoOrigen }"
+					<v-select :options="(estadosCatalogo)?estadosCatalogo:[]" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="validaciones.idEstadoOrigen" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') || this.validacionesback.idEstadoOrigen }"
 					    placeholder="Seleccione una entidad federativa de origen" @blur="generarCurp" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('entidad federativa de origen')" class="text-danger">{{ errors.first('entidad federativa de origen')}}</span>
 					<span v-if="this.validacionesback.idEstadoOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idEstadoOrigen)}}</span>
@@ -74,16 +75,16 @@
 	
 				<div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>
-					<v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}" placeholder="Seleccione un municipio de origen"
-					    :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
+					<v-select :options="(estado.id==30)?municipiosVer:municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}"
+					    placeholder="Seleccione un municipio de origen" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
 					<span v-if="this.validacionesback.idMunicipioOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipioOrigen)}}</span>
 				</div>
 	
 				<div v-if="validaciones.rfc!='oculto'" class="form-group col-md-2">
 					<label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
-					<input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.rfc" autocomplete="off"
-					    @blur="searchPersona('rfc')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
+					<input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.rfc"
+					    autocomplete="off" @blur="searchPersona('rfc')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('rfc')" class="text-danger">{{ errors.first('rfc')}}</span>
 					<span v-if="this.validacionesback.rfc!=undefined" class="text-danger">{{ String(this.validacionesback.rfc)}}</span>
 				</div>
@@ -97,8 +98,8 @@
 	
 				<div v-if="validaciones.curp!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="curp">CURP</label>
-					<input type="text" name="curp" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('curp') || this.validacionesback.curp}" v-model="curp" placeholder="Ingrese el curp" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.curp" autocomplete="off"
-					    @blur="searchPersona('curp')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
+					<input type="text" name="curp" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('curp') || this.validacionesback.curp}" v-model="curp" placeholder="Ingrese el curp" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.curp"
+					    autocomplete="off" @blur="searchPersona('curp')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('curp')" class="text-danger">{{ errors.first('curp') }}</span>
 					<span v-if="this.validacionesback.curp!=undefined" class="text-danger">{{ String(this.validacionesback.curp)}}</span>
 				</div>
@@ -194,8 +195,9 @@
 	
 	
 			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
-																	 <icon name="user-check" style="color:white"></icon>
-																	{{personasEncontradas.length + coincidenciasText}}</button>
+				<icon name="user-check" style="color:white"></icon>
+				{{personasEncontradas.length + coincidenciasText}}
+			</button>
 			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
@@ -224,7 +226,6 @@
 			return {
 				today: moment().format('YYYY-MM-DD'),
 				nacionalidades: [],
-				estados: [],
 				municipios: [],
 				etnias: [],
 				lenguas: [],
@@ -283,7 +284,7 @@
 				intentoCarga: 1
 			}
 		},
-		props: ['sistema', 'tipo', 'carpeta', 'idcarpeta', 'usuario', 'idvarpersona','tipodenunciado'],
+		props: ['sistema', 'tipo', 'carpeta', 'idcarpeta', 'usuario', 'idvarpersona', 'tipodenunciado'],
 		components: {
 			SpringSpinner
 		},
@@ -293,13 +294,17 @@
 		},
 		methods: {
 			getCatalogos: function() {
+				// console.log("Entrando a get catalogos persona")
 				var urlCatalogos = this.url + '/getCatalogos';
 				axios.post(urlCatalogos, {
 						sistema: this.sistema,
 						tipo: this.tipo
 					}).then(response => {
 						this.nacionalidades = response.data['nacionalidades'].original
-						this.estados = response.data['estados'].original
+						this.$store.commit('asignarEstadosMunicipiosVer', {
+							estados: response.data['estados'].original,
+							municipios: response.data['municipios'].original
+						})
 						this.etnias = response.data['etnias'].original
 						this.lenguas = response.data['lenguas'].original
 						this.sexos = response.data['sexos'].original
@@ -310,7 +315,6 @@
 						this.identificaciones = response.data['identificaciones'].original
 						this.interpretes = response.data['interpretes'].original
 						this.validaciones = response.data['validaciones'].original
-						this.$store.commit('asignarEstados',this.estados)
 						var self = this;
 						setTimeout(function() {
 							self.loader = false;
@@ -337,6 +341,7 @@
 			},
 			cargarEdicion() {
 				if (this.idvarpersona) {
+					// console.log("Entrando a get persona Edit")
 					var urlGetPersonasEdit = this.url + '/getPersonaEdit'
 					axios.post(urlGetPersonasEdit, {
 							idVarPersona: this.idvarpersona,
@@ -360,6 +365,7 @@
 				}
 			},
 			getDomicilios() {
+				// console.log("Entrando a get domicilios")
 				var urlGetDomicilios = this.url + '/getDomiciliosPersona'
 				axios.post(urlGetDomicilios, {
 						idVarPersona: this.$store.state.idTemporal,
@@ -388,6 +394,7 @@
 						var rfcCurp = this.curp
 					}
 				}
+				// console.log("Entrando a search persona")
 				var urlBuscarPersona = this.url + '/searchPersonaFisica';
 				axios.post(urlBuscarPersona, {
 					tipoBusqueda: rfc_curp,
@@ -424,8 +431,8 @@
 				this.fechaNacimiento = this.personaExiste.fechaNacimiento
 				this.edad = this.personaExiste.edad
 				this.sexo = this.personaExiste.sexo
-				this.rfc = (this.personaExiste.rfc!=null)?this.personaExiste.rfc.slice(0, -3):''
-				this.homoclave = (this.personaExiste.rfc!=null)?this.personaExiste.rfc.slice(-3):''
+				this.rfc = (this.personaExiste.rfc != null) ? this.personaExiste.rfc.slice(0, -3) : ''
+				this.homoclave = (this.personaExiste.rfc != null) ? this.personaExiste.rfc.slice(-3) : ''
 				this.curp = this.personaExiste.curp
 				this.nacionalidad = this.personaExiste.idNacionalidad
 				this.estado = this.personaExiste.idEstado
@@ -444,6 +451,7 @@
 			},
 			searchConocido() {
 				if ((this.tipo == 'conocido' || this.tipo == 'conocidomoral') && this.nombres != '' && this.primerAp != '' && this.segundoAp != '') {
+					// console.log("Entrando a search conocido")
 					var urlSearchConocido = this.url + '/searchConocido';
 					axios.post(urlSearchConocido, {
 						nombres: this.nombres,
@@ -461,6 +469,7 @@
 			},
 			calcularRfc() {
 				if (this.nombres != '' && this.primerAp != '' && this.fechaNacimiento != '') {
+					// console.log("Entrando a calcular rfc")
 					var urlRfcFisico = this.url + '/rfcFisico';
 					axios.post(urlRfcFisico, {
 						nombres: this.nombres,
@@ -478,6 +487,7 @@
 				}
 			},
 			buscarCarpetasFisica: function(param) {
+				// console.log("Entrando a buscar carpetas fisica")
 				var post = this.url + '/fisicaCarpetasRfc';
 				axios.post(post, {
 					rfc: this.rfc + this.homoclave,
@@ -489,14 +499,17 @@
 				});
 			},
 			getMunicipios: function() {
-				if (this.estado != null) {
+				if (this.estado != null && this.$store.state.edit != true && this.$store.state.fisicaEncontrada!=true) {
+					if (this.estado.id == 30) {
+						return
+					}
+					// console.log("Entrando a get municipios en persona")
 					// this.municipio=null
 					var urlMunicipios = this.url + '/getMunicipios/' + this.estado.id;
 					axios.get(urlMunicipios).then(response => {
 						this.municipios = response.data
 					});
 				} else {
-					// this.municipio=null,
 					this.municipios = []
 				}
 			},
@@ -596,9 +609,10 @@
 					this.$validator.reset();
 			},
 			crearPersona: function() {
+				// console.log("Entrando a crear persona")
 				this.validacionesback = '';
 				var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
-				if(this.tipo=='denunciado' && this.$store.state.edit==true){
+				if (this.tipo == 'denunciado' && this.$store.state.edit == true) {
 					urlCrearPersona = this.url + '/' + this.tipo + this.sistema + 'edit';
 				}
 				if (this.tipo != 'qrr') {
@@ -736,6 +750,6 @@
 					return " Coincidencias"
 				}
 			}
-		}, mapState(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'personasEncontradas', 'showCoincidencias']))
+		}, mapState(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'personasEncontradas', 'showCoincidencias', 'estadosCatalogo', 'municipiosVer']))
 	}
 </script>
