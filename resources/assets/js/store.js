@@ -26,7 +26,9 @@ const store = new Vuex.Store({
         personasEncontradas:'',
         showCoincidencias:'',
         edit:'',
-        estadosCatalogo:''
+        estadosCatalogo:'',
+        municipiosVer:'',
+        datosExtra:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -115,11 +117,17 @@ const store = new Vuex.Store({
             state.showCoincidencias=true
         },
         asignarDataEditFisica(state,payload){
-            state.idPersonaFisica = payload.persona.original.idVarPersona
-            state.personaFisica = payload.persona.original.idPersona
+            state.edit=true
+            if(payload.persona.original.idVarPersona!=1){
+                state.idPersonaFisica = payload.persona.original.idVarPersona
+            }
+            if(payload.persona.original.idPersona!=1){
+                state.personaFisica = payload.persona.original.idPersona
+            }
             state.datosDomicilio = payload.domicilios.original.domicilio
             state.datosTrabajo = payload.domicilios.original.trabajo
             state.datosNotificaciones = payload.domicilios.original.notificacion
+            state.datosExtra = payload.extra.original
             if(payload.persona.original.idDomicilio!=1){
                 state.idDomicilio=payload.persona.original.idDomicilio
             }
@@ -129,17 +137,16 @@ const store = new Vuex.Store({
             if(payload.persona.original.idDomicilioNotificacion!=1){
                 state.idContacto=payload.persona.original.idDomicilioNotificacion
             }
-            if(payload.persona.original.idExtra){
-                state.idExtra = payload.persona.original.idExtra
-            }
-            state.edit=true
+            state.idExtra = payload.extra.original.id
         },
         asignarDataEditMoral(state,payload){
+            state.edit=true
             state.idPersonaMoral = payload.persona.original.idVarPersona
             state.personaMoral = payload.persona.original.idPersona
             state.datosDomicilio = payload.domicilios.original.domicilio
             state.datosTrabajo = payload.domicilios.original.trabajo
             state.datosNotificaciones = payload.domicilios.original.notificacion
+            state.datosExtra = payload.extra.original
             if(payload.persona.original.idDomicilio!=1){
                 state.idDomicilio=payload.persona.original.idDomicilio
             }
@@ -149,10 +156,11 @@ const store = new Vuex.Store({
             if(payload.persona.original.idDomicilioNotificacion!=1){
                 state.idContacto=payload.persona.original.idDomicilioNotificacion
             }
-            state.edit=true
+            state.idExtra = payload.extra.original.id
         },
-        asignarEstados(state,payload){
-            state.estadosCatalogo=payload
+        asignarEstadosMunicipiosVer(state,payload){
+            state.estadosCatalogo=payload.estados
+            state.municipiosVer=payload.municipios
         }
     }
 })
