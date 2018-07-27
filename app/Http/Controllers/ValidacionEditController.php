@@ -12,6 +12,7 @@ use App\Http\Models\ExtraDenuncianteFisico;
 use App\Http\Models\ExtraDenuncianteMoral;
 use App\Http\Models\ExtraAbogado;
 use App\Http\Models\ExtraAutoridad;
+use App\Http\Models\CatPuesto;
 use App\Http\Controllers\PersonaController;
 use DB;
 
@@ -214,7 +215,12 @@ class ValidacionEditController extends Controller
 	
 	public function getExtraDenunciadoFisico($id){
 		$extra = ExtraDenunciadoFisico::where('idVariablesPersona',$id)->first();
-		return response()->json($extra);
+		$puesto = CatPuesto::find($extra->idPuesto);
+		$data = array(
+			'puesto' => array("nombre"=>$puesto->nombre, "id"=>$puesto->id),
+			'extra' => $extra
+		);
+		return response()->json($data);
 	}
 
 	public function getExtraDenunciadoMoral($id){
