@@ -20,7 +20,7 @@ class PersonaFisicaSeeder extends Seeder
                 'fechaNacimiento' => '1900-01-01',
                 'rfc' => '',
                 'curp' => '',
-                'sexo' => 1,
+                'sexo' => 3,
                 'idNacionalidad' => 132,
                 'idEtnia' => 13,
                 'idLengua' => 69,

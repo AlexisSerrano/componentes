@@ -34,7 +34,7 @@
 					<span v-show="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido')}}</span>
 					<span v-if="this.validacionesback.segundoAp!=undefined" class="text-danger">{{ String(this.validacionesback.segundoAp)}}</span>
 				</div>
-				<div v-if="(validaciones.alias!='oculto' && tipo=='conocido' && showCoincidencias!=true) || (tipo=='denunciado' && this.$store.state.edit==true)" class="form-group col-md-4">
+				<div v-if="(validaciones.alias!='oculto' && tipo=='conocido' && showCoincidencias!=true) || (tipodenunciado=='conocido' && this.$store.state.edit==true)" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="alias">Alias</label>
 					<input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias')  || this.validacionesback.alias}" v-model="alias" placeholder="Ingrese el alias" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.alias"
 					    autocomplete="off">
