@@ -159,7 +159,7 @@ class ValidacionEditController extends Controller
 				'idVarPersona'=>$personaExisteP->idVar,
 				'telefono'=>$personaExisteP->telefono
 			);
-			if($getalias){
+			if($getalias&&$alias){
 				$data['alias']=$alias->alias;
 				$data['idExtra']=$alias->id;
 			}
@@ -215,11 +215,16 @@ class ValidacionEditController extends Controller
 	
 	public function getExtraDenunciadoFisico($id){
 		$extra = ExtraDenunciadoFisico::where('idVariablesPersona',$id)->first();
-		$puesto = CatPuesto::find($extra->idPuesto);
-		$data = array(
-			'puesto' => array("nombre"=>$puesto->nombre, "id"=>$puesto->id),
-			'extra' => $extra
-		);
+		if($extra){
+			$puesto = CatPuesto::find($extra->idPuesto);
+			$data = array(
+				'puesto' => array("nombre"=>$puesto->nombre, "id"=>$puesto->id),
+				'extra' => $extra
+			);
+		}
+		else{
+			$data = false;
+		}
 		return response()->json($data);
 	}
 

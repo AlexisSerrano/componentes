@@ -349,7 +349,7 @@
 							esEmpresa: false
 						})
 						.then((response) => {
-							console.log(response.data)
+							console.log(response)
 							this.$store.commit('asignarDataEditFisica', response.data)
 							this.personaExiste = response.data.persona.original
 							this.fillFields()

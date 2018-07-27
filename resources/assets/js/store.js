@@ -127,7 +127,9 @@ const store = new Vuex.Store({
             state.datosDomicilio = payload.domicilios.original.domicilio
             state.datosTrabajo = payload.domicilios.original.trabajo
             state.datosNotificaciones = payload.domicilios.original.notificacion
-            state.datosExtra = payload.extra.original
+            if(payload.extra.original!=false){
+                state.datosExtra = payload.extra.original
+            }
             if(payload.persona.original.idDomicilio!=1){
                 state.idDomicilio=payload.persona.original.idDomicilio
             }
