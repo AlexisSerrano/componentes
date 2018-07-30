@@ -37,7 +37,10 @@
             </table>
         </div>
         <sweet-modal ref="detalleModal" title="Detalle de la persona">
-            prueba de modal
+            <dl class="row">
+                <dt class="col-3">Nombres:</dt>
+                <dd class="col-9">Christian alexis serrano carrión</dd>
+            </dl>
             <button class="btn btn-primary" type="button" slot="button"> Seleccionar</button>
         </sweet-modal>
     </div>
@@ -68,25 +71,25 @@
         },
         methods: {
             verDetalle(id) {
-                //  this.$refs.detalleModal.open()
-                var urlGetPersonasEdit = this.url + '/getPersonaEdit'
-                axios.post(urlGetPersonasEdit, {
-                        // idVarPersona: this.idvarpersona,
-                        tipo: 'conocidoFisico'
-                        // esEmpresa: false
-                    })
-                    .then(response => {
-                        // this.datosPersona = response.data
-                        console.log(response)
-                    })
-                    .catch(error => {
-                        swal({
-                            title: '¡Algo salio mal!',
-                            text: 'No es posible ver mas detalles de esta persona.',
-                            type: 'error',
-                            confirmButtonText: 'Entendido'
-                        })
-                    })
+                this.$refs.detalleModal.open()
+                // var urlGetPersonasEdit = this.url + '/getPersonaEdit'
+                // axios.post(urlGetPersonasEdit, {
+                // idVarPersona: this.idvarpersona,
+                // tipo: 'conocidoFisico'
+                // esEmpresa: false
+                // })
+                // .then(response => {
+                // this.datosPersona = response.data
+                // console.log(response)
+                // })
+                // .catch(error => {
+                //     swal({
+                //         title: '¡Algo salio mal!',
+                //         text: 'No es posible ver mas detalles de esta persona.',
+                //         type: 'error',
+                //         confirmButtonText: 'Entendido'
+                //     })
+                // })
             },
             seleccionarPersona(coincidencia) {
                 this.$store.commit('asignarIdFisica', {
