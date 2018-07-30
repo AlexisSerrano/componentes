@@ -369,6 +369,21 @@ class PersonaController extends Controller{
 		return response()->json($data);
 	}
 
+	public static function getDomiciliosConocido($request){ //para la busqueda de conocido por nombre
+		$varPersona = $request->idVarPersona;
+		$esEmpresa = $request->esEmpresa;
+		if($esEmpresa){
+			$data['domicilio'] = PersonaController::domicilios($varPersona,'variables_persona_moral');
+			$data['notificacion'] = PersonaController::notificaciones($varPersona,'variables_persona_moral');
+		}
+		else{
+			$data['domicilio'] = PersonaController::domicilios($varPersona,'variables_persona_fisica');
+			$data['notificacion'] = PersonaController::notificaciones($varPersona,'variables_persona_fisica');
+			$data['trabajo'] = PersonaController::trabajos($varPersona,'variables_persona_fisica');
+		}
+		return response()->json($data);
+	}
+
 	public function cambiarEstadoCarpeta(Request $request){						
 		$respuesta=aparicionesModel::where('idCarpeta','=',$request->idCarpeta)->where('sistema','=',$request->sistema)->first();		
 		if($respuesta){

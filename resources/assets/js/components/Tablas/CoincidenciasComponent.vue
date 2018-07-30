@@ -72,7 +72,7 @@
                 var urlGetPersonasEdit = this.url + '/getPersonaEdit'
                 axios.post(urlGetPersonasEdit, {
                         idPersona: id,
-                        tipo: 'conocidoFisico'
+                        tipo: 'conocidofisico'
                         // esEmpresa: false
                     })
                     .then(response => {

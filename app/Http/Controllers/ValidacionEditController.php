@@ -96,13 +96,13 @@ class ValidacionEditController extends Controller
 		->select('variables_persona_fisica.id')
 		->orderBy('variables_persona_fisica.id','desc')
 		->first();
-		// $datos = (object)[
-		// 	'idVarPersona' => $varPersona->id,
-		// 	'esEmpresa' => false
-		// ];
-        // $data['persona'] = ValidacionEditController::getPersonaCompleta($datos,1);
-		// $data['domicilios'] = PersonaController::getDomiciliosPersona($datos);
-		return response()->json($varPersona);
+		$datos = (object)[
+			'idVarPersona' => $varPersona->id,
+			'esEmpresa' => false
+		];
+        $data['persona'] = ValidacionEditController::getPersonaCompleta($datos,1);
+		$data['domicilios'] = PersonaController::getDomiciliosConocido($datos);
+		return response()->json($data);
     }
 
     public function getPersonaCompleta($request,$getalias=0){
