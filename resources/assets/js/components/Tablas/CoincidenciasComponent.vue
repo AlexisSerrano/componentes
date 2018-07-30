@@ -37,10 +37,20 @@
             </table>
         </div>
         <sweet-modal ref="detalleModal" title="Detalle de la persona">
-            <dl class="row">
-                <dt class="col-3">Nombres:</dt>
-                <dd class="col-9">Christian alexis serrano carrión</dd>
-            </dl>
+            <sweet-modal-tab title="Datos personales" id="datosPersonales">
+                <dl class="row">
+                    <div class="col-4" v-for="(value,key,index) in datosPersonales" :key="index">
+                        <dt>{{key}}</dt>
+                        <dd>{{value}}</dd>
+                    </div>
+                </dl>
+            </sweet-modal-tab>
+            <sweet-modal-tab title="Domicilio" id="domicilio">
+            </sweet-modal-tab>
+            <sweet-modal-tab title="Domicilio de Trabajo" id="domicilioTrabajo">
+            </sweet-modal-tab>
+            <sweet-modal-tab title="Domicilio de notificaciones" id="domicilioNotificaciones">
+            </sweet-modal-tab>
             <button class="btn btn-primary" type="button" slot="button"> Seleccionar</button>
         </sweet-modal>
     </div>
@@ -61,7 +71,8 @@
         data() {
             return {
                 url: urlComponentes,
-                datosPersona: ''
+                datosPersonales: '',
+                domicilios: ''
             }
         },
         props: ['sistema', 'usuario'],
@@ -71,24 +82,24 @@
         },
         methods: {
             verDetalle(id) {
-                this.$refs.detalleModal.open()
                 var urlGetPersonasEdit = this.url + '/getPersonaEdit'
                 axios.post(urlGetPersonasEdit, {
-                idPersona: id,
-                tipo: 'conocidofisico'
-                })
-                .then(response => {
-                this.datosPersona = response.data
-                console.log(response)
-                })
-                .catch(error => {
-                    swal({
-                        title: '¡Algo salio mal!',
-                        text: 'No es posible ver mas detalles de esta persona.',
-                        type: 'error',
-                        confirmButtonText: 'Entendido'
+                        idPersona: id,
+                        tipo: 'conocidofisico'
                     })
-                })
+                    .then(response => {
+                        this.datosPersonales = response.data.persona.original.modal
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        swal({
+                            title: '¡Algo salio mal!',
+                            text: 'No es posible ver mas detalles de esta persona.',
+                            type: 'error',
+                            confirmButtonText: 'Entendido'
+                        })
+                    })
+                this.$refs.detalleModal.open()
             },
             seleccionarPersona(coincidencia) {
                 this.$store.commit('asignarIdFisica', {
