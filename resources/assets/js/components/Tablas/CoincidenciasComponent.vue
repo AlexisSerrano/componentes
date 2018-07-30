@@ -20,8 +20,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="coincidencia in personasEncontradas" :key="coincidencia.idVarPersona">
-                        <td>{{ `${coincidencia.nombres} ${coincidencia.primerAp} ${coincidencia.segundoAp}` }}</td>
+                    <tr v-for="(coincidencia,index) in personasEncontradas" :key="index">
+                        <td>{{ coincidencia.fullName }}</td>
                         <td>{{ coincidencia.edad }}</td>
                         <td>{{ coincidencia.sexo }}</td>
                         <td>{{ coincidencia.rfc }}</td>
@@ -30,7 +30,7 @@
                         <td>{{ coincidencia.estado }}</td>
                         <td>{{ coincidencia.municipio }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" @click="seleccionarPersona(coincidencia)">Guardar</button>
+                            <button type="button" class="btn btn-primary" @click="verDetalle(coincidencia.idPersona)">Guardar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -49,11 +49,27 @@
     export default {
         data() {
             return {
-                url: urlComponentes
+                url: urlComponentes,
+                datosPersona: ''
             }
         },
         props: ['sistema', 'usuario'],
         methods: {
+            verDetalle(idPersona) {
+                var urlDetallePersona = this.url + '/getDetallePersona'
+                axios.post(urlDetallePersona, idPersona)
+                    .then(response => {
+                        this.datosPersona = response.data
+                    })
+                    .catch(error => {
+                        swal({
+                            title: '¡Algo salio mal!',
+                            text: 'No es posible ver mas detalles de esta persona.',
+                            type: 'error',
+                            confirmButtonText: 'Entendido'
+                        })
+                    })
+            },
             seleccionarPersona(coincidencia) {
                 this.$store.commit('asignarIdFisica', {
                     idPersona: '',
@@ -68,21 +84,9 @@
                 })
                 this.crearPersona(coincidencia)
             },
-            getDomicilios(idVarPersona) {
-                var urlGetDomicilios = this.url + '/getDomiciliosPersona'
-                axios.post(urlGetDomicilios, {
-                        idVarPersona: idVarPersona,
-                        esEmpresa: false
-                    })
-                    .then((response) => {
-                        if (response.data) {
-                            this.$store.commit('asignarDomicilios', response.data)
-                        }
-                    })
-            },
             buscarCarpetasFisica(coincidencia) {
-                var post = this.url + '/fisicaCarpetasRfc';
-                axios.post(post, {
+                var urlBuscarCarpeta = this.url + '/fisicaCarpetasRfc';
+                axios.post(urlBuscarCarpeta, {
                     rfc: coincidencia.rfc,
                     curp: coincidencia.curp
                 }).then(response => {
@@ -123,7 +127,6 @@
                                 })
                                 var personaCorrecta = [coincidencia]
                                 this.$store.commit('asignarPersonasEncontradas', personaCorrecta)
-                                this.getDomicilios(coincidencia.idVarPersona)
                                 this.buscarCarpetasFisica(coincidencia)
                             } else {
                                 swal({

@@ -11,8 +11,8 @@
   </head>
   <body>
 	    <div id="app">
-        <registro :sistema="'uipj'" :carpeta="'xx13'" :idcarpeta="20" :tipo="'denunciado'" :usuario="'usuario'" :idvarpersona="1" :empresa="false" :tipodenunciado="'qrr'"></registro>
-         <!-- <registro :sistema="'uipj'" :carpeta="'xx13'" :idcarpeta="20" :tipo="'denunciado'" :usuario="'usuario'"></registro>  -->
+        <!-- <registro :sistema="'uipj'" :carpeta="'xx13'" :idcarpeta="20" :tipo="'denunciado'" :usuario="'usuario'" :idvarpersona="1" :empresa="false" :tipodenunciado="'qrr'"></registro> -->
+         <registro :sistema="'uipj'" :carpeta="'xx13'" :idcarpeta="20" :tipo="'denunciado'" :usuario="'usuario'"></registro> 
         </div>
   </body> 
 

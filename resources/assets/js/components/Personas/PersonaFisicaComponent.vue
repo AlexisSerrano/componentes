@@ -488,8 +488,8 @@
 			},
 			buscarCarpetasFisica: function(param) {
 				// console.log("Entrando a buscar carpetas fisica")
-				var post = this.url + '/fisicaCarpetasRfc';
-				axios.post(post, {
+				var urlBuscarCarpeta = this.url + '/fisicaCarpetasRfc';
+				axios.post(urlBuscarCarpeta, {
 					rfc: this.rfc + this.homoclave,
 					curp: this.curp
 				}).then(response => {
