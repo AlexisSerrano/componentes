@@ -3,7 +3,7 @@
         <!-- MENÚ -->
         <div class="container-fluid">
             <div class="row">
-                <ul class="nav nav-pills mb-3 pl-3" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-3 pl-3 colorNav" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="abogado-persona-tab" data-toggle="pill" href="#pills-abogado-persona" role="tab" aria-controls="pills-abogado-persona" aria-selected="true">Datos Personales</a>
                     </li>
@@ -31,16 +31,16 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-abogado-persona" role="tabpanel" aria-labelledby="abogado-persona-tab">
-                <personafisica :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'abogado'" :usuario="usuario"></personafisica>
+                <personafisica :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'abogado'" :usuario="usuario" :idvarpersona="idvarpersona"></personafisica>
             </div>
             <div class="tab-pane fade" id="pills-abogado-trabajo" role="tabpanel" aria-labelledby="abogado-trabajo-tab">
-                <domicilio v-if="this.$store.state.idPersonaFisica" :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-show="this.$store.state.idPersonaFisica" :tipo="'trabajo'" :empresa="false" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-abogado-extra" role="tabpanel-fisico" aria-labelledby="abogado-extra-tab">
-                <extrasabogado v-if="this.$store.state.idPersonaFisica" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasabogado>
+                <extrasabogado v-show="this.$store.state.idPersonaFisica" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasabogado>
             </div>
             <div class="tab-pane fade" id="pills-abogado-carpetasLigadas" role="tabpanel-fisico" aria-labelledby="abogado-carpetasLigadas-tab">
-                <notificaciones v-if="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
+                <notificaciones v-show="this.$store.state.idPersonaFisica" :tipo="'fisica'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->
@@ -50,7 +50,7 @@
 <script>
     import extrasabogado from '../Extras/ExtrasAbogadoComponent.vue';
     export default {
-        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario', 'idvarpersona'],
         components: { extrasabogado },
         methods: {
             cleanFields() {

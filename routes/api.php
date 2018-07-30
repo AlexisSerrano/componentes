@@ -38,6 +38,7 @@ Route::post('autoridaduat','ValidacionController@valAutoridadUAT');
 Route::post('conocidouat','ValidacionController@valConocidoFUAT');
 Route::post('conocidomoraluat','ValidacionController@valConocidoMUAT');
 Route::post('denunciadouat','ValidacionController@valDenunciadoFUAT');
+Route::post('denunciadouatedit','ValidacionController@valDenunciadoEditFUAT');
 Route::post('denunciadomoraluat','ValidacionController@valDenunciadoMUAT');
 Route::post('denuncianteuat','ValidacionController@valDenuncianteFUAT');
 Route::post('denunciantemoraluat','ValidacionController@valDenuncianteMUAT');
@@ -52,6 +53,7 @@ Route::post('autoridaduipj','ValidacionController@valAutoridadUIPJ');
 Route::post('conocidouipj','ValidacionController@valConocidoFUIPJ');
 Route::post('conocidomoraluipj','ValidacionController@valConocidoMUIPJ');
 Route::post('denunciadouipj','ValidacionController@valDenunciadoFUIPJ');
+Route::post('denunciadouipjedit','ValidacionController@valDenunciadoEditFUIPJ');
 Route::post('denunciadomoraluipj','ValidacionController@valDenunciadoMUIPJ');
 Route::post('denuncianteuipj','ValidacionController@valDenuncianteFUIPJ');
 Route::post('denunciantemoraluipj','ValidacionController@valDenuncianteMUIPJ');
@@ -98,3 +100,7 @@ Route::post('getColonias','DomicilioController@getColonias');
 Route::post('getCodigosPostales','DomicilioController@getCodigosPostales');
 Route::get('getIdentificaciones','PersonaController@getIdentificaciones');
 Route::post('getCatalogosDomicilios','DomicilioController@getCatalogosDomicilios');
+
+/*URLS PARA EDITS */
+Route::get('getAutoridad/{idVarPersona}/{esEmpresa}','ValidacionEditController@getAutoridad');
+Route::post('getPersonaEdit','ValidacionEditController@getPersonaEdit');

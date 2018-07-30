@@ -1,8 +1,7 @@
 <template>
     <div class="container-fluid">
     
-        <spring-spinner v-if="loader" class="centrar" :animation-duration="1500" :size="60" :color="'#828282'" />
-        <form v-on:submit.prevent="validateBeforeSubmit" v-if="loader!=true">
+        <form v-on:submit.prevent="validateBeforeSubmit">
     
             <div class="form-row">
     
@@ -16,15 +15,15 @@
     
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="estado">Entidad federativa</label>
-                    <v-select :options="estados" label="nombre" data-vv-name="entidad federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('entidad federativa') || this.validacionesback.idEstado}"
+                    <v-select :options="(estadosCatalogo)?estadosCatalogo:[]" label="nombre" data-vv-name="entidad federativa" v-model="estado" name="estado" @input="getMunicipios" v-validate="'required'" :class="{ 'border border-danger': errors.has('entidad federativa') || this.validacionesback.idEstado}"
                         placeholder="Seleccione una entidad federativa" :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
                     <span v-show="errors.has('entidad federativa')" class="text-danger">{{ errors.first('entidad federativa') }}</span>
                     <span v-if="this.validacionesback.idEstado!=undefined" class="text-danger">{{ String(this.validacionesback.idEstado)}}</span>
                 </div>
                 <div v-if="((this.notificacion)?this.notificacion.id==2 || this.notificacion.id==3:'') || this.tipo!='contacto'" class="form-group col-md-4">
                     <label class="col-form-label col-form-label-sm" for="municipio">Municipio</label>
-                    <v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" @input="getCatalogosDomicilios" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || this.validacionesback.idMunicipio}" placeholder="Seleccione un municipio"
-                        :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
+                    <v-select :options="(estado && estado.id==30)?(municipiosVer)?municipiosVer:[]:municipios" label="nombre" v-model="municipio" name="municipio" @input="getCatalogosDomicilios" v-validate="'required'" :class="{ 'border border-danger': errors.has('municipio') || this.validacionesback.idMunicipio}"
+                        placeholder="Seleccione un municipio" :disabled="(this.notificacion)?notificacion.id==3 && this.tipo=='contacto':false"></v-select>
                     <span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
                     <span v-if="this.validacionesback.idMunicipio!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipio)}}</span>
                 </div>
@@ -74,10 +73,14 @@
                     <span v-show="errors.has('Número interno')" class="text-danger">{{ errors.first('Número interno')}}</span>
                     <span v-if="this.validacionesback.numInterno!=undefined" class="text-danger">{{ String(this.validacionesback.numInterno)}}</span>
                 </div>
+
                 <div v-if="this.tipo!='domicilio'" class="form-group col-md-4">
-                    <label class="col-form-label col-form-label-sm" for="telefono">Teléfono</label>
-                    <input type="text" name="telefono" class="input form-control form-control-sm" v-model="telefono" placeholder="Ingrese el teléfono" autocomplete="off">
-                </div>
+					<label class="col-form-label col-form-label-sm" for="teléfono">Teléfono</label>
+					<input type="text" name="teléfono" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('teléfono') || this.validacionesback.telefono}" v-model="telefono" placeholder="Ingrese el teléfono" v-validate="'numeric'"
+					    autocomplete="off">
+					<span v-show="errors.has('teléfono')" class="text-danger">{{ errors.first('teléfono')}}</span>
+					<span v-if="this.validacionesback.telefono!=undefined" class="text-danger">{{ String(this.validacionesback.telefono)}}</span>
+				</div>
     
     
     
@@ -102,9 +105,6 @@
     import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     import {
-        SpringSpinner
-    } from 'epic-spinners'
-    import {
         mapState
     } from "vuex";
     export default {
@@ -124,11 +124,23 @@
                         "id": 2
                     }
                 ],
+                notificacionesFull: [{
+                        "nombre": "DOMICILIO CASA",
+                        "id": 1
+                    },
+                    {
+                        "nombre": "OTRO DOMICILIO",
+                        "id": 2
+                    },
+                    {
+                        "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES",
+                        "id": 3
+                    }
+                ],
                 municipio: null,
                 localidad: null,
                 codigoPostal: null,
                 colonia: null,
-                estados: [],
                 municipios: [],
                 localidades: [],
                 codigosPostales: [],
@@ -140,7 +152,6 @@
                 numInterno: "S/N",
                 validacionesback: '',
                 idDomicilio: '',
-                loader: true,
                 telefono: '',
                 lugarTrabajo: '',
                 correo: '',
@@ -150,28 +161,13 @@
             }
         },
         props: ['tipo', 'empresa', 'sistema', 'usuario'],
-        components: {
-            SpringSpinner
-        },
-        mounted: function() {
-            this.getEstados()
-        },
         methods: {
-            getEstados: function() {
-                var urlEstados = this.url + '/getEstados';
-                axios.get(urlEstados).then(response => {
-                    this.estados = response.data
-                    var self = this;
-                    setTimeout(function() {
-                        self.loader = false;
-                    }, 1100);
-                });
-            },
             getMunicipios: function() {
                 this.cleanSelect('municipio')
-                if (this.estado == null) {
+                if (this.estado == null || (this.estado && this.estado.id == 30)) {
                     return
                 }
+                // console.log("Entrando a get municipios")
                 var urlMunicipios = this.url + '/getMunicipios/' + this.estado.id;
                 axios.get(urlMunicipios).then(response => {
                     this.municipios = response.data
@@ -179,9 +175,10 @@
             },
             getCatalogosDomicilios: function() {
                 this.cleanSelect('catalogos')
-                if (this.municipio == null) {
+                if (this.municipio == null || (this.tipo=='contacto' && this.notificacion && this.notificacion.id==3)) {
                     return
                 }
+                // console.log("Entrando a get catalogos domicilios")
                 var urlCatalogos = this.url + '/getCatalogosDomicilios'
                 axios.post(urlCatalogos, {
                     id: this.municipio.id,
@@ -192,15 +189,21 @@
                     this.colonias = response.data['colonias'].original
                     this.codigosPostalesMunicipio = response.data['codigosPostales'].original
                     this.coloniasMunicipio = response.data['colonias'].original
+                    this.loadingFields = false
                 });
             },
             getCodigosPostales: function() {
+    
+                if (this.loadingFields == true) {
+                    return
+                }
                 if (this.colonia == null || this.colonia == '') {
                     this.cleanSelect('codigoPostal')
                     this.codigosPostales = this.codigosPostalesMunicipio
                     this.colonias = this.coloniasMunicipio
                     return
                 }
+                // console.log("Entrando a get codigos postales")
                 var urlCodigosPostales = this.url + '/getCodigosPostales'
                 axios.post(urlCodigosPostales, {
                     id: this.colonia.id,
@@ -212,12 +215,17 @@
             },
     
             getColonias: function() {
+    
+                if (this.loadingFields == true) {
+                    return
+                }
                 if (this.codigoPostal == null || this.codigoPostal == '') {
                     this.cleanSelect('colonia')
                     this.codigosPostales = this.codigosPostalesMunicipio
                     this.colonias = this.coloniasMunicipio
                     return
                 }
+                // console.log("Entrando a get colonias")
                 var urlColonias = this.url + '/getColonias'
                 axios.post(urlColonias, {
                     id: this.codigoPostal.id,
@@ -225,7 +233,7 @@
                 }).then(response => {
                     this.colonias = response.data
                 });
-                this.loadingFields = false
+                // this.loadingFields = false
             },
             CleanFields() {
                 this.calle = ''
@@ -245,7 +253,7 @@
                 this.$validator.reset();
             },
             cleanSelect(select) {
-                if (this.loadingFields == true) {
+                if (this.loadingFields == true || (this.notificacion && this.notificacion.id==3)) {
                     return
                 }
                 if (select == 'municipio') {
@@ -319,12 +327,12 @@
                     telefono: (this.telefono) ? this.telefono : '',
                     tipo: this.tipo,
                     empresa: this.empresa,
-                    idPersona: (this.empresa == false)?this.$store.state.idPersonaFisica:this.$store.state.idPersonaMoral,
+                    idPersona: (this.empresa == false) ? this.$store.state.idPersonaFisica : this.$store.state.idPersonaMoral,
                     claveDomicilio: (this.tipo == 'domicilio') ? this.$store.state.idDomicilio : (this.tipo == 'trabajo') ? this.$store.state.idTrabajo : (this.tipo == 'contacto') ? this.$store.state.idContacto : '',
                     domNotificacion: (this.notificacion) ? this.notificacion.id : '',
                     idDomicilio: (this.$store.state.idDomicilio) ? this.$store.state.idDomicilio : this.$store.state.idDomicilioTemporal,
                     idOldNotificacion: this.$store.state.idContactoTemporal,
-                    guardadoContacto: (this.notificacion)?this.notificacion.id:'',
+                    guardadoContacto: (this.notificacion) ? this.notificacion.id : '',
                     sistema: this.sistema,
                     usuario: this.usuario
                 };
@@ -355,44 +363,23 @@
         watch: {
             fisicaEncontrada() {
                 if (this.empresa == false) {
-                    this.notificaciones = [{
-                            "nombre": "DOMICILIO CASA",
-                            "id": 1
-                        },
-                        {
-                            "nombre": "OTRO DOMICILIO",
-                            "id": 2
-                        },
-                        {
-                            "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES",
-                            "id": 3
-                        }
-                    ]
-                    this.notificacion = {
-                        "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES",
-                        "id": 3
-                    }
+                    this.notificaciones = this.notificacionesFull
+                    this.notificacion = this.notificacionesFull[2]
                 }
             },
             moralEncontrada() {
                 if (this.empresa == true) {
-                    this.notificaciones = [{
-                            "nombre": "DOMICILIO EMPRESA",
-                            "id": 1
-                        },
-                        {
-                            "nombre": "OTRO DOMICILIO",
-                            "id": 2
-                        },
-                        {
-                            "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES",
-                            "id": 3
-                        }
-                    ]
-                    this.notificacion = {
-                        "nombre": "ULTIMO DOMICILIO DE NOTIFICACIONES",
-                        "id": 3
-                    }
+                    this.notificaciones = this.notificacionesFull
+                    this.notificacion = this.notificacionesFull[2]
+                }
+            },
+            edit() {
+                if (this.empresa == false) {
+                    this.notificaciones = this.notificacionesFull
+                    this.notificacion = this.notificacionesFull[2]
+                } else if (this.empresa == true) {
+                    this.notificaciones = this.notificacionesFull
+                    this.notificacion = this.notificacionesFull[2]
                 }
             },
             datosDomicilio() {
@@ -437,7 +424,9 @@
                     this.CleanFields()
                     this.loadingFields = true
                 } else if (this.notificacion.id == 3) {
-                    this.setFormContact()
+                    if (this.tipo == 'contacto') {
+                        this.setFormContact()
+                    }
                 }
             }
         },
@@ -445,51 +434,51 @@
             botonGuardarModificar() {
                 if (this.empresa == false) {
                     if (this.$store.state.tipoInvolucrado == 'conocido') {
-                        if (this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') {
+                        if ((this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'domicilio' && this.$store.state.idDomicilio == '') {
                             return 'Guardar'
                         }
-                        if (this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') {
+                        if ((this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'trabajo' && this.$store.state.idTrabajo == '') {
                             return 'Guardar'
                         }
-                        if (this.tipo == 'contacto' && this.$store.state.idContacto != '') {
+                        if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'contacto' && this.$store.state.idContacto == '') {
                             return 'Guardar'
                         }
                     } else {
-                        if (this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') {
+                        if ((this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'domicilio' && this.$store.state.idDomicilio == '') {
                             return 'Guardar'
                         }
-                        if (this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') {
+                        if ((this.tipo == 'trabajo' && this.$store.state.idTrabajo != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'trabajo' && this.$store.state.idTrabajo == '') {
                             return 'Guardar'
                         }
-                        if (this.tipo == 'contacto' && this.$store.state.idContacto != '') {
+                        if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit == true) {
                             return 'Modificar'
                         } else if (this.tipo == 'contacto' && this.$store.state.idContacto == '') {
                             return 'Guardar'
                         }
                     }
                 } else if (this.empresa == true) {
-                    if (this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') {
+                    if ((this.tipo == 'domicilio' && this.$store.state.idDomicilio != '') || this.$store.state.edit == true) {
                         return 'Modificar'
                     } else if (this.tipo == 'domicilio' && this.$store.state.idDomicilio == '') {
                         return 'Guardar'
                     }
-                    if (this.tipo == 'contacto' && this.$store.state.idContacto != '') {
+                    if ((this.tipo == 'contacto' && this.$store.state.idContacto != '') || this.$store.state.edit == true) {
                         return 'Modificar'
                     } else if (this.tipo == 'contacto' && this.$store.state.idContacto == '') {
                         return 'Guardar'
                     }
                 }
             }
-        }, mapState(['fisicaEncontrada', 'moralEncontrada', 'datosDomicilio', 'datosTrabajo', 'datosNotificaciones']))
+        }, mapState(['fisicaEncontrada', 'moralEncontrada', 'datosDomicilio', 'datosTrabajo', 'datosNotificaciones', 'edit', 'estadosCatalogo', 'municipiosVer']))
     }
 </script>

@@ -245,8 +245,12 @@ class DomicilioController extends Controller
                 $oper="INSERT";
                 $antes=null;
             }
-            $trabajo->lugar = $request->lugarTrabajo;
-            $trabajo->telefono = $request->telefono;
+            if($request->lugarTrabajo!=''){
+                $trabajo->lugar = $request->lugarTrabajo;
+            }
+            if($request->telefono!=''){
+                $trabajo->telefono = $request->telefono;
+            }
             if($idDomicilio!==FALSE){
                 $trabajo->idDomicilio = $idDomicilio;
             } 

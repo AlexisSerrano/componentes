@@ -17,7 +17,7 @@ class CreateExtraDenunciadoFisicoTable extends Migration
             $table->increments('id');
             $table->integer('idVariablesPersona')->unsigned();
             //$table->integer('idNotificacion')->unsigned();
-            $table->integer('idPuesto')->unsigned()->nullable();
+            $table->integer('idPuesto')->unsigned()->nullable()->default(9);
             $table->string('alias', 50)->default("SIN INFORMACION");
             $table->text('senasPartic');
             $table->integer('ingreso')->default(0);

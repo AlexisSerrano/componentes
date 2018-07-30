@@ -33,6 +33,9 @@
 </template>
 
 <script>
+    import {
+        mapState
+    } from "vuex";
     import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
@@ -58,7 +61,7 @@
                 url: urlComponentes
             }
         },
-        props:['empresa','sistema','carpeta','idcarpeta', 'usuario'],
+        props: ['empresa', 'sistema', 'carpeta', 'idcarpeta', 'usuario'],
         created: function() {
             //            this.getPuestos();
         },
@@ -88,7 +91,7 @@
                 var data = {
                     idExtrasDenunciante: this.$store.state.idExtra,
                     idPersona: idPersona,
-                    reguardarIdentidad: (this.identidad)?this.identidad.id:'',
+                    reguardarIdentidad: (this.identidad) ? this.identidad.id : '',
                     victima: this.solicitante.id,
                     sistema: this.sistema,
                     empresa: this.empresa,
@@ -103,7 +106,6 @@
                         console.log(response.data);
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
-                            // this.$store.commit('cleanStore')
                             swal({
                                     title: 'Denunciante guardado correctamente!',
                                     text: 'Haz finalizado el registro del denunciante exitosamente.',
@@ -139,6 +141,13 @@
                 this.identidad = ''
                 this.$validator.reset();
             }
-        }
+        },
+        watch: {
+            datosExtra() {
+                this.solicitante=this.solicitantes[this.datosExtra.victima]
+                this.identidad=this.identidades[this.datosExtra.resguardarIdentidad]
+            }
+        },
+        computed: mapState(['datosExtra'])
     }
 </script>

@@ -3,7 +3,7 @@
         <!-- MENÚ -->
         <div class="container-fluid">
             <div class="row">
-                <ul class="nav nav-pills mb-3" style="padding-left:15px" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-3 colorNav" style="padding-left:15px" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="denunciado-personamoral-tab" data-toggle="pill" href="#pills-denunciado-personamoral" role="tab" aria-controls="pills-denunciado-personamoral" aria-selected="true">Datos Personales</a>
                     </li>
@@ -34,19 +34,19 @@
         <!-- OPCIONES -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-denunciado-personamoral" role="tabpanel" aria-labelledby="denunciado-personamoral-tab">
-                <personamoral :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'denunciadomoral'" :usuario="usuario"></personamoral>
+                <personamoral :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="'denunciadomoral'" :usuario="usuario" :idvarpersona="idvarpersona"></personamoral>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-domiciliomoral" role="tabpanel" aria-labelledby="denunciado-domiciliomoral-tab">
-                <domicilio v-if="this.$store.state.idPersonaMoral" :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-show="this.$store.state.idPersonaMoral" :tipo="'domicilio'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-notificacionesmoral" role="tabpanel" aria-labelledby="denunciado-notificacionesmoral-tab">
-                <domicilio :tipo="'contacto'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
+                <domicilio v-show="this.$store.state.idPersonaMoral" :tipo="'contacto'" :empresa="true" :sistema="sistema" :usuario="usuario"></domicilio>
             </div>
             <div class="tab-pane fade" id="pills-denunciado-extramoral" role="tabpanel-moral" aria-labelledby="denunciado-extramoral-tab">
-                <extrasinvestigado v-if="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasinvestigado>
+                <extrasinvestigado v-show="this.$store.state.idPersonaMoral" :sistema="sistema" :empresa="true" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario"></extrasinvestigado>
             </div>
             <div class="tab-pane fade" id="pills-denunciante-carpetasLigadasMoral" role="tabpanel-moral" aria-labelledby="denunciante-carpetasLigadasMoral-tab">
-                <notificaciones v-if="this.$store.state.idPersonaMoral" :tipo="'moral'"></notificaciones>
+                <notificaciones v-show="this.$store.state.idPersonaMoral" :tipo="'moral'"></notificaciones>
             </div>
         </div>
         <!-- OPCIONES -->
@@ -56,7 +56,7 @@
 <script>
     import extrasinvestigado from '../Extras/ExtrasInvestigadoComponent.vue';
     export default {
-        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta' ,'usuario', 'idvarpersona'],
         components: {extrasinvestigado},
         methods: {
             cleanFields(){

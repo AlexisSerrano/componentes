@@ -8,14 +8,14 @@
                 <div :class="'form-group col-md-4'">
                     <label class="col-form-label col-form-label-sm" for="nombre">Nombre</label>
                     <input class="form-control form-control-sm" type="text" name="nombre" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('nombre') || this.validacionesback.nombre}" v-model="nombre" placeholder="Ingrese el nombre" v-validate="'required'"
-                        autocomplete="off" @blur="calcularRfc" :readonly="this.$store.state.moralEncontrada==true">
+                        autocomplete="off" @blur="calcularRfc" :readonly="this.$store.state.moralEncontrada==true || this.$store.state.edit == true">
                     <span v-show="errors.has('nombre')" class="text-danger">{{ errors.first('nombre')}}</span>
                     <span v-if="this.validacionesback.nombre!=undefined" class="text-danger">{{ String(this.validacionesback.nombre)}}</span>
                 </div>
                 <div v-if="this.tipo!='conocidomoral'" :class="'form-group col-md-4'">
                     <label class="col-form-label col-form-label-sm" for="fechaCreacion">Fecha de creación</label>
                     <input class="form-control form-control-sm" type="date" v-model="fechaCreacion" name="fechaCreacion" data-vv-name="fecha de creación" v-validate="'required|date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de creación') || this.validacionesback.fechaCreacion}"
-                        @blur="calcularRfc" :readonly="this.$store.state.moralEncontrada==true">
+                        @blur="calcularRfc" :readonly="this.$store.state.moralEncontrada==true || this.$store.state.edit == true">
                     <span v-show="errors.has('fecha de creación')" class="text-danger">{{ errors.first('fecha de creación')}}</span>
                     <span v-if="this.validacionesback.fechaCreacion!=undefined" class="text-danger">{{ String(this.validacionesback.fechaCreacion)}}</span>
                 </div>
@@ -23,14 +23,14 @@
                 <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
                     <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="'required'" autocomplete="off" @blur="searchPersona"
-                        :readonly="this.$store.state.moralEncontrada==true">
+                        :readonly="this.$store.state.moralEncontrada==true || this.$store.state.edit == true">
                     <span v-show="errors.has('rfc')" class="text-danger">{{ errors.first('rfc')}}</span>
                     <span v-if="this.validacionesback.rfc!=undefined" class="text-danger">{{ String(this.validacionesback.rfc)}}</span>
                 </div>
                 <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="homoclave">Homoclave</label>
                     <input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') || this.validacionesback.homo}" v-model="homoclave" placeholder="Homoclave" v-validate="'required'" autocomplete="off"
-                        @blur="searchPersona" :readonly="this.$store.state.moralEncontrada==true">
+                        @blur="searchPersona" :readonly="this.$store.state.moralEncontrada==true || this.$store.state.edit == true">
                     <span v-show="errors.has('homoclave')" class="text-danger">{{ errors.first('homoclave')}}</span>
                     <span v-if="this.validacionesback.homo!=undefined" class="text-danger">{{ String(this.validacionesback.homo)}}</span>
                 </div>
@@ -116,13 +116,14 @@
                 url: urlComponentes
             }
         },
-        props: ['sistema', 'tipo', 'usuario'],
-        mounted: function() {
+        props: ['sistema', 'tipo', 'usuario', 'idvarpersona'],
+        created: function() {
             this.getIdentificaciones();
+            this.cargarEdicion()
         },
         methods: {
             searchPersona: function() {
-                if (this.$store.state.moralEncontrada == true) {
+                if (this.$store.state.moralEncontrada == true || this.$store.state.idPersonaMoral) {
                     return
                 }
                 if (this.rfc.length == 9 && this.homoclave.length == 3) {
@@ -146,21 +147,48 @@
                                 title: '¡Persona moral encontrada!',
                                 text: 'Ésta persona moral ya fue registrada anteriormente.',
                                 type: 'success',
-                                confirmButtonText: 'Ok'
+                                confirmButtonText: 'Entendido'
                             })
-                            this.nombre = this.personaExiste.nombre,
-                                this.fechaCreacion = this.personaExiste.fechaCreacion,
-                                this.rfc = this.personaExiste.rfc.slice(0, -3),
-                                this.homoclave = this.personaExiste.rfc.slice(-3),
-                                this.telefono = this.personaExiste.telefono,
-                                this.nombresRep = this.personaExiste.nombreRep,
-                                this.primerApRep = this.personaExiste.primerApRep,
-                                this.segundoApRep = this.personaExiste.segundoApRep,
-                                this.identificacion = this.personaExiste.docIdentificacion,
-                                this.numIdentificacion = this.personaExiste.numDocIdentificacion
+                            this.fillFields()
                         }
                     });
                 }
+            },
+            cargarEdicion() {
+                if (this.idvarpersona) {
+                    var urlGetPersonasEdit = this.url + '/getPersonaEdit'
+                    axios.post(urlGetPersonasEdit, {
+                            idVarPersona: this.idvarpersona,
+                            tipo: this.tipo,
+                            esEmpresa: true
+                        })
+                        .then((response) => {
+                            console.log(response.data)
+                            this.$store.commit('asignarDataEditMoral', response.data)
+                            this.personaExiste = response.data.persona.original
+                            this.fillFields()
+                        })
+                        .catch((error) => {
+                            swal({
+                                title: '¡Algo salio mal!',
+                                text: 'No fue posible cargar los datos para edición.',
+                                type: 'error',
+                                confirmButtonText: 'Entendido'
+                            })
+                        })
+                }
+            },
+            fillFields() {
+                this.nombre = this.personaExiste.nombre
+                this.fechaCreacion = this.personaExiste.fechaCreacion
+                this.rfc = this.personaExiste.rfc.slice(0, -3)
+                this.homoclave = this.personaExiste.rfc.slice(-3)
+                this.telefono = this.personaExiste.telefono
+                this.nombresRep = this.personaExiste.nombreRep
+                this.primerApRep = this.personaExiste.primerApRep
+                this.segundoApRep = this.personaExiste.segundoApRep
+                this.identificacion = this.personaExiste.docIdentificacion
+                this.numIdentificacion = this.personaExiste.numDocIdentificacion
             },
             calcularRfc() {
                 if (this.nombre != '' && this.fechaCreacion != '') {
@@ -169,7 +197,7 @@
                             title: '¡Ingrese otro nombre!',
                             text: 'Para calcular el rfc el nombre debe contener mas caracteres.',
                             type: 'warning',
-                            confirmButtonText: 'Ok'
+                            confirmButtonText: 'Entendido'
                         })
                         return
                     }
@@ -222,7 +250,7 @@
                         title: '¡Aún no es posible guardar!',
                         text: 'Ingrese los campos obligatorios',
                         type: 'warning',
-                        confirmButtonText: 'Ok'
+                        confirmButtonText: 'Entendido'
                     });
                 });
             },
@@ -274,7 +302,7 @@
                                 title: '¡Guardado correctamente!',
                                 text: 'Ésta empresa fue guardada exitosamente.',
                                 type: 'success',
-                                confirmButtonText: 'Ok'
+                                confirmButtonText: 'Entendido'
                             })
                             if (this.$store.state.moralEncontrada && this.tipo != 'conocidomoral') {
                                 this.getDomicilios()
@@ -285,7 +313,7 @@
                                 title: '¡Guardado incorrecto!',
                                 text: 'Ésta persona no fue posible guardarla.',
                                 type: 'error',
-                                confirmButtonText: 'Ok'
+                                confirmButtonText: 'Entendido'
                             })
                         }
                     }).catch((error) => {
@@ -296,7 +324,7 @@
                             title: '¡Guardado incorrecto!',
                             text: 'Ésta persona moral no fue posible guardarla.',
                             type: 'error',
-                            confirmButtonText: 'Ok'
+                            confirmButtonText: 'Entendido'
                         })
                     });
             }
