@@ -72,24 +72,23 @@
         methods: {
             verDetalle(id) {
                 this.$refs.detalleModal.open()
-                // var urlGetPersonasEdit = this.url + '/getPersonaEdit'
-                // axios.post(urlGetPersonasEdit, {
-                // idVarPersona: this.idvarpersona,
-                // tipo: 'conocidoFisico'
-                // esEmpresa: false
-                // })
-                // .then(response => {
-                // this.datosPersona = response.data
-                // console.log(response)
-                // })
-                // .catch(error => {
-                //     swal({
-                //         title: '¡Algo salio mal!',
-                //         text: 'No es posible ver mas detalles de esta persona.',
-                //         type: 'error',
-                //         confirmButtonText: 'Entendido'
-                //     })
-                // })
+                var urlGetPersonasEdit = this.url + '/getPersonaEdit'
+                axios.post(urlGetPersonasEdit, {
+                idPersona: id,
+                tipo: 'conocidofisico'
+                })
+                .then(response => {
+                this.datosPersona = response.data
+                console.log(response)
+                })
+                .catch(error => {
+                    swal({
+                        title: '¡Algo salio mal!',
+                        text: 'No es posible ver mas detalles de esta persona.',
+                        type: 'error',
+                        confirmButtonText: 'Entendido'
+                    })
+                })
             },
             seleccionarPersona(coincidencia) {
                 this.$store.commit('asignarIdFisica', {

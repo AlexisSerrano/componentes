@@ -104,36 +104,6 @@ class PersonaController extends Controller{
 	}
 
 	public function searchConocido(Request $request){
-
-		// $subQuery = "(SELECT MAX(varPer.id ) as idVariables,
-		// 		varPer.idPersona from variables_persona_fisica varPer        
-		// 		join persona_fisica per on per.id = varPer.idPersona               
-		// 		WHERE ( (per.nombres ='$request->nombres') and (per.primerAp = '$request->primerAp') and (per.segundoAp = '$request->segundoAp') )
-		// 		GROUP by varPer.idPersona) sub ";
-
-		// $res = DB::table('variables_persona_fisica as varPer2')
-		// ->join('persona_fisica','persona_fisica.id','=','varPer2.idPersona')
-		// ->join('domicilio','domicilio.id','=','varPer2.idDomicilio')
-		// ->join('cat_estado','cat_estado.id','=','domicilio.idEstado')
-		// ->join('cat_municipio','cat_municipio.id','=','persona_fisica.idMunicipioOrigen')
-		// ->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
-		// ->join('sexos','sexos.id','=','persona_fisica.sexo')
-		// ->where('persona_fisica.nombres','=',$request->nombres)->where('persona_fisica.primerAp','=',$request->primerAp)->where('persona_fisica.segundoAp','=',$request->segundoAp)
-		// ->select('persona_fisica.nombres','persona_fisica.primerAp',
-		// 'persona_fisica.segundoAp','varPer2.edad','sexos.nombre','persona_fisica.rfc',
-		// 'persona_fisica.curp','varPer2.idDomicilio','varPer2.idTrabajo',
-		// 'varPer2.idNotificacion','varPer2.id','varPer2.idPersona',
-		// 'cat_estado.nombre','cat_municipio.nombre','cat_nacionalidad.nombre')
-
-		// ->join(DB::raw($subQuery), function($join) {
-		// 	$join->on('sub.idVariables', '=', 'varPer2.id'); })->get();
-			
-		// 	if($res){
-		// 		return response()->json($res);
-		// 	}else{
-		// 		return response()->json(false);
-		// 	}
-
 		$personaExisteP = DB::table('persona_fisica')
 		->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
 		->join('cat_municipio','cat_municipio.id','=','persona_fisica.idMunicipioOrigen')
@@ -385,6 +355,21 @@ class PersonaController extends Controller{
 	}
 
 	public static function getDomiciliosPersona(Request $request){
+		$varPersona = $request->idVarPersona;
+		$esEmpresa = $request->esEmpresa;
+		if($esEmpresa){
+			$data['domicilio'] = PersonaController::domicilios($varPersona,'variables_persona_moral');
+			$data['notificacion'] = PersonaController::notificaciones($varPersona,'variables_persona_moral');
+		}
+		else{
+			$data['domicilio'] = PersonaController::domicilios($varPersona,'variables_persona_fisica');
+			$data['notificacion'] = PersonaController::notificaciones($varPersona,'variables_persona_fisica');
+			$data['trabajo'] = PersonaController::trabajos($varPersona,'variables_persona_fisica');
+		}
+		return response()->json($data);
+	}
+
+	public static function getDomiciliosConocido($request){ //para la busqueda de conocido por nombre
 		$varPersona = $request->idVarPersona;
 		$esEmpresa = $request->esEmpresa;
 		if($esEmpresa){

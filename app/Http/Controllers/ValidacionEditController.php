@@ -40,6 +40,9 @@ class ValidacionEditController extends Controller
 			case 'denunciadomoral':
 				$datos = ValidacionEditController::getDenunciadoMoral($request);
 				break;
+			case 'conocidofisico':
+				$datos = ValidacionEditController::getConocidoFisico($request); //solo para el search persona de conocido
+				break;
         }
         return $datos;
     }
@@ -83,6 +86,22 @@ class ValidacionEditController extends Controller
         $data['persona'] = ValidacionEditController::getPersonaMoralCompleta($request);
 		$data['domicilios'] = PersonaController::getDomiciliosPersona($request);
 		$data['extra'] = ValidacionEditController::getExtraDenunciadoMoral($request->idVarPersona);
+		return response()->json($data);
+	}
+	
+	public function getConocidoFisico(Request $request){
+		$varPersona = DB::table('persona_fisica')
+		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
+		->where('persona_fisica.id',$request->idPersona)
+		->select('variables_persona_fisica.id')
+		->orderBy('variables_persona_fisica.id','desc')
+		->first();
+		$datos = (object)[
+			'idVarPersona' => $varPersona->id,
+			'esEmpresa' => false
+		];
+        $data['persona'] = ValidacionEditController::getPersonaCompleta($datos,1);
+		$data['domicilios'] = PersonaController::getDomiciliosConocido($datos);
 		return response()->json($data);
     }
 

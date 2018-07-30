@@ -436,7 +436,7 @@ class ValidacionController extends Controller
     }
 
     public function saveQrr($request){
-        $aparicion = aparicionesModel::where('carpeta',$request->carpeta)
+        $aparicion = aparicionesModel::where('idCarpeta',$request->carpeta)
         ->where('idVarPersona',1)->first();
         if($aparicion){
             $data = array(
