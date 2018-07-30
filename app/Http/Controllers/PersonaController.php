@@ -143,9 +143,8 @@ class PersonaController extends Controller{
 		->where('persona_fisica.primerAp','=',$request->primerAp)
 		->where('persona_fisica.segundoAp','=',$request->segundoAp)
 		->select('persona_fisica.id as id','persona_fisica.nombres as nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
-		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp',
-		'cat_nacionalidad.nombre as nombreNacionalidad','cat_municipio.nombre as nombreMunOrigen','sexos.nombre as nombreSexo',
-		'cat_estado.nombre as nombreEstado')
+		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp','cat_nacionalidad.nombre as nacionalidad',
+		'cat_municipio.nombre as municipio','sexos.nombre as sexo','cat_estado.nombre as estado')
 		->get();
 		return response()->json($personaExisteP);
 	}
