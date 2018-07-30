@@ -105,34 +105,69 @@ class PersonaController extends Controller{
 
 	public function searchConocido(Request $request){
 
-		$subQuery = "(SELECT MAX(varPer.id ) as idVariables,
-				varPer.idPersona from variables_persona_fisica varPer        
-				join persona_fisica per on per.id = varPer.idPersona               
-				WHERE ( (per.nombres ='$request->nombres') and (per.primerAp = '$request->primerAp') and (per.segundoAp = '$request->segundoAp') )
-				GROUP by varPer.idPersona) sub ";
+		// $subQuery = "(SELECT MAX(varPer.id ) as idVariables,
+		// 		varPer.idPersona from variables_persona_fisica varPer        
+		// 		join persona_fisica per on per.id = varPer.idPersona               
+		// 		WHERE ( (per.nombres ='$request->nombres') and (per.primerAp = '$request->primerAp') and (per.segundoAp = '$request->segundoAp') )
+		// 		GROUP by varPer.idPersona) sub ";
 
-		$res = DB::table('variables_persona_fisica as varPer2')
-		->join('persona_fisica','persona_fisica.id','=','varPer2.idPersona')
-		->join('domicilio','domicilio.id','=','varPer2.idDomicilio')
-		->join('cat_estado','cat_estado.id','=','domicilio.idEstado')
-		->join('cat_municipio','cat_municipio.id','=','persona_fisica.idMunicipioOrigen')
-		->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
-		->join('sexos','sexos.id','=','persona_fisica.sexo')
-		->where('persona_fisica.nombres','=',$request->nombres)->where('persona_fisica.primerAp','=',$request->primerAp)->where('persona_fisica.segundoAp','=',$request->segundoAp)
-		->select('persona_fisica.nombres','persona_fisica.primerAp',
-		'persona_fisica.segundoAp','varPer2.edad','sexos.nombre','persona_fisica.rfc',
-		'persona_fisica.curp','varPer2.idDomicilio','varPer2.idTrabajo',
-		'varPer2.idNotificacion','varPer2.id','varPer2.idPersona',
-		'cat_estado.nombre','cat_municipio.nombre','cat_nacionalidad.nombre')
+		// $res = DB::table('variables_persona_fisica as varPer2')
+		// ->join('persona_fisica','persona_fisica.id','=','varPer2.idPersona')
+		// ->join('domicilio','domicilio.id','=','varPer2.idDomicilio')
+		// ->join('cat_estado','cat_estado.id','=','domicilio.idEstado')
+		// ->join('cat_municipio','cat_municipio.id','=','persona_fisica.idMunicipioOrigen')
+		// ->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
+		// ->join('sexos','sexos.id','=','persona_fisica.sexo')
+		// ->where('persona_fisica.nombres','=',$request->nombres)->where('persona_fisica.primerAp','=',$request->primerAp)->where('persona_fisica.segundoAp','=',$request->segundoAp)
+		// ->select('persona_fisica.nombres','persona_fisica.primerAp',
+		// 'persona_fisica.segundoAp','varPer2.edad','sexos.nombre','persona_fisica.rfc',
+		// 'persona_fisica.curp','varPer2.idDomicilio','varPer2.idTrabajo',
+		// 'varPer2.idNotificacion','varPer2.id','varPer2.idPersona',
+		// 'cat_estado.nombre','cat_municipio.nombre','cat_nacionalidad.nombre')
 
-		->join(DB::raw($subQuery), function($join) {
-			$join->on('sub.idVariables', '=', 'varPer2.id'); })->get();
+		// ->join(DB::raw($subQuery), function($join) {
+		// 	$join->on('sub.idVariables', '=', 'varPer2.id'); })->get();
 			
-			if($res){
-				return response()->json($res);
-			}else{
-				return response()->json(false);
-			}
+		// 	if($res){
+		// 		return response()->json($res);
+		// 	}else{
+		// 		return response()->json(false);
+		// 	}
+
+		$personaExisteP = DB::table('persona_fisica')
+		->join('cat_nacionalidad','cat_nacionalidad.id','=','persona_fisica.idNacionalidad')
+		->join('cat_municipio','cat_municipio.id','=','persona_fisica.idMunicipioOrigen')
+		->join('sexos', 'persona_fisica.sexo', '=', 'sexos.id')
+		->join('cat_estado', 'cat_municipio.idEstado', '=', 'cat_estado.id')
+		->where('persona_fisica.nombres','=',$request->nombres)
+		->where('persona_fisica.primerAp','=',$request->primerAp)
+		->where('persona_fisica.segundoAp','=',$request->segundoAp)
+		->select('persona_fisica.id as id','persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
+		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp',
+		'cat_nacionalidad.nombre as nombreNacionalidad','cat_municipio.nombre as nombreMunOrigen','sexos.nombre as nombreSexo',
+		'cat_estado.nombre as nombreEstado')
+		->get();
+		if($personaExisteP){
+			$data = array(
+				'fullname'=>$personaExisteP->nombres.' '.$personaExisteP->primerAp.' '.$personaExisteP->segundoAp,
+				'fechaNacimiento'=>$personaExisteP->fechaNacimiento,
+				'rfc'=>$personaExisteP->rfc,
+				'curp'=>$personaExisteP->curp,
+				'sexo'=>$personaExisteP->nombreSexo,
+				'idNacionalidad' => $personaExisteP->nombreNacionalidad,
+				'idMunicipioOrigen'=>$personaExisteP->nombreMunOrigen,
+				'idEstado'=>$personaExisteP->nombreEstado,
+				'idPersona'=>$personaExisteP->id
+			);
+		}
+		else{
+			$data = array(
+			);
+		}
+		return response()->json($data);
+	}
+
+	public function searchFullConocidoFisico(Request $request){
 
 	}
 
