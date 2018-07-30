@@ -100,12 +100,12 @@ class ValidacionEditController extends Controller
 			'idVarPersona' => $varPersona->id,
 			'esEmpresa' => false
 		];
-        $data['persona'] = ValidacionEditController::getPersonaCompleta($datos,1);
+        $data['persona'] = ValidacionEditController::getPersonaCompleta($datos,1,1);
 		$data['domicilios'] = PersonaController::getDomiciliosConocido($datos);
 		return response()->json($data);
     }
 
-    public function getPersonaCompleta($request,$getalias=0){
+    public function getPersonaCompleta($request,$getalias=0,$conocido=0){
         $idVarPersona = $request->idVarPersona;
 		$personaExisteP = DB::table('persona_fisica')
 		->join('variables_persona_fisica', 'variables_persona_fisica.idPersona', '=', 'persona_fisica.id')
@@ -178,6 +178,30 @@ class ValidacionEditController extends Controller
 				'idVarPersona'=>$personaExisteP->idVar,
 				'telefono'=>$personaExisteP->telefono
 			);
+			if($conocido){
+				$modal = array(
+					'Nombres'=>$personaExisteP->nombres,
+					'Primer Apellido'=>$personaExisteP->primerAp,
+					'Segundo Apellido'=>$personaExisteP->segundoAp,
+					'Fecha de Nacimiento'=>$personaExisteP->fechaNacimiento,
+					'RFC'=>$personaExisteP->rfc,
+					'CURP'=>$personaExisteP->curp,
+					'Sexo'=>$personaExisteP->nombreSexo,
+					'Nacionalidad' => $personaExisteP->nombreNacionalidad,
+					'Etnia'=>$personaExisteP->nombreEtnia,
+					'Lengua'=>$personaExisteP->nombreLengua,
+					'Municipio de Origen'=>$personaExisteP->nombreMunOrigen,
+					'Estado'=>$personaExisteP->nombreEstado,
+					'Edad'=>$personaExisteP->edad,
+					'Motivo de Estancia'=>$personaExisteP->motivoEstancia,
+					'Ocupacion'=>$personaExisteP->nombreOcupacion,
+					'Estado Civil'=>$personaExisteP->nombreEstadoCivil,
+					'Escolaridad'=>$personaExisteP->nombreEscolaridad,
+					'Religion'=>$personaExisteP->nombreReligion,
+					'Teléfono'=>$personaExisteP->telefono
+				);
+				$data['modal'] = $modal;
+			}
 			if($getalias&&$alias){
 				$data['alias']=$alias->alias;
 				$data['idExtra']=$alias->id;
