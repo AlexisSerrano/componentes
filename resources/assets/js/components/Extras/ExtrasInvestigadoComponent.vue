@@ -6,7 +6,7 @@
             <div class="form-row">
     
     
-                <div v-if="sistema=='uipj'" class="form-group col-md-3">
+                <div v-if="sistema=='uipj' && empresa==false" class="form-group col-md-3">
                     <label class="col-form-label col-form-label-sm" for="puesto">Puesto</label>
                     <v-select :options="puestos" label="nombre" v-model="puesto" name="puesto" v-validate="'required'" :class="{ 'border border-danger rounded': errors.has('puesto')}" placeholder="Seleccione un puesto"></v-select>
                     <span v-show="errors.has('puesto')" class="text-danger">{{ errors.first('puesto')}}</span>
@@ -75,7 +75,7 @@
                         v-validate="'required'" autocomplete="off"></textarea>
                     <span v-show="errors.has('señas particulares')" class="text-danger">{{ errors.first('señas particulares')}}</span>
                 </div>
-                <div v-if="sistema!='uipj'" class="form-group col-md-12">
+                <div class="form-group col-md-12">
                     <label class="col-form-label col-form-label-sm" for="descripcion">Descripcion de los hechos</label>
                     <textarea class="form-control form-control-sm" cols="30" rows="5" name="descripcion" :class="{'input': true, 'form-control':true, 'border border-danger': errors.has('descripcion')}" v-model="descripcion" placeholder="Ingrese la descripción de los hechos"
                         v-validate="'required'" autocomplete="off"></textarea>
@@ -92,6 +92,9 @@
 </template>
 
 <script>
+    import {
+        mapState
+    } from "vuex";
     import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
@@ -170,7 +173,6 @@
                     .then(response => {
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
-                            //this.$store.commit('cleanStore') 
                             swal({
                                     title: 'Investigado guardado correctamente!',
                                     text: 'Haz finalizado el registro del investigado exitosamente.',
@@ -200,18 +202,32 @@
                     });
             },
             CleanFields() {
-                this.puesto = '',
-                    this.alias = '',
-                    this.dependientes = '',
-                    this.ingreso = '',
-                    this.periodo = '',
-                    this.residencia = '',
-                    this.perseguido = '',
-                    this.vestimenta = '',
-                    this.particulares = '',
-                    this.descripcion = '',
-                    this.$validator.reset();
+                this.puesto = ''
+                this.alias = ''
+                this.dependientes = ''
+                this.ingreso = ''
+                this.periodo = ''
+                this.residencia = ''
+                this.perseguido = ''
+                this.vestimenta = ''
+                this.particulares = ''
+                this.descripcion = ''
+                this.$validator.reset();
             }
-        }
+        },
+        watch: {
+            datosExtra() {
+                this.puesto = this.datosExtra.puesto
+                this.alias = this.datosExtra.extra.alias
+                this.dependientes = this.datosExtra.extra.personasBajoSuGuarda
+                this.ingreso = this.datosExtra.extra.ingreso
+                this.periodo = this.datosExtra.extra.periodoIngreso
+                this.residencia = this.datosExtra.extra.residenciaAnterior
+                this.perseguido = this.datosExtra.extra.perseguidoPenalmente
+                this.vestimenta = this.datosExtra.extra.vestimenta
+                this.particulares = this.datosExtra.extra.senasPartic
+            }
+        },
+        computed: mapState(['datosExtra'])
     }
 </script>

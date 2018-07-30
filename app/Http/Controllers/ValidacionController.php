@@ -6,6 +6,7 @@ use App\Http\Requests\AutoridadRequest;
 use App\Http\Requests\ConocidoFisicoRequest;
 use App\Http\Requests\ConocidoMoralRequest;
 use App\Http\Requests\DenunciadoFisicaRequest;
+use App\Http\Requests\DenunciadoFisicaEditRequest;
 use App\Http\Requests\DenunciadoMoralRequest;
 use App\Http\Requests\DenuncianteFisicaRequest;
 use App\Http\Requests\DenuncianteMoralRequest;
@@ -62,6 +63,11 @@ class ValidacionController extends Controller
     }
 
     public function valDenunciadoFUAT(DenunciadoFisicaRequest $request){
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
+
+    public function valDenunciadoEditFUAT(DenunciadoFisicaEditRequest $request){
         $idVariable = ValidacionController::saveInputsFisica($request);
         return response()->json($idVariable);
     }
@@ -129,7 +135,10 @@ class ValidacionController extends Controller
         $idVariable = ValidacionController::saveInputsFisica($request);
         return response()->json($idVariable);
     }
-
+    public function valDenunciadoEditFUIPJ(DenunciadoFisicaUIPJEditRequest $request){
+        $idVariable = ValidacionController::saveInputsFisica($request);
+        return response()->json($idVariable);
+    }
     public function valDenunciadoMUIPJ(DenunciadoMoralUIPJRequest $request){
         $idVariable = ValidacionController::saveInputsMoral($request);
         return response()->json($idVariable);
@@ -148,7 +157,6 @@ class ValidacionController extends Controller
         $idVariable = ValidacionController::saveQrr($request);
         return response()->json($idVariable);
     }
-
 
     public function saveInputsFisica($request){
         DB::beginTransaction();
@@ -344,7 +352,6 @@ class ValidacionController extends Controller
                 $oper="INSERT";
                 $antes= null;
                 $persona->nombre = $request->nombre;
-                $persona->fechaCreacion = "1990-01-01";
                 $persona->rfc = "";
                 $persona->save();
             }

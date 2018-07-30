@@ -39,6 +39,9 @@
 </template>
 
 <script>
+    import {
+        mapState
+    } from "vuex";
     import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     export default {
@@ -52,7 +55,7 @@
                 url: urlComponentes,
             }
         },
-        props: ['sistema','carpeta','idcarpeta', 'usuario'],
+        props: ['sistema', 'carpeta', 'idcarpeta', 'usuario'],
         methods: {
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -89,7 +92,6 @@
                     .then(response => {
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
-                            //this.$store.commit('cleanStore')                                         
                             swal({
                                     title: 'Autoridad guardada correctamente!',
                                     text: 'Haz finalizado el registro de la autoridad exitosamente.',
@@ -126,6 +128,15 @@
                 this.descripcion = ''
                 this.$validator.reset()
             }
-        }
+        },
+        watch: {
+            datosExtra() {
+                this.antiguedad = this.datosExtra.antiguedad
+                this.rango = this.datosExtra.rango
+                this.horarioLaboral = this.datosExtra.horarioLaboral
+                this.descripcion = ''
+            }
+        },
+        computed: mapState(['datosExtra'])
     }
 </script>

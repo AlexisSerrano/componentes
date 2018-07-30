@@ -21,6 +21,7 @@ class ExtraDenuncianteFisico extends Model
         'idVariablesPersona',
         'idAbogado',
         'reguardarIdentidad',        
-        'victima'       
+        'victima',
+        'alias'
     ];
 }

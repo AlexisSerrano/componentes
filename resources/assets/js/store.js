@@ -24,7 +24,11 @@ const store = new Vuex.Store({
         idTrabajoTemporal:'',
         idContactoTemporal:'',
         personasEncontradas:'',
-        showCoincidencias:''
+        showCoincidencias:'',
+        edit:'',
+        estadosCatalogo:'',
+        municipiosVer:'',
+        datosExtra:''
     },
     mutations: {
         asignarIdFisica(state,payload) {
@@ -65,7 +69,10 @@ const store = new Vuex.Store({
                 state.idContacto=payload.idDomicilio
             }
         },
-        cleanStore(state){
+        cleanStore(state,payload){
+            if(payload!='coincidencia'){
+                state.personasEncontradas=''
+            }
             state.idPersonaFisica= '',
             state.idPersonaMoral='',
             state.idExtra='',
@@ -84,7 +91,6 @@ const store = new Vuex.Store({
             state.idDomicilioTemporal='',
             state.idTrabajoTemporal='',
             state.idContactoTemporal='',
-            // state.personasEncontradas='',
             state.showCoincidencias=''
         },
         asignarCarpetasLigadas(state,payload){
@@ -109,6 +115,54 @@ const store = new Vuex.Store({
         },
         mostrarCoincidencias(state){
             state.showCoincidencias=true
+        },
+        asignarDataEditFisica(state,payload){
+            state.edit=true
+            if(payload.persona.original.idVarPersona!=1){
+                state.idPersonaFisica = payload.persona.original.idVarPersona
+            }
+            if(payload.persona.original.idPersona!=1){
+                state.personaFisica = payload.persona.original.idPersona
+            }
+            state.datosDomicilio = payload.domicilios.original.domicilio
+            state.datosTrabajo = payload.domicilios.original.trabajo
+            state.datosNotificaciones = payload.domicilios.original.notificacion
+            if(payload.extra.original!=false){
+                state.datosExtra = payload.extra.original
+            }
+            if(payload.persona.original.idDomicilio!=1){
+                state.idDomicilio=payload.persona.original.idDomicilio
+            }
+            if(payload.persona.original.idDomicilioTrabajo!=1){
+                state.idTrabajo=payload.persona.original.idDomicilioTrabajo
+            }
+            if(payload.persona.original.idDomicilioNotificacion!=1){
+                state.idContacto=payload.persona.original.idDomicilioNotificacion
+            }
+            state.idExtra = payload.extra.original.id
+        },
+        asignarDataEditMoral(state,payload){
+            state.edit=true
+            state.idPersonaMoral = payload.persona.original.idVarPersona
+            state.personaMoral = payload.persona.original.idPersona
+            state.datosDomicilio = payload.domicilios.original.domicilio
+            state.datosTrabajo = payload.domicilios.original.trabajo
+            state.datosNotificaciones = payload.domicilios.original.notificacion
+            state.datosExtra = payload.extra.original
+            if(payload.persona.original.idDomicilio!=1){
+                state.idDomicilio=payload.persona.original.idDomicilio
+            }
+            if(payload.persona.original.idDomicilioTrabajo!=1){
+                state.idTrabajo=payload.persona.original.idDomicilioTrabajo
+            }
+            if(payload.persona.original.idDomicilioNotificacion!=1){
+                state.idContacto=payload.persona.original.idDomicilioNotificacion
+            }
+            state.idExtra = payload.extra.original.id
+        },
+        asignarEstadosMunicipiosVer(state,payload){
+            state.estadosCatalogo=payload.estados
+            state.municipiosVer=payload.municipios
         }
     }
 })

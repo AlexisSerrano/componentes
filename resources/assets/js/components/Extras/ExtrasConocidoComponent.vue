@@ -57,7 +57,7 @@
                 var data = {
                     idExtrasConocido: this.$store.state.idExtra,
                     idPersona: idPersona,
-                    particulares: this.particulares,
+                    particulares: (this.particulares)?this.particulares.toUpperCase():'',
                     sistema: this.sistema,
                     usuario: this.usuario,
                     carpeta: this.carpeta,
@@ -70,7 +70,6 @@
                     .then(response => {
                         if (response.data) {
                             this.$store.commit('asignarIdExtra', response.data)
-                            //this.$store.commit('cleanStore')                                         
                             swal({
                                     title: 'Conocido guardado correctamente!',
                                     text: 'Haz finalizado el registro del conocido exitosamente.',

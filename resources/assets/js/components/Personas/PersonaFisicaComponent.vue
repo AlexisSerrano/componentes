@@ -15,7 +15,7 @@
 				<div v-if="validaciones.nombres!='oculto' && showCoincidencias!=true" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="nombres">Nombres</label>
 					<input type="text" name="nombres" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('nombres') || this.validacionesback.nombres}" v-model="nombres" placeholder="Ingrese el nombre" v-validate="validaciones.nombres"
-					    autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
+					    autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('nombres')" class="text-danger">{{ errors.first('nombres')}}</span>
 					<span v-if="this.validacionesback.nombres!=undefined" class="text-danger">{{ String(this.validacionesback.nombres)}}</span>
 				</div>
@@ -23,20 +23,21 @@
 				<div v-if="validaciones.primerAp!='oculto' && showCoincidencias!=true" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="primerAp">Primer apellido</label>
 					<input type="text" data-vv-name="primer apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('primer apellido') || this.validacionesback.primerAp}" v-model="primerAp" placeholder="Ingrese el primer apellido"
-					    v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
+					    v-validate="validaciones.primerAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('primer apellido')" class="text-danger">{{ errors.first('primer apellido')}}</span>
 					<span v-if="this.validacionesback.primerAp!=undefined" class="text-danger">{{ String(this.validacionesback.primerAp)}}</span>
 				</div>
 				<div v-if="validaciones.segundoAp!='oculto' && showCoincidencias!=true" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="segundoAp">Segundo apellido</label>
 					<input type="text" data-vv-name="segundo apellido" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('segundo apellido') || this.validacionesback.segundoAp}" v-model="segundoAp" placeholder="Ingrese el segundo apellido"
-					    v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true">
+					    v-validate="validaciones.segundoAp" autocomplete="off" @blur="calcularRfc(),generarCurp(),searchConocido()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('segundo apellido')" class="text-danger">{{ errors.first('segundo apellido')}}</span>
 					<span v-if="this.validacionesback.segundoAp!=undefined" class="text-danger">{{ String(this.validacionesback.segundoAp)}}</span>
 				</div>
-				<div v-if="validaciones.alias!='oculto' && tipo=='conocido' && showCoincidencias!=true" class="form-group col-md-4">
+				<div v-if="(validaciones.alias!='oculto' && tipo=='conocido' && showCoincidencias!=true) || (tipodenunciado=='conocido' && this.$store.state.edit==true)" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="alias">Alias</label>
-					<input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias')  || this.validacionesback.alias}" v-model="alias" placeholder="Ingrese el alias" v-validate="validaciones.alias" autocomplete="off">
+					<input type="text" name="alias" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('alias')  || this.validacionesback.alias}" v-model="alias" placeholder="Ingrese el alias" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.alias"
+					    autocomplete="off">
 					<span v-show="errors.has('alias')" class="text-danger">{{ errors.first('alias')}}</span>
 					<span v-if="this.validacionesback.alias!=undefined" class="text-danger">{{ String(this.validacionesback.alias)}}</span>
 				</div>
@@ -45,80 +46,80 @@
 	
 				<div v-if="validaciones.fechaNacimiento!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="fechaNacimiento">Fecha de nacimiento</label>
-					<input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="'required|date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de nacimiento') || this.validacionesback.fechaNacimiento}"
-					    @blur="calcularRfc(),generarCurp(),generarEdad()" :readonly="this.$store.state.fisicaEncontrada==true">
+					<input type="date" class="form-control form-control-sm" v-model="fechaNacimiento" data-vv-name="fecha de nacimiento" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':'required|date_format:YYYY-MM-DD|before:' + today" :class="{ 'border border-danger': errors.has('fecha de nacimiento') || this.validacionesback.fechaNacimiento}"
+					    @blur="calcularRfc(),generarCurp(),generarEdad()" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('fecha de nacimiento')" class="text-danger">{{ errors.first('fecha de nacimiento')}}</span>
 					<span v-if="this.validacionesback.fechaNacimiento!=undefined" class="text-danger">{{ String(this.validacionesback.fechaNacimiento)}}</span>
 				</div>
 				<div v-if="validaciones.edad!='oculto'" class="form-group col-md-1">
 					<label class="col-form-label col-form-label-sm" for="edad">Edad</label>
 					<input type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') || this.validacionesback.edad}" v-model="edad" placeholder="Edad" v-validate="validaciones.edad"
-					    :readonly="this.$store.state.fisicaEncontrada==true">
+					    :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('edad')" class="text-danger">{{ errors.first('edad')}}</span>
 					<span v-if="this.validacionesback.edad!=undefined" class="text-danger">{{ String(this.validacionesback.edad)}}</span>
 				</div>
 				<div v-if="validaciones.sexo!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="sexos">Sexo</label>
-					<v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="validaciones.sexo" :class="{ 'border border-danger rounded': errors.has('sexo') || this.validacionesback.sexo}" placeholder="Seleccione un sexo" @blur="generarCurp" :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
+					<v-select :options="sexos" label="nombre" v-model="sexo" name="sexo" v-validate="validaciones.sexo" :class="{ 'border border-danger rounded': errors.has('sexo') || this.validacionesback.sexo}" placeholder="Seleccione un sexo" @blur="generarCurp" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('sexo')" class="text-danger">{{ errors.first('sexo')}}</span>
 					<span v-if="this.validacionesback.sexo!=undefined" class="text-danger">{{ String(this.validacionesback.sexo)}}</span>
 				</div>
 	
 				<div v-if="validaciones.idEstadoOrigen!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="estado">Entidad federativa de origen</label>
-					<v-select :options="estados" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="validaciones.idEstadoOrigen" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') || this.validacionesback.idEstadoOrigen }"
-					    placeholder="Seleccione una entidad federativa de origen" @blur="generarCurp" :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
+					<v-select :options="(estadosCatalogo)?estadosCatalogo:[]" label="nombre" data-vv-name="entidad federativa de origen" v-model="estado" @input="getMunicipios" v-validate="validaciones.idEstadoOrigen" :class="{ 'border border-danger rounded': errors.has('entidad federativa de origen') || this.validacionesback.idEstadoOrigen }"
+					    placeholder="Seleccione una entidad federativa de origen" @blur="generarCurp" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('entidad federativa de origen')" class="text-danger">{{ errors.first('entidad federativa de origen')}}</span>
 					<span v-if="this.validacionesback.idEstadoOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idEstadoOrigen)}}</span>
 				</div>
 	
 				<div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>
-					<v-select :options="municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}" placeholder="Seleccione un municipio de origen"
-					    :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
+					<v-select :options="(estado.id==30)?municipiosVer:municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}"
+					    placeholder="Seleccione un municipio de origen" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
 					<span v-if="this.validacionesback.idMunicipioOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipioOrigen)}}</span>
 				</div>
 	
 				<div v-if="validaciones.rfc!='oculto'" class="form-group col-md-2">
 					<label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
-					<input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="validaciones.rfc" autocomplete="off"
-					    @blur="searchPersona('rfc')" :readonly="this.$store.state.fisicaEncontrada==true">
+					<input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.rfc"
+					    autocomplete="off" @blur="searchPersona('rfc')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('rfc')" class="text-danger">{{ errors.first('rfc')}}</span>
 					<span v-if="this.validacionesback.rfc!=undefined" class="text-danger">{{ String(this.validacionesback.rfc)}}</span>
 				</div>
 				<div v-if="validaciones.homo!='oculto'" class="form-group col-md-2">
 					<label class="col-form-label col-form-label-sm" for="homoclave">Homoclave</label>
-					<input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') || this.validacionesback.homo}" v-model="homoclave" placeholder="Homoclave" v-validate="validaciones.homo"
-					    autocomplete="off" @blur="searchPersona('rfc')" :readonly="this.$store.state.fisicaEncontrada==true">
+					<input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') || this.validacionesback.homo}" v-model="homoclave" placeholder="Homoclave" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.homo"
+					    autocomplete="off" @blur="searchPersona('rfc')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('homoclave')" class="text-danger">{{ errors.first('homoclave')}}</span>
 					<span v-if="this.validacionesback.homo!=undefined" class="text-danger">{{ String(this.validacionesback.homo)}}</span>
 				</div>
 	
 				<div v-if="validaciones.curp!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="curp">CURP</label>
-					<input type="text" name="curp" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('curp') || this.validacionesback.curp}" v-model="curp" placeholder="Ingrese el curp" v-validate="validaciones.curp" autocomplete="off"
-					    @blur="searchPersona('curp')" :readonly="this.$store.state.fisicaEncontrada==true">
+					<input type="text" name="curp" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('curp') || this.validacionesback.curp}" v-model="curp" placeholder="Ingrese el curp" v-validate="(this.tipo=='denunciado' && this.$store.state.edit==true)?'':validaciones.curp"
+					    autocomplete="off" @blur="searchPersona('curp')" :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
 					<span v-show="errors.has('curp')" class="text-danger">{{ errors.first('curp') }}</span>
 					<span v-if="this.validacionesback.curp!=undefined" class="text-danger">{{ String(this.validacionesback.curp)}}</span>
 				</div>
 				<div v-if="validaciones.idNacionalidad!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="nacionalidad">Nacionalidad</label>
 					<v-select :options="nacionalidades" label="nombre" v-model="nacionalidad" name="nacionalidad" v-validate="validaciones.idNacionalidad" :class="{ 'border border-danger rounded': errors.has('nacionalidad') || this.validacionesback.idNacionalidad}" placeholder="Seleccione una nacionalidad"
-					    :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
+					    :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('nacionalidad')" class="text-danger">{{ errors.first('nacionalidad')}}</span>
 					<span v-if="this.validacionesback.idNacionalidad!=undefined" class="text-danger">{{ String(this.validacionesback.idNacionalidad)}}</span>
 				</div>
 	
 				<div v-if="validaciones.idEtnia!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="etnia">Etnia</label>
-					<v-select label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="validaciones.idEtnia" :class="{ 'border border-danger rounded': errors.has('etnia') || this.validacionesback.idEtnia}" placeholder="Seleccione una etnia" :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
+					<v-select label="nombre" :options="etnias" v-model="etnia" name="etnia" v-validate="validaciones.idEtnia" :class="{ 'border border-danger rounded': errors.has('etnia') || this.validacionesback.idEtnia}" placeholder="Seleccione una etnia" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('etnia')" class="text-danger">{{ errors.first('etnia')}}</span>
 					<span v-if="this.validacionesback.idEtnia!=undefined" class="text-danger">{{ String(this.validacionesback.idEtnia)}}</span>
 				</div>
 				<div v-if="validaciones.idLengua!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="lengua">Lengua</label>
-					<v-select label="nombre" :options="lenguas" v-model="lengua" name="lengua" v-validate="validaciones.idLengua" :class="{ 'border border-danger rounded': errors.has('lengua') || this.validacionesback.idLengua}" placeholder="Seleccione una lengua" :disabled="this.$store.state.fisicaEncontrada==true"></v-select>
+					<v-select label="nombre" :options="lenguas" v-model="lengua" name="lengua" v-validate="validaciones.idLengua" :class="{ 'border border-danger rounded': errors.has('lengua') || this.validacionesback.idLengua}" placeholder="Seleccione una lengua" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('lengua')" class="text-danger">{{ errors.first('lengua')}}</span>
 					<span v-if="this.validacionesback.idLengua!=undefined" class="text-danger">{{ String(this.validacionesback.idLengua)}}</span>
 				</div>
@@ -194,8 +195,9 @@
 	
 	
 			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
-				 <icon name="user-check" style="color:white"></icon>
-				{{personasEncontradas.length + coincidenciasText}}</button>
+				<icon name="user-check" style="color:white"></icon>
+				{{personasEncontradas.length + coincidenciasText}}
+			</button>
 			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
@@ -224,7 +226,6 @@
 			return {
 				today: moment().format('YYYY-MM-DD'),
 				nacionalidades: [],
-				estados: [],
 				municipios: [],
 				etnias: [],
 				lenguas: [],
@@ -279,42 +280,92 @@
 				validacionesback: '',
 				loader: true,
 				qrr: "QUIEN O QUIENES RESULTEN RESPONSABLES",
-				url: urlComponentes
+				url: urlComponentes,
+				intentoCarga: 1
 			}
 		},
-		props: ['sistema', 'tipo', 'carpeta', 'idcarpeta' ,'usuario'],
+		props: ['sistema', 'tipo', 'carpeta', 'idcarpeta', 'usuario', 'idvarpersona', 'tipodenunciado'],
 		components: {
 			SpringSpinner
 		},
 		created: function() {
 			this.getCatalogos()
+			this.cargarEdicion()
 		},
 		methods: {
 			getCatalogos: function() {
+				// console.log("Entrando a get catalogos persona")
 				var urlCatalogos = this.url + '/getCatalogos';
 				axios.post(urlCatalogos, {
-					sistema: this.sistema,
-					tipo: this.tipo
-				}).then(response => {
-					this.nacionalidades = response.data['nacionalidades'].original
-					this.estados = response.data['estados'].original
-					this.etnias = response.data['etnias'].original
-					this.lenguas = response.data['lenguas'].original
-					this.sexos = response.data['sexos'].original
-					this.ocupaciones = response.data['ocupaciones'].original
-					this.estadosCiviles = response.data['estadosciviles'].original
-					this.escolaridades = response.data['escolaridades'].original
-					this.religiones = response.data['religiones'].original
-					this.identificaciones = response.data['identificaciones'].original
-					this.interpretes = response.data['interpretes'].original
-					this.validaciones = response.data['validaciones'].original
-					var self = this;
-					setTimeout(function() {
-						self.loader = false;
-					}, 1100);
-				});
+						sistema: this.sistema,
+						tipo: this.tipo
+					}).then(response => {
+						this.nacionalidades = response.data['nacionalidades'].original
+						this.$store.commit('asignarEstadosMunicipiosVer', {
+							estados: response.data['estados'].original,
+							municipios: response.data['municipios'].original
+						})
+						this.etnias = response.data['etnias'].original
+						this.lenguas = response.data['lenguas'].original
+						this.sexos = response.data['sexos'].original
+						this.ocupaciones = response.data['ocupaciones'].original
+						this.estadosCiviles = response.data['estadosciviles'].original
+						this.escolaridades = response.data['escolaridades'].original
+						this.religiones = response.data['religiones'].original
+						this.identificaciones = response.data['identificaciones'].original
+						this.interpretes = response.data['interpretes'].original
+						this.validaciones = response.data['validaciones'].original
+						var self = this;
+						setTimeout(function() {
+							self.loader = false;
+						}, 1100);
+					})
+					.catch((error) => {
+						if (this.intentoCarga == 1) {
+							this.intentoCarga++
+								this.getCatalogos()
+						} else {
+							swal({
+									title: '¡Error de conexión!',
+									text: 'No fue posible cargar los catalogos correctamente.',
+									type: 'error',
+									confirmButtonText: 'Intentar de nuevo'
+								})
+								.then((result) => {
+									if (result.value) {
+										window.location.replace(window.location)
+									}
+								})
+						}
+					})
+			},
+			cargarEdicion() {
+				if (this.idvarpersona) {
+					// console.log("Entrando a get persona Edit")
+					var urlGetPersonasEdit = this.url + '/getPersonaEdit'
+					axios.post(urlGetPersonasEdit, {
+							idVarPersona: this.idvarpersona,
+							tipo: this.tipo,
+							esEmpresa: false
+						})
+						.then((response) => {
+							console.log(response)
+							this.$store.commit('asignarDataEditFisica', response.data)
+							this.personaExiste = response.data.persona.original
+							this.fillFields()
+						})
+						.catch((error) => {
+							swal({
+								title: '¡Algo salio mal!',
+								text: 'No fue posible cargar los datos para edición.',
+								type: 'error',
+								confirmButtonText: 'Entendido'
+							})
+						})
+				}
 			},
 			getDomicilios() {
+				// console.log("Entrando a get domicilios")
 				var urlGetDomicilios = this.url + '/getDomiciliosPersona'
 				axios.post(urlGetDomicilios, {
 						idVarPersona: this.$store.state.idTemporal,
@@ -327,7 +378,7 @@
 					})
 			},
 			searchPersona: function(rfc_curp) {
-				if (this.$store.state.fisicaEncontrada == true) {
+				if (this.$store.state.fisicaEncontrada == true || this.$store.state.idPersonaFisica) {
 					return
 				}
 				if (rfc_curp == 'rfc') {
@@ -343,6 +394,7 @@
 						var rfcCurp = this.curp
 					}
 				}
+				// console.log("Entrando a search persona")
 				var urlBuscarPersona = this.url + '/searchPersonaFisica';
 				axios.post(urlBuscarPersona, {
 					tipoBusqueda: rfc_curp,
@@ -365,36 +417,41 @@
 							title: '¡Persona Encontrada!',
 							text: 'Ésta persona ya fue registrada anteriormente.',
 							type: 'success',
-							confirmButtonText: 'Ok'
+							confirmButtonText: 'Entendido'
 						})
-						this.nombres = this.personaExiste.nombres
-						this.primerAp = this.personaExiste.primerAp
-						this.segundoAp = this.personaExiste.segundoAp
-						this.fechaNacimiento = this.personaExiste.fechaNacimiento
-						this.edad = this.personaExiste.edad
-						this.sexo = this.personaExiste.sexo
-						this.rfc = this.personaExiste.rfc.slice(0, -3)
-						this.homoclave = this.personaExiste.rfc.slice(-3)
-						this.curp = this.personaExiste.curp
-						this.nacionalidad = this.personaExiste.idNacionalidad
-						this.estado = this.personaExiste.idEstado
-						this.municipio = this.personaExiste.idMunicipioOrigen
-						this.etnia = this.personaExiste.idEtnia
-						this.lengua = this.personaExiste.idLengua
-						this.interprete = this.personaExiste.idInterprete
-						this.ocupacion = this.personaExiste.idOcupacion
-						this.estadoCivil = this.personaExiste.idEstadoCivil
-						this.escolaridad = this.personaExiste.idEscolaridad
-						this.religion = this.personaExiste.idReligion
-						this.identificacion = this.personaExiste.docIdentificacion
-						this.numIdentificacion = this.personaExiste.numDocIdentificacion
-						this.telefono = this.personaExiste.telefono,
-							(this.sistema == 'uipj') ? this.motivoEstancia = this.personaExiste.motivoEstancia : ''
+						this.fillFields()
 					}
 				});
 			},
+			fillFields() {
+				this.nombres = this.personaExiste.nombres
+				this.primerAp = this.personaExiste.primerAp
+				this.segundoAp = this.personaExiste.segundoAp
+				this.alias = (this.personaExiste.alias) ? this.personaExiste.alias : ''
+				this.fechaNacimiento = this.personaExiste.fechaNacimiento
+				this.edad = this.personaExiste.edad
+				this.sexo = this.personaExiste.sexo
+				this.rfc = (this.personaExiste.rfc != null) ? this.personaExiste.rfc.slice(0, -3) : ''
+				this.homoclave = (this.personaExiste.rfc != null) ? this.personaExiste.rfc.slice(-3) : ''
+				this.curp = this.personaExiste.curp
+				this.nacionalidad = this.personaExiste.idNacionalidad
+				this.estado = this.personaExiste.idEstado
+				this.municipio = this.personaExiste.idMunicipioOrigen
+				this.etnia = this.personaExiste.idEtnia
+				this.lengua = this.personaExiste.idLengua
+				this.interprete = this.personaExiste.idInterprete
+				this.ocupacion = this.personaExiste.idOcupacion
+				this.estadoCivil = this.personaExiste.idEstadoCivil
+				this.escolaridad = this.personaExiste.idEscolaridad
+				this.religion = this.personaExiste.idReligion
+				this.identificacion = this.personaExiste.docIdentificacion
+				this.numIdentificacion = this.personaExiste.numDocIdentificacion
+				this.telefono = this.personaExiste.telefono,
+					(this.sistema == 'uipj') ? this.motivoEstancia = this.personaExiste.motivoEstancia : ''
+			},
 			searchConocido() {
 				if ((this.tipo == 'conocido' || this.tipo == 'conocidomoral') && this.nombres != '' && this.primerAp != '' && this.segundoAp != '') {
+					// console.log("Entrando a search conocido")
 					var urlSearchConocido = this.url + '/searchConocido';
 					axios.post(urlSearchConocido, {
 						nombres: this.nombres,
@@ -407,11 +464,12 @@
 					});
 				}
 			},
-			mostrarCoincidencias(){
+			mostrarCoincidencias() {
 				this.$store.commit('mostrarCoincidencias')
 			},
 			calcularRfc() {
 				if (this.nombres != '' && this.primerAp != '' && this.fechaNacimiento != '') {
+					// console.log("Entrando a calcular rfc")
 					var urlRfcFisico = this.url + '/rfcFisico';
 					axios.post(urlRfcFisico, {
 						nombres: this.nombres,
@@ -429,6 +487,7 @@
 				}
 			},
 			buscarCarpetasFisica: function(param) {
+				// console.log("Entrando a buscar carpetas fisica")
 				var post = this.url + '/fisicaCarpetasRfc';
 				axios.post(post, {
 					rfc: this.rfc + this.homoclave,
@@ -440,14 +499,17 @@
 				});
 			},
 			getMunicipios: function() {
-				if (this.estado != null) {
+				if (this.estado != null && this.$store.state.edit != true && this.$store.state.fisicaEncontrada!=true) {
+					if (this.estado.id == 30) {
+						return
+					}
+					// console.log("Entrando a get municipios en persona")
 					// this.municipio=null
 					var urlMunicipios = this.url + '/getMunicipios/' + this.estado.id;
 					axios.get(urlMunicipios).then(response => {
 						this.municipios = response.data
 					});
 				} else {
-					// this.municipio=null,
 					this.municipios = []
 				}
 			},
@@ -500,7 +562,7 @@
 						title: '¡Aún no es posible guardar!',
 						text: 'Ingrese los campos obligatorios',
 						type: 'warning',
-						confirmButtonText: 'Ok'
+						confirmButtonText: 'Entendido'
 					});
 				});
 			},
@@ -547,8 +609,12 @@
 					this.$validator.reset();
 			},
 			crearPersona: function() {
+				// console.log("Entrando a crear persona")
 				this.validacionesback = '';
 				var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
+				if (this.tipo == 'denunciado' && this.$store.state.edit == true) {
+					urlCrearPersona = this.url + '/' + this.tipo + this.sistema + 'edit';
+				}
 				if (this.tipo != 'qrr') {
 					var data = {
 						nombres: (this.nombres) ? this.nombres.toUpperCase() : '',
@@ -609,7 +675,7 @@
 										title: '¡No fue posible guardar!',
 										text: 'Ya existe un qrr registrado en esta carpeta.',
 										type: 'warning',
-										confirmButtonText: 'Ok'
+										confirmButtonText: 'Entendido'
 									})
 									return
 								}
@@ -617,7 +683,7 @@
 									title: '¡Guardado correctamente!',
 									text: 'Ésta persona fue guardada exitosamente.',
 									type: 'success',
-									confirmButtonText: 'Ok'
+									confirmButtonText: 'Entendido'
 								})
 								if (this.$store.state.fisicaEncontrada) {
 									this.getDomicilios()
@@ -628,7 +694,7 @@
 									title: '¡Guardado incorrecto!',
 									text: 'Ésta persona no fue posible guardarla.',
 									type: 'error',
-									confirmButtonText: 'Ok'
+									confirmButtonText: 'Entendido'
 								})
 							}
 						}).catch((error) => {
@@ -639,7 +705,7 @@
 								title: '¡Guardado incorrecto!',
 								text: 'Ésta persona no fue posible guardarla.',
 								type: 'error',
-								confirmButtonText: 'Ok'
+								confirmButtonText: 'Entendido'
 							})
 						});
 				}
@@ -677,10 +743,13 @@
 					return 'Modificar'
 				}
 			},
-			coincidenciasText(){
-				if(this.personasEncontradas.length==1){return " Coincidencia"}
-				else{return " Coincidencias"}
+			coincidenciasText() {
+				if (this.personasEncontradas.length == 1) {
+					return " Coincidencia"
+				} else {
+					return " Coincidencias"
+				}
 			}
-		}, mapState(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'personasEncontradas','showCoincidencias']))
+		}, mapState(['idPersonaFisica', 'idPersonaMoral', 'fisicaEncontrada', 'personasEncontradas', 'showCoincidencias', 'estadosCatalogo', 'municipiosVer']))
 	}
 </script>
