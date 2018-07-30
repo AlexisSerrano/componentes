@@ -30,28 +30,131 @@
                         <td>{{ coincidencia.estado }}</td>
                         <td>{{ coincidencia.municipio }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" @click="verDetalle(coincidencia.id)">Ver detalle</button>
+                            <button type="button" class="btn btn-primary" @click="verDetalle(coincidencia)">Ver detalle</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <sweet-modal ref="detalleModal" title="Detalle de la persona">
+        <sweet-modal ref="detalleModal" title="Detalle de la persona" v-if="domicilios">
             <sweet-modal-tab title="Datos personales" id="datosPersonales">
                 <dl class="row">
-                    <div class="col-4" v-for="(value,key,index) in datosPersonales" :key="index">
+                    <div class="col-4" v-for="(value,key,index) in datosModal" :key="index">
                         <dt>{{key}}</dt>
                         <dd>{{value}}</dd>
                     </div>
                 </dl>
             </sweet-modal-tab>
             <sweet-modal-tab title="Domicilio" id="domicilio">
+                <dl class="row">
+                    <div class="col-4">
+                        <dt>Estado</dt>
+                        <dd>{{domicilios.domicilio.idEstado.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Municipio</dt>
+                        <dd>{{domicilios.domicilio.idMunicipio.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Localidad</dt>
+                        <dd>{{domicilios.domicilio.idLocalidad.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Colonia</dt>
+                        <dd>{{domicilios.domicilio.idColonia.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Codigo postal</dt>
+                        <dd>{{domicilios.domicilio.codigoPostal.codigoPostal}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Calle</dt>
+                        <dd>{{domicilios.domicilio.calle}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Número externo</dt>
+                        <dd>{{domicilios.domicilio.numExterno}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Número interno</dt>
+                        <dd>{{domicilios.domicilio.numInterno}}</dd>
+                    </div>
+                </dl>
             </sweet-modal-tab>
-            <sweet-modal-tab title="Domicilio de Trabajo" id="domicilioTrabajo">
+            <sweet-modal-tab title="Domicilio Trabajo" id="domicilioTrabajo">
+                <dl class="row">
+                    <div class="col-4">
+                        <dt>Estado</dt>
+                        <dd>{{domicilios.trabajo.idEstado.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Municipio</dt>
+                        <dd>{{domicilios.trabajo.idMunicipio.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Localidad</dt>
+                        <dd>{{domicilios.trabajo.idLocalidad.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Colonia</dt>
+                        <dd>{{domicilios.trabajo.idColonia.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Codigo postal</dt>
+                        <dd>{{domicilios.trabajo.codigoPostal.codigoPostal}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Calle</dt>
+                        <dd>{{domicilios.trabajo.calle}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Número externo</dt>
+                        <dd>{{domicilios.trabajo.numExterno}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Número interno</dt>
+                        <dd>{{domicilios.trabajo.numInterno}}</dd>
+                    </div>
+                </dl>
             </sweet-modal-tab>
-            <sweet-modal-tab title="Domicilio de notificaciones" id="domicilioNotificaciones">
+            <sweet-modal-tab title="Domicilio notificaciones" id="domicilioNotificaciones">
+                <dl class="row">
+                    <div class="col-4">
+                        <dt>Estado</dt>
+                        <dd>{{domicilios.notificacion.idEstado.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Municipio</dt>
+                        <dd>{{domicilios.notificacion.idMunicipio.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Localidad</dt>
+                        <dd>{{domicilios.notificacion.idLocalidad.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Colonia</dt>
+                        <dd>{{domicilios.notificacion.idColonia.nombre}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Codigo postal</dt>
+                        <dd>{{domicilios.notificacion.codigoPostal.codigoPostal}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Calle</dt>
+                        <dd>{{domicilios.notificacion.calle}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Número externo</dt>
+                        <dd>{{domicilios.notificacion.numExterno}}</dd>
+                    </div>
+                    <div class="col-4">
+                        <dt>Número interno</dt>
+                        <dd>{{domicilios.notificacion.numInterno}}</dd>
+                    </div>
+                </dl>
             </sweet-modal-tab>
-            <button class="btn btn-primary" type="button" slot="button"> Seleccionar</button>
+            <button class="btn btn-primary" type="button" slot="button" @click="seleccionarPersona"> Seleccionar</button>
+            <button class="btn btn-danger" type="button" slot="button" @click="$refs.detalleModal.close()"> Cancelar</button>
         </sweet-modal>
     </div>
 </template>
@@ -71,8 +174,11 @@
         data() {
             return {
                 url: urlComponentes,
+                datosModal: '',
                 datosPersonales: '',
-                domicilios: ''
+                domicilios: '',
+                idPersona: '',
+                coincidencia: ''
             }
         },
         props: ['sistema', 'usuario'],
@@ -81,15 +187,26 @@
             SweetModalTab
         },
         methods: {
-            verDetalle(id) {
+            verDetalle(coincidencia) {
+                if (coincidencia.id == this.idPersona) {
+                    this.$refs.detalleModal.open()
+                    return
+                }
+                this.coincidencia = coincidencia
+                this.idPersona = coincidencia.id
                 var urlGetPersonasEdit = this.url + '/getPersonaEdit'
                 axios.post(urlGetPersonasEdit, {
-                        idPersona: id,
+                        idPersona: coincidencia.id,
                         tipo: 'conocidofisico'
                     })
                     .then(response => {
-                        this.datosPersonales = response.data.persona.original.modal
+                        this.datosModal = response.data.persona.original.modal
+                        this.datosPersonales = response.data.persona.original
+                        this.domicilios = response.data.domicilios.original
                         console.log(response)
+                    })
+                    .then(response => {
+                        this.$refs.detalleModal.open()
                     })
                     .catch(error => {
                         swal({
@@ -99,48 +216,48 @@
                             confirmButtonText: 'Entendido'
                         })
                     })
-                this.$refs.detalleModal.open()
             },
-            seleccionarPersona(coincidencia) {
+            seleccionarPersona() {
                 this.$store.commit('asignarIdFisica', {
                     idPersona: '',
-                    idTemporal: coincidencia.idVarPersona,
+                    idTemporal: this.datosPersonales.idVarPersona,
                     fisicaEncontrada: true,
-                    personaFisica: coincidencia.idPersona
+                    personaFisica: this.datosPersonales.idPersona
                 })
                 this.$store.commit('asignarDomiciliosTemporales', {
-                    idDomicilioTemporal: coincidencia.idDomicilio,
-                    idTrabajoTemporal: coincidencia.idDomicilioTrabajo,
-                    idContactoTemporal: coincidencia.idDomicilioNotificacion
+                    idDomicilioTemporal: this.domicilios.domicilio.id,
+                    idTrabajoTemporal: this.domicilios.trabajo.idDomicilio,
+                    idContactoTemporal: this.domicilios.notificacion.idDomicilio
                 })
-                this.crearPersona(coincidencia)
+                this.crearPersona()
             },
             buscarCarpetasFisica(coincidencia) {
                 var urlBuscarCarpeta = this.url + '/fisicaCarpetasRfc';
                 axios.post(urlBuscarCarpeta, {
-                    rfc: coincidencia.rfc,
-                    curp: coincidencia.curp
+                    rfc: this.datosPersonales.rfc,
+                    curp: this.datosPersonales.curp
                 }).then(response => {
                     if (response.data) {
                         this.$store.commit('asignarCarpetasLigadas', response.data)
                     }
                 });
             },
-            crearPersona(coincidencia) {
+            crearPersona() {
                 var urlCrearPersona = this.url + '/conocido' + this.sistema;
                 var data = {
-                    nombres: coincidencia.nombres,
-                    primerAp: coincidencia.primerAp,
-                    segundoAp: coincidencia.segundoAp,
-                    alias: (coincidencia.alias) ? coincidencia.alias : '',
+                    nombres: this.datosPersonales.nombres,
+                    primerAp: this.datosPersonales.primerAp,
+                    segundoAp: this.datosPersonales.segundoAp,
+                    alias: (this.datosPersonales.alias) ? this.datosPersonales.alias : '',
                     sistema: this.sistema,
-                    idPersona: coincidencia.idVarPersona,
+                    idPersona: this.datosPersonales.idVarPersona,
                     usuario: this.usuario,
-                    personaFisica: coincidencia.idPersona,
+                    personaFisica: this.datosPersonales.idPersona,
                     idDomicilio: this.$store.state.idDomicilioTemporal,
                     idTrabajo: this.$store.state.idTrabajoTemporal,
                     idNotificacion: this.$store.state.idContactoTemporal
                 }
+                console.log(data)
                 if (data) {
                     axios.post(urlCrearPersona, data)
                         .then(response => {
@@ -156,16 +273,19 @@
                                     type: 'success',
                                     confirmButtonText: 'Ok'
                                 })
-                                var personaCorrecta = [coincidencia]
+                                var personaCorrecta = [this.coincidencia]
                                 this.$store.commit('asignarPersonasEncontradas', personaCorrecta)
-                                this.buscarCarpetasFisica(coincidencia)
+                                this.buscarCarpetasFisica()
+                                this.$refs.detalleModal.close()
                             } else {
+                                console.log(response)
                                 swal({
                                     title: '¡Guardado incorrecto!',
                                     text: 'Ésta persona no fue posible guardarla.',
                                     type: 'error',
                                     confirmButtonText: 'Ok'
                                 })
+                                this.$refs.detalleModal.close()
                             }
                         }).catch((error) => {
                             swal({
@@ -174,6 +294,7 @@
                                 type: 'error',
                                 confirmButtonText: 'Ok'
                             })
+                            this.$refs.detalleModal.close()
                         });
                 }
             }
