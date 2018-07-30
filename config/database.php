@@ -54,6 +54,21 @@ return [
             'engine' => null,
         ],
 
+        'uat' => [
+            'driver' => env('DB_CONNECTION_UAT'),
+            'host' => env('DB_HOST_UAT'),
+            'port' => env('DB_PORT_UAT'),
+            'database' => env('DB_DATABASE_UAT'),
+            'username' => env('DB_USERNAME_UAT'),
+            'password' => env('DB_PASSWORD_UAT'),
+            'unix_socket' => env('DB_SOCKET'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '192.108.24.142'),
