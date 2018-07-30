@@ -24,6 +24,7 @@
         "es6-promise": "^4.2.4",
         "moment": "^2.22.2",
         "rendata": "^1.1.6",
+        "sweet-modal-vue": "^2.0.0",
         "sweetalert2": "^7.19.1",
         "vee-validate": "^2.0.9",
         "vue-awesome": "^3.0.3",

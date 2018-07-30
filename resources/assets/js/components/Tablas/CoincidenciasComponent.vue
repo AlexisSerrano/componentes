@@ -8,7 +8,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>Nombres y apellidos</th>
-                        <th>Edad</th>
+                        <th>Fecha nacimiento</th>
                         <th>Sexo</th>
                         <th>R.F.C</th>
                         <th>C.U.R.P</th>
@@ -21,8 +21,8 @@
                 </thead>
                 <tbody>
                     <tr v-for="(coincidencia,index) in personasEncontradas" :key="index">
-                        <td>{{ coincidencia.fullName }}</td>
-                        <td>{{ coincidencia.edad }}</td>
+                        <td>{{ `${coincidencia.nombres} ${coincidencia.primerAp} ${coincidencia.segundoAp}` }}</td>
+                        <td>{{ coincidencia.fechaNacimiento }}</td>
                         <td>{{ coincidencia.sexo }}</td>
                         <td>{{ coincidencia.rfc }}</td>
                         <td>{{ coincidencia.curp }}</td>
@@ -30,12 +30,16 @@
                         <td>{{ coincidencia.estado }}</td>
                         <td>{{ coincidencia.municipio }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" @click="verDetalle(coincidencia.idPersona)">Guardar</button>
+                            <button type="button" class="btn btn-primary" @click="verDetalle(coincidencia.id)">Ver detalle</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <sweet-modal ref="detalleModal" title="Detalle de la persona">
+            prueba de modal
+            <button class="btn btn-primary" type="button" slot="button"> Seleccionar</button>
+        </sweet-modal>
     </div>
 </template>
 
@@ -46,6 +50,10 @@
     import {
         mapState
     } from "vuex";
+    import {
+        SweetModal,
+        SweetModalTab
+    } from 'sweet-modal-vue'
     export default {
         data() {
             return {
@@ -54,12 +62,22 @@
             }
         },
         props: ['sistema', 'usuario'],
+        components: {
+            SweetModal,
+            SweetModalTab
+        },
         methods: {
-            verDetalle(idPersona) {
-                var urlDetallePersona = this.url + '/getDetallePersona'
-                axios.post(urlDetallePersona, idPersona)
+            verDetalle(id) {
+                //  this.$refs.detalleModal.open()
+                var urlGetPersonasEdit = this.url + '/getPersonaEdit'
+                axios.post(urlGetPersonasEdit, {
+                        // idVarPersona: this.idvarpersona,
+                        tipo: 'conocidoFisico'
+                        // esEmpresa: false
+                    })
                     .then(response => {
-                        this.datosPersona = response.data
+                        // this.datosPersona = response.data
+                        console.log(response)
                     })
                     .catch(error => {
                         swal({
