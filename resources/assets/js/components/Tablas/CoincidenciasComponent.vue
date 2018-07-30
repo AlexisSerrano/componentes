@@ -71,7 +71,7 @@
                 //  this.$refs.detalleModal.open()
                 var urlGetPersonasEdit = this.url + '/getPersonaEdit'
                 axios.post(urlGetPersonasEdit, {
-                        // idVarPersona: this.idvarpersona,
+                        idPersona: id,
                         tipo: 'conocidoFisico'
                         // esEmpresa: false
                     })
