@@ -142,29 +142,12 @@ class PersonaController extends Controller{
 		->where('persona_fisica.nombres','=',$request->nombres)
 		->where('persona_fisica.primerAp','=',$request->primerAp)
 		->where('persona_fisica.segundoAp','=',$request->segundoAp)
-		->select('persona_fisica.id as id','persona_fisica.nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
+		->select('persona_fisica.id as id','persona_fisica.nombres as nombres','persona_fisica.primerAp','persona_fisica.segundoAp',
 		'persona_fisica.fechaNacimiento','persona_fisica.rfc','persona_fisica.curp',
 		'cat_nacionalidad.nombre as nombreNacionalidad','cat_municipio.nombre as nombreMunOrigen','sexos.nombre as nombreSexo',
 		'cat_estado.nombre as nombreEstado')
 		->get();
-		if($personaExisteP){
-			$data = array(
-				'fullname'=>$personaExisteP->nombres.' '.$personaExisteP->primerAp.' '.$personaExisteP->segundoAp,
-				'fechaNacimiento'=>$personaExisteP->fechaNacimiento,
-				'rfc'=>$personaExisteP->rfc,
-				'curp'=>$personaExisteP->curp,
-				'sexo'=>$personaExisteP->nombreSexo,
-				'idNacionalidad' => $personaExisteP->nombreNacionalidad,
-				'idMunicipioOrigen'=>$personaExisteP->nombreMunOrigen,
-				'idEstado'=>$personaExisteP->nombreEstado,
-				'idPersona'=>$personaExisteP->id
-			);
-		}
-		else{
-			$data = array(
-			);
-		}
-		return response()->json($data);
+		return response()->json($personaExisteP);
 	}
 
 	public function searchFullConocidoFisico(Request $request){
