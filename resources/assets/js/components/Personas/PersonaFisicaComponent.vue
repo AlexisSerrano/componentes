@@ -205,6 +205,8 @@
 			<coincidencias v-if="showCoincidencias==true" :sistema="sistema" :usuario="usuario" :carpeta="carpeta" :idcarpeta="idcarpeta"></coincidencias>
 	
 	
+			<vue-toastr ref="toastr"></vue-toastr>
+	
 	
 		</form>
 	</div>
@@ -240,6 +242,11 @@
 				nombres: '',
 				primerAp: '',
 				segundoAp: '',
+				oldNombres: '',
+				oldPrimerAp: '',
+				oldSegundoAp: '',
+				oldCurp: '',
+				oldRfc: '',
 				fechaNacimiento: '',
 				edad: '',
 				sexo: '',
@@ -382,19 +389,21 @@
 					return
 				}
 				if (rfc_curp == 'rfc') {
-					if (this.rfc.length != 10 || this.homoclave.length != 3) {
+					if ((this.rfc.length != 10 || this.homoclave.length != 3) || (this.rfc == this.oldRfc)) {
 						return
 					} else {
+						this.oldRfc = this.rfc
 						var rfcCurp = this.rfc + this.homoclave
 					}
 				} else if (rfc_curp == 'curp') {
-					if (this.curp.length != 18) {
+					if (this.curp.length != 18 || this.curp == this.oldCurp) {
 						return
 					} else {
+						this.oldCurp = this.curp
 						var rfcCurp = this.curp
 					}
 				}
-				// console.log("Entrando a search persona")
+				console.log("Entrando a search persona")
 				var urlBuscarPersona = this.url + '/searchPersonaFisica';
 				axios.post(urlBuscarPersona, {
 					tipoBusqueda: rfc_curp,
@@ -468,9 +477,17 @@
 				this.$store.commit('mostrarCoincidencias')
 			},
 			calcularRfc() {
+				if (this.nombres == this.oldNombres && this.primerAp == this.oldPrimerAp && this.segundoAp == this.oldSegundoAp && this.fechaNacimiento == this.oldFechaNacimiento) {
+					return
+				}
+				this.oldNombres = this.nombres
+				this.oldPrimerAp = this.primerAp
+				this.oldSegundoAp = this.segundoAp
+				this.oldFechaNacimiento = this.fechaNacimiento
 				if (this.nombres != '' && this.primerAp != '' && this.fechaNacimiento != '') {
 					// console.log("Entrando a calcular rfc")
 					var urlRfcFisico = this.url + '/rfcFisico';
+					console.log("consultando rfc")
 					axios.post(urlRfcFisico, {
 						nombres: this.nombres,
 						primerAp: this.primerAp,
@@ -514,6 +531,7 @@
 				}
 			},
 			generarCurp: function() {
+				this.oldCurp = this.curp
 				this.curp = ''
 				if ((this.sexo != null) && (this.sexo != undefined) && (this.sexo != '') && (this.sexo.id != 3)) {
 					var sex = '';
@@ -541,8 +559,12 @@
 							estado: edo,
 							fecha_nacimiento: [arr[2], arr[1], arr[0]]
 						});
-						if (curpAuto)
+						if (curpAuto) {
 							this.curp = curpAuto;
+						}
+						if (this.curp == this.oldCurp) {
+							return
+						}
 						(this.$store.state.fisicaEncontrada == true) ? '' : this.searchPersona('curp');
 					}
 				}
@@ -735,6 +757,26 @@
 			fisicaEncontrada() {
 				if (this.$store.state.fisicaEncontrada == '') {
 					this.CleanFields()
+				}
+			},
+			rfc(newValue, oldValue) {
+				if (this.rfc.length != 10) {
+					return
+				}
+				this.$refs.toastr.defaultTimeout = 2500
+				if (oldValue == '') {
+					this.$refs.toastr.i('Se ha calculado el RFC', 'Aviso')
+				} else if (oldValue != '' && newValue != oldValue) {
+					this.$refs.toastr.w('se ha modificado el rfc', 'Atención')
+				}
+			},
+			homoclave(newValue, oldValue) {
+				if (this.homoclave.length != 3) {
+					return
+				}
+				this.$refs.toastr.defaultTimeout = 2500
+				if (oldValue != '' && newValue != oldValue) {
+					this.$refs.toastr.w('se ha modificado el rfc', 'Atención')
 				}
 			}
 		},

@@ -22,15 +22,15 @@
     
                 <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="rfc">RFC</label>
-                    <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="'required'" autocomplete="off" @blur="searchPersona"
-                        :readonly="this.$store.state.moralEncontrada==true || this.$store.state.edit == true">
+                    <input type="text" name="rfc" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('rfc') || this.validacionesback.rfc}" v-model="rfc" placeholder="Ingrese el RFC" v-validate="'required|length:9'" autocomplete="off"
+                        @blur="searchPersona" :readonly="this.$store.state.moralEncontrada==true || this.$store.state.edit == true">
                     <span v-show="errors.has('rfc')" class="text-danger">{{ errors.first('rfc')}}</span>
                     <span v-if="this.validacionesback.rfc!=undefined" class="text-danger">{{ String(this.validacionesback.rfc)}}</span>
                 </div>
                 <div v-if="this.tipo!='conocidomoral'" class="form-group col-md-2">
                     <label class="col-form-label col-form-label-sm" for="homoclave">Homoclave</label>
-                    <input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') || this.validacionesback.homo}" v-model="homoclave" placeholder="Homoclave" v-validate="'required'" autocomplete="off"
-                        @blur="searchPersona" :readonly="this.$store.state.moralEncontrada==true || this.$store.state.edit == true">
+                    <input type="text" name="homoclave" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('homoclave') || this.validacionesback.homo}" v-model="homoclave" placeholder="Homoclave" v-validate="'required|length:3'"
+                        autocomplete="off" @blur="searchPersona" :readonly="this.$store.state.moralEncontrada==true || this.$store.state.edit == true">
                     <span v-show="errors.has('homoclave')" class="text-danger">{{ errors.first('homoclave')}}</span>
                     <span v-if="this.validacionesback.homo!=undefined" class="text-danger">{{ String(this.validacionesback.homo)}}</span>
                 </div>
@@ -82,7 +82,7 @@
     
             <button type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
     
-    
+            <vue-toastr ref="toastr"></vue-toastr>
     
         </form>
     </div>
@@ -101,8 +101,11 @@
                 identificaciones: [],
                 today: moment().format('YYYY-MM-DD'),
                 nombre: '',
+                oldNombre: '',
+                oldFechaCreacion: '',
                 fechaCreacion: '',
                 rfc: '',
+                oldRfc: '',
                 descripcion: '',
                 homoclave: '',
                 telefono: '',
@@ -126,7 +129,8 @@
                 if (this.$store.state.moralEncontrada == true || this.$store.state.idPersonaMoral) {
                     return
                 }
-                if (this.rfc.length == 9 && this.homoclave.length == 3) {
+                if ((this.rfc.length == 9 && this.homoclave.length == 3) && (this.rfc != this.oldRfc)) {
+                    this.oldRfc = this.rfc
                     var urlBuscarPersona = this.url + '/searchPersonaMoral';
                     axios.post(urlBuscarPersona, {
                         rfc: this.rfc + this.homoclave
@@ -191,6 +195,11 @@
                 this.numIdentificacion = this.personaExiste.numDocIdentificacion
             },
             calcularRfc() {
+                if (this.nombre == this.oldNombre && this.fechaCreacion == this.oldFechaCreacion) {
+                    return
+                }
+                this.oldNombre = this.nombre
+                this.oldFechaCreacion = this.fechaCreacion
                 if (this.nombre != '' && this.fechaCreacion != '') {
                     if (this.nombre.length < 2) {
                         swal({
@@ -333,6 +342,26 @@
             moralEncontrada() {
                 if (this.$store.state.moralEncontrada == '') {
                     this.CleanFields()
+                }
+            },
+            rfc(newValue, oldValue) {
+                if (this.rfc.length != 9) {
+                    return
+                }
+                this.$refs.toastr.defaultTimeout = 2500
+                if (oldValue == '') {
+                    this.$refs.toastr.i('Se ha calculado el RFC', 'Aviso')
+                } else if (oldValue != '' && newValue != oldValue) {
+                    this.$refs.toastr.w('se ha modificado el rfc', 'Atención')
+                }
+            },
+            homoclave(newValue, oldValue) {
+                if (this.homoclave.length != 3) {
+                    return
+                }
+                this.$refs.toastr.defaultTimeout = 2500
+                if (oldValue != '' && newValue != oldValue) {
+                    this.$refs.toastr.w('se ha modificado el rfc', 'Atención')
                 }
             }
         },
