@@ -153,14 +153,15 @@
                     </div>
                 </dl>
             </sweet-modal-tab>
-            <button class="btn btn-primary" type="button" slot="button" @click="seleccionarPersona"> Seleccionar</button>
-            <button class="btn btn-danger" type="button" slot="button" @click="$refs.detalleModal.close()"> Cancelar</button>
+            <button v-if="this.$store.state.idPersonaFisica==''" class="btn btn-primary" type="button" slot="button" @click="seleccionarPersona"> Seleccionar</button>
+            <button v-if="this.$store.state.idPersonaFisica==''" class="btn btn-danger" type="button" slot="button" @click="$refs.detalleModal.close()"> Cancelar</button>
         </sweet-modal>
     </div>
 </template>
 
 
 <script>
+    import moment from 'moment'
     import urlComponentes from '../../urlComponentes'
     import swal from 'sweetalert2'
     import {
@@ -181,7 +182,7 @@
                 coincidencia: '',
             }
         },
-        props: ['sistema', 'usuario','carpeta','idcarpeta','tipo'],
+        props: ['sistema', 'usuario', 'carpeta', 'idcarpeta'],
         components: {
             SweetModal,
             SweetModalTab
@@ -226,8 +227,8 @@
                 })
                 this.$store.commit('asignarDomiciliosTemporales', {
                     idDomicilioTemporal: this.domicilios.domicilio.id,
-                    idTrabajoTemporal: this.domicilios.trabajo.idDomicilio,
-                    idContactoTemporal: this.domicilios.notificacion.idDomicilio
+                    idTrabajoTemporal: this.domicilios.trabajo.idTrabajo,
+                    idContactoTemporal: this.domicilios.notificacion.idNotificacion
                 })
                 this.crearPersona()
             },
@@ -243,8 +244,11 @@
                 });
             },
             crearPersona() {
-                var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
-                var data = {    
+                var urlCrearPersona = this.url + '/denunciado' + this.sistema;
+                if (this.datosPersonales.fechaNacimiento) {
+                    this.generarEdad()
+                }
+                var data = {
                     nombres: (this.datosPersonales.nombres) ? this.datosPersonales.nombres.toUpperCase() : '',
                     primerAp: (this.datosPersonales.primerAp) ? this.datosPersonales.primerAp.toUpperCase() : '',
                     segundoAp: (this.datosPersonales.segundoAp) ? this.datosPersonales.segundoAp.toUpperCase() : '',
@@ -297,6 +301,7 @@
                                 })
                                 var personaCorrecta = [this.coincidencia]
                                 this.$store.commit('asignarPersonasEncontradas', personaCorrecta)
+                                this.$store.commit('asignarDomicilios', this.domicilios)
                                 this.buscarCarpetasFisica()
                                 this.$refs.detalleModal.close()
                             } else {
@@ -319,7 +324,13 @@
                             this.$refs.detalleModal.close()
                         });
                 }
-            }
+            },
+            generarEdad: function() {
+                console.log("calculando edad")
+                var fechaNacimiento = moment(this.fechaNacimiento);
+                var hoy = moment(this.today);
+                this.edad = hoy.diff(fechaNacimiento, 'years');
+            },
         },
         computed: mapState(["personasEncontradas"])
     };

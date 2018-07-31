@@ -195,14 +195,14 @@
 	
 	
 			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
-				<icon name="user-check" style="color:white"></icon>
-				{{personasEncontradas.length + coincidenciasText}}
-			</button>
+					<icon name="user-check" style="color:white"></icon>
+					{{personasEncontradas.length + coincidenciasText}}
+				</button>
 			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
 	
-			<coincidencias v-if="showCoincidencias==true" :sistema="sistema" :usuario="usuario" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="tipo"></coincidencias>
+			<coincidencias v-if="showCoincidencias==true" :sistema="sistema" :usuario="usuario" :carpeta="carpeta" :idcarpeta="idcarpeta"></coincidencias>
 	
 	
 	
@@ -499,7 +499,7 @@
 				});
 			},
 			getMunicipios: function() {
-				if (this.estado != null && this.$store.state.edit != true && this.$store.state.fisicaEncontrada!=true) {
+				if (this.estado != null && this.$store.state.edit != true && this.$store.state.fisicaEncontrada != true) {
 					if (this.estado.id == 30) {
 						return
 					}
@@ -614,6 +614,9 @@
 				var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
 				if (this.tipo == 'denunciado' && this.$store.state.edit == true) {
 					urlCrearPersona = this.url + '/' + this.tipo + this.sistema + 'edit';
+				}
+				if (this.fechaNacimiento) {
+					this.generarEdad()
 				}
 				if (this.tipo != 'qrr') {
 					var data = {
