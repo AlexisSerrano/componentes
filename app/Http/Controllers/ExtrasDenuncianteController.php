@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Models\ExtraDenuncianteFisico;
 use App\Http\Models\ExtraDenuncianteMoral;
 use App\Http\Controllers\Controller;
+use App\Http\Models\uat\BitacoraNavCaso;
 use DB;
 class ExtrasDenuncianteController extends Controller
 {

@@ -6,6 +6,7 @@ use App\Http\Models\CatPuesto;
 use Illuminate\Http\Request;
 use App\Http\Models\ExtraDenunciadoFisico;
 use App\Http\Models\ExtraDenunciadoMoral;
+use App\Http\Models\uat\BitacoraNavCaso;
 use DB;
 
 class ExtrasInvestigadoController extends Controller{

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Models\ExtraAutoridad;
 use App\Http\Controllers\Controller;
+use App\Http\Models\uat\BitacoraNavCaso;
 use DB;
 
 class ExtrasAutoridadController extends Controller
