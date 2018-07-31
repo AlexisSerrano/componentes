@@ -10489,3 +10489,15 @@ th {
   margin-bottom: 5px;
 }
 
+dd {
+  margin-bottom: 15px;
+}
+
+.sweet-buttons > button {
+  margin-left: 10px !important;
+}
+
+.sweet-content {
+  padding-bottom: 0px !important;
+}
+

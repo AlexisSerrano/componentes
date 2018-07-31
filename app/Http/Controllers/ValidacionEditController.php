@@ -197,7 +197,7 @@ class ValidacionEditController extends Controller
 					'Ocupacion'=>$personaExisteP->nombreOcupacion,
 					'Estado Civil'=>$personaExisteP->nombreEstadoCivil,
 					'Escolaridad'=>$personaExisteP->nombreEscolaridad,
-					'Religion'=>$personaExisteP->nombreReligion,
+					'Religión'=>$personaExisteP->nombreReligion,
 					'Teléfono'=>$personaExisteP->telefono
 				);
 				$data['modal'] = $modal;

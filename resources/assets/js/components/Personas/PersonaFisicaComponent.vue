@@ -202,7 +202,7 @@
 	
 	
 	
-			<coincidencias v-if="showCoincidencias==true" :sistema="sistema" :usuario="usuario"></coincidencias>
+			<coincidencias v-if="showCoincidencias==true" :sistema="sistema" :usuario="usuario" :carpeta="carpeta" :idcarpeta="idcarpeta" :tipo="tipo"></coincidencias>
 	
 	
 	
@@ -626,7 +626,7 @@
 						rfc: (this.rfc) ? this.rfc : '',
 						homo: (this.homoclave) ? this.homoclave : '',
 						curp: (this.curp) ? this.curp : '',
-						idNacionalidad: (this.nacionalidades) ? this.nacionalidad.id : '',
+						idNacionalidad: (this.nacionalidad) ? this.nacionalidad.id : '',
 						idEstadoOrigen: (this.estado) ? this.estado.id : '',
 						idMunicipioOrigen: (this.municipio) ? this.municipio.id : '',
 						idEtnia: (this.etnia) ? this.etnia.id : '',
