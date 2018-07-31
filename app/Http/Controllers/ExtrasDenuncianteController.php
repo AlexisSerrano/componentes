@@ -46,6 +46,10 @@ class ExtrasDenuncianteController extends Controller
 
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciante->id,$antes,$extraDenunciante);
+
+            $bdbitacora = BitacoraNavCaso::where('idCaso',$request->idCarpeta)->first();
+            $bdbitacora->denunciante = $bdbitacora->denunciante+1;
+            $bdbitacora->save();
             DB::commit();
             return $extraDenunciante->id;
         }

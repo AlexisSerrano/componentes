@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\uat;
+namespace App\Http\Models\uat;
 
 use Illuminate\Database\Eloquent\Model;
 
