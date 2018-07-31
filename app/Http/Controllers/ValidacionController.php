@@ -159,8 +159,8 @@ class ValidacionController extends Controller
     }
 
     public function saveInputsFisica($request){
-        DB::beginTransaction();
-        try{
+        // DB::beginTransaction();
+        // try{
             if($request->personaFisica==''&&$request->idPersona==''){
                 $persona = new PersonaModel();
                 $oper="INSERT";
@@ -209,16 +209,16 @@ class ValidacionController extends Controller
             $variables->save();
             saveInLog($request->sistema,$request->usuario,'persona_fisica',$oper,$persona->id,$antes,$persona);
             saveInLog($request->sistema,$request->usuario,'variables_persona_fisica',$oper,$variables->id,$antes,$variables);
-            DB::commit();
+            // DB::commit();
             $data = array(
 				'idPersona'=>$persona->id,
                 'idVarPersona'=>$variables->id
             );
 			return response()->json($data);
-        }catch (\PDOException $e){
-            DB::rollBack();
-            return false;
-        }
+        // }catch (\PDOException $e){
+        //     DB::rollBack();
+        //     return false;
+        // }
     }
 
     public function saveInputsAbogadoFisica($request){
