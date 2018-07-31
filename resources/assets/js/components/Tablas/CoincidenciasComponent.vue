@@ -178,10 +178,10 @@
                 datosPersonales: '',
                 domicilios: '',
                 idPersona: '',
-                coincidencia: ''
+                coincidencia: '',
             }
         },
-        props: ['sistema', 'usuario'],
+        props: ['sistema', 'usuario','carpeta','idcarpeta','tipo'],
         components: {
             SweetModal,
             SweetModalTab
@@ -243,19 +243,41 @@
                 });
             },
             crearPersona() {
-                var urlCrearPersona = this.url + '/conocido' + this.sistema;
-                var data = {
-                    nombres: this.datosPersonales.nombres,
-                    primerAp: this.datosPersonales.primerAp,
-                    segundoAp: this.datosPersonales.segundoAp,
-                    alias: (this.datosPersonales.alias) ? this.datosPersonales.alias : '',
+                var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
+                var data = {    
+                    nombres: (this.datosPersonales.nombres) ? this.datosPersonales.nombres.toUpperCase() : '',
+                    primerAp: (this.datosPersonales.primerAp) ? this.datosPersonales.primerAp.toUpperCase() : '',
+                    segundoAp: (this.datosPersonales.segundoAp) ? this.datosPersonales.segundoAp.toUpperCase() : '',
+                    fechaNacimiento: (this.datosPersonales.fechaNacimiento) ? this.datosPersonales.fechaNacimiento : '',
+                    edad: (this.datosPersonales.edad) ? this.datosPersonales.edad : '',
+                    sexo: (this.datosPersonales.sexo) ? this.datosPersonales.sexo.id : '',
+                    rfc: (this.datosPersonales.rfc) ? this.datosPersonales.rfc : '',
+                    curp: (this.datosPersonales.curp) ? this.datosPersonales.curp : '',
+                    idNacionalidad: (this.datosPersonales.idNacionalidad) ? this.datosPersonales.idNacionalidad.id : '',
+                    idEstadoOrigen: (this.datosPersonales.idEstado) ? this.datosPersonales.idEstado.id : '',
+                    idMunicipioOrigen: (this.datosPersonales.idMunicipioOrigen) ? this.datosPersonales.idMunicipioOrigen.id : '',
+                    idEtnia: (this.datosPersonales.idEtnia) ? this.datosPersonales.idEtnia.id : '',
+                    idLengua: (this.datosPersonales.idLengua) ? this.datosPersonales.idLengua.id : '',
+                    idInterprete: (this.datosPersonales.idInterprete) ? this.datosPersonales.idInterprete.id : '',
+                    motivoEstancia: (this.datosPersonales.motivoEstancia) ? this.datosPersonales.motivoEstancia.toUpperCase() : '',
+                    idOcupacion: (this.datosPersonales.idOcupacion) ? this.datosPersonales.idOcupacion.id : '',
+                    idEstadoCivil: (this.datosPersonales.idEstadoCivil) ? this.datosPersonales.idEstadoCivil.id : '',
+                    idEscolaridad: (this.datosPersonales.idEscolaridad) ? this.datosPersonales.idEscolaridad.id : '',
+                    idReligion: (this.datosPersonales.idReligion) ? this.datosPersonales.idReligion.id : '',
+                    docIdentificacion: (this.datosPersonales.docIdentificacion) ? this.datosPersonales.docIdentificacion.id : '',
+                    numDocIdentificacion: (this.datosPersonales.numDocIdentificacion) ? this.datosPersonales.numDocIdentificacion.toUpperCase() : '',
+                    telefono: (this.datosPersonales.telefono) ? this.datosPersonales.telefono : '',
+                    alias: (this.datosPersonales.alias) ? this.datosPersonales.alias.toUpperCase() : '',
                     sistema: this.sistema,
-                    idPersona: this.datosPersonales.idVarPersona,
+                    idPersona: this.$store.state.idPersonaFisica,
                     usuario: this.usuario,
-                    personaFisica: this.datosPersonales.idPersona,
+                    personaFisica: this.$store.state.personaFisica,
                     idDomicilio: this.$store.state.idDomicilioTemporal,
                     idTrabajo: this.$store.state.idTrabajoTemporal,
-                    idNotificacion: this.$store.state.idContactoTemporal
+                    idNotificacion: this.$store.state.idContactoTemporal,
+                    // idExtrasConocido: this.$store.state.idExtra,
+                    carpeta: this.carpeta,
+                    idCarpeta: this.idcarpeta
                 }
                 console.log(data)
                 if (data) {
