@@ -195,9 +195,9 @@
 	
 	
 			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
-					<icon name="user-check" style="color:white"></icon>
-					{{personasEncontradas.length + coincidenciasText}}
-				</button>
+																	<icon name="user-check" style="color:white"></icon>
+																	{{personasEncontradas.length + coincidenciasText}}
+																</button>
 			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
@@ -205,7 +205,8 @@
 			<coincidencias v-if="showCoincidencias==true" :sistema="sistema" :usuario="usuario" :carpeta="carpeta" :idcarpeta="idcarpeta"></coincidencias>
 	
 	
-			<vue-toastr ref="toastr"></vue-toastr>
+			<vue-toastr ref="toastrRfc"></vue-toastr>
+			<vue-toastr ref="toastrHomo"></vue-toastr>
 	
 	
 		</form>
@@ -752,20 +753,20 @@
 				if (this.rfc.length != 10) {
 					return
 				}
-				this.$refs.toastr.defaultTimeout = 2500
+				this.$refs.toastrRfc.defaultTimeout = 2500
 				if (oldValue == '') {
-					this.$refs.toastr.i('Se ha calculado el RFC', 'Aviso')
+					this.$refs.toastrRfc.i('Se ha calculado el RFC', 'Aviso')
 				} else if (oldValue != '' && newValue != oldValue) {
-					this.$refs.toastr.w('se ha modificado el rfc', 'Atención')
+					this.$refs.toastrRfc.w('se ha modificado el rfc', 'Atención')
 				}
 			},
 			homoclave(newValue, oldValue) {
 				if (this.homoclave.length != 3) {
 					return
 				}
-				this.$refs.toastr.defaultTimeout = 2500
+				this.$refs.toastrHomo.defaultTimeout = 2500
 				if (oldValue != '' && newValue != oldValue) {
-					this.$refs.toastr.w('se ha modificado el rfc', 'Atención')
+					this.$refs.toastrHomo.w('se ha modificado la homoclave', 'Atención')
 				}
 			}
 		},

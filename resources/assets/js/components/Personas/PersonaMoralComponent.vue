@@ -82,7 +82,8 @@
     
             <button type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
     
-            <vue-toastr ref="toastr"></vue-toastr>
+            <vue-toastr ref="toastrRfc"></vue-toastr>
+            <vue-toastr ref="toastrHomo"></vue-toastr>
     
         </form>
     </div>
@@ -348,20 +349,20 @@
                 if (this.rfc.length != 9) {
                     return
                 }
-                this.$refs.toastr.defaultTimeout = 2500
+                this.$refs.toastrRfc.defaultTimeout = 2500
                 if (oldValue == '') {
-                    this.$refs.toastr.i('Se ha calculado el RFC', 'Aviso')
+                    this.$refs.toastrRfc.i('Se ha calculado el RFC', 'Aviso')
                 } else if (oldValue != '' && newValue != oldValue) {
-                    this.$refs.toastr.w('se ha modificado el rfc', 'Atención')
+                    this.$refs.toastrRfc.w('se ha modificado el rfc', 'Atención')
                 }
             },
             homoclave(newValue, oldValue) {
                 if (this.homoclave.length != 3) {
                     return
                 }
-                this.$refs.toastr.defaultTimeout = 2500
+                this.$refs.toastrHomo.defaultTimeout = 2500
                 if (oldValue != '' && newValue != oldValue) {
-                    this.$refs.toastr.w('se ha modificado el rfc', 'Atención')
+                    this.$refs.toastrHomo.w('se ha modificado el rfc', 'Atención')
                 }
             }
         },
