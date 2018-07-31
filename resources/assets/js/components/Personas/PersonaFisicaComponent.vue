@@ -75,7 +75,7 @@
 	
 				<div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>
-					<v-select :options="(estado.id==30)?municipiosVer:municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}"
+					<v-select :options="(estado && estado.id==30)?municipiosVer:municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}"
 					    placeholder="Seleccione un municipio de origen" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
 					<span v-if="this.validacionesback.idMunicipioOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipioOrigen)}}</span>
