@@ -301,7 +301,6 @@
 		},
 		methods: {
 			getCatalogos: function() {
-				// console.log("Entrando a get catalogos persona")
 				var urlCatalogos = this.url + '/getCatalogos';
 				axios.post(urlCatalogos, {
 						sistema: this.sistema,
@@ -348,7 +347,6 @@
 			},
 			cargarEdicion() {
 				if (this.idvarpersona) {
-					// console.log("Entrando a get persona Edit")
 					var urlGetPersonasEdit = this.url + '/getPersonaEdit'
 					axios.post(urlGetPersonasEdit, {
 							idVarPersona: this.idvarpersona,
@@ -356,7 +354,6 @@
 							esEmpresa: false
 						})
 						.then((response) => {
-							console.log(response)
 							this.$store.commit('asignarDataEditFisica', response.data)
 							this.personaExiste = response.data.persona.original
 							this.fillFields()
@@ -372,7 +369,6 @@
 				}
 			},
 			getDomicilios() {
-				// console.log("Entrando a get domicilios")
 				var urlGetDomicilios = this.url + '/getDomiciliosPersona'
 				axios.post(urlGetDomicilios, {
 						idVarPersona: this.$store.state.idTemporal,
@@ -403,7 +399,6 @@
 						var rfcCurp = this.curp
 					}
 				}
-				console.log("Entrando a search persona")
 				var urlBuscarPersona = this.url + '/searchPersonaFisica';
 				axios.post(urlBuscarPersona, {
 					tipoBusqueda: rfc_curp,
@@ -460,7 +455,6 @@
 			},
 			searchConocido() {
 				if ((this.tipo == 'conocido' || this.tipo == 'conocidomoral') && this.nombres != '' && this.primerAp != '' && this.segundoAp != '') {
-					// console.log("Entrando a search conocido")
 					var urlSearchConocido = this.url + '/searchConocido';
 					axios.post(urlSearchConocido, {
 						nombres: this.nombres,
@@ -485,9 +479,7 @@
 				this.oldSegundoAp = this.segundoAp
 				this.oldFechaNacimiento = this.fechaNacimiento
 				if (this.nombres != '' && this.primerAp != '' && this.fechaNacimiento != '') {
-					// console.log("Entrando a calcular rfc")
 					var urlRfcFisico = this.url + '/rfcFisico';
-					console.log("consultando rfc")
 					axios.post(urlRfcFisico, {
 						nombres: this.nombres,
 						primerAp: this.primerAp,
@@ -504,7 +496,6 @@
 				}
 			},
 			buscarCarpetasFisica: function(param) {
-				// console.log("Entrando a buscar carpetas fisica")
 				var urlBuscarCarpeta = this.url + '/fisicaCarpetasRfc';
 				axios.post(urlBuscarCarpeta, {
 					rfc: this.rfc + this.homoclave,
@@ -520,7 +511,6 @@
 					if (this.estado.id == 30) {
 						return
 					}
-					// console.log("Entrando a get municipios en persona")
 					// this.municipio=null
 					var urlMunicipios = this.url + '/getMunicipios/' + this.estado.id;
 					axios.get(urlMunicipios).then(response => {
@@ -631,7 +621,6 @@
 					this.$validator.reset();
 			},
 			crearPersona: function() {
-				// console.log("Entrando a crear persona")
 				this.validacionesback = '';
 				var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
 				if (this.tipo == 'denunciado' && this.$store.state.edit == true) {
