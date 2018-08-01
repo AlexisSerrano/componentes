@@ -195,9 +195,9 @@
 	
 	
 			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
-																									<icon name="user-check" style="color:white"></icon>
-																									{{personasEncontradas.length + coincidenciasText}}
-																								</button>
+																							<icon name="user-check" style="color:white"></icon>
+																							{{personasEncontradas.length + coincidenciasText}}
+																						</button>
 			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
@@ -248,8 +248,6 @@
 				oldSegundoAp: '',
 				oldCurp: '',
 				oldRfc: '',
-				oldSexo: '',
-				oldEstado: '',
 				fechaNacimiento: '',
 				edad: '',
 				sexo: '',
@@ -411,7 +409,7 @@
 					if (this.personaExiste != '') {
 						swal({
 								title: '¡Persona Encontrada!',
-								text: 'Una persona ya fue registrada anteriormente con este ' + rfc_curp.toUpperCase() + ' ',
+								text: 'Una persona ya fue registrada anteriormente con este '+ rfc_curp.toUpperCase()+' ',
 								type: 'success',
 								confirmButtonText: 'Cargar datos',
 								cancelButtonColor: '#dc3545',
@@ -532,15 +530,7 @@
 				}
 			},
 			generarCurp: function() {
-				if (this.nombres == this.oldNombres && this.primerAp == this.oldPrimerAp && this.segundoAp == this.oldSegundoAp && this.fechaNacimiento == this.oldFechaNacimiento && this.sexo.id == this.oldSexo.id && this.estado.id == this.oldEstado.id) {
-					return
-				}
-				this.oldNombres = this.nombres
-				this.oldPrimerAp = this.primerAp
-				this.oldSegundoAp = this.segundoAp
-				this.oldFechaNacimiento = this.fechaNacimiento
-				this.oldSexo = this.sexo
-				this.oldEstado = this.estado
+				this.oldCurp = this.curp
 				this.curp = ''
 				if ((this.sexo != null) && (this.sexo != undefined) && (this.sexo != '') && (this.sexo.id != 3)) {
 					var sex = '';
