@@ -73,14 +73,14 @@
                     <span v-show="errors.has('Número interno')" class="text-danger">{{ errors.first('Número interno')}}</span>
                     <span v-if="this.validacionesback.numInterno!=undefined" class="text-danger">{{ String(this.validacionesback.numInterno)}}</span>
                 </div>
-
+    
                 <div v-if="this.tipo!='domicilio'" class="form-group col-md-4">
-					<label class="col-form-label col-form-label-sm" for="teléfono">Teléfono</label>
-					<input type="text" name="teléfono" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('teléfono') || this.validacionesback.telefono}" v-model="telefono" placeholder="Ingrese el teléfono" v-validate="'numeric'"
-					    autocomplete="off">
-					<span v-show="errors.has('teléfono')" class="text-danger">{{ errors.first('teléfono')}}</span>
-					<span v-if="this.validacionesback.telefono!=undefined" class="text-danger">{{ String(this.validacionesback.telefono)}}</span>
-				</div>
+                    <label class="col-form-label col-form-label-sm" for="teléfono">Teléfono</label>
+                    <input type="text" name="teléfono" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('teléfono') || this.validacionesback.telefono}" v-model="telefono" placeholder="Ingrese el teléfono" v-validate="'numeric'"
+                        autocomplete="off">
+                    <span v-show="errors.has('teléfono')" class="text-danger">{{ errors.first('teléfono')}}</span>
+                    <span v-if="this.validacionesback.telefono!=undefined" class="text-danger">{{ String(this.validacionesback.telefono)}}</span>
+                </div>
     
     
     
@@ -167,6 +167,8 @@
                 if (this.estado == null || (this.estado && this.estado.id == 30)) {
                     return
                 }
+                console.log("getmunicipios")
+    
                 // console.log("Entrando a get municipios")
                 var urlMunicipios = this.url + '/getMunicipios/' + this.estado.id;
                 axios.get(urlMunicipios).then(response => {
@@ -175,7 +177,7 @@
             },
             getCatalogosDomicilios: function() {
                 this.cleanSelect('catalogos')
-                if (this.municipio == null || (this.tipo=='contacto' && this.notificacion && this.notificacion.id==3)) {
+                if (this.municipio == null || (this.tipo == 'contacto' && this.notificacion && this.notificacion.id == 3)) {
                     return
                 }
                 // console.log("Entrando a get catalogos domicilios")
@@ -253,9 +255,11 @@
                 this.$validator.reset();
             },
             cleanSelect(select) {
-                if (this.loadingFields == true || (this.notificacion && this.notificacion.id==3)) {
+                console.log("cleanSelect1")
+                if (this.loadingFields == true || (this.notificacion && this.notificacion.id == 3)) {
                     return
                 }
+                console.log("cleanSelect2")
                 if (select == 'municipio') {
                     this.municipio = null
                     this.localidad = null
@@ -364,22 +368,30 @@
             fisicaEncontrada() {
                 if (this.empresa == false) {
                     this.notificaciones = this.notificacionesFull
-                    this.notificacion = this.notificacionesFull[2]
+                    if (this.tipo == 'contacto') {
+                        this.notificacion = this.notificacionesFull[2]
+                    }
                 }
             },
             moralEncontrada() {
                 if (this.empresa == true) {
                     this.notificaciones = this.notificacionesFull
-                    this.notificacion = this.notificacionesFull[2]
+                    if (this.tipo == 'contacto') {
+                        this.notificacion = this.notificacionesFull[2]
+                    }
                 }
             },
             edit() {
                 if (this.empresa == false) {
                     this.notificaciones = this.notificacionesFull
-                    this.notificacion = this.notificacionesFull[2]
+                    if (this.tipo == 'contacto') {
+                        this.notificacion = this.notificacionesFull[2]
+                    }
                 } else if (this.empresa == true) {
                     this.notificaciones = this.notificacionesFull
-                    this.notificacion = this.notificacionesFull[2]
+                    if (this.tipo == 'contacto') {
+                        this.notificacion = this.notificacionesFull[2]
+                    }
                 }
             },
             datosDomicilio() {

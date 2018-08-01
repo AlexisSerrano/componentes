@@ -124,6 +124,8 @@
         created: function() {
             this.getIdentificaciones();
             this.cargarEdicion()
+            this.getEstados()
+            this.getMunicipios()
         },
         methods: {
             searchPersona: function() {
@@ -189,6 +191,22 @@
                             })
                         })
                 }
+            },
+            getEstados() {
+                var urlGetEstados = this.url + '/getEstados';
+                axios.get(urlGetEstados).then(response => {
+                    this.$store.commit('asignarEstadosMunicipiosVer', {
+                        estados: response.data
+                    })
+                });
+            },
+            getMunicipios: function() {
+                var urlMunicipios = this.url + '/getMunicipios/30';
+                axios.get(urlMunicipios).then(response => {
+                    this.$store.commit('asignarEstadosMunicipiosVer', {
+                        municipios: response.data
+                    })
+                });
             },
             fillFields() {
                 this.nombre = this.personaExiste.nombre

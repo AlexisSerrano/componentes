@@ -195,9 +195,9 @@
 	
 	
 			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
-																							<icon name="user-check" style="color:white"></icon>
-																							{{personasEncontradas.length + coincidenciasText}}
-																						</button>
+																								<icon name="user-check" style="color:white"></icon>
+																								{{personasEncontradas.length + coincidenciasText}}
+																							</button>
 			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
@@ -409,13 +409,12 @@
 					if (this.personaExiste != '') {
 						swal({
 								title: '¡Persona Encontrada!',
-								text: 'Una persona ya fue registrada anteriormente con este '+ rfc_curp.toUpperCase()+' ',
+								text: 'Una persona ya fue registrada anteriormente con este ' + rfc_curp.toUpperCase() + ' ',
 								type: 'success',
 								confirmButtonText: 'Cargar datos',
 								cancelButtonColor: '#dc3545',
 								cancelButtonText: 'Ignorar',
 								showCancelButton: true
-	
 							})
 							.then((result) => {
 								if (result.value) {
