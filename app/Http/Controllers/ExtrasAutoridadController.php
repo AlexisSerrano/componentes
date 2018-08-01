@@ -36,7 +36,7 @@ class ExtrasAutoridadController extends Controller
 
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,"extra_autoridad",$oper,$extraAutoridad->id,$antes,$extraAutoridad);
-            if($request->sistema=='uat'){
+            if(strtolower($request->sistema)=='uat'){
                 $bdbitacora = BitacoraNavCaso::where('idCaso',$request->idCarpeta)->first();
                 $bdbitacora->autoridad = $bdbitacora->autoridad+1;
                 $bdbitacora->save();

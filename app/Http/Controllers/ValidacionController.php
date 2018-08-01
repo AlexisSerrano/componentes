@@ -451,7 +451,7 @@ class ValidacionController extends Controller
             try{
                 $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,1,'denunciado','xxxxx',0);
                 saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
-                if($request->sistema=='uat'){
+                if(strtolower($request->sistema)=='uat'){
                     $bdbitacora = BitacoraNavCaso::where('idCaso',$request->idCarpeta)->first();
                     $bdbitacora->denunciado = $bdbitacora->denunciado+1;
                     $bdbitacora->save();
