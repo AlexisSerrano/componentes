@@ -167,8 +167,6 @@
                 if (this.estado == null || (this.estado && this.estado.id == 30)) {
                     return
                 }
-                console.log("getmunicipios")
-    
                 // console.log("Entrando a get municipios")
                 var urlMunicipios = this.url + '/getMunicipios/' + this.estado.id;
                 axios.get(urlMunicipios).then(response => {
@@ -255,11 +253,9 @@
                 this.$validator.reset();
             },
             cleanSelect(select) {
-                console.log("cleanSelect1")
                 if (this.loadingFields == true || (this.notificacion && this.notificacion.id == 3)) {
                     return
                 }
-                console.log("cleanSelect2")
                 if (select == 'municipio') {
                     this.municipio = null
                     this.localidad = null

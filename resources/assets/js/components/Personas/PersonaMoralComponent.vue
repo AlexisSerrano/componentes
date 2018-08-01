@@ -177,7 +177,6 @@
                             esEmpresa: true
                         })
                         .then((response) => {
-                            console.log(response.data)
                             this.$store.commit('asignarDataEditMoral', response.data)
                             this.personaExiste = response.data.persona.original
                             this.fillFields()

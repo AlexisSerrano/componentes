@@ -686,7 +686,6 @@
 					axios.post(urlCrearPersona, data)
 						.then(response => {
 							if (response.data) {
-								console.log(response.data)
 								this.$store.commit('asignarIdFisica', {
 									idPersona: response.data.original.idVarPersona,
 									personaFisica: response.data.original.idPersona
