@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody v-if="this.$store.state.fisicaEncontrada">
-                    <tr v-for="value in carpetas" :key="value.carpeta">
+                <tr v-for="(value,index) in carpetas" :key="index">
                         <td>{{ `${value.nombres} ${value.primerAp} ${value.segundoAp}` }}</td>
                         <td>{{ value.rfc }}</td>
                         <td>{{ value.curp }}</td>

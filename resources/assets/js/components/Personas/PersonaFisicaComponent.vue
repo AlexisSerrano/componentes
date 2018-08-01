@@ -75,7 +75,7 @@
 	
 				<div v-if="validaciones.idMunicipioOrigen!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="municipio">Municipio de origen</label>
-					<v-select :options="(estado.id==30)?municipiosVer:municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}"
+					<v-select :options="(estado && estado.id==30)?municipiosVer:municipios" label="nombre" v-model="municipio" name="municipio" v-validate="validaciones.idMunicipioOrigen" :class="{ 'border border-danger rounded': errors.has('municipio') || this.validacionesback.idMunicipioOrigen}"
 					    placeholder="Seleccione un municipio de origen" :disabled="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')"></v-select>
 					<span v-show="errors.has('municipio')" class="text-danger">{{ errors.first('municipio')}}</span>
 					<span v-if="this.validacionesback.idMunicipioOrigen!=undefined" class="text-danger">{{ String(this.validacionesback.idMunicipioOrigen)}}</span>
@@ -195,15 +195,18 @@
 	
 	
 			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
-					<icon name="user-check" style="color:white"></icon>
-					{{personasEncontradas.length + coincidenciasText}}
-				</button>
+																	<icon name="user-check" style="color:white"></icon>
+																	{{personasEncontradas.length + coincidenciasText}}
+																</button>
 			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
 	
 			<coincidencias v-if="showCoincidencias==true" :sistema="sistema" :usuario="usuario" :carpeta="carpeta" :idcarpeta="idcarpeta"></coincidencias>
 	
+	
+			<vue-toastr ref="toastrRfc"></vue-toastr>
+			<vue-toastr ref="toastrHomo"></vue-toastr>
 	
 	
 		</form>
@@ -240,6 +243,11 @@
 				nombres: '',
 				primerAp: '',
 				segundoAp: '',
+				oldNombres: '',
+				oldPrimerAp: '',
+				oldSegundoAp: '',
+				oldCurp: '',
+				oldRfc: '',
 				fechaNacimiento: '',
 				edad: '',
 				sexo: '',
@@ -294,7 +302,6 @@
 		},
 		methods: {
 			getCatalogos: function() {
-				// console.log("Entrando a get catalogos persona")
 				var urlCatalogos = this.url + '/getCatalogos';
 				axios.post(urlCatalogos, {
 						sistema: this.sistema,
@@ -341,7 +348,6 @@
 			},
 			cargarEdicion() {
 				if (this.idvarpersona) {
-					// console.log("Entrando a get persona Edit")
 					var urlGetPersonasEdit = this.url + '/getPersonaEdit'
 					axios.post(urlGetPersonasEdit, {
 							idVarPersona: this.idvarpersona,
@@ -349,7 +355,6 @@
 							esEmpresa: false
 						})
 						.then((response) => {
-							console.log(response)
 							this.$store.commit('asignarDataEditFisica', response.data)
 							this.personaExiste = response.data.persona.original
 							this.fillFields()
@@ -365,7 +370,6 @@
 				}
 			},
 			getDomicilios() {
-				// console.log("Entrando a get domicilios")
 				var urlGetDomicilios = this.url + '/getDomiciliosPersona'
 				axios.post(urlGetDomicilios, {
 						idVarPersona: this.$store.state.idTemporal,
@@ -382,19 +386,20 @@
 					return
 				}
 				if (rfc_curp == 'rfc') {
-					if (this.rfc.length != 10 || this.homoclave.length != 3) {
+					if ((this.rfc.length != 10 || this.homoclave.length != 3) || (this.rfc == this.oldRfc)) {
 						return
 					} else {
+						this.oldRfc = this.rfc
 						var rfcCurp = this.rfc + this.homoclave
 					}
 				} else if (rfc_curp == 'curp') {
-					if (this.curp.length != 18) {
+					if (this.curp.length != 18 || this.curp == this.oldCurp) {
 						return
 					} else {
+						this.oldCurp = this.curp
 						var rfcCurp = this.curp
 					}
 				}
-				// console.log("Entrando a search persona")
 				var urlBuscarPersona = this.url + '/searchPersonaFisica';
 				axios.post(urlBuscarPersona, {
 					tipoBusqueda: rfc_curp,
@@ -451,7 +456,6 @@
 			},
 			searchConocido() {
 				if ((this.tipo == 'conocido' || this.tipo == 'conocidomoral') && this.nombres != '' && this.primerAp != '' && this.segundoAp != '') {
-					// console.log("Entrando a search conocido")
 					var urlSearchConocido = this.url + '/searchConocido';
 					axios.post(urlSearchConocido, {
 						nombres: this.nombres,
@@ -468,8 +472,14 @@
 				this.$store.commit('mostrarCoincidencias')
 			},
 			calcularRfc() {
+				if (this.nombres == this.oldNombres && this.primerAp == this.oldPrimerAp && this.segundoAp == this.oldSegundoAp && this.fechaNacimiento == this.oldFechaNacimiento) {
+					return
+				}
+				this.oldNombres = this.nombres
+				this.oldPrimerAp = this.primerAp
+				this.oldSegundoAp = this.segundoAp
+				this.oldFechaNacimiento = this.fechaNacimiento
 				if (this.nombres != '' && this.primerAp != '' && this.fechaNacimiento != '') {
-					// console.log("Entrando a calcular rfc")
 					var urlRfcFisico = this.url + '/rfcFisico';
 					axios.post(urlRfcFisico, {
 						nombres: this.nombres,
@@ -487,7 +497,6 @@
 				}
 			},
 			buscarCarpetasFisica: function(param) {
-				// console.log("Entrando a buscar carpetas fisica")
 				var urlBuscarCarpeta = this.url + '/fisicaCarpetasRfc';
 				axios.post(urlBuscarCarpeta, {
 					rfc: this.rfc + this.homoclave,
@@ -503,7 +512,6 @@
 					if (this.estado.id == 30) {
 						return
 					}
-					// console.log("Entrando a get municipios en persona")
 					// this.municipio=null
 					var urlMunicipios = this.url + '/getMunicipios/' + this.estado.id;
 					axios.get(urlMunicipios).then(response => {
@@ -514,6 +522,7 @@
 				}
 			},
 			generarCurp: function() {
+				this.oldCurp = this.curp
 				this.curp = ''
 				if ((this.sexo != null) && (this.sexo != undefined) && (this.sexo != '') && (this.sexo.id != 3)) {
 					var sex = '';
@@ -541,8 +550,12 @@
 							estado: edo,
 							fecha_nacimiento: [arr[2], arr[1], arr[0]]
 						});
-						if (curpAuto)
+						if (curpAuto) {
 							this.curp = curpAuto;
+						}
+						if (this.curp == this.oldCurp) {
+							return
+						}
 						(this.$store.state.fisicaEncontrada == true) ? '' : this.searchPersona('curp');
 					}
 				}
@@ -609,7 +622,6 @@
 					this.$validator.reset();
 			},
 			crearPersona: function() {
-				// console.log("Entrando a crear persona")
 				this.validacionesback = '';
 				var urlCrearPersona = this.url + '/' + this.tipo + this.sistema;
 				if (this.tipo == 'denunciado' && this.$store.state.edit == true) {
@@ -735,6 +747,26 @@
 			fisicaEncontrada() {
 				if (this.$store.state.fisicaEncontrada == '') {
 					this.CleanFields()
+				}
+			},
+			rfc(newValue, oldValue) {
+				if (this.rfc.length != 10) {
+					return
+				}
+				this.$refs.toastrRfc.defaultTimeout = 2500
+				if (oldValue == '') {
+					this.$refs.toastrRfc.i('Se ha calculado el RFC', 'Aviso')
+				} else if (oldValue != '' && newValue != oldValue) {
+					this.$refs.toastrRfc.w('se ha modificado el rfc', 'Atención')
+				}
+			},
+			homoclave(newValue, oldValue) {
+				if (this.homoclave.length != 3) {
+					return
+				}
+				this.$refs.toastrHomo.defaultTimeout = 2500
+				if (oldValue != '' && newValue != oldValue) {
+					this.$refs.toastrHomo.w('se ha modificado la homoclave', 'Atención')
 				}
 			}
 		},

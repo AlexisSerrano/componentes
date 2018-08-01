@@ -32,6 +32,12 @@ import 'vue-awesome/icons'
 Vue.component('icon', Icon)
 /*Awesome*/
 
+/*toastr*/
+import Toastr from 'vue-toastr';
+require('vue-toastr/src/vue-toastr.scss');
+Vue.component('vue-toastr',Toastr);
+/*toastr*/
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

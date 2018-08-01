@@ -204,7 +204,6 @@
                         this.datosModal = response.data.persona.original.modal
                         this.datosPersonales = response.data.persona.original
                         this.domicilios = response.data.domicilios.original
-                        console.log(response)
                     })
                     .then(response => {
                         this.$refs.detalleModal.open()
@@ -283,7 +282,6 @@
                     carpeta: this.carpeta,
                     idCarpeta: this.idcarpeta
                 }
-                console.log(data)
                 if (data) {
                     axios.post(urlCrearPersona, data)
                         .then(response => {
@@ -305,7 +303,6 @@
                                 this.buscarCarpetasFisica()
                                 this.$refs.detalleModal.close()
                             } else {
-                                console.log(response)
                                 swal({
                                     title: '¡Guardado incorrecto!',
                                     text: 'Ésta persona no fue posible guardarla.',
@@ -326,7 +323,6 @@
                 }
             },
             generarEdad: function() {
-                console.log("calculando edad")
                 var fechaNacimiento = moment(this.fechaNacimiento);
                 var hoy = moment(this.today);
                 this.edad = hoy.diff(fechaNacimiento, 'years');
