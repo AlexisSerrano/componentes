@@ -2,8 +2,8 @@
     <div>
         <!-- MENÚ -->
         <div class="container-fluid">
-            <div class="row">
-                <ul class="nav nav-pills mb-3 colorNav" style="padding-left:15px" id="pills-tab" role="tablist">
+            <div class="d-flex justify-content-between">
+                <ul class="nav nav-pills mb-3 colorNav" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="denunciado-personamoral-tab" data-toggle="pill" href="#pills-denunciado-personamoral" role="tab" aria-controls="pills-denunciado-personamoral" aria-selected="true">Datos Personales</a>
                     </li>
@@ -20,7 +20,7 @@
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaMoral=='','nav-link':this.$store.state.idPersonaMoral!=''}" id="denunciante-carpetasLigadasMoral-tab" data-toggle="pill" href="#pills-denunciante-carpetasLigadasMoral" role="tab" aria-controls="pills-denunciante-carpetasLigadasMoral" aria-selected="false">Carpetas Ligadas</a>
                     </li>
                 </ul>
-                <div class="col d-flex align-items-start justify-content-end">
+                <div>
                     <button v-if="this.$store.state.moralEncontrada  && this.$store.state.idPersonaMoral==''" type="button" class="btn btn-primary" @click="cleanFields">
                         <icon name="eraser" style="color:white"></icon>
                         Limpiar

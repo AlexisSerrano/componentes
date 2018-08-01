@@ -33,7 +33,7 @@ class PersonaFisicaSeeder extends Seeder
                 'segundoAp' => 'GARCÍA',
                 'fechaNacimiento' => '1980-01-01',
                 'rfc' => 'BAGJ800101UA1',
-                'curp' => 'BAGJ800101HVZRRN02',
+                'curp' => 'BAGJ800101HASRRN08',
                 'sexo' => 1,
                 'idNacionalidad' => 1,
                 'idEtnia' => 1,

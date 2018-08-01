@@ -2,8 +2,8 @@
     <div class="pb-3 pt-3">
         <!-- MENÚ -->
         <div class="container-fluid">
-            <div class="row">
-                <ul class="nav nav-pills mb-3 pl-3 colorNav" id="pills-tab" role="tablist">
+            <div class="d-flex justify-content-between">
+                <ul class="nav nav-pills mb-3 colorNav" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="autoridad-persona-tab" data-toggle="pill" href="#pills-autoridad-persona" role="tab" aria-controls="pills-autoridad-persona" aria-selected="true">Datos Personales</a>
                     </li>
@@ -20,7 +20,7 @@
                         <a :class="{'nav-link disabled':this.$store.state.idPersonaFisica=='','nav-link':this.$store.state.idPersonaFisica!=''}" data-toggle="pill" href="#pills-autoridad-carpetasLigadas" role="tab" aria-controls="pills-autoridad-carpetasLigadas" aria-selected="false">Carpetas ligadas</a>
                     </li>
                 </ul>
-                <div class="col d-flex align-items-start justify-content-end">
+                <div >
                     <button v-if="this.$store.state.fisicaEncontrada && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
                         <icon name="eraser" style="color:white"></icon>
                         Limpiar

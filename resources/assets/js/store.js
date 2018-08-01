@@ -161,8 +161,12 @@ const store = new Vuex.Store({
             state.idExtra = payload.extra.original.id
         },
         asignarEstadosMunicipiosVer(state,payload){
-            state.estadosCatalogo=payload.estados
-            state.municipiosVer=payload.municipios
+            if(payload.estados){
+                state.estadosCatalogo=payload.estados
+            }
+            if(payload.municipios){
+                state.municipiosVer=payload.municipios
+            }
         }
     }
 })

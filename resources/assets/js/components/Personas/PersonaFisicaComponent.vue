@@ -51,7 +51,7 @@
 					<span v-show="errors.has('fecha de nacimiento')" class="text-danger">{{ errors.first('fecha de nacimiento')}}</span>
 					<span v-if="this.validacionesback.fechaNacimiento!=undefined" class="text-danger">{{ String(this.validacionesback.fechaNacimiento)}}</span>
 				</div>
-				<div v-if="validaciones.edad!='oculto'" class="form-group col-md-1">
+				<div v-if="validaciones.edad!='oculto'" class="form-group col-md-4">
 					<label class="col-form-label col-form-label-sm" for="edad">Edad</label>
 					<input type="number" min="16" max="150" name="edad" :class="{'input': true, 'form-control form-control-sm':true, 'border border-danger': errors.has('edad') || this.validacionesback.edad}" v-model="edad" placeholder="Edad" v-validate="validaciones.edad"
 					    :readonly="this.$store.state.fisicaEncontrada==true || (this.$store.state.edit==true && this.tipodenunciado!='qrr' && this.tipodenunciado!='conocido')">
@@ -195,9 +195,9 @@
 	
 	
 			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
-																		<icon name="user-check" style="color:white"></icon>
-																		{{personasEncontradas.length + coincidenciasText}}
-																	</button>
+																								<icon name="user-check" style="color:white"></icon>
+																								{{personasEncontradas.length + coincidenciasText}}
+																							</button>
 			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
@@ -407,24 +407,31 @@
 				}).then(response => {
 					this.personaExiste = response.data
 					if (this.personaExiste != '') {
-						this.$store.commit('asignarIdFisica', {
-							idPersona: '',
-							idTemporal: this.personaExiste.idVarPersona,
-							fisicaEncontrada: true,
-							personaFisica: this.personaExiste.idPersona
-						})
-						this.$store.commit('asignarDomiciliosTemporales', {
-							idDomicilioTemporal: this.personaExiste.idDomicilio,
-							idTrabajoTemporal: this.personaExiste.idDomicilioTrabajo,
-							idContactoTemporal: this.personaExiste.idDomicilioNotificacion
-						})
 						swal({
-							title: '¡Persona Encontrada!',
-							text: 'Ésta persona ya fue registrada anteriormente.',
-							type: 'success',
-							confirmButtonText: 'Entendido'
-						})
-						this.fillFields()
+								title: '¡Persona Encontrada!',
+								text: 'Una persona ya fue registrada anteriormente con este ' + rfc_curp.toUpperCase() + ' ',
+								type: 'success',
+								confirmButtonText: 'Cargar datos',
+								cancelButtonColor: '#dc3545',
+								cancelButtonText: 'Ignorar',
+								showCancelButton: true
+							})
+							.then((result) => {
+								if (result.value) {
+									this.$store.commit('asignarIdFisica', {
+										idPersona: '',
+										idTemporal: this.personaExiste.idVarPersona,
+										fisicaEncontrada: true,
+										personaFisica: this.personaExiste.idPersona
+									})
+									this.$store.commit('asignarDomiciliosTemporales', {
+										idDomicilioTemporal: this.personaExiste.idDomicilio,
+										idTrabajoTemporal: this.personaExiste.idDomicilioTrabajo,
+										idContactoTemporal: this.personaExiste.idDomicilioNotificacion
+									})
+									this.fillFields()
+								}
+							})
 					}
 				});
 			},
@@ -679,7 +686,6 @@
 					axios.post(urlCrearPersona, data)
 						.then(response => {
 							if (response.data) {
-								console.log(response.data)
 								this.$store.commit('asignarIdFisica', {
 									idPersona: response.data.original.idVarPersona,
 									personaFisica: response.data.original.idPersona
@@ -702,7 +708,7 @@
 										confirmButtonText: 'Entendido'
 									})
 									.then((result) => {
-										if (result.value && this.tipo=='qrr') {
+										if (result.value && this.tipo == 'qrr') {
 											window.location.href = window.location;
 										}
 									})

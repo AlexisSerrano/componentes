@@ -29,6 +29,10 @@ Route::get('registroActasCircunstanciadas', function(){
     return view('registroActasCircunstanciadas');
 });
 
+Route::get('registroTestigo', function(){
+    return view('registroTestigo');
+});
+
 
 // ::::::::::::::::::REDIRECCIONES::::::::::::::.:::
 Route::get('denunciante', function(){
@@ -57,5 +61,9 @@ Route::get('actasCircunstanciadas', function(){
 
 Route::get('autoridadEdit', function(){
     return redirect('http://localhost/componentes/public/registroAutoridadEdit');
+});
+
+Route::get('testigo', function(){
+    return redirect('http://localhost/componentes/public/registroTestigo');
 });
 // ::::::::::::::::::REDIRECCIONES::::::::::::::.:::
