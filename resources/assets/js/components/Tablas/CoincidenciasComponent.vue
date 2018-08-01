@@ -30,7 +30,7 @@
                         <td>{{ coincidencia.estado }}</td>
                         <td>{{ coincidencia.municipio }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" @click="verDetalle(coincidencia)">Ver detalle</button>
+                            <button type="button" class="btn btn-primary btn-sm" @click="verDetalle(coincidencia)">Ver detalle</button>
                         </td>
                     </tr>
                 </tbody>
