@@ -4,6 +4,7 @@
         <registrodenunciado v-if="tipo=='denunciado'" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona" :empresa="empresa" :tipodenunciado="tipodenunciado"></registrodenunciado>
         <registroautoridad v-if="tipo=='autoridad'" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></registroautoridad>
         <registroabogado v-if="tipo=='abogado'" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></registroabogado>
+        <registrotestigo v-if="tipo=='testigo'" :sistema="sistema" :carpeta="carpeta" :idcarpeta="idcarpeta" :usuario="usuario" :idvarpersona="idvarpersona"></registrotestigo>
         <registroactashechos v-if="tipo=='actashechos'" :sistema="sistema" :usuario="usuario"></registroactashechos>
         <registroactascircunstanciadas v-if="tipo=='actascircunstanciadas'" :sistema="sistema" :usuario="usuario"></registroactascircunstanciadas>
     
@@ -15,16 +16,18 @@
     import registroabogado from './Registros/RegistroAbogadoComponent.vue';
     import registroautoridad from './Registros/RegistroAutoridadComponent.vue';
     import registrodenunciado from './Registros/RegistroDenunciadoComponent.vue';
+    import registrotestigo from './Registros/registroTestigoComponent'
     import registroactashechos from './Registros/RegistroActasHechosComponent.vue';
     import registroactascircunstanciadas from './Registros/RegistroActasCircunstanciadas'
-     
+    
     export default {
-        props: ['sistema', 'tipo', 'carpeta', 'idcarpeta' ,'usuario', 'idvarpersona', 'empresa','tipodenunciado'],
+        props: ['sistema', 'tipo', 'carpeta', 'idcarpeta', 'usuario', 'idvarpersona', 'empresa', 'tipodenunciado'],
         components: {
             registrodenunciante,
             registroabogado,
             registroautoridad,
             registrodenunciado,
+            registrotestigo,
             registroactashechos,
             registroactascircunstanciadas
         }
