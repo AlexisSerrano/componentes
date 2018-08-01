@@ -195,9 +195,9 @@
 	
 	
 			<button v-if="personasEncontradas.length>0 && showCoincidencias!=true" type="button" @click="mostrarCoincidencias" class="btn btn-primary mt-2">
-																	<icon name="user-check" style="color:white"></icon>
-																	{{personasEncontradas.length + coincidenciasText}}
-																</button>
+																		<icon name="user-check" style="color:white"></icon>
+																		{{personasEncontradas.length + coincidenciasText}}
+																	</button>
 			<button v-if="showCoincidencias!=true" type="submit" class="btn btn-primary mt-2">{{botonGuardarModificar}}</button>
 	
 	
@@ -679,6 +679,7 @@
 					axios.post(urlCrearPersona, data)
 						.then(response => {
 							if (response.data) {
+								console.log(response.data)
 								this.$store.commit('asignarIdFisica', {
 									idPersona: response.data.original.idVarPersona,
 									personaFisica: response.data.original.idPersona
@@ -695,11 +696,16 @@
 									return
 								}
 								swal({
-									title: '¡Guardado correctamente!',
-									text: 'Ésta persona fue guardada exitosamente.',
-									type: 'success',
-									confirmButtonText: 'Entendido'
-								})
+										title: '¡Guardado correctamente!',
+										text: 'Ésta persona fue guardada exitosamente.',
+										type: 'success',
+										confirmButtonText: 'Entendido'
+									})
+									.then((result) => {
+										if (result.value && this.tipo=='qrr') {
+											window.location.href = window.location;
+										}
+									})
 								if (this.$store.state.fisicaEncontrada) {
 									this.getDomicilios()
 									this.buscarCarpetasFisica()
