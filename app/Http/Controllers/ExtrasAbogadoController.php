@@ -38,9 +38,11 @@ class ExtrasAbogadoController extends Controller
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,"extra_abogado",$oper,$extraAbogado->id,$antes,$extraAbogado);
 
-            $bdbitacora = BitacoraNavCaso::where('idCaso',$request->idCarpeta)->first();
-            $bdbitacora->abogado = $bdbitacora->abogado+1;
-            $bdbitacora->save();
+            if($request->sistema=='uat'){
+                $bdbitacora = BitacoraNavCaso::where('idCaso',$request->idCarpeta)->first();
+                $bdbitacora->abogado = $bdbitacora->abogado+1;
+                $bdbitacora->save();
+            }
 
             DB::commit();
             return $extraAbogado->id;

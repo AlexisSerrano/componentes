@@ -56,9 +56,11 @@ class ExtrasInvestigadoController extends Controller{
             saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
             saveInLog($request->sistema,$request->usuario,$tipo,$oper,$extraDenunciado->id,$antes,$extraDenunciado);
 
-            $bdbitacora = BitacoraNavCaso::where('idCaso',$request->idCarpeta)->first();
-            $bdbitacora->denunciado = $bdbitacora->denunciado+1;
-            $bdbitacora->save();
+            if($request->sistema=='uat'){
+                $bdbitacora = BitacoraNavCaso::where('idCaso',$request->idCarpeta)->first();
+                $bdbitacora->denunciado = $bdbitacora->denunciado+1;
+                $bdbitacora->save();
+            }
             DB::commit();
             return $extraDenunciado->id;
         }
@@ -85,6 +87,12 @@ class ExtrasInvestigadoController extends Controller{
             }
             $extraDenunciado->senasPartic = $request->particulares;
             $extraDenunciado->save();
+
+            if($request->sistema=='uat'){
+                $bdbitacora = BitacoraNavCaso::where('idCaso',$request->idCarpeta)->first();
+                $bdbitacora->denunciado = $bdbitacora->denunciado+1;
+                $bdbitacora->save();
+            }
 
             $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,$request->idPersona,$request->tipo,'xxxxx',$request->empresa);
 

@@ -36,6 +36,7 @@ use App\Http\Requests\StoreDenunciado;
 use App\Http\Requests\StoreDenunciante;
 use App\Http\Requests\StoreTestigo;
 use DB;
+use App\Http\Models\uat\BitacoraNavCaso;
 
 use Illuminate\Http\Request;
 
@@ -436,7 +437,7 @@ class ValidacionController extends Controller
     }
 
     public function saveQrr($request){
-        $aparicion = aparicionesModel::where('idCarpeta',$request->carpeta)
+        $aparicion = aparicionesModel::where('idCarpeta',$request->idCarpeta)->where('activo',1)
         ->where('idVarPersona',1)->first();
         if($aparicion){
             $data = array(
@@ -450,6 +451,11 @@ class ValidacionController extends Controller
             try{
                 $apariciones = saveInApariciones($request->sistema,$request->idCarpeta,$request->carpeta,1,'denunciado','xxxxx',0);
                 saveInLog($request->sistema,$request->usuario,'apariciones','INSERT',$apariciones->id,null,$apariciones);
+                if($request->sistema=='uat'){
+                    $bdbitacora = BitacoraNavCaso::where('idCaso',$request->idCarpeta)->first();
+                    $bdbitacora->denunciado = $bdbitacora->denunciado+1;
+                    $bdbitacora->save();
+                }
                 DB::commit();
                 $data = array(
                     'idPersona'=>1,
