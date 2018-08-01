@@ -138,23 +138,30 @@
                     }).then(response => {
                         this.personaExiste = response.data
                         if (this.personaExiste != '') {
-                            this.$store.commit('asignarIdMoral', {
-                                idPersona: '',
-                                idTemporal: this.personaExiste.idVarPersona,
-                                moralEncontrada: true,
-                                personaMoral: this.personaExiste.idPersona
-                            })
-                            this.$store.commit('asignarDomiciliosTemporales', {
-                                idDomicilioTemporal: this.personaExiste.idDomicilio,
-                                idContactoTemporal: this.personaExiste.idDomicilioNotificacion
-                            })
                             swal({
-                                title: '¡Persona moral encontrada!',
-                                text: 'Ésta persona moral ya fue registrada anteriormente.',
-                                type: 'success',
-                                confirmButtonText: 'Entendido'
-                            })
-                            this.fillFields()
+                                    title: '¡Persona moral encontrada!',
+                                    text: 'Ésta persona moral ya fue registrada anteriormente.',
+                                    type: 'success',
+                                    confirmButtonText: 'Cargar datos',
+                                    cancelButtonColor: '#dc3545',
+                                    cancelButtonText: 'Ignorar',
+                                    showCancelButton: true
+                                })
+                                .then((result) => {
+                                    if (result.value) {
+                                        this.$store.commit('asignarIdMoral', {
+                                            idPersona: '',
+                                            idTemporal: this.personaExiste.idVarPersona,
+                                            moralEncontrada: true,
+                                            personaMoral: this.personaExiste.idPersona
+                                        })
+                                        this.$store.commit('asignarDomiciliosTemporales', {
+                                            idDomicilioTemporal: this.personaExiste.idDomicilio,
+                                            idContactoTemporal: this.personaExiste.idDomicilioNotificacion
+                                        })
+                                        this.fillFields()
+                                    }
+                                })
                         }
                     });
                 }
