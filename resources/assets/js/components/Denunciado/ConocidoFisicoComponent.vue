@@ -21,7 +21,7 @@
                     </li>
                 </ul>
                 <div class="col d-flex align-items-start justify-content-end">
-                    <button v-if="personasEncontradas!='' && this.$store.state.idPersonaFisica==''" type="button" class="btn btn-primary" @click="cleanFields">
+                    <button v-if="personasEncontradas!='' && this.$store.state.idPersonaFisica=='' && showCoincidencias==true" type="button" class="btn btn-primary" @click="cleanFields">
                         <icon name="eraser" style="color:white"></icon>
                         Limpiar
                     </button>
@@ -71,6 +71,6 @@
                 this.$store.commit('cleanStore','coincidencia')
             }
         },
-        computed: mapState(['personasEncontradas'])
+        computed: mapState(['personasEncontradas','showCoincidencias'])
     }
 </script>
