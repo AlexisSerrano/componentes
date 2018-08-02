@@ -76,10 +76,11 @@
                                     title: 'Acta de hechos guardada correctamente!',
                                     text: 'Haz finalizado el registro del acta exitosamente.',
                                     type: 'success',
-                                    confirmButtonText: '<a class="linkAlert" href="actaCircunstanciada/'+ response.data + '" target="_blank">Imprimir oficio</a>',
+                                    confirmButtonText: 'Imprimir oficio'
                                 })
                                 .then((result) => {
                                     if (result.value) {
+                                        window.open(`actaCircunstanciada/${response.data}`, '_blank');
                                         window.location.replace(window.location)
                                     }
                                 })

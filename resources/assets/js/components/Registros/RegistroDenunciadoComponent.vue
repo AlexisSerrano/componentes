@@ -18,7 +18,7 @@
                             <input class="form-check-input" type="radio" v-model="denunciado" id="qrr" value="1">
                         </div>
                         <div class="form-check form-check-inline">
-                            <label class="form-check-label col-form-label col-form-label-sm" for="conocido" style="padding-right: 5px">Conoce al denunciado</label>
+                            <label class="form-check-label col-form-label col-form-label-sm" for="conocido" style="padding-right: 5px">Denunciado conocido</label>
                             <input class="form-check-input" type="radio" v-model="denunciado" id="conocido" value="2">
                         </div>
                         <div class="form-check form-check-inline">

@@ -38,7 +38,7 @@
     export default {
         data() {
             return {
-                tiposActas: ['PASAPORTE', 'CARTERA','CREDENCIAL DE TRABAJO/GAFFETE', 'TARJETA DE CRÉDITO/DÉBITO', 'TELEFONO CELULAR', 'EQUIPO DE TRABAJO(CELULARES,RADIOS,ETC)',
+                tiposActas: ['PASAPORTE', 'CARTERA', 'CREDENCIAL DE TRABAJO/GAFFETE', 'TARJETA DE CRÉDITO/DÉBITO', 'TELEFONO CELULAR', 'EQUIPO DE TRABAJO(CELULARES,RADIOS,ETC)',
                     'PERMISO DE TRANSITO PARA EMPLACAMIENTO DE TAXIS', 'FACTURA DE VEHÍCULO/MOTOCICLETA', 'TARJETA DE CIRCULACION', 'PLACAS DE CIRCULACIÓN',
                     'LICENCIA DE CONDUCIR ESTATAL', 'LICENCIA DE CONDUCIR FEDERAL', 'DOCUMENTO/BIEN EXTRAVIADO O ROBADO', 'CERTIFICADO DE ALUMBRAMIENTO', 'OTRO DOCUMENTO'
                 ],
@@ -105,10 +105,11 @@
                                     title: 'Acta de hechos guardada correctamente!',
                                     text: 'Haz finalizado el registro del acta exitosamente.',
                                     type: 'success',
-                                    confirmButtonText: '<a class="linkAlert" href="' + urlOficio + response.data + '" target="_blank">Imprimir oficio</a>',
+                                    confirmButtonText: 'Imprimir oficio',
                                 })
                                 .then((result) => {
                                     if (result.value) {
+                                        window.open(`${urlOficio}${response.data}`, '_blank');
                                         window.location.replace(window.location)
                                     }
                                 })
