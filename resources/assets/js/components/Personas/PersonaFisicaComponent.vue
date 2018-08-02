@@ -355,6 +355,7 @@
 							esEmpresa: false
 						})
 						.then((response) => {
+							console.log(response)
 							this.$store.commit('asignarDataEditFisica', response.data)
 							this.personaExiste = response.data.persona.original
 							this.fillFields()
@@ -765,7 +766,7 @@
 				if (this.rfc.length != 10) {
 					return
 				}
-				this.$refs.toastrRfc.defaultTimeout = 2500
+				this.$refs.toastrRfc.defaultTimeout = 4000
 				if (oldValue == '') {
 					this.$refs.toastrRfc.i('Se ha calculado el RFC', 'Aviso')
 				} else if (oldValue != '' && newValue != oldValue) {
@@ -776,7 +777,7 @@
 				if (this.homoclave.length != 3) {
 					return
 				}
-				this.$refs.toastrHomo.defaultTimeout = 2500
+				this.$refs.toastrHomo.defaultTimeout = 4000
 				if (oldValue != '' && newValue != oldValue) {
 					this.$refs.toastrHomo.w('se ha modificado la homoclave', 'Atención')
 				}

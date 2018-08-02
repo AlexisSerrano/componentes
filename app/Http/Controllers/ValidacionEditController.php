@@ -43,6 +43,9 @@ class ValidacionEditController extends Controller
 			case 'conocidofisico':
 				$datos = ValidacionEditController::getConocidoFisico($request); //solo para el search persona de conocido
 				break;
+			case 'testigo':
+				$datos = ValidacionEditController::getTestigo($request); //solo para el search persona de conocido
+				break;
         }
         return $datos;
     }
@@ -58,6 +61,12 @@ class ValidacionEditController extends Controller
         $data['persona'] = ValidacionEditController::getPersonaCompleta($request);
 		$data['domicilios'] = PersonaController::getDomiciliosPersona($request);
 		$data['extra'] = ValidacionEditController::getExtraAbogado($request->idVarPersona);
+		return response()->json($data);
+	}
+	
+	public function getTestigo(Request $request){
+        $data['persona'] = ValidacionEditController::getPersonaCompleta($request);
+		$data['domicilios'] = PersonaController::getDomiciliosPersona($request);
 		return response()->json($data);
     }
 

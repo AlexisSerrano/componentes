@@ -373,7 +373,7 @@
                 if (this.rfc.length != 9) {
                     return
                 }
-                this.$refs.toastrRfc.defaultTimeout = 2500
+                this.$refs.toastrRfc.defaultTimeout = 4000
                 if (oldValue == '') {
                     this.$refs.toastrRfc.i('Se ha calculado el RFC', 'Aviso')
                 } else if (oldValue != '' && newValue != oldValue) {
@@ -384,7 +384,7 @@
                 if (this.homoclave.length != 3) {
                     return
                 }
-                this.$refs.toastrHomo.defaultTimeout = 2500
+                this.$refs.toastrHomo.defaultTimeout = 4000
                 if (oldValue != '' && newValue != oldValue) {
                     this.$refs.toastrHomo.w('se ha modificado el rfc', 'Atención')
                 }

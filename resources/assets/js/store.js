@@ -127,7 +127,7 @@ const store = new Vuex.Store({
             state.datosDomicilio = payload.domicilios.original.domicilio
             state.datosTrabajo = payload.domicilios.original.trabajo
             state.datosNotificaciones = payload.domicilios.original.notificacion
-            if(payload.extra.original!=false){
+            if(payload.extra && payload.extra.original!=false){
                 state.datosExtra = payload.extra.original
             }
             if(payload.persona.original.idDomicilio!=1){
@@ -139,7 +139,9 @@ const store = new Vuex.Store({
             if(payload.persona.original.idDomicilioNotificacion!=1){
                 state.idContacto=payload.persona.original.idDomicilioNotificacion
             }
-            state.idExtra = payload.extra.original.id
+            if(payload.extra){
+                state.idExtra = payload.extra.original.id
+            }
         },
         asignarDataEditMoral(state,payload){
             state.edit=true

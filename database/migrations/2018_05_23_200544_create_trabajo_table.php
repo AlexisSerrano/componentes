@@ -17,7 +17,7 @@ class CreateTrabajoTable extends Migration
             $table->increments('id');
             $table->integer('idDomicilio')->unsigned()->default(1);
             $table->string('lugar', 300)->default("SIN INFORMACION");
-            $table->string('telefono', 15)->default("SIN INFORMACION");
+            $table->string('telefono', 15)->nullable();
             // $table->string('fax', 20)->default("SIN INFORMACION");
 
             $table->foreign('idDomicilio')->references('id')->on('domicilio')->onDelete('cascade');
